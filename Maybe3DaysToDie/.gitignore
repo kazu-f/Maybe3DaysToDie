@@ -11,4 +11,3 @@ x64/
 *.ini
 *.idb
 .vscode
-/MiniEngine/MiniEngine/Debug
