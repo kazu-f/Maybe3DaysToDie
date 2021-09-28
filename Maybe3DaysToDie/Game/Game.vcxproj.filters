@@ -7,7 +7,4 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\preset\fade.png" />
-  </ItemGroup>
 </Project>
