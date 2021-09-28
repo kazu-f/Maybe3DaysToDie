@@ -1,0 +1,14 @@
+.vs/
+x64/
+*.cmo
+*.lib
+*.obj
+*.cso
+*.user
+*.log
+*.tlog
+*.pdb
+*.ini
+*.idb
+.vscode
+/MiniEngine/MiniEngine/Debug
