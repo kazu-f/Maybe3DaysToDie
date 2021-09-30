@@ -6,11 +6,15 @@
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerHp.cpp" />
+    <ClCompile Include="GameSnece.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerHp.h" />
+    <ClInclude Include="GameSnece.h" />
   </ItemGroup>
 </Project>

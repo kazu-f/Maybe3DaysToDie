@@ -1,4 +1,6 @@
 #pragma once
+class GameCamera;
+
 enum State {
 	Idle,			//待機
 	Walk,			//歩く
@@ -60,15 +62,65 @@ class Player : public IGameObject
 	/// IPlayerStateを更新
 	/// </summary>
 	void ChangeState();
+
+	/// <summary>
+	/// モデルの移動処理
+	/// </summary>
+	void Move();
+
+	/// <summary>
+	/// モデルの回転処理
+	/// </summary>
+	void Rotation();
+
+	/// <summary>
+	/// モデルを更新
+	/// </summary>
+	void ModelUpdate();
+
+	/// <summary>
+	/// モデルの前方向を更新し戻り値に渡す
+	/// </summary>
+	///<returns>前方向</returns>
+	Vector3 ForwardUpdate();
+	/// <summary>
+	/// モデルの右方向を更新し戻り値に渡す
+	/// </summary>
+	/// <returns>右方向</returns>
+	Vector3 RightUpdate();
+
+	/// <summary>
+	/// カメラを設定
+	/// </summary>
+	void SetCamera();
 private:
+	////////////モデル/////////////////////////////////////////////
 	prefab::ModelRender* m_Model = nullptr;		//プレイヤーモデル
+	Vector3 m_Pos = { 0.0f,100.0f,500.0f };
+	Quaternion m_Rot = Quaternion::Identity;
+	Vector3 m_Scale = Vector3::One;
+	///////////////////////////////////////////////////////////////
+
 	int m_Hp = 100;								//体力
-	float m_Stamina = 100.0f;					//
+	float m_Stamina = 100.0f;					//スタミナ
 	float m_HpRegeneTime = 1.0f;
 	float m_nowHpRegeneTimer = 0.0f;
 	int m_Hunger = 100;
 	int m_water = 100;
 	State m_State = State::Idle;
 	float m_DeltaTime = 0.0f;
+
+	/// マウス/////////////////////////////////////////////////////////
+	float MouseRotX = 0.0f;
+	float MouseRotY = 0.0f;
+	int DefaultPoint[2] = { 500,300 };
+	float m_SensiX = 0.02f;
+	float m_SensiY = 0.02f;
+	float m_RotAngle[2] = { 0.0f,0.0f };
+	///////////////////////////////////////////////////////////////////
+	
+	///////カメラ//////////////////////////////////////////////////////
+	GameCamera* m_Camera = nullptr;
+	///////////////////////////////////////////////////////////////////
 };
 

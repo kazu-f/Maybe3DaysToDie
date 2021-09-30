@@ -157,8 +157,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="GameSnece.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerHp.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -167,7 +169,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GameSnece.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerHp.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

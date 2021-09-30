@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Stage.h"
+#include "GameSnece.h"
 
 //1フレームの経過時間を出力する。
 #define CALC_TIME
@@ -38,9 +38,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, TEXT("Game"), initParam);
 	//フェードイン
 	CFade::GetInstance()->StartFadeIn();
-	//ステージをだす
-	//どうせ消す
-	Stage* m_Stage = NewGO<Stage>(0);
+	//マウスカーソルの表示を消す
+	ShowCursor(false);
+	//ゲームしーーん
+	GameSnece* gameSnece = NewGO< GameSnece>(0, "gameSnece");
 #ifdef CALC_TIME
 	Stopwatch sw;
 #endif

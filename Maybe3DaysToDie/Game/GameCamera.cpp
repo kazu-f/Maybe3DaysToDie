@@ -10,6 +10,8 @@ bool GameCamera::Start()
 
 void GameCamera::Update()
 {
+	MainCamera().SetPosition(m_Pos);
+	MainCamera().SetTarget(m_Target);
 }
 
 void GameCamera::OnDestroy()
