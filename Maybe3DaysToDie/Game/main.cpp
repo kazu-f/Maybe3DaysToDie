@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Stage.h"
 
 //1フレームの経過時間を出力する。
 #define CALC_TIME
@@ -19,7 +20,7 @@ void SetInitParam(SInitParam& initParam)
 	//initParam.graphicsConf.shadowConf.depthOffset[1] = 0.02f;
 	//initParam.graphicsConf.shadowConf.depthOffset[2] = 0.02f;
 	initParam.graphicsConf.shadowConf.lightHeight = 5000.0f;
-	initParam.graphicsConf.postEffectConf.tonemap.isEnable = true;		//トーンマップ有効化フラグ。
+	initParam.graphicsConf.postEffectConf.tonemap.isEnable = false;		//トーンマップ有効化フラグ。
 	initParam.graphicsConf.postEffectConf.tonemap.luminance = 0.24f;	//明るさ。
 	initParam.graphicsConf.postEffectConf.isBloom = true;	//ブルームの有効化フラグ。
 	initParam.graphicsConf.postEffectConf.isFxaa = true;	//アンチエイリアス有効化フラグ。
@@ -35,7 +36,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, TEXT("Game"), initParam);
-
+	//フェードイン
+	CFade::GetInstance()->StartFadeIn();
+	//ステージをだす
+	//どうせ消す
+	Stage* m_Stage = NewGO<Stage>(0);
 #ifdef CALC_TIME
 	Stopwatch sw;
 #endif
