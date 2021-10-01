@@ -27,7 +27,11 @@
 #include <mbstring.h>
 #include <mmsystem.h>
 
+#include "dxgi.h"
 #include "d3dx12.h"
+
+//SpriteBatch.
+#include "DirectXTK/Inc/SpriteFont.h"
 
 //Effekseerのヘッダーファイルをインクルード。
 #include "Effekseer.h"
@@ -60,6 +64,8 @@
 
 
 #include "graphics/2D/Sprite.h"
+#include "graphics/Font/FontRender.h"
+
 //#include "graphics/Model.h"
 #include "HID/GamePad.h"
 #include "util/NameKey.h"

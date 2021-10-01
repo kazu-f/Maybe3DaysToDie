@@ -30,6 +30,9 @@
     <ClCompile Include="graphics\deferrd\DefferdShading.cpp" />
     <ClCompile Include="graphics\DescriptorHeap.cpp" />
     <ClCompile Include="graphics\Fade.cpp" />
+    <ClCompile Include="graphics\Font\Font.cpp" />
+    <ClCompile Include="graphics\Font\FontEngine.cpp" />
+    <ClCompile Include="graphics\Font\FontRender.cpp" />
     <ClCompile Include="graphics\GPUBuffer\ConstantBuffer.cpp" />
     <ClCompile Include="graphics\GPUBuffer\IndexBuffer.cpp" />
     <ClCompile Include="graphics\GPUBuffer\RWStructuredBuffer.cpp" />
@@ -107,6 +110,9 @@
     <ClInclude Include="graphics\animation\AnimationPlayController.h" />
     <ClInclude Include="graphics\deferrd\DefferdShading.h" />
     <ClInclude Include="graphics\Fade.h" />
+    <ClInclude Include="graphics\Font\Font.h" />
+    <ClInclude Include="graphics\Font\FontEngine.h" />
+    <ClInclude Include="graphics\Font\FontRender.h" />
     <ClInclude Include="graphics\GraphicsConfig.h" />
     <ClInclude Include="graphics\light\LightData.h" />
     <ClInclude Include="graphics\light\LightManager.h" />

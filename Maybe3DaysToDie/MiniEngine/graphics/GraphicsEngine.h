@@ -14,6 +14,7 @@
 #include "RenderContext.h"
 #include "RenderTarget.h"
 #include "2D/Sprite.h"
+#include "Font/FontEngine.h"
 
 #include "camera/Camera.h"
 
@@ -111,6 +112,14 @@ namespace Engine {
 			return m_d3dDevice;
 		}
 		/// <summary>
+		/// コマンドリストを取得。
+		/// </summary>
+		/// <returns></returns>
+		ID3D12GraphicsCommandList* GetCommandList()
+		{
+			return m_commandList;
+		}
+		/// <summary>
 		/// バックバッファの番号を取得。
 		/// </summary>
 		/// <returns>バックバッファの番号。</returns>
@@ -178,6 +187,14 @@ namespace Engine {
 		D3D12_CPU_DESCRIPTOR_HANDLE GetCurrentFrameBuffuerRTV() const
 		{
 			return m_currentFrameBufferRTVHandle;
+		}
+		/// <summary>
+		/// フォントエンジンを取得。
+		/// </summary>
+		/// <returns></returns>
+		FontEngine& GetFontEngine()
+		{
+			return m_fontEngine;
 		}
 		/// <summary>
 		/// ライトマネージャーの取得。
@@ -343,6 +360,10 @@ namespace Engine {
 		std::unique_ptr<CDefferdShading> m_defferd;			//ディファード。
 		std::unique_ptr<CPostEffect> m_postEffect;			//ポストエフェクト。
 		std::unique_ptr<CFade> m_fade;						//フェード。
+		
+		//SpriteBatch
+		std::unique_ptr<DirectX::GraphicsMemory> m_directXTKGfxMemroy;	//バッチ登録用のDirectXTKメモリ。
+		FontEngine m_fontEngine;										//フォントエンジン。
 
 		int m_vsyncInterval = 1;							//VSyncの間隔
 		////エフェクト関係

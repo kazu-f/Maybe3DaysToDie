@@ -4,7 +4,6 @@
 #include "physics/PhysicsWorld.h"
 
 namespace Engine {
-
 	TkEngine::TkEngine()
 	{
 	}

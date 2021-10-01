@@ -173,6 +173,11 @@ namespace Engine {
 		//初期化が終わったのでDXGIを破棄。
 		dxgiFactory->Release();
 
+		//DirectXTK用のグラフィックメモリ管理クラスのインスタンスを作成する。
+		m_directXTKGfxMemroy = std::make_unique<DirectX::GraphicsMemory>(m_d3dDevice);
+		//フォントエンジンの初期化。
+		m_fontEngine.Init(m_renderContext);
+
 		//カメラを初期化する。
 		m_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
 		m_camera2D.SetWidth(static_cast<float>(m_frameBufferWidth));
@@ -612,6 +617,10 @@ namespace Engine {
 			//レンダリングターゲットへの書き込み完了待ち。
 			m_renderContext.WaitUntilToPossibleSetRenderTarget(m_renderTargets[m_frameIndex]);
 		}
+
+		//GPUにメモリを送信。GPUが使用を完了した場合API側でリサイクルされる。
+		//イメージ的にはガベージコレクションで大丈夫なはず。
+		m_directXTKGfxMemroy->Commit(m_commandQueue);
 
 		//レンダリングコンテキストを閉じる。
 		m_renderContext.Close();
