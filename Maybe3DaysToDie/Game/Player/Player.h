@@ -12,8 +12,9 @@ enum State {
 };
 class Player : public IGameObject
 {
+private:
 	/// <summary>
-	/// 初期化
+	/// GameObjectに積まれると一度だけ呼ばれる初期化関数
 	/// </summary>
 	/// <returns>trueが返るまでループする</returns>
 	bool Start()override final;
@@ -28,6 +29,7 @@ class Player : public IGameObject
 	/// </summary>
 	void OnDestroy()override final;
 
+private:
 	/// <summary>
 	/// 時間によるステータスの更新
 	/// </summary>

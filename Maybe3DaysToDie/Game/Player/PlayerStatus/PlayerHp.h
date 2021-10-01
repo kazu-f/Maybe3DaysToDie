@@ -1,6 +1,7 @@
 #pragma once
 class PlayerHp final : public IGameObject
 {
+private:
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>

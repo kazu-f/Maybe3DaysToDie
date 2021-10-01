@@ -15,6 +15,7 @@ namespace {
 
 bool Player::Start()
 {
+	//カメラを探す
 	m_Camera = FindGO<GameCamera>("camera");
 	return true;
 }
@@ -33,6 +34,7 @@ void Player::Update()
 
 void Player::OnDestroy()
 {
+	//モデルを削除
 	DeleteGO(m_Model);
 }
 
@@ -124,12 +126,6 @@ void Player::Rotation()
 	//マウスカーソルの位置をセット
 	SetCursorPos(DefaultPoint[X], DefaultPoint[Y]);
 
-	////左右のカメラをリセット
-	//if (m_RotAngle[X] >= 360.0f ||
-	//	m_RotAngle[X] <= -360.0f) {
-	//	m_RotAngle[X] = 0.0f;
-	//}
-
 	//カメラのX方向の回転
 	Quaternion ModelRotX;
 	ModelRotX.SetRotationDegY(m_RotAngle[X]);
@@ -137,10 +133,6 @@ void Player::Rotation()
 
 	//カメラが向ける上下の限界
 	m_RotAngle[Y] = max(min(m_RotAngle[Y], NeckLimitY), -NeckLimitY);
-	////反対方向を向くと上下が反転するらしいので方向も反転させる
-	//if (m_RotAngle[X] < 0.0f) {
-	//	m_RotAngle[Y] *= -1.0f;
-	//}
 
 	//現在の回転を保持。
 	Quaternion oldRot = m_Rot;
@@ -169,7 +161,6 @@ void Player::Rotation()
 	{
 		m_Rot = oldRot;
 	}
-
 }
 
 void Player::ModelUpdate()

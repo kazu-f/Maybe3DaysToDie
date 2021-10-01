@@ -4,10 +4,11 @@ class Stage;
 class GameCamera;
 class GameSnece : public IGameObject
 {
+private:
 	/// <summary>
-	/// 初期化
+	/// GameObjectに積まれると一度だけ呼ばれる初期化関数
 	/// </summary>
-	/// <returns>trueになるまでループする</returns>
+	/// <returns>trueが返るまでループする</returns>
 	bool Start()override final;
 	/// <summary>
 	/// deleteされると呼ばれる

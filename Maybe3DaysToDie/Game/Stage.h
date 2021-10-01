@@ -1,6 +1,7 @@
 #pragma once
 class Stage : public IGameObject
 {
+private:
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>
@@ -15,6 +16,7 @@ class Stage : public IGameObject
 	/// </summary>
 	void OnDestroy();
 
+private:
 	/// <summary>
 	/// ’n–Ê‚ğ•\¦‚·‚é
 	/// </summary>
