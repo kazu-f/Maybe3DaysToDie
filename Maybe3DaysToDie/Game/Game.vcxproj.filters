@@ -9,7 +9,10 @@
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
     <ClCompile Include="PlayerStamina.cpp" />
-  </ItemGroup>
+    <ClCompile Include="Enemy\EnemyGenerator.cpp" />
+    <ClCompile Include="Enemy\IEnemy.cpp" />
+    <ClCompile Include="Enemy\StandardZombie.cpp" />
+ </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Stage.h" />
@@ -18,5 +21,8 @@
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
     <ClInclude Include="PlayerStamina.h" />
+    <ClInclude Include="Enemy\EnemyGenerator.h" />
+    <ClInclude Include="Enemy\IEnemy.h" />
+    <ClInclude Include="Enemy\StandardZombie.h" />
   </ItemGroup>
 </Project>
