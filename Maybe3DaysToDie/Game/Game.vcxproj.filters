@@ -8,6 +8,9 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerHp.cpp" />
     <ClCompile Include="GameSnece.cpp" />
+    <ClCompile Include="Enemy\EnemyGenerator.cpp" />
+    <ClCompile Include="Enemy\IEnemy.cpp" />
+    <ClCompile Include="Enemy\StandardZombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -16,5 +19,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerHp.h" />
     <ClInclude Include="GameSnece.h" />
+    <ClInclude Include="Enemy\EnemyGenerator.h" />
+    <ClInclude Include="Enemy\IEnemy.h" />
+    <ClInclude Include="Enemy\StandardZombie.h" />
   </ItemGroup>
 </Project>
