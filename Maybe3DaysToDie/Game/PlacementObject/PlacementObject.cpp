@@ -3,17 +3,12 @@
 
 PlacementObject::PlacementObject()
 {
-
+	m_ObjectModel = NewGO<prefab::ModelRender>(0);
 }
 
 PlacementObject::~PlacementObject()
 {
 
-}
-
-void PlacementObject::Awake()
-{
-	m_ObjectModel = NewGO<prefab::ModelRender>(0);
 }
 
 void PlacementObject::OnDestroy()
@@ -28,12 +23,16 @@ void PlacementObject::OnDestroy()
 bool PlacementObject::Start()
 {
 	ModelInitData m_modelInitData;
-	m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/WoodBlock.tkm";
-	//m_ObjectModel->Init(m_modelInitData);
+	m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
+	m_ObjectModel->Init(m_modelInitData);
+	
 	return true;
 }
 
 void PlacementObject::Update()
 {
-
+	//各種セット
+	m_ObjectModel->SetPosition(m_pos);
+	m_ObjectModel->SetRotation(m_qrot);
+	m_ObjectModel->SetScale(m_scale);
 }
