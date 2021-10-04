@@ -1,5 +1,13 @@
 #pragma once
-#include"SpriteInitFunction.h"
+/// <summary>
+/// SpriteInitDataにポジションやスケールを含めたもの
+/// </summary>
+struct SpriteData{
+	SpriteInitData sid;
+	Vector2 pos;
+	Vector2 pivot;
+	int prio;
+};
 class PlayerHp final : public IGameObject
 {
 private:
@@ -44,6 +52,8 @@ public:
 	}
 
 private:
+	const void SpriteInit(prefab::CSpriteRender*& sp,const SpriteData& sd);
+private:
 	prefab::CSpriteRender* m_HpCurrentSprite = nullptr;	//現在のHpスプライト
 	prefab::CSpriteRender* m_HpFlameSprite = nullptr;	//HPの枠
 	prefab::CSpriteRender* m_HpICon = nullptr;			//Hpのアイコン
@@ -51,4 +61,5 @@ private:
 	int m_MaxHp = 100;									//最大Hp
 	float m_RegeneTime = 1.0f;							//自然回復時間
 	float m_nowHpRegeneTime = 0.0f;						//自然回復してからの経過時間
+
 };

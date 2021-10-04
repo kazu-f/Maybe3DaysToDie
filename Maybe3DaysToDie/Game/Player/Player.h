@@ -11,7 +11,7 @@ enum State {
 	Attack,			//攻撃
 	Num				//ステート数
 };
-class Player final: public IGameObject
+class Player : public IGameObject
 {
 private:
 	/// <summary>

@@ -162,15 +162,10 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameSnece.cpp" />
     <ClCompile Include="main.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
-=======
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
-    <ClCompile Include="PlayerStamina.cpp" />
->>>>>>> 4d66836c1913e7cf41893ec642a1432385095f35
+    <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
-    <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -183,15 +178,10 @@
     <ClInclude Include="Enemy\StandardZombie.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameSnece.h" />
-<<<<<<< HEAD
-    <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
-=======
     <ClInclude Include="PlacementObject\PlacementObject.h" />
-    <ClInclude Include="PlayerStamina.h" />
->>>>>>> 4d66836c1913e7cf41893ec642a1432385095f35
+    <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
-    <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
