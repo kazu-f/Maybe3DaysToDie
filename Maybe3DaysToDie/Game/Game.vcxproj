@@ -162,6 +162,7 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameSnece.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlacementObject\PlacementObject.cpp" />
     <ClCompile Include="PlayerStamina.cpp" />
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Enemy\StandardZombie.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameSnece.h" />
+    <ClInclude Include="PlacementObject\PlacementObject.h" />
     <ClInclude Include="PlayerStamina.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />

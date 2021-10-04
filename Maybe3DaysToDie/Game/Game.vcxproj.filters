@@ -12,6 +12,7 @@
     <ClCompile Include="Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Enemy\IEnemy.cpp" />
     <ClCompile Include="Enemy\StandardZombie.cpp" />
+    <ClCompile Include="PlacementObject\PlacementObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -24,6 +25,7 @@
     <ClInclude Include="Enemy\EnemyGenerator.h" />
     <ClInclude Include="Enemy\IEnemy.h" />
     <ClInclude Include="Enemy\StandardZombie.h" />
+    <ClInclude Include="PlacementObject\PlacementObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
