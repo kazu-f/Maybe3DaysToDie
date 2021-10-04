@@ -3,7 +3,8 @@
 
 bool PlayerStamina::Start()
 {
-
+	//SpriteData spriteData;
+	//spriteData.sid.m_ddsFilePath[0] = "staminaGauge.dds";
 	return true;
 }
 

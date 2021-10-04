@@ -25,7 +25,7 @@ bool PlayerHp::Start()
 {
 	//スプライトで使うデータを設定
 	SpriteData SpData;
-	SpData.sid.m_ddsFilePath[0] = "Assets/sprite/HpGauge.dds";
+	SpData.sid.m_ddsFilePath[0] = "HpGauge.dds";
 	SpData.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	//スプライトの縦横
 	SpData.sid.m_height = SpSize[1];
@@ -35,17 +35,17 @@ bool PlayerHp::Start()
 	//優先順位を設定
 	SpData.prio = HpCurrentPrio;
 	//m_HpSpriteを初期化
-	SpriteInit(m_HpCurrentSprite, SpData);
+	m_HpCurrentSprite = SpriteInit(SpData);
 
 	//ファイルパスをHpフレームに変更
-	SpData.sid.m_ddsFilePath[0] = "Assets/sprite/statusGauge.dds";
+	SpData.sid.m_ddsFilePath[0] = "statusGauge.dds";
 	//優先順位を変更
 	SpData.prio = HpFlarmPrio;
 	//Hpフレームを初期化
-	SpriteInit(m_HpFlameSprite, SpData);
+	m_HpFlameSprite = SpriteInit(SpData);
 	
 	//ファイルパスをHpアイコンに変更
-	SpData.sid.m_ddsFilePath[0] = "Assets/sprite/HPIcon.dds";
+	SpData.sid.m_ddsFilePath[0] = "HPIcon.dds";
 	//アイコンのサイズを設定
 	SpData.sid.m_width = IConSize[0];
 	SpData.sid.m_height = IConSize[1];
@@ -56,7 +56,7 @@ bool PlayerHp::Start()
 	//優先順位を変更
 	SpData.prio = IConPrio;
 	//m_HpIConを初期化
-	SpriteInit(m_HpICon, SpData);
+	m_HpICon = SpriteInit(SpData);
 	return true;
 }
 
@@ -85,14 +85,4 @@ void PlayerHp::OnDestroy()
 	DeleteGO(m_HpCurrentSprite);
 	DeleteGO(m_HpFlameSprite);
 	DeleteGO(m_HpICon);
-}
-
-const void PlayerHp::SpriteInit(prefab::CSpriteRender*& sp, const SpriteData& sd)
-{
-	//Hpスプライトを初期化
-	sp = NewGO<prefab::CSpriteRender>(sd.prio);
-	sp->Init(sd.sid);
-	sp->SetPosition(sd.pos);
-	sp->SetPivot(sd.pivot);
-
 }
