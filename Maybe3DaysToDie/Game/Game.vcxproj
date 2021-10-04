@@ -183,6 +183,13 @@
     <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\HPGauge.png" />
+    <ImageContentTask Include="Assets\sprite\HPIcon.png" />
+    <ImageContentTask Include="Assets\sprite\shoesIcon.png" />
+    <ImageContentTask Include="Assets\sprite\staminaGauge.png" />
+    <ImageContentTask Include="Assets\sprite\statusGauge.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

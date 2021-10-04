@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GameSnece.h"
 #include "GameCamera.h"
-#include "Player.h"
+#include "Player/Player.h"
 #include "Stage.h"
 
 bool GameSnece::Start()

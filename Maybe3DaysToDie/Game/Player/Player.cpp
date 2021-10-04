@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "GameCamera.h"
+#include "PlayerStatus/PlayerHp.h"
 
 namespace {
 	const float MoveDistance = 10.0f;			//1フレームに動く距離
@@ -17,6 +18,8 @@ bool Player::Start()
 {
 	//カメラを探す
 	m_Camera = FindGO<GameCamera>("camera");
+	//Hpを作る
+	m_Hp = NewGO<PlayerHp>(0, "playerHp");
 	return true;
 }
 
@@ -40,8 +43,6 @@ void Player::OnDestroy()
 
 void Player::PeriodicUpdate()
 {
-	//HPを自然回復
-	HpRegene();
 	//スタミナを自然回復
 	StaminaRegene();
 	//空腹値を減少
@@ -50,15 +51,6 @@ void Player::PeriodicUpdate()
 	WarterDecrease();
 	//ステータス減少時間を数える
 	m_DeltaTime += GameTime().GetFrameDeltaTime();
-	m_nowHpRegeneTimer += GameTime().GetFrameDeltaTime();
-}
-
-void Player::HpRegene()
-{
-	if (m_nowHpRegeneTimer >= m_HpRegeneTime)
-	{
-		m_nowHpRegeneTimer -= m_HpRegeneTime;
-	}
 }
 
 void Player::StaminaRegene()

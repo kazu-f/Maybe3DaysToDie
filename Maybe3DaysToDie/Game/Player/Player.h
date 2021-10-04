@@ -1,5 +1,6 @@
 #pragma once
 class GameCamera;
+class PlayerHp;
 
 enum State {
 	Idle,			//待機
@@ -34,11 +35,6 @@ private:
 	/// 時間によるステータスの更新
 	/// </summary>
 	void PeriodicUpdate();
-
-	/// <summary>
-	/// 体力を時間によって回復する
-	/// </summary>
-	void HpRegene();
 
 	/// <summary>
 	/// スタミナを時間によって回復する
@@ -102,11 +98,12 @@ private:
 	Quaternion m_Rot = Quaternion::Identity;
 	Vector3 m_Scale = Vector3::One;
 	///////////////////////////////////////////////////////////////
+	
+	/////体力//////////////////////////////////////////////////////
+	PlayerHp* m_Hp = nullptr;
+	///////////////////////////////////////////////////////////////
 
-	int m_Hp = 100;								//体力
 	float m_Stamina = 100.0f;					//スタミナ
-	float m_HpRegeneTime = 1.0f;
-	float m_nowHpRegeneTimer = 0.0f;
 	int m_Hunger = 100;
 	int m_water = 100;
 	State m_State = State::Idle;
