@@ -162,7 +162,12 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameSnece.cpp" />
     <ClCompile Include="main.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
+=======
+    <ClCompile Include="PlacementObject\PlacementObject.cpp" />
+    <ClCompile Include="PlayerStamina.cpp" />
+>>>>>>> 4d66836c1913e7cf41893ec642a1432385095f35
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
     <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
@@ -178,7 +183,12 @@
     <ClInclude Include="Enemy\StandardZombie.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameSnece.h" />
+<<<<<<< HEAD
     <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
+=======
+    <ClInclude Include="PlacementObject\PlacementObject.h" />
+    <ClInclude Include="PlayerStamina.h" />
+>>>>>>> 4d66836c1913e7cf41893ec642a1432385095f35
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
     <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />

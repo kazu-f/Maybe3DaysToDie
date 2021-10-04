@@ -11,9 +11,10 @@
     <ClCompile Include="Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Enemy\IEnemy.cpp" />
     <ClCompile Include="Enemy\StandardZombie.cpp" />
+
     <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
-    <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
-  </ItemGroup>
+    <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />   
+ <ClCompile Include="PlacementObject\PlacementObject.cpp" />  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Stage.h" />
@@ -24,9 +25,10 @@
     <ClInclude Include="Enemy\EnemyGenerator.h" />
     <ClInclude Include="Enemy\IEnemy.h" />
     <ClInclude Include="Enemy\StandardZombie.h" />
+
+    <ClInclude Include="PlacementObject\PlacementObject.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
-    <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
-  </ItemGroup>
+    <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />  </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
     <ImageContentTask Include="Assets\sprite\HPIcon.png" />
