@@ -163,7 +163,7 @@
     <ClCompile Include="GameSnece.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
-    <ClCompile Include="PlayerHunger.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
@@ -181,7 +181,7 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameSnece.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
-    <ClInclude Include="PlayerHunger.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
@@ -195,6 +195,10 @@
     <ImageContentTask Include="Assets\sprite\shoesIcon.png" />
     <ImageContentTask Include="Assets\sprite\staminaGauge.png" />
     <ImageContentTask Include="Assets\sprite\statusGauge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\H2O.png" />
+    <ImageContentTask Include="Assets\sprite\HungerICon.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

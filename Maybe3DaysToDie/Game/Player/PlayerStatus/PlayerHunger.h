@@ -22,9 +22,18 @@ private:
 	/// </summary>
 	void OnDestroy()override final;
 
+public:
+	const void SetMaxHunger(const int maxHun) {
+		m_MaxHunger = maxHun;
+	}
 private:
-	prefab::CSpriteRender* m_CrrentSprite = nullptr;
-	prefab::CSpriteRender* m_FrameSprite = nullptr;
+private:
+	prefab::CSpriteRender* m_CrrentSprite = nullptr;	//現在の空腹度のスプライト
+	prefab::CSpriteRender* m_FrameSprite = nullptr;		//空腹スプライトの枠
+	prefab::CSpriteRender* m_IConSprite = nullptr;		//空腹アイコン
 
+	float m_HungryTime = 0.0f;							//お腹が空く時間
+	int m_Hunder = 100;									//空腹度
+	int m_MaxHunger = 100;								//満腹量
 };
 

@@ -14,7 +14,7 @@
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
     <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
-    <ClCompile Include="PlayerHunger.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -29,7 +29,7 @@
     <ClInclude Include="PlacementObject\PlacementObject.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
     <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
-    <ClInclude Include="PlayerHunger.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
@@ -37,5 +37,9 @@
     <ImageContentTask Include="Assets\sprite\shoesIcon.png" />
     <ImageContentTask Include="Assets\sprite\staminaGauge.png" />
     <ImageContentTask Include="Assets\sprite\statusGauge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\sprite\H2O.png" />
+    <Image Include="Assets\sprite\HungerICon.png" />
   </ItemGroup>
 </Project>
