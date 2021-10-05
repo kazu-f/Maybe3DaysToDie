@@ -24,5 +24,6 @@ private:
 
 private:
 	prefab::CSpriteRender* m_CrrentSprite = nullptr;
+	prefab::CSpriteRender* m_FrameSprite = nullptr;
 };
 

@@ -95,7 +95,7 @@ private:
 private:
 	////////////モデル/////////////////////////////////////////////
 	prefab::ModelRender* m_Model = nullptr;		//プレイヤーモデル
-	Vector3 m_Pos = { 0.0f,100.0f,500.0f };
+	Vector3 m_Pos = { 0.0f,170.0f,500.0f };
 	Quaternion m_Rot = Quaternion::Identity;
 	Vector3 m_Scale = Vector3::One;
 	///////////////////////////////////////////////////////////////
