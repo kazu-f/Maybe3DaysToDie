@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "GameCamera.h"
 #include "PlayerStatus/PlayerHp.h"
+#include "PlayerStatus/PlayerStamina.h"
 
 namespace {
 	const float MoveDistance = 10.0f;			//1フレームに動く距離
@@ -9,9 +10,9 @@ namespace {
 	const float NeckLimitY = 80.0f;				//上や下を向ける限界
 	//配列用の定数
 	//なんとなくマジックナンバーが嫌だったので定数化
-	const int X = 0;
-	const int Y = 1;
-	const int Z = 2;
+	enum Vector {
+		X,Y,Z
+	};
 }
 
 bool Player::Start()
@@ -20,6 +21,9 @@ bool Player::Start()
 	m_Camera = FindGO<GameCamera>("camera");
 	//Hpを作る
 	m_Hp = NewGO<PlayerHp>(0, "playerHp");
+
+	//スタミナを作る
+	m_Stamina = NewGO<PlayerStamina>(0, "playerStamina");
 	return true;
 }
 
@@ -39,6 +43,10 @@ void Player::OnDestroy()
 {
 	//モデルを削除
 	DeleteGO(m_Model);
+	//Hpを削除
+	DeleteGO(m_Hp);
+	//スタミナを削除
+	DeleteGO(m_Stamina);
 }
 
 void Player::PeriodicUpdate()

@@ -13,6 +13,7 @@
     <ClCompile Include="Enemy\StandardZombie.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
+    <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="Enemy\StandardZombie.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
+    <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

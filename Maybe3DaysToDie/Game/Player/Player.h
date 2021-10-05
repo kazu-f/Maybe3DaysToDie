@@ -1,6 +1,7 @@
 #pragma once
 class GameCamera;
 class PlayerHp;
+class PlayerStamina;
 
 enum State {
 	Idle,			//待機
@@ -103,7 +104,9 @@ private:
 	PlayerHp* m_Hp = nullptr;
 	///////////////////////////////////////////////////////////////
 
-	float m_Stamina = 100.0f;					//スタミナ
+	/////スタミナ/////////////////////////////////////////////////
+	PlayerStamina* m_Stamina = nullptr;
+	///////////////////////////////////////////////////////////////
 	int m_Hunger = 100;
 	int m_water = 100;
 	State m_State = State::Idle;

@@ -19,14 +19,26 @@ private:
 	void OnDestroy()override final;
 
 private:
-	prefab::CSpriteRender* m_StaminaCurrentSprite = nullptr;
-	prefab::CSpriteRender* m_StaminaFlameSprite = nullptr;
-	prefab::CSpriteRender* m_StaminaIConSprite = nullptr;
-
-	float m_RegeneTime = 0.0f;				//リジェネできる一定時間
+	/// <summary>
+	/// 現在のスタミナスプライトを初期化
+	/// </summary>
+	void CurrentSpriteInit();
+	/// <summary>
+	/// スタミナフレームを初期化
+	/// </summary>
+	void FlameSpriteInit();
+	
+	/// <summary>
+	/// アイコンを初期化
+	/// </summary>
+	void IConSpriteInit();
+private:
+	float m_RegeneTime = 1.0f;				//リジェネできる一定時間
 	float m_nowRegeneTimer = 0.0f;			//一定時間以上になるとリジェネできる
 	int m_Stamina = 100;					//スタミナ
-	int m_MaxStamina = 100;					//スタミナ最大値
-											//変更するかもしれないので定数にはしない
+	int m_MaxStamina = 100;
+	prefab::CSpriteRender* m_StaminaCurrentSprite = nullptr;	
+	prefab::CSpriteRender* m_StaminaFlameSprite = nullptr;
+	prefab::CSpriteRender* m_StaminaIConSprite = nullptr;
 };
 

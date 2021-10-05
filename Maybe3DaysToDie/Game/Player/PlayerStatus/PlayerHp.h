@@ -1,13 +1,4 @@
 #pragma once
-/// <summary>
-/// SpriteInitDataにポジションやスケールを含めたもの
-/// </summary>
-struct SpriteData{
-	SpriteInitData sid;
-	Vector2 pos;
-	Vector2 pivot;
-	int prio;
-};
 class PlayerHp final : public IGameObject
 {
 private:
@@ -50,9 +41,21 @@ public:
 	void SetRegeneTime(const float regeneTime) {
 		m_RegeneTime = regeneTime;
 	}
-
 private:
-	const void SpriteInit(prefab::CSpriteRender*& sp,const SpriteData& sd);
+	/// <summary>
+	/// 現在のHPスプライトを初期化
+	/// </summary>
+	void InitCurrentSprite();
+
+	/// <summary>
+	/// Hpフレームを初期化
+	/// </summary>
+	void InitFrameSprite();
+
+	/// <summary>
+	/// HpIConを初期化
+	/// </summary>
+	void InitIConSprite();
 private:
 	prefab::CSpriteRender* m_HpCurrentSprite = nullptr;	//現在のHpスプライト
 	prefab::CSpriteRender* m_HpFlameSprite = nullptr;	//HPの枠
