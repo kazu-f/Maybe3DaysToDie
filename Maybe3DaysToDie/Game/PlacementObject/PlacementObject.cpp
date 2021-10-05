@@ -77,9 +77,22 @@ void PlacementObject::CalcObjectPos()
 		remain_x = x % 100;
 		remain_z = z % 100;
 
+		//四捨五入する
+		float round_x, round_z;
+		round_x = round(static_cast<float>(remain_x / 100.0f));
+		round_z = round(static_cast<float>(remain_z / 100.0f));
+
+		//単位戻す
+		round_x *= 100.0f;
+		round_z *= 100.0f;
+
 		//ポジションに代入
 		lastPos.x = static_cast<float>(x - remain_x);
 		lastPos.z = static_cast<float>(z - remain_z);
+
+		//四捨五入した値を加算
+		lastPos.x += round_x;
+		lastPos.z += round_z;
 	}
 	m_pos.Set(lastPos);
 }
