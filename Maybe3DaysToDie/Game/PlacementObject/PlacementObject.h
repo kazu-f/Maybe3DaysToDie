@@ -2,6 +2,17 @@
 
 class PlacementObject:public IGameObject
 {
+private:
+	struct RayResult :public btCollisionWorld::RayResultCallback
+	{
+		virtual btScalar addSingleResult(
+			btCollisionWorld::LocalConvexResult& convexResult,
+			bool /*normalInWorldSpace*/
+		)
+		{
+
+		}
+	};
 public:
 	PlacementObject();
 	~PlacementObject();

@@ -45,4 +45,6 @@ void PlacementObject::CalcObjectPos()
 	//‹ü•ûŒü‚Éƒ|ƒWƒVƒ‡ƒ“‚ğ‰ÁZ
 	m_pos = m_Start;
 	m_pos += MainCamera().GetForward() * m_SetRange;
+
+	//PhysicsWorld()
 }
