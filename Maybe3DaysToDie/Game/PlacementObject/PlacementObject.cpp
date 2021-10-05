@@ -55,11 +55,31 @@ void PlacementObject::CalcObjectPos()
 	RayResult callback;
 	PhysicsWorld().RayTest(start, end, callback);
 
+	//最終的な位置
+	Vector3 lastPos;
+	lastPos.Set(end);
+
 	//レイが衝突しているとき
 	if (callback.isHit)
 	{
 		//当たった位置
 		end = start + (end - start) * callback.m_closestHitFraction;
+		lastPos.Set(end);
+
+		//オブジェクトの間隔を100ごとにする
+		int x, z;
+		//小数点以下切り捨て
+		x = static_cast<int>(lastPos.x);
+		z = static_cast<int>(lastPos.z);
+
+		//余りを求める
+		int remain_x, remain_z;
+		remain_x = x % 100;
+		remain_z = z % 100;
+
+		//ポジションに代入
+		lastPos.x = static_cast<float>(x - remain_x);
+		lastPos.z = static_cast<float>(z - remain_z);
 	}
-	m_pos.Set(end);
+	m_pos.Set(lastPos);
 }
