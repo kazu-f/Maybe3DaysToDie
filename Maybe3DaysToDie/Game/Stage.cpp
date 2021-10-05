@@ -26,6 +26,9 @@ void Stage::NewGround()
 	ModelInitData InitModelUnity;
 	InitModelUnity.m_tkmFilePath = "Assets/modelData/testbg/bg.tkm";
 	m_Model->Init(InitModelUnity);
+	m_pos.x += 50.0f;
+	m_pos.z += 50.0f;
+	m_Model->SetPosition(m_pos);
 }
 
 void Stage::CreatePhysics()
