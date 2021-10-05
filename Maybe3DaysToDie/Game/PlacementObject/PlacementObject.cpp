@@ -43,8 +43,23 @@ void PlacementObject::CalcObjectPos()
 	//視点の位置
 	Vector3 m_Start = MainCamera().GetPosition();
 	//視線方向にポジションを加算
-	m_pos = m_Start;
-	m_pos += MainCamera().GetForward() * m_SetRange;
+	Vector3 m_End = m_Start;
+	m_End += MainCamera().GetForward() * m_SetRange;
 
-	//PhysicsWorld()
+	//レイテストで使用するベクトルを作成
+	btVector3 start, end;
+	start.setValue(m_Start.x, m_Start.y, m_Start.z);
+	end.setValue(m_End.x, m_End.y, m_End.z);
+
+	//レイテスト
+	RayResult callback;
+	PhysicsWorld().RayTest(start, end, callback);
+
+	//レイが衝突しているとき
+	if (callback.isHit)
+	{
+		//当たった位置
+		end = start + (end - start) * callback.m_closestHitFraction;
+	}
+	m_pos.Set(end);
 }

@@ -5,12 +5,21 @@ class PlacementObject:public IGameObject
 private:
 	struct RayResult :public btCollisionWorld::RayResultCallback
 	{
+		bool isHit = false;		//衝突フラグ
+
+		//衝突したときに呼ばれる関数
 		virtual btScalar addSingleResult(
-			btCollisionWorld::LocalConvexResult& convexResult,
+			btCollisionWorld::LocalRayResult& convexResult,
 			bool /*normalInWorldSpace*/
 		)
 		{
-
+			isHit = true;
+			//距離が近いほうに更新
+			if (m_closestHitFraction > convexResult.m_hitFraction)
+			{
+				m_closestHitFraction = convexResult.m_hitFraction;
+			}
+			return m_closestHitFraction;
 		}
 	};
 public:
