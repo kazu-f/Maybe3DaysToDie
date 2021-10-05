@@ -1,4 +1,5 @@
 #pragma once
+
 class Stage : public IGameObject
 {
 private:
@@ -16,6 +17,11 @@ private:
 	/// </summary>
 	void OnDestroy();
 
+	/// <summary>
+	/// コリジョン作成
+	/// </summary>
+	void CreatePhysics();
+
 private:
 	/// <summary>
 	/// 地面を表示する
@@ -23,5 +29,9 @@ private:
 	void NewGround();
 private:
 	prefab::ModelRender* m_Model = nullptr;		//地面
+	CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
+	Vector3 m_pos = Vector3::Zero;		//ポジション
+	Quaternion m_qrot = Quaternion::Identity;		//回転
+	Vector3 m_scale = Vector3::One;		//スケール
 };
 
