@@ -52,15 +52,15 @@ void PlayerHp::Update()
 	//Hpの割合を計算する
 	SpriteScale.x = (float)m_Hp / (float)m_MaxHp;
 	//大きさをスプライトに設定
-	m_HpCurrentSprite->SetScale(SpriteScale);
+	m_CurrentSprite->SetScale(SpriteScale);
 }
 
 void PlayerHp::OnDestroy()
 {
 	//スプライトを削除
-	DeleteGO(m_HpCurrentSprite);
-	DeleteGO(m_HpFlameSprite);
-	DeleteGO(m_HpICon);
+	DeleteGO(m_CurrentSprite);
+	DeleteGO(m_FlameSprite);
+	DeleteGO(m_ICon);
 }
 
 void PlayerHp::InitCurrentSprite()
@@ -79,7 +79,7 @@ void PlayerHp::InitCurrentSprite()
 	//優先順位を設定
 	SpData.prio = CurrentPrio;
 	//m_HpSpriteを初期化
-	m_HpCurrentSprite = SpriteInit(SpData);
+	m_CurrentSprite = SpriteInit(SpData);
 }
 
 void PlayerHp::InitFrameSprite()
@@ -98,7 +98,7 @@ void PlayerHp::InitFrameSprite()
 	//優先順位を変更
 	SpData.prio = FlamePrio;
 	//Hpフレームを初期化
-	m_HpFlameSprite = SpriteInit(SpData);
+	m_FlameSprite = SpriteInit(SpData);
 }
 
 void PlayerHp::InitIConSprite()
@@ -122,5 +122,5 @@ void PlayerHp::InitIConSprite()
 	//優先順位を変更
 	SpData.prio = IConPrio;
 	//m_HpIConを初期化
-	m_HpICon = SpriteInit(SpData);
+	m_ICon = SpriteInit(SpData);
 }

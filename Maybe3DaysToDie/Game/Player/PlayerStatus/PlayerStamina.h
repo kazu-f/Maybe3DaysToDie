@@ -37,8 +37,8 @@ private:
 	float m_nowRegeneTimer = 0.0f;			//一定時間以上になるとリジェネできる
 	int m_Stamina = 100;					//スタミナ
 	int m_MaxStamina = 100;
-	prefab::CSpriteRender* m_StaminaCurrentSprite = nullptr;	
-	prefab::CSpriteRender* m_StaminaFlameSprite = nullptr;
-	prefab::CSpriteRender* m_StaminaIConSprite = nullptr;
+	prefab::CSpriteRender* m_CurrentSprite = nullptr;	
+	prefab::CSpriteRender* m_FlameSprite = nullptr;
+	prefab::CSpriteRender* m_IConSprite = nullptr;
 };
 

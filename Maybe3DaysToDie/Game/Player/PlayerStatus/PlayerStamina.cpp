@@ -45,17 +45,17 @@ void PlayerStamina::Update()
 	Vector3 StaminaScale = Vector3::One;
 	StaminaScale.x = (float)m_Stamina / (float)m_MaxStamina;
 	//CurrentSpriteの大きさを設定
-	m_StaminaCurrentSprite->SetScale(StaminaScale);
+	m_CurrentSprite->SetScale(StaminaScale);
 }
 
 void PlayerStamina::OnDestroy()
 {
 	//CurrentSpriteを削除
-	DeleteGO(m_StaminaCurrentSprite);
+	DeleteGO(m_CurrentSprite);
 	//FlameSpriteを削除
-	DeleteGO(m_StaminaFlameSprite);
+	DeleteGO(m_FlameSprite);
 	//IConSpriteを削除
-	DeleteGO(m_StaminaIConSprite);
+	DeleteGO(m_IConSprite);
 }
 
 void PlayerStamina::CurrentSpriteInit()
@@ -74,7 +74,7 @@ void PlayerStamina::CurrentSpriteInit()
 	//CurrentSpriteの実行優先度を設定
 	sd.prio = Current;
 	//CurrentSpriteを初期化
-	m_StaminaCurrentSprite = SpriteInit(sd);
+	m_CurrentSprite = SpriteInit(sd);
 }
 
 void PlayerStamina::FlameSpriteInit()
@@ -93,7 +93,7 @@ void PlayerStamina::FlameSpriteInit()
 	//FlameSpriteの実行優先度を設定
 	sd.prio = Flame;
 	//FlameSpriteを初期化
-	m_StaminaFlameSprite = SpriteInit(sd);
+	m_FlameSprite = SpriteInit(sd);
 }
 
 void PlayerStamina::IConSpriteInit()
@@ -112,5 +112,5 @@ void PlayerStamina::IConSpriteInit()
 	//IConSpriteの実行優先度を設定
 	sd.prio = ICon;
 	//IConSpriteを初期化
-	m_StaminaIConSprite = SpriteInit(sd);
+	m_IConSprite = SpriteInit(sd);
 }

@@ -57,9 +57,9 @@ private:
 	/// </summary>
 	void InitIConSprite();
 private:
-	prefab::CSpriteRender* m_HpCurrentSprite = nullptr;	//現在のHpスプライト
-	prefab::CSpriteRender* m_HpFlameSprite = nullptr;	//HPの枠
-	prefab::CSpriteRender* m_HpICon = nullptr;			//Hpのアイコン
+	prefab::CSpriteRender* m_CurrentSprite = nullptr;	//現在のHpスプライト
+	prefab::CSpriteRender* m_FlameSprite = nullptr;	//HPの枠
+	prefab::CSpriteRender* m_ICon = nullptr;			//Hpのアイコン
 	int m_Hp = 100;										//現在のHp
 	int m_MaxHp = 100;									//最大Hp
 	float m_RegeneTime = 1.0f;							//自然回復時間
