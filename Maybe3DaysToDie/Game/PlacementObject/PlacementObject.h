@@ -26,9 +26,9 @@ public:
 	PlacementObject();
 	~PlacementObject();
 
-	bool Start();
-	void Update();
-	void OnDestroy();
+	bool Start()override final;
+	void Update()override final;
+	void OnDestroy()override final;
 
 	/// <summary>
 	/// 設置するオブジェクトの位置を計算
