@@ -25,7 +25,8 @@ bool PlacementObject::Start()
 	ModelInitData m_modelInitData;
 	m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
 	m_ObjectModel->Init(m_modelInitData);
-	
+	//物理オブジェクトの作成
+	CreatePhysics();
 	return true;
 }
 
@@ -35,4 +36,10 @@ void PlacementObject::Update()
 	m_ObjectModel->SetPosition(m_pos);
 	m_ObjectModel->SetRotation(m_qrot);
 	m_ObjectModel->SetScale(m_scale);
+}
+
+void PlacementObject::CreatePhysics()
+{
+	//メッシュの作成
+	m_StaticCol.CreateMesh(m_pos, m_qrot, m_scale, m_ObjectModel);
 }
