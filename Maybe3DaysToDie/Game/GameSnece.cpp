@@ -4,6 +4,7 @@
 #include "Player/Player.h"
 #include "Stage.h"
 #include "PlacementObject/PlacementObject.h"
+#include "DateTime.h"
 
 bool GameSnece::Start()
 {
@@ -11,7 +12,7 @@ bool GameSnece::Start()
 	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Stage = NewGO<Stage>(0, "stage");
 	m_PlacementObject = NewGO<PlacementObject>(1);
-
+	DateTime* Data = NewGO<DateTime>(0, "dateTime");
 	//sample//
 	m_fontRender = NewGO<CFontRender>(0);
 	m_fontRender->SetText(L"Reo is AHO.\nReo is Baka\nReo is UNKO\nHima is Neet");
