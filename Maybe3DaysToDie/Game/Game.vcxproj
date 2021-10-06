@@ -163,6 +163,7 @@
     <ClCompile Include="GameSnece.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerWater.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
     <ClCompile Include="Player\Player.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameSnece.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerWater.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
     <ClInclude Include="Player\Player.h" />

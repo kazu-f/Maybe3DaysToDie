@@ -15,6 +15,7 @@
     <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
     <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerWater.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -30,6 +31,7 @@
     <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
     <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerWater.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
