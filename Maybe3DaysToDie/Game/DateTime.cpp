@@ -80,4 +80,6 @@ void DateTime::Update()
 
 void DateTime::OnDestroy()
 {
+	//ƒtƒHƒ“ƒg‚ğíœ
+	DeleteGO(m_TimeFont);
 }
