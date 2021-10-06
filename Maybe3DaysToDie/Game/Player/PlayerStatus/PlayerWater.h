@@ -32,7 +32,7 @@ private:
 	prefab::CSpriteRender* m_CurrentWaterSprite = nullptr;	//現在の水分のスプライト
 	prefab::CSpriteRender* m_FlameWaterSprite = nullptr;	//水分の枠のスプライト
 	float m_WaterCountTime = 0.0f;							//経過時間
-	float m_WaterTime = 1.0f;								//喉が乾く時間
+	float m_DecWaterTime = 1.0f;							//喉が乾く時間
 	int m_Water = 100;										//水分
 	int m_MaxWater = 100;									//水分の最大量
 };

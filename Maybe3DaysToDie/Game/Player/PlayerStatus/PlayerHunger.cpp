@@ -5,7 +5,7 @@
 namespace {
 	////////ÉQÅ[ÉWópíËêî//////////////////////////////// 
 	const UINT GaugeSize[2] = { 300,15 };
-	const Vector2 GaugePos = { -300.0,-330.0f };
+	const Vector2 GaugePos = { -300.0f,-330.0f };
 	const Vector2 GaugePivot = { 0.0f,0.5f };
 	///////////////////////////////////////////////////
 
