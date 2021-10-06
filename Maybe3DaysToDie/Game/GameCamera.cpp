@@ -12,6 +12,7 @@ void GameCamera::Update()
 {
 	MainCamera().SetPosition(m_Pos);
 	MainCamera().SetTarget(m_Target);
+	MainCamera().Update();
 }
 
 void GameCamera::OnDestroy()

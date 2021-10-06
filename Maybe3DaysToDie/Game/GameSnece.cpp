@@ -10,7 +10,7 @@ bool GameSnece::Start()
 	m_Player = NewGO<Player>(0, "player");
 	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Stage = NewGO<Stage>(0, "stage");
-	m_PlacementObject = NewGO<PlacementObject>(0);
+	m_PlacementObject = NewGO<PlacementObject>(1);
 
 	//sample//
 	m_fontRender = NewGO<CFontRender>(0);

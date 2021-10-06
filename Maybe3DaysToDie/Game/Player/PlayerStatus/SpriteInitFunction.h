@@ -21,6 +21,8 @@ static prefab::CSpriteRender* SpriteInit(SpriteData& sd)
 	prefab::CSpriteRender* sp = NewGO<prefab::CSpriteRender>(sd.prio);
 	char filePath[256] = "Assets/sprite/";
 	strcat_s(filePath, sd.sid.m_ddsFilePath[0]);
+	//シェーダーのファイルパス
+	sd.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	sd.sid.m_ddsFilePath[0] = filePath;
 	sp->Init(sd.sid);
 	sp->SetPosition(sd.pos);

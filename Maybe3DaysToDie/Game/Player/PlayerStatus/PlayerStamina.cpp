@@ -65,8 +65,6 @@ void PlayerStamina::CurrentSpriteInit()
 	SpriteData sd;
 	//CurrentSpriteのファイルパス
 	sd.sid.m_ddsFilePath[0] = "staminaGauge.dds";
-	//シェーダーのファイルパス
-	sd.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	//CurrentSpriteの位置を設定
 	sd.pos = GaugePos;
 	//CurrentSpriteのサイズを設定
@@ -84,8 +82,6 @@ void PlayerStamina::FlameSpriteInit()
 	SpriteData sd;
 	//FlameSpriteのファイルパス
 	sd.sid.m_ddsFilePath[0] = "statusGauge.dds";
-	//シェーダーのファイルパス
-	sd.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	//FlameSpriteの位置を設定
 	sd.pos = GaugePos;
 	//FlameSpriteのサイズを設定
@@ -103,8 +99,6 @@ void PlayerStamina::IConSpriteInit()
 	SpriteData sd;
 	//CurrentSpriteのファイルパス
 	sd.sid.m_ddsFilePath[0] = "shoesIcon.dds";
-	//シェーダーのファイルパス
-	sd.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	//IConSpriteの位置を設定
 	sd.pos = IconPos;
 	//IConSpriteのサイズを設定

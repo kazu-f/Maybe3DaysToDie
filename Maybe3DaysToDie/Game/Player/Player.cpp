@@ -3,6 +3,7 @@
 #include "GameCamera.h"
 #include "PlayerStatus/PlayerHp.h"
 #include "PlayerStatus/PlayerStamina.h"
+#include "PlayerStatus/PlayerHunger.h"
 
 namespace {
 	const float MoveDistance = 10.0f;			//1フレームに動く距離
@@ -19,11 +20,15 @@ bool Player::Start()
 {
 	//カメラを探す
 	m_Camera = FindGO<GameCamera>("camera");
+
 	//Hpを作る
 	m_Hp = NewGO<PlayerHp>(0, "playerHp");
 
 	//スタミナを作る
 	m_Stamina = NewGO<PlayerStamina>(0, "playerStamina");
+
+	//空腹度を作る
+	m_Hunger = NewGO<PlayerHunger>(0, "playerHunger");
 	return true;
 }
 

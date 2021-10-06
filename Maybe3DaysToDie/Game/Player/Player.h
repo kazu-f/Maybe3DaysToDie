@@ -2,6 +2,7 @@
 class GameCamera;
 class PlayerHp;
 class PlayerStamina;
+class PlayerHunger;
 
 enum State {
 	Idle,			//待機
@@ -107,7 +108,10 @@ private:
 	/////スタミナ/////////////////////////////////////////////////
 	PlayerStamina* m_Stamina = nullptr;
 	///////////////////////////////////////////////////////////////
-	int m_Hunger = 100;
+	
+	/////空腹//////////////////////////////////////////////////////
+	PlayerHunger* m_Hunger = nullptr;
+	///////////////////////////////////////////////////////////////
 	int m_water = 100;
 	State m_State = State::Idle;
 	float m_DeltaTime = 0.0f;

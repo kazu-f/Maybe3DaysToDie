@@ -70,8 +70,6 @@ void PlayerHp::InitCurrentSprite()
 	SpriteData SpData;
 	//スプライトのファイルパス
 	SpData.sid.m_ddsFilePath[0] = "HpGauge.dds";
-	//シェーダーのファイルパス
-	SpData.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	//スプライトの縦横
 	SpData.sid.m_height = GaugeSize[1];
 	SpData.sid.m_width = GaugeSize[0];
@@ -89,8 +87,6 @@ void PlayerHp::InitFrameSprite()
 	SpriteData SpData;
 	//ファイルパスをHpフレームに変更
 	SpData.sid.m_ddsFilePath[0] = "statusGauge.dds";
-	//シェーダーのファイルパス
-	SpData.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	//スプライトの縦横
 	SpData.sid.m_height = GaugeSize[1];
 	SpData.sid.m_width = GaugeSize[0];
@@ -108,8 +104,6 @@ void PlayerHp::InitIConSprite()
 	SpriteData SpData;
 	//ファイルパスをHpアイコンに変更
 	SpData.sid.m_ddsFilePath[0] = "HPIcon.dds";
-	//シェーダーのファイルパス
-	SpData.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	//アイコンのサイズを設定
 	SpData.sid.m_width = IConSize[0];
 	SpData.sid.m_height = IConSize[1];

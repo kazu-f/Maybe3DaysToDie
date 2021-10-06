@@ -42,11 +42,12 @@ private:
 	/// </summary>
 	void IConSpriteInit();
 private:
-	prefab::CSpriteRender* m_CrrentSprite = nullptr;	//現在の空腹ゲージ
+	prefab::CSpriteRender* m_CurrentSprite = nullptr;	//現在の空腹ゲージ
 	prefab::CSpriteRender* m_FlameSprite = nullptr;		//空腹ゲージの枠
 	prefab::CSpriteRender* m_IConSprite = nullptr;		//空腹アイコン
 
-	float m_HungryTime = 0.0f;							//お腹が空く時間
+	float m_HungeryTime = 1.0f;							//お腹が空く時間
+	float m_HungeryCountTime = 0.0f;					//経過時間
 	int m_Hunder = 100;									//空腹度
 	int m_MaxHunger = 100;								//満腹量
 };
