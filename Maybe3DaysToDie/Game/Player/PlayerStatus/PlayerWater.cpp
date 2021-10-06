@@ -56,7 +56,7 @@ void PlayerWater::CurretSpriteInit()
 	//基点
 	sd.pivot = GaugePivot;
 	//スプライトを初期化する
-	SpriteInit(sd);
+	m_CurrentWaterSprite = SpriteInit(sd);
 }
 
 void PlayerWater::FlameSpriteInit()
@@ -73,5 +73,5 @@ void PlayerWater::FlameSpriteInit()
 	//基点
 	sd.pivot = GaugePivot;
 	//スプライトを初期化
-	SpriteInit(sd);
+	m_FlameWaterSprite = SpriteInit(sd);
 }

@@ -4,6 +4,7 @@
 #include "PlayerStatus/PlayerHp.h"
 #include "PlayerStatus/PlayerStamina.h"
 #include "PlayerStatus/PlayerHunger.h"
+#include "PlayerStatus/PlayerWater.h"
 
 namespace {
 	const float MoveDistance = 10.0f;			//1ƒtƒŒ[ƒ€‚É“®‚­‹——£
@@ -29,6 +30,9 @@ bool Player::Start()
 
 	//‹ó• “x‚ğì‚é
 	m_Hunger = NewGO<PlayerHunger>(0, "playerHunger");
+
+	//…•ª‚ğì‚é
+	m_Water = NewGO<PlayerWater>(0,"playerWater");
 	return true;
 }
 
