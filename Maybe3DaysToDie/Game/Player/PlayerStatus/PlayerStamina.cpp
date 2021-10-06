@@ -3,9 +3,9 @@
 #include "SpriteInitFunction.h"
 
 namespace {
-	///大体のスプライトの初期値////////////////////////////////////
-	const Vector2 spPos = { -600.0f, -300.0f };	//スプライトの位置
-	const UINT StaminaSize[2] = { 180,40 };		//スプライトのサイズ
+	///ゲージスプライトの初期値////////////////////////////////////
+	const Vector2 GaugePos = { -600.0f, -300.0f };	//スプライトの位置
+	const UINT GaugeSize[2] = { 180,40 };		//スプライトのサイズ
 	///////////////////////////////////////////////////////////////
 	
 	/////Frame専用の初期化定数/////////////////////////////////////
@@ -67,10 +67,10 @@ void PlayerStamina::CurrentSpriteInit()
 	//シェーダーのファイルパス
 	sd.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	//CurrentSpriteの位置を設定
-	sd.pos = spPos;
+	sd.pos = GaugePos;
 	//CurrentSpriteのサイズを設定
-	sd.sid.m_width = StaminaSize[0];
-	sd.sid.m_height = StaminaSize[1];
+	sd.sid.m_width = GaugeSize[0];
+	sd.sid.m_height = GaugeSize[1];
 	//CurrentSpriteの実行優先度を設定
 	sd.prio = Current;
 	//CurrentSpriteを初期化
@@ -86,10 +86,10 @@ void PlayerStamina::FlameSpriteInit()
 	//シェーダーのファイルパス
 	sd.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	//FlameSpriteの位置を設定
-	sd.pos = spPos;
+	sd.pos = GaugePos;
 	//FlameSpriteのサイズを設定
-	sd.sid.m_width = StaminaSize[0];
-	sd.sid.m_height = StaminaSize[1];
+	sd.sid.m_width = GaugeSize[0];
+	sd.sid.m_height = GaugeSize[1];
 	//FlameSpriteの実行優先度を設定
 	sd.prio = Flame;
 	//FlameSpriteを初期化

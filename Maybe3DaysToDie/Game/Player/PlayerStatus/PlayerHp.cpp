@@ -3,10 +3,10 @@
 #include "SpriteInitFunction.h"
 
 namespace {
-	/////HpCurrentの初期化データ///////////////////
-	const Vector2 SpPivot = Vector2::Zero;		//スプライトの基点
-	const Vector2 SpPos= { -600.0f, -250.0f };	//スプライトの位置
-	const UINT SpSize[2] = { 180,40 };			//スプライトの縦横
+	/////ゲージスプライトの初期化データ///////////////////
+	const Vector2 GaugePivot = Vector2::Zero;		//スプライトの基点
+	const Vector2 GaugePos= { -600.0f, -250.0f };	//スプライトの位置
+	const UINT GaugeSize[2] = { 180,40 };			//スプライトの縦横
 	///////////////////////////////////////////////
 	
 	///ICon専用の初期化データ////////////////////// 
@@ -72,10 +72,10 @@ void PlayerHp::InitCurrentSprite()
 	//シェーダーのファイルパス
 	SpData.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	//スプライトの縦横
-	SpData.sid.m_height = SpSize[1];
-	SpData.sid.m_width = SpSize[0];
+	SpData.sid.m_height = GaugeSize[1];
+	SpData.sid.m_width = GaugeSize[0];
 	//SpDataにポジションを設定
-	SpData.pos = SpPos;
+	SpData.pos = GaugePos;
 	//優先順位を設定
 	SpData.prio = CurrentPrio;
 	//m_HpSpriteを初期化
@@ -91,10 +91,10 @@ void PlayerHp::InitFrameSprite()
 	//シェーダーのファイルパス
 	SpData.sid.m_fxFilePath = "Assets/shader/sprite.fx";
 	//スプライトの縦横
-	SpData.sid.m_height = SpSize[1];
-	SpData.sid.m_width = SpSize[0];
+	SpData.sid.m_height = GaugeSize[1];
+	SpData.sid.m_width = GaugeSize[0];
 	//SpDataにポジションを設定
-	SpData.pos = SpPos;
+	SpData.pos = GaugePos;
 	//優先順位を変更
 	SpData.prio = FlamePrio;
 	//Hpフレームを初期化
@@ -109,9 +109,6 @@ void PlayerHp::InitIConSprite()
 	SpData.sid.m_ddsFilePath[0] = "HPIcon.dds";
 	//シェーダーのファイルパス
 	SpData.sid.m_fxFilePath = "Assets/shader/sprite.fx";
-	//スプライトの縦横
-	SpData.sid.m_height = SpSize[1];
-	SpData.sid.m_width = SpSize[0];
 	//アイコンのサイズを設定
 	SpData.sid.m_width = IConSize[0];
 	SpData.sid.m_height = IConSize[1];
