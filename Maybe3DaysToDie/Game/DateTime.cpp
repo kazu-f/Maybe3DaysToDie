@@ -19,17 +19,17 @@ bool DateTime::Start()
 	
 	_itow_s(m_Day, Time, 10);
 	wcscpy_s(TimerData, Time);
-	wcscpy_s(Time, L"Days       ");
+	wcscpy_s(Time, L"“ú       ");
 	wcscat_s(TimerData, Time);
 
 	_itow_s(m_Hours, Time, 10);
 	wcscpy_s(TimeData, Time);
-	wcscat_s(Time, L"Hours  ");
+	wcscat_s(Time, L"Žž  ");
 	wcscat_s(TimerData, Time);
 
 	_itow_s(m_minit, Time, 10);
 	wcscpy_s(TimeData, Time);
-	wcscat_s(Time, L"minit");
+	wcscat_s(Time, L"•ª");
 	wcscat_s(TimerData, Time);
 
 	//wchar_t baka[256] = L"9‚ .\nReo is Baka\nReo is UNKO\nHima is Neet";
@@ -63,17 +63,17 @@ void DateTime::Update()
 
 	_itow_s(m_Day, Time, 10);
 	wcscpy_s(TimerData, Time);
-	wcscpy_s(Time, L"Days       ");
+	wcscpy_s(Time, L"“ú       ");
 	wcscat_s(TimerData, Time);
 
 	_itow_s(m_Hours, Time, 10);
 	wcscpy_s(TimeData, Time);
-	wcscat_s(Time, L"Hours  ");
+	wcscat_s(Time, L"Žž  ");
 	wcscat_s(TimerData, Time);
 
 	_itow_s(m_minit, Time, 10);
 	wcscpy_s(TimeData, Time);
-	wcscat_s(Time, L"minit");
+	wcscat_s(Time, L"•ª");
 	wcscat_s(TimerData, Time);
 	m_TimeFont->SetText(TimerData);
 }
