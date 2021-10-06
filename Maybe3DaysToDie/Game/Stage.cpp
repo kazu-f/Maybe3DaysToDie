@@ -29,6 +29,7 @@ void Stage::NewGround()
 	m_pos.x += 50.0f;
 	m_pos.z += 50.0f;
 	m_Model->SetPosition(m_pos);
+	m_Model->SetShadowReceiverFlag(true);
 }
 
 void Stage::CreatePhysics()
