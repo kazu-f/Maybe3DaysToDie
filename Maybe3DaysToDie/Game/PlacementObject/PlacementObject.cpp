@@ -67,16 +67,20 @@ void PlacementObject::CalcObjectPos()
 		lastPos.Set(end);
 
 		//オブジェクトの間隔を100ごとにする
-		int x, z;
+		int x, y,z;
 		//小数点以下切り捨て
 		x = static_cast<int>(lastPos.x);
+		y = static_cast<int>(lastPos.y);
 		z = static_cast<int>(lastPos.z);
 
 		//余りを求める
-		int remain_x, remain_z;
+		int remain_x, remain_y, remain_z;
 		remain_x = x % 100;
+		remain_y = y % 100;
 		remain_z = z % 100;
+
 		//四捨五入する
+		//高さはそのまま切り捨て
 		float round_x, round_z;
 		round_x = round(static_cast<float>(remain_x / 100.0f));
 		round_z = round(static_cast<float>(remain_z / 100.0f));
@@ -87,6 +91,7 @@ void PlacementObject::CalcObjectPos()
 
 		//ポジションに代入
 		lastPos.x = static_cast<float>(x - remain_x);
+		lastPos.y = static_cast<float>(y - remain_y);
 		lastPos.z = static_cast<float>(z - remain_z);
 
 		//四捨五入した値を加算
