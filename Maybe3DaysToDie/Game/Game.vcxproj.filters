@@ -38,8 +38,4 @@
     <ImageContentTask Include="Assets\sprite\staminaGauge.png" />
     <ImageContentTask Include="Assets\sprite\statusGauge.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\sprite\H2O.png" />
-    <Image Include="Assets\sprite\HungerICon.png" />
-  </ItemGroup>
 </Project>
