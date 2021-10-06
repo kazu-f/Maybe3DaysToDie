@@ -17,7 +17,7 @@ namespace {
 bool PlayerHunger::Start()
 {
 	CurrentSpriteInit();
-	FrameSpriteInit();
+	FlameSpriteInit();
 	IConSpriteInit();
 	return true;
 }
@@ -42,15 +42,20 @@ void PlayerHunger::CurrentSpriteInit()
 	m_CrrentSprite = SpriteInit(sd);
 }
 
-void PlayerHunger::FrameSpriteInit()
+void PlayerHunger::FlameSpriteInit()
 {
 	SpriteData sd;
 	sd.sid.m_ddsFilePath[0]="statusGauge.dds";
 	sd.sid.m_width = GaugeSize[0];
 	sd.sid.m_height = GaugeSize[1];
 	sd.pos = GaugePos;
+	sd.pivot = GaugePivot;
+	sd.prio = Flame;
+	m_FlameSprite = SpriteInit(sd);
 }
 
 void PlayerHunger::IConSpriteInit()
 {
+	SpriteData sd;
+	sd.sid.m_ddsFilePath[0] = "HungerICon.dds";
 }

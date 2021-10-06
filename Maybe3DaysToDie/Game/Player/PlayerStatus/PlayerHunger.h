@@ -35,7 +35,7 @@ private:
 	/// <summary>
 	/// 空腹ゲージの枠を初期化する
 	/// </summary>
-	void FrameSpriteInit();
+	void FlameSpriteInit();
 
 	/// <summary>
 	/// 空腹アイコンを初期化する
@@ -43,7 +43,7 @@ private:
 	void IConSpriteInit();
 private:
 	prefab::CSpriteRender* m_CrrentSprite = nullptr;	//現在の空腹ゲージ
-	prefab::CSpriteRender* m_FrameSprite = nullptr;		//空腹ゲージの枠
+	prefab::CSpriteRender* m_FlameSprite = nullptr;		//空腹ゲージの枠
 	prefab::CSpriteRender* m_IConSprite = nullptr;		//空腹アイコン
 
 	float m_HungryTime = 0.0f;							//お腹が空く時間
