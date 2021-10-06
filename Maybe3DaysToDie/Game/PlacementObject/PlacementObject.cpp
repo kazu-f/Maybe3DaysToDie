@@ -24,6 +24,10 @@ bool PlacementObject::Start()
 {
 	ModelInitData m_modelInitData;
 	m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
+	m_modelInitData.m_shaderData.vsFxFilePath = L"Assets/shader/model.fx";
+	m_modelInitData.m_shaderData.vsEntryPointFunc = "VSMain";
+	m_modelInitData.m_shaderData.psFxFilePath = L"Assets/shader/ObjectPreview.fx";
+	m_modelInitData.m_shaderData.psEntryPointFunc = "PSMain";
 	m_ObjectModel->Init(m_modelInitData);
 	return true;
 }
