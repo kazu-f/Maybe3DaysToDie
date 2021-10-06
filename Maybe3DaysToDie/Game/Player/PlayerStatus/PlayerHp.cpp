@@ -10,7 +10,8 @@ namespace {
 	///////////////////////////////////////////////
 	
 	///ICon専用の初期化データ////////////////////// 
-	const Vector2 IConPos = { -585.0f,-250.0f };	//アイコンの位置
+	const Vector2 IConPos = { -570.0f,-230.0f };	//アイコンの位置
+	const Vector2 IConPivot = { 0.5f,0.5f };		//アイコンの基点
 	const UINT IConSize[2] = { 40,40 };				//アイコンの縦横
 	/////////////////////////////////////////////// 
 	
@@ -118,6 +119,8 @@ void PlayerHp::InitIConSprite()
 	SpData.pivot = Vector2::Zero;
 	//優先順位を変更
 	SpData.prio = IConPrio;
+	//アイコンの基点を設定
+	SpData.pivot = IConPivot;
 	//m_HpIConを初期化
 	m_ICon = SpriteInit(SpData);
 }

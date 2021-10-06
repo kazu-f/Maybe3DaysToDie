@@ -7,6 +7,11 @@ namespace {
 	const Vector2 GaugePos = { 0.0,-500.0f };
 	const Vector2 GaugePivot = { 0.0f,0.5f };
 
+	const UINT IConSize[2] = { 40,40 };
+	const Vector2 IConsPos = { 20.0,-500.0f };
+	const Vector2 IConPivot = { 0.5f,0.5f };
+	
+
 	enum SpritePrio {
 		Flame,
 		Current,
@@ -58,4 +63,7 @@ void PlayerHunger::IConSpriteInit()
 {
 	SpriteData sd;
 	sd.sid.m_ddsFilePath[0] = "HungerICon.dds";
+	sd.sid.m_width = IConSize[0];
+	sd.sid.m_height = IConSize[1];
+	sd.pivot = IConPivot;
 }

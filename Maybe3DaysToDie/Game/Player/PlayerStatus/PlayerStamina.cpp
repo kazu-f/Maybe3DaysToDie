@@ -9,8 +9,9 @@ namespace {
 	///////////////////////////////////////////////////////////////
 	
 	/////Frame専用の初期化定数/////////////////////////////////////
-	const Vector2 IconPos = { -590.0f,-305.0f };	//アイコンの位置
-	const UINT IConSize[2] = { 50,50 };			//アイコンのサイズ
+	const Vector2 IconPos = { -570.0f,-280.0f };	//アイコンの位置
+	const Vector2 IconPivot = { 0.5f,0.5f };		//アイコンの基点
+	const UINT IConSize[2] = { 50,50 };				//アイコンのサイズ
 	///////////////////////////////////////////////////////////////
 	
 	//スプライトの実行優先度
@@ -111,6 +112,8 @@ void PlayerStamina::IConSpriteInit()
 	sd.sid.m_height = IConSize[1];
 	//IConSpriteの実行優先度を設定
 	sd.prio = ICon;
+	//IConSpriteの基点を設定
+	sd.pivot = IconPivot;
 	//IConSpriteを初期化
 	m_IConSprite = SpriteInit(sd);
 }
