@@ -8,12 +8,6 @@ namespace {
 	const Vector2 GaugePos = { -300.0,-330.0f };
 	const Vector2 GaugePivot = { 0.0f,0.5f };
 	///////////////////////////////////////////////////
-	
-	////////アイコン用定数////////////////////////////////
-	const UINT IConSize[2] = { 10,10 };
-	const Vector2 IConsPos = { -250.0,-330.0f };
-	const Vector2 IConPivot = { 0.5f,0.5f };
-	/////////////////////////////////////////////////////
 
 	////////実行優先度////////////////////////////////
 	enum SpritePrio {
@@ -31,8 +25,6 @@ bool PlayerHunger::Start()
 	CurrentSpriteInit();
 	//FlameSpriteを初期化
 	FlameSpriteInit();
-	//IConSpriteを初期化
-	IConSpriteInit();
 	return true;
 }
 
@@ -58,8 +50,6 @@ void PlayerHunger::OnDestroy()
 	DeleteGO(m_CurrentSprite);
 	//FlameSpriteを削除
 	DeleteGO(m_FlameSprite);
-	//IConSpriteを削除
-	DeleteGO(m_IConSprite);
 }
 
 void PlayerHunger::CurrentSpriteInit()
@@ -98,23 +88,4 @@ void PlayerHunger::FlameSpriteInit()
 	sd.prio = Flame;
 	//FlameSpriteを作成
 	m_FlameSprite = SpriteInit(sd);
-}
-
-void PlayerHunger::IConSpriteInit()
-{
-	//IConSpriteの初期化構造体
-	SpriteData sd;
-	//ファイルパス
-	sd.sid.m_ddsFilePath[0] = "HungerICon.dds";
-	//サイズ
-	sd.sid.m_width = IConSize[0];
-	sd.sid.m_height = IConSize[1];
-	//位置
-	sd.pos = IConsPos;
-	//基点
-	sd.pivot = IConPivot;
-	//実行優先度
-	sd.prio = ICon;
-	//IconSpriteを作成
-	m_IConSprite = SpriteInit(sd);
 }

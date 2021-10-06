@@ -2,7 +2,7 @@
 /// <summary>
 /// プレイヤーの空腹度を表すクラス
 /// </summary>
-class PlayerHunger : public IGameObject
+class PlayerHunger final : public IGameObject
 {
 private:
 	/// <summary>
@@ -36,15 +36,9 @@ private:
 	/// 空腹ゲージの枠を初期化する
 	/// </summary>
 	void FlameSpriteInit();
-
-	/// <summary>
-	/// 空腹アイコンを初期化する
-	/// </summary>
-	void IConSpriteInit();
 private:
 	prefab::CSpriteRender* m_CurrentSprite = nullptr;	//現在の空腹ゲージ
 	prefab::CSpriteRender* m_FlameSprite = nullptr;		//空腹ゲージの枠
-	prefab::CSpriteRender* m_IConSprite = nullptr;		//空腹アイコン
 
 	float m_HungeryTime = 1.0f;							//お腹が空く時間
 	float m_HungeryCountTime = 0.0f;					//経過時間

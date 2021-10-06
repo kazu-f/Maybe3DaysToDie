@@ -196,10 +196,6 @@
     <ImageContentTask Include="Assets\sprite\staminaGauge.png" />
     <ImageContentTask Include="Assets\sprite\statusGauge.png" />
   </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\H2O.png" />
-    <ImageContentTask Include="Assets\sprite\HungerICon.png" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />
