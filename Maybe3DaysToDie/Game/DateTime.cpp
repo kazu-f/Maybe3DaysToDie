@@ -11,24 +11,23 @@ namespace {
 
 bool DateTime::Start()
 {
+	//フォントをNew
 	m_TimeFont = NewGO<CFontRender>(0);
 
+	//時間用の文字列
 	wchar_t Time[256] = {};
+	//フォントに渡すテキスト
 	wchar_t TimerData[256] = {};
-	wchar_t TimeData[256] = {};
 	
 	_itow_s(m_Day, Time, 10);
-	wcscpy_s(TimerData, Time);
 	wcscpy_s(Time, L"日       ");
 	wcscat_s(TimerData, Time);
 
 	_itow_s(m_Hours, Time, 10);
-	wcscpy_s(TimeData, Time);
 	wcscat_s(Time, L"時  ");
 	wcscat_s(TimerData, Time);
 
 	_itow_s(m_minit, Time, 10);
-	wcscpy_s(TimeData, Time);
 	wcscat_s(Time, L"分");
 	wcscat_s(TimerData, Time);
 
@@ -59,7 +58,6 @@ void DateTime::Update()
 	}
 	wchar_t Time[256] = {};
 	wchar_t TimerData[256] = {};
-	wchar_t TimeData[256] = {};
 
 	_itow_s(m_Day, Time, 10);
 	wcscpy_s(TimerData, Time);
@@ -67,12 +65,10 @@ void DateTime::Update()
 	wcscat_s(TimerData, Time);
 
 	_itow_s(m_Hours, Time, 10);
-	wcscpy_s(TimeData, Time);
 	wcscat_s(Time, L"時  ");
 	wcscat_s(TimerData, Time);
 
 	_itow_s(m_minit, Time, 10);
-	wcscpy_s(TimeData, Time);
 	wcscat_s(Time, L"分");
 	wcscat_s(TimerData, Time);
 	m_TimeFont->SetText(TimerData);
