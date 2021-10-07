@@ -6,7 +6,7 @@ namespace {
 	const int OneMinute = 1;					//１分経つ時間
 	const int OneHune = 5;						//１時間経つ時間
 	const int OneDay = 2;						//１日経つ時間
-	const Vector2 FontPos = { -300.0f,330.0f };	//Fontの位置
+	const Vector2 FontPos = { -150.0f,330.0f };	//Fontの位置
 }
 
 bool DateTime::Start()
@@ -19,30 +19,35 @@ bool DateTime::Start()
 	//フォントに渡すテキスト
 	wchar_t TimerData[256] = {};
 	
+	//日にちの文字を作成
 	_itow_s(m_Day, Time, 10);
-	wcscpy_s(Time, L"日       ");
+	wcscpy_s(Time, L"日     ");
 	wcscat_s(TimerData, Time);
 
+	//時間の文字を連結
 	_itow_s(m_Hours, Time, 10);
 	wcscat_s(Time, L"時  ");
 	wcscat_s(TimerData, Time);
 
+	//分の文字を連結
 	_itow_s(m_minit, Time, 10);
 	wcscat_s(Time, L"分");
 	wcscat_s(TimerData, Time);
 
-	//wchar_t baka[256] = L"9あ.\nReo is Baka\nReo is UNKO\nHima is Neet";
+	//テキストを設定
 	m_TimeFont->SetText(TimerData);
-	//m_TimeFont->SetText(baka);
+	//色を設定
 	m_TimeFont->SetColor(Vector4::White);
-	m_TimeFont->SetShadowParam(true, 0.5f, Vector4::Black);
+	//基点を設定
 	m_TimeFont->SetPivot({ 0.5f, 0.5f });
+	//位置を設定
 	m_TimeFont->SetPosition(FontPos);
 	return true;
 }
 
 void DateTime::Update()
 {
+	//時間をカウント
 	m_Second += GameTime().GetFrameDeltaTime();
 	if (m_Second >= OneMinute) {
 		m_minit++;
@@ -72,6 +77,7 @@ void DateTime::Update()
 	wcscat_s(Time, L"分");
 	wcscat_s(TimerData, Time);
 	m_TimeFont->SetText(TimerData);
+	m_TimeFont->SetScale(0.5f);
 }
 
 void DateTime::OnDestroy()

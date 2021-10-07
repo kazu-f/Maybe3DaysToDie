@@ -3,7 +3,7 @@
 #include "SpriteInitFunction.h"
 
 namespace {
-	const Vector2 GaugePos = { -600.0f,-330.0f };		//スプライトの位置
+	const Vector2 GaugePos = { -0.0f,-330.0f };		//スプライトの位置
 	const UINT GaugeSize[2] = { 300,15 };		//スプライトのサイズ
 	const Vector2 GaugePivot = { 0.0f,0.5f };	//スプライトの基点
 }
