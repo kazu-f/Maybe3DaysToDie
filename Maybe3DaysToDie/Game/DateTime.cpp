@@ -75,7 +75,7 @@ void DateTime::Update()
 	//日にちを文字列に変換
 	_itow_s(m_Day, Time, 10);
 	//日をつける
-	wcscpy_s(Time, L"日　");
+	wcscat_s(Time, L"日　");
 	//フォント用文字にコピー
 	wcscpy_s(TimerData, Time);
 

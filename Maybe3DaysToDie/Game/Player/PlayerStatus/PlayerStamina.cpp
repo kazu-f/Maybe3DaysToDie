@@ -18,9 +18,15 @@ namespace {
 	enum SpritePrio {
 		Flame,
 		Current,
+		Font,
 		ICon,
 		Num
 	};
+	///フォントの初期化データ//////////////////////
+	const Vector2 FontPos = { -515.0f, -220.0f };
+	const float FontScale = 0.4f;
+	const Vector2 FontPivot = { 0.0f,0.5f };
+	///////////////////////////////////////////////
 }
 
 bool PlayerStamina::Start()
@@ -110,4 +116,13 @@ void PlayerStamina::IConSpriteInit()
 	sd.pivot = IconPivot;
 	//IConSpriteを初期化
 	m_IConSprite = SpriteInit(sd);
+}
+
+void PlayerStamina::InitStaminaFont()
+{
+		
+}
+
+void PlayerStamina::UpdateStaminaFont()
+{
 }

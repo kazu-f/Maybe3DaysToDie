@@ -19,9 +19,16 @@ namespace {
 	enum SpruitePrio {
 		FlamePrio,
 		CurrentPrio,
+		FontPrio,
 		IConPrio,
 		Num
 	};
+
+	///フォントの初期化データ//////////////////////
+	const Vector2 FontPos = { -515.0f, -220.0f };
+	const float FontScale = 0.4f;
+	const Vector2 FontPivot = { 0.0f,0.5f };
+	///////////////////////////////////////////////
 }
 
 bool PlayerHp::Start()
@@ -34,6 +41,9 @@ bool PlayerHp::Start()
 
 	//HpIConを初期化
 	InitIConSprite();
+
+	//HpFontを初期化
+	InitHpFont();
 	return true;
 }
 
@@ -54,6 +64,8 @@ void PlayerHp::Update()
 	SpriteScale.x = (float)m_Hp / (float)m_MaxHp;
 	//大きさをスプライトに設定
 	m_CurrentSprite->SetScale(SpriteScale);
+	//フォントを更新
+	UpdateHpFont();
 }
 
 void PlayerHp::OnDestroy()
@@ -62,6 +74,9 @@ void PlayerHp::OnDestroy()
 	DeleteGO(m_CurrentSprite);
 	DeleteGO(m_FlameSprite);
 	DeleteGO(m_ICon);
+
+	//フォントを削除
+	DeleteGO(m_HpFont);
 }
 
 void PlayerHp::InitCurrentSprite()
@@ -117,4 +132,48 @@ void PlayerHp::InitIConSprite()
 	SpData.pivot = IConPivot;
 	//m_HpIConを初期化
 	m_ICon = SpriteInit(SpData);
+}
+
+void PlayerHp::InitHpFont()
+{
+	//フォントのインスタンスを作成
+	m_HpFont = NewGO<CFontRender>(FontPrio);
+	//Hpを表す文字列を作成
+	wchar_t HpText[256] = {};
+	//Hpをintからwchar_t型へ変換
+	_itow_s(m_Hp, HpText, 10);
+	//テキストに/を追加
+	//これは現在のHpと最大HPの間にあるアレ
+	wcscat_s(HpText, L"/");
+	//最大Hp用の文字列を作成
+	wchar_t MaxHpText[256] = {};
+	//最大Hpをintからwchar_t型へ変換
+	_itow_s(m_MaxHp, MaxHpText, 10);
+	//HPテキストに追加
+	wcscat_s(HpText, MaxHpText);
+	//フォントに文字列を設定
+	m_HpFont->SetText(HpText);
+	//フォントの位置を設定
+	m_HpFont->SetPosition(FontPos);
+	m_HpFont->SetScale(FontScale);
+	m_HpFont->SetPivot(FontPivot);
+}
+
+void PlayerHp::UpdateHpFont()
+{
+	//Hpを表す文字列を作成
+	wchar_t HpText[256] = {};
+	//Hpをintからwchar_t型へ変換
+	_itow_s(m_Hp, HpText, 10);
+	//テキストに/を追加
+	//これは現在のHpと最大HPの間にあるアレ
+	wcscat_s(HpText, L"/");
+	//最大Hp用の文字列を作成
+	wchar_t MaxHpText[256] = {};
+	//最大Hpをintからwchar_t型へ変換
+	_itow_s(m_MaxHp, MaxHpText, 10);
+	//HPテキストに追加
+	wcscat_s(HpText, MaxHpText);
+	//フォントに文字列を設定
+	m_HpFont->SetText(HpText);
 }

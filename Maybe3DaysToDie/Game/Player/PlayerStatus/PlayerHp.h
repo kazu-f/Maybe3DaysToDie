@@ -56,6 +56,15 @@ private:
 	/// HpIConを初期化
 	/// </summary>
 	void InitIConSprite();
+
+	/// <summary>
+	/// フォントを初期化
+	/// </summary>
+	void InitHpFont();
+	/// <summary>
+	/// フォントを更新
+	/// </summary>
+	void UpdateHpFont();
 private:
 	prefab::CSpriteRender* m_CurrentSprite = nullptr;	//現在のHpスプライト
 	prefab::CSpriteRender* m_FlameSprite = nullptr;	//HPの枠
@@ -64,5 +73,5 @@ private:
 	int m_MaxHp = 100;									//最大Hp
 	float m_RegeneTime = 1.0f;							//自然回復時間
 	float m_nowHpRegeneTime = 0.0f;						//自然回復してからの経過時間
-
+	CFontRender* m_HpFont = nullptr;					//Hpを表すフォント
 };

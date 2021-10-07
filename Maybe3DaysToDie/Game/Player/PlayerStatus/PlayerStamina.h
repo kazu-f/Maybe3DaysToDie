@@ -32,13 +32,23 @@ private:
 	/// アイコンを初期化
 	/// </summary>
 	void IConSpriteInit();
+
+	/// <summary>
+	/// フォントを初期化
+	/// </summary>
+	void InitStaminaFont();
+	/// <summary>
+	/// フォントを更新
+	/// </summary>
+	void UpdateStaminaFont();
 private:
 	float m_RegeneTime = 1.0f;				//リジェネできる一定時間
 	float m_nowRegeneTimer = 0.0f;			//一定時間以上になるとリジェネできる
 	int m_Stamina = 100;					//スタミナ
-	int m_MaxStamina = 100;
-	prefab::CSpriteRender* m_CurrentSprite = nullptr;	
-	prefab::CSpriteRender* m_FlameSprite = nullptr;
-	prefab::CSpriteRender* m_IConSprite = nullptr;
+	int m_MaxStamina = 100;					//最大スタミナ
+	prefab::CSpriteRender* m_CurrentSprite = nullptr;	//現在のスタミナを表すスプライト
+	prefab::CSpriteRender* m_FlameSprite = nullptr;		//スタミナの枠
+	prefab::CSpriteRender* m_IConSprite = nullptr;		//アイコンのスプライト
+	CFontRender* m_StaminaFont = nullptr;				//スタミナのフォント
 };
 
