@@ -23,7 +23,7 @@ bool DateTime::Start()
 	
 	//“ú‚É‚¿‚Ì•¶š‚ğì¬
 	_itow_s(m_Day, Time, 10);
-	wcscpy_s(Time, L"“ú     ");
+	wcscat_s(Time, L"“ú     ");
 	wcscat_s(TimerData, Time);
 
 	//ŠÔ‚Ì•¶š‚ğ˜AŒ‹
