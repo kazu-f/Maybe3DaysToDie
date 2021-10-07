@@ -1,6 +1,7 @@
 #pragma once
 /// <summary>
 /// 時間を計測し、１日を数えるクラス
+/// １分ごとのカウント等はcpp側の名前空間内にあるよ～
 /// </summary>
 class DateTime final : public IGameObject
 {
