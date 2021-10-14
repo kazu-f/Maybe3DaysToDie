@@ -135,7 +135,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -156,6 +156,8 @@
     </ImageContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
+    <ClCompile Include="DestructibleObject\Block\Block.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Enemy\IEnemy.cpp" />
@@ -175,8 +177,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DestructibleObject\DestructibleObject.h" />
+    <ClInclude Include="DestructibleObject\Block\Block.h" />
     <ClInclude Include="DateTime.h" />
     <ClInclude Include="Enemy\EnemyGenerator.h" />
     <ClInclude Include="Enemy\IEnemy.h" />
@@ -192,6 +197,7 @@
     <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
