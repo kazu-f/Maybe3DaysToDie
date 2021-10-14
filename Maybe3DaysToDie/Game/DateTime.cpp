@@ -13,7 +13,7 @@ namespace {
 
 bool DateTime::Start()
 {
-	//フォントをNew
+	//フォントのインスタンスを作成
 	m_TimeFont = NewGO<CFontRender>(0);
 
 	//時間用の文字列
