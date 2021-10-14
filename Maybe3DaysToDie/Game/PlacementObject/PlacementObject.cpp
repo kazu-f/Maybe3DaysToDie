@@ -29,6 +29,7 @@ bool PlacementObject::Start()
 	m_modelInitData.m_shaderData.psFxFilePath = L"Assets/shader/ObjectPreview.fx";
 	m_modelInitData.m_shaderData.psEntryPointFunc = "PSMain";
 	m_ObjectModel->Init(m_modelInitData);
+	m_ObjectModel->SetForwardRenderFlag(true);
 	m_ObjectModel->SetShadowCasterFlag(true);
 	return true;
 }

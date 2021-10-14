@@ -29,31 +29,12 @@ float3 CalcNormal(float3 normal, float3 biNormal, float3 tangent, float2 uv)
 }
 
 //GBufferに書き込むピクセルシェーダーのエントリ関数。
-PSOut_GBuffer PSMain(SPSIn psIn) {
-	PSOut_GBuffer Out = (PSOut_GBuffer)0;
+float4 PSMain(SPSIn psIn) :SV_Target0
+{
+	//アルベド
+	float4 albedo = g_texture.Sample(g_sampler, psIn.uv);
+	//半透明にする
+	albedo.a = 0.75f;
 
-	float4 albedo = g_texture.Sample(g_sampler, psIn.uv);		//アルベド。
-	Out.albedo = albedo;
-	//法線マップ。
-	float3 normal = CalcNormal(psIn.normal, psIn.biNormal, psIn.Tangent, psIn.uv);
-	Out.normal.xyz = (normal / 2.0f) + 0.5f;
-
-	//ワールド座標。
-	Out.worldPos = float4(psIn.worldPos, 0.0f);
-
-	//スペキュラマップ。
-	Out.specMap = 0.0f;
-	if (hasSpecularMap) {
-		//スペキュラマップがある。
-		Out.specMap = g_specularMap.Sample(g_sampler, psIn.uv);
-	}
-
-	//シャドウ。
-	float4 posInView = mul(mView, float4(psIn.worldPos, 1.0f));
-	Out.shadow = CalcShadow(psIn.worldPos, posInView.z);
-
-	//反射率。
-	Out.reflection = g_reflectionMap.Sample(g_sampler, psIn.uv).xy;
-
-	return Out;
+	return albedo;
 }
