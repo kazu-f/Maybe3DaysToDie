@@ -6,7 +6,7 @@ private:
 	struct RayResult :public btCollisionWorld::RayResultCallback
 	{
 		bool isHit = false;		//衝突フラグ
-
+		Vector3 hitNormal = Vector3::Zero;
 		//衝突したときに呼ばれる関数
 		virtual btScalar addSingleResult(
 			btCollisionWorld::LocalRayResult& convexResult,
@@ -14,6 +14,7 @@ private:
 		)
 		{
 			isHit = true;
+			hitNormal.Set(convexResult.m_hitNormalLocal);
 			//距離が近いほうに更新
 			if (m_closestHitFraction > convexResult.m_hitFraction)
 			{
@@ -31,6 +32,11 @@ public:
 	void OnDestroy()override final;
 
 	/// <summary>
+	/// オブジェクトを設置
+	/// </summary>
+	void PlaceObject();
+
+	/// <summary>
 	/// 設置するオブジェクトの位置を計算
 	/// </summary>
 	void CalcObjectPos();
@@ -41,5 +47,7 @@ private:
 	Vector3 m_scale = Vector3::One;		//モデルのスケール
 	Quaternion m_qrot = Quaternion::Identity;		//モデルの回転
 	const float m_SetRange = 500.0f;		//設置範囲
+	std::vector<prefab::ModelRender*> m_model = { nullptr };
+	std::vector<CPhysicsStaticObject*> m_col;
 };
 

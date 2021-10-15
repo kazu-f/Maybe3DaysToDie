@@ -22,7 +22,13 @@ public:
 	/// 更新。
 	/// </summary>
 	void Update() override;
+	/// <summary>
+	/// パラメーター値を取得。
+	/// </summary>
+	/// <returns></returns>
+	EnemyParams& GetEnemyParameters() override;
 private:
-	IEnemy::EnemyParams m_enemyParameters;
+	Vector3 m_scale = { 6.0f, 6.0f, 6.0f };		//拡大。
+	IEnemy::EnemyParams m_parameters;			//パラメーター。
 };
 
