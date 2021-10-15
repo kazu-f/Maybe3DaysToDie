@@ -134,17 +134,13 @@ namespace Engine
 		psoDesc.DepthStencilState.StencilEnable = FALSE;
 		psoDesc.SampleMask = UINT_MAX;
 		psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-		psoDesc.NumRenderTargets = 5;
+		psoDesc.NumRenderTargets = 6;
 		psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//アルベドカラー出力用。
-#ifdef SAMPE_16_02
-		psoDesc.RTVFormats[1] = DXGI_FORMAT_R16G16B16A16_FLOAT;	//法線出力用。	
-		psoDesc.RTVFormats[2] = DXGI_FORMAT_R32_FLOAT;						//Z値。
-#else
 		psoDesc.RTVFormats[1] = DXGI_FORMAT_R8G8B8A8_UNORM;			//法線出力用。	
 		psoDesc.RTVFormats[2] = DXGI_FORMAT_R32G32B32A32_FLOAT;	//Z値。
 		psoDesc.RTVFormats[3] = DXGI_FORMAT_R32_FLOAT;			//スペキュラ。
 		psoDesc.RTVFormats[4] = DXGI_FORMAT_R32_FLOAT;			//影。
-#endif
+		psoDesc.RTVFormats[5] = DXGI_FORMAT_R32_FLOAT;			//反射率。
 		psoDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 		psoDesc.SampleDesc.Count = 1;
 
@@ -168,12 +164,19 @@ namespace Engine
 			m_SkinModelInstancingPipelineState.Init(psoDesc);
 		}
 
+		//フォーマットリセット。
+		for (auto& format : psoDesc.RTVFormats)
+		{
+			format = DXGI_FORMAT_UNKNOWN;
+		}
+
 		//シャドウマップ用のパイプラインステートを作成。
 		{
 			//通常描画。
 			psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsModelShadowMap.GetCompiledBlob());
 			psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psModelShadowMap.GetCompiledBlob());
 			psoDesc.RTVFormats[0] = DXGI_FORMAT_R32_FLOAT;
+			psoDesc.NumRenderTargets = 1;
 			m_ModelShadowPipelineState.Init(psoDesc);
 			//インスタンシング描画。
 			psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsModelShadowInstancing.GetCompiledBlob());
@@ -188,11 +191,18 @@ namespace Engine
 
 		}
 
+		//フォーマットリセット。
+		for (auto& format : psoDesc.RTVFormats)
+		{
+			format = DXGI_FORMAT_UNKNOWN;
+		}
+
 		//半透明マテリアル用。
 		{
 			psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsModel.GetCompiledBlob());
 			psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psTransModel.GetCompiledBlob());
 			psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//アルベドカラー出力用。
+			psoDesc.NumRenderTargets = 1;
 			psoDesc.BlendState.IndependentBlendEnable = TRUE;
 			psoDesc.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
 			psoDesc.BlendState.RenderTarget[0].BlendEnable = TRUE;
