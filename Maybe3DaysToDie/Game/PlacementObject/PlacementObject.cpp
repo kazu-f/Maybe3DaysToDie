@@ -42,6 +42,11 @@ void PlacementObject::Update()
 	m_ObjectModel->SetPosition(m_pos);
 	m_ObjectModel->SetRotation(m_qrot);
 	m_ObjectModel->SetScale(m_scale);
+
+	//if (Pad(0).IsTrigger(enButtonA))
+	//{
+	//	PlaceObject();
+	//}
 }
 
 void PlacementObject::CalcObjectPos()
@@ -118,4 +123,22 @@ void PlacementObject::CalcObjectPos()
 		//}
 	}
 	m_pos.Set(lastPos);
+}
+
+//todo [最適化]後で処理見直せ
+void PlacementObject::PlaceObject()
+{
+	//初期化
+	ModelInitData m_modelInitData;
+	m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
+	prefab::ModelRender* m_object = NewGO<prefab::ModelRender>(0);
+	m_object->Init(m_modelInitData);
+	//ポジションをセット
+	m_object->SetPosition(m_pos);
+	//配列に追加
+	m_model.push_back(std::move(m_object));
+	CPhysicsStaticObject* col; 
+	col = new CPhysicsStaticObject;
+	col->CreateMesh(m_pos, m_qrot, m_scale, m_object);
+	m_col.push_back(col);
 }
