@@ -164,6 +164,7 @@
     <ClCompile Include="Enemy\StandardZombie.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameSnece.cpp" />
+    <ClCompile Include="Stage\IStage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerWater.cpp" />
@@ -178,6 +179,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
+    <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DestructibleObject\DestructibleObject.h" />
@@ -188,6 +190,7 @@
     <ClInclude Include="Enemy\StandardZombie.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameSnece.h" />
+    <ClInclude Include="Stage\IStage.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerWater.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
@@ -198,6 +201,7 @@
     <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
+    <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

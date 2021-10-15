@@ -62,10 +62,11 @@ public:
 
 
 protected:
-	prefab::ModelRender* m_model = nullptr;
-	Vector3 m_position = Vector3::Zero;
-	Quaternion m_qrot = Quaternion::Identity;
-	Vector3 m_scale = Vector3::One;
-	bool IsDestructed = false;
-	ObjectParams m_params;
+	prefab::ModelRender* m_model = nullptr;		//モデル
+	CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
+	Vector3 m_position = Vector3::Zero;		//ポジション
+	Quaternion m_qrot = Quaternion::Identity;		//回転
+	Vector3 m_scale = Vector3::One;		//スケール
+	bool IsDestructed = false;		//破壊されたかどうか
+	ObjectParams m_params;		//各種パラメータ
 };
