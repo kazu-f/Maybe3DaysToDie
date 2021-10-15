@@ -16,6 +16,10 @@
     <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerWater.cpp" />
+    <ClCompile Include="DateTime.cpp" />
+    <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
+    <ClCompile Include="DestructibleObject\Block\Block.cpp" />
+    <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -32,6 +36,10 @@
     <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerWater.h" />
+    <ClInclude Include="DateTime.h" />
+    <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
+    <ClInclude Include="DestructibleObject\Block\Block.h" />
+    <ClInclude Include="DestructibleObject\DestructibleObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
