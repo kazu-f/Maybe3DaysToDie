@@ -28,7 +28,7 @@ public:
 	/// <returns></returns>
 	EnemyParams& GetEnemyParameters() override;
 private:
-	Vector3 m_scale = { 3.5f, 3.5f, 3.5f };
-	IEnemy::EnemyParams m_parameters;
+	Vector3 m_scale = { 6.0f, 6.0f, 6.0f };		//拡大。
+	IEnemy::EnemyParams m_parameters;			//パラメーター。
 };
 
