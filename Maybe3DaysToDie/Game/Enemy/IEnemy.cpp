@@ -4,6 +4,7 @@
 
 IEnemy::~IEnemy()
 {
+	DeleteGO(m_modelRender);
 }
 
 void IEnemy::InitActor(ModelInitData& initData, const char* tag, AnimClipInitData animClipDatas[], int animSize)
@@ -12,7 +13,7 @@ void IEnemy::InitActor(ModelInitData& initData, const char* tag, AnimClipInitDat
 	m_modelRender->Init(initData, animClipDatas, animSize);
 }
 
-void IEnemy::InitNavActor(ModelInitData& initData, const char* tag, NaviMesh* mesh, AnimClipInitData animClipDatas[], bool isRandMove)
+void IEnemy::InitNavActor(ModelInitData& initData, const char* tag, NaviMesh* mesh, AnimClipInitData animClipDatas[], int animSize, bool isRandMove)
 {
 	//ƒ‚ƒfƒ‹‰Šú‰»B
 	InitActor(initData, tag ,animClipDatas);
