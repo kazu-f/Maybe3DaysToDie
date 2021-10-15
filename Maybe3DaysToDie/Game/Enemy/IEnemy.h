@@ -8,6 +8,7 @@
 /// <remarks>
 /// 敵キャラを作成する際は、このクラスを継承して作成していくこと。
 /// サンプルコードはStandardZombieにある。
+/// 尚、パラメーターは派生先のクラスで保持、初期化を行うこと。
 /// </remarks>
 class IEnemy : public IGameObject
 {
@@ -59,7 +60,7 @@ public:
 	/// <param name="mesh">ナビメッシュ。</param>
 	/// <param name="animClipDatas">アニメーションクリップ。</param>
 	/// <param name="isRandMove">ランダム移動するか。</param>
-	void InitNavActor(ModelInitData& initData, const char* tag, NaviMesh* mesh, AnimClipInitData animClipDatas[] = nullptr, bool isRandMove = false);
+	void InitNavActor(ModelInitData& initData, const char* tag, NaviMesh* mesh, AnimClipInitData animClipDatas[] = nullptr, int animSize = 0,  bool isRandMove = false);
 public://なんかtripleTrashオカピー。
 	/// <summary>
 	/// アクター初期化。
