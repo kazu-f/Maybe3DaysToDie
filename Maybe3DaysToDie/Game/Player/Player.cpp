@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "GameCamera.h"
 #include "PlayerStatus/PlayerHp.h"
 #include "PlayerStatus/PlayerStamina.h"
 #include "PlayerStatus/PlayerHunger.h"
@@ -10,18 +9,10 @@ namespace {
 	const float MoveDistance = 10.0f;			//1フレームに動く距離
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
 	const float NeckLimitY = 80.0f;				//上や下を向ける限界
-	//配列用の定数
-	//なんとなくマジックナンバーが嫌だったので定数化
-	enum Vector {
-		X,Y,Z
-	};
 }
 
 bool Player::Start()
 {
-	//カメラを探す
-	m_Camera = FindGO<GameCamera>("camera");
-
 	//Hpを作る
 	m_Hp = NewGO<PlayerHp>(0, "playerHp");
 
@@ -40,7 +31,7 @@ void Player::Update()
 {
 	//時間経過による回復
 	PeriodicUpdate();
-	//ステートを回復
+	//ステートを更新
 	StateUpdate();
 	//モデル情報を更新
 	ModelUpdate();
@@ -93,33 +84,6 @@ void Player::ChangeState()
 
 void Player::Move()
 {
-	Vector3 MoveSpeed = Vector3::Zero;
-	//前方向を取得
-	Vector3 ForwardModel = ForwardUpdate();
-	//右方向を取得
-	Vector3 RightModel = RightUpdate();
-	//Wキーが押されたら
-	if (GetAsyncKeyState('W')) {
-		MoveSpeed += ForwardModel;
-	}
-	//Sキーが押されたら
-	if (GetAsyncKeyState('S')) {
-		MoveSpeed -= ForwardModel;
-	}
-	//Aキーが押されたら
-	if (GetAsyncKeyState('A')) {
-		MoveSpeed -= RightModel;
-	}
-	//Dキーが押されたら
-	if (GetAsyncKeyState('D')) {
-		MoveSpeed += RightModel;
-	}
-	//正規化して方向だけに
-	MoveSpeed.Normalize();
-	//1フレームに動く距離を掛ける
-	MoveSpeed *= MoveDistance;
-	//移動させる
-	m_Pos += MoveSpeed;
 }
 
 void Player::Rotation()
@@ -178,43 +142,4 @@ void Player::ModelUpdate()
 	Rotation();
 	//移動
 	Move();
-}
-
-Vector3 Player::ForwardUpdate()
-{
-	Matrix ModelMatrix = Matrix::Identity;
-	ModelMatrix.MakeRotationFromQuaternion(m_Rot);
-	//m[2]はZ軸
-	Vector3 ForwardModel = { ModelMatrix.m[Z][X],ModelMatrix.m[Z][Y],ModelMatrix.m[Z][Z] };
-	//正規化して方向だけに
-	ForwardModel.Normalize();
-	//前方向を返す
-	return ForwardModel;
-}
-
-Vector3 Player::RightUpdate()
-{
-	Matrix ModelMatrix = Matrix::Identity;
-	ModelMatrix.MakeRotationFromQuaternion(m_Rot);
-	//m[0]はX軸
-	Vector3 RightModel = { ModelMatrix.m[X][X],ModelMatrix.m[X][Y],ModelMatrix.m[X][Z] };
-	//正規化して方向だけに
-	RightModel.Normalize();
-	//右方向を返す
-	return RightModel;
-}
-
-void Player::SetCamera()
-{
-	//カメラポジションを設定
-	m_Camera->SetPosition(m_Pos);
-	//カメラターゲットを設定
-	Vector3 CaneraTarget = Vector3::Zero;
-	CaneraTarget = m_Pos;
-	//フォワード方向を取得
-	Vector3 Forward = ForwardUpdate();
-	//カメラターゲットは前方向とカメラターゲット用の距離を掛けた位置になる
-	CaneraTarget += Forward* CameraTargetDistance;
-	//カメラターゲットを設定
-	m_Camera->SetTarget(CaneraTarget);
 }

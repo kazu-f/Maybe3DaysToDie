@@ -1,10 +1,14 @@
 #pragma once
-class GameCamera;
 class PlayerHp;
 class PlayerStamina;
 class PlayerHunger;
 class PlayerWater;
 
+//配列用の定数
+//なんとなくマジックナンバーが嫌だったので定数化
+enum Vector {
+	X, Y, Z
+};
 enum State {
 	Idle,			//待機
 	Walk,			//歩く
@@ -33,6 +37,10 @@ private:
 	/// </summary>
 	void OnDestroy()override final;
 
+public:
+	const Vector3 GetPosition() const {
+		return m_Pos;
+	}
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
@@ -83,23 +91,40 @@ private:
 	/// モデルの前方向を更新し戻り値に渡す
 	/// </summary>
 	///<returns>前方向</returns>
-	Vector3 ForwardUpdate();
+	Vector3 ForwardUpdate()
+	{
+		Matrix ModelMatrix = Matrix::Identity;
+		ModelMatrix.MakeRotationFromQuaternion(m_Rot);
+		//m[2]はZ軸
+		Vector3 ForwardModel = { ModelMatrix.m[Z][X],ModelMatrix.m[Z][Y],ModelMatrix.m[Z][Z] };
+		//正規化して方向だけに
+		ForwardModel.Normalize();
+		//前方向を返す
+		return ForwardModel;
+	}
 	/// <summary>
 	/// モデルの右方向を更新し戻り値に渡す
 	/// </summary>
 	/// <returns>右方向</returns>
-	Vector3 RightUpdate();
+	Vector3 RightUpdate()
+	{
+		Matrix ModelMatrix = Matrix::Identity;
+		ModelMatrix.MakeRotationFromQuaternion(m_Rot);
+		//m[0]はX軸
+		Vector3 RightModel = { ModelMatrix.m[X][X],ModelMatrix.m[X][Y],ModelMatrix.m[X][Z] };
+		//正規化して方向だけに
+		RightModel.Normalize();
+		//右方向を返す
+		return RightModel;
+	}
 
-	/// <summary>
-	/// カメラを設定
-	/// </summary>
-	void SetCamera();
 private:
 	////////////モデル/////////////////////////////////////////////
 	prefab::ModelRender* m_Model = nullptr;		//プレイヤーモデル
 	Vector3 m_Pos = { 0.0f,170.0f,500.0f };
 	Quaternion m_Rot = Quaternion::Identity;
 	Vector3 m_Scale = Vector3::One;
+	CCharacterController m_Characon;
 	///////////////////////////////////////////////////////////////
 	
 	/////体力//////////////////////////////////////////////////////
@@ -127,10 +152,6 @@ private:
 	float m_SensiX = 0.02f;
 	float m_SensiY = 0.02f;
 	float m_RotAngle[2] = { 0.0f,0.0f };
-	///////////////////////////////////////////////////////////////////
-	
-	///////カメラ//////////////////////////////////////////////////////
-	GameCamera* m_Camera = nullptr;
 	///////////////////////////////////////////////////////////////////
 };
 
