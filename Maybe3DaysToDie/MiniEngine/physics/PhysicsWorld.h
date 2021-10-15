@@ -166,6 +166,16 @@ namespace Engine {
 			std::function<void(const btCollisionObject& contactCollisionObject)> cb	
 		);
 
+		//ƒŒƒC‚ÌÕ“ËŒŸo
+		void RayTest(
+			const btVector3& rayFromWorld,
+			const btVector3& rayToWorld,
+			btCollisionWorld::RayResultCallback& resultCallback
+		)
+		{
+			m_dynamicWorld->rayTest(rayFromWorld, rayToWorld, resultCallback);
+		}
+
 	};///class CPhysicsWorld
 
 }///namespace Engine;

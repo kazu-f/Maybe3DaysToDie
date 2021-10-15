@@ -94,7 +94,7 @@
 
 #include "graphics/PreRender/ShadowMap.h"
 #include "graphics/PreRender/GBufferRender.h"
-#include "graphics/deferrd/DefferdShading.h"
+#include "graphics/defferd/DefferdShading.h"
 #include "graphics/PostEffect/PostEffect.h"
 #include "graphics/Fade.h"
 

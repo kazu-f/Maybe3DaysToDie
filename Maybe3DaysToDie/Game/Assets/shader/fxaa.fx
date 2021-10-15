@@ -60,7 +60,7 @@ float4 FxaaPixelShader(
 	float lumaMaxScaledClamped = max(fxaaConsoleEdgeThresholdMin,lumaMaxScaled);	//最終的な輝度の差の閾値。
 	//輝度の最低値、最大値。
 	float lumaMinM = min(lumaMin,lumaM);		//輝度の最低値を求める。
-	float lumaMaxM = min(lumaMax,lumaM);		//輝度の最大値を求める。
+	float lumaMaxM = max(lumaMax,lumaM);		//輝度の最大値を求める。
 	//輝度の差を求める。
 	float dirSwMinusNe = lumaSw - lumaNe;		//Sw - Me
 	float lumaMaxSubMinM = lumaMaxM - lumaMinM;	//最大値 - 最低値。
@@ -68,17 +68,13 @@ float4 FxaaPixelShader(
 	//輝度の差は閾値以下か？
 	if(lumaMaxSubMinM < lumaMaxScaledClamped){
 		//閾値以下だったため、アンチをかけない。
-		//return float4(0.0f, 0.0f, 0.0f, 1.0f);
 		return rgbyM;
 	}
-	//return float4(1.0f, 0.0f, 0.0f, 1.0f);
 
 	//輝度の差を利用して、ギザギザが発生している可能性の高いテクセルをフェッチする。
 	float2 dir;
 	dir.x = dirSwMinusNe + dirSeMinusNw;
 	dir.y = dirSwMinusNe - dirSeMinusNw;
-	//dir.x = -((lumaNw + lumaNe) - (lumaSw + lumaSe));
-	//dir.y = ((lumaNw + lumaSw) - (lumaNe + lumaSe));
 
 	float2 dir1 = normalize(dir.xy);
 	float4 rgbyN1 = sceneTexture.Sample(g_sampler, pos.xy - dir1 * fxaaConsoleRcpFrameOpt.zw);
@@ -91,7 +87,6 @@ float4 FxaaPixelShader(
 	float4 rgbyP2 = sceneTexture.Sample(g_sampler, pos.xy + dir2 * fxaaConsoleRcpFrameOpt2.zw);
 	//ブレンド
 	float4 rgbyA = rgbyN1 + rgbyP1;
-	//return rgbyA * 0.5f;
 	float4 rgbyB = ((rgbyN2 + rgbyP2) * 0.25) + (rgbyA * 0.25);
 
 	int twoTap = (rgbyB.y < lumaMin) || (rgbyB.y > lumaMax);
@@ -99,10 +94,7 @@ float4 FxaaPixelShader(
 	if(twoTap){
 		//輝度の差がまだ大きいためブレンド。
 		rgbyB.xyz = rgbyA.xyz * 0.5;
-
-		//return float4(0.0f, 1.0f, 0.0f, 1.0f);
 	}
-	//return float4(1.0f, 0.0f, 0.0f, 1.0f);
 
 	return rgbyB;
 }
@@ -121,29 +113,22 @@ float4 PSMain(PSInput In) : SV_TARGET0
 	float level;
 	sceneTexture.GetDimensions(0, texSize.x, texSize.y, level);	//テクスチャのサイズを取得。
 	float4 rcpFrame = float4(0.0f, 0.0f, 1.0f/texSize.x, 1.0f/texSize.y);
-	return FxaaPixelShader(
+
+	float4 color = FxaaPixelShader(
 		In.uv,
-		rcpFrame,			//fxaaConsoleRcpFrameOpt
-		rcpFrame,			//fxaaConsoleRcpFrameOpt2
-		0.166f,				//fxaaQualityEdgeThreshold
-		0.0833f,			//fxaaQualityEdgeThresholdMin
-		1.0f,				//fxaaConsoleEdgeSharpness
-		0.4f,				//fxaaConsoleEdgeThreshold
-		0.0833f,			//fxaaConsoleEdgeThresholdMin
-		texSize				//テクスチャのサイズ。
+		rcpFrame,							// float4 fxaaConsoleRcpFrameOpt,
+		rcpFrame,							// float4 fxaaConsoleRcpFrameOpt2,
+		0.166f,								// FxaaFloat fxaaQualityEdgeThreshold,
+		0.0833f,							// FxaaFloat fxaaQualityEdgeThresholdMin,
+		1.0f,								// FxaaFloat fxaaConsoleEdgeSharpness,
+		0.4f,								// FxaaFloat fxaaConsoleEdgeThreshold,
+		0.0833f,								// FxaaFloat fxaaConsoleEdgeThresholdMin,
+		texSize
 	);
 
-	//return FxaaPixelShader(
-	//	In.uv,
-	//	rcpFrame,			//fxaaConsoleRcpFrameOpt
-	//	rcpFrame,			//fxaaConsoleRcpFrameOpt2
-	//	0.166f,				//fxaaQualityEdgeThreshold
-	//	0.0833f,			//fxaaQualityEdgeThresholdMin
-	//	1.0f,				//fxaaConsoleEdgeSharpness
-	//	0.125,				//fxaaConsoleEdgeThreshold
-	//	0.0312,			//fxaaConsoleEdgeThresholdMin
-	//	texSize				//テクスチャのサイズ。
-	//);
+	////ガンマ補正。
+	//color.xyz = pow(max(color.xyz, 0.0001f), 1.0f / 2.2f);
+	return color;
 }
 
 

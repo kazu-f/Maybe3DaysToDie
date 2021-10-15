@@ -56,7 +56,7 @@ namespace Engine {
 		{
 			(void)objectName;
 			if (!go->m_isRegist) {
-				//go->Awake();		//作ってなかった。
+				go->Awake();
 				unsigned int hash = MakeGameObjectNameKey(objectName);
 				m_gameObjectListArray.at(prio).push_back(go);
 				go->m_isRegist = true;		//登録済み。
@@ -87,7 +87,7 @@ namespace Engine {
 #endif // DEBUG
 			}
 			T* newObject = new T();				//インスタンスの作成。
-			//newObject->Awake();				//作ってない奴。
+			newObject->Awake();
 			newObject->SetMarkNewFromGameObjectManager();			//NewGameObjectで作られた。
 			m_gameObjectListArray.at(prio).push_back(newObject);	//リストに追加。
 			unsigned int hash = MakeGameObjectNameKey(objectName);	//名前キーの作成。

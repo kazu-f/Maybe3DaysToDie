@@ -1,6 +1,20 @@
 #pragma once
 class GameCamera : public IGameObject
 {
+private:
+	/// <summary>
+	/// GameObjectに積まれると一度だけ呼ばれる初期化関数
+	/// </summary>
+	/// <returns>trueが返るまでループする</returns>
+	bool Start();
+	/// <summary>
+	/// 更新
+	/// </summary>
+	void Update();
+	/// <summary>
+	/// deleteされると呼ばれる関数
+	/// </summary>
+	void OnDestroy();
 public:
 	/// <summary>
 	/// 位置を設定
@@ -31,19 +45,6 @@ public:
 		return m_Target;
 	}
 private:
-	/// <summary>
-	/// 初期化
-	/// </summary>
-	/// <returns>trueを返すまでループする</returns>
-	bool Start();
-	/// <summary>
-	/// 更新
-	/// </summary>
-	void Update();
-	/// <summary>
-	/// deleteされると呼ばれる関数
-	/// </summary>
-	void OnDestroy();
 
 	Vector3 m_Pos = { 0.0f, 200.0f, 500.0f };	//位置
 	Vector3 m_Target = Vector3::Zero;			//ターゲット

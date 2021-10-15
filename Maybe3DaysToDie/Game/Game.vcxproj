@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -135,7 +135,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -156,30 +156,59 @@
     </ImageContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
+    <ClCompile Include="DestructibleObject\Block\Block.cpp" />
+    <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Enemy\IEnemy.cpp" />
     <ClCompile Include="Enemy\StandardZombie.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameSnece.cpp" />
+    <ClCompile Include="Stage\IStage.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerHp.cpp" />
+    <ClCompile Include="PlacementObject\PlacementObject.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerWater.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
+    <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
+    <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
+    <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DestructibleObject\DestructibleObject.h" />
+    <ClInclude Include="DestructibleObject\Block\Block.h" />
+    <ClInclude Include="DateTime.h" />
     <ClInclude Include="Enemy\EnemyGenerator.h" />
     <ClInclude Include="Enemy\IEnemy.h" />
     <ClInclude Include="Enemy\StandardZombie.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameSnece.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerHp.h" />
+    <ClInclude Include="Stage\IStage.h" />
+    <ClInclude Include="PlacementObject\PlacementObject.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerWater.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
+    <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
+    <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
+    <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\HPGauge.png" />
+    <ImageContentTask Include="Assets\sprite\HPIcon.png" />
+    <ImageContentTask Include="Assets\sprite\shoesIcon.png" />
+    <ImageContentTask Include="Assets\sprite\staminaGauge.png" />
+    <ImageContentTask Include="Assets\sprite\statusGauge.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

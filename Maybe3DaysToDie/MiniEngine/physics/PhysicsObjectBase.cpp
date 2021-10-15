@@ -4,7 +4,7 @@
 #include "physics/CapsuleCollider.h"
 #include "physics/SphereCollider.h"
 #include "physics/MeshCollider.h"
-#include "graphics/Model.h"
+#include "graphics/Model/Model.h"
 #include "prefab/ModelRender.h"
 
 namespace Engine {

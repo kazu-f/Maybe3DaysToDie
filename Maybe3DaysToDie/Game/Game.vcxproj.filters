@@ -5,22 +5,51 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="GameCamera.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerHp.cpp" />
     <ClCompile Include="GameSnece.cpp" />
+    <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
     <ClCompile Include="Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Enemy\IEnemy.cpp" />
     <ClCompile Include="Enemy\StandardZombie.cpp" />
+    <ClCompile Include="PlacementObject\PlacementObject.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
+    <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerWater.cpp" />
+    <ClCompile Include="DateTime.cpp" />
+    <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
+    <ClCompile Include="DestructibleObject\Block\Block.cpp" />
+    <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
+    <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
+    <ClCompile Include="Stage\IStage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerHp.h" />
     <ClInclude Include="GameSnece.h" />
+    <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
     <ClInclude Include="Enemy\EnemyGenerator.h" />
     <ClInclude Include="Enemy\IEnemy.h" />
     <ClInclude Include="Enemy\StandardZombie.h" />
+    <ClInclude Include="PlacementObject\PlacementObject.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
+    <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerWater.h" />
+    <ClInclude Include="DateTime.h" />
+    <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
+    <ClInclude Include="DestructibleObject\Block\Block.h" />
+    <ClInclude Include="DestructibleObject\DestructibleObject.h" />
+    <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
+    <ClInclude Include="Stage\IStage.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\HPGauge.png" />
+    <ImageContentTask Include="Assets\sprite\HPIcon.png" />
+    <ImageContentTask Include="Assets\sprite\shoesIcon.png" />
+    <ImageContentTask Include="Assets\sprite\staminaGauge.png" />
+    <ImageContentTask Include="Assets\sprite\statusGauge.png" />
   </ItemGroup>
 </Project>

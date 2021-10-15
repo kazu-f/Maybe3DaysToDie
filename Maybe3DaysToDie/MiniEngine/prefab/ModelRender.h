@@ -2,7 +2,7 @@
 /// <summary>
 /// ƒ‚ƒfƒ‹ƒŒƒ“ƒ_[
 /// </summary>
-#include "graphics/Model.h"
+#include "graphics/Model/Model.h"
 #include "graphics/Animation/Animation.h"
 
 
