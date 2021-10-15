@@ -4,6 +4,6 @@ class Block:public DestructibleObject
 {
 public:
 	Block() {}
-	~Block() override final;
+	~Block() override final {}
 };
 

@@ -20,6 +20,8 @@
     <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
     <ClCompile Include="DestructibleObject\Block\Block.cpp" />
     <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
+    <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
+    <ClCompile Include="Stage\IStage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -40,6 +42,8 @@
     <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
     <ClInclude Include="DestructibleObject\Block\Block.h" />
     <ClInclude Include="DestructibleObject\DestructibleObject.h" />
+    <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
+    <ClInclude Include="Stage\IStage.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

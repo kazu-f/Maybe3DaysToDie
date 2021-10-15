@@ -23,7 +23,7 @@ namespace {
 		Num
 	};
 	///フォントの初期化データ//////////////////////
-	const Vector2 FontPos = { -515.0f, -220.0f };
+	const Vector2 FontPos = { -515.0f, -270.0f };
 	const float FontScale = 0.4f;
 	const Vector2 FontPivot = { 0.0f,0.5f };
 	///////////////////////////////////////////////
@@ -39,6 +39,9 @@ bool PlayerStamina::Start()
 
 	//IConSpriteを初期化
 	IConSpriteInit();
+
+	//スタミナのフォントを初期化
+	InitStaminaFont();
 	return true;
 }
 
@@ -53,6 +56,8 @@ void PlayerStamina::Update()
 	StaminaScale.x = (float)m_Stamina / (float)m_MaxStamina;
 	//CurrentSpriteの大きさを設定
 	m_CurrentSprite->SetScale(StaminaScale);
+	//スタミナのフォントを更新
+	UpdateStaminaFont();
 }
 
 void PlayerStamina::OnDestroy()
@@ -120,9 +125,45 @@ void PlayerStamina::IConSpriteInit()
 
 void PlayerStamina::InitStaminaFont()
 {
-		
+	m_StaminaFont = NewGO<CFontRender>(Font);
+	//Hpを表す文字列を作成
+	wchar_t StaminaText[256] = {};
+	//Hpをintからwchar_t型へ変換
+	_itow_s(m_Stamina, StaminaText, 10);
+	//テキストに/を追加
+	//これは現在のHpと最大HPの間にあるアレ
+	wcscat_s(StaminaText, L"/");
+	//最大Hp用の文字列を作成
+	wchar_t MaxHpText[256] = {};
+	//最大Hpをintからwchar_t型へ変換
+	_itow_s(m_MaxStamina, MaxHpText, 10);
+	//HPテキストに追加
+	wcscat_s(StaminaText, MaxHpText);
+	//フォントに文字列を設定
+	m_StaminaFont->SetText(StaminaText);
+	//フォントの位置
+	m_StaminaFont->SetPosition(FontPos);
+	//フォントの基点
+	m_StaminaFont->SetPivot(FontPivot);
+	//フォントの大きさ
+	m_StaminaFont->SetScale(FontScale);
 }
 
 void PlayerStamina::UpdateStaminaFont()
 {
+	//Hpを表す文字列を作成
+	wchar_t StaminaText[256] = {};
+	//Hpをintからwchar_t型へ変換
+	_itow_s(m_Stamina, StaminaText, 10);
+	//テキストに/を追加
+	//これは現在のHpと最大HPの間にあるアレ
+	wcscat_s(StaminaText, L"/");
+	//最大Hp用の文字列を作成
+	wchar_t MaxHpText[256] = {};
+	//最大Hpをintからwchar_t型へ変換
+	_itow_s(m_MaxStamina, MaxHpText, 10);
+	//HPテキストに追加
+	wcscat_s(StaminaText, MaxHpText);
+	//フォントに文字列を設定
+	m_StaminaFont->SetText(StaminaText);
 }
