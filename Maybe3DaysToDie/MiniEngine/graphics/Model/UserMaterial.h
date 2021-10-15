@@ -1,5 +1,5 @@
 #pragma once
-#include "graphics/Material.h"
+#include "Material.h"
 
 namespace Engine {
 	/// <summary>

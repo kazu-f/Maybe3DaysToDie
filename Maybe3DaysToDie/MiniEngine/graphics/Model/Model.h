@@ -2,7 +2,7 @@
 
 #include "tkFile/TkmFile.h"
 #include "MeshParts.h"
-#include "Skeleton.h"
+#include "../Skeleton.h"
 namespace Engine {
 	enum ModelUpAxis {
 		enModelUpAxis_Z,	//ZƒAƒbƒv

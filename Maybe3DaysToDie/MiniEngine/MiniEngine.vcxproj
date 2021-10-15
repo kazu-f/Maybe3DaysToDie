@@ -27,7 +27,7 @@
     <ClCompile Include="graphics\animation\Animation.cpp" />
     <ClCompile Include="graphics\animation\AnimationClip.cpp" />
     <ClCompile Include="graphics\animation\AnimationPlayController.cpp" />
-    <ClCompile Include="graphics\deferrd\DefferdShading.cpp" />
+    <ClCompile Include="graphics\defferd\DefferdShading.cpp" />
     <ClCompile Include="graphics\DescriptorHeap.cpp" />
     <ClCompile Include="graphics\Fade.cpp" />
     <ClCompile Include="graphics\Font\Font.cpp" />
@@ -40,9 +40,9 @@
     <ClCompile Include="graphics\GPUBuffer\VertexBuffer.cpp" />
     <ClCompile Include="graphics\GraphicsEngine.cpp" />
     <ClCompile Include="graphics\light\LightManager.cpp" />
-    <ClCompile Include="graphics\Material.cpp" />
-    <ClCompile Include="graphics\MeshParts.cpp" />
-    <ClCompile Include="graphics\Model.cpp" />
+    <ClCompile Include="graphics\Model\Material.cpp" />
+    <ClCompile Include="graphics\Model\MeshParts.cpp" />
+    <ClCompile Include="graphics\Model\Model.cpp" />
     <ClCompile Include="graphics\PipelineState.cpp" />
     <ClCompile Include="graphics\PipelineStatesDefault.cpp" />
     <ClCompile Include="graphics\PostEffect\Bloom.cpp" />
@@ -57,7 +57,7 @@
     <ClCompile Include="graphics\Shader.cpp" />
     <ClCompile Include="graphics\Skeleton.cpp" />
     <ClCompile Include="graphics\Texture.cpp" />
-    <ClCompile Include="graphics\UserMaterial.cpp" />
+    <ClCompile Include="graphics\Model\UserMaterial.cpp" />
     <ClCompile Include="HID\GamePad.cpp" />
     <ClCompile Include="level\Level.cpp" />
     <ClCompile Include="level\MapChip.cpp" />
@@ -108,7 +108,7 @@
     <ClInclude Include="graphics\animation\Animation.h" />
     <ClInclude Include="graphics\animation\AnimationClip.h" />
     <ClInclude Include="graphics\animation\AnimationPlayController.h" />
-    <ClInclude Include="graphics\deferrd\DefferdShading.h" />
+    <ClInclude Include="graphics\defferd\DefferdShading.h" />
     <ClInclude Include="graphics\Fade.h" />
     <ClInclude Include="graphics\Font\Font.h" />
     <ClInclude Include="graphics\Font\FontEngine.h" />
@@ -124,7 +124,7 @@
     <ClInclude Include="graphics\PreRender\GBufferRender.h" />
     <ClInclude Include="graphics\PreRender\ShadowMap.h" />
     <ClInclude Include="graphics\Primitive.h" />
-    <ClInclude Include="graphics\UserMaterial.h" />
+    <ClInclude Include="graphics\Model\UserMaterial.h" />
     <ClInclude Include="level\Level.h" />
     <ClInclude Include="level\MapChip.h" />
     <ClInclude Include="level\MapChipRender.h" />
@@ -167,9 +167,9 @@
     <ClInclude Include="graphics\GraphicsEngine.h" />
     <ClInclude Include="graphics\IShaderResource.h" />
     <ClInclude Include="graphics\IUnorderAccessResource.h" />
-    <ClInclude Include="graphics\Material.h" />
-    <ClInclude Include="graphics\MeshParts.h" />
-    <ClInclude Include="graphics\Model.h" />
+    <ClInclude Include="graphics\Model\Material.h" />
+    <ClInclude Include="graphics\Model\MeshParts.h" />
+    <ClInclude Include="graphics\Model\Model.h" />
     <ClInclude Include="graphics\PipelineState.h" />
     <ClInclude Include="graphics\RenderContext.h" />
     <ClInclude Include="graphics\RenderContext_inline.h" />

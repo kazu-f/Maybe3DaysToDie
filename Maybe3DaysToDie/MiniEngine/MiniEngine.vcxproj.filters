@@ -43,107 +43,62 @@
     <Filter Include="Assets\sprite">
       <UniqueIdentifier>{2c566b10-bb91-4ca9-baab-bc0f00afd12c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MyProgram">
-      <UniqueIdentifier>{83bc6eef-9504-4acd-8c23-0555b25d7676}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\level">
-      <UniqueIdentifier>{d862d0d3-883b-4e18-987f-160fa98ca636}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\physics">
-      <UniqueIdentifier>{d00e304a-89ea-4faa-a921-87549da2760e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\policy">
-      <UniqueIdentifier>{bd14b65e-b1d6-4908-96c7-38d73c7ac577}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Race">
-      <UniqueIdentifier>{5e7597b9-1d8d-4ae1-93de-c34800010783}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Race\RaceUI">
-      <UniqueIdentifier>{37a83391-f034-4385-a067-079c5a73c36f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Scenes">
-      <UniqueIdentifier>{b02697e7-f137-45ff-b3e2-b3a09d338724}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Sound">
-      <UniqueIdentifier>{1da7d323-b80c-48de-91e3-e4c29134be9e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Spectator">
-      <UniqueIdentifier>{a87fff65-f7a8-4225-b224-ddcf76966c1b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Guardrail">
-      <UniqueIdentifier>{6b020dc1-ee05-4625-a0fb-3ae623c6706c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Ground">
-      <UniqueIdentifier>{f3f33b09-f5b1-4a89-99a7-6e88fd100ba6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\CheckPoint">
-      <UniqueIdentifier>{4d2100b7-d4e8-4424-a675-8dfeae4444f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\gameObject">
-      <UniqueIdentifier>{40d94d8c-12b9-4d9c-9275-0090efcbe19a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\GameCamera">
-      <UniqueIdentifier>{8f7dcdee-6cb6-4a31-a5e6-b03bb11cf784}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\GameLight">
-      <UniqueIdentifier>{d3d62b83-0eb5-460b-92b3-595803ba4eca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\characterController">
-      <UniqueIdentifier>{69d57548-594e-4c96-88cb-6030e2f9a5a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Car">
-      <UniqueIdentifier>{a388ed18-2f72-437d-87e9-27c5f0c98aa4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Car\State">
-      <UniqueIdentifier>{df3bc0ae-0ac5-4329-a3a2-9301b6c22533}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Player">
-      <UniqueIdentifier>{0dcfeea1-dca9-490e-a6bb-c859f49851fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\graphics">
-      <UniqueIdentifier>{aee606f6-7fe0-47e6-b1f6-bcf53ef72a33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\util">
-      <UniqueIdentifier>{02169e3e-fc38-423e-9de0-0f4db8902453}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\graphics\animation">
-      <UniqueIdentifier>{6e2fba13-df3d-457f-ab17-019c8a3d04e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\graphics\defferd">
-      <UniqueIdentifier>{dbfd0d83-2bdf-457d-bede-bb8545c3b500}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\graphics\light">
-      <UniqueIdentifier>{23807ab7-7b7c-49b4-add7-9d6ec13da296}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\graphics\PreRender">
-      <UniqueIdentifier>{522912f5-7cbe-4b9d-ae7d-25971c5cf7be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\prefab">
-      <UniqueIdentifier>{685e0cba-9ba1-4524-b24c-e57cdd6b2b8c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\prefab\light">
-      <UniqueIdentifier>{0ff9d23b-fa30-4a08-b2db-b38cba3951f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\graphics\PostEffect">
-      <UniqueIdentifier>{dedbf358-27ad-473f-86ab-2bdd1a827eff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\prefab\nature">
-      <UniqueIdentifier>{7536199a-e996-4a1b-acea-fd760d602e90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Car\CarDriver">
-      <UniqueIdentifier>{87f61c3e-5bf7-4309-ba3d-984b67d71e49}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyProgram\Scenes\Title">
-      <UniqueIdentifier>{46ef7421-847f-4e4a-83c2-55822b2c6289}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Assets\sprite\Race">
       <UniqueIdentifier>{5dbea08e-3113-40ee-a2f5-1b9c45b9ab96}</UniqueIdentifier>
     </Filter>
     <Filter Include="Assets\sprite\Title">
       <UniqueIdentifier>{20c2f297-6f33-4b16-b2fd-8c01f1ab0c2a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MyProgram\Tree">
-      <UniqueIdentifier>{9f64f3fb-b848-4360-ac9b-d00cdb932cb2}</UniqueIdentifier>
+    <Filter Include="graphics\animation">
+      <UniqueIdentifier>{25796560-9640-41b0-9968-f77a496f82cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\defferd">
+      <UniqueIdentifier>{4a29ff4b-78b3-40da-b9c4-72ef890e0fac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\Font">
+      <UniqueIdentifier>{a0bc0034-4505-4062-a4f2-cdb994fd1e0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\Model">
+      <UniqueIdentifier>{d40fcacc-22d8-474a-9935-5a750c7d89d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\light">
+      <UniqueIdentifier>{6d0909fc-6439-4ed4-86a6-a999622e588e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="prefab">
+      <UniqueIdentifier>{249127c1-fdb7-43dd-9dd0-5340a5889c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="prefab\light">
+      <UniqueIdentifier>{7b6dd784-e4dc-495b-acc6-2f6485b099fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="prefab\nature">
+      <UniqueIdentifier>{f8db8068-120a-4f18-b8fa-07a8ed0dfb21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="level">
+      <UniqueIdentifier>{d5bc8122-c4ef-4e8a-a3d8-8ee52504f7be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="physics">
+      <UniqueIdentifier>{e2ba9fc7-bc7b-4df4-a72f-1000a6d81cb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="policy">
+      <UniqueIdentifier>{ea469e3d-edcb-4e84-9081-54c429fa143c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{88ad7b3c-b64d-4c0b-a45f-9c439ee58e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{fb2d2683-da08-4a9e-80b7-7c9095ba136c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameObject">
+      <UniqueIdentifier>{614d3c44-58fd-4d8d-86b1-61a6af97e7c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="characterController">
+      <UniqueIdentifier>{8d1858b8-081d-4e9e-a3e3-054f77be9d79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\PostEffect">
+      <UniqueIdentifier>{c0ec9bd9-cbed-4334-9f74-39060dbe8c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\PreRender">
+      <UniqueIdentifier>{5c7b1e02-4f31-47c6-a8bb-4d0148c405d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -151,15 +106,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="graphics\DescriptorHeap.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Material.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\MeshParts.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Model.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
     <ClCompile Include="graphics\PipelineState.cpp">
@@ -228,152 +174,161 @@
     <ClCompile Include="graphics\GraphicsEngine.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="util\CGameTime.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="util\Stopwatch.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Sound\SoundEngine.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Sound\SoundSource.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Sound\WaveFile.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Sound\WaveFileBank.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="prefab\light\DirectionLight.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="prefab\light\LightBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="prefab\light\PointLight.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="prefab\nature\Sky.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="prefab\ModelRender.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="prefab\SpriteRender.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\BoxCollider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\CapsuleCollider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\ICollider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\MeshCollider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\PhysicsDebugDraw.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\PhysicsGhostobject.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\PhysicsObjectBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\PhysicsStaticObject.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\PhysicsWorld.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\RigidBody.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\SphereCollider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="level\Level.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="level\MapChip.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="level\MapChipRender.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="level\TklFile.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\animation\Animation.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\animation\AnimationClip.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\animation\AnimationPlayController.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\deferrd\DefferdShading.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\light\LightManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\PostEffect\Bloom.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\PostEffect\Fxaa.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\PostEffect\PostEffect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\PostEffect\Tonemap.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\PreRender\GBufferRender.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\PreRender\ShadowMap.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Fade.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\PipelineStatesDefault.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\Primitive.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\UserMaterial.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="gameObject\GameObjectManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="gameObject\IGameObject.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="characterController\CharacterController.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="MiniEngine.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Font\Font.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="graphics\animation\Animation.cpp">
+      <Filter>graphics\animation</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Font\FontEngine.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="graphics\animation\AnimationClip.cpp">
+      <Filter>graphics\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\animation\AnimationPlayController.cpp">
+      <Filter>graphics\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\defferd\DefferdShading.cpp">
+      <Filter>graphics\defferd</Filter>
     </ClCompile>
     <ClCompile Include="graphics\Font\FontRender.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>graphics\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Font\FontEngine.cpp">
+      <Filter>graphics\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Font\Font.cpp">
+      <Filter>graphics\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Model\Material.cpp">
+      <Filter>graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Model\MeshParts.cpp">
+      <Filter>graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Model\Model.cpp">
+      <Filter>graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Model\UserMaterial.cpp">
+      <Filter>graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\light\LightManager.cpp">
+      <Filter>graphics\light</Filter>
+    </ClCompile>
+    <ClCompile Include="prefab\SpriteRender.cpp">
+      <Filter>prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="prefab\ModelRender.cpp">
+      <Filter>prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="prefab\light\DirectionLight.cpp">
+      <Filter>prefab\light</Filter>
+    </ClCompile>
+    <ClCompile Include="prefab\light\LightBase.cpp">
+      <Filter>prefab\light</Filter>
+    </ClCompile>
+    <ClCompile Include="prefab\light\PointLight.cpp">
+      <Filter>prefab\light</Filter>
+    </ClCompile>
+    <ClCompile Include="prefab\nature\Sky.cpp">
+      <Filter>prefab\nature</Filter>
+    </ClCompile>
+    <ClCompile Include="level\TklFile.cpp">
+      <Filter>level</Filter>
+    </ClCompile>
+    <ClCompile Include="level\MapChipRender.cpp">
+      <Filter>level</Filter>
+    </ClCompile>
+    <ClCompile Include="level\MapChip.cpp">
+      <Filter>level</Filter>
+    </ClCompile>
+    <ClCompile Include="level\Level.cpp">
+      <Filter>level</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\BoxCollider.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\CapsuleCollider.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\ICollider.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\MeshCollider.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\PhysicsDebugDraw.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\PhysicsGhostobject.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\PhysicsObjectBase.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\PhysicsStaticObject.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\PhysicsWorld.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\RigidBody.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\SphereCollider.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound\WaveFileBank.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound\WaveFile.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound\SoundSource.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound\SoundEngine.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="util\Stopwatch.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\CGameTime.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject\IGameObject.cpp">
+      <Filter>gameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject\GameObjectManager.cpp">
+      <Filter>gameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="characterController\CharacterController.cpp">
+      <Filter>characterController</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\PostEffect\Tonemap.cpp">
+      <Filter>graphics\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\PostEffect\Fxaa.cpp">
+      <Filter>graphics\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\PostEffect\Bloom.cpp">
+      <Filter>graphics\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\PostEffect\PostEffect.cpp">
+      <Filter>graphics\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\PreRender\GBufferRender.cpp">
+      <Filter>graphics\PreRender</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\PreRender\ShadowMap.cpp">
+      <Filter>graphics\PreRender</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\PipelineStatesDefault.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Primitive.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Fade.cpp">
+      <Filter>graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -393,15 +348,6 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="graphics\IUnorderAccessResource.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\Material.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\MeshParts.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\Model.h">
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="graphics\PipelineState.h">
@@ -485,167 +431,176 @@
     <ClInclude Include="EngineStruct.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="util\CGameTime.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="util\NameKey.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="util\Stopwatch.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="util\Util.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound\SoundEngine.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound\SoundSource.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound\WaveFile.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound\WaveFileBank.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="prefab\light\DirectionLight.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="prefab\light\LightBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="prefab\light\PointLight.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="prefab\nature\Sky.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="prefab\ModelRender.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="prefab\SpriteRender.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="policy\Noncopyable.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\BoxCollider.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\CapsuleCollider.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\CollisionAttr.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\ICollider.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\MeshCollider.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\PhysicsDebugDraw.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\PhysicsGhostobject.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\PhysicsObjectBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\PhysicsStaticObject.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\PhysicsWorld.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\RigidBody.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\SphereCollider.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="level\Level.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="level\MapChip.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="level\MapChipRender.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="level\TklFile.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="graphics\animation\AnimationClip.h">
+      <Filter>graphics\animation</Filter>
     </ClInclude>
     <ClInclude Include="graphics\animation\Animation.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\animation\AnimationClip.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>graphics\animation</Filter>
     </ClInclude>
     <ClInclude Include="graphics\animation\AnimationPlayController.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>graphics\animation</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\deferrd\DefferdShading.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\light\LightData.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\light\LightManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\PostEffect\Bloom.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\PostEffect\Fxaa.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\PostEffect\PostEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\PostEffect\Tonemap.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\PreRender\GBufferRender.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\PreRender\ShadowMap.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\Fade.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\GraphicsConfig.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\PipelineStatesDefault.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\Primitive.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\UserMaterial.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="gameObject\GameObjectManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="gameObject\IGameObject.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="characterController\CharacterController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\Font\Font.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\Font\FontEngine.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="graphics\defferd\DefferdShading.h">
+      <Filter>graphics\defferd</Filter>
     </ClInclude>
     <ClInclude Include="graphics\Font\FontRender.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Font\FontEngine.h">
+      <Filter>graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Font\Font.h">
+      <Filter>graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Model\Material.h">
+      <Filter>graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Model\MeshParts.h">
+      <Filter>graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Model\Model.h">
+      <Filter>graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Model\UserMaterial.h">
+      <Filter>graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\light\LightManager.h">
+      <Filter>graphics\light</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\light\LightData.h">
+      <Filter>graphics\light</Filter>
+    </ClInclude>
+    <ClInclude Include="prefab\SpriteRender.h">
+      <Filter>prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="prefab\ModelRender.h">
+      <Filter>prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="prefab\light\DirectionLight.h">
+      <Filter>prefab\light</Filter>
+    </ClInclude>
+    <ClInclude Include="prefab\light\LightBase.h">
+      <Filter>prefab\light</Filter>
+    </ClInclude>
+    <ClInclude Include="prefab\light\PointLight.h">
+      <Filter>prefab\light</Filter>
+    </ClInclude>
+    <ClInclude Include="prefab\nature\Sky.h">
+      <Filter>prefab\nature</Filter>
+    </ClInclude>
+    <ClInclude Include="level\TklFile.h">
+      <Filter>level</Filter>
+    </ClInclude>
+    <ClInclude Include="level\MapChip.h">
+      <Filter>level</Filter>
+    </ClInclude>
+    <ClInclude Include="level\MapChipRender.h">
+      <Filter>level</Filter>
+    </ClInclude>
+    <ClInclude Include="level\Level.h">
+      <Filter>level</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\BoxCollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\CollisionAttr.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\CapsuleCollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\ICollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\MeshCollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\PhysicsDebugDraw.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\PhysicsGhostobject.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\PhysicsObjectBase.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\PhysicsStaticObject.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\PhysicsWorld.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\RigidBody.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\SphereCollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="policy\Noncopyable.h">
+      <Filter>policy</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\WaveFileBank.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\WaveFile.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\SoundEngine.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\SoundSource.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Stopwatch.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Util.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\CGameTime.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\NameKey.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject\GameObjectManager.h">
+      <Filter>gameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject\IGameObject.h">
+      <Filter>gameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="characterController\CharacterController.h">
+      <Filter>characterController</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\PostEffect\Tonemap.h">
+      <Filter>graphics\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\PostEffect\PostEffect.h">
+      <Filter>graphics\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\PostEffect\Fxaa.h">
+      <Filter>graphics\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\PostEffect\Bloom.h">
+      <Filter>graphics\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\PreRender\GBufferRender.h">
+      <Filter>graphics\PreRender</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\PreRender\ShadowMap.h">
+      <Filter>graphics\PreRender</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\GraphicsConfig.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\PipelineStatesDefault.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Primitive.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Fade.h">
+      <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

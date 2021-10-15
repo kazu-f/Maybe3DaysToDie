@@ -1,8 +1,8 @@
 #include "MiniEngine.h"
 #include "MeshParts.h"
-#include "Skeleton.h"
+#include "../Skeleton.h"
 #include "Material.h"
-#include "graphics\UserMaterial.h"
+#include "UserMaterial.h"
 
 namespace Engine {
 	MeshParts::~MeshParts()

@@ -1,6 +1,6 @@
 #include "MiniEngine.h"
 #include "Sky.h"
-#include "graphics/Material.h"
+#include "graphics/Model/Material.h"
 
 namespace Engine {
 	namespace prefab {
