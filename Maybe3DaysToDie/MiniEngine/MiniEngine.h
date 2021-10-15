@@ -100,6 +100,8 @@
 
 #include "graphics/PipelineStatesDefault.h"
 
+#include "NaviMesh/NaviMeshAgent.h"
+
 #include "system/system.h"
 
 const UINT FRAME_BUFFER_W = 1280;				//フレームバッファの幅。
