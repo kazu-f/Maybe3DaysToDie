@@ -66,11 +66,13 @@
 #include "graphics/2D/Sprite.h"
 #include "graphics/Font/FontRender.h"
 
-//#include "graphics/Model.h"
 #include "HID/GamePad.h"
 #include "util/NameKey.h"
 #include "util/CGameTime.h"
+#include "util/TResourceBank.h"
+#include "tkFile/TkmFile.h"
 
+#include "ResourceEngine.h"
 #include "physics/PhysicsWorld.h"
 #include "Sound/SoundEngine.h"
 #include "tkEngine.h"

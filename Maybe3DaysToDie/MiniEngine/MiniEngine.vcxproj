@@ -88,6 +88,7 @@
     <ClCompile Include="prefab\ModelRender.cpp" />
     <ClCompile Include="prefab\nature\Sky.cpp" />
     <ClCompile Include="prefab\SpriteRender.cpp" />
+    <ClCompile Include="ResourceEngine.cpp" />
     <ClCompile Include="Sound\SoundEngine.cpp" />
     <ClCompile Include="Sound\SoundSource.cpp" />
     <ClCompile Include="Sound\WaveFile.cpp" />
@@ -97,6 +98,7 @@
     <ClCompile Include="tkFile\TkaFile.cpp" />
     <ClCompile Include="tkFile\TkmFile.cpp" />
     <ClCompile Include="tkFile\TksFile.cpp" />
+    <ClCompile Include="util\TResourceBank.cpp" />
     <ClCompile Include="util\CGameTime.cpp" />
     <ClCompile Include="util\Stopwatch.cpp" />
   </ItemGroup>
@@ -149,6 +151,7 @@
     <ClInclude Include="prefab\ModelRender.h" />
     <ClInclude Include="prefab\nature\Sky.h" />
     <ClInclude Include="prefab\SpriteRender.h" />
+    <ClInclude Include="ResourceEngine.h" />
     <ClInclude Include="Sound\SoundEngine.h" />
     <ClInclude Include="Sound\SoundSource.h" />
     <ClInclude Include="Sound\WaveFile.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="tkFile\TkaFile.h" />
     <ClInclude Include="tkFile\TkmFile.h" />
     <ClInclude Include="tkFile\TksFile.h" />
+    <ClInclude Include="util\TResourceBank.h" />
     <ClInclude Include="util\CGameTime.h" />
     <ClInclude Include="util\NameKey.h" />
     <ClInclude Include="util\Stopwatch.h" />

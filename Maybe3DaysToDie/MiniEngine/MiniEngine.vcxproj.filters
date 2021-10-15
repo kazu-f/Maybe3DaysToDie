@@ -330,6 +330,12 @@
     <ClCompile Include="graphics\Fade.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="util\TResourceBank.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceEngine.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tkEngine.h">
@@ -601,6 +607,12 @@
     </ClInclude>
     <ClInclude Include="graphics\Fade.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="util\TResourceBank.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceEngine.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

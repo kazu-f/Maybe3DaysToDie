@@ -57,6 +57,13 @@ namespace Engine {
 		{
 			return m_graphicsEngine;
 		}
+		/// <summary>
+		/// リソースエンジンを取得。
+		/// </summary>
+		CResourceEngine& GetResourceEngine()
+		{
+			return m_resourceEngine;
+		}
 		//物理ワールド。
 		CPhysicsWorld& GetPhyshicsWorld()
 		{
@@ -82,6 +89,7 @@ namespace Engine {
 
 	private:
 		CGraphicsEngine* m_graphicsEngine = nullptr;		//グラフィックエンジン。
+		CResourceEngine m_resourceEngine;				//リソースエンジン。
 		CPhysicsWorld m_physicsWorld;					//物理ワールド。
 		CSoundEngine m_soundEngine;						//サウンドエンジン。
 		GamePad m_pad[GamePad::CONNECT_PAD_MAX];		//ゲームパッド。
@@ -133,6 +141,13 @@ namespace Engine {
 		return GraphicsEngine()->Get2DCamera();
 	}
 
+	/// <summary>
+	/// リソースエンジンを取得。
+	/// </summary>
+	static inline CResourceEngine& ResourceEngine()
+	{
+		return GameEngine().GetResourceEngine();
+	}
 	/// <summary>
 	/// 物理ワールドを取得。
 	/// </summary>

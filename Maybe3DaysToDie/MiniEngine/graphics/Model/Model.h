@@ -96,7 +96,7 @@ namespace Engine {
 		/// </summary>
 		bool IsInited()
 		{
-			return m_tkmFile.IsLoaded();
+			return m_tkmFile->IsLoaded();
 		}
 		/// <summary>
 		/// インスタンシング描画か？
@@ -140,7 +140,7 @@ namespace Engine {
 		/// </summary>
 		const TkmFile& GetTkmFile()const
 		{
-			return m_tkmFile;
+			return *m_tkmFile;
 		}
 		/// <summary>
 		/// モデルマテリアルの検索。
@@ -153,7 +153,7 @@ namespace Engine {
 	private:
 
 		Matrix m_world;			//ワールド行列。
-		TkmFile m_tkmFile;		//tkmファイル。
+		TkmFile* m_tkmFile;		//tkmファイル。
 		MeshParts m_meshParts;	//メッシュパーツ。
 		std::unique_ptr<Matrix[]> m_instancingData;	//インスタンシング描画用のデータ。
 		StructuredBuffer m_instancingDataSB;		//インスタンシング描画用のバッファ。

@@ -11,9 +11,18 @@ namespace Engine {
 			m_instancingDataSB.Init(sizeof(Matrix), maxInstance, m_instancingData.get());
 		}
 
-		m_tkmFile.Load(initData.m_tkmFilePath);
+		auto tkmFile = ResourceEngine().GetTkmFileFromBank(initData.m_tkmFilePath);
+		if (tkmFile == nullptr)
+		{
+			tkmFile = new TkmFile();
+			tkmFile->Load(initData.m_tkmFilePath);
+			ResourceEngine().RegistTkmFileToBank(initData.m_tkmFilePath,tkmFile);
+		}
+
+		m_tkmFile = tkmFile;
+
 		m_meshParts.InitFromTkmFile(
-			m_tkmFile,
+			*m_tkmFile,
 			initData.m_shaderData,
 			initData.m_expandConstantBuffer,
 			initData.m_expandConstantBufferSize,
