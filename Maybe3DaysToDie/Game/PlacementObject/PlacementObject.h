@@ -6,7 +6,7 @@ private:
 	struct RayResult :public btCollisionWorld::RayResultCallback
 	{
 		bool isHit = false;		//衝突フラグ
-
+		Vector3 hitNormal = Vector3::Zero;
 		//衝突したときに呼ばれる関数
 		virtual btScalar addSingleResult(
 			btCollisionWorld::LocalRayResult& convexResult,
@@ -14,6 +14,7 @@ private:
 		)
 		{
 			isHit = true;
+			hitNormal.Set(convexResult.m_hitNormalLocal);
 			//距離が近いほうに更新
 			if (m_closestHitFraction > convexResult.m_hitFraction)
 			{

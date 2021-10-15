@@ -9,7 +9,7 @@ public:
 
 	void OnDestroy();
 	void CreateStage()override final;
-
+	void Draw();
 private:
 };
 

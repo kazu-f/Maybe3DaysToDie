@@ -97,12 +97,25 @@ void PlacementObject::CalcObjectPos()
 
 		//ポジションに代入
 		lastPos.x = static_cast<float>(x - remain_x);
-		lastPos.y = static_cast<float>(y - remain_y);
+		//lastPos.y = static_cast<float>(y - remain_y);
 		lastPos.z = static_cast<float>(z - remain_z);
 
 		//四捨五入した値を加算
 		lastPos.x += round_x;
 		lastPos.z += round_z;
+
+		////上方向と衝突点の法線のなす角度を求める。
+		//float angle = callback.hitNormal.Dot(Vector3::Up);
+		////角度を変換
+		//angle = fabsf(acosf(angle));
+		////地面にあたっている
+		//if (angle < Math::PI * 0.3f)
+		//{
+		//	//四捨五入する
+		//	float round_y = round(static_cast<float>(remain_y / 100.0f));
+		//	//加算
+		//	lastPos.y += round_y;
+		//}
 	}
 	m_pos.Set(lastPos);
 }
