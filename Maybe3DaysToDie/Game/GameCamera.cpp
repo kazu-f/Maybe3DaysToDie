@@ -18,6 +18,9 @@ bool GameCamera::Start()
 
 void GameCamera::Update()
 {
+	if (GetAsyncKeyState('G')) {
+		m_IsChasePlayer = !m_IsChasePlayer;
+	}
 	if (m_IsChasePlayer) {
 		Vector3 CameraPos=m_Player->GetPosition();
 		CameraPos.y += 100.0f;
