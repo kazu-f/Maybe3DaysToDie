@@ -39,24 +39,6 @@ namespace Engine {
 				DXGI_FORMAT_D32_FLOAT,	//デプスステンシルフォーマット。
 				clearColor				//クリアカラー。
 			);
-
-			D3D12_VIEWPORT view;
-			view.TopLeftX = 0;
-			view.TopLeftY = 0;
-			view.Width = static_cast<FLOAT>(wh[shadowMapNo][0]);
-			view.Height = static_cast<FLOAT>(wh[shadowMapNo][1]);
-			view.MinDepth = D3D12_MIN_DEPTH;
-			view.MaxDepth = D3D12_MAX_DEPTH;
-
-			m_shadowView[shadowMapNo] = view;
-
-			D3D12_RECT rect;
-			rect.top = static_cast<LONG>(0.0f);
-			rect.left = static_cast<LONG>(0.0f);
-			rect.right = static_cast<LONG>(wh[shadowMapNo][0]);
-			rect.bottom = static_cast<LONG>(wh[shadowMapNo][1]);
-
-			m_scissorRect[shadowMapNo] = rect;
 		}
 
 
@@ -75,9 +57,7 @@ namespace Engine {
 
 		for (int i = 0; i < NUM_SHADOW_MAP; i++) {
 			//レンダリングターゲットの設定？
-			rc.SetRenderTarget(m_shadowMaps[i].GetRTVCpuDescriptorHandle(), m_shadowMaps[i].GetDSVCpuDescriptorHandle());
-			rc.SetViewport(m_shadowView[i]);		//ビューポートの設定。
-			rc.SetScissorRect(m_scissorRect[i]);	//シザリング短形の設定。
+			rc.SetRenderTargetAndViewport(&m_shadowMaps[i]);
 
 			const float clearColor = 1.0f;
 			const float value[] = { clearColor,clearColor,clearColor,clearColor };
@@ -85,13 +65,12 @@ namespace Engine {
 			rc.WaitUntilToPossibleSetRenderTarget(m_shadowMaps[i]);
 			rc.ClearRenderTargetView(m_shadowMaps[i].GetRTVCpuDescriptorHandle(), value);
 			rc.ClearDepthStencilView(m_shadowMaps[i].GetDSVCpuDescriptorHandle(), clearColor);
+
 			//影をドロー
 			for (auto& caster : m_shadowCasters) {
-				caster->Draw(rc,m_LVPMatrix[i]);
+				caster->RenderToShadowMap(rc,m_LVPMatrix[i],i);
 			}
 			rc.WaitUntilFinishDrawingToRenderTarget(m_shadowMaps[i]);
-			GraphicsEngine()->ExecuteCommand();
-			GraphicsEngine()->BeginRenderShadowMap();
 		}
 
 		//シャドウキャスター登録をクリア。
@@ -99,11 +78,7 @@ namespace Engine {
 	}
 	void CShadowMap::WaitEndRenderToShadowMap(RenderContext& rc)
 	{
-
-		////影の描画終わり。
-		//for (int i = 0; i < NUM_SHADOW_MAP; i++) {
-		//	rc.WaitUntilFinishDrawingToRenderTarget(m_shadowMaps[i]);
-		//}
+		GraphicsEngine()->ChangeToMainRenderTarget(rc);
 	}
 	void CShadowMap::Update()
 	{

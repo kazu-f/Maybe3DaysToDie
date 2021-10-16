@@ -37,13 +37,13 @@ namespace Engine {
 		/// <summary>
 		/// ディファードレンダリングへ登録する。
 		/// </summary>
-		void RegistDefferdModel(Model* caster) {
+		void RegistDefferdModel(prefab::ModelRender* caster) {
 			m_defferdModelArray.push_back(caster);
 		}
 		/// <summary>
 		/// ディファードレンダリング登録を解除する。
 		/// </summary>
-		void RemoveDefferdModel(Model* caster)
+		void RemoveDefferdModel(prefab::ModelRender* caster)
 		{
 			auto it = std::find(m_defferdModelArray.begin(), m_defferdModelArray.end(), caster);
 			if (it != m_defferdModelArray.end()) {
@@ -79,7 +79,7 @@ namespace Engine {
 		}
 	private:
 		RenderTarget m_GBuffer[static_cast<int>(EnGBuffer::enGBufferNum)];		//GBuffer。
-		std::vector<Model*> m_defferdModelArray;								//ディファードで描画するモデル。
+		std::vector<prefab::ModelRender*> m_defferdModelArray;								//ディファードで描画するモデル。
 	};	//////class CGBufferRender
 }
 

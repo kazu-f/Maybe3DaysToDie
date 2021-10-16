@@ -589,7 +589,8 @@ namespace Engine {
 	}
 	void CGraphicsEngine::ChangeToMainRenderTarget(RenderContext& rc)
 	{
-		rc.SetRenderTarget(m_mainRenderTarget.GetRTVCpuDescriptorHandle(), m_mainRenderTarget.GetDSVCpuDescriptorHandle());
+		rc.SetRenderTargetAndViewport(&m_mainRenderTarget);
+		//rc.SetRenderTarget(m_mainRenderTarget.GetRTVCpuDescriptorHandle(), m_mainRenderTarget.GetDSVCpuDescriptorHandle());
 	}
 	void CGraphicsEngine::EndRender()
 	{
@@ -632,21 +633,6 @@ namespace Engine {
 		// Present the frame.
 		m_swapChain->Present(m_vsyncInterval, 0);
 
-		//描画完了待ち。
-		WaitDraw();
-	}
-
-	void CGraphicsEngine::ExecuteCommand()
-	{
-		//// レンダリングターゲットへの描き込み完了待ち
-		//m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_renderTargets[m_frameIndex]);
-
-		//レンダリングコンテキストを閉じる。
-		m_renderContext.Close();
-
-		//コマンドを実行。
-		ID3D12CommandList* ppCommandLists[] = { m_commandList };
-		m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
 		//描画完了待ち。
 		WaitDraw();
 	}

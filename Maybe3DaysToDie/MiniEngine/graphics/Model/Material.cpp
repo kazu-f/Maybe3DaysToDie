@@ -10,6 +10,7 @@ namespace Engine {
 
 	void IMaterial::InitTexture(const TkmFile::SMaterial& tkmMat)
 	{
+		//TODO:NUllテクスチャを使うのと、フライウェイト。
 		if (tkmMat.albedoMap != nullptr) {
 			m_albedoMap.InitFromMemory(tkmMat.albedoMap.get(), tkmMat.albedoMapSize);
 		}

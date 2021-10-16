@@ -19,6 +19,8 @@ namespace Engine {
 		void* m_expandConstantBuffer = nullptr;		//ユーザー拡張の定数バッファ。
 		int m_expandConstantBufferSize = 0;			//ユーザー拡張の定数バッファのサイズ。
 		IShaderResource* m_expandShaderResoruceView = nullptr;	//ユーザー拡張のシェーダーリソース。1111
+		Skeleton* m_skeleton = nullptr;					//スケルトンデータ。
+		StructuredBuffer* m_instancingDataSB = nullptr;			//インスタンシング描画用のSB。
 		ModelUpAxis m_modelUpAxis = enModelUpAxis_Z;	//モデルの上方向。
 	};
 	/// <summary>
@@ -37,40 +39,29 @@ namespace Engine {
 		/// <param name="pos">座標</param>
 		/// <param name="rot">回転</param>
 		/// <param name="scale">拡大率</param>
-		void UpdateWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale);
-		/// <summary>
-		/// インスタンシング描画用のデータ更新の前に呼ぶ。
-		/// </summary>
-		void ResetInstancingDatas()
+		void UpdateWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale)
 		{
-			//for (int i = 0; i < m_maxInstance; i++)
-			//{
-			//	m_instancingData[i] = Matrix::Identity;
-			//}
-			m_numInstance = 0;
+			m_world = CalcWorldMatrix(pos, rot, scale);
 		}
+
+
 		/// <summary>
-		/// インスタンシング描画用の行列データを更新する。
+		/// ワールド行列を計算
 		/// </summary>
+		/// <remark>
+		/// Modelクラスの設定に基づいたワールド行列の計算が行われます。
+		/// 計算されたワールド行列が戻り値として返されます。
+		/// 本関数はUpdateWorldMatrixから呼ばれています。
+		/// 本関数はワールド行列を計算して、戻すだけです。
+		/// Model::m_worldMatrixが更新されるわけではないので、注意してください。
+		/// 本クラスの設定に基づいて計算されたワールド行列が必要な場合に使用してください
+		/// </remark>
 		/// <param name="pos">座標</param>
 		/// <param name="rot">回転</param>
 		/// <param name="scale">拡大率</param>
-		/// <param name="isCulling">カリングをするかどうか。</param>
-		void UpdateInstancingData(
-			const Vector3& pos,
-			const Quaternion& rot,
-			const Vector3& scale,
-			bool isCulling
-		);
-		/// <summary>
-		/// GPUにインスタンシング描画用のデータを送る。
-		/// </summary>
-		void SendGPUInstancingDatas()
-		{
-			if (m_maxInstance > 1) {
-				m_instancingDataSB.Update(m_instancingData.get());
-			}
-		}
+		/// <returns>ワールド行列</returns>
+		Matrix CalcWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale);
+
 		/// <summary>
 		/// スケルトンを関連付ける。
 		/// </summary>
@@ -84,26 +75,26 @@ namespace Engine {
 		/// 描画
 		/// </summary>
 		/// <param name="renderContext">レンダリングコンテキスト</param>
-		void Draw(RenderContext& renderContext);
+		void Draw(RenderContext& renderContext,int numInstance = 1);
 		/// <summary>
 		/// /シャドウマップ用描画。
 		/// </summary>
 		/// <param name="rc">レンダリングコンテキスト</param>
 		/// <param name="mLVP">ライトビュープロジェクション行列</param>
-		void Draw(RenderContext& rc, Matrix mLVP);
+		void Draw(RenderContext& rc, Matrix mLVP, int numInstance = 1);
+		/// <summary>
+		/// 別のカメラから描画する。
+		/// </summary>
+		/// <param name="rc">レンダリングコンテキスト</param>
+		/// <param name="mView">ビュー行列</param>
+		/// <param name="mProj">プロジェクション行列</param>
+		void Draw(RenderContext& rc,Matrix mView , Matrix mProj, int numInstance = 1);
 		/// <summary>
 		/// 初期化済みか？
 		/// </summary>
 		bool IsInited()
 		{
 			return m_tkmFile->IsLoaded();
-		}
-		/// <summary>
-		/// インスタンシング描画か？
-		/// </summary>
-		bool IsInstancing()
-		{
-			return m_maxInstance > 1;
 		}
 		/// <summary>
 		/// ワールド行列を取得。
@@ -129,13 +120,6 @@ namespace Engine {
 			m_meshParts.SetShadowReceiverFlag(flag);
 		}
 		/// <summary>
-		/// カリングするときの遠平面を指定。
-		/// </summary>
-		void SetCullingFar(const float culfar)
-		{
-			m_cullingFar = culfar;
-		}
-		/// <summary>
 		/// tkmファイルを取得。
 		/// </summary>
 		const TkmFile& GetTkmFile()const
@@ -155,11 +139,6 @@ namespace Engine {
 		Matrix m_world;			//ワールド行列。
 		TkmFile* m_tkmFile;		//tkmファイル。
 		MeshParts m_meshParts;	//メッシュパーツ。
-		std::unique_ptr<Matrix[]> m_instancingData;	//インスタンシング描画用のデータ。
-		StructuredBuffer m_instancingDataSB;		//インスタンシング描画用のバッファ。
-		int m_maxInstance = 1;		//インスタンシング描画の最大数。
-		int m_numInstance = 0;		//インスタンスの数。
-		float m_cullingFar = 0.0f;
 		ModelUpAxis m_modelUpAxis = enModelUpAxis_Z;	//モデルの上方向。
 	};
 }

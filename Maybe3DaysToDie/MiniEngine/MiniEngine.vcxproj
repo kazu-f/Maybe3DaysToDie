@@ -74,6 +74,7 @@
     <ClCompile Include="NaviMesh\AStar.cpp" />
     <ClCompile Include="NaviMesh\NaviMesh.cpp" />
     <ClCompile Include="NaviMesh\NaviMeshAgent.cpp" />
+    <ClCompile Include="graphics\NullTextureMaps.cpp" />
     <ClCompile Include="physics\BoxCollider.cpp" />
     <ClCompile Include="physics\CapsuleCollider.cpp" />
     <ClCompile Include="physics\ICollider.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="NaviMesh\AStar.h" />
     <ClInclude Include="NaviMesh\NaviMesh.h" />
     <ClInclude Include="NaviMesh\NaviMeshAgent.h" />
+    <ClInclude Include="graphics\NullTextureMaps.h" />
     <ClInclude Include="physics\BoxCollider.h" />
     <ClInclude Include="physics\CapsuleCollider.h" />
     <ClInclude Include="physics\CollisionAttr.h" />

@@ -91,7 +91,11 @@ namespace Engine {
 		/// </summary>
 		/// <param name="findMaterial">マテリアルを見つけたときに呼び出されるコールバック関数。</param>
 		void FindMaterial(OnFindMateral findMaterial) const;
-
+		/// <summary>
+		/// アルベドマップを切り替える。
+		/// </summary>
+		/// <param name="albedoMap">アルベドマップ。</param>
+		void ChangeAlbedo(Texture& albedoMap);
 	private:
 		/// <summary>
 		/// tkmメッシュからメッシュを作成。

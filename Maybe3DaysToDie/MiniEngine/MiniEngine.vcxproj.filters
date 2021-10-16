@@ -345,6 +345,9 @@
     <ClCompile Include="ResourceEngine.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\NullTextureMaps.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tkEngine.h">
@@ -631,6 +634,9 @@
     </ClInclude>
     <ClInclude Include="ResourceEngine.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\NullTextureMaps.h">
+      <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

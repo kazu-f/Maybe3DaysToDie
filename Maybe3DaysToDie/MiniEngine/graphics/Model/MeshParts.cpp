@@ -51,8 +51,8 @@ namespace Engine {
 			m_expandData = expandData;
 		}
 		m_expandShaderResourceView = expandShaderResourceView;
-		////ディスクリプタヒープを作成。
-		//CreateDescriptorHeaps();
+		//ディスクリプタヒープを作成。
+		CreateDescriptorHeaps();
 	}
 
 	void MeshParts::CreateDescriptorHeaps()
@@ -219,6 +219,16 @@ namespace Engine {
 			}
 		);
 
+	}
+	void MeshParts::ChangeAlbedo(Texture& albedoMap)
+	{
+		FindMaterial([&](IMaterial* mat)
+			{
+				mat->SetAlbedoMap(albedoMap);
+			}
+		);
+
+		CreateDescriptorHeaps();
 	}
 	void MeshParts::Draw(
 		RenderContext& rc,
