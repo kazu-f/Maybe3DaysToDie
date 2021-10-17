@@ -38,7 +38,8 @@ namespace Engine {
 		auto& mainRT = GraphicsEngine()->GetMainRenderTarget();
 
 		//メインレンダリングターゲット描画可能待ち。
-		rc.WaitUntilToPossibleSetRenderTarget(mainRT);
+		//TODOリソースバリアの遷移がどうたらこうたら。
+		//rc.WaitUntilToPossibleSetRenderTarget(mainRT);
 		//
 		rc.SetRenderTargetAndViewport(&mainRT);
 		//ルートシグネチャを設定。

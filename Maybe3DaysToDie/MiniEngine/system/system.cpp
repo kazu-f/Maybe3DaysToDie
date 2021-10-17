@@ -89,6 +89,8 @@ namespace Engine {
 	{
 		//ウィンドウを初期化。
 		InitWindow(hInstance, hPrevInstance, lpCmdLine, nCmdShow, appName);
+		//エンジンのインスタンスを作成。
+		TkEngine::CreateInstance();
 		//TKエンジンの初期化。
 		GameEngine().Init(g_hWnd, initParam);
 	}

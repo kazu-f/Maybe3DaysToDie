@@ -4,19 +4,27 @@
 #include "physics/PhysicsWorld.h"
 
 namespace Engine {
+	TkEngine* TkEngine::m_instance = nullptr;
+
 	TkEngine::TkEngine()
 	{
 	}
 
 	TkEngine::~TkEngine()
 	{
-		Release();
+
 	}
 	void TkEngine::Release()
 	{
 		if (m_graphicsEngine) {
 			delete m_graphicsEngine;
 			m_graphicsEngine = nullptr;
+		}
+		CGameObjectManager::DeleteInstance();
+		if (m_instance)
+		{
+			delete m_instance;
+			m_instance = nullptr;
 		}
 	}
 	void TkEngine::Init(HWND hwnd, const SInitParam& initParam)
@@ -29,7 +37,7 @@ namespace Engine {
 		//サウンドエンジンの初期化。
 		m_soundEngine.Init();
 		//ゲームオブジェクトマネージャーの初期化。
-		GameObjectManager().Init(initParam.gameObjectPrioMax);
+		CGameObjectManager::CreateInstance(initParam.gameObjectPrioMax);
 	}
 	void TkEngine::GameUpdate()
 	{

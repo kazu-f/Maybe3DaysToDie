@@ -582,32 +582,16 @@ namespace Engine {
 		m_renderContext.ClearRenderTargetView(m_mainRenderTarget.GetRTVCpuDescriptorHandle(), clearColor);
 		m_renderContext.ClearDepthStencilView(m_mainRenderTarget.GetDSVCpuDescriptorHandle(), 1.0f);
 
-		//m_currentFrameBufferRTVHandle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
-		//m_currentFrameBufferRTVHandle.ptr += m_frameIndex * m_rtvDescriptorSize;
-		////深度ステンシルバッファのディスクリプタヒープの開始アドレスを取得。
-		//m_currentFrameBufferDSVHandle = m_dsvHeap->GetCPUDescriptorHandleForHeapStart();
-		////バックバッファがレンダリングターゲットとして設定可能になるまで待つ。
-		//m_renderContext.WaitUntilToPossibleSetRenderTarget(m_renderTargets[m_frameIndex]);
-
-		////レンダリングターゲットを設定。
-		//m_renderContext.SetRenderTarget(m_currentFrameBufferRTVHandle, m_currentFrameBufferDSVHandle);
-
-		//const float clearColor[] = { 0.5f, 0.5f, 0.5f, 1.0f };
-		//m_renderContext.ClearRenderTargetView(m_currentFrameBufferRTVHandle, clearColor);
-		//m_renderContext.ClearDepthStencilView(m_currentFrameBufferDSVHandle, 1.0f);
-
 	}
 	void CGraphicsEngine::ChangeToMainRenderTarget(RenderContext& rc)
 	{
 		rc.SetRenderTargetAndViewport(&m_mainRenderTarget);
-		//rc.SetRenderTarget(m_mainRenderTarget.GetRTVCpuDescriptorHandle(), m_mainRenderTarget.GetDSVCpuDescriptorHandle());
 	}
 	void CGraphicsEngine::EndRender()
 	{
 		//バックバッファにテクスチャをコピー
 		{
 			// レンダリングターゲットへの描き込み完了待ち
-			//m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_renderTargets[m_frameIndex]);
 			m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 
 			m_currentFrameBufferRTVHandle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
