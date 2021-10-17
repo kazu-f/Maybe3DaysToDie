@@ -31,6 +31,7 @@ namespace Engine {
 		spriteData.m_height = FRAME_BUFFER_H;
 		spriteData.m_width = FRAME_BUFFER_W;
 		spriteData.m_isAlpha = true;
+		spriteData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
 		//フェードの画像を読み込む。
 		m_sprite.Init(spriteData);
 		m_sprite.Update(Vector3::Zero, Quaternion::Identity, Vector3::One);
@@ -64,12 +65,30 @@ namespace Engine {
 	{
 		if (m_currentAlpha > 0.0f) {
 			m_sprite.SetMulColor({ 1.0f,1.0f,1.0f,m_currentAlpha });
+			BeginRender(rc);
 			m_sprite.Draw(
 				rc,
 				MainCamera2D().GetViewMatrix(),
 				MainCamera2D().GetProjectionMatrix()
 			);
+			EndRender(rc);
 		}
+	}
+
+	void CFade::BeginRender(RenderContext& rc)
+	{
+		//メインレンダリングターゲットを取得。
+		auto& mainRT = GraphicsEngine()->GetMainRenderTarget();
+		//レンダリングターゲット利用可能待ち。
+		rc.WaitUntilToPossibleSetRenderTarget(mainRT);
+	}
+
+	void CFade::EndRender(RenderContext& rc)
+	{
+		//メインレンダリングターゲットを取得。
+		auto& mainRT = GraphicsEngine()->GetMainRenderTarget();
+		//レンダリングターゲット描画完了待ち。
+		rc.WaitUntilFinishDrawingToRenderTarget(mainRT);
 	}
 
 }

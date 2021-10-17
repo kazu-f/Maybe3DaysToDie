@@ -91,7 +91,7 @@ namespace Engine {
 		psoDesc.SampleMask = UINT_MAX;
 		psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 		psoDesc.NumRenderTargets = 5;
-		psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//アルベドカラー出力用。
+		psoDesc.RTVFormats[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;		//アルベドカラー出力用。
 #ifdef SAMPE_16_02
 		psoDesc.RTVFormats[1] = DXGI_FORMAT_R16G16B16A16_FLOAT;	//法線出力用。	
 		psoDesc.RTVFormats[2] = DXGI_FORMAT_R32_FLOAT;						//Z値。
@@ -106,10 +106,16 @@ namespace Engine {
 
 		m_ModelPipelineState.Init(psoDesc);
 
+		//フォーマットリセット。
+		for (auto& format : psoDesc.RTVFormats)
+		{
+			format = DXGI_FORMAT_UNKNOWN;
+		}
 		//続いて半透明マテリアル用。
 		psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsModel.GetCompiledBlob());
 		psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psTransModel.GetCompiledBlob());
-		psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;		//アルベドカラー出力用。
+		psoDesc.NumRenderTargets = 1;
+		psoDesc.RTVFormats[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;		//アルベドカラー出力用。
 		psoDesc.BlendState.IndependentBlendEnable = TRUE;
 		psoDesc.BlendState.RenderTarget[0].BlendEnable = TRUE;
 		psoDesc.BlendState.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;

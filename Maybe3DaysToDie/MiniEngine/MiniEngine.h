@@ -46,6 +46,8 @@
 #include "math/Vector.h"
 #include "math/Matrix.h"
 
+const int MAX_RENDERING_TARGET = D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT;	//レンダリングターゲットの最大数。
+
 #include "graphics/GPUBuffer/VertexBuffer.h"
 #include "graphics/GPUBuffer/IndexBuffer.h"
 #include "graphics/IShaderResource.h"

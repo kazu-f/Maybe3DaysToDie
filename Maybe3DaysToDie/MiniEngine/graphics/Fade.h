@@ -20,6 +20,14 @@ namespace Engine {
 		/// </summary>
 		void FadeRender(RenderContext& rc);
 		/// <summary>
+		/// 描画事前処理。
+		/// </summary>
+		void BeginRender(RenderContext& rc);
+		/// <summary>
+		/// 描画後処理。
+		/// </summary>
+		void EndRender(RenderContext& rc);
+		/// <summary>
 		/// フェードインを開始する。
 		/// </summary>
 		void StartFadeIn()

@@ -23,6 +23,7 @@ namespace Engine {
 			spriteData.m_ddsFilePath[0] = FilePath;
 			spriteData.m_width = static_cast<UINT>(w);
 			spriteData.m_height = static_cast<UINT>(h);
+			spriteData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
 			m_sprite.Init(spriteData,isDraw3D);
 			m_isDraw3D = isDraw3D;
 			m_isInited = true;				//‰Šú‰»Ï‚İB

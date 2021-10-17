@@ -538,8 +538,12 @@ namespace Engine {
 			m_mainRenderTarget.GetRTVCpuDescriptorHandle(),
 			m_gBuffer->GetRenderTarget(EnGBuffer::enGBufferAlbed).GetDSVCpuDescriptorHandle()
 		);
+		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
+		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_gBuffer->GetRenderTarget(EnGBuffer::enGBufferAlbed));
 		//フォワードレンダリングパス。
 		goMgr->ForwardRender(m_renderContext);
+
+		m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 
 		PhysicsWorld().DebugDrawWorld(m_renderContext);
 	}
@@ -551,7 +555,10 @@ namespace Engine {
 		//ポストエフェクトを掛ける。
 		m_postEffect->Render(m_renderContext);
 
+
+		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
 		goMgr->PostRender(m_renderContext);
+		m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 	}
 	void CGraphicsEngine::BeginRender()
 	{
@@ -601,7 +608,7 @@ namespace Engine {
 		{
 			// レンダリングターゲットへの描き込み完了待ち
 			//m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_renderTargets[m_frameIndex]);
-			m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget.GetRenderTargetTexture().Get());
+			m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 
 			m_currentFrameBufferRTVHandle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
 			m_currentFrameBufferRTVHandle.ptr += m_frameIndex * m_rtvDescriptorSize;

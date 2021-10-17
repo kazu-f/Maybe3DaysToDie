@@ -122,7 +122,7 @@ namespace Engine {
 		m_indexBuffer.Init(sizeof(indices), sizeof(indices[0]));
 		m_indexBuffer.Copy(indices);
 	}
-	void Sprite::InitPipelineState(bool isDraw3D, bool isAlpha)
+	void Sprite::InitPipelineState(const SpriteInitData& initData,bool isDraw3D)
 	{
 		// 頂点レイアウトを定義する。
 		D3D12_INPUT_ELEMENT_DESC inputElementDescs[] =
@@ -146,16 +146,23 @@ namespace Engine {
 		psoDesc.DepthStencilState.StencilEnable = FALSE;
 		psoDesc.SampleMask = UINT_MAX;
 		psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-		psoDesc.NumRenderTargets = 1;
-		psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
-		psoDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
-		psoDesc.BlendState.IndependentBlendEnable = isAlpha ? TRUE : FALSE;							//αブレンディングを有効にするか。
-		if (isAlpha) {
+		psoDesc.BlendState.IndependentBlendEnable = initData.m_isAlpha ? TRUE : FALSE;							//αブレンディングを有効にするか。
+		if (initData.m_isAlpha) {
 			psoDesc.BlendState.RenderTarget[0].BlendEnable = TRUE;
 			psoDesc.BlendState.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
 			psoDesc.BlendState.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
 			psoDesc.BlendState.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
 		}
+		//カラーフォーマットを設定。
+		for (auto& format : initData.m_colorBufferFormat) {
+			if (format == DXGI_FORMAT_UNKNOWN) {
+				break;
+			}
+			psoDesc.RTVFormats[psoDesc.NumRenderTargets] = format;
+			psoDesc.NumRenderTargets++;
+		}
+
+		psoDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 		psoDesc.SampleDesc.Count = 1;
 		m_pipelineState.Init(psoDesc);
 	}
@@ -194,7 +201,7 @@ namespace Engine {
 		//シェーダーを初期化。
 		InitShader(initData);
 		//パイプラインステートの初期化。
-		InitPipelineState(isDraw3D,initData.m_isAlpha);
+		InitPipelineState(initData,isDraw3D);
 		//ディスクリプタヒープを初期化。
 		InitDescriptorHeap(initData);
 	}
