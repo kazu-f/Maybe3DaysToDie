@@ -134,6 +134,14 @@ namespace Engine {
 		{
 			m_meshParts.FindMaterial(findMaterial);
 		}
+		/// <summary>
+		/// アルベドカラーを差し替える。
+		/// </summary>
+		/// <param name="tex">アルベドテクスチャ。</param>
+		void ChangeAlbedo(Texture& tex)
+		{
+			m_meshParts.ChangeAlbedo(tex);
+		}
 	private:
 
 		Matrix m_world;			//ワールド行列。

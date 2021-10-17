@@ -7,11 +7,8 @@ namespace Engine {
 		//テクスチャをロード。
 		InitTexture(tkmMat);
 
-		//定数バッファを作成。
-		SMaterialParam matParam;
-		matParam.hasNormalMap = m_normalMap.IsValid() ? 1 : 0;
-		matParam.hasSpecMap = m_specularMap.IsValid() ? 1 : 0;
-		m_constantBuffer.Init(sizeof(SMaterialParam), &matParam);
+		//定数バッファを初期化。
+		InitConstantBuffer();
 
 		//ルートシグネチャを初期化。
 		m_rootSignature.Init(

@@ -79,6 +79,14 @@ namespace Engine {
 			{
 				m_model.FindMaterial(findMaterial);
 			}
+			/// <summary>
+			/// アルベドカラーを差し替える。
+			/// </summary>
+			/// <param name="tex">アルベドテクスチャ。</param>
+			void ChangeAlbedo(Texture& tex)
+			{
+				m_model.ChangeAlbedo(tex);
+			}
 
 		public:		//座標などの変更を行う関数。
 			/// <summary>
@@ -190,7 +198,6 @@ namespace Engine {
 			/// <param name="pos">座標</param>
 			/// <param name="rot">回転</param>
 			/// <param name="scale">拡大率</param>
-			/// <param name="isCulling">カリングをするかどうか。</param>
 			void UpdateInstancingData(
 				const Vector3& pos,
 				const Quaternion& rot,
@@ -248,7 +255,7 @@ namespace Engine {
 				}
 				return Vector3::Zero;
 			}
-		private:
+		private:	//初期化関数。
 			/// <summary>
 			/// インスタンシング描画用のSB構築。
 			/// </summary>

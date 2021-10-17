@@ -15,6 +15,7 @@
 #include "RenderTarget.h"
 #include "2D/Sprite.h"
 #include "Font/FontEngine.h"
+#include "NullTextureMaps.h"
 
 #include "camera/Camera.h"
 
@@ -214,6 +215,14 @@ namespace Engine {
 			return m_gBuffer;
 		}
 		/// <summary>
+		/// NULLテクスチャマップを取得。
+		/// </summary>
+		const NullTextureMaps& GetNullTextureMaps()const
+		{
+			return m_nullTexMaps;
+		}
+		
+		/// <summary>
 		/// 3Dカメラの取得。
 		/// </summary>
 		Camera& GetMainCamera()
@@ -343,6 +352,7 @@ namespace Engine {
 		Camera m_camera2D;					//2Dカメラ。
 		Camera m_camera3D;					//3Dカメラ。
 		Camera m_cameraPostEffect;			//ポストエフェクト用カメラ。
+		NullTextureMaps m_nullTexMaps;						//NULLテクスチャ管理オブジェクト。
 		std::unique_ptr<CLightManager> m_lightManager;		//ライトマネージャー。
 		std::unique_ptr<CShadowMap> m_shadowMap;			//指向性シャドウマップ。
 		std::unique_ptr<CGBufferRender> m_gBuffer;			//GBuffer。

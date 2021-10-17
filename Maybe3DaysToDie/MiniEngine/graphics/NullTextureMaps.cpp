@@ -13,7 +13,11 @@ namespace Engine {
 				FILE* fp = fopen(loadTexFilePath, "rb");
 				if (fp == nullptr) {
 					//nullテクスチャのロードに失敗。
-					ENGINE_ASSERT(fp != nullptr,"nullテクスチャのロードに失敗しました。");
+					ENGINE_ASSERT(
+						fp != nullptr,
+						"nullテクスチャのロードに失敗しました。\n"
+						"%s",loadTexFilePath
+					);
 				}
 				//テクスチャサイズを計算。
 				fseek(fp, 0L, SEEK_END);
@@ -47,18 +51,11 @@ namespace Engine {
 			m_specularMap,
 			m_specularMapSize);
 
-		m_reflectionMapFileName = "Assets/modelData/preset/NullReflection.dds";
-		//反射マップをロード。
+		m_zeroValueMapFileName = "Assets/modelData/preset/ZeroValueTex.dds";
+		//0マップをロード。
 		TexLoad(
-			m_reflectionMapFileName.c_str(),
-			m_reflectionMap,
-			m_reflectionMapSize);
-
-		m_refractionMapFileName = "Assets/modelData/preset/NullRefraction.dds";
-		//屈折マップをロード。
-		TexLoad(
-			m_refractionMapFileName.c_str(),
-			m_refractionMap,
-			m_refractionMapSize);
+			m_zeroValueMapFileName.c_str(),
+			m_zeroValueMap,
+			m_zeroValueMapSize);
 	}
 }

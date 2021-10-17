@@ -178,6 +178,9 @@ namespace Engine {
 		//フォントエンジンの初期化。
 		m_fontEngine.Init(m_renderContext);
 
+		//NULLテクスチャを初期化。
+		m_nullTexMaps.Init();
+
 		//カメラを初期化する。
 		m_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
 		m_camera2D.SetWidth(static_cast<float>(m_frameBufferWidth));
