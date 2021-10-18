@@ -8,14 +8,17 @@ private:
 	{
 		bool isHit = false;		//衝突フラグ
 		Vector3 hitNormal = Vector3::Zero;
+		Vector3 hitColPos = Vector3::Zero;
 		//衝突したときに呼ばれる関数
 		virtual btScalar addSingleResult(
 			btCollisionWorld::LocalRayResult& convexResult,
 			bool /*normalInWorldSpace*/
 		)
 		{
+			btVector3 colPos = convexResult.m_collisionObject->getWorldTransform().getOrigin();
 			isHit = true;
 			hitNormal.Set(convexResult.m_hitNormalLocal);
+			hitColPos.Set(colPos);
 			//距離が近いほうに更新
 			if (m_closestHitFraction > convexResult.m_hitFraction)
 			{
