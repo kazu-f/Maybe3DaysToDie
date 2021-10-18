@@ -54,15 +54,12 @@ void SuperFlat::CreateStage()
 			pos.x *= Width;
 			pos.z *= Depth;
 			m_model->UpdateInstancingData(pos, Quaternion::Identity, Vector3::One);
-			//m_model->SetPosition(pos);
-			//m_model[Width][Depth]->SetActiveFlag(false);
 			//コライダーを作成
-			//m_StaticCol[Width][Depth].CreateMesh(pos, Quaternion::Identity, Vector3::One, m_model);
+			m_StaticCol[Width][Depth].CreateMesh(pos, Quaternion::Identity, Vector3::One, m_model);
 		}
 	}
 	m_Terrain = new Terrain;
 	m_Terrain->SetModel(m_model);
-	m_Terrain->CreateCollider();
 }
 
 void SuperFlat::Draw()
