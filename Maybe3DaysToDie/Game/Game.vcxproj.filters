@@ -22,6 +22,7 @@
     <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
     <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
     <ClCompile Include="Stage\IStage.cpp" />
+    <ClCompile Include="NVMGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -44,6 +45,7 @@
     <ClInclude Include="DestructibleObject\DestructibleObject.h" />
     <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
     <ClInclude Include="Stage\IStage.h" />
+    <ClInclude Include="NVMGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
@@ -51,8 +53,6 @@
     <ImageContentTask Include="Assets\sprite\shoesIcon.png" />
     <ImageContentTask Include="Assets\sprite\staminaGauge.png" />
     <ImageContentTask Include="Assets\sprite\statusGauge.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\sprite\preset\fade.png" />
+    <ImageContentTask Include="Assets\sprite\preset\fade.png" />
   </ItemGroup>
 </Project>

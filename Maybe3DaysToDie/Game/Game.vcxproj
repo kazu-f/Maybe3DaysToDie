@@ -164,6 +164,7 @@
     <ClCompile Include="Enemy\StandardZombie.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameSnece.cpp" />
+    <ClCompile Include="NVMGenerator.cpp" />
     <ClCompile Include="Stage\IStage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Enemy\StandardZombie.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameSnece.h" />
+    <ClInclude Include="NVMGenerator.h" />
     <ClInclude Include="Stage\IStage.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerWater.h" />

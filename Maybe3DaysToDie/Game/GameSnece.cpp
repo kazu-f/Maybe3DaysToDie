@@ -23,6 +23,7 @@ bool GameSnece::Start()
 	m_fontRender->SetPivot({ 0.0f, 0.5f });
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
 	NewGO<StandardZombie>(0);
+
 	return true;
 }
 
