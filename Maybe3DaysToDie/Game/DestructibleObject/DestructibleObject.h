@@ -70,6 +70,15 @@ public:
 			m_StaticCol.CreateMesh(m_model->GetPosition(), m_model->GetRotation(), m_model->GetScale(), m_model);
 		}
 	}
+
+	/// <summary>
+	/// モデルの取得
+	/// </summary>
+	/// <returns>モデルレンダー</returns>
+	const prefab::ModelRender* GetModel()const
+	{
+		return m_model;
+	}
 protected:
 	prefab::ModelRender* m_model = nullptr;		//モデル
 	CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
