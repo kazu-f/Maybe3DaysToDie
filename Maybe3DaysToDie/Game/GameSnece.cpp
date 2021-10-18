@@ -14,6 +14,7 @@ bool GameSnece::Start()
 	m_Stage = NewGO<Stage>(0, "stage");
 	m_PlacementObject = NewGO<PlacementObject>(1);
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
+	
 	//sample//
 	m_fontRender = NewGO<CFontRender>(0);
 	m_fontRender->SetText(L"Reo is AHO.\nReo is Baka\nReo is UNKO\nHima is Neet");
@@ -21,7 +22,6 @@ bool GameSnece::Start()
 	m_fontRender->SetShadowParam(true, 0.5f, Vector4::Black);
 	m_fontRender->SetPivot({ 0.0f, 0.5f });
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
-
 	NewGO<StandardZombie>(0);
 	return true;
 }
