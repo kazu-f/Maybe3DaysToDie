@@ -30,7 +30,7 @@ public:
 	/// <returns>オブジェクトのポジション</returns>
 	const Vector3 GetPosition()const
 	{
-		return m_position;
+		return m_model->GetPosition();
 	}
 
 	/// <summary>
@@ -39,7 +39,7 @@ public:
 	/// <returns>オブジェクトの回転</returns>
 	const Quaternion GetRotation()const
 	{
-		return m_qrot;
+		return m_model->GetRotation();
 	}
 
 	/// <summary>
@@ -48,7 +48,7 @@ public:
 	/// <returns>オブジェクトのスケール</returns>
 	const Vector3 GetScale()const
 	{
-		return m_scale;
+		return m_model->GetScale();
 	}
 
 	/// <summary>
@@ -60,7 +60,16 @@ public:
 		m_model = model;
 	}
 
-
+	/// <summary>
+	/// コライダーを生成
+	/// </summary>
+	void CreateCollider()
+	{
+		if (m_model != nullptr)
+		{
+			m_StaticCol.CreateMesh(m_model->GetPosition(), m_model->GetRotation(), m_model->GetScale(), m_model);
+		}
+	}
 protected:
 	prefab::ModelRender* m_model = nullptr;		//モデル
 	CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
