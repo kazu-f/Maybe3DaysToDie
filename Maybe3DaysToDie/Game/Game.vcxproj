@@ -181,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
     <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
+    <ClCompile Include="Scene\TerrainDebugScene.cpp" />
+    <ClCompile Include="TerrainManager\TerrainManager.cpp" />
+    <ClCompile Include="TerrainManager\TerrainRender.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DestructibleObject\DestructibleObject.h" />
@@ -204,6 +207,9 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
     <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
+    <ClInclude Include="Scene\TerrainDebugScene.h" />
+    <ClInclude Include="TerrainManager\TerrainManager.h" />
+    <ClInclude Include="TerrainManager\TerrainRender.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

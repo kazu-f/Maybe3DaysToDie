@@ -23,6 +23,9 @@
     <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
     <ClCompile Include="Stage\IStage.cpp" />
     <ClCompile Include="NVMGenerator.cpp" />
+    <ClCompile Include="Scene\TerrainDebugScene.cpp" />
+    <ClCompile Include="TerrainManager\TerrainManager.cpp" />
+    <ClCompile Include="TerrainManager\TerrainRender.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -46,6 +49,9 @@
     <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
     <ClInclude Include="Stage\IStage.h" />
     <ClInclude Include="NVMGenerator.h" />
+    <ClInclude Include="Scene\TerrainDebugScene.h" />
+    <ClInclude Include="TerrainManager\TerrainManager.h" />
+    <ClInclude Include="TerrainManager\TerrainRender.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
