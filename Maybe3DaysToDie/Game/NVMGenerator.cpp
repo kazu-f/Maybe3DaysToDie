@@ -4,6 +4,7 @@
 
 void NVMGenerator::CreateNVM(Terrain& terrain)
 {
+	//まずはブロックのワールド座標を取ってくる。
 }
 
 void NVMGenerator::UpdateNVM(Terrain& terrain)

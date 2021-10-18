@@ -77,55 +77,8 @@ void PlacementObject::CalcObjectPos()
 	//レイが衝突しているとき
 	if (callback.isHit)
 	{
-		//当たった位置
-		end = start + (end - start) * callback.m_closestHitFraction;
-		lastPos.Set(end);
-
-		//オブジェクトの間隔を100ごとにする
-		int x, y,z;
-		//小数点以下切り捨て
-		x = static_cast<int>(lastPos.x);
-		y = static_cast<int>(lastPos.y);
-		z = static_cast<int>(lastPos.z);
-
-		//余りを求める
-		int remain_x, remain_y, remain_z;
-		remain_x = x % 100;
-		remain_y = y % 100;
-		remain_z = z % 100;
-		remain_x - 1;
-		remain_z - 1;
-		//四捨五入する
-		//高さはそのまま切り捨て
-		float round_x, round_z;
-		round_x = round(static_cast<float>(remain_x / 100.0f));
-		round_z = round(static_cast<float>(remain_z / 100.0f));
-
-		//単位戻す
-		round_x *= 100.0f;
-		round_z *= 100.0f;
-
-		//ポジションに代入
-		lastPos.x = static_cast<float>(x - remain_x);
-		lastPos.y = static_cast<float>(y - remain_y);
-		lastPos.z = static_cast<float>(z - remain_z);
-
-		//四捨五入した値を加算
-		lastPos.x += round_x;
-		lastPos.z += round_z;
-
-		////上方向と衝突点の法線のなす角度を求める。
-		//float angle = callback.hitNormal.Dot(Vector3::Up);
-		////角度を変換
-		//angle = fabsf(acosf(angle));
-		////地面にあたっている
-		//if (angle < Math::PI * 0.3f)
-		//{
-		//	//四捨五入する
-		//	float round_y = round(static_cast<float>(remain_y / 100.0f));
-		//	//加算
-		//	lastPos.y += round_y;
-		//}
+		lastPos = callback.hitColPos;
+		lastPos += callback.hitNormal * 100.0f;
 	}
 	m_pos.Set(lastPos);
 }

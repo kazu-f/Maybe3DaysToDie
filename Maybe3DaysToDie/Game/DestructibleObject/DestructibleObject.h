@@ -75,7 +75,7 @@ public:
 	/// モデルの取得
 	/// </summary>
 	/// <returns>モデルレンダー</returns>
-	const prefab::ModelRender* GetModel()const
+	const prefab::ModelRender* GetModel()
 	{
 		return m_model;
 	}
