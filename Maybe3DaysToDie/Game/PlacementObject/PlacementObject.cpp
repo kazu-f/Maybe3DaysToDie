@@ -18,6 +18,10 @@ void PlacementObject::OnDestroy()
 		DeleteGO(m_ObjectModel);
 		m_ObjectModel = nullptr;
 	}
+	for (auto model : m_model)
+	{
+		delete model;
+	}
 }
 
 bool PlacementObject::Start()
@@ -43,10 +47,10 @@ void PlacementObject::Update()
 	m_ObjectModel->SetRotation(m_qrot);
 	m_ObjectModel->SetScale(m_scale);
 
-	//if (Pad(0).IsTrigger(enButtonA))
-	//{
-	//	PlaceObject();
-	//}
+	if (Pad(0).IsTrigger(enButtonA))
+	{
+		PlaceObject();
+	}
 }
 
 void PlacementObject::CalcObjectPos()
@@ -69,7 +73,7 @@ void PlacementObject::CalcObjectPos()
 	//最終的な位置
 	Vector3 lastPos;
 	lastPos.Set(end);
-
+	CanPlace = callback.isHit;
 	//レイが衝突しているとき
 	if (callback.isHit)
 	{
@@ -89,7 +93,8 @@ void PlacementObject::CalcObjectPos()
 		remain_x = x % 100;
 		remain_y = y % 100;
 		remain_z = z % 100;
-
+		remain_x - 1;
+		remain_z - 1;
 		//四捨五入する
 		//高さはそのまま切り捨て
 		float round_x, round_z;
@@ -102,7 +107,7 @@ void PlacementObject::CalcObjectPos()
 
 		//ポジションに代入
 		lastPos.x = static_cast<float>(x - remain_x);
-		//lastPos.y = static_cast<float>(y - remain_y);
+		lastPos.y = static_cast<float>(y - remain_y);
 		lastPos.z = static_cast<float>(z - remain_z);
 
 		//四捨五入した値を加算
@@ -128,17 +133,19 @@ void PlacementObject::CalcObjectPos()
 //todo [最適化]後で処理見直せ
 void PlacementObject::PlaceObject()
 {
-	//初期化
-	ModelInitData m_modelInitData;
-	m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
-	prefab::ModelRender* m_object = NewGO<prefab::ModelRender>(0);
-	m_object->Init(m_modelInitData);
-	//ポジションをセット
-	m_object->SetPosition(m_pos);
-	//配列に追加
-	m_model.push_back(std::move(m_object));
-	CPhysicsStaticObject* col; 
-	col = new CPhysicsStaticObject;
-	col->CreateMesh(m_pos, m_qrot, m_scale, m_object);
-	m_col.push_back(col);
+	if (CanPlace)
+	{
+		//初期化
+		ModelInitData m_modelInitData;
+		m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
+		prefab::ModelRender* m_object = NewGO<prefab::ModelRender>(0);
+		m_object->Init(m_modelInitData);
+		//ポジションをセット
+		m_object->SetPosition(m_pos);
+		Block* block = new Block;
+		block->SetModel(m_object);
+		block->CreateCollider();
+		//配列に追加
+		m_model.push_back(std::move(block));
+	}
 }

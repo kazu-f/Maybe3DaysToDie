@@ -114,6 +114,23 @@ namespace Engine {
 				m_rotation *= rot;
 			}
 			/// <summary>
+			/// ‰ñ“]‚ğæ“¾
+			/// </summary>
+			/// <returns>‰ñ“]—Ê</returns>
+			const Quaternion& GetRotation()const
+			{
+				return m_rotation;
+			}
+
+			/// <summary>
+			/// Šg‘å—¦‚ğæ“¾
+			/// </summary>
+			/// <returns>Šg‘å—¦</returns>
+			const Vector3& GetScale()const
+			{
+				return m_scale;
+			}
+			/// <summary>
 			/// À•W‚ğİ’èB
 			/// </summary>
 			/// <param name="pos">À•W</param>

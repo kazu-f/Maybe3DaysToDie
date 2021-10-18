@@ -1,4 +1,5 @@
 #pragma once
+#include "DestructibleObject/Block/Block.h"
 
 class PlacementObject:public IGameObject
 {
@@ -47,7 +48,7 @@ private:
 	Vector3 m_scale = Vector3::One;		//モデルのスケール
 	Quaternion m_qrot = Quaternion::Identity;		//モデルの回転
 	const float m_SetRange = 500.0f;		//設置範囲
-	std::vector<prefab::ModelRender*> m_model = { nullptr };
-	std::vector<CPhysicsStaticObject*> m_col;
+	std::vector<Block*> m_model;
+	bool CanPlace = false;
 };
 

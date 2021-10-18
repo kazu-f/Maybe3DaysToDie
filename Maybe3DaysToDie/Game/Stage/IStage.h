@@ -14,6 +14,6 @@ public:
 
 protected:
 	Terrain* m_Terrain = nullptr;
-	prefab::ModelRender* m_model = { nullptr };
+	prefab::ModelRender* m_model = nullptr;
 	CPhysicsStaticObject m_StaticCol[ChunkWidth][ChunkDepth];
 };
