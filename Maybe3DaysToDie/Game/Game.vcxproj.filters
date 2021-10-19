@@ -25,7 +25,9 @@
     <ClCompile Include="NVMGenerator.cpp" />
     <ClCompile Include="Scene\TerrainDebugScene.cpp" />
     <ClCompile Include="TerrainManager\TerrainManager.cpp" />
-    <ClCompile Include="TerrainManager\TerrainRender.cpp" />
+    <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
+    <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
+    <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -51,7 +53,9 @@
     <ClInclude Include="NVMGenerator.h" />
     <ClInclude Include="Scene\TerrainDebugScene.h" />
     <ClInclude Include="TerrainManager\TerrainManager.h" />
-    <ClInclude Include="TerrainManager\TerrainRender.h" />
+    <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
+    <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />
+    <ClInclude Include="TerrainManager\TerrainWorld.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

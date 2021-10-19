@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Terrain {
+namespace nsTerrain {
 	class Terrain;
 
 	/// <summary>
@@ -11,16 +11,15 @@ namespace Terrain {
 	private:
 		//シングルトン。
 		static TerrainManager* m_instance;
+	public:
 		TerrainManager()
 		{
 			m_instance = this;
-			m_terrainPtrs.resize(MAX_TERRAIN_NUM,nullptr);
 		}
 		~TerrainManager()
 		{
 			m_instance = nullptr;
 		}
-	public:
 		//インスタンスの作成。
 		static void CreateInstance()
 		{
@@ -32,19 +31,22 @@ namespace Terrain {
 		{
 			return m_instance;
 		}
+	private:
+		void Update()override final;
+		void PostUpdate()override final;
 
 	public:
 		/// <summary>
 		/// 地形生成。
 		/// </summary>
 		/// <param name="pos">座標。</param>
-		void CreateTerrain(const Vector3& pos);
+		Terrain* CreateTerrain(const Vector3& pos);
 
 	private:
 		const int MAX_TERRAIN_NUM = 10000;				//10,000程度が限界かなぁ？
 
 	private:
-		using TerrainPtr = std::unique_ptr<Terrain>;
+		typedef std::unique_ptr<Terrain> TerrainPtr;
 		std::vector<TerrainPtr> m_terrainPtrs;			//地形。
 		
 	};

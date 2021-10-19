@@ -2,8 +2,8 @@
 #include "TerrainManager.h"
 #include "DestructibleObject/Terrain/Terrain.h"
 
-namespace Terrain {
-	void TerrainManager::CreateTerrain(const Vector3& pos)
+namespace nsTerrain {
+	Terrain* TerrainManager::CreateTerrain(const Vector3& pos)
 	{
 		//作成。
 		auto ptr = std::make_unique<Terrain>();
@@ -18,7 +18,19 @@ namespace Terrain {
 		if (m_terrainPtrs.size() > MAX_TERRAIN_NUM)
 		{
 			ENGINE_ASSERT(false, "地形ブロックの数が最大値を越えた。");
-			return;
+			return nullptr;
 		}
+
+		return m_terrainPtrs.back().get();
+	}
+	void TerrainManager::Update()
+	{
+
+	}
+	void TerrainManager::PostUpdate()
+	{
+		m_terrainPtrs
+
+
 	}
 }

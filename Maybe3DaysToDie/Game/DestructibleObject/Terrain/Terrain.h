@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Terrain {
+namespace nsTerrain {
 
 	enum EnTerrainRelated
 	{
@@ -13,18 +13,23 @@ namespace Terrain {
 		en_terrainOnNum		//隣接する面の数。
 	};
 
+	static const int NEAR_VERT_COUNT = 4;
+
 	struct TerrainVertex {
 		Vector3 vertPos;	//頂点座標。
 		int vertNo = 0;			//頂点番号。
-		TerrainVertex* nearVert[4] = { nullptr };	//隣接頂点のアドレス。
+		TerrainVertex* nearVert[NEAR_VERT_COUNT] = { nullptr };	//隣接頂点のアドレス。
 	};
+
+	static const float TERRAIN_UNIT = 100.0f;
+	static const float TERRAIN_HALF_UNIT = 50.0f;
 
 	//地形オブジェクト。
 	class Terrain :public DestructibleObject
 	{
 	public:
-		Terrain() {}
-		~Terrain()  override final {}
+		Terrain();
+		~Terrain()  override final;
 
 		/// <summary>
 		/// 座標を設定。
@@ -35,18 +40,30 @@ namespace Terrain {
 		/// 頂点のデータを構築していく。
 		/// </summary>
 		void BuildVertex();
+		/// <summary>
+		/// 頂点接続。
+		/// </summary>
+		void ConnectVertex();
+		/// <summary>
+		/// 隣接地形を設定。
+		/// </summary>
+		/// <param name="terrain">隣接地形。</param>
+		/// <param name="enRelated">どの位置か。</param>
+		void SetRelatedTerrain(Terrain* terrain,EnTerrainRelated enRelated);
+
+		//頂点を取得する。
+		TerrainVertex& GetVertex(int index)
+		{
+			return m_vertex[index];
+		}
 
 	private:
-		const Vector3 VERTEX_CONST[en_terrainOnNum] = {
-			{0.0f,100.0f,0.0f},		//上。
-			{0.0f,0.0f,0.0f},		//下。
-			{-100.0f,50.0f,0.0f},		//左。
-			{100.0f,50.0f,0.0f},		//右。
-			{0.0f,50.0f,100.0f},		//前。
-			{0.0f,50.0f,-100.0f}		//後。
-		};
+		static int GetIndexFromVertexRelated(EnTerrainRelated fromSide, EnTerrainRelated relatedSide);
+		static const Vector3 VERTEX_CONST[en_terrainOnNum];
+		static const EnTerrainRelated CONECT_VERTEX_LIST[en_terrainOnNum][NEAR_VERT_COUNT];
 
 	private:
+		Terrain* m_relatedTerrain[en_terrainOnNum] = { nullptr };	//隣接地形。
 		TerrainVertex m_vertex[en_terrainOnNum];	//地形の頂点。
 		int m_terrainId = -1;		//地形id番号。
 		float m_scale = 1.0f;		//スケール。

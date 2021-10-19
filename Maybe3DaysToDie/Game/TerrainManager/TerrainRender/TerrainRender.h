@@ -1,5 +1,5 @@
 #pragma once
-class TerrainRender
+class TerrainRender : public IGameObject
 {
 public:
 
