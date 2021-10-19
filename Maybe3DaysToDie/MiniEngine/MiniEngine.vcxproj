@@ -27,7 +27,7 @@
     <ClCompile Include="graphics\animation\Animation.cpp" />
     <ClCompile Include="graphics\animation\AnimationClip.cpp" />
     <ClCompile Include="graphics\animation\AnimationPlayController.cpp" />
-    <ClCompile Include="graphics\deferrd\DefferdShading.cpp" />
+    <ClCompile Include="graphics\defferd\DefferdShading.cpp" />
     <ClCompile Include="graphics\DescriptorHeap.cpp" />
     <ClCompile Include="graphics\Fade.cpp" />
     <ClCompile Include="graphics\Font\Font.cpp" />
@@ -40,9 +40,9 @@
     <ClCompile Include="graphics\GPUBuffer\VertexBuffer.cpp" />
     <ClCompile Include="graphics\GraphicsEngine.cpp" />
     <ClCompile Include="graphics\light\LightManager.cpp" />
-    <ClCompile Include="graphics\Material.cpp" />
-    <ClCompile Include="graphics\MeshParts.cpp" />
-    <ClCompile Include="graphics\Model.cpp" />
+    <ClCompile Include="graphics\Model\Material.cpp" />
+    <ClCompile Include="graphics\Model\MeshParts.cpp" />
+    <ClCompile Include="graphics\Model\Model.cpp" />
     <ClCompile Include="graphics\PipelineState.cpp" />
     <ClCompile Include="graphics\PipelineStatesDefault.cpp" />
     <ClCompile Include="graphics\PostEffect\Bloom.cpp" />
@@ -57,7 +57,7 @@
     <ClCompile Include="graphics\Shader.cpp" />
     <ClCompile Include="graphics\Skeleton.cpp" />
     <ClCompile Include="graphics\Texture.cpp" />
-    <ClCompile Include="graphics\UserMaterial.cpp" />
+    <ClCompile Include="graphics\Model\UserMaterial.cpp" />
     <ClCompile Include="HID\GamePad.cpp" />
     <ClCompile Include="level\Level.cpp" />
     <ClCompile Include="level\MapChip.cpp" />
@@ -71,6 +71,10 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MiniEngine.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="NaviMesh\AStar.cpp" />
+    <ClCompile Include="NaviMesh\NaviMesh.cpp" />
+    <ClCompile Include="NaviMesh\NaviMeshAgent.cpp" />
+    <ClCompile Include="graphics\NullTextureMaps.cpp" />
     <ClCompile Include="physics\BoxCollider.cpp" />
     <ClCompile Include="physics\CapsuleCollider.cpp" />
     <ClCompile Include="physics\ICollider.cpp" />
@@ -88,6 +92,7 @@
     <ClCompile Include="prefab\ModelRender.cpp" />
     <ClCompile Include="prefab\nature\Sky.cpp" />
     <ClCompile Include="prefab\SpriteRender.cpp" />
+    <ClCompile Include="ResourceEngine.cpp" />
     <ClCompile Include="Sound\SoundEngine.cpp" />
     <ClCompile Include="Sound\SoundSource.cpp" />
     <ClCompile Include="Sound\WaveFile.cpp" />
@@ -97,6 +102,7 @@
     <ClCompile Include="tkFile\TkaFile.cpp" />
     <ClCompile Include="tkFile\TkmFile.cpp" />
     <ClCompile Include="tkFile\TksFile.cpp" />
+    <ClCompile Include="util\TResourceBank.cpp" />
     <ClCompile Include="util\CGameTime.cpp" />
     <ClCompile Include="util\Stopwatch.cpp" />
   </ItemGroup>
@@ -108,7 +114,7 @@
     <ClInclude Include="graphics\animation\Animation.h" />
     <ClInclude Include="graphics\animation\AnimationClip.h" />
     <ClInclude Include="graphics\animation\AnimationPlayController.h" />
-    <ClInclude Include="graphics\deferrd\DefferdShading.h" />
+    <ClInclude Include="graphics\defferd\DefferdShading.h" />
     <ClInclude Include="graphics\Fade.h" />
     <ClInclude Include="graphics\Font\Font.h" />
     <ClInclude Include="graphics\Font\FontEngine.h" />
@@ -124,12 +130,16 @@
     <ClInclude Include="graphics\PreRender\GBufferRender.h" />
     <ClInclude Include="graphics\PreRender\ShadowMap.h" />
     <ClInclude Include="graphics\Primitive.h" />
-    <ClInclude Include="graphics\UserMaterial.h" />
+    <ClInclude Include="graphics\Model\UserMaterial.h" />
     <ClInclude Include="level\Level.h" />
     <ClInclude Include="level\MapChip.h" />
     <ClInclude Include="level\MapChipRender.h" />
     <ClInclude Include="level\TklFile.h" />
     <ClInclude Include="MiniEngine.h" />
+    <ClInclude Include="NaviMesh\AStar.h" />
+    <ClInclude Include="NaviMesh\NaviMesh.h" />
+    <ClInclude Include="NaviMesh\NaviMeshAgent.h" />
+    <ClInclude Include="graphics\NullTextureMaps.h" />
     <ClInclude Include="physics\BoxCollider.h" />
     <ClInclude Include="physics\CapsuleCollider.h" />
     <ClInclude Include="physics\CollisionAttr.h" />
@@ -149,6 +159,7 @@
     <ClInclude Include="prefab\ModelRender.h" />
     <ClInclude Include="prefab\nature\Sky.h" />
     <ClInclude Include="prefab\SpriteRender.h" />
+    <ClInclude Include="ResourceEngine.h" />
     <ClInclude Include="Sound\SoundEngine.h" />
     <ClInclude Include="Sound\SoundSource.h" />
     <ClInclude Include="Sound\WaveFile.h" />
@@ -167,9 +178,9 @@
     <ClInclude Include="graphics\GraphicsEngine.h" />
     <ClInclude Include="graphics\IShaderResource.h" />
     <ClInclude Include="graphics\IUnorderAccessResource.h" />
-    <ClInclude Include="graphics\Material.h" />
-    <ClInclude Include="graphics\MeshParts.h" />
-    <ClInclude Include="graphics\Model.h" />
+    <ClInclude Include="graphics\Model\Material.h" />
+    <ClInclude Include="graphics\Model\MeshParts.h" />
+    <ClInclude Include="graphics\Model\Model.h" />
     <ClInclude Include="graphics\PipelineState.h" />
     <ClInclude Include="graphics\RenderContext.h" />
     <ClInclude Include="graphics\RenderContext_inline.h" />
@@ -187,6 +198,7 @@
     <ClInclude Include="tkFile\TkaFile.h" />
     <ClInclude Include="tkFile\TkmFile.h" />
     <ClInclude Include="tkFile\TksFile.h" />
+    <ClInclude Include="util\TResourceBank.h" />
     <ClInclude Include="util\CGameTime.h" />
     <ClInclude Include="util\NameKey.h" />
     <ClInclude Include="util\Stopwatch.h" />

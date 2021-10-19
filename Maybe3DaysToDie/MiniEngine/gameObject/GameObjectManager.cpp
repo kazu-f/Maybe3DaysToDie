@@ -6,6 +6,8 @@
 #include "GameObjectManager.h"
 
 namespace Engine {
+	CGameObjectManager* CGameObjectManager::m_instance = nullptr;
+
 	void CGameObjectManager::Start()
 	{
 		for (GameObjectList objList : m_gameObjectListArray) {

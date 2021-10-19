@@ -178,6 +178,9 @@ namespace Engine {
 		//フォントエンジンの初期化。
 		m_fontEngine.Init(m_renderContext);
 
+		//NULLテクスチャを初期化。
+		m_nullTexMaps.Init();
+
 		//カメラを初期化する。
 		m_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
 		m_camera2D.SetWidth(static_cast<float>(m_frameBufferWidth));
@@ -535,8 +538,12 @@ namespace Engine {
 			m_mainRenderTarget.GetRTVCpuDescriptorHandle(),
 			m_gBuffer->GetRenderTarget(EnGBuffer::enGBufferAlbed).GetDSVCpuDescriptorHandle()
 		);
+		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
+		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_gBuffer->GetRenderTarget(EnGBuffer::enGBufferAlbed));
 		//フォワードレンダリングパス。
 		goMgr->ForwardRender(m_renderContext);
+
+		m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 
 		PhysicsWorld().DebugDrawWorld(m_renderContext);
 	}
@@ -548,7 +555,10 @@ namespace Engine {
 		//ポストエフェクトを掛ける。
 		m_postEffect->Render(m_renderContext);
 
+
+		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
 		goMgr->PostRender(m_renderContext);
+		m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 	}
 	void CGraphicsEngine::BeginRender()
 	{
@@ -572,32 +582,17 @@ namespace Engine {
 		m_renderContext.ClearRenderTargetView(m_mainRenderTarget.GetRTVCpuDescriptorHandle(), clearColor);
 		m_renderContext.ClearDepthStencilView(m_mainRenderTarget.GetDSVCpuDescriptorHandle(), 1.0f);
 
-		//m_currentFrameBufferRTVHandle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
-		//m_currentFrameBufferRTVHandle.ptr += m_frameIndex * m_rtvDescriptorSize;
-		////深度ステンシルバッファのディスクリプタヒープの開始アドレスを取得。
-		//m_currentFrameBufferDSVHandle = m_dsvHeap->GetCPUDescriptorHandleForHeapStart();
-		////バックバッファがレンダリングターゲットとして設定可能になるまで待つ。
-		//m_renderContext.WaitUntilToPossibleSetRenderTarget(m_renderTargets[m_frameIndex]);
-
-		////レンダリングターゲットを設定。
-		//m_renderContext.SetRenderTarget(m_currentFrameBufferRTVHandle, m_currentFrameBufferDSVHandle);
-
-		//const float clearColor[] = { 0.5f, 0.5f, 0.5f, 1.0f };
-		//m_renderContext.ClearRenderTargetView(m_currentFrameBufferRTVHandle, clearColor);
-		//m_renderContext.ClearDepthStencilView(m_currentFrameBufferDSVHandle, 1.0f);
-
 	}
 	void CGraphicsEngine::ChangeToMainRenderTarget(RenderContext& rc)
 	{
-		rc.SetRenderTarget(m_mainRenderTarget.GetRTVCpuDescriptorHandle(), m_mainRenderTarget.GetDSVCpuDescriptorHandle());
+		rc.SetRenderTargetAndViewport(&m_mainRenderTarget);
 	}
 	void CGraphicsEngine::EndRender()
 	{
 		//バックバッファにテクスチャをコピー
 		{
 			// レンダリングターゲットへの描き込み完了待ち
-			//m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_renderTargets[m_frameIndex]);
-			m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget.GetRenderTargetTexture().Get());
+			m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 
 			m_currentFrameBufferRTVHandle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
 			m_currentFrameBufferRTVHandle.ptr += m_frameIndex * m_rtvDescriptorSize;
@@ -632,21 +627,6 @@ namespace Engine {
 		// Present the frame.
 		m_swapChain->Present(m_vsyncInterval, 0);
 
-		//描画完了待ち。
-		WaitDraw();
-	}
-
-	void CGraphicsEngine::ExecuteCommand()
-	{
-		//// レンダリングターゲットへの描き込み完了待ち
-		//m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_renderTargets[m_frameIndex]);
-
-		//レンダリングコンテキストを閉じる。
-		m_renderContext.Close();
-
-		//コマンドを実行。
-		ID3D12CommandList* ppCommandLists[] = { m_commandList };
-		m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
 		//描画完了待ち。
 		WaitDraw();
 	}

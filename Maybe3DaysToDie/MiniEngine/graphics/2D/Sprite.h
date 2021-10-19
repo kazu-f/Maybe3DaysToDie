@@ -34,6 +34,16 @@ namespace Engine {
 		void* m_expandConstantBuffer = nullptr;					//ユーザー拡張の定数バッファ
 		int m_expandConstantBufferSize = 0;						//ユーザー拡張の定数バッファのサイズ。
 		IShaderResource* m_expandShaderResoruceView = nullptr;	//ユーザー拡張のシェーダーリソース。
+		std::array<DXGI_FORMAT, MAX_RENDERING_TARGET> m_colorBufferFormat = {
+			DXGI_FORMAT_R8G8B8A8_UNORM,
+			DXGI_FORMAT_UNKNOWN,
+			DXGI_FORMAT_UNKNOWN,
+			DXGI_FORMAT_UNKNOWN,
+			DXGI_FORMAT_UNKNOWN,
+			DXGI_FORMAT_UNKNOWN,
+			DXGI_FORMAT_UNKNOWN,
+			DXGI_FORMAT_UNKNOWN,
+		};	//レンダリングするカラーバッファのフォーマット。
 	};
 	/// <summary>
 	/// スプライトクラス。
@@ -99,7 +109,7 @@ namespace Engine {
 		/// <summary>
 		/// パイプラインステートを初期化する。
 		/// </summary>
-		void InitPipelineState(bool isDraw3D, bool isAlpha);
+		void InitPipelineState(const SpriteInitData& initData,bool isDraw3d);
 		/// <summary>
 		/// 定数バッファを初期化。
 		/// </summary>

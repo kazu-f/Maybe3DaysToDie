@@ -79,10 +79,14 @@ namespace Engine {
 		re.End(GraphicsEngine()->GetCommandQueue());
 
 		if (FAILED(hr)) {
+			char cFilePath[256];
+			wcstombs(cFilePath, filePath, 255);
 			//テクスチャの作成に失敗しました。
 			ENGINE_MESSAGE_BOX(
-				"ddsファイルが開けません。\n", 
-				"ファイルパスを確認してください。\n"
+				"ddsファイルが開けません。\n"
+				"%s\n"
+				"ファイルパスを確認してください。\n", 
+				cFilePath
 			);
 			return;
 		}

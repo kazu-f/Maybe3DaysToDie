@@ -21,6 +21,18 @@ namespace Engine {
 		~TkEngine();
 	public:
 		/// <summary>
+		/// インスタンスを作成する。
+		/// </summary>
+		static void CreateInstance()
+		{
+			ENGINE_ASSERT(m_instance == nullptr,
+				"ゲームエンジンが複数作成されようとしています。");
+			if (m_instance == nullptr)
+			{
+				m_instance = new TkEngine();
+			}
+		}
+		/// <summary>
 		/// 解放処理。
 		/// </summary>
 		void Release();
@@ -43,8 +55,7 @@ namespace Engine {
 		//インスタンスを取得する。
 		static TkEngine& Instance()
 		{
-			static TkEngine instance;
-			return instance;
+			return *m_instance;
 		}
 	public:		//Get関数系統
 		//ゲームタイム。
@@ -56,6 +67,13 @@ namespace Engine {
 		CGraphicsEngine* GetGraphicsEngine()
 		{
 			return m_graphicsEngine;
+		}
+		/// <summary>
+		/// リソースエンジンを取得。
+		/// </summary>
+		CResourceEngine& GetResourceEngine()
+		{
+			return m_resourceEngine;
 		}
 		//物理ワールド。
 		CPhysicsWorld& GetPhyshicsWorld()
@@ -82,10 +100,13 @@ namespace Engine {
 
 	private:
 		CGraphicsEngine* m_graphicsEngine = nullptr;		//グラフィックエンジン。
+		CResourceEngine m_resourceEngine;				//リソースエンジン。
 		CPhysicsWorld m_physicsWorld;					//物理ワールド。
 		CSoundEngine m_soundEngine;						//サウンドエンジン。
 		GamePad m_pad[GamePad::CONNECT_PAD_MAX];		//ゲームパッド。
 		CGameTime			m_gameTime;					//ゲームタイム。
+	private:
+		static TkEngine* m_instance;			//インスタンス。
 	public:
 		Stopwatch			m_sw;						//タイマークラス。
 	};
@@ -133,6 +154,13 @@ namespace Engine {
 		return GraphicsEngine()->Get2DCamera();
 	}
 
+	/// <summary>
+	/// リソースエンジンを取得。
+	/// </summary>
+	static inline CResourceEngine& ResourceEngine()
+	{
+		return GameEngine().GetResourceEngine();
+	}
 	/// <summary>
 	/// 物理ワールドを取得。
 	/// </summary>

@@ -43,6 +43,10 @@ namespace Engine {
 		//頂点のデータ更新。
 		m_vertexBuffer.Copy(&m_vertexData[0]);
 
+		auto& mainRT = GraphicsEngine()->GetMainRenderTarget();
+
+		//メインレンダリングターゲット描画可能待ち。
+		m_renderContext->WaitUntilToPossibleSetRenderTarget(mainRT);
 		//ルートシグネチャを設定。
 		m_renderContext->SetRootSignature(m_rootSignature);
 		//パイプラインステートを設定。
@@ -57,7 +61,8 @@ namespace Engine {
 		m_renderContext->SetDescriptorHeap(m_descriptorHeap);
 		//描画
 		m_renderContext->Draw(m_numLine * 2);
-
+		//描画完了待ち。
+		m_renderContext->WaitUntilFinishDrawingToRenderTarget(mainRT);
 	}
 	void CPhysicsDebugDraw::InitBuffer()
 	{
@@ -80,7 +85,6 @@ namespace Engine {
 		D3D12_INPUT_ELEMENT_DESC inputElementDescs[] =
 		{
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 16, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		};
 
 		//パイプラインステートを作成。
@@ -99,8 +103,11 @@ namespace Engine {
 		psoDesc.SampleMask = UINT_MAX;
 		psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE;
 		psoDesc.NumRenderTargets = 1;
-		psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
-		psoDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
+
+		auto& mainRT = GraphicsEngine()->GetMainRenderTarget();
+
+		psoDesc.RTVFormats[0] = mainRT.GetRenderTargetTextureFormat();
+		psoDesc.DSVFormat = mainRT.GetDepthStencilFormat();
 		psoDesc.SampleDesc.Count = 1;
 		m_pipeLineState.Init(psoDesc);
 	}

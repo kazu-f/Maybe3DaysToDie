@@ -54,13 +54,13 @@ namespace Engine {
 		/// <summary>
 		/// キャスターへ登録する。
 		/// </summary>
-		void RegistShadowCaster(Model* caster) {
+		void RegistShadowCaster(prefab::ModelRender* caster) {
 			m_shadowCasters.push_back(caster);
 		}
 		/// <summary>
 		/// キャスター登録を解除する。
 		/// </summary>
-		void RemoveShadowCaster(Model* caster)
+		void RemoveShadowCaster(prefab::ModelRender* caster)
 		{
 			auto it = std::find(m_shadowCasters.begin(), m_shadowCasters.end(), caster);
 			if (it != m_shadowCasters.end()){
@@ -113,14 +113,12 @@ namespace Engine {
 			float shadowAreaDepthInViewSpace[NUM_SHADOW_MAP];	//カメラ空間での影を落とすエリアの深度テーブル。
 		};
 
-		std::vector<Model*> m_shadowCasters;					//シャドウキャスターの配列。
+		std::vector <prefab::ModelRender*> m_shadowCasters;					//シャドウキャスターの配列。
 		Matrix m_LVPMatrix[NUM_SHADOW_MAP];							//ライトビュープロジェクション行列。
 		SShadowCb m_shadowCbEntity;
 	private:
 		ConstantBuffer m_shadowCb;								//定数バッファ。
 		RenderTarget m_shadowMaps[NUM_SHADOW_MAP];				//シャドウマップのレンダーターゲット。
-		D3D12_VIEWPORT m_shadowView[NUM_SHADOW_MAP];			//ビューポートの設定。
-		D3D12_RECT m_scissorRect[NUM_SHADOW_MAP];				//シザリング矩形。
 		Vector3 m_lightDirection = { 0.0f,-1.0f,0.0f };			//ライトの方向。
 		float m_shadowAreas[NUM_SHADOW_MAP] = { 0.0f };			//影が落ちる範囲。
 		float m_depthOffset[NUM_SHADOW_MAP] = { 0.0f };			//深度値オフセット。

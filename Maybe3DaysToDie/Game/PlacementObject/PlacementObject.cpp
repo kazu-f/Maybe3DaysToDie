@@ -18,6 +18,10 @@ void PlacementObject::OnDestroy()
 		DeleteGO(m_ObjectModel);
 		m_ObjectModel = nullptr;
 	}
+	for (auto model : m_model)
+	{
+		delete model;
+	}
 }
 
 bool PlacementObject::Start()
@@ -42,6 +46,11 @@ void PlacementObject::Update()
 	m_ObjectModel->SetPosition(m_pos);
 	m_ObjectModel->SetRotation(m_qrot);
 	m_ObjectModel->SetScale(m_scale);
+
+	if (Pad(0).IsTrigger(enButtonA))
+	{
+		PlaceObject();
+	}
 }
 
 void PlacementObject::CalcObjectPos()
@@ -64,45 +73,32 @@ void PlacementObject::CalcObjectPos()
 	//最終的な位置
 	Vector3 lastPos;
 	lastPos.Set(end);
-
+	CanPlace = callback.isHit;
 	//レイが衝突しているとき
 	if (callback.isHit)
 	{
-		//当たった位置
-		end = start + (end - start) * callback.m_closestHitFraction;
-		lastPos.Set(end);
-
-		//オブジェクトの間隔を100ごとにする
-		int x, y,z;
-		//小数点以下切り捨て
-		x = static_cast<int>(lastPos.x);
-		y = static_cast<int>(lastPos.y);
-		z = static_cast<int>(lastPos.z);
-
-		//余りを求める
-		int remain_x, remain_y, remain_z;
-		remain_x = x % 100;
-		remain_y = y % 100;
-		remain_z = z % 100;
-
-		//四捨五入する
-		//高さはそのまま切り捨て
-		float round_x, round_z;
-		round_x = round(static_cast<float>(remain_x / 100.0f));
-		round_z = round(static_cast<float>(remain_z / 100.0f));
-
-		//単位戻す
-		round_x *= 100.0f;
-		round_z *= 100.0f;
-
-		//ポジションに代入
-		lastPos.x = static_cast<float>(x - remain_x);
-		lastPos.y = static_cast<float>(y - remain_y);
-		lastPos.z = static_cast<float>(z - remain_z);
-
-		//四捨五入した値を加算
-		lastPos.x += round_x;
-		lastPos.z += round_z;
+		lastPos = callback.hitColPos;
+		lastPos += callback.hitNormal * 100.0f;
 	}
 	m_pos.Set(lastPos);
+}
+
+//todo [最適化]後で処理見直せ
+void PlacementObject::PlaceObject()
+{
+	if (CanPlace)
+	{
+		//初期化
+		ModelInitData m_modelInitData;
+		m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
+		prefab::ModelRender* m_object = NewGO<prefab::ModelRender>(0);
+		m_object->Init(m_modelInitData);
+		//ポジションをセット
+		m_object->SetPosition(m_pos);
+		Block* block = new Block;
+		block->SetModel(m_object);
+		block->CreateCollider();
+		//配列に追加
+		m_model.push_back(std::move(block));
+	}
 }

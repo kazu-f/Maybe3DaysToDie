@@ -7,10 +7,16 @@ namespace Engine {
 	}
 	void CAnimationClip::Load(const char* filePath)
 	{
+		//TODO:tkaファイル読み込みのフライウェイト?
 		m_tkaFile.Load(filePath);
 		if (m_tkaFile.IsLoaded() == false)
 		{
-			MessageBoxA(NULL, "AnimClipのLoadに失敗。ファイルパス確認！", "Warning!!", MB_OK);
+			ENGINE_MESSAGE_BOX(
+				"アニメーションクリップのロードに失敗\n"
+				"%s\n"
+				"ファイルパスを確認してください。",
+				filePath
+			);
 			return;
 		}
 		//ロード済み。

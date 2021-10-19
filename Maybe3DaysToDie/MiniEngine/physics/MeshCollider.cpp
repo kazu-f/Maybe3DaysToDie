@@ -1,6 +1,6 @@
 #include "MiniEngine.h"
 #include "MeshCollider.h"
-#include "graphics/Model.h"
+#include "graphics/Model/Model.h"
 
 namespace Engine {
 	CMeshCollider::CMeshCollider()

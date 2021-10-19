@@ -2,7 +2,7 @@
 /// <summary>
 /// モデルレンダー
 /// </summary>
-#include "graphics/Model.h"
+#include "graphics/Model/Model.h"
 #include "graphics/Animation/Animation.h"
 
 
@@ -42,7 +42,26 @@ namespace Engine {
 			/// </summary>
 			/// <param name="renderContext"></param>
 			void ForwardRender(RenderContext& rc) override;
-
+			/// <summary>
+			/// GBuffer書き込みで呼ばれる関数。
+			/// </summary>
+			/// <param name="rc">レンダリングコンテキスト。</param>
+			void RenderToGBuffer(RenderContext& rc)
+			{
+				//GBufferへ書き込む。
+				m_model.Draw(rc, m_numInstance);
+			}
+			/// <summary>
+			/// シャドウマップへの描画で呼ばれる関数。
+			/// </summary>
+			/// <param name="rc">レンダリングコンテキスト。</param>
+			/// <param name="mLVP">ライトビュープロジェクション行列。</param>
+			/// <param name="shadowMapNo">シャドウマップ番号。</param>
+			void RenderToShadowMap(RenderContext& rc, Matrix mLVP, int shadowMapNo)
+			{
+				//シャドウマップに書き込む。
+				m_shadowModel[shadowMapNo].Draw(rc, mLVP, m_numInstance);
+			}
 		public:
 			/// <summary>
 			/// モデルの初期化処理。
@@ -50,24 +69,8 @@ namespace Engine {
 			/// <param name="modelData">Modelのデータ。</param>
 			/// <param name="animClipDatas">アニメーションクリップの初期化データの配列。</param>
 			/// <param name="animClipsNum">配列のサイズ。</param>
-			void Init(ModelInitData& modelData, AnimClipInitData animClipDatas[] = nullptr,int animClipsNum = 0,int maxInstance = 1)
-			{
-				//初期化処理を呼び出す。
-				m_model.Init(modelData,maxInstance);
-				//ファイルパスをメモ。
-				m_tkmFilePath = modelData.m_tkmFilePath;
-				//アニメーションの初期化データをコピー。
-				if (animClipDatas != nullptr)
-				{
-					for (int i = 0; i < animClipsNum; i++)
-					{
-						m_animClipInitDatas.push_back(animClipDatas[i]);
-					}
-				}
+			void Init(ModelInitData& modelData, AnimClipInitData animClipDatas[] = nullptr, int animClipsNum = 0, int maxInstance = 1);
 
-				//初期化ステップを開始する。
-				m_initStatus = enInitStatus_WaitInitModel;
-			}
 			/// <summary>
 			/// モデルマテリアルの検索。
 			/// </summary>
@@ -75,6 +78,14 @@ namespace Engine {
 			void FindMaterial(OnFindMateral findMaterial)
 			{
 				m_model.FindMaterial(findMaterial);
+			}
+			/// <summary>
+			/// アルベドカラーを差し替える。
+			/// </summary>
+			/// <param name="tex">アルベドテクスチャ。</param>
+			void ChangeAlbedo(Texture& tex)
+			{
+				m_model.ChangeAlbedo(tex);
 			}
 
 		public:		//座標などの変更を行う関数。
@@ -101,6 +112,23 @@ namespace Engine {
 			{
 				//回転を加算する。
 				m_rotation *= rot;
+			}
+			/// <summary>
+			/// 回転を取得
+			/// </summary>
+			/// <returns>回転量</returns>
+			const Quaternion& GetRotation()const
+			{
+				return m_rotation;
+			}
+
+			/// <summary>
+			/// 拡大率を取得
+			/// </summary>
+			/// <returns>拡大率</returns>
+			const Vector3& GetScale()const
+			{
+				return m_scale;
 			}
 			/// <summary>
 			/// 座標を設定。
@@ -175,29 +203,44 @@ namespace Engine {
 				m_isForwardRender = flag;
 			}
 			/// <summary>
+			/// インスタンシング描画用のデータ更新の前に呼ぶ。
+			/// </summary>
+			void ResetInstancingDatas()
+			{
+				m_numInstance = 0;
+			}
+			/// <summary>
+			/// インスタンシング描画用の行列データを更新する。
+			/// </summary>
+			/// <param name="pos">座標</param>
+			/// <param name="rot">回転</param>
+			/// <param name="scale">拡大率</param>
+			void UpdateInstancingData(
+				const Vector3& pos,
+				const Quaternion& rot,
+				const Vector3& scale
+			);
+			/// <summary>
+			/// カリングをするかどうかを設定。
+			/// </summary>
+			void SetIsCulling(bool isCulling)
+			{
+				m_isCulling = isCulling;
+			}
+			/// <summary>
 			/// カリングするときの遠平面を指定。
 			/// </summary>
 			void SetCullingFar(const float culfar)
 			{
-				m_model.SetCullingFar(culfar);
+				m_cullingFar = culfar;
 			}
+
 			/// <summary>
-			/// インスタンシング描画のデータ更新する時に呼び出す関数。
+			/// インスタンシング描画か？
 			/// </summary>
-			void BeginUpdateInstancingData()
+			bool IsInstancing()
 			{
-				m_model.ResetInstancingDatas();
-			}
-			/// <summary>
-			/// インスタンシング描画のデータを更新する。
-			/// </summary>
-			/// <param name="pos">座標。</param>
-			/// <param name="rot">回転。</param>
-			/// <param name="scale">スケール。</param>
-			/// <param name="isCuling">カリングをするかどうか。</param>
-			void UpdateInstancingData(const Vector3& pos, const Quaternion& rot, const Vector3& scale , bool isCulling = false)
-			{
-				m_model.UpdateInstancingData(pos, rot, scale, isCulling);
+				return m_maxInstance > 1;
 			}
 			/// <summary>
 			/// 再生するアニメーションを変更する。
@@ -229,27 +272,72 @@ namespace Engine {
 				}
 				return Vector3::Zero;
 			}
+		private:	//初期化関数。
+			/// <summary>
+			/// インスタンシング描画用のSB構築。
+			/// </summary>
+			/// <param name="maxInstance">インスタンス数。</param>
+			void InitInstancing(int maxInstance);
+			/// /// <summary>
+			/// スケルトンを読み込む。
+			/// </summary>
+			void InitSkelton(const char* filePath);
+			/// <summary>
+			/// アニメーションを読み込む。
+			/// </summary>
+			/// <param name="animClipDatas"></param>
+			/// <param name="animClipsNum"></param>
+			void InitAnimation(AnimClipInitData* animClipDatas, int animClipsNum);
+			/// <summary>
+			/// モデルを初期化。
+			/// </summary>
+			/// <param name="initData">モデルの初期化データ。</param>
+			void InitModel(ModelInitData& initData);
+			/// <summary>
+			/// シャドウマップ用モデル初期化。
+			/// </summary>
+			void InitShadowModel();
+
+			/// <summary>
+			/// GPUにインスタンシング描画用のデータを送る。
+			/// </summary>
+			void SendGPUInstancingDatas()
+			{
+				if (m_maxInstance > 1) {
+					m_instancingDataSB.Update(m_instancingData.get());
+				}
+			}
 		private:
 			/// <summary>
 			/// 初期化ステータス。
 			/// </summary>
 			enum EnInitStatus {
 				enInitStatus_NotCallInitFunc,			//初期化関数がまだ。
-				enInitStatus_WaitInitModel,				//モデル初期化待ち。
+				enInitStatus_StartInitModel,			//初期化ステップを開始する。
 				enInitStatus_WaitInitSkeleton,			//スケルトンの初期化待ち。
 				enInitStatus_WaitInitAnimationClips,	//アニメーションクリップの初期化待ち。
+				enInitStatus_WaitInitAnimation,	//アニメーションの初期化待ち。
+				enInitStatus_WaitInitModel,				//モデル初期化待ち。
 				enInitStatus_Completed,					//初期化完了。
 			};
 			EnInitStatus m_initStatus = enInitStatus_NotCallInitFunc;	//初期化ステータス。
 			Model m_model;		//モデル。
+			Model m_shadowModel[NUM_SHADOW_MAP];		//シャドウマップ描画用モデル。
 			Vector3 m_position = Vector3::Zero;				//座標。
 			Quaternion	m_rotation = Quaternion::Identity;	//回転。
 			Vector3 m_scale = Vector3::One;					//拡大率。
 			Skeleton m_skeleton;							//スケルトン。
 			CAnimation m_animation;							//アニメーション。
-			std::string m_tkmFilePath;						//tkmファイルのファイルパス。
+			ModelInitData m_modeInitData;						//モデルの初期化データ。
 			std::vector <AnimClipInitData> m_animClipInitDatas;	//アニメーションクリップの初期化データ。
 			std::vector <CAnimationClipPtr> m_animClips;	//アニメーションクリップの配列。
+			std::unique_ptr<Matrix[]> m_instancingData;	//インスタンシング描画用のデータ。
+			StructuredBuffer m_instancingDataSB;		//インスタンシング描画用のバッファ。
+			int m_maxInstance = 1;		//インスタンシング描画の最大数。
+			int m_numInstance = 0;		//インスタンスの数。
+			float m_cullingFar = 0.0f;
+			bool m_isEnableInstancing = false;				//インスタンシング描画が有効か？
+			bool m_isCulling = false;						//カリングを行うかどうか。
 			bool m_isShadowCaster = false;					//シャドウキャスタ―フラグ。
 			bool m_isForwardRender = false;					//フォワードレンダリングを行うか？
 		};

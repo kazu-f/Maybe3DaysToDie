@@ -20,6 +20,12 @@
     <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
     <ClCompile Include="DestructibleObject\Block\Block.cpp" />
     <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
+    <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
+    <ClCompile Include="Stage\IStage.cpp" />
+    <ClCompile Include="NVMGenerator.cpp" />
+    <ClCompile Include="Scene\TerrainDebugScene.cpp" />
+    <ClCompile Include="TerrainManager\TerrainManager.cpp" />
+    <ClCompile Include="TerrainManager\TerrainRender.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -40,6 +46,12 @@
     <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
     <ClInclude Include="DestructibleObject\Block\Block.h" />
     <ClInclude Include="DestructibleObject\DestructibleObject.h" />
+    <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
+    <ClInclude Include="Stage\IStage.h" />
+    <ClInclude Include="NVMGenerator.h" />
+    <ClInclude Include="Scene\TerrainDebugScene.h" />
+    <ClInclude Include="TerrainManager\TerrainManager.h" />
+    <ClInclude Include="TerrainManager\TerrainRender.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
@@ -47,5 +59,6 @@
     <ImageContentTask Include="Assets\sprite\shoesIcon.png" />
     <ImageContentTask Include="Assets\sprite\staminaGauge.png" />
     <ImageContentTask Include="Assets\sprite\statusGauge.png" />
+    <ImageContentTask Include="Assets\sprite\preset\fade.png" />
   </ItemGroup>
 </Project>

@@ -14,7 +14,9 @@ namespace Engine {
 			/// <param name="isDraw3D">3D空間で描画するか？</param>
 			void Init(const SpriteInitData& spriteData, bool isDraw3D = false)
 			{
-				m_sprite.Init(spriteData,isDraw3D);	//初期化。
+				SpriteInitData initData = spriteData;
+				initData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
+				m_sprite.Init(initData,isDraw3D);	//初期化。
 				m_isDraw3D = isDraw3D;		//3D空間で描画するか？
 				m_isInited = true;			//初期化済み。
 			}

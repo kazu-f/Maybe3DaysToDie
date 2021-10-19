@@ -113,7 +113,7 @@ namespace Engine {
 
 		for (auto* model : m_defferdModelArray)
 		{
-			model->Draw(rc);
+			model->RenderToGBuffer(rc);
 		}
 
 		EndRender(rc);

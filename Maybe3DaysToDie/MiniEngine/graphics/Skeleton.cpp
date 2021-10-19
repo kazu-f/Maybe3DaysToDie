@@ -47,10 +47,15 @@ namespace Engine {
 	}
 	bool Skeleton::Init(const char* tksFilePath)
 	{
+		//TODO:tksファイル読み込みをフライウェイト化。
 		m_tksFile.Load(tksFilePath);
 		if (m_tksFile.IsLoaded() == false) {
+			ENGINE_LOG("tksファイルが見つかりませんでした。"
+				"\t:%s", tksFilePath);
 			return false;
 		}
+
+		BuildBoneMatrices();
 
 		return true;
 	}

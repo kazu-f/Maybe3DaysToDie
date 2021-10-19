@@ -16,6 +16,8 @@ namespace Engine {
 		}
 		~CGameObjectManager()
 		{
+			DeleteAllGameObjects();
+			m_instance = nullptr;
 		}
 		/// <summary>
 		/// ゲームオブジェクトの名前キーを作成。
@@ -34,12 +36,26 @@ namespace Engine {
 		}
 	public:		//マネージャーの外部から呼び出す処理。
 		/// <summary>
+		/// インスタンスの作成。
+		/// </summary>
+		static void CreateInstance(int gameObjectPrioMax)
+		{
+			m_instance = new CGameObjectManager;
+			m_instance->Init(gameObjectPrioMax);
+		}
+		/// <summary>
+		/// インスタンスの破棄。
+		/// </summary>
+		static void DeleteInstance()
+		{
+			delete m_instance;
+		}
+		/// <summary>
 		/// インスタンスの取得。
 		/// </summary>
 		static CGameObjectManager&Instance()
 		{
-			static CGameObjectManager instance;
-			return instance;
+			return *m_instance;
 		}
 		//マネージャーの更新処理。
 		void ExecuteFromGameThread();
@@ -54,6 +70,10 @@ namespace Engine {
 
 		void AddGameObject(GameObjectPrio prio, IGameObject* go, const char* objectName = nullptr)
 		{
+			if (!m_isActive)
+			{
+				return;
+			}
 			(void)objectName;
 			if (!go->m_isRegist) {
 				go->Awake();
@@ -79,6 +99,10 @@ namespace Engine {
 		template<class T>
 		T* NewGameObject(GameObjectPrio prio, const char* objectName)
 		{
+			if (!m_isActive)
+			{
+				return nullptr;
+			}
 			(void*)objectName;
 			if (prio >= m_gameObjectPriorityMax){	//優先度の最大数より大きい。
 #ifdef _DEBUG
@@ -103,6 +127,10 @@ namespace Engine {
 		/// </summary>
 		void DeleteGameObject(IGameObject* gameObject)
 		{
+			if (!m_isActive)
+			{
+				return;
+			}
 			if (gameObject != nullptr
 				&& gameObject->m_isRegist
 			) {
@@ -124,6 +152,10 @@ namespace Engine {
 		template<class T>
 		T* FindGameObject(const char* objectName , bool enableError)
 		{
+			if (!m_isActive)
+			{
+				return nullptr;
+			}
 			unsigned int nameKey = Util::MakeHash(objectName);
 			for (auto goList : m_gameObjectListArray) {	//優先度。
 				for (auto go : goList) {				//リスト。
@@ -157,6 +189,10 @@ namespace Engine {
 		template<class T>
 		void FindGameObjects(const char* objectName, std::function<bool(T* go)>func)
 		{
+			if (!m_isActive)
+			{
+				return;
+			}
 			unsigned int nameKey = Util::MakeHash(objectName);		//名前キーの作成。
 			for (auto goList : m_gameObjectListArray) {
 				for (auto go : goList) {
@@ -178,6 +214,10 @@ namespace Engine {
 		/// <param name="func"></param>
 		void FindGameObjectsWithTag(unsigned int tags, std::function<void(IGameObject* go)> func)
 		{
+			if (!m_isActive)
+			{
+				return;
+			}
 			for (auto& goList : m_gameObjectListArray) {
 				for (auto& go : goList) {
 					unsigned int goTags = go->GetTags();
@@ -198,6 +238,19 @@ namespace Engine {
 		void PreUpdate();	//事前更新。
 		void Update();		//更新処理を呼び出す。
 		void PostUpdate();	//遅延更新。
+		//全てのゲームオブジェクトを削除する。
+		void DeleteAllGameObjects()
+		{
+			m_isActive = false;
+			for (auto gameObjects : m_gameObjectListArray)
+			{
+				for (auto itr = gameObjects.begin(); itr != gameObjects.end(); ++itr)
+				{
+					delete* itr;
+				}
+
+			}
+		}
 
 	public:
 		/// <summary>
@@ -215,7 +268,9 @@ namespace Engine {
 		GameObjectPrio				m_gameObjectPriorityMax;	//!<ゲームオブジェクトの優先度の最大数。
 		int m_currentDeleteObjectBufferNo = 0;					//!<現在の削除オブジェクトのバッファ番号。
 		static const unsigned char	GAME_OBJECT_PRIO_MAX = 255;	//!<ゲームオブジェクトの優先度の最大値。
-
+		bool												m_isActive = true;
+	private:
+		static CGameObjectManager* m_instance;
 	};	//!<CGameObjectManajer
 
 	//ゲームオブジェクトマネージャーのインスタンス取得。

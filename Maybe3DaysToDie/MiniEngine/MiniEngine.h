@@ -46,6 +46,8 @@
 #include "math/Vector.h"
 #include "math/Matrix.h"
 
+const int MAX_RENDERING_TARGET = D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT;	//レンダリングターゲットの最大数。
+
 #include "graphics/GPUBuffer/VertexBuffer.h"
 #include "graphics/GPUBuffer/IndexBuffer.h"
 #include "graphics/IShaderResource.h"
@@ -66,11 +68,13 @@
 #include "graphics/2D/Sprite.h"
 #include "graphics/Font/FontRender.h"
 
-//#include "graphics/Model.h"
 #include "HID/GamePad.h"
 #include "util/NameKey.h"
 #include "util/CGameTime.h"
+#include "util/TResourceBank.h"
+#include "tkFile/TkmFile.h"
 
+#include "ResourceEngine.h"
 #include "physics/PhysicsWorld.h"
 #include "Sound/SoundEngine.h"
 #include "tkEngine.h"
@@ -94,11 +98,13 @@
 
 #include "graphics/PreRender/ShadowMap.h"
 #include "graphics/PreRender/GBufferRender.h"
-#include "graphics/deferrd/DefferdShading.h"
+#include "graphics/defferd/DefferdShading.h"
 #include "graphics/PostEffect/PostEffect.h"
 #include "graphics/Fade.h"
 
 #include "graphics/PipelineStatesDefault.h"
+
+#include "NaviMesh/NaviMeshAgent.h"
 
 #include "system/system.h"
 
