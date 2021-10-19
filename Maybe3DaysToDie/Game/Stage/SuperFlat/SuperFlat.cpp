@@ -58,7 +58,7 @@ void SuperFlat::CreateStage()
 			m_StaticCol[Width][Depth].CreateMesh(pos, Quaternion::Identity, Vector3::One, m_model);
 		}
 	}
-	m_Terrain = new Terrain;
+	m_Terrain = new nsTerrain::Terrain;
 	m_Terrain->SetModel(m_model);
 }
 

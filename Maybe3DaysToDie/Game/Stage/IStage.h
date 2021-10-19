@@ -13,7 +13,7 @@ public:
 	virtual void CreateStage() = 0;
 
 protected:
-	Terrain* m_Terrain = nullptr;
+	nsTerrain::Terrain* m_Terrain = nullptr;
 	prefab::ModelRender* m_model = nullptr;
 	CPhysicsStaticObject m_StaticCol[ChunkWidth][ChunkDepth];
 };
