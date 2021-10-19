@@ -5,7 +5,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="GameCamera.cpp" />
-    <ClCompile Include="GameSnece.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
     <ClCompile Include="Enemy\EnemyGenerator.cpp" />
@@ -25,7 +25,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="GameSnece.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
     <ClInclude Include="Enemy\EnemyGenerator.h" />

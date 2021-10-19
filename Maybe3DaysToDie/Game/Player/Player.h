@@ -4,22 +4,23 @@ class PlayerStamina;
 class PlayerHunger;
 class PlayerWater;
 
-//配列用の定数
-//なんとなくマジックナンバーが嫌だったので定数化
-enum Vector {
-	X, Y, Z
-};
-enum State {
-	Idle,			//待機
-	Walk,			//歩く
-	Run,			//走る
-	Crouch,			//しゃがみ
-	Jump,			//ジャンプ
-	Attack,			//攻撃
-	Num				//ステート数
-};
 class Player : public IGameObject
 {
+	//配列用の定数
+	//なんとなくマジックナンバーが嫌だったので定数化
+	enum Vector {
+		X, Y, Z
+	};
+	//プレイヤーが持つステートの種類
+	enum State {
+		Idle,			//待機
+		Walk,			//歩く
+		Run,			//走る
+		Crouch,			//しゃがみ
+		Jump,			//ジャンプ
+		Attack,			//攻撃
+		Num				//ステート数
+	};
 private:
 	/// <summary>
 	/// GameObjectに積まれると一度だけ呼ばれる初期化関数
@@ -114,6 +115,7 @@ private:
 		Vector3 RightModel = { ModelMatrix.m[X][X],ModelMatrix.m[X][Y],ModelMatrix.m[X][Z] };
 		//正規化して方向だけに
 		RightModel.Normalize();
+
 		//右方向を返す
 		return RightModel;
 	}
@@ -126,7 +128,7 @@ private:
 	Vector3 m_Scale = Vector3::One;
 	CCharacterController m_Characon;
 	///////////////////////////////////////////////////////////////
-	
+
 	/////体力//////////////////////////////////////////////////////
 	PlayerHp* m_Hp = nullptr;
 	///////////////////////////////////////////////////////////////
@@ -134,18 +136,18 @@ private:
 	/////スタミナ/////////////////////////////////////////////////
 	PlayerStamina* m_Stamina = nullptr;
 	///////////////////////////////////////////////////////////////
-	
+
 	/////空腹//////////////////////////////////////////////////////
 	PlayerHunger* m_Hunger = nullptr;
 	///////////////////////////////////////////////////////////////
-	
+
 	/////水分//////////////////////////////////////////////////////
 	PlayerWater* m_Water = nullptr;
 	///////////////////////////////////////////////////////////////
 	State m_State = State::Idle;
 	float m_DeltaTime = 0.0f;
 
-	/// マウス/////////////////////////////////////////////////////////
+	///マウス/////////////////////////////////////////////////////////
 	float MouseRotX = 0.0f;
 	float MouseRotY = 0.0f;
 	int DefaultPoint[2] = { 500,300 };
