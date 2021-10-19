@@ -3,6 +3,8 @@
 #include "DestructibleObject/Terrain/Terrain.h"
 
 namespace nsTerrain {
+	TerrainManager* TerrainManager::m_instance = nullptr;
+
 	Terrain* TerrainManager::CreateTerrain(const Vector3& pos)
 	{
 		//ì¬B
@@ -29,7 +31,6 @@ namespace nsTerrain {
 	}
 	void TerrainManager::PostUpdate()
 	{
-		m_terrainPtrs
 
 
 	}
