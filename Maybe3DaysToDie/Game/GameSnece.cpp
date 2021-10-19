@@ -7,6 +7,8 @@
 #include "PlacementObject/PlacementObject.h"
 #include "DateTime.h"
 #include "Enemy/StandardZombie.h"
+#include "Enemy/EnemyGenerator.h"
+
 bool GameSnece::Start()
 {
 	m_Player = NewGO<Player>(0, "player");
@@ -22,9 +24,22 @@ bool GameSnece::Start()
 	m_fontRender->SetShadowParam(true, 0.5f, Vector4::Black);
 	m_fontRender->SetPivot({ 0.0f, 0.5f });
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
-	NewGO<StandardZombie>(0);
+	
+
 
 	return true;
+}
+
+void GameSnece::Update()
+{
+	//enemy//
+	if (GetAsyncKeyState('U')) {
+		EnemyGenerator::GetEnemyGenerator()->Create<StandardZombie>();
+	}
+
+	if (GetAsyncKeyState('K')) {
+		EnemyGenerator::GetEnemyGenerator()->ReleaseEnemy();
+	}
 }
 
 void GameSnece::OnDestroy()

@@ -17,11 +17,11 @@ public:
 	///	スタート。
 	/// </summary>
 	/// <returns></returns>
-	bool Start() override;
+	bool Start() override final;
 	/// <summary>
 	/// 更新。
 	/// </summary>
-	void Update() override;
+	void Update() override final;
 	/// <summary>
 	/// パラメーター値を取得。
 	/// </summary>

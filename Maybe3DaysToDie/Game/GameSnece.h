@@ -14,6 +14,10 @@ private:
 	/// <returns>trueが返るまでループする</returns>
 	bool Start()override final;
 	/// <summary>
+	/// 更新。
+	/// </summary>
+	void Update() override final;
+	/// <summary>
 	/// deleteされると呼ばれる
 	/// </summary>
 	void OnDestroy()override final;
@@ -23,7 +27,6 @@ private:
 	GameCamera* m_Camera = nullptr;
 	Stage* m_Stage = nullptr;
 	PlacementObject* m_PlacementObject = nullptr;		//設置オブジェクト
-
 	//Samples//
 	CFontRender* m_fontRender = nullptr;	//フォントレンダー。
 

@@ -2,6 +2,8 @@
 
 #include "MiniEngine/NaviMesh/NaviMeshAgent.h"
 
+class EnemyGenerator;
+
 /// <summary>
 /// 敵キャラの基底クラス。
 /// </summary>
@@ -32,6 +34,10 @@ protected:
 		float SearchRange = 20000.0f;	//索敵範囲。	
 	};
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
+	IEnemy();
 	/// <summary>
 	/// デストラクタ。
 	/// </summary>
@@ -70,7 +76,16 @@ public://なんかtripleTrashオカピー。
 	/// <param name="tag">タグ。</param>
 	/// <param name="animClipDatas">アニメーションデーター。</param>
 	void InitActor(ModelInitData& initData, const char* tag, AnimClipInitData animClipDatas[] = nullptr, int animSize = 0);
-public:
+public://setter
+	/// <summary>
+	/// ジェネレーターを設定。
+	/// </summary>
+	/// <param name="generator">ジェネレーター。</param>
+	void SetEnemyGenerator(EnemyGenerator* generator)
+	{
+		m_generatorPtr = generator;
+	}
+public://getter
 	/// <summary>
 	/// エージェントを取得。
 	/// </summary>
@@ -90,5 +105,6 @@ public:
 private:
 	prefab::ModelRender*	m_modelRender = nullptr;	//レンダー。
 	NaviMeshAgent			m_agent;					//ナビメッシュエージェント。
+	EnemyGenerator*			m_generatorPtr;				//ジェネレーターのポインタ。
 };
 

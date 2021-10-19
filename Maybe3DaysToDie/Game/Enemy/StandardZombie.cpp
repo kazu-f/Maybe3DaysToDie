@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "StandardZombie.h"
 #include "IEnemy.h"
+#include "EnemyGenerator.h"
 
 bool StandardZombie::Start()
 {
@@ -31,6 +32,8 @@ bool StandardZombie::Start()
 	
 	//DefaultAnimPlay.
 	this->GetModelRender()->PlayAnimation(0, 0.5f);
+
+
 
 	return true;
 }
