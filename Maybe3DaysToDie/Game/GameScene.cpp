@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "GameSnece.h"
+#include "GameScene.h"
 #include "GameCamera.h"
 #include "Player/Player.h"
 #include "Stage.h"
@@ -8,7 +8,9 @@
 #include "DateTime.h"
 #include "Enemy/StandardZombie.h"
 #include "Enemy/EnemyGenerator.h"
-bool GameSnece::Start(){
+
+bool GameScene::Start()
+{
 	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Player = NewGO<Player>(0, "player");
 	m_Stage = NewGO<Stage>(0, "stage");
@@ -22,12 +24,27 @@ bool GameSnece::Start(){
 	m_fontRender->SetShadowParam(true, 0.5f, Vector4::Black);
 	m_fontRender->SetPivot({ 0.0f, 0.5f });
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
-	
-
-
 	return true;
 }
 
+void Sample()
+{
+	if (GetAsyncKeyState('U')) {
+		//インスタンス化サンプル。
+		EnemyGenerator::GetEnemyGenerator()->Create<StandardZombie>();
+	}
+	if (GetAsyncKeyState('K')) {
+		//全解放サンプル。
+		EnemyGenerator::GetEnemyGenerator()->ReleaseEnemy();
+	}
+}
+
+void GameScene::Update()
+{
+	Sample();
+}
+
+void GameScene::OnDestroy()
 {
 	DeleteGO(m_Player); 
 	DeleteGO(m_Camera);
