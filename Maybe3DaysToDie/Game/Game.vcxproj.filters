@@ -56,6 +56,7 @@
     <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />
     <ClInclude Include="TerrainManager\TerrainWorld.h" />
+    <ClInclude Include="TerrainManager\MarchingCubeTable.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

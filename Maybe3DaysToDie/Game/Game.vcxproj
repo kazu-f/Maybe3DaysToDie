@@ -123,6 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,6 +144,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -210,6 +212,7 @@
     <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
     <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
     <ClInclude Include="Scene\TerrainDebugScene.h" />
+    <ClInclude Include="TerrainManager\MarchingCubeTable.h" />
     <ClInclude Include="TerrainManager\TerrainManager.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />

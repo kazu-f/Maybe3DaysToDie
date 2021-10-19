@@ -31,7 +31,11 @@ namespace nsTerrain {
 	}
 	void TerrainManager::PostUpdate()
 	{
-
+		for (auto& ptr : m_terrainPtrs)
+		{
+			//’¸“_‚ðŒ`¬B
+			ptr->ConnectVertex();
+		}
 
 	}
 }

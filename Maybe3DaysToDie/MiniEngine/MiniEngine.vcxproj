@@ -300,6 +300,7 @@
       </AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeaderFile>MiniEngine.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>MiniEngine.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -338,6 +339,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(EFK_ROOT_DIR)/Effekseer;$(EFK_ROOT_DIR)/EffekseerRendererDX12</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>MiniEngine.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>MiniEngine.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
