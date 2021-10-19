@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "GameSnece.h"
+#include "GameScene.h"
 
 //1フレームの経過時間を出力する。
 #define CALC_TIME
@@ -43,7 +43,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//マウスカーソルの表示を消す
 	ShowCursor(false);
 	//ゲームしーーん
-	GameSnece* gameSnece = NewGO< GameSnece>(0, "gameSnece");
+	GameScene* gameScene = NewGO< GameScene>(0, "gameScene");
 #ifdef CALC_TIME
 	Stopwatch sw;
 #endif

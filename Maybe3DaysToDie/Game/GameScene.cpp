@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "GameSnece.h"
+#include "GameScene.h"
 #include "GameCamera.h"
 #include "Player/Player.h"
 #include "Stage.h"
@@ -7,10 +7,10 @@
 #include "PlacementObject/PlacementObject.h"
 #include "DateTime.h"
 #include "Enemy/StandardZombie.h"
-bool GameSnece::Start()
+bool GameScene::Start()
 {
-	m_Player = NewGO<Player>(0, "player");
 	m_Camera = NewGO<GameCamera>(0, "camera");
+	m_Player = NewGO<Player>(0, "player");
 	m_Stage = NewGO<Stage>(0, "stage");
 	m_PlacementObject = NewGO<PlacementObject>(1);
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
@@ -27,7 +27,7 @@ bool GameSnece::Start()
 	return true;
 }
 
-void GameSnece::OnDestroy()
+void GameScene::OnDestroy()
 {
 	DeleteGO(m_Player); 
 	DeleteGO(m_Camera);
