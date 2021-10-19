@@ -79,6 +79,7 @@ public:
 	{
 		return m_model;
 	}
+
 protected:
 	prefab::ModelRender* m_model = nullptr;		//モデル
 	CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト

@@ -21,6 +21,11 @@ void SuperFlat::OnDestroy()
 		DeleteGO(m_model);
 		m_model = nullptr;
 	}
+	if (m_Terrain != nullptr)
+	{
+		delete m_Terrain;
+		m_Terrain = nullptr;
+	}
 
 }
 
@@ -58,11 +63,29 @@ void SuperFlat::CreateStage()
 			m_StaticCol[Width][Depth].CreateMesh(pos, Quaternion::Identity, Vector3::One, m_model);
 		}
 	}
-	m_Terrain = new Terrain;
+	m_Terrain = new nsTerrain::Terrain;
 	m_Terrain->SetModel(m_model);
 }
 
-void SuperFlat::Draw()
+void SuperFlat::ReCreate()
 {
+	////モデルの各種情報
+	ModelInitData modelInitData;
+	modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
+	////モデルを初期化
+	m_model->Init(modelInitData, nullptr, 0, 5 * 5);
+	m_model->ResetInstancingDatas();
+	//チャンクごとにマップを生成
+	for (int Width = 0; Width < 5; Width++)
+	{
+		for (int Depth = 0; Depth < 5; Depth++)
+		{
+			Vector3 pos = { 100.0f,-100.0f,100.0f };
+			pos.x *= Width;
+			pos.z *= Depth;
+			m_model->UpdateInstancingData(pos, Quaternion::Identity, Vector3::One);
+		}
+	}
+	m_Terrain->SetModel(m_model);
 
 }

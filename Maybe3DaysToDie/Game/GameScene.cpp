@@ -8,11 +8,9 @@
 #include "DateTime.h"
 #include "Enemy/StandardZombie.h"
 #include "Enemy/EnemyGenerator.h"
-
-bool GameSnece::Start()
-{
-	m_Player = NewGO<Player>(0, "player");
+bool GameSnece::Start(){
 	m_Camera = NewGO<GameCamera>(0, "camera");
+	m_Player = NewGO<Player>(0, "player");
 	m_Stage = NewGO<Stage>(0, "stage");
 	m_PlacementObject = NewGO<PlacementObject>(1);
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
@@ -30,19 +28,6 @@ bool GameSnece::Start()
 	return true;
 }
 
-void GameSnece::Update()
-{
-	//enemy//
-	if (GetAsyncKeyState('U')) {
-		EnemyGenerator::GetEnemyGenerator()->Create<StandardZombie>();
-	}
-
-	if (GetAsyncKeyState('K')) {
-		EnemyGenerator::GetEnemyGenerator()->ReleaseEnemy();
-	}
-}
-
-void GameSnece::OnDestroy()
 {
 	DeleteGO(m_Player); 
 	DeleteGO(m_Camera);

@@ -5,7 +5,7 @@ class Stage;
 class GameCamera;
 class PlacementObject;
 
-class GameSnece : public IGameObject
+class GameScene : public IGameObject
 {
 private:
 	/// <summary>

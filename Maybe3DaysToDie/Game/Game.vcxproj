@@ -163,7 +163,7 @@
     <ClCompile Include="Enemy\IEnemy.cpp" />
     <ClCompile Include="Enemy\StandardZombie.cpp" />
     <ClCompile Include="GameCamera.cpp" />
-    <ClCompile Include="GameSnece.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="NVMGenerator.cpp" />
     <ClCompile Include="Stage\IStage.cpp" />
     <ClCompile Include="main.cpp" />
@@ -181,6 +181,11 @@
     </ClCompile>
     <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
     <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
+    <ClCompile Include="Scene\TerrainDebugScene.cpp" />
+    <ClCompile Include="TerrainManager\TerrainManager.cpp" />
+    <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
+    <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
+    <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DestructibleObject\DestructibleObject.h" />
@@ -190,7 +195,7 @@
     <ClInclude Include="Enemy\IEnemy.h" />
     <ClInclude Include="Enemy\StandardZombie.h" />
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="GameSnece.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="NVMGenerator.h" />
     <ClInclude Include="Stage\IStage.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
@@ -204,6 +209,11 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
     <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
+    <ClInclude Include="Scene\TerrainDebugScene.h" />
+    <ClInclude Include="TerrainManager\TerrainManager.h" />
+    <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
+    <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />
+    <ClInclude Include="TerrainManager\TerrainWorld.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
