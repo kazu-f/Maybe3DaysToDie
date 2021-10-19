@@ -146,14 +146,5 @@ private:
 	///////////////////////////////////////////////////////////////
 	State m_State = State::Idle;
 	float m_DeltaTime = 0.0f;
-
-	///É}ÉEÉX/////////////////////////////////////////////////////////
-	float MouseRotX = 0.0f;
-	float MouseRotY = 0.0f;
-	int DefaultPoint[2] = { 500,300 };
-	float m_SensiX = 0.02f;
-	float m_SensiY = 0.02f;
-	float m_RotAngle[2] = { 0.0f,0.0f };
-	///////////////////////////////////////////////////////////////////
 };
 

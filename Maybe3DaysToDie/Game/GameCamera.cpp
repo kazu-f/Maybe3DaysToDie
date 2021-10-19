@@ -134,9 +134,10 @@ void GameCamera::Rotate()
 	//{
 	//	m_Rot = oldRot;
 	//}
-	//if (GetAsyncKeyState('O')) {
-	//	m_Rot.SetRotationDegX(180.0f);
-	//}
+	//Oボタンを押すと視点をリセットする
+	if (GetAsyncKeyState('O')) {
+		m_Rot.SetRotationDegX(180.0f);
+	}
 }
 
 void GameCamera::Move()

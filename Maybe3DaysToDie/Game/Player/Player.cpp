@@ -25,10 +25,7 @@ bool Player::Start()
 	//水分を作る
 	m_Water = NewGO<PlayerWater>(0,"playerWater");
 
-	MainCamera().SetPosition(m_Pos);
-	//Vector3 m_Target = { 0.0f,-200.0f,-500.0f };			//ターゲット
-	//MainCamera().SetTarget(m_Target);
-	//MainCamera().Update();
+	m_Characon.Init(100.0f, 100.0f, m_Pos);
 	return true;
 }
 
@@ -40,6 +37,29 @@ void Player::Update()
 	StateUpdate();
 	//モデル情報を更新
 	ModelUpdate();
+
+	Vector3 Forward = ForwardUpdate();
+	Forward.y = 0.0f;
+
+	Vector3 MoveSpeed = Vector3::Zero;
+	//Wキーが押されたら
+	if (GetAsyncKeyState('W')) {
+		MoveSpeed += Forward;
+	}
+	//Sキーが押されたら
+	if (GetAsyncKeyState('S')) {
+		MoveSpeed -= Forward;
+	}
+	//Aキーが押されたら
+	if (GetAsyncKeyState('A')) {
+		MoveSpeed -= RightUpdate();
+	}
+	//Dキーが押されたら
+	if (GetAsyncKeyState('D')) {
+		MoveSpeed += RightUpdate();
+	}
+	MoveSpeed.y -= 0.1f;
+	m_Pos = m_Characon.Execute(MoveSpeed);
 }
 
 void Player::OnDestroy()
