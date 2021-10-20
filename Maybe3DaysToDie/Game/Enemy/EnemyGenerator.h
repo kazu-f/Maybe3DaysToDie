@@ -99,7 +99,7 @@ private:
 	std::vector<IEnemy*> m_enemyList;	//エネミーのリスト。
 
 	/* bloodMoon */
-	bool m_isActiveBloodMoon = false;		//ブラッドムーンが有効？
+	bool m_isActiveBloodMoon = false;	//ブラッドムーンが有効？
 	
 };
 

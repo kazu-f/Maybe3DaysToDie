@@ -6,7 +6,7 @@
 
 #include "PlacementObject/PlacementObject.h"
 #include "DateTime.h"
-#include "Enemy/StandardZombie.h"
+#include "Enemy/StandardZombie/StandardZombie.h"
 #include "Enemy/EnemyGenerator.h"
 
 bool GameScene::Start()
