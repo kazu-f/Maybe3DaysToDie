@@ -4,9 +4,21 @@
 class Vector3Int {
 public:
 	union {
-		struct { int x, y, z = 0; };
+		struct { int x, y, z ; };
 		int v[3];
 	};
+
+	Vector3Int()
+	{
+		x = y = z = 0;
+	}
+
+	Vector3Int(int _x, int _y, int _z)
+	{
+		x = _x;
+		y = _y;
+		z = _z;
+	}
 
 public:
 	//‘ã“üB
