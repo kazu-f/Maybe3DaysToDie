@@ -31,13 +31,14 @@ public:
 		return *this;
 	}
 	//加算。
-	const Vector3Int& operator+ (const Vector3Int& _v)
+	const Vector3Int operator+ (const Vector3Int& _v)
 	{
-		this->x = this->x + _v.x;
-		this->y = this->y + _v.y;
-		this->z = this->z + _v.z;
+		Vector3Int ret;
+		ret.x = this->x + _v.x;
+		ret.y = this->y + _v.y;
+		ret.z = this->z + _v.z;
 
-		return *this;
+		return ret;
 	}
 
 	//加算代入。
@@ -49,11 +50,12 @@ public:
 	//減算。
 	const Vector3Int operator- (const Vector3Int& _v)
 	{
-		this->x = this->x - _v.x;
-		this->y = this->y - _v.y;
-		this->z = this->z - _v.z;
+		Vector3Int ret;
+		ret.x = this->x - _v.x;
+		ret.y = this->y - _v.y;
+		ret.z = this->z - _v.z;
 
-		return *this;
+		return ret;
 	}
 
 	//減算代入。
@@ -61,6 +63,41 @@ public:
 	{
 		*this = *this - _v;
 	}
+
+	//乗算。
+	const Vector3Int operator* (const int _mul)
+	{
+		Vector3Int ret;
+		ret.x = this->x * _mul;
+		ret.y = this->y * _mul;
+		ret.z = this->z * _mul;
+
+		return ret;
+	}
+
+	//乗算。
+	const Vector3Int operator* (const Vector3Int _v)
+	{
+		Vector3Int ret;
+		ret.x = this->x * _v.x;
+		ret.y = this->y * _v.y;
+		ret.z = this->z * _v.z;
+
+		return ret;
+	}
+
+	//乗算代入。
+	const void operator*= (const int _mul)
+	{
+		*this = *this * _mul;
+	}
+
+	//乗算代入。
+	const void operator*= (const Vector3Int _v)
+	{
+		*this = *this * _v;
+	}
+
 };
 
 //MarchingCubeに使うテーブル変数。
