@@ -79,14 +79,6 @@ public://なんかtripleTrashオカピー。
 	void InitActor(ModelInitData& initData, const char* tag, AnimClipInitData animClipDatas[] = nullptr, int animSize = 0);
 public://setter
 	/// <summary>
-	/// ジェネレーターを設定。
-	/// </summary>
-	/// <param name="generator">ジェネレーター。</param>
-	void SetEnemyGenerator(EnemyGenerator* generator)
-	{
-		m_generatorPtr = generator;
-	}
-	/// <summary>
 	/// ステートを変更。
 	/// </summary>
 	/// <param name="state"></param>
@@ -103,6 +95,22 @@ public://setter
 		}
 		m_currentState = state;
 		m_currentState->Enter();
+	}
+	/// <summary>
+	/// ジェネレーターを設定。
+	/// </summary>
+	/// <param name="generator">ジェネレーター。</param>
+	void SetEnemyGenerator(EnemyGenerator* generator)
+	{
+		m_generatorPtr = generator;
+	}
+	/// <summary>
+	/// 位置を設定。
+	/// </summary>
+	/// <param name="pos"></param>
+	void SetPos(Vector3& pos)
+	{
+		m_pos = pos;
 	}
 public://getter
 	/// <summary>
@@ -129,10 +137,19 @@ public://getter
 	{
 		return m_currentState;
 	}
+	/// <summary>
+	/// 位置を取得。
+	/// </summary>
+	/// <returns></returns>
+	Vector3& GetPos()
+	{
+		return m_pos;
+	}
 private:
 	prefab::ModelRender*	m_modelRender = nullptr;	//レンダー。
 	NaviMeshAgent			m_agent;					//ナビメッシュエージェント。
 	EnemyGenerator*			m_generatorPtr;				//ジェネレーターのポインタ。
 	IEnemyState*			m_currentState = nullptr;	//現在のステート。
+	Vector3					m_pos = g_vec3Zero;			//座標。
 };
 

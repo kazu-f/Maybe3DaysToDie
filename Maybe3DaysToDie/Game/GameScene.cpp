@@ -19,11 +19,12 @@ bool GameScene::Start()
 	
 	//sample//
 	m_fontRender = NewGO<CFontRender>(0);
-	m_fontRender->SetText(L"Reo is AHO.\nReo is Baka\nReo is UNKO\nHima is Neet");
+	m_fontRender->SetText(L"Press 'U' Instantiate Zombie.\nPress 'K' Delete All Zombie.\n\nR B\nE A\nO K\n  A");
 	m_fontRender->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
 	m_fontRender->SetShadowParam(true, 0.5f, Vector4::Black);
 	m_fontRender->SetPivot({ 0.0f, 0.5f });
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
+	m_fontRender->SetScale(0.5f);
 	return true;
 }
 
