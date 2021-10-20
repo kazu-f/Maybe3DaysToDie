@@ -54,13 +54,12 @@
     <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />
     <ClInclude Include="TerrainManager\TerrainWorld.h" />
-    <ClInclude Include="Enemy\StandardZombie\StandardZombie.h" />
+    <ClInclude Include="TerrainManager\MarchingCubeTable.h" />    <ClInclude Include="Enemy\StandardZombie\StandardZombie.h" />
     <ClInclude Include="DestructibleObject\PlacementObject\PlacementObject.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Enemy\IEnemyState.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Enemy\StandardZombie\STDZombieMove.h" />
-  </ItemGroup>
+    <ClInclude Include="Enemy\StandardZombie\STDZombieMove.h" />  </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
     <ImageContentTask Include="Assets\sprite\HPIcon.png" />

@@ -1,4 +1,5 @@
 #pragma once
+#include "MarchingCubeTable.h"
 
 namespace nsTerrain {
 	class Terrain;
