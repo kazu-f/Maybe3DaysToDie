@@ -10,5 +10,5 @@ public:
     double CalculationNoise(double x, double y, double z);
     double Octave(double x, double y, double z, int octaves);
 private:
-    int p[512];
+    int noiseTable[512];
 };

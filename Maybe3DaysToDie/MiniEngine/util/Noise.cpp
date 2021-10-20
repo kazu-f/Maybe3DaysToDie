@@ -6,16 +6,16 @@ CNoise::CNoise()
 {
     for (int i = 0; i < 256; i++)
     {
-        p[i] = i;
+        noiseTable[i] = i;
     }
 
     std::random_device seed;
     std::mt19937 random(seed());
-    std::shuffle(std::begin(p), std::begin(p) + 256, random);
+    std::shuffle(std::begin(noiseTable), std::begin(noiseTable) + 256, random);
 
     for (int i = 0; i < 256; i++)
     {
-        p[256 + i] = p[i];
+        noiseTable[256 + i] = noiseTable[i];
     }
 }
 
@@ -51,11 +51,15 @@ double CNoise::CalculationNoise(double x, double y, double z)
     double v = Fade(y);
     double w = Fade(z);
 
-    int A = p[X] + Y, AA = p[A] + Z, AB = p[A + 1] + Z;
-    int B = p[X + 1] + Y, BA = p[B] + Z, BB = p[B + 1] + Z;
+    int A = noiseTable[X] + Y;
+    int AA = noiseTable[A] + Z;
+    int AB = noiseTable[A + 1] + Z;
+    int B = noiseTable[X + 1] + Y;
+    int BA = noiseTable[B] + Z;
+    int BB = noiseTable[B + 1] + Z;
 
-    return Lerp(w, Lerp(v, Lerp(u, Grad(p[AA], x, y, z), Grad(p[BA], x - 1, y, z)), Lerp(u, Grad(p[AB], x, y - 1, z), Grad(p[BB], x - 1, y - 1, z))),
-        Lerp(v, Lerp(u, Grad(p[AA + 1], x, y, z - 1), Grad(p[BA + 1], x - 1, y, z - 1)), Lerp(u, Grad(p[AB + 1], x, y - 1, z - 1), Grad(p[BB + 1], x - 1, y - 1, z - 1))));
+    return Lerp(w, Lerp(v, Lerp(u, Grad(noiseTable[AA], x, y, z), Grad(noiseTable[BA], x - 1, y, z)), Lerp(u, Grad(noiseTable[AB], x, y - 1, z), Grad(noiseTable[BB], x - 1, y - 1, z))),
+        Lerp(v, Lerp(u, Grad(noiseTable[AA + 1], x, y, z - 1), Grad(noiseTable[BA + 1], x - 1, y, z - 1)), Lerp(u, Grad(noiseTable[AB + 1], x, y - 1, z - 1), Grad(noiseTable[BB + 1], x - 1, y - 1, z - 1))));
 }
 
 double CNoise::Octave(double x, double y, double z, int octaves)
