@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "IEnemy.h"
+#include "IEnemyState.h"
 #include "MiniEngine/NaviMesh/NaviMesh.h"
 #include "EnemyGenerator.h"
 

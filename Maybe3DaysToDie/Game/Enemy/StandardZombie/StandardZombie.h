@@ -1,12 +1,32 @@
 #pragma once
 
-#include "IEnemy.h"
+class STDZombieMove;
+
+#include "Enemy/IEnemy.h"
 
 /// <summary>
 /// 標準的なゾンビ。
 /// </summary>
 class StandardZombie : public IEnemy
 {
+public:
+	/// <summary>
+	/// アニメーションenum。
+	/// <para>マジックナンバーダメ絶対。</para>
+	/// </summary>
+	enum EnAnimationState {
+		EnAnimationState_Idle,		//idle
+		EnAnimationState_Walk,		//歩き。
+		/*-Count-*/
+		EnAnimationState_Num,		
+		/*-Count-*/
+		EnAnimationState_Run,		//走り。
+		EnAnimationState_Attack,	//攻撃。
+		EnAnimationState_Damage,	//ダメージ。
+		EnAnimationState_Stun,		//スタン。
+		EnAnimationState_Death,		//死亡。
+
+	};
 public:
 	/// <summary>
 	/// コンストラクタ。
@@ -30,5 +50,7 @@ public:
 private:
 	Vector3 m_scale = { 6.0f, 6.0f, 6.0f };		//拡大。
 	IEnemy::EnemyParams m_parameters;			//パラメーター。
+
+	STDZombieMove* m_moveState = nullptr;		//移動用ステート。
 };
 

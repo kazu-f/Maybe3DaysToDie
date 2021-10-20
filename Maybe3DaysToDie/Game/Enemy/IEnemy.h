@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MiniEngine/NaviMesh/NaviMeshAgent.h"
+#include "IEnemyState.h"
 
 class EnemyGenerator;
 
@@ -14,7 +15,7 @@ class EnemyGenerator;
 /// </remarks>
 class IEnemy : public IGameObject
 {
-protected:
+public:
 	/// <summary>
 	/// エネミーの初期化パラメーター。
 	/// </summary>
@@ -85,6 +86,24 @@ public://setter
 	{
 		m_generatorPtr = generator;
 	}
+	/// <summary>
+	/// ステートを変更。
+	/// </summary>
+	/// <param name="state"></param>
+	void ChangeState(IEnemyState* state)
+	{
+		if (m_currentState == state) {
+			//一緒の場合は特に何も行わない。
+			return;
+		}
+
+		//ステートを変更の際に関数を呼び出し。
+		if (m_currentState != nullptr) {
+			m_currentState->Leave();
+		}
+		m_currentState = state;
+		m_currentState->Enter();
+	}
 public://getter
 	/// <summary>
 	/// エージェントを取得。
@@ -102,9 +121,18 @@ public://getter
 	{
 		return m_modelRender;
 	}
+	/// <summary>
+	/// 現在のステートを取得。
+	/// </summary>
+	/// <returns></returns>
+	IEnemyState* GetCurrentState() const 
+	{
+		return m_currentState;
+	}
 private:
 	prefab::ModelRender*	m_modelRender = nullptr;	//レンダー。
 	NaviMeshAgent			m_agent;					//ナビメッシュエージェント。
 	EnemyGenerator*			m_generatorPtr;				//ジェネレーターのポインタ。
+	IEnemyState*			m_currentState = nullptr;	//現在のステート。
 };
 
