@@ -25,8 +25,8 @@ bool StandardZombie::Start()
 	//animDataInit.
 	animData[EnAnimationState_Idle].tkaFilePath = "Assets/modelData/Enemy/StandardZombie/Scream.tka";
 	animData[EnAnimationState_Idle].isLoop = true;
-	animData[EnAnimationState_Walk].tkaFilePath = "Assets/modelData/Enemy/StandardZombie/Walk.tka";
-	animData[EnAnimationState_Walk].isLoop = true;
+	animData[EnAnimationState_Run].tkaFilePath = "Assets/modelData/Enemy/StandardZombie/Run.tka";
+	animData[EnAnimationState_Run].isLoop = true;
 
 	//エージェントとアクター一緒に初期化。
 	InitActor(modelInitData, "StandardZombie", animData, sizeof(animData) / sizeof(animData[0]));
@@ -38,7 +38,7 @@ bool StandardZombie::Start()
 	m_moveState = new STDZombieMove(this);
 	
 	//DefaultAnimPlay.
-	this->GetModelRender()->PlayAnimation(0, 0.5f);
+	this->GetModelRender()->PlayAnimation(EnAnimationState_Run, 0.0f);
 
 
 
@@ -48,6 +48,7 @@ bool StandardZombie::Start()
 void StandardZombie::Update()
 {
 	ChangeState(m_moveState);
+	GetCurrentState()->Update();
 }
 
 IEnemy::EnemyParams& StandardZombie::GetEnemyParameters()

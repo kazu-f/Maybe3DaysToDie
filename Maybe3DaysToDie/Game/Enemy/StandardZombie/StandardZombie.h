@@ -16,11 +16,11 @@ public:
 	/// </summary>
 	enum EnAnimationState {
 		EnAnimationState_Idle,		//idle
-		EnAnimationState_Walk,		//歩き。
-		/*-Count-*/
-		EnAnimationState_Num,		
-		/*-Count-*/
 		EnAnimationState_Run,		//走り。
+		/*-Count-*/
+		EnAnimationState_Num,
+		/*-Count-*/
+		EnAnimationState_Walk,		//歩き。
 		EnAnimationState_Attack,	//攻撃。
 		EnAnimationState_Damage,	//ダメージ。
 		EnAnimationState_Stun,		//スタン。
