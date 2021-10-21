@@ -52,14 +52,15 @@ void Hill::CreateStage()
 void Hill::SetHeight(Vector3& pos)
 {
 	//パーリンノイズで使う値を求める
-	float y = pos.y; // yを0にする
+	int y = static_cast<int>(pos.y);
 	float xSample = (pos.x + SeedX) / Relief;
 	float zSample = (pos.z + SeedZ) / Relief;
 	//ノイズをパーリンノイズで出した値にする
 	float noise = PerlinNoize(xSample, zSample);
 	y = MaxHeight * noise;		//高さを最大値*noiseにする
+	y = static_cast<int>(y);
 	//10の位の余りを求める
-	float roundY = static_cast<int>(y) % 100;
+	float roundY = y % 100;
 	//yを100ごとにする
 	y -= roundY;
 	//四捨五入
@@ -68,7 +69,7 @@ void Hill::SetHeight(Vector3& pos)
 	roundY *= 100.0f;
 	//yに加算
 	y += roundY;
-	pos.y = y;
+	pos.y = static_cast<float>(y);
 }
 
 float Hill::PerlinNoize(float x,float y)
