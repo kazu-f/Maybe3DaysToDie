@@ -2,6 +2,8 @@
 #include "Terrain.h"
 
 namespace nsTerrain {
+	static const float TERRAIN_UNIT;
+	static const float TERRAIN_HALF_UNIT;
 
 	const Vector3 Terrain::VERTEX_CONST[en_terrainOnNum] = {
 			{0.0f,TERRAIN_UNIT,0.0f},		//è„ÅB

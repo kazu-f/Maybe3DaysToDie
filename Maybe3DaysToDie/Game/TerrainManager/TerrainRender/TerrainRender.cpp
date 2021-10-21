@@ -22,6 +22,8 @@ namespace nsTerrain {
 		InitPipelineState();
 		//定数バッファ作成。
 		InitConstantBuffer();
+		//テクスチャ読み込み。
+		InitTexrure();
 		//ディスクリプタヒープ作成。
 		InitDescriptorHeap();
 	}
@@ -47,7 +49,8 @@ namespace nsTerrain {
 		// 頂点レイアウトを定義する。
 		D3D12_INPUT_ELEMENT_DESC inputElementDescs[] =
 		{
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
 		};
 
 		//パイプラインステートを作成。
@@ -64,7 +67,7 @@ namespace nsTerrain {
 		psoDesc.DepthStencilState.StencilEnable = FALSE;
 		psoDesc.SampleMask = UINT_MAX;
 		psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-		psoDesc.NumRenderTargets = 5;
+		psoDesc.NumRenderTargets = 1;
 		psoDesc.RTVFormats[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;		//アルベドカラー出力用。
 		psoDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 		psoDesc.SampleDesc.Count = 1;
@@ -77,9 +80,30 @@ namespace nsTerrain {
 		m_cbTerrain.Init(sizeof(SCBTerrin));
 
 	}
+	void TerrainRender::InitTexrure()
+	{
+		const auto& nullTexMaps = GraphicsEngine()->GetNullTextureMaps();
+
+		const char* filePath = nullptr;
+		char* map = nullptr;
+		unsigned int mapSize;
+		m_terrainTex = ResourceEngine().GetTextureFromBank("Assets/modelData/preset/NullAlbedo.dds");
+		if (m_terrainTex == nullptr)
+		{
+			filePath = nullTexMaps.GetAlbedoMapFilePath();
+			map = nullTexMaps.GetAlbedoMap().get();
+			mapSize = nullTexMaps.GetAlbedoMapSize();
+			//取得できなければ新しく作成し登録。
+			m_terrainTex = new Texture;
+			m_terrainTex->InitFromMemory(map, mapSize);
+			ResourceEngine().RegistTextureToBank(filePath, m_terrainTex);
+		}
+	}
 	void TerrainRender::InitDescriptorHeap()
 	{
 		m_descriptorHeap.RegistConstantBuffer(0, m_cbTerrain);
+
+		m_descriptorHeap.RegistShaderResource(0, *m_terrainTex);
 
 		m_descriptorHeap.Commit();
 	}
@@ -106,6 +130,8 @@ namespace nsTerrain {
 		rc.SetPipelineState(m_terrainPS);
 		//ディスクリプタヒープの設定。
 		rc.SetDescriptorHeap(m_descriptorHeap);
+		//描画にはトライアングルリストを使え！
+		rc.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		//描画。
 		rc.DrawIndexed(m_vertexCount);

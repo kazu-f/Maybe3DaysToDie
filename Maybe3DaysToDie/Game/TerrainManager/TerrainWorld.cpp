@@ -33,9 +33,10 @@ namespace nsTerrain {
 				{
 					float thisHeight = static_cast<float>(height * m_perlinNoise.CalculationNoise(
 						(static_cast<double>(x) / 16.0 * 1.5 + 0.001),
-						(static_cast<double>(z) / 16.0 * 1.5 + 0.001),
-						static_cast<double>(y))
+						(static_cast<double>(z) / 16.0 * 1.5 + 0.001))
 						);
+
+					//float thisHeight = 4.0f;
 
 					float point = 0;
 
@@ -107,7 +108,9 @@ namespace nsTerrain {
 
 		//トライアングルテーブル上のこの番号に三角形はない。
 		if (configIndex == 0 || configIndex == 255)
+		{
 			return;
+		}
 
 		int edgeIndex = 0;
 
@@ -127,10 +130,18 @@ namespace nsTerrain {
 				Vector3 vert2 = position + nsMarching::EdgeTable[indice][1];
 
 				//頂点の座標を計算。
-				Vector3 vertPosition = (vert1 + vert2) / 2.0f;
+				Vector3 vertPosition = (vert1 + vert2) / 2.0f * TERRAIN_UNIT;
+				//UVを作成。
+				Vector2 uv1 = nsMarching::UVTable[indice][0];
+				Vector2 uv2 = nsMarching::UVTable[indice][1];
+
+				Vector2 uv;
+				uv.x = (uv1.x + uv2.x) / 2.0f;
+				uv.y = (uv1.y + uv2.y) / 2.0f;
 
 				Vertex vert;
 				vert.m_pos = vertPosition;
+				vert.m_uv = uv;
 
 				//頂点を登録。
 				m_terrainRender->AddVertex(vert);
