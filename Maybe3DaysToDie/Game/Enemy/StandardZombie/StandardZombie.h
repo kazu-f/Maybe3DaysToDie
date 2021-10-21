@@ -52,5 +52,6 @@ private:
 	IEnemy::EnemyParams m_parameters;			//パラメーター。
 
 	STDZombieMove* m_moveState = nullptr;		//移動用ステート。
+
 };
 

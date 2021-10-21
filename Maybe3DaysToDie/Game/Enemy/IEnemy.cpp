@@ -3,6 +3,7 @@
 #include "IEnemyState.h"
 #include "MiniEngine/NaviMesh/NaviMesh.h"
 #include "EnemyGenerator.h"
+#include "GameScene.h"
 
 IEnemy::IEnemy()
 {
@@ -11,7 +12,7 @@ IEnemy::IEnemy()
 IEnemy::~IEnemy()
 {
 	//ŠÖ˜A‰ðœB
-	EnemyGenerator::GetEnemyGenerator()->UnRegistEnemy(this);
+	GameScene()->GetEnemyGenerator().UnRegistEnemy(this);
 	DeleteGO(m_modelRender);
 	DeleteGO(this);
 }

@@ -6,6 +6,7 @@ class IEnemy;
 
 /// <summary>
 /// スタンダードゾンビの移動処理。
+/// サンプル用コードにつき、削除する予定。
 /// </summary>
 class STDZombieMove : public IEnemyState
 {
@@ -16,7 +17,6 @@ public:
 	/// <param name="enemy"></param>
 	STDZombieMove(IEnemy* enemy) :
 		IEnemyState::IEnemyState(enemy) {
-		m_enemy = enemy;
 	}
 
 	void Enter() override final;
@@ -24,6 +24,5 @@ public:
 	void Update() override final;
 
 private:
-	IEnemy* m_enemy = nullptr;		//エネミー。
 };
 
