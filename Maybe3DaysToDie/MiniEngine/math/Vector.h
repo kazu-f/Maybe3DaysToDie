@@ -28,6 +28,11 @@ namespace Engine {
 			this->y = y;
 		}
 
+		//“àÏ
+		float Dot(Vector2& _vec)const
+		{
+			return vec.x * _vec.x + vec.y * _vec.y;
+		}
 		/// <summary>
 		/// ‘ã“ü‰‰Zq
 		/// </summary>
