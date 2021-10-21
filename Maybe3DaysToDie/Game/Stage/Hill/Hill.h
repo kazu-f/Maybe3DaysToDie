@@ -35,7 +35,7 @@ private:
 
 private:
 	const int MaxHeight = 1000;		// 最大の高さ
-	const int Relief = 15;		//起伏の激しさ
+	const int Relief = 1500;		//起伏の激しさ
 	//シード値
 	float SeedX = 0.0f;
 	float SeedZ = 0.0f;
