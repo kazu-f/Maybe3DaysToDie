@@ -30,6 +30,7 @@
     <ClCompile Include="Enemy\IEnemyState.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieMove.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
+    <ClCompile Include="Stage\Hill\Hill.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieMove.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
+    <ClInclude Include="Stage\Hill\Hill.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

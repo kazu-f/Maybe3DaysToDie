@@ -167,6 +167,7 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Enemy\IEnemyState.cpp" />
+    <ClCompile Include="Stage\Hill\Hill.cpp" />
     <ClCompile Include="NVMGenerator.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
     <ClCompile Include="Stage\IStage.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Enemy\IEnemyState.h" />
+    <ClInclude Include="Stage\Hill\Hill.h" />
     <ClInclude Include="NVMGenerator.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
     <ClInclude Include="Stage\IStage.h" />
