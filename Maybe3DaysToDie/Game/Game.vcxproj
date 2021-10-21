@@ -123,6 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,6 +144,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -161,13 +163,14 @@
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Enemy\IEnemy.cpp" />
-    <ClCompile Include="Enemy\StandardZombie.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\StandardZombie.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Enemy\IEnemyState.cpp" />
     <ClCompile Include="NVMGenerator.cpp" />
+    <ClCompile Include="PlacementObject\PlacementObject.cpp" />
     <ClCompile Include="Stage\IStage.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PlacementObject\PlacementObject.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerWater.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
@@ -182,6 +185,7 @@
     <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
     <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
     <ClCompile Include="Scene\TerrainDebugScene.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\STDZombieMove.cpp" />
     <ClCompile Include="TerrainManager\TerrainManager.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
@@ -193,12 +197,13 @@
     <ClInclude Include="DateTime.h" />
     <ClInclude Include="Enemy\EnemyGenerator.h" />
     <ClInclude Include="Enemy\IEnemy.h" />
-    <ClInclude Include="Enemy\StandardZombie.h" />
+    <ClInclude Include="Enemy\StandardZombie\StandardZombie.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Enemy\IEnemyState.h" />
     <ClInclude Include="NVMGenerator.h" />
-    <ClInclude Include="Stage\IStage.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
+    <ClInclude Include="Stage\IStage.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerWater.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
@@ -210,6 +215,8 @@
     <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
     <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
     <ClInclude Include="Scene\TerrainDebugScene.h" />
+    <ClInclude Include="Enemy\StandardZombie\STDZombieMove.h" />
+    <ClInclude Include="TerrainManager\MarchingCubeTable.h" />
     <ClInclude Include="TerrainManager\TerrainManager.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />

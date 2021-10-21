@@ -1,6 +1,9 @@
 #pragma once
 
 #include "MiniEngine/NaviMesh/NaviMeshAgent.h"
+#include "IEnemyState.h"
+
+class EnemyGenerator;
 
 /// <summary>
 /// 敵キャラの基底クラス。
@@ -12,7 +15,7 @@
 /// </remarks>
 class IEnemy : public IGameObject
 {
-protected:
+public:
 	/// <summary>
 	/// エネミーの初期化パラメーター。
 	/// </summary>
@@ -32,6 +35,10 @@ protected:
 		float SearchRange = 20000.0f;	//索敵範囲。	
 	};
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
+	IEnemy();
 	/// <summary>
 	/// デストラクタ。
 	/// </summary>
@@ -70,7 +77,42 @@ public://なんかtripleTrashオカピー。
 	/// <param name="tag">タグ。</param>
 	/// <param name="animClipDatas">アニメーションデーター。</param>
 	void InitActor(ModelInitData& initData, const char* tag, AnimClipInitData animClipDatas[] = nullptr, int animSize = 0);
-public:
+public://setter
+	/// <summary>
+	/// ステートを変更。
+	/// </summary>
+	/// <param name="state"></param>
+	void ChangeState(IEnemyState* state)
+	{
+		if (m_currentState == state) {
+			//一緒の場合は特に何も行わない。
+			return;
+		}
+
+		//ステートを変更の際に関数を呼び出し。
+		if (m_currentState != nullptr) {
+			m_currentState->Leave();
+		}
+		m_currentState = state;
+		m_currentState->Enter();
+	}
+	/// <summary>
+	/// ジェネレーターを設定。
+	/// </summary>
+	/// <param name="generator">ジェネレーター。</param>
+	void SetEnemyGenerator(EnemyGenerator* generator)
+	{
+		m_generatorPtr = generator;
+	}
+	/// <summary>
+	/// 位置を設定。
+	/// </summary>
+	/// <param name="pos"></param>
+	void SetPos(Vector3& pos)
+	{
+		m_pos = pos;
+	}
+public://getter
 	/// <summary>
 	/// エージェントを取得。
 	/// </summary>
@@ -87,8 +129,27 @@ public:
 	{
 		return m_modelRender;
 	}
+	/// <summary>
+	/// 現在のステートを取得。
+	/// </summary>
+	/// <returns></returns>
+	IEnemyState* GetCurrentState() const 
+	{
+		return m_currentState;
+	}
+	/// <summary>
+	/// 位置を取得。
+	/// </summary>
+	/// <returns></returns>
+	Vector3& GetPos()
+	{
+		return m_pos;
+	}
 private:
 	prefab::ModelRender*	m_modelRender = nullptr;	//レンダー。
 	NaviMeshAgent			m_agent;					//ナビメッシュエージェント。
+	EnemyGenerator*			m_generatorPtr;				//ジェネレーターのポインタ。
+	IEnemyState*			m_currentState = nullptr;	//現在のステート。
+	Vector3					m_pos = g_vec3Zero;			//座標。
 };
 

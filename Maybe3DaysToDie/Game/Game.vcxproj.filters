@@ -10,8 +10,6 @@
     <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
     <ClCompile Include="Enemy\EnemyGenerator.cpp" />
     <ClCompile Include="Enemy\IEnemy.cpp" />
-    <ClCompile Include="Enemy\StandardZombie.cpp" />
-    <ClCompile Include="PlacementObject\PlacementObject.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
     <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
     <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp" />
@@ -28,18 +26,18 @@
     <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
     <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\StandardZombie.cpp" />
+    <ClCompile Include="Enemy\IEnemyState.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\STDZombieMove.cpp" />
+    <ClCompile Include="PlacementObject\PlacementObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="GameScene.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
     <ClInclude Include="Enemy\EnemyGenerator.h" />
     <ClInclude Include="Enemy\IEnemy.h" />
-    <ClInclude Include="Enemy\StandardZombie.h" />
-    <ClInclude Include="PlacementObject\PlacementObject.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
     <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
@@ -56,6 +54,13 @@
     <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />
     <ClInclude Include="TerrainManager\TerrainWorld.h" />
+    <ClInclude Include="TerrainManager\MarchingCubeTable.h" />
+    <ClInclude Include="Enemy\StandardZombie\StandardZombie.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Enemy\IEnemyState.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Enemy\StandardZombie\STDZombieMove.h" />
+    <ClInclude Include="PlacementObject\PlacementObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

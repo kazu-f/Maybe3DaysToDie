@@ -102,6 +102,7 @@
     <ClCompile Include="tkFile\TkaFile.cpp" />
     <ClCompile Include="tkFile\TkmFile.cpp" />
     <ClCompile Include="tkFile\TksFile.cpp" />
+    <ClCompile Include="util\Noise.cpp" />
     <ClCompile Include="util\TResourceBank.cpp" />
     <ClCompile Include="util\CGameTime.cpp" />
     <ClCompile Include="util\Stopwatch.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="tkFile\TkaFile.h" />
     <ClInclude Include="tkFile\TkmFile.h" />
     <ClInclude Include="tkFile\TksFile.h" />
+    <ClInclude Include="util\Noise.h" />
     <ClInclude Include="util\TResourceBank.h" />
     <ClInclude Include="util\CGameTime.h" />
     <ClInclude Include="util\NameKey.h" />
@@ -300,6 +302,7 @@
       </AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeaderFile>MiniEngine.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>MiniEngine.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -338,6 +341,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(EFK_ROOT_DIR)/Effekseer;$(EFK_ROOT_DIR)/EffekseerRendererDX12</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>MiniEngine.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>MiniEngine.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

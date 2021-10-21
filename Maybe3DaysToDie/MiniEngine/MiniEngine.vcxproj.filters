@@ -348,6 +348,9 @@
     <ClCompile Include="graphics\NullTextureMaps.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="util\Noise.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tkEngine.h">
@@ -637,6 +640,9 @@
     </ClInclude>
     <ClInclude Include="graphics\NullTextureMaps.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Noise.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

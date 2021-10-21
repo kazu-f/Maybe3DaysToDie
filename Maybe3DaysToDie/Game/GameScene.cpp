@@ -6,7 +6,9 @@
 
 #include "PlacementObject/PlacementObject.h"
 #include "DateTime.h"
-#include "Enemy/StandardZombie.h"
+#include "Enemy/StandardZombie/StandardZombie.h"
+#include "Enemy/EnemyGenerator.h"
+
 bool GameScene::Start()
 {
 	m_Camera = NewGO<GameCamera>(0, "camera");
@@ -17,14 +19,30 @@ bool GameScene::Start()
 	
 	//sample//
 	m_fontRender = NewGO<CFontRender>(0);
-	m_fontRender->SetText(L"Reo is AHO.\nReo is Baka\nReo is UNKO\nHima is Neet");
+	m_fontRender->SetText(L"Press 'U' Instantiate Zombie.\nPress 'K' Delete All Zombie.\n\nR B\nE A\nO K\n  A");
 	m_fontRender->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
 	m_fontRender->SetShadowParam(true, 0.5f, Vector4::Black);
 	m_fontRender->SetPivot({ 0.0f, 0.5f });
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
-	NewGO<StandardZombie>(0);
-
+	m_fontRender->SetScale(0.5f);
 	return true;
+}
+
+void Sample()
+{
+	if (GetAsyncKeyState('U')) {
+		//インスタンス化サンプル。
+		EnemyGenerator::GetEnemyGenerator()->Create<StandardZombie>();
+	}
+	if (GetAsyncKeyState('K')) {
+		//全解放サンプル。
+		EnemyGenerator::GetEnemyGenerator()->ReleaseEnemy();
+	}
+}
+
+void GameScene::Update()
+{
+	Sample();
 }
 
 void GameScene::OnDestroy()
