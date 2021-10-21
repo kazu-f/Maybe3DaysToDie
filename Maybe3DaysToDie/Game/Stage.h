@@ -1,5 +1,6 @@
 #pragma once
 #include "Stage/SuperFlat/SuperFlat.h"
+#include "Stage/Hill/Hill.h"
 
 class Stage : public IGameObject
 {

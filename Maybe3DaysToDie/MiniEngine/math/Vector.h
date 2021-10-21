@@ -65,6 +65,25 @@ namespace Engine {
 			x = v0.x + (v1.x - v0.x) * t;
 			y = v0.y + (v1.y - v0.y) * t;
 		}
+
+		/// <summary>
+		/// 拡大する
+		/// </summary>
+		/// <param name="s">拡大率</param>
+		void Scale(float s)
+		{
+			vec.x *= s;
+			vec.y *= s;
+		}
+
+		/// <summary>
+		/// 減算する
+		/// </summary>
+		void Subtract(Vector2 vec1, Vector2 vec2)
+		{
+			vec.x = vec1.x - vec2.x;
+			vec.y = vec1.y - vec2.y;
+		}
 	};
 	/// <summary>
 	/// 3次元ベクトル。
