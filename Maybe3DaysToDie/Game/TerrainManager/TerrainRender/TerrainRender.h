@@ -6,8 +6,9 @@ namespace nsTerrain {
 	/// 地形の頂点データ。
 	/// </summary>
 	struct Vertex {
-		Vector3 m_pos;
-		Vector2 m_uv;
+		Vector3 m_pos;		//座標。
+		Vector3 m_normal;	//法線。
+		Vector2 m_uv;		//UV。
 	};
 
 	//地形描画クラスの初期化データ。

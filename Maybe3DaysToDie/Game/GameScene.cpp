@@ -9,12 +9,30 @@
 #include "Enemy/StandardZombie/StandardZombie.h"
 #include "Enemy/EnemyGenerator.h"
 
-bool GameScene::Start()
+CGameScene* CGameScene::m_instance = nullptr;;
+
+CGameScene::~CGameScene()
+{
+	DeleteGO(m_Player);
+	DeleteGO(m_Camera);
+	DeleteGO(m_Stage);
+	
+	if (m_PlacementObject != nullptr)
+	{
+		DeleteGO(m_PlacementObject);
+		m_PlacementObject = nullptr;
+	}
+
+	//sample//
+	DeleteGO(m_fontRender);
+}
+
+void CGameScene::Start()
 {
 	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Player = NewGO<Player>(0, "player");
 	m_Stage = NewGO<Stage>(0, "stage");
-	m_PlacementObject = NewGO<PlacementObject>(1);
+	m_PlacementObject = NewGO<PlacementObject>(0);
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
 	
 	//sample//
@@ -25,37 +43,16 @@ bool GameScene::Start()
 	m_fontRender->SetPivot({ 0.0f, 0.5f });
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
 	m_fontRender->SetScale(0.5f);
-	return true;
 }
 
-void Sample()
+void CGameScene::Update()
 {
 	if (GetAsyncKeyState('U')) {
 		//インスタンス化サンプル。
-		EnemyGenerator::GetEnemyGenerator()->Create<StandardZombie>();
+		m_enemyGenerator.Create<StandardZombie>("STDZombie");
 	}
 	if (GetAsyncKeyState('K')) {
 		//全解放サンプル。
-		EnemyGenerator::GetEnemyGenerator()->ReleaseEnemy();
+		m_enemyGenerator.ReleaseEnemy();
 	}
-}
-
-void GameScene::Update()
-{
-	Sample();
-}
-
-void GameScene::OnDestroy()
-{
-	DeleteGO(m_Player); 
-	DeleteGO(m_Camera);
-	DeleteGO(m_Stage);
-	if (m_PlacementObject != nullptr)
-	{
-		DeleteGO(m_PlacementObject);
-		m_PlacementObject = nullptr;
-	}
-
-	//sample//
-	DeleteGO(m_fontRender);
 }

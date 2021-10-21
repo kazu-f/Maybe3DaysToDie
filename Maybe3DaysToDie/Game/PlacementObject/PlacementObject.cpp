@@ -3,7 +3,6 @@
 
 PlacementObject::PlacementObject()
 {
-	m_ObjectModel = NewGO<prefab::ModelRender>(0);
 }
 
 PlacementObject::~PlacementObject()
@@ -26,6 +25,8 @@ void PlacementObject::OnDestroy()
 
 bool PlacementObject::Start()
 {
+	m_ObjectModel = NewGO<prefab::ModelRender>(0);
+
 	ModelInitData m_modelInitData;
 	m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
 	m_modelInitData.m_shaderData.vsFxFilePath = L"Assets/shader/model.fx";

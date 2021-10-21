@@ -25,6 +25,9 @@ bool TerrainDebugScene::Start()
 	//b->SetRelatedTerrain(a, nsTerrain::en_terrainOnLeft);
 
 	NewGO<nsTerrain::TerrainWorld>(0,"world");
+	prefab::CDirectionLight* lig = NewGO<prefab::CDirectionLight>(0);
+	lig->SetColor({ 5.0f,5.0f,5.0f,1.0f });
+	lig->SetDirection({ 1.0f,-1.0f,0.0f });
 
 	return true;
 }

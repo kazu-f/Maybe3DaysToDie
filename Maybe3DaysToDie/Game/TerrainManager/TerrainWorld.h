@@ -16,8 +16,8 @@ namespace nsTerrain {
 	class TerrainWorld : public IGameObject
 	{
 	public:
-		TerrainWorld() :
-			m_perlinNoise(2)
+		TerrainWorld()
+			:m_perlinNoise(2)
 		{
 
 		}

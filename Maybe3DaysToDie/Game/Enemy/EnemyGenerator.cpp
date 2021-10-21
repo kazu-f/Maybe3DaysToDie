@@ -2,8 +2,6 @@
 #include "EnemyGenerator.h"
 #include "IEnemy.h"
 
-//唯一のインスタンス。
-EnemyGenerator* EnemyGenerator::m_instance = nullptr;
 
 EnemyGenerator::EnemyGenerator()
 {

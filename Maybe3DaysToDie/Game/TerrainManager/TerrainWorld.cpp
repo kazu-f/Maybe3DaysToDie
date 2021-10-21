@@ -40,18 +40,24 @@ namespace nsTerrain {
 
 					float point = 0;
 
-					//この場所の高さに対してブロックが届いていない。
-					if (y <= thisHeight - 0.5f)
-						point = 0.0f;
-					//この場所の上にもブロックがある。
-					else if (y > thisHeight + 0.5f)
-						point = 1.0f;
-					//この場所のブロックの影響値計算。(上方向。)
-					else if (y > thisHeight)
-						point = (float)y - thisHeight;
-					//この場所のブロックの影響値計算。(下方向。)
-					else
-						point = thisHeight - (float)y;
+					if (y == 0)
+					{
+						point = 0.5f;
+					}
+					else {
+						//この場所の高さに対してブロックが届いていない。
+						if (y <= thisHeight - 0.5f)
+							point = 0.0f;
+						//この場所の上にもブロックがある。
+						else if (y > thisHeight + 0.5f)
+							point = 1.0f;
+						//この場所のブロックの影響値計算。(上方向。)
+						else if (y > thisHeight)
+							point = (float)y - thisHeight;
+						//この場所のブロックの影響値計算。(下方向。)
+						else
+							point = thisHeight - (float)y;
+					}
 
 					terrainMap[x][y][z] = point;
 
@@ -117,7 +123,12 @@ namespace nsTerrain {
 		//キューブ上に存在する三角形は最大5個。
 		for (int i = 0; i < 5; i++)
 		{
-			for (int p = 0; p < 3; p++)
+			//三角ポリゴンの頂点座標。
+			Vector3 vertPos[3];
+			//三角ポリゴンの中心座標。
+			Vector3 center = Vector3::Zero;
+			int p = 0;
+			for (; p < 3; p++)
 			{
 				int indice = nsMarching::TriangleConnectionTable[configIndex][edgeIndex];
 
@@ -130,24 +141,62 @@ namespace nsTerrain {
 				Vector3 vert2 = position + nsMarching::EdgeTable[indice][1];
 
 				//頂点の座標を計算。
-				Vector3 vertPosition = (vert1 + vert2) / 2.0f * TERRAIN_UNIT;
-				//UVを作成。
-				Vector2 uv1 = nsMarching::UVTable[indice][0];
-				Vector2 uv2 = nsMarching::UVTable[indice][1];
-
-				Vector2 uv;
-				uv.x = (uv1.x + uv2.x) / 2.0f;
-				uv.y = (uv1.y + uv2.y) / 2.0f;
-
-				Vertex vert;
-				vert.m_pos = vertPosition;
-				vert.m_uv = uv;
-
-				//頂点を登録。
-				m_terrainRender->AddVertex(vert);
+				vertPos[p] = (vert1 + vert2) / 2.0f * TERRAIN_UNIT;
+				//中心座標を計算する。
+				center += vertPos[p];
 
 				edgeIndex++;
 			}
+
+			//中心座標を算出。
+			center /= p;
+
+			//中心座標からのベクトル。
+			Vector3 vDir[3];
+
+			for (int vNum = 0; vNum < p; vNum++)
+			{
+				vDir[vNum] = vertPos[vNum] - center;
+				vDir[vNum].Normalize();
+			}
+
+			//法線を計算。
+			Vector3 normal;
+			normal.Cross(vDir[0], vDir[1]);
+			normal.Normalize();
+
+			//三角ポリゴンのX軸を計算。
+			Vector3 axisX;
+			//法線がY方向ではない。
+			if (fabsf(normal.Dot(Vector3::AxisY)) < 0.998f)
+			{
+				axisX.Cross(Vector3::AxisY, normal);
+			}
+			else {
+				axisX.Cross(Vector3::AxisZ, normal);
+			}
+			axisX.Normalize();
+			//三角ポリゴンのY軸を計算。
+			Vector3 axisY;
+			axisY.Cross(normal, axisX);
+			axisX.Normalize();
+
+			for (int j = 0; j < p; j++)
+			{
+				Vertex vert;
+				vert.m_pos = vertPos[j];
+				vert.m_normal = normal;
+
+				//UV座標を計算する。
+				Vector2 uv;
+				uv.x = vDir[j].Dot(axisX) / 2.0f + 0.5f;
+				uv.y = vDir[j].Dot(axisY) / 2.0f + 0.5f;
+
+				vert.m_uv = uv;
+
+				m_terrainRender->AddVertex(vert);
+			}
+
 
 		}
 
