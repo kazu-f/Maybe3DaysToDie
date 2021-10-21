@@ -1,5 +1,51 @@
 #pragma once
-class TerrainWorld
-{
-};
 
+#include "MarchingCubeTable.h"
+
+namespace nsTerrain {
+
+	class TerrainRender;
+
+	union Cube {
+		float cube[8];
+	};
+
+	class TerrainWorld : public IGameObject
+	{
+	public:
+
+		bool Start()override final;
+		void OnDestroy()override final;
+
+	private:
+		/// <summary>
+		/// 有名な地形生成関数？。
+		/// </summary>
+		void PopurerTerrainMap();		
+
+		//三角形テーブルのインデックスを取得。
+		int GetCubeConfihuration(const Cube& cube);
+
+		//メッシュデータ構築。
+		void CreateMeshData();		
+
+		/// <summary>
+		/// マーチングキューブの三角形を構成。
+		/// </summary>
+		/// <param name="position">生成する座標。</param>
+		/// <param name="configIndex">三角形の生成パターン番号。</param>
+		void MarchCube(Vector3 position, const Cube& cube);
+
+
+	private:
+		static const int width = 24;
+		static const int height = 8;
+		float terrainSurface = 0.5f;
+
+		float terrainMap[width + 1][height + 1][width + 1] = { 0.0f };
+		CNoise m_perlinNoise;
+		TerrainRender* m_terrainRender = nullptr;		//地形描画クラス。
+
+	};
+
+}
