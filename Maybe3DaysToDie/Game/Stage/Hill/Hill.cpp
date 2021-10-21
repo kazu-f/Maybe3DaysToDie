@@ -36,7 +36,7 @@ void Hill::CreateStage()
 	{
 		for (int Depth = 0; Depth < ChunkDepth; Depth++)
 		{
-			Vector3 pos = { 100.0f,-1000.0f,100.0f };
+			Vector3 pos = { 100.0f,0.0f,100.0f };
 			pos.x *= Width;
 			pos.z *= Depth;
 			SetHeight(pos);
