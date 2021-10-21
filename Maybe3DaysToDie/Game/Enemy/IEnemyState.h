@@ -29,7 +29,7 @@ public:
 	/// XVB
 	/// </summary>
 	virtual void Update() = 0;
-private:
+protected:
 	IEnemy* m_enemy = nullptr;
 };
 

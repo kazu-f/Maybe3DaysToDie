@@ -186,6 +186,9 @@
     <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
     <ClCompile Include="Scene\TerrainDebugScene.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieMove.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\STDZombieAttack.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\STDZombieTracking.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp" />
     <ClCompile Include="TerrainManager\TerrainManager.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
@@ -216,6 +219,9 @@
     <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
     <ClInclude Include="Scene\TerrainDebugScene.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieMove.h" />
+    <ClInclude Include="Enemy\StandardZombie\STDZombieAttack.h" />
+    <ClInclude Include="Enemy\StandardZombie\STDZombieTracking.h" />
+    <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h" />
     <ClInclude Include="TerrainManager\MarchingCubeTable.h" />
     <ClInclude Include="TerrainManager\TerrainManager.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />

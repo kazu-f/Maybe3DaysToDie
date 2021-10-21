@@ -20,6 +20,9 @@ void STDZombieMove::Update()
 	Vector3 fotStep = m_enemy->GetModelRender()->GetFootstepMove();
 	Vector3 myPos = m_enemy->GetPos();
 	myPos += fotStep;
+	//“K‰žB
 	m_enemy->SetPos(myPos);
 	m_enemy->GetModelRender()->SetPosition(myPos);
+
+
 }

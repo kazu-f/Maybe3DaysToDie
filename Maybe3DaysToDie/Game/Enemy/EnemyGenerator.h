@@ -8,7 +8,7 @@ class IEnemy;
 /// </summary>
 class EnemyGenerator
 {
-private:
+public:
 	/// <summary>
 	/// コンストラクタ。
 	/// </summary>
@@ -17,26 +17,6 @@ private:
 	/// デストラクタ。
 	/// </summary>
 	~EnemyGenerator();
-public:
-	/// <summary>
-	/// インスタンスを取得する。
-	/// </summary>
-	/// <returns></returns>
-	static EnemyGenerator* GetEnemyGenerator()
-	{
-		if (m_instance == nullptr) {
-			m_instance = new EnemyGenerator;
-		}
-		return m_instance;
-	}
-	/// <summary>
-	/// インスタンスを破棄する。
-	/// </summary>
-	static void DeleteInstance()
-	{
-		delete m_instance;
-		m_instance = nullptr;
-	}
 public:
 	/// <summary>
 	/// 全エネミーを解放。
@@ -87,10 +67,7 @@ public:
 	/// ブラッドムーンを無効化。
 	/// </summary>
 	void DisableBloodMoonHode();
-public:
 private:
-	static EnemyGenerator* m_instance;	//シングルトンインスタンス。
-
 	/* Const */
 	static const int MAX_ENEMY = 16;	//管理できる最大エネミー数。
 
