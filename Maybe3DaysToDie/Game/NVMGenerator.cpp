@@ -2,11 +2,31 @@
 #include "NVMGenerator.h"
 #include "DestructibleObject/Terrain/Terrain.h"
 
-void NVMGenerator::CreateNVM(Terrain& terrain)
+bool NVMGenerator::isInstantiate = false;
+
+NVMGenerator::NVMGenerator()
+{
+	//シングルトン。
+	assert(!isInstantiate);
+	isInstantiate = true;
+}
+
+NVMGenerator::~NVMGenerator()
+{
+}
+
+void NVMGenerator::CreateNVM(nsTerrain::TerrainRender* terrain)
 {
 	//ブロック数分回す。
 	{
-		//ブロックの重点座標を持ってくる。
+		//重点の数はメッシュの数。
+		int meshCount = terrain->GetCenterArray().size();
+
+		for (int mesh = 0; mesh < meshCount; mesh++) {
+			//メッシュの数分
+		}
+		
+
 
 		//重点座標を参照してブロックのAABBを計算する。
 
@@ -18,6 +38,11 @@ void NVMGenerator::CreateNVM(Terrain& terrain)
 	}
 }
 
-void NVMGenerator::UpdateNVM(Terrain& terrain)
+void NVMGenerator::UpdateNVM(nsTerrain::TerrainRender* terrain)
 {
+}
+
+void NVMGenerator::DebugDraw(bool& isEnableDebug)
+{
+
 }

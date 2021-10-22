@@ -67,6 +67,16 @@ namespace nsTerrain {
 			m_indices.resize(m_initData.vertexNum);
 		}
 
+	public://getter
+		/// <summary>
+		/// 地形のバーテックスデータを取得。
+		/// </summary>
+		/// <returns></returns>
+		const std::vector<Vertex>& GetVertexList() const 
+		{
+			return m_vertices;
+		}
+
 	private:
 		void InitVertexBuffer(int maxVertexNum);
 		void InitIndexBuffer(int maxIndexNum);

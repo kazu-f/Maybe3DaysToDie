@@ -12,7 +12,7 @@ IEnemy::IEnemy()
 IEnemy::~IEnemy()
 {
 	//ŠÖ˜A‰ðœB
-	GameScene()->GetEnemyGenerator().UnRegistEnemy(this);
+	m_generatorPtr->UnRegistEnemy(this);
 	DeleteGO(m_modelRender);
 	DeleteGO(this);
 }

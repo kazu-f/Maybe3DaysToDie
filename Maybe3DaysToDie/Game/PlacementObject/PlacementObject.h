@@ -1,5 +1,6 @@
 #pragma once
 #include "DestructibleObject/Block/Block.h"
+#include "MiniEngine/physics/CollisionAttr.h"
 
 class PlacementObject:public IGameObject
 {
@@ -15,16 +16,20 @@ private:
 			bool /*normalInWorldSpace*/
 		)
 		{
-			btVector3 colPos = convexResult.m_collisionObject->getWorldTransform().getOrigin();
-			isHit = true;
-			hitNormal.Set(convexResult.m_hitNormalLocal);
-			hitColPos.Set(colPos);
-			//距離が近いほうに更新
-			if (m_closestHitFraction > convexResult.m_hitFraction)
+			if (convexResult.m_collisionObject->getUserIndex() != enCollisionAttr_Character)
 			{
-				m_closestHitFraction = convexResult.m_hitFraction;
+				btVector3 colPos = convexResult.m_collisionObject->getWorldTransform().getOrigin();
+				isHit = true;
+				hitNormal.Set(convexResult.m_hitNormalLocal);
+				hitColPos.Set(colPos);
+				//距離が近いほうに更新
+				if (m_closestHitFraction > convexResult.m_hitFraction)
+				{
+					m_closestHitFraction = convexResult.m_hitFraction;
+				}
+				return m_closestHitFraction;
 			}
-			return m_closestHitFraction;
+			return 0.0f;
 		}
 	};
 public:

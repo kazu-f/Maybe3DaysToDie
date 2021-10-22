@@ -6,10 +6,6 @@
 
 #include "PlacementObject/PlacementObject.h"
 #include "DateTime.h"
-#include "Enemy/StandardZombie/StandardZombie.h"
-#include "Enemy/EnemyGenerator.h"
-
-CGameScene* CGameScene::m_instance = nullptr;;
 
 CGameScene::~CGameScene()
 {
@@ -27,10 +23,11 @@ CGameScene::~CGameScene()
 	DeleteGO(m_fontRender);
 }
 
-void CGameScene::Start()
+bool CGameScene::Start()
 {
 	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Player = NewGO<Player>(0, "player");
+	m_Player->SetCameraPtr(m_Camera);
 	m_Stage = NewGO<Stage>(0, "stage");
 	m_PlacementObject = NewGO<PlacementObject>(0);
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
@@ -43,16 +40,10 @@ void CGameScene::Start()
 	m_fontRender->SetPivot({ 0.0f, 0.5f });
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
 	m_fontRender->SetScale(0.5f);
+
+	return true;
 }
 
 void CGameScene::Update()
 {
-	if (GetAsyncKeyState('U')) {
-		//インスタンス化サンプル。
-		m_enemyGenerator.Create<StandardZombie>("STDZombie");
-	}
-	if (GetAsyncKeyState('K')) {
-		//全解放サンプル。
-		m_enemyGenerator.ReleaseEnemy();
-	}
 }

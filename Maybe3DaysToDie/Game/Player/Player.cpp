@@ -4,6 +4,7 @@
 #include "PlayerStatus/PlayerStamina.h"
 #include "PlayerStatus/PlayerHunger.h"
 #include "PlayerStatus/PlayerWater.h"
+#include "GameCamera.h"
 
 namespace {
 	const float MoveDistance = 100.0f;			//1フレームに動く距離
@@ -74,6 +75,9 @@ void Player::Update()
 	MoveSpeed.y -= 0.1f;
 	MoveSpeed *= MoveDistance;
 	m_Pos = m_Characon.Execute(MoveSpeed);
+
+	//カメラにポジションを渡す
+	cameraptr->SetPosition(m_Pos);
 }
 
 void Player::OnDestroy()
