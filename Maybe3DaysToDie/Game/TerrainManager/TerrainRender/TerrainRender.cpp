@@ -89,17 +89,25 @@ namespace nsTerrain {
 		const char* filePath = nullptr;
 		char* map = nullptr;
 		unsigned int mapSize;
-		m_terrainTex = ResourceEngine().GetTextureFromBank("Assets/modelData/preset/NullAlbedo.dds");
+		//m_terrainTex = ResourceEngine().GetTextureFromBank("Assets/modelData/Terrain/DirtTexture.dds");
+		m_terrainTex = ResourceEngine().GetTextureFromBank("Assets/modelData/CubeBlock/T_GroundDirt_01_D.DDS");
 		if (m_terrainTex == nullptr)
 		{
-			filePath = nullTexMaps.GetAlbedoMapFilePath();
-			map = nullTexMaps.GetAlbedoMap().get();
-			mapSize = nullTexMaps.GetAlbedoMapSize();
-			//Žæ“¾‚Å‚«‚È‚¯‚ê‚ÎV‚µ‚­ì¬‚µ“o˜^B
 			m_terrainTex = new Texture;
-			m_terrainTex->InitFromMemory(map, mapSize);
-			ResourceEngine().RegistTextureToBank(filePath, m_terrainTex);
+			//m_terrainTex->InitFromDDSFile(L"Assets/modelData/Terrain/DirtTexture.dds");
+			m_terrainTex->InitFromDDSFile(L"Assets/modelData/CubeBlock/T_GroundDirt_01_D.DDS");
 		}
+
+		//if (m_terrainTex == nullptr)
+		//{
+		//	filePath = nullTexMaps.GetAlbedoMapFilePath();
+		//	map = nullTexMaps.GetAlbedoMap().get();
+		//	mapSize = nullTexMaps.GetAlbedoMapSize();
+		//	//Žæ“¾‚Å‚«‚È‚¯‚ê‚ÎV‚µ‚­ì¬‚µ“o˜^B
+		//	m_terrainTex = new Texture;
+		//	m_terrainTex->InitFromMemory(map, mapSize);
+		//	ResourceEngine().RegistTextureToBank(filePath, m_terrainTex);
+		//}
 	}
 	void TerrainRender::InitDescriptorHeap()
 	{
