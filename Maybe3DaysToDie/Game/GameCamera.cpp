@@ -14,6 +14,7 @@ void GameCamera::Update()
 {
 	//ƒ}ƒEƒX‚ÅŒü‚«‚ð•Ï‚¦‚é
 	Rotate();
+	m_Pos.y += CameraHeight;
 	m_Target = m_Pos + ForwardUpdate() * m_CameraDist;
 	MainCamera().SetPosition(m_Pos);
 	MainCamera().SetTarget(m_Target);

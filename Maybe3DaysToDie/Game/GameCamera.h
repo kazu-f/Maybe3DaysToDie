@@ -87,5 +87,7 @@ private:
 	const float rotLimit = 90.0f;
 	//Œ»İ‚Ì‰ñ“]
 	float rot = 0.0f;
+	//ƒJƒƒ‰‚Ì‚‚³
+	float CameraHeight = 170.0f;
 };
 
