@@ -4,7 +4,6 @@ class IEnemy;
 
 /// <summary>
 /// エネミーを生成するオブジェクト。
-/// シングルトンで実装。
 /// </summary>
 class EnemyGenerator
 {

@@ -6,8 +6,6 @@
 
 #include "PlacementObject/PlacementObject.h"
 #include "DateTime.h"
-#include "Enemy/StandardZombie/StandardZombie.h"
-#include "Enemy/EnemyGenerator.h"
 
 CGameScene::~CGameScene()
 {

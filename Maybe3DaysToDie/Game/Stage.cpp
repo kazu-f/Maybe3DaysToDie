@@ -14,7 +14,6 @@ bool Stage::Start()
 
 void Stage::Update()
 {
-	}
 
 	if (GetAsyncKeyState('U')) {
 		m_enemyGenerator.Create<StandardZombie>();

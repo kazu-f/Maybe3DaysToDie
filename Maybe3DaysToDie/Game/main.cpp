@@ -38,16 +38,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, TEXT("Game"), initParam);
 	//デバッグモードオン
-	PhysicsWorld().SetDebugMode(1);
+	PhysicsWorld().SetDebugMode(0);
 	//フェードイン
 	CFade::GetInstance()->StartFadeIn();
 	//マウスカーソルの表示を消す
 	ShowCursor(false);
 	//ゲームしーーん
-	CGameScene* gameScene = new CGameScene;
-	gameScene->Start();
+	//CGameScene* gameScene = new CGameScene;
+	//gameScene->Start();
 
-	//NewGO<TerrainDebugScene>(0);
+	NewGO<TerrainDebugScene>(0);
 #ifdef CALC_TIME
 	Stopwatch sw;
 #endif
@@ -58,7 +58,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//1フレームの経過時間を測る。
 		sw.Start();
 #endif
-		gameScene->Update();		//ゲームの処理を行う。
+		//gameScene->Update();		//ゲームの処理を行う。
 		GameEngine().GameUpdate();
 
 #ifdef CALC_TIME
