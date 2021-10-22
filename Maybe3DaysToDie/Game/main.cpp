@@ -43,8 +43,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//マウスカーソルの表示を消す
 	ShowCursor(false);
 	//ゲームしーーん
-	GameScene()->Instantiate();
-	GameScene()->Start();
+	CGameScene* gameScene = new CGameScene;
+	gameScene->Start();
 	
 #ifdef CALC_TIME
 	Stopwatch sw;
@@ -56,7 +56,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//1フレームの経過時間を測る。
 		sw.Start();
 #endif
-		GameScene()->Update();
+		gameScene->Update();
 		//ゲームの処理を行う。
 		GameEngine().GameUpdate();
 
