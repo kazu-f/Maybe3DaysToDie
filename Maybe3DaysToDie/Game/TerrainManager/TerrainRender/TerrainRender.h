@@ -38,6 +38,44 @@ namespace nsTerrain {
 			m_indices[m_vertexCount] = m_vertexCount;
 			m_vertexCount++;
 		}
+		/// <summary>
+		/// 三角ポリゴンの中心座標を記録。
+		/// </summary>
+		/// <param name="center"></param>
+		void AddCenter(const Vector3& center)
+		{
+			m_centers.push_back(center);
+		}
+		/// <summary>
+		/// 三角ポリゴンの中心座標を取得。
+		/// </summary>
+		/// <returns></returns>
+		const std::vector<Vector3>& GetCenterArray()const
+		{
+			return m_centers;
+		}
+		/// <summary>
+		/// 頂点をクリア。
+		/// </summary>
+		void ClearVertex()
+		{
+			m_vertices.clear();
+			m_indices.clear();
+			m_centers.clear();
+			m_vertexCount = 0;
+			m_vertices.resize(m_initData.vertexNum);
+			m_indices.resize(m_initData.vertexNum);
+		}
+
+	public://getter
+		/// <summary>
+		/// 地形のバーテックスデータを取得。
+		/// </summary>
+		/// <returns></returns>
+		const std::vector<Vertex>& GetVertexList() const 
+		{
+			return m_vertices;
+		}
 
 	private:
 		void InitVertexBuffer(int maxVertexNum);
@@ -55,6 +93,7 @@ namespace nsTerrain {
 		};
 
 	private:
+		TerrainInitData m_initData;
 		Texture* m_terrainTex = nullptr;				//地形のテクスチャ。
 		Shader m_vsTerrain;					//地形用の頂点シェーダー。
 		Shader m_psTerrain;					//地形用のピクセルシェーダー。
@@ -65,6 +104,7 @@ namespace nsTerrain {
 		IndexBuffer m_indexBuffer;			//地形のインデックスバッファ。
 		std::vector<Vertex> m_vertices;	//頂点の配列。
 		std::vector<short> m_indices;			//インデックス番号の配列。
+		std::vector<Vector3> m_centers;			//三角ポリゴンの中心座標の配列。
 		int m_vertexCount = 0;
 	};
 

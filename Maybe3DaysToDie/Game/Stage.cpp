@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Stage.h"
+#include "Enemy/EnemyGenerator.h"
+#include "Enemy/StandardZombie/StandardZombie.h"
 
 bool Stage::Start()
 {
@@ -12,10 +14,15 @@ bool Stage::Start()
 
 void Stage::Update()
 {
-	//if (GetAsyncKeyState('A'))
-	//{
-	//	m_stage.ReCreate();
-	//}
+
+	if (GetAsyncKeyState('U')) {
+		m_enemyGenerator.Create<StandardZombie>();
+	}
+	if (GetAsyncKeyState('K')) {
+		m_enemyGenerator.ReleaseEnemy();
+	}
+
+
 }
 
 void Stage::OnDestroy()

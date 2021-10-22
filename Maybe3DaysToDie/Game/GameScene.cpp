@@ -6,10 +6,6 @@
 
 #include "PlacementObject/PlacementObject.h"
 #include "DateTime.h"
-#include "Enemy/StandardZombie/StandardZombie.h"
-#include "Enemy/EnemyGenerator.h"
-
-CGameScene* CGameScene::m_instance = nullptr;;
 
 CGameScene::~CGameScene()
 {
@@ -48,12 +44,4 @@ void CGameScene::Start()
 
 void CGameScene::Update()
 {
-	if (GetAsyncKeyState('U')) {
-		//インスタンス化サンプル。
-		m_enemyGenerator.Create<StandardZombie>("STDZombie");
-	}
-	if (GetAsyncKeyState('K')) {
-		//全解放サンプル。
-		m_enemyGenerator.ReleaseEnemy();
-	}
 }

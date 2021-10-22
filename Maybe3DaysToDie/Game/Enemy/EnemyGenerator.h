@@ -4,7 +4,6 @@ class IEnemy;
 
 /// <summary>
 /// エネミーを生成するオブジェクト。
-/// シングルトンで実装。
 /// </summary>
 class EnemyGenerator
 {
@@ -42,7 +41,6 @@ public:
 
 		//インスタンス化。
 		IEnemy* enemy = NewGO<T>(0 ,tag);
-
 		//エネミーと相対参照に。
 		enemy->SetEnemyGenerator(this);
 		m_enemyList.push_back(enemy);

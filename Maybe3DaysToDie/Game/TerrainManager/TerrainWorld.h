@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MarchingCubeTable.h"
+#include "NVMGenerator.h"
 
 namespace nsTerrain {
 
@@ -23,6 +24,7 @@ namespace nsTerrain {
 		}
 
 		bool Start()override final;
+		void Update()override final;
 		void OnDestroy()override final;
 
 	private:
@@ -53,6 +55,7 @@ namespace nsTerrain {
 		float terrainMap[width + 1][height + 1][width + 1] = { 0.0f };
 		CNoise m_perlinNoise;
 		TerrainRender* m_terrainRender = nullptr;		//地形描画クラス。
+		NVMGenerator m_NVMGenerator;					//NVM生成。
 
 	};
 
