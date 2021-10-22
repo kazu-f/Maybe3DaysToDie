@@ -19,8 +19,14 @@ void NVMGenerator::CreateNVM(nsTerrain::TerrainRender* terrain)
 {
 	//ブロック数分回す。
 	{
-		//ブロックの重点座標を持ってくる。
-		//terrain.ge
+		//重点の数はメッシュの数。
+		int meshCount = terrain->GetCenterArray().size();
+
+		for (int mesh = 0; mesh < meshCount; mesh++) {
+			//メッシュの数分
+		}
+		
+
 
 		//重点座標を参照してブロックのAABBを計算する。
 

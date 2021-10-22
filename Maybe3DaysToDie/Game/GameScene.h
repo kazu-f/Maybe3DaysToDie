@@ -8,7 +8,7 @@ class PlacementObject;
 /// <summary>
 /// シングルトン。
 /// </summary>
-class CGameScene
+class CGameScene : public IGameObject
 {
 public:
 	CGameScene() {};
@@ -17,11 +17,11 @@ public:
 	/// <summary>
 	/// スタート。
 	/// </summary>
-	void Start();
+	bool Start()override final;
 	/// <summary>
 	/// 更新。
 	/// </summary>
-	void Update();
+	void Update()override final;
 private:
 	Player* m_Player = nullptr;
 	GameCamera* m_Camera = nullptr;

@@ -23,7 +23,7 @@ CGameScene::~CGameScene()
 	DeleteGO(m_fontRender);
 }
 
-void CGameScene::Start()
+bool CGameScene::Start()
 {
 	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Player = NewGO<Player>(0, "player");
@@ -39,6 +39,8 @@ void CGameScene::Start()
 	m_fontRender->SetPivot({ 0.0f, 0.5f });
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
 	m_fontRender->SetScale(0.5f);
+
+	return true;
 }
 
 void CGameScene::Update()

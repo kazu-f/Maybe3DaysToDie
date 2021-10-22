@@ -34,6 +34,5 @@ public:
 	void DebugDraw(bool& isEnableDebug);
 private:
 	static bool isInstantiate;		//インスタンスが作成されているか。
-
 };
 
