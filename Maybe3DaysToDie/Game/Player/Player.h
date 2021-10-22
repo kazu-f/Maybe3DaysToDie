@@ -3,7 +3,7 @@ class PlayerHp;
 class PlayerStamina;
 class PlayerHunger;
 class PlayerWater;
-
+class GameCamera;
 class Player : public IGameObject
 {
 	//配列用の定数
@@ -41,6 +41,11 @@ private:
 public:
 	const Vector3 GetPosition() const {
 		return m_Pos;
+	}
+
+	void SetCameraPtr(GameCamera* ptr)
+	{
+		cameraptr = ptr;
 	}
 private:
 	/// <summary>
@@ -90,7 +95,7 @@ private:
 private:
 	////////////モデル/////////////////////////////////////////////
 	prefab::ModelRender* m_Model = nullptr;		//プレイヤーモデル
-	Vector3 m_Pos = { 0.0f,170.0f,500.0f };
+	Vector3 m_Pos = { 0.0f,500.0f,500.0f };
 	Quaternion m_Rot = Quaternion::Identity;
 	Vector3 m_Scale = Vector3::One;
 	CCharacterController m_Characon;
@@ -115,5 +120,6 @@ private:
 	float m_DeltaTime = 0.0f;
 
 	bool m_IsChasePlayer = false;
+	GameCamera* cameraptr = nullptr;
 };
 
