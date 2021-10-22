@@ -28,6 +28,11 @@ namespace Engine {
 			this->y = y;
 		}
 
+		//“àÏ
+		float Dot(Vector2& _vec)const
+		{
+			return vec.x * _vec.x + vec.y * _vec.y;
+		}
 		/// <summary>
 		/// ‘ã“ü‰‰Zq
 		/// </summary>
@@ -59,6 +64,25 @@ namespace Engine {
 		{
 			x = v0.x + (v1.x - v0.x) * t;
 			y = v0.y + (v1.y - v0.y) * t;
+		}
+
+		/// <summary>
+		/// Šg‘å‚·‚é
+		/// </summary>
+		/// <param name="s">Šg‘å—¦</param>
+		void Scale(float s)
+		{
+			vec.x *= s;
+			vec.y *= s;
+		}
+
+		/// <summary>
+		/// Œ¸Z‚·‚é
+		/// </summary>
+		void Subtract(Vector2 vec1, Vector2 vec2)
+		{
+			vec.x = vec1.x - vec2.x;
+			vec.y = vec1.y - vec2.y;
 		}
 	};
 	/// <summary>

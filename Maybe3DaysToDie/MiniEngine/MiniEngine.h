@@ -72,6 +72,7 @@ const int MAX_RENDERING_TARGET = D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT;	//ƒŒƒ“ƒ
 #include "util/NameKey.h"
 #include "util/CGameTime.h"
 #include "util/TResourceBank.h"
+#include "util/Noise.h"
 #include "tkFile/TkmFile.h"
 
 #include "ResourceEngine.h"

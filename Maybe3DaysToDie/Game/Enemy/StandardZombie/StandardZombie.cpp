@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "StandardZombie.h"
-#include "IEnemy.h"
+#include "Enemy/IEnemy.h"
+#include "Enemy/IEnemyState.h"
+#include "STDZombieMove.h"
+#include "Enemy/EnemyGenerator.h"
 
 bool StandardZombie::Start()
 {
@@ -18,26 +21,34 @@ bool StandardZombie::Start()
 	modelInitData.m_tkmFilePath = "Assets/modelData/Enemy/StandardZombie/StandardZombie.tkm";
 	
 	//animInitData.
-	AnimClipInitData animData[1];
+	AnimClipInitData animData[EnAnimationState_Num];
 	//animDataInit.
-	animData[0].tkaFilePath = "Assets/modelData/Enemy/StandardZombie/Scream.tka";
-	animData[0].isLoop = true;
+	animData[EnAnimationState_Idle].tkaFilePath = "Assets/modelData/Enemy/StandardZombie/Scream.tka";
+	animData[EnAnimationState_Idle].isLoop = true;
+	animData[EnAnimationState_Run].tkaFilePath = "Assets/modelData/Enemy/StandardZombie/Run.tka";
+	animData[EnAnimationState_Run].isLoop = true;
 
 	//エージェントとアクター一緒に初期化。
 	InitActor(modelInitData, "StandardZombie", animData, sizeof(animData) / sizeof(animData[0]));
 
 	//scaleFix.
 	this->GetModelRender()->SetScale(m_scale);
+
+	//StateInit.
+	m_moveState = new STDZombieMove(this);
 	
 	//DefaultAnimPlay.
-	this->GetModelRender()->PlayAnimation(0, 0.5f);
+	this->GetModelRender()->PlayAnimation(EnAnimationState_Run, 0.0f);
+
+
 
 	return true;
 }
 
 void StandardZombie::Update()
 {
-
+	ChangeState(m_moveState);
+	GetCurrentState()->Update();
 }
 
 IEnemy::EnemyParams& StandardZombie::GetEnemyParameters()

@@ -21,8 +21,6 @@ namespace nsTerrain {
 		TerrainVertex* nearVert[NEAR_VERT_COUNT] = { nullptr };	//隣接頂点のアドレス。
 	};
 
-	static const float TERRAIN_UNIT = 100.0f;
-	static const float TERRAIN_HALF_UNIT = 50.0f;
 
 	//地形オブジェクト。
 	class Terrain :public DestructibleObject
