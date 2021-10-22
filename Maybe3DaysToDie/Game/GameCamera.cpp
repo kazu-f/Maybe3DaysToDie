@@ -5,7 +5,7 @@
 namespace {
 	const float MoveDistance = 10.0f;			//1フレームに動く距離
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
-	const float NeckLimitY = 80.0f;				//上や下を向ける限界
+	const float NeckLimitY = 360.0f;				//上や下を向ける限界
 }
 
 bool GameCamera::Start()
@@ -26,18 +26,12 @@ void GameCamera::Update()
 	//マウスで向きを変える
 	Rotate();
 	//どちらの操作？
-	if (m_IsChasePlayer) {
-		Vector3 CameraPos = m_Player->GetPosition();
-		CameraPos.y += 100.0f;
-		m_Pos = CameraPos;
-	}
-	else {
-		//マウス操作で回転
-		Move();
-	}
+	Vector3 CameraPos = m_Player->GetPosition();
+	CameraPos.y += 100.0f;
+	m_Pos = CameraPos;
 	Vector3 Forward = ForwardUpdate();
 	m_Target = Forward * CameraTargetDistance;
-
+	MainCamera().SetPosition(m_Pos);
 	MainCamera().Update();
 }
 
@@ -88,44 +82,53 @@ void GameCamera::Rotate()
 
 	////内積を取る。
 	//float dot = forwardXZVec.Dot(forwardVec);
-	
+
 	//マウスカーソルの位置を取得
 	POINT pt;
 	GetCursorPos(&pt);
-	int lstx = pt.x;
-	int lsty = pt.y;
+	float lstx = DefaultPoint[X]-pt.x;
+	float lsty = DefaultPoint[Y]-pt.y;
+	
+	m_RotAngle[0] += lsty * m_SensiY;
+	m_RotAngle[1] += lstx * m_SensiX;
 
-	//カメラの回転量をマウスカーソルの位置と初期値を比較して求める
-	rot += (DefaultPoint[0] - lstx) * m_SensiX;
-	//最終的なカメラのポジション
-	Vector3 m_pos = m_Player->GetPosition();
-	//最終的なカメラのターゲットのポジション
-	Vector3 targetPos = m_Player->GetPosition();
-	//最低限の高さの確保
-	targetPos.y = 100.0f;
+	lstx = Math::DegToRad(lstx);
+	Quaternion RotX;
+	RotX.SetRotationY(-lstx);
+	m_TargetRot.Multiply(RotX);
+	Quaternion RotY = Quaternion::Identity;
+	Vector3 Right = RightUpdate();
+	lsty = Math::DegToRad(lsty);
+	RotY.SetRotationDeg(Right, lsty);
+	m_TargetRot.Multiply(RotY);
+	Vector3 Target = { 0.0f,0.0,500.0 };
+	Target += m_Pos;
+	Target.Normalize();
+	m_TargetRot.Apply(Target);
+	Target *= CameraTargetDistance;
+	MainCamera().SetTarget(Target);
 
-	//カメラのポジションに足すY方向の値をマウスカーソルの位置と初期値を比較して求める
-	AddPosY += (DefaultPoint[1] - lsty) * m_SensiY;
+	////カメラの回転量をマウスカーソルの位置と初期値を比較して求める
+	//rot += (DefaultPoint[0] - lstx) * m_SensiX;
+	////最終的なカメラのターゲットのポジション
+	//Vector3 targetPos = m_Player->GetPosition();
+	////最低限の高さの確保
+	//targetPos.y = 100.0f;
 
-	//AddPosY = min(max(NeckLimitY, AddPosY), NeckLimitY);
-	//カメラのポジションに足すベクトル
-	Vector3 addPos = Vector3::Zero;
-	//rotからカメラのターゲットの位置を決める
-	addPos.x -= sinf(rot) * CameraTargetDistance;
-	addPos.y += AddPosY;
-	addPos.z = cosf(rot) * CameraTargetDistance;
-	targetPos += addPos;
+	////カメラのポジションに足すY方向の値をマウスカーソルの位置と初期値を比較して求める
+	//AddPosY += (DefaultPoint[1] - lsty) * m_SensiY;
 
-	m_pos.y += 100.0f;
-	Vector3 AddPos = MainCamera().GetForward();
-	AddPos.y = 0.0f;
-	AddPos.Normalize();
-	m_pos += AddPos * 15.0f;
+	//AddPosY = min(max(-NeckLimitY, AddPosY), NeckLimitY);
+	////カメラのポジションに足すベクトル
+	//Vector3 addPos = Vector3::Zero;
+	////rotからカメラのターゲットの位置を決める
+	//addPos.x -= sinf(rot) * CameraTargetDistance;
+	//addPos.y += AddPosY;
+	//addPos.z = cosf(rot) * CameraTargetDistance;
+	//targetPos += addPos;
 	//マウスカーソルの位置をセット
 	SetCursorPos(DefaultPoint[0], DefaultPoint[1]);
 
-	MainCamera().SetPosition(m_pos);
-	MainCamera().SetTarget(targetPos);
 	////カメラにセット
 	//g_camera3D->SetPosition(m_pos);
 	//g_camera3D->SetTarget(targetPos);
@@ -142,6 +145,8 @@ void GameCamera::Rotate()
 
 void GameCamera::Move()
 {
+	//最終的なカメラのポジション
+	Vector3 m_pos = m_Player->GetPosition();
 	Vector3 MoveSpeed = Vector3::Zero;
 	//前方向を取得
 	Vector3 Forward = ForwardUpdate();
@@ -166,9 +171,10 @@ void GameCamera::Move()
 	//正規化して方向だけに
 	MoveSpeed.Normalize();
 	//1フレームに動く距離を掛ける
-	MoveSpeed *= MoveDistance;
+
 	//移動させる
-	m_Pos += MoveSpeed;
+	m_pos += MoveSpeed * MoveDistance;
+	MainCamera().SetPosition(m_pos);
 }
 
 void GameCamera::IsSwichOperation()

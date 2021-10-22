@@ -893,6 +893,7 @@ namespace Engine {
 		}
 	};
 
+	const Quaternion g_quatIdentity = { 0.0f,  0.0f, 0.0f, 1.0f };
 	//整数型のベクトルクラス。
 	__declspec(align(16)) class Vector4i {
 	public:
@@ -971,6 +972,4 @@ namespace Engine {
 		qRet.Multiply(q2, q1);
 		return qRet;
 	}
-
-	const Quaternion g_quatIdentity = { 0.0f,  0.0f, 0.0f, 1.0f };
 }

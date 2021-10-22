@@ -97,16 +97,6 @@ public:
 	const Vector3 GetTarget() const {
 		return m_Target;
 	}
-
-	void Debug()
-	{
-		static float OldRotAngle = m_RotAngle[X];
-		if (m_RotAngle[X] != OldRotAngle) {
-			int i = 0;
-			i++;
-			OldRotAngle = m_RotAngle[X];
-		}
-	}
 private:
 	Player* m_Player = nullptr;					//プレイヤーポインタ
 
@@ -126,5 +116,7 @@ private:
 
 	float rot = 0.0f;
 	float AddPosY = 0.0f;
+
+	Quaternion m_TargetRot = Quaternion::Identity;
 };
 

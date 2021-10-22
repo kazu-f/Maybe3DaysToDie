@@ -87,39 +87,6 @@ private:
 	/// モデルを更新
 	/// </summary>
 	void ModelUpdate();
-
-	/// <summary>
-	/// モデルの前方向を更新し戻り値に渡す
-	/// </summary>
-	///<returns>前方向</returns>
-	Vector3 ForwardUpdate()
-	{
-		Matrix ModelMatrix = Matrix::Identity;
-		ModelMatrix.MakeRotationFromQuaternion(m_Rot);
-		//m[2]はZ軸
-		Vector3 ForwardModel = { ModelMatrix.m[Z][X],ModelMatrix.m[Z][Y],ModelMatrix.m[Z][Z] };
-		//正規化して方向だけに
-		ForwardModel.Normalize();
-		//前方向を返す
-		return ForwardModel;
-	}
-	/// <summary>
-	/// モデルの右方向を更新し戻り値に渡す
-	/// </summary>
-	/// <returns>右方向</returns>
-	Vector3 RightUpdate()
-	{
-		Matrix ModelMatrix = Matrix::Identity;
-		ModelMatrix.MakeRotationFromQuaternion(m_Rot);
-		//m[0]はX軸
-		Vector3 RightModel = { ModelMatrix.m[X][X],ModelMatrix.m[X][Y],ModelMatrix.m[X][Z] };
-		//正規化して方向だけに
-		RightModel.Normalize();
-
-		//右方向を返す
-		return RightModel;
-	}
-
 private:
 	////////////モデル/////////////////////////////////////////////
 	prefab::ModelRender* m_Model = nullptr;		//プレイヤーモデル
@@ -146,5 +113,7 @@ private:
 	///////////////////////////////////////////////////////////////
 	State m_State = State::Idle;
 	float m_DeltaTime = 0.0f;
+
+	bool m_IsChasePlayer = false;
 };
 
