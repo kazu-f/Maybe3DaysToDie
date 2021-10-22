@@ -19,6 +19,13 @@ namespace nsTerrain {
 
 		return true;
 	}
+	void TerrainWorld::Update()
+	{
+		////頂点をクリア。
+		//m_terrainRender->ClearVertex();
+		////メッシュデータを作成。
+		//CreateMeshData();
+	}
 	void TerrainWorld::OnDestroy()
 	{
 		DeleteGO(m_terrainRender);
@@ -33,7 +40,8 @@ namespace nsTerrain {
 				{
 					float thisHeight = static_cast<float>(height * m_perlinNoise.CalculationNoise(
 						(static_cast<double>(x) / 16.0 * 1.5 + 0.001),
-						(static_cast<double>(z) / 16.0 * 1.5 + 0.001))
+						(static_cast<double>(z) / 16.0 * 1.5 + 0.001),
+						 static_cast<double>(y))
 						);
 
 					//float thisHeight = 4.0f;
@@ -46,10 +54,10 @@ namespace nsTerrain {
 					}
 					else {
 						//この場所の高さに対してブロックが届いていない。
-						if (y <= thisHeight - 0.5f)
+						if (y <= thisHeight - terrainSurface)
 							point = 0.0f;
 						//この場所の上にもブロックがある。
-						else if (y > thisHeight + 0.5f)
+						else if (y > thisHeight + terrainSurface)
 							point = 1.0f;
 						//この場所のブロックの影響値計算。(上方向。)
 						else if (y > thisHeight)
@@ -75,7 +83,6 @@ namespace nsTerrain {
 			//三角形テーブルのインデックスを作成する。
 			if (cube.cube[i] > terrainSurface)
 				configrationIndex |= 1 << i;
-
 		}
 
 		return configrationIndex;
@@ -125,6 +132,8 @@ namespace nsTerrain {
 		{
 			//三角ポリゴンの頂点座標。
 			Vector3 vertPos[3];
+			//エッジ座標。
+			Vector3 edgePos[3];
 			//三角ポリゴンの中心座標。
 			Vector3 center = Vector3::Zero;
 			int p = 0;
@@ -139,6 +148,11 @@ namespace nsTerrain {
 				//エッジを構成する2頂点を取得。
 				Vector3 vert1 = position + nsMarching::EdgeTable[indice][0];
 				Vector3 vert2 = position + nsMarching::EdgeTable[indice][1];
+
+				edgePos[p] = (nsMarching::EdgeTable[indice][0] + nsMarching::EdgeTable[indice][1]) / 2.0f;
+				edgePos[p].x -= 0.5f;
+				edgePos[p].y -= 0.5f;
+				edgePos[p].z -= 0.5f;
 
 				//頂点の座標を計算。
 				vertPos[p] = (vert1 + vert2) / 2.0f * TERRAIN_UNIT;
@@ -187,16 +201,26 @@ namespace nsTerrain {
 				vert.m_pos = vertPos[j];
 				vert.m_normal = normal;
 
+				Vector3 vEdge = edgePos[j];
+				//edgePos[j].x -= normal.Dot(Vector3::AxisX);
+				//edgePos[j].y -= normal.Dot(Vector3::AxisY);
+				//edgePos[j].z -= normal.Dot(Vector3::AxisZ);
+
+				edgePos[j].x += vEdge.Dot(Vector3::AxisX);
+				edgePos[j].y += vEdge.Dot(Vector3::AxisY);
+				edgePos[j].z += vEdge.Dot(Vector3::AxisZ);
+
 				//UV座標を計算する。
 				Vector2 uv;
-				uv.x = vDir[j].Dot(axisX) / 2.0f + 0.5f;
-				uv.y = vDir[j].Dot(axisY) / 2.0f + 0.5f;
+				uv.x = edgePos[j].Dot(axisX) / 2.0f + 0.5f;
+				uv.y = edgePos[j].Dot(axisY) / 2.0f + 0.5f;
 
 				vert.m_uv = uv;
 
 				m_terrainRender->AddVertex(vert);
 			}
 
+			m_terrainRender->AddCenter(center);
 
 		}
 

@@ -23,6 +23,7 @@ namespace nsTerrain {
 		}
 
 		bool Start()override final;
+		void Update()override final;
 		void OnDestroy()override final;
 
 	private:

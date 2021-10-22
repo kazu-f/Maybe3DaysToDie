@@ -43,11 +43,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	CFade::GetInstance()->StartFadeIn();
 	//マウスカーソルの表示を消す
 	ShowCursor(false);
-	//ゲームしーーん
-	GameScene()->Instantiate();
-	GameScene()->Start();
+	////ゲームしーーん
+	//GameScene()->Instantiate();
+	//GameScene()->Start();
 
-	//NewGO<TerrainDebugScene>(0);
+	NewGO<TerrainDebugScene>(0);
 #ifdef CALC_TIME
 	Stopwatch sw;
 #endif
