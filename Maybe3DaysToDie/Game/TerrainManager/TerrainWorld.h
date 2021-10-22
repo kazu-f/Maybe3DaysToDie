@@ -4,6 +4,9 @@
 
 namespace nsTerrain {
 
+	static const float TERRAIN_UNIT = 100.0f;
+	static const float TERRAIN_HALF_UNIT = 50.0f;
+
 	class TerrainRender;
 
 	union Cube {
@@ -13,6 +16,11 @@ namespace nsTerrain {
 	class TerrainWorld : public IGameObject
 	{
 	public:
+		TerrainWorld()
+			:m_perlinNoise(2)
+		{
+
+		}
 
 		bool Start()override final;
 		void OnDestroy()override final;
@@ -38,7 +46,7 @@ namespace nsTerrain {
 
 
 	private:
-		static const int width = 24;
+		static const int width = 16;
 		static const int height = 8;
 		float terrainSurface = 0.5f;
 

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameScene.h"
+#include "Scene\TerrainDebugScene.h"
 
 //1フレームの経過時間を出力する。
 #define CALC_TIME
@@ -45,7 +46,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲームしーーん
 	CGameScene* gameScene = new CGameScene;
 	gameScene->Start();
-	
+
+	//NewGO<TerrainDebugScene>(0);
 #ifdef CALC_TIME
 	Stopwatch sw;
 #endif
@@ -56,10 +58,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//1フレームの経過時間を測る。
 		sw.Start();
 #endif
-		gameScene->Update();
-		//ゲームの処理を行う。
+		gameScene->Update();		//ゲームの処理を行う。
 		GameEngine().GameUpdate();
-
 
 #ifdef CALC_TIME
 		sw.Stop();

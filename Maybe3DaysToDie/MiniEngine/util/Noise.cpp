@@ -19,6 +19,22 @@ CNoise::CNoise()
     }
 }
 
+CNoise::CNoise(int seed)
+{
+    for (int i = 0; i < 256; i++)
+    {
+        noiseTable[i] = i;
+    }
+
+    std::mt19937 random(seed);
+    std::shuffle(std::begin(noiseTable), std::begin(noiseTable) + 256, random);
+
+    for (int i = 0; i < 256; i++)
+    {
+        noiseTable[256 + i] = noiseTable[i];
+    }
+}
+
 double CNoise::Fade(double t)
 {
     return t * t * t * (t * (t * 6 - 15) + 10);

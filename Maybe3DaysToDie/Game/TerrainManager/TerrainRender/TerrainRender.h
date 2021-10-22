@@ -6,7 +6,9 @@ namespace nsTerrain {
 	/// 地形の頂点データ。
 	/// </summary>
 	struct Vertex {
-		Vector3 m_pos;
+		Vector3 m_pos;		//座標。
+		Vector3 m_normal;	//法線。
+		Vector2 m_uv;		//UV。
 	};
 
 	//地形描画クラスの初期化データ。
@@ -43,6 +45,7 @@ namespace nsTerrain {
 		void InitShader();			//シェーダーの初期化。
 		void InitPipelineState();	//パイプラインステートの初期化。
 		void InitConstantBuffer();	//定数バッファの初期化。
+		void InitTexrure();			//テクスチャ初期化。
 		void InitDescriptorHeap();	//ディスクリプタヒープの初期化。
 
 	private:
@@ -52,6 +55,7 @@ namespace nsTerrain {
 		};
 
 	private:
+		Texture* m_terrainTex = nullptr;				//地形のテクスチャ。
 		Shader m_vsTerrain;					//地形用の頂点シェーダー。
 		Shader m_psTerrain;					//地形用のピクセルシェーダー。
 		PipelineState m_terrainPS;			//地形用のパイプラインステート。

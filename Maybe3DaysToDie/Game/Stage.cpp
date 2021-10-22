@@ -14,9 +14,6 @@ bool Stage::Start()
 
 void Stage::Update()
 {
-	if (GetAsyncKeyState('A'))
-	{
-		m_stage.ReCreate();
 	}
 
 	if (GetAsyncKeyState('U')) {
