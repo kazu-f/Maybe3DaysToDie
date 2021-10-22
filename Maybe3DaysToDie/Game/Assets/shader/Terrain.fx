@@ -56,7 +56,6 @@ SPSIn VSMain(SVSIn vsIn)
 
 float4 PSMain(SPSIn psIn) : SV_Target0
 {
-	//return float4(1.0f,0.0f,0.0f,1.0f);
 	float4 albedoColor = g_albedoMap.Sample(g_sampler, psIn.uv);		//アルベド。
 	float3 normal = psIn.normal;
 

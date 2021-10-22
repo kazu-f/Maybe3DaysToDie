@@ -13,6 +13,7 @@ namespace nsTerrain {
 	}
 	void TerrainRender::Init(TerrainInitData& initData)
 	{
+		m_initData = initData;
 		//頂点バッファとインデックスバッファ作成。
 		InitVertexBuffer(initData.vertexNum);
 		InitIndexBuffer(initData.vertexNum);
