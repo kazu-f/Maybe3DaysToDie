@@ -1,5 +1,7 @@
 #pragma once
 
+#include "NVMGenerator.h"
+
 class TerrainDebugScene : public IGameObject
 {
 public:

@@ -5,9 +5,6 @@ class Stage;
 class GameCamera;
 class PlacementObject;
 
-/// <summary>
-/// シングルトン。
-/// </summary>
 class CGameScene : public IGameObject
 {
 public:
