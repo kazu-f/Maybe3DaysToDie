@@ -39,17 +39,8 @@ void GameCamera::Rotate()
 
 	xrot += lstx;
 	yrot += lsty;
-	rot += lsty;
 
 	yrot = min(max(yrot, -yrotLimit), yrotLimit);
-	//if (yrot > yrotLimit)
-	//{
-	//	yrot = 180.0f - yrot;
-	//}
-	//else if (yrot < -yrotLimit)
-	//{
-	//	yrot = -180.0f - yrot;
-	//}
 	if (xrot > xrotLimit)
 	{
 		xrot -= xrotLimit;
