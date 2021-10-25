@@ -39,7 +39,7 @@ private:
 	const Vector3 RightUpdate()const
 	{
 		Matrix ModelMatrix = Matrix::Identity;
-		ModelMatrix.MakeRotationFromQuaternion(m_qrot);
+		//ModelMatrix.MakeRotationFromQuaternion(m_qrot);
 		ModelMatrix = MainCamera().GetCameraRotation();
 		//m[0]‚ÍX²
 		Vector3 Right = { ModelMatrix.m[0][0],ModelMatrix.m[0][1],ModelMatrix.m[0][2] };
@@ -85,8 +85,12 @@ private:
 	float SensiY = 0.1f;
 	//ƒJƒƒ‰‚Ì§ŒÀ
 	const float rotLimit = 90.0f;
+	const float xrotLimit = 360.0f;
+	const float yrotLimit = 90.0f;
 	//Œ»İ‚Ì‰ñ“]
 	float rot = 0.0f;
+	float xrot = 0.0f;
+	float yrot = 0.0f;
 	//ƒJƒƒ‰‚Ì‚‚³
 	float CameraHeight = 170.0f;
 };

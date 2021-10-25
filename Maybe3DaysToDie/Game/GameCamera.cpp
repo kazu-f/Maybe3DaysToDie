@@ -37,23 +37,41 @@ void GameCamera::Rotate()
 	lstx *= SensiX;
 	lsty *= SensiY;
 
+	xrot += lstx;
+	yrot += lsty;
 	rot += lsty;
 
-	//Y²ü‚è‚Ì‰ñ“]
-	Quaternion xrot = Quaternion::Identity;
-	xrot.SetRotationDegY(lstx);
-	//ƒJƒƒ‰‚Ì‰E•ûŒüü‚è‚Ì‰ñ“]
-	Quaternion yrot = Quaternion::Identity;
-	//‰ñ“]‚ªŒÀŠE‚Ü‚Å’B‚µ‚Ä‚¢‚È‚©‚Á‚½‚ç‰ñ“]‚·‚é
-	if (std::abs(rot) < rotLimit)
+	yrot = min(max(yrot, -yrotLimit), yrotLimit);
+	//if (yrot > yrotLimit)
+	//{
+	//	yrot = 180.0f - yrot;
+	//}
+	//else if (yrot < -yrotLimit)
+	//{
+	//	yrot = -180.0f - yrot;
+	//}
+	if (xrot > xrotLimit)
 	{
-		yrot.SetRotationDeg(RightUpdate(), lsty);
+		xrot -= xrotLimit;
 	}
-	rot = min(max(rot, -rotLimit), rotLimit);
-	//‰ñ“]‚Ì‰ÁZ
-	xrot.Multiply(yrot);
-	m_qrot.Multiply(xrot);
+	else if (xrot < -xrotLimit)
+	{
+		xrot += xrotLimit;
+	}
 
+	//ƒJƒƒ‰‚Ì‰E•ûŒüü‚è‚Ì‰ñ“]
+	Quaternion yqrot = Quaternion::Identity;
+	yqrot.SetRotationDegX(yrot);
+	//Y²ü‚è‚Ì‰ñ“]
+	Quaternion xqrot = Quaternion::Identity;
+	xqrot.SetRotationDegY(xrot);
+	//‰ñ“]‚Ì‰ÁZ
+	//‰E•ûŒüü‚è‚©‚ç‰ÁZ‚·‚é
+	yqrot.Multiply(xqrot);
+	Quaternion rot = Quaternion::Identity;
+	rot.Multiply(yqrot);
+
+	m_qrot = rot;
 	//ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚ğŒÅ’è
 	SetCursorPos(DefaultPoint[0], DefaultPoint[1]);
 }
