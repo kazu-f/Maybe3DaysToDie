@@ -159,6 +159,7 @@ namespace nsTerrain {
 				edgePos[p].x -= 0.5f;
 				edgePos[p].y -= 0.5f;
 				edgePos[p].z -= 0.5f;
+				//edgePos[p].Normalize();
 
 				//頂点の座標を計算。
 				vertPos[p] = (vert1 + vert2) / 2.0f * TERRAIN_UNIT;
@@ -185,20 +186,20 @@ namespace nsTerrain {
 			normal.Cross(vDir[0], vDir[1]);
 			normal.Normalize();
 
-			//三角ポリゴンのX軸を計算。
-			Vector3 axisX;
+			//三角ポリゴンのY軸を計算。
+			Vector3 axisY;
 			//法線がY方向ではない。
 			if (fabsf(normal.Dot(Vector3::AxisY)) < 0.998f)
 			{
-				axisX.Cross(Vector3::AxisY, normal);
+				axisY.Cross(normal, Vector3::AxisY);
 			}
 			else {
-				axisX.Cross(Vector3::AxisZ, normal);
+				axisY.Cross(normal, Vector3::AxisX);
 			}
-			axisX.Normalize();
-			//三角ポリゴンのY軸を計算。
-			Vector3 axisY;
-			axisY.Cross(normal, axisX);
+			axisY.Normalize();
+			//三角ポリゴンのX軸を計算。
+			Vector3 axisX;
+			axisX.Cross(normal, axisY);
 			axisX.Normalize();
 
 			for (int j = 0; j < p; j++)
@@ -207,19 +208,20 @@ namespace nsTerrain {
 				vert.m_pos = vertPos[j];
 				vert.m_normal = normal;
 
-				Vector3 vEdge = edgePos[j];
-				//edgePos[j].x -= normal.Dot(Vector3::AxisX);
-				//edgePos[j].y -= normal.Dot(Vector3::AxisY);
-				//edgePos[j].z -= normal.Dot(Vector3::AxisZ);
+				//Vector3 vEdge = Vector3::Zero;
+				////edgePos[j].x -= normal.Dot(Vector3::AxisX);
+				////edgePos[j].y -= normal.Dot(Vector3::AxisY);
+				////edgePos[j].z -= normal.Dot(Vector3::AxisZ);
 
-				edgePos[j].x += vEdge.Dot(Vector3::AxisX);
-				edgePos[j].y += vEdge.Dot(Vector3::AxisY);
-				edgePos[j].z += vEdge.Dot(Vector3::AxisZ);
+				//vEdge.x = edgePos[j].Dot(axisX);
+				//vEdge.y = edgePos[j].Dot(axisY);
+				//vEdge.z = edgePos[j].Dot(normal);
 
+				//TODO:いつか直す。
 				//UV座標を計算する。
 				Vector2 uv;
-				uv.x = edgePos[j].Dot(axisX) / 2.0f + 0.5f;
-				uv.y = edgePos[j].Dot(axisY) / 2.0f + 0.5f;
+				uv.x = edgePos[j].Dot(axisX) + 0.5f;
+				uv.y = edgePos[j].Dot(axisY) + 0.5f;
 
 				vert.m_uv = uv;
 

@@ -66,7 +66,6 @@ void PlacementObject::CalcObjectPos()
 	btVector3 start, end;
 	start.setValue(m_Start.x, m_Start.y, m_Start.z);
 	end.setValue(m_End.x, m_End.y, m_End.z);
-
 	//レイテスト
 	RayResult callback;
 	PhysicsWorld().RayTest(start, end, callback);
