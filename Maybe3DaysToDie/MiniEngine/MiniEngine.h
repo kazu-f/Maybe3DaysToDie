@@ -105,8 +105,6 @@ const int MAX_RENDERING_TARGET = D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT;	//ƒŒƒ“ƒ
 
 #include "graphics/PipelineStatesDefault.h"
 
-#include "NaviMesh/NaviMeshAgent.h"
-
 #include "system/system.h"
 
 const UINT FRAME_BUFFER_W = 1280;				//ƒtƒŒ[ƒ€ƒoƒbƒtƒ@‚Ì•B
