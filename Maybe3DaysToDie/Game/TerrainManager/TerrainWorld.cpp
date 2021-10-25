@@ -16,6 +16,8 @@ namespace nsTerrain {
 		PopurerTerrainMap();
 		//メッシュデータを作成。
 		CreateMeshData();
+		//NVMデータを作成。
+		m_NVMGenerator.CreateNVM(m_terrainRender, true);
 
 		return true;
 	}
@@ -29,6 +31,10 @@ namespace nsTerrain {
 	void TerrainWorld::OnDestroy()
 	{
 		DeleteGO(m_terrainRender);
+	}
+	void TerrainWorld::ForwardRender(RenderContext& rc)
+	{
+		m_NVMGenerator.DebugDraw(m_terrainRender);
 	}
 	void TerrainWorld::PopurerTerrainMap()
 	{

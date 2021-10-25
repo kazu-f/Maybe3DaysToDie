@@ -2,6 +2,8 @@
 
 #include "TerrainManager/TerrainRender/TerrainRender.h"
 
+class NVMDebugDraw;
+
 /// <summary>
 /// ナビゲーションメッシュ生成クラス。
 /// </summary>
@@ -12,15 +14,38 @@
 /// </remarks>
 class NVMGenerator
 {
+private:
+	enum ListNo {
+		EnNoneList,
+		EnCloseList,
+		EnOpenList
+	};
+public:
+	/// <summary>
+	/// AStarで使用するセル情報。
+	/// </summary>
+	struct Cell {
+		Vector3 pos[3];							//３頂点。
+		Cell* m_parent = nullptr;				//親となるセル。
+		Cell* child = nullptr;					//子供となるセル。
+		Cell* m_linkCell[3] = { nullptr };		//隣接セル。
+		Vector3 m_CenterPos = g_vec3Zero;		//セルの中央座標。
+		float costFromStart = 0.0f;				//スタートから見たコスト。
+		float costToEnd = 0.0f;					//スタート位置からゴール位置までのコスト。
+		float totalCost = 0.0f;					//最終的なコスト。
+		int listNum = EnNoneList;				//どのリストに属しているか。
+	};
 public:
 	NVMGenerator();
 	~NVMGenerator();
 public:
+
 	/// <summary>
-	/// 地形データよりNVMを作成する。
+	/// 地形よりNVMを作成する。
 	/// </summary>
-	/// <param name="terrain">地形。</param>
-	void CreateNVM(nsTerrain::TerrainRender* terrain);
+	/// <param name="terrain">地形</param>
+	/// <param name="isDebugDraw">デバッグ描画。</param>
+	void CreateNVM(nsTerrain::TerrainRender* terrain, bool isDebugDraw = false);
 	/// <summary>
 	/// 地形データよりNVMを更新する。
 	/// <para>ブロックが破壊されたらチャンク分NVMの更新を行う。</para>
@@ -30,9 +55,11 @@ public:
 	/// <summary>
 	/// デバッグ描画。
 	/// </summary>
-	/// <param name="isEnableDebug">デバッグ描画する？</param>
-	void DebugDraw(bool& isEnableDebug);
+	void DebugDraw(nsTerrain::TerrainRender* terrain);
 private:
-	static bool isInstantiate;		//インスタンスが作成されているか。
+	static bool isInstantiate;				//インスタンスが作成されているか。
+	std::vector<Cell> m_cellList;			//セルリスト。
+	bool m_isDebugDraw = false;				//デバッグ描画する？
+	NVMDebugDraw* m_nvmDebugDraw = nullptr;	//デバッグ描画。
 };
 

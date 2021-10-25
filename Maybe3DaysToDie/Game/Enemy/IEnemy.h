@@ -1,6 +1,5 @@
 #pragma once
 
-#include "MiniEngine/NaviMesh/NaviMeshAgent.h"
 #include "IEnemyState.h"
 
 class EnemyGenerator;
@@ -39,10 +38,10 @@ public:
 	/// コンストラクタ。
 	/// </summary>
 	IEnemy();
-	/// <summary>
-	/// デストラクタ。
-	/// </summary>
-	virtual ~IEnemy();
+	
+	void OnDestroy() override final;
+
+	void Release();
 	/// <summary>
 	/// スタート。
 	/// </summary>
@@ -67,7 +66,7 @@ public:
 	/// <param name="mesh">ナビメッシュ。</param>
 	/// <param name="animClipDatas">アニメーションクリップ。</param>
 	/// <param name="isRandMove">ランダム移動するか。</param>
-	void InitNavActor(ModelInitData& initData, const char* tag, NaviMesh* mesh, AnimClipInitData animClipDatas[] = nullptr, int animSize = 0,  bool isRandMove = false);
+	//void InitNavActor(ModelInitData& initData, const char* tag, NaviMesh* mesh, AnimClipInitData animClipDatas[] = nullptr, int animSize = 0,  bool isRandMove = false);
 public://なんかtripleTrashオカピー。
 	/// <summary>
 	/// アクター初期化。
@@ -117,10 +116,10 @@ public://getter
 	/// エージェントを取得。
 	/// </summary>
 	/// <returns></returns>
-	NaviMeshAgent& GetAgent()
-	{
-		return m_agent;
-	}
+	//NaviMeshAgent& GetAgent()
+	//{
+	//	return m_agent;
+	//}
 	/// <summary>
 	/// モデルレンダーを取得。
 	/// </summary>
@@ -147,7 +146,6 @@ public://getter
 	}
 private:
 	prefab::ModelRender*	m_modelRender = nullptr;	//レンダー。
-	NaviMeshAgent			m_agent;					//ナビメッシュエージェント。
 	EnemyGenerator*			m_generatorPtr;				//ジェネレーターのポインタ。
 	IEnemyState*			m_currentState = nullptr;	//現在のステート。
 	Vector3					m_pos = g_vec3Zero;			//座標。

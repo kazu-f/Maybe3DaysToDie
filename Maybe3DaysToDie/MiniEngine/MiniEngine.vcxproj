@@ -71,9 +71,6 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MiniEngine.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="NaviMesh\AStar.cpp" />
-    <ClCompile Include="NaviMesh\NaviMesh.cpp" />
-    <ClCompile Include="NaviMesh\NaviMeshAgent.cpp" />
     <ClCompile Include="graphics\NullTextureMaps.cpp" />
     <ClCompile Include="physics\BoxCollider.cpp" />
     <ClCompile Include="physics\CapsuleCollider.cpp" />
@@ -137,9 +134,6 @@
     <ClInclude Include="level\MapChipRender.h" />
     <ClInclude Include="level\TklFile.h" />
     <ClInclude Include="MiniEngine.h" />
-    <ClInclude Include="NaviMesh\AStar.h" />
-    <ClInclude Include="NaviMesh\NaviMesh.h" />
-    <ClInclude Include="NaviMesh\NaviMeshAgent.h" />
     <ClInclude Include="graphics\NullTextureMaps.h" />
     <ClInclude Include="physics\BoxCollider.h" />
     <ClInclude Include="physics\CapsuleCollider.h" />

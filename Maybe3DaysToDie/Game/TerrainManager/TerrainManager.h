@@ -1,5 +1,6 @@
 #pragma once
 #include "MarchingCubeTable.h"
+#include "NVMGenerator.h"
 
 namespace nsTerrain {
 	class Terrain;
@@ -49,7 +50,6 @@ namespace nsTerrain {
 	private:
 		typedef std::unique_ptr<Terrain> TerrainPtr;
 		std::vector<TerrainPtr> m_terrainPtrs;			//ínå`ÅB
-		
 	};
 
 }

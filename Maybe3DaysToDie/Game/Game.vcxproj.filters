@@ -33,7 +33,9 @@
     <ClCompile Include="Stage\Hill\Hill.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieAttack.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieTracking.cpp" />
-    <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp" />  </ItemGroup>
+    <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp" />
+    <ClCompile Include="NVMDebugDraw.cpp" />
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
     <ClInclude Include="GameCamera.h" />
@@ -64,9 +66,12 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieMove.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
-    <ClInclude Include="Stage\Hill\Hill.h" />    <ClInclude Include="Enemy\StandardZombie\STDZombieAttack.h" />
+    <ClInclude Include="Stage\Hill\Hill.h" />
+    <ClInclude Include="Enemy\StandardZombie\STDZombieAttack.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieTracking.h" />
-    <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h" />  </ItemGroup>
+    <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h" />
+    <ClInclude Include="NVMDebugDraw.h" />
+  </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
     <ImageContentTask Include="Assets\sprite\HPIcon.png" />

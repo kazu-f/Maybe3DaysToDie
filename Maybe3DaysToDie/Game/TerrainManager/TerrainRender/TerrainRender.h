@@ -72,9 +72,25 @@ namespace nsTerrain {
 		/// 地形のバーテックスデータを取得。
 		/// </summary>
 		/// <returns></returns>
-		const std::vector<Vertex>& GetVertexList() const 
+		std::vector<Vertex>& GetVertexList()
 		{
 			return m_vertices;
+		}
+		/// <summary>
+		/// インデックスリストを取得。
+		/// </summary>
+		/// <returns></returns>
+		std::vector<short>& GetIndexList()
+		{
+			return m_indices;
+		}
+		/// <summary>
+		/// バーテックスの数取得。
+		/// </summary>
+		/// <returns></returns>
+		int& GetVertexCount()
+		{
+			return m_vertexCount;
 		}
 
 	private:

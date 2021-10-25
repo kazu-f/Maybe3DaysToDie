@@ -330,15 +330,6 @@
     <ClCompile Include="graphics\Fade.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="NaviMesh\AStar.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="NaviMesh\NaviMesh.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="NaviMesh\NaviMeshAgent.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="util\TResourceBank.cpp">
       <Filter>util</Filter>
     </ClCompile>
@@ -622,15 +613,6 @@
     </ClInclude>
     <ClInclude Include="graphics\Fade.h">
       <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="NaviMesh\AStar.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="NaviMesh\NaviMesh.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="NaviMesh\NaviMeshAgent.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="util\TResourceBank.h">
       <Filter>util</Filter>
