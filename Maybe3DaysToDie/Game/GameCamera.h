@@ -33,23 +33,6 @@ private:
 	}
 
 	/// <summary>
-	/// モデルの右方向を更新し戻り値に渡す
-	/// </summary>
-	/// <returns>右方向</returns>
-	const Vector3 RightUpdate()const
-	{
-		Matrix ModelMatrix = Matrix::Identity;
-		//ModelMatrix.MakeRotationFromQuaternion(m_qrot);
-		ModelMatrix = MainCamera().GetCameraRotation();
-		//m[0]はX軸
-		Vector3 Right = { ModelMatrix.m[0][0],ModelMatrix.m[0][1],ModelMatrix.m[0][2] };
-		//正規化して方向だけに
-		Right.Normalize();
-		//右方向を返す
-		return Right;
-	}
-
-	/// <summary>
 	/// カメラの回転をマウス操作でする
 	/// </summary>
 	void Rotate();
@@ -84,11 +67,9 @@ private:
 	float SensiX = 0.1f;
 	float SensiY = 0.1f;
 	//カメラの制限
-	const float rotLimit = 90.0f;
 	const float xrotLimit = 360.0f;
 	const float yrotLimit = 90.0f;
 	//現在の回転
-	float rot = 0.0f;
 	float xrot = 0.0f;
 	float yrot = 0.0f;
 	//カメラの高さ
