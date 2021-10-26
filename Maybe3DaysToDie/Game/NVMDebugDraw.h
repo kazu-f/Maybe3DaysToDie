@@ -6,10 +6,20 @@
 class NVMDebugDraw
 {
 public:
+	/// <summary>
+	/// •`‰æ—p‚Ì‰Šú‰»B
+	/// </summary>
+	/// <param name="indexList"></param>
 	void Init(std::vector<short>& indexList);
+	/// <summary>
+	/// •`‰æB
+	/// </summary>
+	/// <param name="vertexCount"></param>
 	void Render(int& vertexCount);
-
-public:
+	/// <summary>
+	/// ’¸“_‚ğ“o˜^B
+	/// </summary>
+	/// <param name="pos"></param>
 	void PushVertex(Vector3& pos)
 	{
 		m_allCellPos.push_back(pos);

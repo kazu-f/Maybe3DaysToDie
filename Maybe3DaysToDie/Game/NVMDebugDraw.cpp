@@ -42,13 +42,6 @@ void NVMDebugDraw::InitPipelineState(PipelineState& pipelineState, RootSignature
 
 void NVMDebugDraw::Init(std::vector<short>& indexList)
 {
-	//for (int i = 0; i < cellList.size() * 3; i++) {
-	//	m_indexs.push_back(i);
-	//	m_indexs.push_back(i + 1);
-	//	m_indexs.push_back(i + 2);
-	//	i += 2;
-	//}
-
 	//頂点バッファー初期化。
 	m_vertexBuffer.Init(sizeof(m_allCellPos[0]) * m_allCellPos.size(), sizeof(m_allCellPos[0]));
 	m_vertexBuffer.Copy(&m_allCellPos[0]);
@@ -125,8 +118,8 @@ void NVMDebugDraw::Render(int& vertexCount)
 	GraphicsEngine()->GetRenderContext().DrawIndexed(vertexCount);
 
 	////パラメーターをパイプライン描画ように変更。
-	//GraphicsEngine()->GetRenderContext().SetPipelineState(m_pipelineStateBuck);
-	//GraphicsEngine()->GetRenderContext().DrawIndexed(m_indexs.size());
+	GraphicsEngine()->GetRenderContext().SetPipelineState(m_pipelineStateBuck);
+	GraphicsEngine()->GetRenderContext().DrawIndexed(vertexCount);
 
 	////パラメーターを線分用描画に変更して、描画。
 	//GraphicsEngine()->GetRenderContext().SetPipelineState(m_lineDrawPipelineState);
