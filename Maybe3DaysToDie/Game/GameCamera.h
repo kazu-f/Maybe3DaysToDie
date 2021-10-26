@@ -68,7 +68,7 @@ private:
 	float SensiY = 0.1f;
 	//ƒJƒƒ‰‚Ì§ŒÀ
 	const float xrotLimit = 360.0f;
-	const float yrotLimit = 90.0f;
+	const float yrotLimit = 85.0f;
 	//Œ»İ‚Ì‰ñ“]
 	float xrot = 0.0f;
 	float yrot = 0.0f;
