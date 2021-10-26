@@ -122,6 +122,7 @@ namespace nsTerrain {
 		std::vector<short> m_indices;			//インデックス番号の配列。
 		std::vector<Vector3> m_centers;			//三角ポリゴンの中心座標の配列。
 		int m_vertexCount = 0;
+		bool m_isRenderTerrain = true;		//地形描画する？
 	};
 
 }

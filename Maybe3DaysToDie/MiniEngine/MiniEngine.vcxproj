@@ -59,6 +59,7 @@
     <ClCompile Include="graphics\Texture.cpp" />
     <ClCompile Include="graphics\Model\UserMaterial.cpp" />
     <ClCompile Include="HID\GamePad.cpp" />
+    <ClCompile Include="Input\InputKeyCode.cpp" />
     <ClCompile Include="level\Level.cpp" />
     <ClCompile Include="level\MapChip.cpp" />
     <ClCompile Include="level\MapChipRender.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="graphics\PreRender\ShadowMap.h" />
     <ClInclude Include="graphics\Primitive.h" />
     <ClInclude Include="graphics\Model\UserMaterial.h" />
+    <ClInclude Include="Input\InputKeyCode.h" />
     <ClInclude Include="level\Level.h" />
     <ClInclude Include="level\MapChip.h" />
     <ClInclude Include="level\MapChipRender.h" />

@@ -9,7 +9,9 @@ namespace nsTerrain {
 	}
 	void TerrainRender::Update()
 	{
-
+		if (InputKeyCode().IsTriggerKey(VK_F3)) {
+			m_isRenderTerrain = m_isRenderTerrain ? false : true;
+		}
 	}
 	void TerrainRender::Init(TerrainInitData& initData)
 	{
@@ -146,8 +148,9 @@ namespace nsTerrain {
 		rc.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		//ï`âÊÅB
-		rc.DrawIndexed(m_vertexCount);
-
+		if (m_isRenderTerrain) {
+			rc.DrawIndexed(m_vertexCount);
+		}
 	}
 
 }

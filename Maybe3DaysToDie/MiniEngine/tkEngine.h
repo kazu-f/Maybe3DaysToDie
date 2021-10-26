@@ -2,6 +2,7 @@
 
 #include "util/Stopwatch.h"
 #include "EngineStruct.h"
+#include "Input/InputKeyCode.h"
 
 namespace Engine {
 
@@ -95,6 +96,11 @@ namespace Engine {
 			);
 			return m_pad[padNo];
 		}
+		//キー。
+		CInputKeyCode& GetInputKeyCode()
+		{
+			return m_inputKeyCode;
+		}
 	private:
 		void GameSleep();
 
@@ -103,6 +109,7 @@ namespace Engine {
 		CResourceEngine m_resourceEngine;				//リソースエンジン。
 		CPhysicsWorld m_physicsWorld;					//物理ワールド。
 		CSoundEngine m_soundEngine;						//サウンドエンジン。
+		CInputKeyCode m_inputKeyCode;					//キーボードインプット。
 		GamePad m_pad[GamePad::CONNECT_PAD_MAX];		//ゲームパッド。
 		CGameTime			m_gameTime;					//ゲームタイム。
 	private:
@@ -174,5 +181,13 @@ namespace Engine {
 	static inline CSoundEngine& SoundEngine()
 	{
 		return GameEngine().GetSoundEngine();
+	}
+	/// <summary>
+	/// キーボード入力を取得。
+	/// </summary>
+	/// <returns></returns>
+	static inline CInputKeyCode& InputKeyCode()
+	{
+		return GameEngine().GetInputKeyCode();
 	}
 }

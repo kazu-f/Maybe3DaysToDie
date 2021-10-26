@@ -50,18 +50,18 @@ void NVMDebugDraw::Init(std::vector<short>& indexList)
 	m_indexBuffer.Copy(&indexList[0]);
 	indexSize = indexList.size();
 
-	////セルから、隣接セルに向かう線分の頂点バッファーとインデックスバッファーの形成。
-	////頂点バッファを形成していく。
-	//m_lineVertexBuffer.Init(sizeof(Line) * m_linkCellLine.size(), sizeof(Line::start));
-	//m_lineVertexBuffer.Copy(&m_linkCellLine[0]);
-	////次にインデックスバッファー。
-	////インデックスを形成。
-	//for (int indexs = 0; indexs < m_linkCellLine.size() * 2; indexs++) {
-	//	m_lineIndexs.push_back(indexs);
-	//}
-	////バッファー作成。
-	//m_lineIndexBuffer.Init(sizeof(m_lineIndexs[0]) * m_lineIndexs.size(), sizeof(m_lineIndexs[0]));
-	//m_lineIndexBuffer.Copy(&m_lineIndexs[0]);
+	//セルから、隣接セルに向かう線分の頂点バッファーとインデックスバッファーの形成。
+	//頂点バッファを形成していく。
+	m_lineVertexBuffer.Init(sizeof(Line) * m_linkCellLine.size(), sizeof(Line::start));
+	m_lineVertexBuffer.Copy(&m_linkCellLine[0]);
+	//次にインデックスバッファー。
+	//インデックスを形成。
+	for (int indexs = 0; indexs < m_linkCellLine.size() * 2; indexs++) {
+		m_lineIndexs.push_back(indexs);
+	}
+	//バッファー作成。
+	m_lineIndexBuffer.Init(sizeof(m_lineIndexs[0]) * m_lineIndexs.size(), sizeof(m_lineIndexs[0]));
+	m_lineIndexBuffer.Copy(&m_lineIndexs[0]);
 
 	//定数バッファ初期化。
 	m_CB.Init(sizeof(SConstantBuffer), nullptr);
@@ -111,8 +111,9 @@ void NVMDebugDraw::Render(int& vertexCount)
 	//描画。
 	GraphicsEngine()->GetRenderContext().SetRootSignature(m_rootSignature);
 	GraphicsEngine()->GetRenderContext().SetPipelineState(m_pipelineState);
-	GraphicsEngine()->GetRenderContext().SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	GraphicsEngine()->GetRenderContext().SetDescriptorHeap(m_heap);
+
+	GraphicsEngine()->GetRenderContext().SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	GraphicsEngine()->GetRenderContext().SetVertexBuffer(m_vertexBuffer);
 	GraphicsEngine()->GetRenderContext().SetIndexBuffer(m_indexBuffer);
 	GraphicsEngine()->GetRenderContext().DrawIndexed(vertexCount);
@@ -122,9 +123,9 @@ void NVMDebugDraw::Render(int& vertexCount)
 	GraphicsEngine()->GetRenderContext().DrawIndexed(vertexCount);
 
 	////パラメーターを線分用描画に変更して、描画。
-	//GraphicsEngine()->GetRenderContext().SetPipelineState(m_lineDrawPipelineState);
-	//GraphicsEngine()->GetRenderContext().SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_LINELIST);
-	//GraphicsEngine()->GetRenderContext().SetVertexBuffer(m_lineVertexBuffer);
-	//GraphicsEngine()->GetRenderContext().SetIndexBuffer(m_lineIndexBuffer);
-	//GraphicsEngine()->GetRenderContext().DrawIndexed(m_lineIndexs.size());
+	GraphicsEngine()->GetRenderContext().SetPipelineState(m_lineDrawPipelineState);
+	GraphicsEngine()->GetRenderContext().SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_LINELIST);
+	GraphicsEngine()->GetRenderContext().SetVertexBuffer(m_lineVertexBuffer);
+	GraphicsEngine()->GetRenderContext().SetIndexBuffer(m_lineIndexBuffer);
+	GraphicsEngine()->GetRenderContext().DrawIndexed(m_lineIndexs.size());
 }

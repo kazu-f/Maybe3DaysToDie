@@ -5,6 +5,12 @@
 
 class NVMDebugDraw
 {
+public:	
+	//ライン。
+	struct Line {
+		Vector3 start;		//始点。
+		Vector3 end;		//終点。
+	};
 public:
 	/// <summary>
 	/// 描画用の初期化。
@@ -24,6 +30,14 @@ public:
 	{
 		m_allCellPos.push_back(pos);
 	}
+	/// <summary>
+	/// 隣接セルに向かうラインを登録。
+	/// </summary>
+	/// <param name="toLinkCellLine"></param>
+	void PushToLinkCellLine(Line& toLinkCellLine)
+	{
+		m_linkCellLine.push_back(toLinkCellLine);
+	}
 private:
 	/// <summary>
 	/// パイプラインステートを作成。
@@ -34,12 +48,6 @@ private:
 	/// <param name="ps">ピクセルシェーダー。</param>
 	/// <param name="isWire">ワイヤーフレーム描画？？</param>
 	void InitPipelineState(PipelineState& pipelineState, RootSignature& rs, Shader& vs, Shader& ps, bool isWire, D3D12_PRIMITIVE_TOPOLOGY_TYPE topology);
-
-	//ライン。
-	struct Line {
-		Vector3 start;		//始点。
-		Vector3 end;		//終点。
-	};
 	//定数バッファの構造体定義。
 	struct SConstantBuffer {
 		Matrix mRot;			//回転行列。
@@ -62,7 +70,7 @@ private:
 	PipelineState m_pipelineStateBuck;	//背景用パイプラインステート。
 	//隣接セル表示用メンバ。
 	VertexBuffer m_lineVertexBuffer;		//線分描画の頂点バッファー。
-	std::vector<int> m_lineIndexs;			//線分描画のインデックス。
+	std::vector<short> m_lineIndexs;		//線分描画のインデックス。
 	IndexBuffer m_lineIndexBuffer;			//線分描画インデックスバッファー。
 	PipelineState m_lineDrawPipelineState;	//線分描画パイプラインステート。
 	std::vector<Line> m_linkCellLine;		//隣接セルを表すラインの配列。

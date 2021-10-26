@@ -39,6 +39,41 @@ void NVMGenerator::CreateNVM(nsTerrain::TerrainRender* terrain, bool isDebugDraw
 		m_cellList.push_back(cell);
 	}
 
+	for (auto& baseCell : m_cellList) {
+		//メッシュ全体に検索を掛けて、隣接セルを検索。
+		int linkCellIndex = 0;	//隣接セル用インデックス。
+		for (auto& serchCell : m_cellList) {
+			
+			//リンクセルを検索していく。
+			if (&baseCell == &serchCell) {
+				//ベースセルとリンクセルのアドレスが同一なのでスキップ。
+				continue;
+			}
+			
+			int linkVertex = 0;	//隣接頂点の数。
+
+			//頂点比較。
+			for (auto& baseVertex : baseCell.pos) {
+				for (auto& serchVertex : serchCell.pos) {
+					if (baseVertex == serchVertex) {
+						//頂点が一緒
+						linkVertex++;
+					}
+				}
+			}//VertexSerch.
+
+			if (linkVertex >= 2) {
+				//隣接ラインが2つあるためこいつは隣接頂点である。
+				baseCell.m_linkCell[linkCellIndex] = &serchCell;
+				linkCellIndex++;
+				if (linkCellIndex == 3) {
+					//リンクセル３つ目到達検索を終了。
+					break;
+				}
+			}
+		}//linkCellSerch.
+	}
+
 	if (isDebugDraw) {
 		//デバッグ。
 		m_nvmDebugDraw = new NVMDebugDraw;
@@ -48,6 +83,16 @@ void NVMGenerator::CreateNVM(nsTerrain::TerrainRender* terrain, bool isDebugDraw
 			m_nvmDebugDraw->PushVertex(cell.pos[0]);
 			m_nvmDebugDraw->PushVertex(cell.pos[1]);
 			m_nvmDebugDraw->PushVertex(cell.pos[2]);
+			for (auto* linkCell : cell.m_linkCell) {
+				if(linkCell == nullptr){
+					break;
+				}
+				//隣接デバッグ用にラインを形成して、格納。
+				NVMDebugDraw::Line line;
+				line.start = cell.m_CenterPos;
+				line.end = linkCell->m_CenterPos;
+				m_nvmDebugDraw->PushToLinkCellLine(line);
+			}
 		}
 
 		m_nvmDebugDraw->Init(terrain->GetIndexList());

@@ -36,6 +36,8 @@ namespace Engine {
 		m_physicsWorld.Init();
 		//サウンドエンジンの初期化。
 		m_soundEngine.Init();
+		//キーボード入力初期化。
+		m_inputKeyCode.Init();
 		//ゲームオブジェクトマネージャーの初期化。
 		CGameObjectManager::CreateInstance(initParam.gameObjectPrioMax);
 	}
@@ -50,6 +52,8 @@ namespace Engine {
 		m_physicsWorld.Update(GameTime().GetFrameDeltaTime());
 		//グラフィックエンジンの更新。
 		m_graphicsEngine->Update();
+		//キーボード入力更新。
+		m_inputKeyCode.Update();
 
 		GameObjectManager().ExecuteFromGameThread();
 

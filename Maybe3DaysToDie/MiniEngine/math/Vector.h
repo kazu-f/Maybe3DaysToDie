@@ -461,6 +461,21 @@ namespace Engine {
 			Div(s);
 			return *this;
 		}
+		/// <summary>
+		/// 比較演算子。
+		/// </summary>
+		/// <remarks>
+		/// ベクトルクラスに下記のような比較演算子の機能を提供します。
+		/// Vector3 v1 = g_vec3Zero;
+		/// Vector3 v2 = g_vec3Zero;
+		/// bool ret = v1 == v2;
+		/// </remarks>
+		/// <param name="vec">比較する演算子。</param>
+		/// <returns>true/false。</returns>
+		bool operator== (const Vector3& vec) const
+		{
+			return (this->x == vec.x && this->y == vec.y && this->z == vec.z);
+		}
 	};
 	/// <summary>
 	/// 4次元ベクトルクラス。
