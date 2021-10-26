@@ -7,7 +7,7 @@
 namespace {
 	const float MOVE_SPEED = 200.0f;
 	const float UP_SPEED = 80.0f;
-	const float ROT_SPEED = 30.0f;
+	const float ROT_SPEED = 90.0f;
 }
 
 bool TerrainDebugScene::Start()
@@ -99,7 +99,8 @@ void TerrainDebugScene::CamRot()
 	//â°é≤åvéZÅB
 	Vector3 vAxis;
 	vAxis.Cross(m_targetDir, Vector3::AxisY);
-	
+	vAxis.Normalize();
+
 	//â°é≤é¸ÇËÇÃâÒì]ÅB
 	Quaternion qRot;
 	qRot.SetRotation(vAxis, Math::DegToRad(RStickY * rotSpeed));
