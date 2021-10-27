@@ -5,7 +5,7 @@ namespace nsTerrain {
 	/// <summary>
 	/// 地形の頂点データ。
 	/// </summary>
-	struct Vertex {
+	struct TerrainVertex {
 		Vector3 m_pos;		//座標。
 		Vector3 m_normal;	//法線。
 		Vector2 m_uv;		//UV。
@@ -32,7 +32,7 @@ namespace nsTerrain {
 		/// 頂点を追加する。
 		/// </summary>
 		/// <param name="vert"></param>
-		void AddVertex(const Vertex& vert)
+		void AddVertex(const TerrainVertex& vert)
 		{
 			m_vertices[m_vertexCount] = vert;
 			m_indices[m_vertexCount] = m_vertexCount;
@@ -72,7 +72,7 @@ namespace nsTerrain {
 		/// 地形のバーテックスデータを取得。
 		/// </summary>
 		/// <returns></returns>
-		std::vector<Vertex>& GetVertexList()
+		std::vector<TerrainVertex>& GetVertexList()
 		{
 			return m_vertices;
 		}
@@ -118,7 +118,7 @@ namespace nsTerrain {
 		DescriptorHeap m_descriptorHeap;	//地形用ディスクリプタヒープ。
 		VertexBuffer m_vertexBuffer;		//地形の頂点バッファ。
 		IndexBuffer m_indexBuffer;			//地形のインデックスバッファ。
-		std::vector<Vertex> m_vertices;	//頂点の配列。
+		std::vector<TerrainVertex> m_vertices;	//頂点の配列。
 		std::vector<short> m_indices;			//インデックス番号の配列。
 		std::vector<Vector3> m_centers;			//三角ポリゴンの中心座標の配列。
 		int m_vertexCount = 0;

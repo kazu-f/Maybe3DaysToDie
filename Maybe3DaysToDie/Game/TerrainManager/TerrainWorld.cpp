@@ -211,7 +211,7 @@ namespace nsTerrain {
 
 			for (int j = 0; j < p; j++)
 			{
-				Vertex vert;
+				TerrainVertex vert;
 				vert.m_pos = vertPos[j];
 				vert.m_normal = normal;
 
