@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "TerrainWorld.h"
 #include "TerrainRender\TerrainRender.h"
+#include "Enemy/StandardZombie/StandardZombie.h"
+#include "Enemy/EnemyGenerator.h"
+
 
 namespace nsTerrain {
 	bool TerrainWorld::Start()
@@ -18,6 +21,10 @@ namespace nsTerrain {
 		CreateMeshData();
 		//NVMデータを作成。
 		m_NVMGenerator.CreateNVM(m_terrainRender, true);
+		//敵キャラを作成。
+		m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
+
+		//PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
 
 		return true;
 	}

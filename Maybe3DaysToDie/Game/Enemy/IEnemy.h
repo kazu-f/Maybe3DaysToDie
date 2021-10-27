@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IEnemyState.h"
+#include "Navigation/NavigationAgent.h"
 
 class EnemyGenerator;
 
@@ -40,8 +41,6 @@ public:
 	IEnemy();
 	
 	void OnDestroy() override final;
-
-	void Release();
 	/// <summary>
 	/// スタート。
 	/// </summary>
@@ -104,6 +103,14 @@ public://setter
 		m_generatorPtr = generator;
 	}
 	/// <summary>
+	/// NVMジェネレーターを設定。
+	/// </summary>
+	/// <param name="generator"></param>
+	void SetNVMGenerator(NVMGenerator* generator)
+	{
+		m_agent.SetGenerator(generator);
+	}
+	/// <summary>
 	/// 位置を設定。
 	/// </summary>
 	/// <param name="pos"></param>
@@ -116,10 +123,10 @@ public://getter
 	/// エージェントを取得。
 	/// </summary>
 	/// <returns></returns>
-	//NaviMeshAgent& GetAgent()
-	//{
-	//	return m_agent;
-	//}
+	NavigationAgent& GetAgent()
+	{
+		return m_agent;
+	}
 	/// <summary>
 	/// モデルレンダーを取得。
 	/// </summary>
@@ -144,10 +151,20 @@ public://getter
 	{
 		return m_pos;
 	}
+	/// <summary>
+	/// 回転を取得。
+	/// </summary>
+	/// <returns></returns>
+	Quaternion& GetRot()
+	{
+		return m_rot;
+	}
 private:
 	prefab::ModelRender*	m_modelRender = nullptr;	//レンダー。
 	EnemyGenerator*			m_generatorPtr;				//ジェネレーターのポインタ。
 	IEnemyState*			m_currentState = nullptr;	//現在のステート。
 	Vector3					m_pos = g_vec3Zero;			//座標。
+	Quaternion				m_rot = g_quatIdentity;		//回転。
+	NavigationAgent			m_agent;					//エージェント。
 };
 

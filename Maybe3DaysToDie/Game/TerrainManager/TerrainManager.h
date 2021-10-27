@@ -1,6 +1,6 @@
 #pragma once
 #include "MarchingCubeTable.h"
-#include "NVMGenerator.h"
+#include "Navigation/NVMGenerator.h"
 
 namespace nsTerrain {
 	class Terrain;

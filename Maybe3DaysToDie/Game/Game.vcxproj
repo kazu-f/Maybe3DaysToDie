@@ -158,6 +158,8 @@
     </ImageContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Navigation\NavigationAgent.cpp" />
+    <ClCompile Include="Navigation\AStar.cpp" />
     <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
     <ClCompile Include="DestructibleObject\Block\Block.cpp" />
     <ClCompile Include="DateTime.cpp" />
@@ -167,9 +169,9 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Enemy\IEnemyState.cpp" />
-    <ClCompile Include="NVMDebugDraw.cpp" />
+    <ClCompile Include="Navigation\NVMDebugDraw.cpp" />
     <ClCompile Include="Stage\Hill\Hill.cpp" />
-    <ClCompile Include="NVMGenerator.cpp" />
+    <ClCompile Include="Navigation\NVMGenerator.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
     <ClCompile Include="Stage\IStage.cpp" />
     <ClCompile Include="main.cpp" />
@@ -187,7 +189,6 @@
     <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
     <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
     <ClCompile Include="Scene\TerrainDebugScene.cpp" />
-    <ClCompile Include="Enemy\StandardZombie\STDZombieMove.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieAttack.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieTracking.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp" />
@@ -197,6 +198,8 @@
     <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Navigation\NavigationAgent.h" />
+    <ClInclude Include="Navigation\AStar.h" />
     <ClInclude Include="DestructibleObject\DestructibleObject.h" />
     <ClInclude Include="DestructibleObject\Block\Block.h" />
     <ClInclude Include="DateTime.h" />
@@ -206,9 +209,9 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Enemy\IEnemyState.h" />
-    <ClInclude Include="NVMDebugDraw.h" />
+    <ClInclude Include="Navigation\NVMDebugDraw.h" />
     <ClInclude Include="Stage\Hill\Hill.h" />
-    <ClInclude Include="NVMGenerator.h" />
+    <ClInclude Include="Navigation\NVMGenerator.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
     <ClInclude Include="Stage\IStage.h" />
     <ClInclude Include="Player\PlayerStatus\PlayerWater.h" />
@@ -222,7 +225,6 @@
     <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
     <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
     <ClInclude Include="Scene\TerrainDebugScene.h" />
-    <ClInclude Include="Enemy\StandardZombie\STDZombieMove.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieAttack.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieTracking.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h" />

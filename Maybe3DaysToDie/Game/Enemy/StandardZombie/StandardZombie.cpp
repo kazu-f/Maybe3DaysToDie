@@ -2,7 +2,7 @@
 #include "StandardZombie.h"
 #include "Enemy/IEnemy.h"
 #include "Enemy/IEnemyState.h"
-#include "STDZombieMove.h"
+#include "STDZombieTracking.h"
 #include "Enemy/EnemyGenerator.h"
 
 bool StandardZombie::Start()
@@ -35,7 +35,7 @@ bool StandardZombie::Start()
 	this->GetModelRender()->SetScale(m_scale);
 
 	//StateInit.
-	m_moveState = new STDZombieMove(this);
+	m_trackingState = new STDZombieTracking(this);
 	
 	//DefaultAnimPlay.
 	this->GetModelRender()->PlayAnimation(EnAnimationState_Run, 0.0f);
@@ -47,7 +47,7 @@ bool StandardZombie::Start()
 
 void StandardZombie::Update()
 {
-	ChangeState(m_moveState);
+	ChangeState(m_trackingState);
 	GetCurrentState()->Update();
 }
 
