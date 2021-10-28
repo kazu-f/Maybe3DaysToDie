@@ -3,5 +3,4 @@
 
 Block::~Block()
 {
-	ReleaseCol();
 }

@@ -11,7 +11,6 @@ namespace nsTerrain {
 
 	Terrain::~Terrain()
 	{
-		ReleaseCol();
 	}
 
 	void Terrain::SetPosition(const Vector3& pos)
