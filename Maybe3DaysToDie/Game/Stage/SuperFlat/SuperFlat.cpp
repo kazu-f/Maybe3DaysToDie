@@ -4,65 +4,72 @@
 
 void SuperFlat::OnDestroy()
 {
-	if (m_model != nullptr)
+	for (auto& ptr : m_model)
 	{
-		DeleteGO(m_model);
-		m_model = nullptr;
+		if (ptr != nullptr)
+		{
+			delete ptr;
+			ptr = nullptr;
+		}
 	}
-	if (m_Terrain != nullptr)
+	for (auto& ptr : m_Terrain)
 	{
-		delete m_Terrain;
-		m_Terrain = nullptr;
+		if (ptr != nullptr)
+		{
+			delete ptr;
+			ptr = nullptr;
+		}
 	}
-
 }
 
 void SuperFlat::CreateStage()
 {
-	//モデルをnew
-	m_model = NewGO<prefab::ModelRender>(0);
 	//モデルの各種情報
 	ModelInitData modelInitData;
 	modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
-	//モデルを初期化
-	m_model->Init(modelInitData, nullptr, 0, ChunkWidth * ChunkDepth);
 
 	//チャンクごとにマップを生成
 	for (int Width = 0; Width < ChunkWidth; Width++)
 	{
 		for (int Depth = 0; Depth < ChunkDepth; Depth++)
 		{
+			prefab::ModelRender* m_ptr = NewGO<prefab::ModelRender>(0);
+			m_ptr->Init(modelInitData);
 			Vector3 pos = { 100.0f,-100.0f,100.0f };
 			pos.x *= Width;
 			pos.z *= Depth;
-			m_model->UpdateInstancingData(pos, Quaternion::Identity, Vector3::One);
+			m_ptr->SetPosition(pos);
 			//コライダーを作成
-			m_StaticCol[Width][Depth].CreateMesh(pos, Quaternion::Identity, Vector3::One, m_model);
+			m_StaticCol[Width][Depth].CreateMesh(pos, Quaternion::Identity, Vector3::One, m_ptr);
+			//メモリ確保
+			nsTerrain::Terrain* t_ptr = new nsTerrain::Terrain();
+			//モデルをセット
+			//todo モデルセットする必要なくなったら見直し
+			t_ptr->SetModel(m_ptr);
+			//配列に追加
+			m_model.push_back(std::move(m_ptr));
+			m_Terrain.push_back(std::move(t_ptr));
 		}
 	}
-	m_Terrain = new nsTerrain::Terrain;
-	m_Terrain->SetModel(m_model);
 }
 
 void SuperFlat::ReCreate()
 {
-	//モデルの各種情報
-	ModelInitData modelInitData;
-	modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
-	//モデルを初期化
-	m_model->Init(modelInitData, nullptr, 0, 5 * 5);
-	m_model->ResetInstancingDatas();
-	//チャンクごとにマップを生成
-	for (int Width = 0; Width < 5; Width++)
-	{
-		for (int Depth = 0; Depth < 5; Depth++)
-		{
-			Vector3 pos = { 100.0f,-100.0f,100.0f };
-			pos.x *= Width;
-			pos.z *= Depth;
-			m_model->UpdateInstancingData(pos, Quaternion::Identity, Vector3::One);
-		}
-	}
-	m_Terrain->SetModel(m_model);
-
+	////モデルの各種情報
+	//ModelInitData modelInitData;
+	//modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
+	////モデルを初期化
+	//m_model->Init(modelInitData, nullptr, 0, 5 * 5);
+	//m_model->ResetInstancingDatas();
+	////チャンクごとにマップを生成
+	//for (int Width = 0; Width < 5; Width++)
+	//{
+	//	for (int Depth = 0; Depth < 5; Depth++)
+	//	{
+	//		Vector3 pos = { 100.0f,-100.0f,100.0f };
+	//		pos.x *= Width;
+	//		pos.z *= Depth;
+	//		m_model->UpdateInstancingData(pos, Quaternion::Identity, Vector3::One);
+	//	}
+	//}
 }
