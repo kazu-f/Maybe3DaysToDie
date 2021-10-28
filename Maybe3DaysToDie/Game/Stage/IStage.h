@@ -4,7 +4,11 @@
 class IStage
 {
 public:
-	IStage() {}
+	IStage() 
+	{
+		m_Terrain.resize(ChunkWidth * ChunkDepth);
+		m_model.resize(ChunkWidth * ChunkDepth);
+	}
 	virtual ~IStage() {}
 
 	/// <summary>
@@ -13,7 +17,7 @@ public:
 	virtual void CreateStage() = 0;
 
 protected:
-	nsTerrain::Terrain* m_Terrain = nullptr;
-	prefab::ModelRender* m_model = nullptr;
+	std::vector<nsTerrain::Terrain*> m_Terrain = { nullptr };
+	std::vector<prefab::ModelRender*> m_model = { nullptr };
 	CPhysicsStaticObject m_StaticCol[ChunkWidth][ChunkDepth];
 };

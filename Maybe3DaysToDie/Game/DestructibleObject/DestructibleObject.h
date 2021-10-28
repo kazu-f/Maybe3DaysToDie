@@ -25,63 +25,14 @@ public:
 	}
 
 	/// <summary>
-	/// ポジションをゲット
-	/// </summary>
-	/// <returns>オブジェクトのポジション</returns>
-	const Vector3 GetPosition()const
-	{
-		return m_model->GetPosition();
-	}
-
-	/// <summary>
-	/// ローテーションをゲット
-	/// </summary>
-	/// <returns>オブジェクトの回転</returns>
-	const Quaternion GetRotation()const
-	{
-		return m_model->GetRotation();
-	}
-
-	/// <summary>
-	/// スケールをゲット
-	/// </summary>
-	/// <returns>オブジェクトのスケール</returns>
-	const Vector3 GetScale()const
-	{
-		return m_model->GetScale();
-	}
-
-	/// <summary>
-	/// モデルをセット
-	/// </summary>
-	/// <param name="model">モデルレンダーのポインタ</param>
-	void SetModel(prefab::ModelRender* model)
-	{
-		m_model = model;
-	}
-
-	/// <summary>
 	/// コライダーを生成
 	/// </summary>
-	void CreateCollider()
+	void CreateCollider(prefab::ModelRender* model)
 	{
-		if (m_model != nullptr)
-		{
-			m_StaticCol.CreateMesh(m_model->GetPosition(), m_model->GetRotation(), m_model->GetScale(), m_model);
-		}
-	}
-
-	/// <summary>
-	/// モデルの取得
-	/// </summary>
-	/// <returns>モデルレンダー</returns>
-	const prefab::ModelRender* GetModel()
-	{
-		return m_model;
+		m_StaticCol.CreateMesh(model->GetPosition(), model->GetRotation(), model->GetScale(), model);
 	}
 
 protected:
-	prefab::ModelRender* m_model = nullptr;		//モデル
 	CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
 	Vector3 m_position = Vector3::Zero;		//ポジション
 	Quaternion m_qrot = Quaternion::Identity;		//回転
