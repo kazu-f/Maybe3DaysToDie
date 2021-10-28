@@ -40,12 +40,17 @@ void SuperFlat::CreateStage()
 			pos.z *= Depth;
 			m_ptr->SetPosition(pos);
 			//コライダーを作成
-			m_StaticCol[Width][Depth].CreateMesh(pos, Quaternion::Identity, Vector3::One, m_ptr);
+			CPhysicsStaticObject* col = nullptr;
+			col = new CPhysicsStaticObject;
+			col->CreateMesh(pos, Quaternion::Identity, Vector3::One, m_ptr);
+			//m_StaticCol[Width][Depth].CreateMesh(pos, Quaternion::Identity, Vector3::One, m_ptr);
 			//メモリ確保
 			nsTerrain::Terrain* t_ptr = new nsTerrain::Terrain();
 			//モデルをセット
 			//todo モデルセットする必要なくなったら見直し
 			t_ptr->SetModel(m_ptr);
+			//コライダーをセット
+			t_ptr->SetCol(col);
 			//配列に追加
 			m_model.push_back(std::move(m_ptr));
 			m_Terrain.push_back(std::move(t_ptr));

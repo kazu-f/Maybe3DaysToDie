@@ -67,10 +67,22 @@ public:
 	{
 		if (m_model != nullptr)
 		{
-			m_StaticCol.CreateMesh(m_model->GetPosition(), m_model->GetRotation(), m_model->GetScale(), m_model);
+			if (m_StaticCol == nullptr)
+			{
+				m_StaticCol = new CPhysicsStaticObject;
+				m_StaticCol->CreateMesh(m_model->GetPosition(), m_model->GetRotation(), m_model->GetScale(), m_model);
+			}
 		}
 	}
 
+	/// <summary>
+	/// コライダーをセット
+	/// </summary>
+	/// <param name="col">コライダー</param>
+	void SetCol(CPhysicsStaticObject* col)
+	{
+		m_StaticCol = std::move(col);
+	}
 	/// <summary>
 	/// モデルの取得
 	/// </summary>
@@ -80,9 +92,17 @@ public:
 		return m_model;
 	}
 
+	void ReleaseCol()
+	{
+		if (m_StaticCol != nullptr)
+		{
+			delete m_StaticCol;
+			m_StaticCol = nullptr;
+		}
+	}
 protected:
 	prefab::ModelRender* m_model = nullptr;		//モデル
-	CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
+	CPhysicsStaticObject* m_StaticCol;		//静的物理オブジェクト
 	Vector3 m_position = Vector3::Zero;		//ポジション
 	Quaternion m_qrot = Quaternion::Identity;		//回転
 	Vector3 m_scale = Vector3::One;		//スケール
