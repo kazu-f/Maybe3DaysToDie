@@ -5,8 +5,8 @@
 #include "terrainManager/TerrainWorld.h"
 
 namespace {
-	const float MOVE_SPEED = 200.0f;
-	const float UP_SPEED = 80.0f;
+	const float MOVE_SPEED = 200.0f * 5.0f;
+	const float UP_SPEED = 80.0f * 5.0f;
 	const float ROT_SPEED = 90.0f;
 }
 

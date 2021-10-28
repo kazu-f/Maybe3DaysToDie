@@ -78,7 +78,7 @@ double CNoise::CalculationNoise(double x, double y, double z)
         Lerp(v, Lerp(u, Grad(noiseTable[AA + 1], x, y, z - 1), Grad(noiseTable[BA + 1], x - 1, y, z - 1)), Lerp(u, Grad(noiseTable[AB + 1], x, y - 1, z - 1), Grad(noiseTable[BB + 1], x - 1, y - 1, z - 1))));
 }
 
-double CNoise::Octave(double x, double y, double z, int octaves)
+double CNoise::Octave(int octaves, double x, double y, double z)
 {
     double result = 0.0;
     double amp = 1.0;

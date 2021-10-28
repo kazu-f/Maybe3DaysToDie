@@ -37,6 +37,7 @@ namespace nsTerrain {
 			m_vertices[m_vertexCount] = vert;
 			m_indices[m_vertexCount] = m_vertexCount;
 			m_vertexCount++;
+			m_isUpdateTerrain = true;
 		}
 		/// <summary>
 		/// 三角ポリゴンの中心座標を記録。
@@ -65,6 +66,7 @@ namespace nsTerrain {
 			m_vertexCount = 0;
 			m_vertices.resize(m_initData.vertexNum);
 			m_indices.resize(m_initData.vertexNum);
+			m_isUpdateTerrain = true;
 		}
 
 	public://getter
@@ -80,7 +82,7 @@ namespace nsTerrain {
 		/// インデックスリストを取得。
 		/// </summary>
 		/// <returns></returns>
-		std::vector<short>& GetIndexList()
+		std::vector<int>& GetIndexList()
 		{
 			return m_indices;
 		}
@@ -119,10 +121,11 @@ namespace nsTerrain {
 		VertexBuffer m_vertexBuffer;		//地形の頂点バッファ。
 		IndexBuffer m_indexBuffer;			//地形のインデックスバッファ。
 		std::vector<TerrainVertex> m_vertices;	//頂点の配列。
-		std::vector<short> m_indices;			//インデックス番号の配列。
+		std::vector<int> m_indices;			//インデックス番号の配列。
 		std::vector<Vector3> m_centers;			//三角ポリゴンの中心座標の配列。
 		int m_vertexCount = 0;
 		bool m_isRenderTerrain = true;		//地形描画する？
+		bool m_isUpdateTerrain = false;		//地形変更があったか？
 	};
 
 }

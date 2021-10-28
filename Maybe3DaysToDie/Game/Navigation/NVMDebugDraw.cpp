@@ -40,7 +40,7 @@ void NVMDebugDraw::InitPipelineState(PipelineState& pipelineState, RootSignature
 	pipelineState.Init(psoDesc);
 }
 
-void NVMDebugDraw::Init(std::vector<short>& indexList)
+void NVMDebugDraw::Init(std::vector<int>& indexList)
 {
 	//頂点バッファー初期化。
 	m_vertexBuffer.Init(sizeof(m_allCellPos[0]) * m_allCellPos.size(), sizeof(m_allCellPos[0]));
