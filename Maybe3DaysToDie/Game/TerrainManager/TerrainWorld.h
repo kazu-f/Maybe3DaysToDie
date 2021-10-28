@@ -1,7 +1,8 @@
 #pragma once
 
 #include "MarchingCubeTable.h"
-#include "NVMGenerator.h"
+#include "Navigation/NVMGenerator.h"
+#include "Enemy/EnemyGenerator.h"
 
 namespace nsTerrain {
 
@@ -49,15 +50,15 @@ namespace nsTerrain {
 
 
 	private:
-		static const int width = 16;
-		static const int height = 8;
+		static const int width = 64;
+		static const int height = 4;
 		float terrainSurface = 0.5f;
 
 		float terrainMap[width + 1][height + 1][width + 1] = { 0.0f };
 		CNoise m_perlinNoise;
 		TerrainRender* m_terrainRender = nullptr;		//地形描画クラス。
 		NVMGenerator m_NVMGenerator;					//NVM生成。
-
+		EnemyGenerator m_enemyGenerator;				//enemyGenerator.
 	};
 
 }

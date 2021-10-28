@@ -3,39 +3,5 @@
 #include "DestructibleObject/Terrain/Terrain.h"
 
 namespace nsTerrain {
-	TerrainManager* TerrainManager::m_instance = nullptr;
 
-	Terrain* TerrainManager::CreateTerrain(const Vector3& pos)
-	{
-		//作成。
-		auto ptr = std::make_unique<Terrain>();
-		//座標設定。
-		ptr->SetPosition(pos);
-		//頂点構築。
-		ptr->BuildVertex();
-
-		//登録。
-		m_terrainPtrs.push_back(std::move(ptr));
-
-		if (m_terrainPtrs.size() > MAX_TERRAIN_NUM)
-		{
-			ENGINE_ASSERT(false, "地形ブロックの数が最大値を越えた。");
-			return nullptr;
-		}
-
-		return m_terrainPtrs.back().get();
-	}
-	void TerrainManager::Update()
-	{
-
-	}
-	void TerrainManager::PostUpdate()
-	{
-		for (auto& ptr : m_terrainPtrs)
-		{
-			//頂点を形成。
-			ptr->ConnectVertex();
-		}
-
-	}
 }

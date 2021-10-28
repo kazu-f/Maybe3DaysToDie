@@ -1,6 +1,7 @@
 #pragma once
 
 class STDZombieMove;
+class STDZombieTracking;
 
 #include "Enemy/IEnemy.h"
 
@@ -51,7 +52,6 @@ private:
 	Vector3 m_scale = { 6.0f, 6.0f, 6.0f };		//拡大。
 	IEnemy::EnemyParams m_parameters;			//パラメーター。
 
-	STDZombieMove* m_moveState = nullptr;		//移動用ステート。
-
+	STDZombieTracking* m_trackingState = nullptr;	//追跡用ステート。
 };
 

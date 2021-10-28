@@ -34,7 +34,7 @@ namespace nsTerrain {
 	{
 		m_vertices.resize(maxVertexNum);
 		//頂点バッファの作成。
-		int vertStride = sizeof(Vertex);
+		int vertStride = sizeof(TerrainVertex);
 		m_vertexBuffer.Init(vertStride * maxVertexNum, vertStride);
 	}
 	void TerrainRender::InitIndexBuffer(int maxIndexNum)

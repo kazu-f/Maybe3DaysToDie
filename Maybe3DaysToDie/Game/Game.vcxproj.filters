@@ -20,7 +20,6 @@
     <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
     <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
     <ClCompile Include="Stage\IStage.cpp" />
-    <ClCompile Include="NVMGenerator.cpp" />
     <ClCompile Include="Scene\TerrainDebugScene.cpp" />
     <ClCompile Include="TerrainManager\TerrainManager.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
@@ -28,13 +27,15 @@
     <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
     <ClCompile Include="Enemy\StandardZombie\StandardZombie.cpp" />
     <ClCompile Include="Enemy\IEnemyState.cpp" />
-    <ClCompile Include="Enemy\StandardZombie\STDZombieMove.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
     <ClCompile Include="Stage\Hill\Hill.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieAttack.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieTracking.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp" />
-    <ClCompile Include="NVMDebugDraw.cpp" />
+    <ClCompile Include="Navigation\NVMDebugDraw.cpp" />
+    <ClCompile Include="Navigation\NVMGenerator.cpp" />
+    <ClCompile Include="Navigation\AStar.cpp" />
+    <ClCompile Include="Navigation\NavigationAgent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -53,7 +54,6 @@
     <ClInclude Include="DestructibleObject\DestructibleObject.h" />
     <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
     <ClInclude Include="Stage\IStage.h" />
-    <ClInclude Include="NVMGenerator.h" />
     <ClInclude Include="Scene\TerrainDebugScene.h" />
     <ClInclude Include="TerrainManager\TerrainManager.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
@@ -64,13 +64,15 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Enemy\IEnemyState.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Enemy\StandardZombie\STDZombieMove.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />
     <ClInclude Include="Stage\Hill\Hill.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieAttack.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieTracking.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h" />
-    <ClInclude Include="NVMDebugDraw.h" />
+    <ClInclude Include="Navigation\NVMDebugDraw.h" />
+    <ClInclude Include="Navigation\NVMGenerator.h" />
+    <ClInclude Include="Navigation\AStar.h" />
+    <ClInclude Include="Navigation\NavigationAgent.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

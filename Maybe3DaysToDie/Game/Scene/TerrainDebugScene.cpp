@@ -12,19 +12,6 @@ namespace {
 
 bool TerrainDebugScene::Start()
 {
-	////instanceì¬B
-	//nsTerrain::TerrainManager::CreateInstance();
-	////instanceŽæ“¾B
-	//auto* manager = nsTerrain::TerrainManager::GetInstance();
-
-	////ˆê‚Âì¬B
-	//auto* a = manager->CreateTerrain({ 0.0f,0.0f,0.0f });
-
-	//auto* b = manager->CreateTerrain({ 100.0f,0.0f,0.0f });
-
-	//a->SetRelatedTerrain(b, nsTerrain::en_terrainOnRight);
-	//b->SetRelatedTerrain(a, nsTerrain::en_terrainOnLeft);
-
 	NewGO<nsTerrain::TerrainWorld>(0,"world");
 	prefab::CDirectionLight* lig = NewGO<prefab::CDirectionLight>(0);
 	lig->SetColor({ 5.0f,5.0f,5.0f,1.0f });

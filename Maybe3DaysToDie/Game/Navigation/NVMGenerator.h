@@ -14,13 +14,13 @@ class NVMDebugDraw;
 /// </remarks>
 class NVMGenerator
 {
-private:
+public:
+	//セルの状態。
 	enum ListNo {
 		EnNoneList,
 		EnCloseList,
 		EnOpenList
 	};
-public:
 	/// <summary>
 	/// AStarで使用するセル情報。
 	/// </summary>
@@ -56,6 +56,14 @@ public:
 	/// デバッグ描画。
 	/// </summary>
 	void DebugDraw(nsTerrain::TerrainRender* terrain);
+	/// <summary>
+	/// セルリストを取得。
+	/// </summary>
+	/// <returns></returns>
+	std::vector<Cell>& GetCellList()
+	{
+		return m_cellList;
+	}
 private:
 	static bool isInstantiate;				//インスタンスが作成されているか。
 	std::vector<Cell> m_cellList;			//セルリスト。
