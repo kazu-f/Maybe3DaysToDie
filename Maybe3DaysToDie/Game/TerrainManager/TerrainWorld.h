@@ -53,12 +53,15 @@ namespace nsTerrain {
 		{
 			float delta = v2 - v1;
 			return (delta == 0.0f) ? m_terrainSurface : (m_terrainSurface - v1) / delta;
+			//float delta = v2 - v1;
+			//delta = max(-1.0f, min(1.0f, delta));
+			//return(0.5f + 0.5f * delta);
 		}
 
 	private:
 		static const int width = 64;
 		static const int height = 16;
-		float m_terrainSurface = 0.5f;
+		float m_terrainSurface = 1.0f;
 
 		float terrainMap[width + 1][height + 1][width + 1] = { 0.0f };
 		CNoise m_perlinNoise;

@@ -51,41 +51,29 @@ namespace nsTerrain {
 			{
 				for (int z = 0; z < width + 1; z++)
 				{
-					float thisHeight = (static_cast<float>(height))* m_perlinNoise.CalculationNoise(
+					float noise = m_perlinNoise.CalculationNoise(
 						(static_cast<double>(x) / static_cast<double>(width) * 1.5 + 0.001),
-						(static_cast<double>(z) / static_cast<double>(width) * 1.5 + 0.001),0.0
-						//static_cast<double>(y) / 16.0 * 1.5 + 0.001
-						);
-					//float thisHeight = static_cast<float>(height * m_perlinNoise.Octave(
-					//	1,
-					//	(static_cast<double>(x) / 16.0 * 1.5 + 0.001),
-					//	(static_cast<double>(z) / 16.0 * 1.5 + 0.001),0.0
-					//	//static_cast<double>(y) / 16.0 * 1.5 + 0.001
-					//)
-					//	);
+						(static_cast<double>(z) / static_cast<double>(width) * 1.5 + 0.001)
+					);
 
-					//float thisHeight = 4.0f;
+					noise = max(0.0f, min(1.0f, noise));
+
+					float thisHeight = (static_cast<float>(height)* noise);
 
 					float point = 0;
 
-					if (y == 0)
-					{
-						point = m_terrainSurface;
-					}
-					else {
-						//この場所の高さに対してブロックが届いていない。
-						if (y <= thisHeight - m_terrainSurface)
-							point = 0.0f;
-						//この場所の上にもブロックがある。
-						else if (y > thisHeight + m_terrainSurface)
-							point = 1.0f;
-						//この場所のブロックの影響値計算。(上方向。)
-						else if (y > thisHeight)
-							point = (float)y - thisHeight;
-						//この場所のブロックの影響値計算。(下方向。)
-						else
-							point = thisHeight - (float)y;
-					}
+					//この場所の高さに対してブロックが届いていない。
+					if (y <= thisHeight - m_terrainSurface)
+						point = 0.0f;
+					//この場所の上にもブロックがある。
+					else if (y > thisHeight + m_terrainSurface)
+						point = 1.0f;
+					//この場所のブロックの影響値計算。(上方向。)
+					else if (y > thisHeight)
+						point = (float)y - thisHeight;
+					//この場所のブロックの影響値計算。(下方向。)
+					else
+						point = thisHeight - (float)y;
 
 					terrainMap[x][y][z] = point;
 
@@ -101,7 +89,7 @@ namespace nsTerrain {
 		{
 			//各頂点の影響度？から
 			//三角形テーブルのインデックスを作成する。
-			if (cube.cube[i] > m_terrainSurface)
+			if (cube.cube[i] >= m_terrainSurface)
 				configrationIndex |= 1 << i;
 		}
 
@@ -163,13 +151,13 @@ namespace nsTerrain {
 				float offset = GetOffset(cube.cube[nsMarching::EdgeConnection[i][0]], cube.cube[nsMarching::EdgeConnection[i][1]]);
 
 				//エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
-				EdgeVertex[i].x = position.x + (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset) 
+				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset) 
 					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].x));
 
-				EdgeVertex[i].y = position.y + (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * (1.0f - offset) 
+				EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * (1.0f - offset) 
 					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].y));
 
-				EdgeVertex[i].z = position.z + (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * (1.0f - offset) 
+				EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * (1.0f - offset) 
 					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].z));
 			}
 		}
@@ -194,13 +182,13 @@ namespace nsTerrain {
 				if (indice == -1)
 					return;
 
-				edgePos[p] = EdgeVertex[indice] - position;
+				edgePos[p] = EdgeVertex[indice];
 				edgePos[p].x -= 0.5f;
 				edgePos[p].y -= 0.5f;
 				edgePos[p].z -= 0.5f;
 
 				//頂点の座標を計算。
-				vertPos[p] = EdgeVertex[indice] * TERRAIN_UNIT;
+				vertPos[p] = (position + EdgeVertex[indice]) * TERRAIN_UNIT;
 				//中心座標を計算する。
 				center += vertPos[p];
 

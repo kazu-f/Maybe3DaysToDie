@@ -53,15 +53,15 @@ double CNoise::Grad(int hash, double x, double y, double z)
     return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
 }
 
-double CNoise::CalculationNoise(double x, double y, double z)
+double CNoise::CalculationNoise(double _x, double _y, double _z)
 {
-    int X = static_cast<int>(std::floor(x)) & 255;
-    int Y = static_cast<int>(std::floor(y)) & 255;
-    int Z = static_cast<int>(std::floor(z)) & 255;
+    int X = static_cast<int>(std::floor(_x)) & 255;
+    int Y = static_cast<int>(std::floor(_y)) & 255;
+    int Z = static_cast<int>(std::floor(_z)) & 255;
 
-    x -= std::floor(x);
-    y -= std::floor(y);
-    z -= std::floor(z);
+    double x = _x - std::floor(_x);
+    double y = _y - std::floor(_y);
+    double z = _z - std::floor(_z);
 
     double u = Fade(x);
     double v = Fade(y);
