@@ -49,14 +49,17 @@ bool PlayerHp::Start()
 
 void PlayerHp::Update()
 {
-	//時間を計測
-	m_nowHpRegeneTime += GameTime().GetFrameDeltaTime();
-	//自然回復するまで時間が立っているか
-	if (m_nowHpRegeneTime >= m_RegeneTime) {
-		//自然回復をする
-		m_Hp--;
-		m_Hp = min(m_MaxHp, m_Hp);
-		m_nowHpRegeneTime = 0;
+	if (m_IsRegene) {
+		//時間を計測
+		m_nowHpRegeneTime += GameTime().GetFrameDeltaTime();
+		//自然回復するまで時間が立っているか
+		if (m_nowHpRegeneTime >= m_RegeneTime) {
+			//自然回復をする
+			m_Hp++;
+			m_Hp = min(m_MaxHp, m_Hp);
+			m_nowHpRegeneTime = 0;
+			max(m_Hp, 0.0f);
+		}
 	}
 	//スプライトの大きさの変数
 	Vector3 SpriteScale = Vector3::One;

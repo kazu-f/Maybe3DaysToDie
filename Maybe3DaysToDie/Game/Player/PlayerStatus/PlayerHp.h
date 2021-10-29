@@ -41,6 +41,15 @@ public:
 	void SetRegeneTime(const float regeneTime) {
 		m_RegeneTime = regeneTime;
 	}
+
+	const int HitDamage(const int damage) {
+		m_Hp -= damage;
+		m_Hp = max(m_Hp, 0);
+		if (m_Hp == 0) {
+			m_IsRegene=false;
+		}
+		return m_Hp;
+	}
 private:
 	/// <summary>
 	/// 現在のHPスプライトを初期化
@@ -74,4 +83,5 @@ private:
 	float m_RegeneTime = 1.0f;							//自然回復時間
 	float m_nowHpRegeneTime = 0.0f;						//自然回復してからの経過時間
 	CFontRender* m_HpFont = nullptr;					//Hpを表すフォント
+	bool m_IsRegene = true;
 };
