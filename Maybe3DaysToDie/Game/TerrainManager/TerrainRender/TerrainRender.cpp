@@ -40,7 +40,7 @@ namespace nsTerrain {
 	void TerrainRender::InitIndexBuffer(int maxIndexNum)
 	{
 		m_indices.resize(maxIndexNum);
-		m_indexBuffer.Init(2 * maxIndexNum, 2);
+		m_indexBuffer.Init(sizeof(int) * maxIndexNum, sizeof(int));
 	}
 	void TerrainRender::InitShader()
 	{
@@ -131,10 +131,14 @@ namespace nsTerrain {
 		//定数バッファにコピー。
 		m_cbTerrain.CopyToVRAM(&cbTerrain);
 
-		//頂点バッファに頂点データをコピー。
-		m_vertexBuffer.Copy(&m_vertices[0]);
-		//インデックスバッファにインデックスデータをコピー。
-		m_indexBuffer.Copy(&m_indices[0]);
+		//地形更新があったらGPUのデータ更新。
+		if (m_isUpdateTerrain) {
+			//頂点バッファに頂点データをコピー。
+			m_vertexBuffer.Copy(&m_vertices[0]);
+			//インデックスバッファにインデックスデータをコピー。
+			m_indexBuffer.Copy(&m_indices[0]);
+			m_isUpdateTerrain = false;
+		}
 
 		//頂点バッファの設定。
 		rc.SetVertexBuffer(m_vertexBuffer);

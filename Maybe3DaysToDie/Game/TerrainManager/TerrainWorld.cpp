@@ -19,10 +19,10 @@ namespace nsTerrain {
 		PopurerTerrainMap();
 		//メッシュデータを作成。
 		CreateMeshData();
-		//NVMデータを作成。
-		m_NVMGenerator.CreateNVM(m_terrainRender, true);
-		//敵キャラを作成。
-		m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
+		////NVMデータを作成。
+		//m_NVMGenerator.CreateNVM(m_terrainRender, true);
+		////敵キャラを作成。
+		//m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
 
 		//PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
 
@@ -41,7 +41,7 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::ForwardRender(RenderContext& rc)
 	{
-		m_NVMGenerator.DebugDraw(m_terrainRender);
+		//m_NVMGenerator.DebugDraw(m_terrainRender);
 	}
 	void TerrainWorld::PopurerTerrainMap()
 	{
@@ -51,34 +51,29 @@ namespace nsTerrain {
 			{
 				for (int z = 0; z < width + 1; z++)
 				{
-					float thisHeight = static_cast<float>(height * m_perlinNoise.CalculationNoise(
-						(static_cast<double>(x) / 16.0 * 1.5 + 0.001),
-						(static_cast<double>(z) / 16.0 * 1.5 + 0.001),
-						 static_cast<double>(y))
-						);
+					float noise = m_perlinNoise.CalculationNoise(
+						(static_cast<double>(x) / static_cast<double>(width) * 1.5 + 0.001),
+						(static_cast<double>(z) / static_cast<double>(width) * 1.5 + 0.001)
+					);
 
-					//float thisHeight = 4.0f;
+					noise = max(0.0f, min(1.0f, noise));
+
+					float thisHeight = (static_cast<float>(height)* noise);
 
 					float point = 0;
 
-					if (y == 0)
-					{
-						point = 0.5f;
-					}
-					else {
-						//この場所の高さに対してブロックが届いていない。
-						if (y <= thisHeight - terrainSurface)
-							point = 0.0f;
-						//この場所の上にもブロックがある。
-						else if (y > thisHeight + terrainSurface)
-							point = 1.0f;
-						//この場所のブロックの影響値計算。(上方向。)
-						else if (y > thisHeight)
-							point = (float)y - thisHeight;
-						//この場所のブロックの影響値計算。(下方向。)
-						else
-							point = thisHeight - (float)y;
-					}
+					//この場所の高さに対してブロックが届いていない。
+					if (y <= thisHeight - m_terrainSurface)
+						point = 0.0f;
+					//この場所の上にもブロックがある。
+					else if (y > thisHeight + m_terrainSurface)
+						point = 1.0f;
+					//この場所のブロックの影響値計算。(上方向。)
+					else if (y > thisHeight)
+						point = (float)y - thisHeight;
+					//この場所のブロックの影響値計算。(下方向。)
+					else
+						point = thisHeight - (float)y;
 
 					terrainMap[x][y][z] = point;
 
@@ -94,7 +89,7 @@ namespace nsTerrain {
 		{
 			//各頂点の影響度？から
 			//三角形テーブルのインデックスを作成する。
-			if (cube.cube[i] > terrainSurface)
+			if (cube.cube[i] >= m_terrainSurface)
 				configrationIndex |= 1 << i;
 		}
 
@@ -137,6 +132,35 @@ namespace nsTerrain {
 		{
 			return;
 		}
+		//エッジフラグを計算。
+		int edgeFlags = nsMarching::CubeEdgeFlags[configIndex];
+
+		//エッジが使われない。
+		if (edgeFlags == 0) return;
+
+		//エッジ上の頂点初期化。
+		Vector3 EdgeVertex[12] = { {0.0f,0.0f,0.0f} };
+
+		//Find the point of intersection of the surface with each edge
+		for (int i = 0; i < 12; i++)
+		{
+			//そのエッジを使うかどうか。
+			if ((edgeFlags & (1 << i)) != 0)
+			{
+				//オフセットを計算する。
+				float offset = GetOffset(cube.cube[nsMarching::EdgeConnection[i][0]], cube.cube[nsMarching::EdgeConnection[i][1]]);
+
+				//エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
+				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset) 
+					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].x));
+
+				EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * (1.0f - offset) 
+					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].y));
+
+				EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * (1.0f - offset) 
+					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].z));
+			}
+		}
 
 		int edgeIndex = 0;
 
@@ -158,18 +182,13 @@ namespace nsTerrain {
 				if (indice == -1)
 					return;
 
-				//エッジを構成する2頂点を取得。
-				Vector3 vert1 = position + nsMarching::EdgeTable[indice][0];
-				Vector3 vert2 = position + nsMarching::EdgeTable[indice][1];
-
-				edgePos[p] = (nsMarching::EdgeTable[indice][0] + nsMarching::EdgeTable[indice][1]) / 2.0f;
+				edgePos[p] = EdgeVertex[indice];
 				edgePos[p].x -= 0.5f;
 				edgePos[p].y -= 0.5f;
 				edgePos[p].z -= 0.5f;
-				//edgePos[p].Normalize();
 
 				//頂点の座標を計算。
-				vertPos[p] = (vert1 + vert2) / 2.0f * TERRAIN_UNIT;
+				vertPos[p] = (position + EdgeVertex[indice]) * TERRAIN_UNIT;
 				//中心座標を計算する。
 				center += vertPos[p];
 
@@ -214,15 +233,6 @@ namespace nsTerrain {
 				TerrainVertex vert;
 				vert.m_pos = vertPos[j];
 				vert.m_normal = normal;
-
-				//Vector3 vEdge = Vector3::Zero;
-				////edgePos[j].x -= normal.Dot(Vector3::AxisX);
-				////edgePos[j].y -= normal.Dot(Vector3::AxisY);
-				////edgePos[j].z -= normal.Dot(Vector3::AxisZ);
-
-				//vEdge.x = edgePos[j].Dot(axisX);
-				//vEdge.y = edgePos[j].Dot(axisY);
-				//vEdge.z = edgePos[j].Dot(normal);
 
 				//TODO:いつか直す。
 				//UV座標を計算する。

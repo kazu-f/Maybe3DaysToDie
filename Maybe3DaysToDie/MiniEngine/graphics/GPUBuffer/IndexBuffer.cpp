@@ -12,6 +12,7 @@ namespace Engine {
 	}
 	void IndexBuffer::Init(int size, int stride)
 	{
+		//サイズを4バイトに変換。
 		if (stride == 2) {
 			m_sizeInBytes = size * 2;
 		}
@@ -19,6 +20,7 @@ namespace Engine {
 			//stride = 4の時sizeがなくなってたしこれでおｋ？
 			m_sizeInBytes = size;
 		}
+		m_strideInBytes = stride;
 		auto d3dDevice = GraphicsEngine()->GetD3DDevice();
 		auto d3dxHeapProperties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 		auto d3dxResourceDesc = CD3DX12_RESOURCE_DESC::Buffer(m_sizeInBytes);
@@ -34,20 +36,28 @@ namespace Engine {
 		m_indexBufferView.BufferLocation = m_indexBuffer->GetGPUVirtualAddress();
 
 
-		//ストライドは４バイト固定。
-		m_strideInBytes = 4;
 		m_indexBufferView.Format = DXGI_FORMAT_R32_UINT;
 		m_indexBufferView.SizeInBytes = m_sizeInBytes;
 
-		m_count = m_sizeInBytes / m_strideInBytes;
+		//インデックスの数を計算。
+		m_count = m_sizeInBytes / 4;
 	}
 	void IndexBuffer::Copy(void* srcIndecies)
 	{
 		uint32_t* pData;
 		m_indexBuffer->Map(0, nullptr, (void**)&pData);
-		short* pSrcIndecies = (short*)srcIndecies;
-		for (int i = 0; i < m_count; i++) {
-			pData[i] = pSrcIndecies[i];
+		if (m_strideInBytes == 2)
+		{
+			short* pSrcIndecies = (short*)srcIndecies;
+			for (int i = 0; i < m_count; i++) {
+				pData[i] = pSrcIndecies[i];
+			}
+		}
+		else {
+			int* pSrcIndecies = (int*)srcIndecies;
+			for (int i = 0; i < m_count; i++) {
+				pData[i] = pSrcIndecies[i];
+			}
 		}
 		m_indexBuffer->Unmap(0, nullptr);
 	}

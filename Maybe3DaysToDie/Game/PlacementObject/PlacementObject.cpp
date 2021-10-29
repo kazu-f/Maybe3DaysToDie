@@ -99,8 +99,7 @@ void PlacementObject::PlaceObject()
 		//ポジションをセット
 		m_object->SetPosition(m_pos);
 		Block* block = new Block;
-		block->SetModel(m_object);
-		block->CreateCollider();
+		block->CreateCollider(m_object);
 		//配列に追加
 		m_model.push_back(std::move(block));
 	}

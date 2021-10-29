@@ -16,7 +16,7 @@ public:
 	/// 描画用の初期化。
 	/// </summary>
 	/// <param name="indexList"></param>
-	void Init(std::vector<short>& indexList);
+	void Init(std::vector<int>& indexList);
 	/// <summary>
 	/// 描画。
 	/// </summary>
@@ -70,7 +70,7 @@ private:
 	PipelineState m_pipelineStateBuck;	//背景用パイプラインステート。
 	//隣接セル表示用メンバ。
 	VertexBuffer m_lineVertexBuffer;		//線分描画の頂点バッファー。
-	std::vector<short> m_lineIndexs;		//線分描画のインデックス。
+	std::vector<int> m_lineIndexs;		//線分描画のインデックス。
 	IndexBuffer m_lineIndexBuffer;			//線分描画インデックスバッファー。
 	PipelineState m_lineDrawPipelineState;	//線分描画パイプラインステート。
 	std::vector<Line> m_linkCellLine;		//隣接セルを表すラインの配列。

@@ -9,44 +9,44 @@ Hill::Hill()
 
 void Hill::OnDestroy()
 {
-	if (m_model != nullptr)
-	{
-		DeleteGO(m_model);
-		m_model = nullptr;
-	}
-	if (m_Terrain != nullptr)
-	{
-		delete m_Terrain;
-		m_Terrain = nullptr;
-	}
+	//if (m_model != nullptr)
+	//{
+	//	DeleteGO(m_model);
+	//	m_model = nullptr;
+	//}
+	//if (m_Terrain != nullptr)
+	//{
+	//	delete m_Terrain;
+	//	m_Terrain = nullptr;
+	//}
 }
 
 void Hill::CreateStage()
 {
-	//モデルをnew
-	m_model = NewGO<prefab::ModelRender>(0);
-	//モデルの各種情報
-	ModelInitData modelInitData;
-	modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
-	//モデルを初期化
-	m_model->Init(modelInitData, nullptr, 0, ChunkWidth * ChunkDepth);
+	////モデルをnew
+	//m_model = NewGO<prefab::ModelRender>(0);
+	////モデルの各種情報
+	//ModelInitData modelInitData;
+	//modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
+	////モデルを初期化
+	//m_model->Init(modelInitData, nullptr, 0, ChunkWidth * ChunkDepth);
 
-	//チャンクごとにマップを生成
-	for (int Width = 0; Width < ChunkWidth; Width++)
-	{
-		for (int Depth = 0; Depth < ChunkDepth; Depth++)
-		{
-			Vector3 pos = { 100.0f,0.0f,100.0f };
-			pos.x *= Width;
-			pos.z *= Depth;
-			SetHeight(pos);
-			m_model->UpdateInstancingData(pos, Quaternion::Identity, Vector3::One);
-			//コライダーを作成
-			m_StaticCol[Width][Depth].CreateMesh(pos, Quaternion::Identity, Vector3::One, m_model);
-		}
-	}
-	m_Terrain = new nsTerrain::Terrain;
-	m_Terrain->SetModel(m_model);
+	////チャンクごとにマップを生成
+	//for (int Width = 0; Width < ChunkWidth; Width++)
+	//{
+	//	for (int Depth = 0; Depth < ChunkDepth; Depth++)
+	//	{
+	//		Vector3 pos = { 100.0f,0.0f,100.0f };
+	//		pos.x *= Width;
+	//		pos.z *= Depth;
+	//		SetHeight(pos);
+	//		m_model->UpdateInstancingData(pos, Quaternion::Identity, Vector3::One);
+	//		//コライダーを作成
+	//		m_StaticCol[Width][Depth].CreateMesh(pos, Quaternion::Identity, Vector3::One, m_model);
+	//	}
+	//}
+	//m_Terrain = new nsTerrain::Terrain;
+	//m_Terrain->SetModel(m_model);
 }
 
 void Hill::SetHeight(Vector3& pos)
