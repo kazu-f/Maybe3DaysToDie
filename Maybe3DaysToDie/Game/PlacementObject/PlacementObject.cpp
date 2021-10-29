@@ -91,17 +91,16 @@ void PlacementObject::PlaceObject()
 {
 	if (CanPlace)
 	{
-		////初期化
-		//ModelInitData m_modelInitData;
-		//m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
-		//prefab::ModelRender* m_object = NewGO<prefab::ModelRender>(0);
-		//m_object->Init(m_modelInitData);
-		////ポジションをセット
-		//m_object->SetPosition(m_pos);
-		//Block* block = new Block;
-		//block->SetModel(m_object);
-		//block->CreateCollider();
-		////配列に追加
-		//m_model.push_back(std::move(block));
+		//初期化
+		ModelInitData m_modelInitData;
+		m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
+		prefab::ModelRender* m_object = NewGO<prefab::ModelRender>(0);
+		m_object->Init(m_modelInitData);
+		//ポジションをセット
+		m_object->SetPosition(m_pos);
+		Block* block = new Block;
+		block->CreateCollider(m_object);
+		//配列に追加
+		m_model.push_back(std::move(block));
 	}
 }

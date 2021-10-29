@@ -158,6 +158,7 @@
     </ImageContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DestroyObject\DestroyObject.cpp" />
     <ClCompile Include="Navigation\NavigationAgent.cpp" />
     <ClCompile Include="Navigation\AStar.cpp" />
     <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
@@ -198,6 +199,7 @@
     <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DestroyObject\DestroyObject.h" />
     <ClInclude Include="Navigation\NavigationAgent.h" />
     <ClInclude Include="Navigation\AStar.h" />
     <ClInclude Include="DestructibleObject\DestructibleObject.h" />

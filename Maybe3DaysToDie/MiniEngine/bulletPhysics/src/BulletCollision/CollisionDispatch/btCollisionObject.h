@@ -50,7 +50,7 @@ ATTRIBUTE_ALIGNED16(class)	btCollisionObject
 {
 
 protected:
-
+	bool IsRayHit = false;		//レイが当たったかどうか
 	btTransform	m_worldTransform;
 
 	///m_interpolationWorldTransform is used for CCD and interpolation
@@ -475,6 +475,28 @@ public:
 	int	getUserIndex() const
 	{
 		return m_userIndex;
+	}
+	/// <summary>
+	/// レイが当たったかどうか
+	/// </summary>
+	/// <returns>レイが当たっているかどうかのフラグ</returns>
+	bool GetIsRayHit()const
+	{
+		return IsRayHit;
+	}
+	/// <summary>
+	/// レイが当たったフラグを立てる
+	/// </summary>
+	void HitRay()
+	{
+		IsRayHit = true;
+	}
+	/// <summary>
+	/// レイが当たったフラグを下す
+	/// </summary>
+	void ResetRayHit()
+	{
+		IsRayHit = false;
 	}
 	///users can point to their objects, userPointer is not used by Bullet
 	void	setUserPointer(void* userPointer)
