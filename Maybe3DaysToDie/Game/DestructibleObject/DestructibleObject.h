@@ -32,6 +32,10 @@ public:
 		m_StaticCol.CreateMesh(model->GetPosition(), model->GetRotation(), model->GetScale(), model);
 	}
 
+	//void Deletethis()
+	//{
+	//	if(m_StaticCol.GetRigidBody())
+	//}
 protected:
 	CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
 	Vector3 m_position = Vector3::Zero;		//ポジション

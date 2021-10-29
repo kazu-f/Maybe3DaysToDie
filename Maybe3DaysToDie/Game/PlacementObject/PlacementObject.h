@@ -2,6 +2,7 @@
 #include "DestructibleObject/Block/Block.h"
 #include "MiniEngine/physics/CollisionAttr.h"
 
+//todo ƒvƒŒƒCƒ„[‘¤‚©‚çŒÄ‚Ô‚æ‚¤‚É‚È‚Á‚½‚çIGameObject‚ğŒp³‚µ‚È‚¢‚æ‚¤‚É
 class PlacementObject:public IGameObject
 {
 private:
