@@ -119,5 +119,7 @@ private:
 	GameCamera* cameraptr = nullptr;
 
 	float m_mulSpeed = 1.0f;			//スピードに掛ける値
+
+	CFontRender* m_Font = nullptr;
 };
 

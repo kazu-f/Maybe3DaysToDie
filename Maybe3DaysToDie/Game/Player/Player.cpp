@@ -26,6 +26,11 @@ bool Player::Start()
 	//êÖï™ÇçÏÇÈ
 	m_Water = NewGO<PlayerWater>(0, "playerWater");
 
+	m_Font = NewGO<CFontRender>(0);
+	m_Font->SetText(L"Press'G' MoveMode Chenge\nPress'1' Fly");
+	m_Font->SetPosition({ -640.0f,100.0f });
+	m_Font->SetColor(Vector4::Red);
+	m_Font->SetScale(0.6f);
 	ModelInitData PlayerModel;
 	PlayerModel.m_tkmFilePath = "Assets/modelData/Player.tkm";
 
@@ -49,8 +54,15 @@ bool Player::Start()
 
 void Player::Update()
 {
+	static bool IsPush = false;
 	if (GetAsyncKeyState('G')) {
-		m_IsChasePlayer = !m_IsChasePlayer;
+		if (!IsPush) {
+			m_IsChasePlayer = !m_IsChasePlayer;
+		}
+		IsPush = true;
+	}
+	else {
+		IsPush = false;
 	}
 	//éûä‘åoâﬂÇ…ÇÊÇÈâÒïú
 	PeriodicUpdate();
@@ -130,7 +142,18 @@ void Player::Move()
 
 		m_mulSpeed = 2.0f;
 	}
-	MoveSpeed.y -= 0.1f;
+	static float gravity = 0.0f;
+	gravity -= 0.01;
+	if (!m_IsChasePlayer) {
+		if (GetAsyncKeyState('1')) {
+			MoveSpeed.y = 1.0f;
+			gravity = 0.0f;
+		}
+	}
+	if (m_Characon.IsOnGround()) {
+		gravity = 0.0f;
+	}
+	MoveSpeed.y += gravity;
 	MoveSpeed *= MoveDistance * m_mulSpeed;
 	m_Pos = m_Characon.Execute(MoveSpeed);
 
