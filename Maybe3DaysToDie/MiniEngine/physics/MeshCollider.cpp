@@ -120,6 +120,8 @@ namespace Engine {
 		indexedMesh.m_vertexStride = sizeof(Vector3);
 		//インデックスメッシュを追加。
 		m_stridingMeshInterface->addIndexedMesh(indexedMesh);
+		//インデックスメッシュを使ってメッシュを作り出す。
+		m_meshShape = std::make_unique<btBvhTriangleMeshShape>(m_stridingMeshInterface.get(), true);
 	}
 	void CMeshCollider::CreateFromBuffer(const std::vector<Vector3>& vertices, const Matrix* offsetMatrix)
 	{
@@ -151,6 +153,8 @@ namespace Engine {
 		indexedMesh.m_vertexStride = sizeof(Vector3);
 		//インデックスメッシュを追加。
 		m_stridingMeshInterface->addIndexedMesh(indexedMesh);
+		//インデックスメッシュを使ってメッシュを作り出す。
+		m_meshShape = std::make_unique<btBvhTriangleMeshShape>(m_stridingMeshInterface.get(), true);
 	}
 
 }

@@ -100,7 +100,7 @@ namespace nsTerrain {
 		{
 			//各頂点の影響度？から
 			//三角形テーブルのインデックスを作成する。
-			if (cube.cube[i] >= m_terrainSurface)
+			if (cube.cube[i] > m_terrainSurface)
 				configrationIndex |= 1 << i;
 		}
 
