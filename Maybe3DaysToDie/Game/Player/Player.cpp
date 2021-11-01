@@ -130,7 +130,18 @@ void Player::Move()
 
 		m_mulSpeed = 2.0f;
 	}
-	MoveSpeed.y -= 0.1f;
+	static float gravity = 0.0f;
+	gravity -= 0.01;
+	if (GetAsyncKeyState('1')) {
+		MoveSpeed.y = 1.0f;
+		gravity = 0.0f;
+	}
+	if (GetAsyncKeyState('G')) {
+		if (m_Characon.IsOnGround()) {
+			gravity = 0.0f;
+		}
+	}
+	MoveSpeed.y += gravity;
 	MoveSpeed *= MoveDistance * m_mulSpeed;
 	m_Pos = m_Characon.Execute(MoveSpeed);
 
