@@ -130,13 +130,12 @@ void Player::Move()
 
 		m_mulSpeed = 2.0f;
 	}
-
 	MoveSpeed.y -= 0.1f;
 	MoveSpeed *= MoveDistance * m_mulSpeed;
 	m_Pos = m_Characon.Execute(MoveSpeed);
 
 	//カメラにポジションを渡す
-	cameraptr->SetPosition(	{ 0.0,0.0f,500.0f });
+	cameraptr->SetPosition(m_Pos);
 	m_Model->SetPosition(Vector3::Zero);
 }
 
