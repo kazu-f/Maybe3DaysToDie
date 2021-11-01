@@ -14,6 +14,7 @@ namespace nsTerrain {
 		initData.vertexNum = width * width * height * 15;
 
 		m_terrainRender->Init(initData);
+		m_terrainRender->SetPosition({ -TERRAIN_UNIT * width / 2,-TERRAIN_UNIT * height / 2 ,-TERRAIN_UNIT * width / 2 });
 
 		//地形データ作成。
 		PopurerTerrainMap();
@@ -53,7 +54,8 @@ namespace nsTerrain {
 				{
 					float noise = m_perlinNoise.CalculationNoise(
 						(static_cast<double>(x) / static_cast<double>(width) * 1.5 + 0.001),
-						(static_cast<double>(z) / static_cast<double>(width) * 1.5 + 0.001)
+						(static_cast<double>(z) / static_cast<double>(width) * 1.5 + 0.001),
+						(static_cast<double>(y) / static_cast<double>(height) * 1.5 + 0.001)
 					);
 
 					noise = max(0.0f, min(1.0f, noise));
@@ -65,15 +67,16 @@ namespace nsTerrain {
 					//この場所の高さに対してブロックが届いていない。
 					if (y <= thisHeight - m_terrainSurface)
 						point = 0.0f;
-					//この場所の上にもブロックがある。
-					else if (y > thisHeight + m_terrainSurface)
-						point = 1.0f;
+					////この場所の上にもブロックがある。
+					//else if (y > thisHeight + m_terrainSurface)
+					//	point = 1.0f;
 					//この場所のブロックの影響値計算。(上方向。)
 					else if (y > thisHeight)
 						point = (float)y - thisHeight;
 					//この場所のブロックの影響値計算。(下方向。)
 					else
 						point = thisHeight - (float)y;
+
 
 					terrainMap[x][y][z] = point;
 
@@ -150,15 +153,25 @@ namespace nsTerrain {
 				//オフセットを計算する。
 				float offset = GetOffset(cube.cube[nsMarching::EdgeConnection[i][0]], cube.cube[nsMarching::EdgeConnection[i][1]]);
 
+				////エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
+				//EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset) 
+				//	+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].x));
+
+				//EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * (1.0f - offset) 
+				//	+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].y));
+
+				//EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * (1.0f - offset) 
+				//	+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].z));
+
 				//エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
-				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset) 
-					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].x));
+				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x)
+					+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].x));
 
-				EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * (1.0f - offset) 
-					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].y));
+				EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y)
+					+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].y));
 
-				EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * (1.0f - offset) 
-					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].z));
+				EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z)
+					+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].z));
 			}
 		}
 
@@ -212,21 +225,21 @@ namespace nsTerrain {
 			normal.Cross(vDir[0], vDir[1]);
 			normal.Normalize();
 
-			//三角ポリゴンのY軸を計算。
-			Vector3 axisY;
+			//三角ポリゴンのV軸を計算。
+			Vector3 axisV;
 			//法線がY方向ではない。
 			if (fabsf(normal.Dot(Vector3::AxisY)) < 0.998f)
 			{
-				axisY.Cross(normal, Vector3::AxisY);
+				axisV.Cross(normal, Vector3::AxisY);
 			}
 			else {
-				axisY.Cross(normal, Vector3::AxisX);
+				axisV.Cross(normal, Vector3::AxisX);
 			}
-			axisY.Normalize();
-			//三角ポリゴンのX軸を計算。
-			Vector3 axisX;
-			axisX.Cross(normal, axisY);
-			axisX.Normalize();
+			axisV.Normalize();
+			//三角ポリゴンのU軸を計算。
+			Vector3 axisU;
+			axisU.Cross(normal, axisV);
+			axisU.Normalize();
 
 			for (int j = 0; j < p; j++)
 			{
@@ -237,8 +250,8 @@ namespace nsTerrain {
 				//TODO:いつか直す。
 				//UV座標を計算する。
 				Vector2 uv;
-				uv.x = edgePos[j].Dot(axisX) + 0.5f;
-				uv.y = edgePos[j].Dot(axisY) + 0.5f;
+				uv.x = edgePos[j].Dot(axisU) + 0.5f;
+				uv.y = edgePos[j].Dot(axisV) + 0.5f;
 
 				vert.m_uv = uv;
 

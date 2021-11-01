@@ -12,6 +12,13 @@ namespace nsTerrain {
 		if (InputKeyCode().IsTriggerKey(VK_F3)) {
 			m_isRenderTerrain = m_isRenderTerrain ? false : true;
 		}
+
+		//ワールド行列を更新。
+		Matrix mTrans, mRot, mScale;
+		mTrans.MakeTranslation(m_position);
+		mRot.MakeRotationFromQuaternion(m_rotation);
+		mScale.MakeScaling(m_scale);
+		m_world = mScale * mRot * mTrans;
 	}
 	void TerrainRender::Init(TerrainInitData& initData)
 	{
@@ -126,6 +133,7 @@ namespace nsTerrain {
 	{
 		//カメラを定数バッファで送る。
 		SCBTerrin cbTerrain;
+		cbTerrain.mWorld = m_world;
 		cbTerrain.mView = MainCamera().GetViewMatrix();
 		cbTerrain.mProj = MainCamera().GetProjectionMatrix();
 		//定数バッファにコピー。
