@@ -36,7 +36,7 @@ public:
 		return m_enemyGenerator;
 	}
 private:
-	SuperFlat m_stage;
+	Hill m_stage;
 	EnemyGenerator m_enemyGenerator;				//エネミージェネレーター。
 	//prefab::ModelRender* m_Model = nullptr;		//地面
 	//CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
