@@ -66,4 +66,30 @@ namespace Engine {
 		//モデルから作成。
 		CreateMesh(pos, rot, scale, modelRender->GetModel());
 	}
+	void CPhysicsObjectBase::CreateBuffer(const Vector3& pos, const Quaternion& rot, const Vector3& scale, std::vector<Vector3>& vertices, std::vector<int>& indices)
+	{
+		Release();
+		//スケールを調整するための行列作成。
+		Matrix mScale;
+		mScale.MakeScaling(scale);
+		//メッシュコライダーの作成。
+		auto meshCollider = std::make_unique<CMeshCollider>();
+		meshCollider->CreateFromBuffer(vertices, indices, &mScale);
+		m_sphere = std::move(meshCollider);
+		//物理オブジェクトの作成、登録。
+		CreateCommon(pos, rot);
+	}
+	void CPhysicsObjectBase::CreateBuffer(const Vector3& pos, const Quaternion& rot, const Vector3& scale, std::vector<Vector3>& vertices)
+	{
+		Release();
+		//スケールを調整するための行列作成。
+		Matrix mScale;
+		mScale.MakeScaling(scale);
+		//メッシュコライダーの作成。
+		auto meshCollider = std::make_unique<CMeshCollider>();
+		meshCollider->CreateFromBuffer(vertices, &mScale);
+		m_sphere = std::move(meshCollider);
+		//物理オブジェクトの作成、登録。
+		CreateCommon(pos, rot);
+	}
 }

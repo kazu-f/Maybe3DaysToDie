@@ -7,7 +7,7 @@
 #include "GameCamera.h"
 
 namespace {
-	const float MoveDistance = 100.0f;			//1フレームに動く距離
+	const float MoveDistance = 1000.0f;			//1フレームに動く距離
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
 	const float NeckLimitY = 10.0f;				//上や下を向ける限界
 }
@@ -26,22 +26,83 @@ bool Player::Start()
 	//水分を作る
 	m_Water = NewGO<PlayerWater>(0, "playerWater");
 
+	m_Font = NewGO<CFontRender>(0);
+	m_Font->SetText(L"Press'G' MoveMode Chenge\nPress'1' Fly");
+	m_Font->SetPosition({ -640.0f,100.0f });
+	m_Font->SetColor(Vector4::Red);
+	m_Font->SetScale(0.6f);
+	ModelInitData PlayerModel;
+	PlayerModel.m_tkmFilePath = "Assets/modelData/Player.tkm";
+
+	AnimClipInitData AnInitData[State::Num];
+	AnInitData[State::Idle].tkaFilePath = "Assets/animData/PlayerIdle.tka";
+	AnInitData[State::Idle].isLoop = true;
+	AnInitData[State::Walk].tkaFilePath = "Assets/animData/PlayerWalk.tka";
+	AnInitData[State::Walk].isLoop = true;
+	AnInitData[State::Attack].tkaFilePath = "Assets/animData/PlayerIdle.tka";
+	AnInitData[State::Crouch].tkaFilePath = "Assets/animData/PlayerIdle.tka";
+	AnInitData[State::Jump].tkaFilePath = "Assets/animData/PlayerIdle.tka";
+	AnInitData[State::Run].tkaFilePath = "Assets/animData/PlayerIdle.tka";
+	m_Model = NewGO<prefab::ModelRender>(0);
+	m_Model->Init(PlayerModel, AnInitData,State::Num);
+	m_Model->SetPosition(m_Pos);
+	m_Model->SetRotation(m_Rot);
+	m_Model->SetScale(m_Scale);
 	m_Characon.Init(100.0f, 100.0f, m_Pos);
 	return true;
 }
 
 void Player::Update()
 {
+	static bool IsPush = false;
 	if (GetAsyncKeyState('G')) {
-		m_IsChasePlayer = !m_IsChasePlayer;
+		if (!IsPush) {
+			m_IsChasePlayer = !m_IsChasePlayer;
+		}
+		IsPush = true;
+	}
+	else {
+		IsPush = false;
 	}
 	//時間経過による回復
 	PeriodicUpdate();
 	//ステートを更新
 	StateUpdate();
+	//移動処理
+	Move();
 	//モデル情報を更新
 	ModelUpdate();
 
+}
+
+void Player::OnDestroy()
+{
+	//モデルを削除
+	DeleteGO(m_Model);
+	//Hpを削除
+	DeleteGO(m_Hp);
+	//スタミナを削除
+	DeleteGO(m_Stamina);
+}
+
+void Player::PeriodicUpdate()
+{
+	//ステータス減少時間を数える
+	m_DeltaTime += GameTime().GetFrameDeltaTime();
+}
+
+void Player::StateUpdate()
+{
+	ChangeState();
+}
+
+void Player::ChangeState()
+{
+
+}
+
+void Player::Move()
+{
 	Vector3 Forward = MainCamera().GetForward();
 	Forward.y = 0.0f;
 
@@ -72,59 +133,33 @@ void Player::Update()
 	if (GetAsyncKeyState('D')) {
 		MoveSpeed += MainCamera().GetRight();
 	}
-	MoveSpeed.y -= 0.1f;
-	MoveSpeed *= MoveDistance;
+
+	m_mulSpeed = 1.0f;
+	if (GetAsyncKeyState(VK_LSHIFT) &&
+		MoveSpeed.Length() > 0.5f &&
+		m_Stamina->IsUseStamina(1))
+	{
+
+		m_mulSpeed = 2.0f;
+	}
+	static float gravity = 0.0f;
+	gravity -= 0.01;
+	if (!m_IsChasePlayer) {
+		if (GetAsyncKeyState('1')) {
+			MoveSpeed.y = 1.0f;
+			gravity = 0.0f;
+		}
+	}
+	if (m_Characon.IsOnGround()) {
+		gravity = 0.0f;
+	}
+	MoveSpeed.y += gravity;
+	MoveSpeed *= MoveDistance * m_mulSpeed;
 	m_Pos = m_Characon.Execute(MoveSpeed);
 
 	//カメラにポジションを渡す
 	cameraptr->SetPosition(m_Pos);
-}
-
-void Player::OnDestroy()
-{
-	//モデルを削除
-	DeleteGO(m_Model);
-	//Hpを削除
-	DeleteGO(m_Hp);
-	//スタミナを削除
-	DeleteGO(m_Stamina);
-}
-
-void Player::PeriodicUpdate()
-{
-	//スタミナを自然回復
-	StaminaRegene();
-	//空腹値を減少
-	HungerDecrease();
-	//水分を減少
-	WarterDecrease();
-	//ステータス減少時間を数える
-	m_DeltaTime += GameTime().GetFrameDeltaTime();
-}
-
-void Player::StaminaRegene()
-{
-}
-
-void Player::HungerDecrease()
-{
-}
-
-void Player::WarterDecrease()
-{
-}
-
-void Player::StateUpdate()
-{
-	ChangeState();
-}
-
-void Player::ChangeState()
-{
-}
-
-void Player::Move()
-{
+	m_Model->SetPosition(Vector3::Zero);
 }
 
 void Player::Rotation()
@@ -137,4 +172,5 @@ void Player::ModelUpdate()
 	Rotation();
 	//移動
 	Move();
+	m_Model->PlayAnimation(State::Idle,GameTime().GetFrameDeltaTime());
 }

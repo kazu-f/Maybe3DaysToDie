@@ -28,6 +28,22 @@ namespace nsTerrain {
 		/// </summary>
 		void Init(TerrainInitData& initData);
 
+		//座標設定。
+		void SetPosition(const Vector3& pos)
+		{
+			m_position = pos;
+		}
+		//回転設定。
+		void SetRotation(const Quaternion& rot)
+		{
+			m_rotation = rot;
+		}
+		//スケール設定。
+		void SetScale(const Vector3& scale)
+		{
+			m_scale = scale;
+		}
+
 		/// <summary>
 		/// 頂点を追加する。
 		/// </summary>
@@ -106,6 +122,7 @@ namespace nsTerrain {
 
 	private:
 		struct SCBTerrin{
+			Matrix mWorld;  //ワールド行列。
 			Matrix mView;	//ビュー行列。
 			Matrix mProj;	//プロジェクション行列。
 		};
@@ -120,6 +137,10 @@ namespace nsTerrain {
 		DescriptorHeap m_descriptorHeap;	//地形用ディスクリプタヒープ。
 		VertexBuffer m_vertexBuffer;		//地形の頂点バッファ。
 		IndexBuffer m_indexBuffer;			//地形のインデックスバッファ。
+		Vector3 m_position = Vector3::Zero;				//地形の座標。
+		Quaternion m_rotation = Quaternion::Identity;	//地形の回転。
+		Vector3 m_scale = Vector3::One;				//地形のスケール。
+		Matrix m_world = Matrix::Identity;				//地形のワールド行列。
 		std::vector<TerrainVertex> m_vertices;	//頂点の配列。
 		std::vector<int> m_indices;			//インデックス番号の配列。
 		std::vector<Vector3> m_centers;			//三角ポリゴンの中心座標の配列。

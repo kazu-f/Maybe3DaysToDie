@@ -21,6 +21,7 @@ class Player : public IGameObject
 		Attack,			//攻撃
 		Num				//ステート数
 	};
+
 private:
 	/// <summary>
 	/// GameObjectに積まれると一度だけ呼ばれる初期化関数
@@ -47,26 +48,21 @@ public:
 	{
 		cameraptr = ptr;
 	}
+
+	/// <summary>
+	/// 移動速度を変更する関数
+	/// ダッシュとかデバフとかに使う
+	/// </summary>
+	/// <param name="mulSp">速度に掛けたい値</param>
+	void SetMulSpeed(const float mulSp) {
+		m_mulSpeed = mulSp;
+	}
+
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
 	/// </summary>
 	void PeriodicUpdate();
-
-	/// <summary>
-	/// スタミナを時間によって回復する
-	/// </summary>
-	void StaminaRegene();
-
-	/// <summary>
-	/// お腹が空いた
-	/// </summary>
-	void HungerDecrease();
-
-	/// <summary>
-	/// 喉が乾いた
-	/// </summary>
-	void WarterDecrease();
 
 	/// <summary>
 	/// IPlayerStateのUpdateを呼ぶ
@@ -121,5 +117,9 @@ private:
 
 	bool m_IsChasePlayer = false;
 	GameCamera* cameraptr = nullptr;
+
+	float m_mulSpeed = 1.0f;			//スピードに掛ける値
+
+	CFontRender* m_Font = nullptr;
 };
 

@@ -83,6 +83,35 @@ namespace Engine {
 		/// <param name="model">モデルレンダー。</param>
 		void CreateMesh(const Vector3& pos, const Quaternion& rot, const Vector3& scale, prefab::ModelRender* model);
 
+		/// <summary>
+		/// 頂点バッファとインデックスバッファから作成。
+		/// </summary>
+		/// <param name="pos">座標。</param>
+		/// <param name="rot">回転。</param>
+		/// <param name="scale">スケール。</param>
+		/// <param name="vertices">頂点バッファ。</param>
+		/// <param name="indices">インデックスバッファ。</param>
+		void CreateBuffer(
+			const Vector3& pos,
+			const Quaternion& rot,
+			const Vector3& scale,
+			std::vector<Vector3>& vertices,
+			std::vector<int>& indices
+		);
+		/// <summary>
+		/// 頂点バッファから作成。
+		/// </summary>
+		/// <param name="pos">座標。</param>
+		/// <param name="rot">回転。</param>
+		/// <param name="scale">スケール。</param>
+		/// <param name="vertices">頂点バッファ。</param>
+		void CreateBuffer(
+			const Vector3& pos,
+			const Quaternion& rot,
+			const Vector3& scale,
+			std::vector<Vector3>& vertices
+		);
+
 	protected:
 		std::unique_ptr<ICollider> m_sphere;		//コライダー。
 	};///class CPhysicsObjectBase

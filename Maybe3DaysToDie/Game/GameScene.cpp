@@ -25,8 +25,8 @@ CGameScene::~CGameScene()
 
 bool CGameScene::Start()
 {
-	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Player = NewGO<Player>(0, "player");
+	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Player->SetCameraPtr(m_Camera);
 	m_Stage = NewGO<Stage>(0, "stage");
 	m_PlacementObject = NewGO<PlacementObject>(0);

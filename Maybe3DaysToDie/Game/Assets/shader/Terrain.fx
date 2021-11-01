@@ -3,8 +3,9 @@
 
 //地形用の定数バッファ
 cbuffer TerrainCb : register(b0) {
-	float4x4 mView			: packoffset(c0);
-	float4x4 mProj			: packoffset(c4);
+	float4x4 mWorld			: packoffset(c0);
+	float4x4 mView			: packoffset(c4);
+	float4x4 mProj			: packoffset(c8);
 };
 
 /*
@@ -46,7 +47,8 @@ SPSIn VSMain(SVSIn vsIn)
 {
 	SPSIn psIn;
 
-	psIn.pos = mul(mView, vsIn.pos);						//ワールド座標系からカメラ座標系に変換。
+	psIn.pos = mul(mWorld, vsIn.pos);						//頂点をワールド座標系に変換。
+	psIn.pos = mul(mView, psIn.pos);						//ワールド座標系からカメラ座標系に変換。
 	psIn.pos = mul(mProj, psIn.pos);						//カメラ座標系からスクリーン座標系に変換。
 	psIn.normal = vsIn.normal;
 	psIn.uv = vsIn.uv;

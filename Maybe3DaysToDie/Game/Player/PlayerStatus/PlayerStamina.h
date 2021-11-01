@@ -27,7 +27,7 @@ private:
 	/// スタミナフレームを初期化
 	/// </summary>
 	void FlameSpriteInit();
-	
+
 	/// <summary>
 	/// アイコンを初期化
 	/// </summary>
@@ -41,6 +41,20 @@ private:
 	/// フォントを更新
 	/// </summary>
 	void UpdateStaminaFont();
+
+public:
+	const bool IsUseStamina(const int cost) {
+		static float DownTime = 0.0f;
+		DownTime += GameTime().GetFrameDeltaTime();
+		if (m_Stamina >= cost) {
+			if (DownTime > 1.000f) {
+				DownTime = 0.0f;
+				m_Stamina -= cost;
+			}
+			return true;
+		}
+		return false;
+	}
 private:
 	float m_RegeneTime = 1.0f;				//リジェネできる一定時間
 	float m_nowRegeneTimer = 0.0f;			//一定時間以上になるとリジェネできる

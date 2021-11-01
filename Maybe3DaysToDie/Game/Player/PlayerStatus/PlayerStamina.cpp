@@ -48,9 +48,10 @@ bool PlayerStamina::Start()
 void PlayerStamina::Update()
 {
 	m_nowRegeneTimer += GameTime().GetFrameDeltaTime();
-	if (m_nowRegeneTimer >= m_RegeneTime) {
-		m_Stamina--;
+	if (m_nowRegeneTimer>1.0f) {
 		m_nowRegeneTimer = 0.0f;
+		m_Stamina++;
+		m_Stamina = min(m_Stamina, m_MaxStamina);
 	}
 	Vector3 StaminaScale = Vector3::One;
 	StaminaScale.x = (float)m_Stamina / (float)m_MaxStamina;
