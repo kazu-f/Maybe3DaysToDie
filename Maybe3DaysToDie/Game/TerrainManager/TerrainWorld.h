@@ -81,6 +81,8 @@ namespace nsTerrain {
 		TerrainRender* m_terrainRender = nullptr;		//地形描画クラス。
 		NVMGenerator m_NVMGenerator;					//NVM生成。
 		EnemyGenerator m_enemyGenerator;				//enemyGenerator.
+		std::vector<Vector3> m_vertices;				//頂点データ。
+		CPhysicsStaticObject m_staticObj;				//物理オブジェクト。
 	};
 
 }

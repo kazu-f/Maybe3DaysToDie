@@ -27,6 +27,21 @@ namespace Engine {
 		/// <param name="offsetMatrix">行列。</param>
 		void CreateFromTkmFile(const TkmFile& tkmFile, const Matrix* offsetMatrix);
 		/// <summary>
+		/// 頂点バッファとインデックスバッファからコライダーを作成。
+		/// </summary>
+		/// <param name="vertices">頂点バッファ。</param>
+		/// <param name="indices">インデックスバッファ。</param>
+		/// <param name="offsetMatrix">行列。</param>
+		void CreateFromBuffer(const std::vector<Vector3>& vertices, const std::vector<int>& indices, const Matrix* offsetMatrix);
+
+		/// <summary>
+		/// 頂点バッファァからコライダーを作成。
+		/// </summary>
+		/// <param name="vertices">頂点バッファ。</param>
+		/// <param name="offsetMatrix">行列。</param>
+		void CreateFromBuffer(const std::vector<Vector3>& vertices, const Matrix* offsetMatrix);
+
+		/// <summary>
 		/// シェイプを取得。
 		/// </summary>
 		btCollisionShape* GetBody() const override

@@ -14,18 +14,26 @@ namespace nsTerrain {
 		initData.vertexNum = width * width * height * 15;
 
 		m_terrainRender->Init(initData);
-		m_terrainRender->SetPosition({ -TERRAIN_UNIT * width / 2,-TERRAIN_UNIT * height / 2 ,-TERRAIN_UNIT * width / 2 });
+		//m_terrainRender->SetPosition({ -TERRAIN_UNIT * width / 2,-TERRAIN_UNIT * height / 2 ,-TERRAIN_UNIT * width / 2 });
 
 		//地形データ作成。
 		PopurerTerrainMap();
 		//メッシュデータを作成。
 		CreateMeshData();
-		////NVMデータを作成。
-		//m_NVMGenerator.CreateNVM(m_terrainRender, true);
-		////敵キャラを作成。
-		//m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
+		//NVMデータを作成。
+		m_NVMGenerator.CreateNVM(m_terrainRender, true);
+		//敵キャラを作成。
+		m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
 
-		//PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
+		//物理オブジェクト作成。
+		m_staticObj.CreateBuffer(
+			Vector3::Zero,
+			Quaternion::Identity,
+			Vector3::One,
+			m_vertices
+		);
+
+		PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
 
 		return true;
 	}
@@ -42,7 +50,7 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::ForwardRender(RenderContext& rc)
 	{
-		//m_NVMGenerator.DebugDraw(m_terrainRender);
+		m_NVMGenerator.DebugDraw(m_terrainRender);
 	}
 	void TerrainWorld::PopurerTerrainMap()
 	{
@@ -54,8 +62,8 @@ namespace nsTerrain {
 				{
 					float noise = m_perlinNoise.CalculationNoise(
 						(static_cast<double>(x) / static_cast<double>(width) * 1.5 + 0.001),
-						(static_cast<double>(z) / static_cast<double>(width) * 1.5 + 0.001),
-						(static_cast<double>(y) / static_cast<double>(height) * 1.5 + 0.001)
+						(static_cast<double>(z) / static_cast<double>(width) * 1.5 + 0.001)
+						//,(static_cast<double>(y) / static_cast<double>(height) * 1.5 + 0.001)
 					);
 
 					noise = max(0.0f, min(1.0f, noise));
@@ -202,6 +210,7 @@ namespace nsTerrain {
 
 				//頂点の座標を計算。
 				vertPos[p] = (position + EdgeVertex[indice]) * TERRAIN_UNIT;
+				m_vertices.push_back(vertPos[p]);	//頂点を積む。
 				//中心座標を計算する。
 				center += vertPos[p];
 
