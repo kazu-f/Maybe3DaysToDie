@@ -13,7 +13,7 @@ private:
 			bool /*normalInWorldSpace*/
 		)
 		{
-			if (convexResult.m_collisionObject->getUserIndex() != CollideUserIndex::enCollisionAttr_Character)
+			if (convexResult.m_collisionObject->getUserIndex() & ColliderUserIndex::enCollisionAttr_RayBlock)
 			{
 				//ƒŒƒC‚ª“–‚½‚Á‚½ƒtƒ‰ƒO‚ð—§‚Ä‚é
 				//convexResult.m_collisionObject->SetIsRayHit(true);

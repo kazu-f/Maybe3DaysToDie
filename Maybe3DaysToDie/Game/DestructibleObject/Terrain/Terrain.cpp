@@ -19,7 +19,7 @@ namespace nsTerrain {
 	void Terrain::InitRayCollider()
 	{
 		m_StaticCol.CreateBox(m_position, Quaternion::Identity, TERRAIN_SIZE);
-		m_StaticCol.GetRigidBody().GetBody()->setUserIndex(CollideUserIndex::enCollisionAttr_RayBlock);
+		m_StaticCol.GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_RayBlock);
 		m_registColider = true;
 	}
 	void Terrain::SetColliderEnable(bool flag)

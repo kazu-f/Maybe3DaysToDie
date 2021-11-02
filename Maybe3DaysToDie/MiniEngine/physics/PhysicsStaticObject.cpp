@@ -15,6 +15,7 @@ namespace Engine {
 		rbInfo.pos = pos;
 		rbInfo.rot = rot;
 		m_rigidBody.Create(rbInfo);
+		m_rigidBody.GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground);
 	}
 }
 

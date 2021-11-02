@@ -2,7 +2,7 @@
 #include "CharacterController.h"
 #include "physics/CollisionAttr.h"
 
-using namespace CollideUserIndex;
+using namespace ColliderUserIndex;
 
 namespace Engine {
 
@@ -26,8 +26,7 @@ namespace Engine {
 				bool normalInWorldSpace)
 			{
 				if (convexResult.m_hitCollisionObject == me
-					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character
-					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_RayBlock
+					|| !(convexResult.m_hitCollisionObject->getUserIndex() & enCollisionAttr_Ground)
 					|| convexResult.m_hitCollisionObject->getInternalType() == btCollisionObject::CO_GHOST_OBJECT
 					) {
 					//自分に衝突 or キャラクタ属性と衝突 or ゴーストオブジェクトと衝突。
@@ -40,7 +39,7 @@ namespace Engine {
 				float angle = hitNormalTmp.Dot(Vector3::Up);	//上ベクトルと内積を取る。
 				angle = fabsf(acosf(angle));					//ラジアン単位の角度に直す。
 				if (angle < Math::PI * 0.3f						//地面の傾斜が一定より小さいため地面とみなす。
-					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Ground		//コリジョン属性が地面と指定されている。
+					|| !(convexResult.m_hitCollisionObject->getUserIndex() & enCollisionAttr_Ground)		//コリジョン属性が地面と指定されている。
 					) {
 					//衝突している。
 					isHit = true;

@@ -30,6 +30,7 @@ public:
 	void CreateCollider(prefab::ModelRender* model)
 	{
 		m_StaticCol.CreateMesh(model->GetPosition(), model->GetRotation(), model->GetScale(), model);
+		m_StaticCol.GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
 	}
 
 	//void Deletethis()
