@@ -485,19 +485,13 @@ public:
 		return IsRayHit;
 	}
 	/// <summary>
-	/// レイが当たったフラグを立てる
+	/// レイが当たったかどうかのフラグをセットする
 	/// </summary>
-	void HitRay()
+	void SetIsRayHit(bool flag)
 	{
-		IsRayHit = true;
+		IsRayHit = flag;
 	}
-	/// <summary>
-	/// レイが当たったフラグを下す
-	/// </summary>
-	void ResetRayHit()
-	{
-		IsRayHit = false;
-	}
+
 	///users can point to their objects, userPointer is not used by Bullet
 	void	setUserPointer(void* userPointer)
 	{

@@ -54,11 +54,11 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::PopurerTerrainMap()
 	{
-		for (int x = 0; x < width + 1; x++)
+		for (int x = 0; x < width; x++)
 		{
-			for (int y = 0; y < height + 1; y++)
+			for (int y = 0; y < height; y++)
 			{
-				for (int z = 0; z < width + 1; z++)
+				for (int z = 0; z < width ; z++)
 				{
 					float noise = m_perlinNoise.CalculationNoise(
 						(static_cast<double>(x) / static_cast<double>(width) * 1.5 + 0.001),
@@ -72,22 +72,43 @@ namespace nsTerrain {
 
 					float point = 0;
 
-					//この場所の高さに対してブロックが届いていない。
-					if (y <= thisHeight - m_terrainSurface)
-						point = 0.0f;
+					////この場所の高さに対してブロックが届いていない。
+					//if (y <= thisHeight - m_terrainSurface)
+					//	point = 0.0f;
 					////この場所の上にもブロックがある。
 					//else if (y > thisHeight + m_terrainSurface)
 					//	point = 1.0f;
-					//この場所のブロックの影響値計算。(上方向。)
-					else if (y > thisHeight)
-						point = (float)y - thisHeight;
-					//この場所のブロックの影響値計算。(下方向。)
+					////この場所のブロックの影響値計算。(上方向。)
+					//else if (y > thisHeight)
+					//	point = (float)y - thisHeight;
+					////この場所のブロックの影響値計算。(下方向。)
+					//else
+					//	point = thisHeight - (float)y;
+
+					//この場所の高さに対してブロックが届いていない。
+					if (y >= thisHeight - m_terrainSurface)
+						point = 0.0f;
+					//この場所の上にもブロックがある。
+					else if (y < thisHeight + m_terrainSurface)
+						point = 1.0f;
+					//この場所のブロックの影響値。
 					else
-						point = thisHeight - (float)y;
+						point = 0.5f;
 
+					if (y == 0)
+					{
+						point = 1.0f;
+					}
 
-					terrainMap[x][y][z] = point;
+					terrainMap[x][y][z].SetVoxel(point);
+					Vector3 pos;
+					pos.x = static_cast<float>(x) * TERRAIN_UNIT;
+					pos.y = static_cast<float>(y) * TERRAIN_UNIT;
+					pos.z = static_cast<float>(z) * TERRAIN_UNIT;
+					terrainMap[x][y][z].SetPosition(pos);
 
+					terrainMap[x][y][z].InitRayCollider();
+					terrainMap[x][y][z].CalcColliderEnable();
 				}
 			}
 		}
@@ -100,7 +121,7 @@ namespace nsTerrain {
 		{
 			//各頂点の影響度？から
 			//三角形テーブルのインデックスを作成する。
-			if (cube.cube[i] > m_terrainSurface)
+			if (cube.cube[i] < m_terrainSurface)
 				configrationIndex |= 1 << i;
 		}
 
@@ -108,19 +129,18 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::CreateMeshData()
 	{
-		for (int x = 0; x < width; x++)
+		for (int x = 0; x < width - 1; x++)
 		{
-			for (int y = 0; y < height; y++)
+			for (int y = 0; y < height - 1; y++)
 			{
-				for (int z = 0; z < width; z++)
+				for (int z = 0; z < width - 1; z++)
 				{
 					Cube cube;
 					for (int i = 0; i < 8; i++)
 					{
 						Vector3Int corner = { x, y, z };
 						corner += nsMarching::CornerTable[i];
-						cube.cube[i] = terrainMap[corner.x][corner.y][corner.z];
-
+						cube.cube[i] = terrainMap[corner.x][corner.y][corner.z].GetVoxel();
 					}
 
 					Vector3 pos;
@@ -161,25 +181,35 @@ namespace nsTerrain {
 				//オフセットを計算する。
 				float offset = GetOffset(cube.cube[nsMarching::EdgeConnection[i][0]], cube.cube[nsMarching::EdgeConnection[i][1]]);
 
-				////エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
-				//EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset) 
-				//	+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].x));
-
-				//EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * (1.0f - offset) 
-				//	+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].y));
-
-				//EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * (1.0f - offset) 
-				//	+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].z));
-
 				//エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
-				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x)
-					+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].x));
+				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset) 
+					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].x));
 
-				EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y)
-					+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].y));
+				EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * (1.0f - offset) 
+					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].y));
 
-				EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z)
-					+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].z));
+				EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * (1.0f - offset) 
+					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].z));
+
+				////エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
+				//EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * offset 
+				//	+ (1.0f - offset) * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].x));
+
+				//EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * offset
+				//	+ (1.0f - offset)  * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].y));
+
+				//EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * offset
+				//	+ (1.0f - offset) * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].z));
+
+				////エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
+				//EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x)
+				//	+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].x));
+
+				//EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y)
+				//	+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].y));
+
+				//EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z)
+				//	+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].z));
 			}
 		}
 

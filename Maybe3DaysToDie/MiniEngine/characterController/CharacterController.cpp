@@ -2,6 +2,8 @@
 #include "CharacterController.h"
 #include "physics/CollisionAttr.h"
 
+using namespace CollideUserIndex;
+
 namespace Engine {
 
 	namespace {
@@ -25,6 +27,7 @@ namespace Engine {
 			{
 				if (convexResult.m_hitCollisionObject == me
 					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character
+					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_RayBlock
 					|| convexResult.m_hitCollisionObject->getInternalType() == btCollisionObject::CO_GHOST_OBJECT
 					) {
 					//自分に衝突 or キャラクタ属性と衝突 or ゴーストオブジェクトと衝突。
@@ -73,6 +76,7 @@ namespace Engine {
 				bool normalInWorldSpace)
 			{
 				if (convexResult.m_hitCollisionObject == me
+					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_RayBlock
 					|| convexResult.m_hitCollisionObject->getInternalType() == btCollisionObject::CO_GHOST_OBJECT
 					) {
 					//自分に衝突 or ゴーストオブジェクトに衝突。

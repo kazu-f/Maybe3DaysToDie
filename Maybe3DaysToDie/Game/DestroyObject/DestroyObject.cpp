@@ -10,3 +10,8 @@ DestroyObject::~DestroyObject()
 {
 
 }
+
+void DestroyObject::AddObjectDamage()
+{
+
+}

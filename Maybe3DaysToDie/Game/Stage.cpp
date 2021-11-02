@@ -27,14 +27,20 @@ void Stage::Update()
 
 void Stage::OnDestroy()
 {
-	m_stage.OnDestroy();
+	if (m_Terrain != nullptr)
+	{
+		DeleteGO(m_Terrain);
+		m_Terrain = nullptr;
+	}
+	//m_stage.OnDestroy();
 	////ƒ‚ƒfƒ‹‚ğíœ
 	//DeleteGO(m_Model);
 }
 
 void Stage::NewGround()
 {
-	m_stage.CreateStage();
+	m_Terrain = NewGO<nsTerrain::TerrainWorld>(0);
+	//m_stage.CreateStage();
 	//m_Model = NewGO<prefab::ModelRender>(0);
 	//ModelInitData InitModelUnity;
 	//InitModelUnity.m_tkmFilePath = "Assets/modelData/testbg/bg.tkm";
