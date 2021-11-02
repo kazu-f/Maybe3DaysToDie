@@ -82,6 +82,7 @@ const int MAX_RENDERING_TARGET = D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT;	//ƒŒƒ“ƒ
 #include "physics/PhysicsStaticObject.h"
 #include "physics/PhysicsGhostobject.h"
 #include "characterController/CharacterController.h"
+#include "physics/CollisionAttr.h"
 
 #include "graphics/RenderContext_inline.h"
 #include "graphics/DescriptorHeap_inline.h"

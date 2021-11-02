@@ -17,7 +17,7 @@ private:
 			bool /*normalInWorldSpace*/
 		)
 		{
-			if (convexResult.m_collisionObject->getUserIndex() != enCollisionAttr_Character)
+			if (convexResult.m_collisionObject->getUserIndex() != CollideUserIndex::enCollisionAttr_Character)
 			{
 				btVector3 colPos = convexResult.m_collisionObject->getWorldTransform().getOrigin();
 				isHit = true;
