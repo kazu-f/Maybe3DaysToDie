@@ -64,6 +64,13 @@ public:
 	{
 		return m_cellList;
 	}
+	/// <summary>
+	/// デバッグ描画のフラグを切り替える。
+	/// </summary>
+	void ChangeDrawFlag()
+	{
+		m_isDebugDraw = !m_isDebugDraw;
+	}
 private:
 	static bool isInstantiate;				//インスタンスが作成されているか。
 	std::vector<Cell> m_cellList;			//セルリスト。

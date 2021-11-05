@@ -26,12 +26,7 @@ namespace nsTerrain {
 		m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
 
 		//物理オブジェクト作成。
-		m_staticObj.CreateBuffer(
-			Vector3::Zero,
-			Quaternion::Identity,
-			Vector3::One,
-			m_vertices
-		);
+		CreateCollider();
 
 		PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
 
@@ -39,10 +34,20 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::Update()
 	{
-		////頂点をクリア。
-		//m_terrainRender->ClearVertex();
-		////メッシュデータを作成。
-		//CreateMeshData();
+		//地形の更新があった場合に頂点を再形成。
+		if (m_isUpdated) {
+			//頂点をクリア。
+			m_terrainRender->ClearVertex();
+			//メッシュデータを作成。
+			CreateMeshData();
+			//コライダー作成。
+			CreateCollider();
+
+			m_isUpdated = false;
+		}
+		if (InputKeyCode().IsTriggerKey(VK_F4)) {
+			m_NVMGenerator.ChangeDrawFlag();
+		}
 	}
 	void TerrainWorld::OnDestroy()
 	{
@@ -51,6 +56,15 @@ namespace nsTerrain {
 	void TerrainWorld::ForwardRender(RenderContext& rc)
 	{
 		m_NVMGenerator.DebugDraw(m_terrainRender);
+	}
+
+	Terrain& TerrainWorld::GetTerrain(const Vector3& pos)
+	{
+		int resX = static_cast<int>(std::floor(pos.x / TERRAIN_UNIT));
+		int resY = static_cast<int>(std::floor(pos.y / TERRAIN_UNIT));
+		int resZ = static_cast<int>(std::floor(pos.z / TERRAIN_UNIT));
+		
+		return m_terrainMap[resX][resY][resZ];
 	}
 	void TerrainWorld::PopurerTerrainMap()
 	{
@@ -100,15 +114,15 @@ namespace nsTerrain {
 						point = 1.0f;
 					}
 
-					terrainMap[x][y][z].SetVoxel(point);
+					m_terrainMap[x][y][z].SetVoxel(point);
 					Vector3 pos;
 					pos.x = static_cast<float>(x) * TERRAIN_UNIT;
 					pos.y = static_cast<float>(y) * TERRAIN_UNIT;
 					pos.z = static_cast<float>(z) * TERRAIN_UNIT;
-					terrainMap[x][y][z].SetPosition(pos);
+					m_terrainMap[x][y][z].SetPosition(pos);
 
-					terrainMap[x][y][z].InitRayCollider();
-					terrainMap[x][y][z].CalcColliderEnable();
+					m_terrainMap[x][y][z].InitRayCollider();
+					m_terrainMap[x][y][z].CalcColliderEnable();
 				}
 			}
 		}
@@ -140,7 +154,7 @@ namespace nsTerrain {
 					{
 						Vector3Int corner = { x, y, z };
 						corner += nsMarching::CornerTable[i];
-						cube.cube[i] = terrainMap[corner.x][corner.y][corner.z].GetVoxel();
+						cube.cube[i] = m_terrainMap[corner.x][corner.y][corner.z].GetVoxel();
 					}
 
 					Vector3 pos;
@@ -301,5 +315,15 @@ namespace nsTerrain {
 
 		}
 
+	}
+	void TerrainWorld::CreateCollider()
+	{
+		//物理オブジェクト作成。
+		m_staticObj.CreateBuffer(
+			Vector3::Zero,
+			Quaternion::Identity,
+			Vector3::One,
+			m_vertices
+		);		
 	}
 }

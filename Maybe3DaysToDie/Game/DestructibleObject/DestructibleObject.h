@@ -20,6 +20,7 @@ public:
 	{
 		m_params.BlockName = param.BlockName;
 		m_params.Durable = param.Durable;
+		m_maxDurable = param.Durable;
 		m_params.ObtainAmount = param.ObtainAmount;
 		m_params.AptitudeTool = param.AptitudeTool;
 	}
@@ -44,4 +45,5 @@ protected:
 	Vector3 m_scale = Vector3::One;		//スケール
 	bool IsDestructed = false;		//破壊されたかどうか
 	ObjectParams m_params;		//各種パラメータ
+	int m_maxDurable = 0;
 };

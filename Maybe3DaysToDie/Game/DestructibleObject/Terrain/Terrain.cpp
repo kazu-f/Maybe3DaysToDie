@@ -6,6 +6,8 @@
 namespace nsTerrain {
 	namespace {
 		const Vector3 TERRAIN_SIZE = { TERRAIN_UNIT ,TERRAIN_UNIT ,TERRAIN_UNIT };
+		const float MIN_VOXEL = 0.5f;
+		const float MAX_VOXEL = 1.0f;
 	}
 
 	Terrain::Terrain()
@@ -48,5 +50,14 @@ namespace nsTerrain {
 		{
 			SetColliderEnable(false);
 		}
+	}
+	void Terrain::CalcVoxel()
+	{
+		float t = static_cast<float>(m_params.Durable / m_maxDurable);
+		t = max(0.0f, min(1.0f, t));
+		m_voxel = Math::Lerp(t, MIN_VOXEL, MAX_VOXEL);
+
+		//地形が更新された。
+		m_world->EnableUpdated();
 	}
 }

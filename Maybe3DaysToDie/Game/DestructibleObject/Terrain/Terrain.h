@@ -55,6 +55,16 @@ namespace nsTerrain {
 		{
 			return m_voxel;
 		}
+		/// <summary>
+		/// ダメージを与える。
+		/// </summary>
+		void Damage(int damage)
+		{
+			m_params.Durable = max(0, (m_params.Durable - damage));
+			CalcVoxel();
+		}
+	private:
+		void CalcVoxel();
 
 	private:
 
@@ -63,8 +73,6 @@ namespace nsTerrain {
 		TerrainWorld* m_world = nullptr;		//地形ワールド。
 		
 		int m_terrainId = -1;		//地形id番号。
-		int m_maxDurable = 0;		//最大耐久値。
-		int m_durable = 0;			//現在の耐久値。
 		float m_voxel = 1.0f;		//ボクセル値。
 
 		bool m_registColider = false;

@@ -24,11 +24,21 @@ namespace nsTerrain {
 		{
 
 		}
-
+	private:
 		bool Start()override final;
 		void Update()override final;
 		void OnDestroy()override final;
 		void ForwardRender(RenderContext& rc) override final;
+	public:	//特定の地形を取得する。
+		Terrain& GetTerrain(const Vector3& pos);
+
+		/// <summary>
+		/// 地形が更新された。
+		/// </summary>
+		void EnableUpdated()
+		{
+			m_isUpdated = true;
+		}
 
 	private:
 		/// <summary>
@@ -48,6 +58,11 @@ namespace nsTerrain {
 		/// <param name="position">生成する座標。</param>
 		/// <param name="configIndex">三角形の生成パターン番号。</param>
 		void MarchCube(Vector3 position, const Cube& cube);
+
+		/// <summary>
+		/// コライダーの再生成。
+		/// </summary>
+		void CreateCollider();
 
 		//オフセットを計算。
 		float GetOffset(float v1, float v2)
@@ -77,13 +92,14 @@ namespace nsTerrain {
 		static const int height = 8;
 		float m_terrainSurface = 0.5f;
 
-		Terrain terrainMap[width][height][width];
+		Terrain m_terrainMap[width][height][width];
 		CNoise m_perlinNoise;
 		TerrainRender* m_terrainRender = nullptr;		//地形描画クラス。
 		NVMGenerator m_NVMGenerator;					//NVM生成。
 		EnemyGenerator m_enemyGenerator;				//enemyGenerator.
 		std::vector<Vector3> m_vertices;				//頂点データ。
 		CPhysicsStaticObject m_staticObj;				//物理オブジェクト。
+		bool m_isUpdated = false;						//地形の更新がある。
 	};
 
 }
