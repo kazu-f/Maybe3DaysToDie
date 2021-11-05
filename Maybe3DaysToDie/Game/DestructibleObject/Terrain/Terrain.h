@@ -60,8 +60,12 @@ namespace nsTerrain {
 		/// </summary>
 		void Damage(int damage)
 		{
-			m_params.Durable = max(0, (m_params.Durable - damage));
-			CalcVoxel();
+			int durable = max(0, (m_params.Durable - damage));
+			if (durable != m_params.Durable)
+			{
+				m_params.Durable = durable;
+				CalcVoxel();
+			}
 		}
 	private:
 		void CalcVoxel();
