@@ -6,5 +6,5 @@ public:
 	~TerrainSave() {}
 
 private:
-	int TerrainDurable[ChunkWidth][ChunkHeight][ChunkWidth] = { 0.0f };
+	int TerrainDurable[ChunkWidth][ChunkHeight][ChunkWidth] = { 0 };
 };
