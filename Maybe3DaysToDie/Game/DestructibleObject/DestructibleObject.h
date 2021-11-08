@@ -4,7 +4,7 @@ struct ObjectParams {
 	int Durable = 0;		//耐久値
 	int ObtainAmount = 0;		//入手量
 	//todo [リファクタリング] 適性ツールの型をintからenumにする
-	int AptitudeTool = 0;		//適性ツール
+	ToolKinds AptitudeTool = ToolKinds::DebugTool;		//適性ツール
 };
 class DestructibleObject
 {

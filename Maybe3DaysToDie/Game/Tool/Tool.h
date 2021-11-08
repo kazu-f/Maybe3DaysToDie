@@ -1,12 +1,4 @@
 #pragma once
-//ツールの種類
-enum ToolKinds {
-	axe = 0,		//斧
-	Pickaxe = 1 << 0,		//ツルハシ
-	shovel = 1 << 1,		//ショベル
-	others = 1 << 2,		//その他
-	DebugTool = 0xffffffff		//デバッグ用ツール
-};
 
 struct ToolInfo {
 	ToolKinds tool = ToolKinds::DebugTool;		//ツールの種類
