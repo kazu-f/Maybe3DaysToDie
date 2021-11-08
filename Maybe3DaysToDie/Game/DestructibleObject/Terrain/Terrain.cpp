@@ -12,6 +12,8 @@ namespace nsTerrain {
 
 	Terrain::Terrain()
 	{
+		m_params.Durable = 100;
+		m_maxDurable = 100;
 	}
 
 	Terrain::~Terrain()

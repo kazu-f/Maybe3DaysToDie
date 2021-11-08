@@ -56,7 +56,6 @@ private:
 	Vector3 m_pos = Vector3::Zero;		//モデルのポジション
 	Vector3 m_scale = Vector3::One;		//モデルのスケール
 	Quaternion m_qrot = Quaternion::Identity;		//モデルの回転
-	const float m_SetRange = 500.0f;		//設置範囲
 	std::vector<Block*> m_model;
 	bool CanPlace = false;
 };
