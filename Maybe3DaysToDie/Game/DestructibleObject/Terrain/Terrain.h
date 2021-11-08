@@ -1,5 +1,6 @@
 #pragma once
 
+struct ToolInfo;
 namespace nsTerrain {
 	class TerrainWorld;
 
@@ -58,15 +59,7 @@ namespace nsTerrain {
 		/// <summary>
 		/// ダメージを与える。
 		/// </summary>
-		void Damage(int damage)
-		{
-			int durable = max(0, (m_params.Durable - damage));
-			if (durable != m_params.Durable)
-			{
-				m_params.Durable = durable;
-				CalcVoxel();
-			}
-		}
+		void Damage(ToolInfo tool);
 	private:
 		void CalcVoxel();
 

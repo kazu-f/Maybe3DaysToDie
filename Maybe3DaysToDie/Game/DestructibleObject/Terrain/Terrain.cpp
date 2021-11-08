@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Terrain.h"
 #include "TerrainManager/TerrainWorld.h"
+#include "Tool/Tool.h"
 
 
 namespace nsTerrain {
@@ -51,6 +52,20 @@ namespace nsTerrain {
 		else
 		{
 			SetColliderEnable(false);
+		}
+	}
+	void Terrain::Damage(ToolInfo tool)
+	{
+		int damage = tool.AttackPower;
+		if (!(m_params.AptitudeTool & tool.tool))
+		{
+			damage /= 3;
+		}
+		int durable = max(0, (m_params.Durable - damage));
+		if (durable != m_params.Durable)
+		{
+			m_params.Durable = durable;
+			CalcVoxel();
 		}
 	}
 	void Terrain::CalcVoxel()
