@@ -78,6 +78,7 @@ namespace nsTerrain {
 		else {
 			m_voxel = 0.0f;
 		}
+		CalcColliderEnable();
 		//地形が更新された。
 		m_world->EnableUpdated();
 	}

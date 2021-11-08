@@ -174,7 +174,6 @@ namespace nsTerrain {
 					pos.z = static_cast<float>(z);
 
 					MarchCube(pos, cube);
-					m_terrainMap[x][y][z].CalcColliderEnable();
 
 				}
 			}
