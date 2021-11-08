@@ -37,6 +37,8 @@
     <ClCompile Include="Navigation\AStar.cpp" />
     <ClCompile Include="Navigation\NavigationAgent.cpp" />
     <ClCompile Include="DestroyObject\DestroyObject.cpp" />
+    <ClCompile Include="Tool\Tool.cpp" />
+    <ClCompile Include="Save\TerrainSave\TerrainSave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -75,6 +77,8 @@
     <ClInclude Include="Navigation\AStar.h" />
     <ClInclude Include="Navigation\NavigationAgent.h" />
     <ClInclude Include="DestroyObject\DestroyObject.h" />
+    <ClInclude Include="Tool\Tool.h" />
+    <ClInclude Include="Save\TerrainSave\TerrainSave.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
