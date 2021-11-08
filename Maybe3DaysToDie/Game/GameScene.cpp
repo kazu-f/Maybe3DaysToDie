@@ -6,9 +6,9 @@
 
 #include "PlacementObject/PlacementObject.h"
 #include "DestroyObject/DestroyObject.h"
+#include "Tool/Tool.h"
 
 #include "DateTime.h"
-
 CGameScene::~CGameScene()
 {
 	DeleteGO(m_Player);
@@ -25,6 +25,11 @@ CGameScene::~CGameScene()
 		DeleteGO(m_DestroyObject);
 		m_DestroyObject = nullptr;
 	}
+	if (tool != nullptr)
+	{
+		delete tool;
+		tool = nullptr;
+	}
 	//sample//
 	DeleteGO(m_fontRender);
 }
@@ -35,8 +40,13 @@ bool CGameScene::Start()
 	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Player->SetCameraPtr(m_Camera);
 	m_Stage = NewGO<Stage>(0, "stage");
+
+	//todo プレイヤーの処理等に置くようにしてください
 	m_PlacementObject = NewGO<PlacementObject>(0);
 	m_DestroyObject = NewGO<DestroyObject>(0);
+	tool = new Tool;
+	m_DestroyObject->SetTool(tool);
+
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
 
 	//ライト。

@@ -1,6 +1,7 @@
 #pragma once
 #include "MiniEngine/physics/CollisionAttr.h"
 
+class Tool;
 //todo ƒvƒŒƒCƒ„[‘¤‚©‚çŒÄ‚Ô‚æ‚¤‚É‚È‚Á‚½‚çIGameObject‚ğŒp³‚µ‚È‚¢‚æ‚¤‚É
 class DestroyObject:public IGameObject
 {
@@ -40,5 +41,13 @@ public:
 	void AddObjectDamage(int damage);
 
 	void Update();
+
+	void SetTool(Tool* tool)
+	{
+		m_tool = tool;
+	}
+
+private:
+	Tool* m_tool = nullptr;
 };
 

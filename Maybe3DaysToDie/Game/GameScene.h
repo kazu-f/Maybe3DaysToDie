@@ -5,7 +5,7 @@ class Stage;
 class GameCamera;
 class PlacementObject;
 class DestroyObject;
-
+class Tool;
 class CGameScene : public IGameObject
 {
 public:
@@ -28,6 +28,7 @@ private:
 	//todo 後ほどプレイヤー等においてください
 	PlacementObject* m_PlacementObject = nullptr;		//設置オブジェクト
 	DestroyObject* m_DestroyObject = nullptr;		//オブジェクト破壊
+	Tool* tool = nullptr;
 	//Samples//
 	CFontRender* m_fontRender = nullptr;			//フォントレンダー。
 

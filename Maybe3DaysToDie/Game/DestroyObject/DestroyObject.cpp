@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "DestroyObject.h"
 #include "TerrainManager/TerrainWorld.h"
+#include "Tool/Tool.h"
+
 DestroyObject::DestroyObject()
 {
 
@@ -45,7 +47,10 @@ void DestroyObject::AddObjectDamage(int damage)
 	if (callback.isHit)
 	{
 		lastPos = callback.hitColPos;
+		//地形を取得
 		auto terrain = FindGO<nsTerrain::TerrainWorld>("Terrain");
+		//ツールの情報を取得
+		m_tool->GetInfo();
 		//地形にダメージを与える
 		terrain->GetTerrain(lastPos).Damage(damage);
 	}
