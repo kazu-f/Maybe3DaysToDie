@@ -5,5 +5,12 @@ class Block:public DestructibleObject
 public:
 	Block() {}
 	~Block() override final;
+	/// <summary>
+	/// ダメージを与える。
+	/// </summary>
+	void Damage(const ToolInfo& tool)override final
+	{
+
+	}
 };
 

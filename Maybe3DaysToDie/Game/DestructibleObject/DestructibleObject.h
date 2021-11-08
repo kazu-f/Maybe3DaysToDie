@@ -1,4 +1,5 @@
 #pragma once
+struct ToolInfo;
 struct ObjectParams {
 	char* BlockName = nullptr;		//名前
 	int Durable = 0;		//耐久値
@@ -33,6 +34,11 @@ public:
 		m_StaticCol.CreateMesh(model->GetPosition(), model->GetRotation(), model->GetScale(), model);
 		m_StaticCol.GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
 	}
+
+	/// <summary>
+	/// ダメージを与える。
+	/// </summary>
+	virtual void Damage(const ToolInfo& tool) = 0;
 
 	//void Deletethis()
 	//{

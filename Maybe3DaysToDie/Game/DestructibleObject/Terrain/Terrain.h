@@ -59,7 +59,7 @@ namespace nsTerrain {
 		/// <summary>
 		/// ダメージを与える。
 		/// </summary>
-		void Damage(const ToolInfo& tool);
+		void Damage(const ToolInfo& tool)override final;
 	private:
 		void CalcVoxel();
 
