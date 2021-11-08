@@ -38,7 +38,11 @@ bool CGameScene::Start()
 	m_PlacementObject = NewGO<PlacementObject>(0);
 	m_DestroyObject = NewGO<DestroyObject>(0);
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
-	
+
+	//ÉâÉCÉgÅB
+	prefab::CDirectionLight* lig = NewGO<prefab::CDirectionLight>(0);
+	lig->SetColor({ 5.0f,5.0f,5.0f,1.0f });
+	lig->SetDirection({ 1.0f,-1.0f,0.0f });
 	//sample//
 	m_fontRender = NewGO<CFontRender>(0);
 	m_fontRender->SetText(L"Press 'U' Instantiate Zombie.\nPress 'K' Delete All Zombie.\n\nR B\nE A\nO K\n  A");
