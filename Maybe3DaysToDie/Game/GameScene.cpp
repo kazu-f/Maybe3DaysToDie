@@ -5,6 +5,8 @@
 #include "Stage.h"
 
 #include "PlacementObject/PlacementObject.h"
+#include "DestroyObject/DestroyObject.h"
+
 #include "DateTime.h"
 
 CGameScene::~CGameScene()
@@ -18,7 +20,11 @@ CGameScene::~CGameScene()
 		DeleteGO(m_PlacementObject);
 		m_PlacementObject = nullptr;
 	}
-
+	if (m_DestroyObject != nullptr)
+	{
+		DeleteGO(m_DestroyObject);
+		m_DestroyObject = nullptr;
+	}
 	//sample//
 	DeleteGO(m_fontRender);
 }
@@ -30,6 +36,7 @@ bool CGameScene::Start()
 	m_Player->SetCameraPtr(m_Camera);
 	m_Stage = NewGO<Stage>(0, "stage");
 	m_PlacementObject = NewGO<PlacementObject>(0);
+	m_DestroyObject = NewGO<DestroyObject>(0);
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
 	
 	//sample//

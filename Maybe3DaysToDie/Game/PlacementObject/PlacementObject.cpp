@@ -60,7 +60,7 @@ void PlacementObject::CalcObjectPos()
 	Vector3 m_Start = MainCamera().GetPosition();
 	//‹ü•ûŒü‚Éƒ|ƒWƒVƒ‡ƒ“‚ğ‰ÁZ
 	Vector3 m_End = m_Start;
-	m_End += MainCamera().GetForward() * m_SetRange;
+	m_End += MainCamera().GetForward() * SetRange;
 	Vector3 cpos = MainCamera().GetPosition();
 	Vector3 ctgt = MainCamera().GetTarget();
 	Vector3 forward = cpos - ctgt;
