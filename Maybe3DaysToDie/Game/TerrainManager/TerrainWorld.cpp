@@ -8,6 +8,16 @@
 namespace nsTerrain {
 	bool TerrainWorld::Start()
 	{
+		for (int x = 0; x < width; x++)
+		{
+			for (int y = 0; y < height; y++)
+			{
+				for (int z = 0; z < width; z++)
+				{
+					m_terrainMap[x][y][z].SetTerrainWorld(this);
+				}
+			}
+		}
 		//地形描画クラス作成。
 		m_terrainRender = NewGO<TerrainRender>(10);
 		TerrainInitData initData;
@@ -38,6 +48,7 @@ namespace nsTerrain {
 		if (m_isUpdated) {
 			//頂点をクリア。
 			m_terrainRender->ClearVertex();
+			m_vertices.clear();
 			//メッシュデータを作成。
 			CreateMeshData();
 			//コライダー作成。
@@ -163,6 +174,7 @@ namespace nsTerrain {
 					pos.z = static_cast<float>(z);
 
 					MarchCube(pos, cube);
+					m_terrainMap[x][y][z].CalcColliderEnable();
 
 				}
 			}

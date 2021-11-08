@@ -12,6 +12,8 @@ namespace nsTerrain {
 
 	Terrain::Terrain()
 	{
+		m_params.Durable = 500;
+		m_maxDurable = 500;
 	}
 
 	Terrain::~Terrain()
@@ -53,10 +55,14 @@ namespace nsTerrain {
 	}
 	void Terrain::CalcVoxel()
 	{
-		float t = static_cast<float>(m_params.Durable / m_maxDurable);
-		t = max(0.0f, min(1.0f, t));
-		m_voxel = Math::Lerp(t, MIN_VOXEL, MAX_VOXEL);
-
+		if (m_params.Durable > 0) {
+			float t = static_cast<float>(m_params.Durable / m_maxDurable);
+			t = max(0.0f, min(1.0f, t));
+			m_voxel = Math::Lerp(t, MIN_VOXEL, MAX_VOXEL);
+		}
+		else {
+			m_voxel = 0.0f;
+		}
 		//地形が更新された。
 		m_world->EnableUpdated();
 	}
