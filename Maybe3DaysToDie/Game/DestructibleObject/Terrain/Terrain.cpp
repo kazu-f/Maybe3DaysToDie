@@ -26,6 +26,9 @@ namespace nsTerrain {
 		m_StaticCol.CreateBox(m_position, Quaternion::Identity, TERRAIN_SIZE);
 		m_StaticCol.GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_RayBlock);
 		m_registColider = true;
+		void (nsTerrain::Terrain::*f)(const ToolInfo&);
+		f = &Damage;
+		m_StaticCol.GetRigidBody().GetBody()->setUserPointer((void*)&f);
 	}
 	void Terrain::SetColliderEnable(bool flag)
 	{
@@ -54,7 +57,7 @@ namespace nsTerrain {
 			SetColliderEnable(false);
 		}
 	}
-	void Terrain::Damage(ToolInfo tool)
+	void Terrain::Damage(const ToolInfo& tool)
 	{
 		int damage = tool.AttackPower;
 		if (!(m_params.AptitudeTool & tool.tool))
