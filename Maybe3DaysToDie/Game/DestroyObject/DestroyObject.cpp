@@ -48,8 +48,13 @@ void DestroyObject::AddObjectDamage(int damage)
 	{
 		lastPos = callback.hitColPos;
 		//地形を取得
-		auto terrain = FindGO<nsTerrain::TerrainWorld>("Terrain");
+		//auto terrain = FindGO<nsTerrain::TerrainWorld>("Terrain");
 		//地形にダメージを与える
-		terrain->GetTerrain(lastPos).Damage(m_tool->GetInfo());
+		//terrain->GetTerrain(lastPos).Damage(m_tool->GetInfo());
+		DestructibleObject* obj = ((DestructibleObject*)callback.ColObj->getUserPointer());
+		if (obj != nullptr)
+		{
+			obj->Damage(m_tool->GetInfo());
+		}
 	}
 }
