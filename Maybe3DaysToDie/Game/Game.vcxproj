@@ -197,6 +197,7 @@
     <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
     <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
+    <ClCompile Include="Tool\Tool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DestroyObject\DestroyObject.h" />
@@ -235,6 +236,7 @@
     <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />
     <ClInclude Include="TerrainManager\TerrainWorld.h" />
+    <ClInclude Include="Tool\Tool.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
