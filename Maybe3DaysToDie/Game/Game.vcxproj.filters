@@ -39,6 +39,7 @@
     <ClCompile Include="DestroyObject\DestroyObject.cpp" />
     <ClCompile Include="Tool\Tool.cpp" />
     <ClCompile Include="Save\TerrainSave\TerrainSave.cpp" />
+    <ClCompile Include="BlockManager\BlockManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -79,6 +80,7 @@
     <ClInclude Include="DestroyObject\DestroyObject.h" />
     <ClInclude Include="Tool\Tool.h" />
     <ClInclude Include="Save\TerrainSave\TerrainSave.h" />
+    <ClInclude Include="BlockManager\BlockManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

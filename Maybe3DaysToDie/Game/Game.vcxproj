@@ -158,6 +158,7 @@
     </ImageContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlockManager\BlockManager.cpp" />
     <ClCompile Include="DestroyObject\DestroyObject.cpp" />
     <ClCompile Include="Navigation\NavigationAgent.cpp" />
     <ClCompile Include="Navigation\AStar.cpp" />
@@ -201,6 +202,7 @@
     <ClCompile Include="Tool\Tool.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlockManager\BlockManager.h" />
     <ClInclude Include="DestroyObject\DestroyObject.h" />
     <ClInclude Include="Navigation\NavigationAgent.h" />
     <ClInclude Include="Navigation\AStar.h" />
