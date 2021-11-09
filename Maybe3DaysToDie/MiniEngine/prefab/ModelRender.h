@@ -272,6 +272,11 @@ namespace Engine {
 				}
 				return Vector3::Zero;
 			}
+
+			const ModelInitData& GetInitData()const
+			{
+				return m_modeInitData;
+			}
 		private:	//初期化関数。
 			/// <summary>
 			/// インスタンシング描画用のSB構築。
