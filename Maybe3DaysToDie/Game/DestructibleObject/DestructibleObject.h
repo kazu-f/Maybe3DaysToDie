@@ -5,7 +5,7 @@ static const float OBJECT_UNIT = 100.0f;
 static const float OBJECT_HALF_UNIT = 50.0f;
 
 struct ObjectParams {
-	char* BlockName = nullptr;		//名前
+	const char* BlockName = nullptr;		//名前
 	int Durable = 0;		//耐久値
 	int ObtainAmount = 0;		//入手量
 	//todo [リファクタリング] 適性ツールの型をintからenumにする
@@ -30,6 +30,10 @@ public:
 		m_params.AptitudeTool = param.AptitudeTool;
 	}
 
+	const ObjectParams& GetParam()const
+	{
+		return m_params;
+	}
 	/// <summary>
 	/// コライダーを生成
 	/// </summary>
@@ -48,6 +52,47 @@ public:
 	//{
 	//	if(m_StaticCol.GetRigidBody())
 	//}
+
+	/// <summary>
+	/// 座標を設定。
+	/// </summary>
+	void SetPosition(const Vector3& pos)
+	{
+		m_position = pos;
+	}
+
+	const Vector3& GetPosition()const
+	{
+		return m_position;
+	}
+
+	void SetRotation(const Quaternion& rot)
+	{
+		m_qrot = rot;
+	}
+
+	const Quaternion& GetRotation()const
+	{
+		return m_qrot;
+	}
+
+	void SetScale(const Vector3& scale)
+	{
+		m_scale = scale;
+	}
+
+	const Vector3& GetScale()const
+	{
+		return m_scale;
+	}
+
+	void ResetParams()
+	{
+		m_params.BlockName = nullptr;
+		m_params.Durable = 0;
+		m_params.ObtainAmount = 0;
+		m_params.AptitudeTool = ToolKinds::DebugTool;
+	}
 protected:
 	CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
 	Vector3 m_position = Vector3::Zero;		//ポジション

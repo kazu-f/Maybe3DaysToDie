@@ -32,6 +32,11 @@ CGameScene::~CGameScene()
 		delete tool;
 		tool = nullptr;
 	}
+	if (m_BlockManager != nullptr)
+	{
+		DeleteGO(m_BlockManager);
+		m_BlockManager = nullptr;
+	}
 	//sample//
 	DeleteGO(m_fontRender);
 }

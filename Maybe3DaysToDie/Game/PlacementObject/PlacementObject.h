@@ -52,6 +52,9 @@ public:
 	/// </summary>
 	void CalcObjectPos();
 
+	/// <summary>
+	/// ブロックマネージャーをセット
+	/// </summary>
 	void SetBlockManager(BlockManager*manager)
 	{
 		m_BlockManager = manager;

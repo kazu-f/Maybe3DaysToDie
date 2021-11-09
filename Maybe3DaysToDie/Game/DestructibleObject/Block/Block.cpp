@@ -1,7 +1,17 @@
 #include "stdafx.h"
 #include "Block.h"
 #include "Tool/Tool.h"
+#include "BlockManager/BlockManager.h"
 
+Block::Block()
+{
+	param.AptitudeTool = ToolKinds::DebugTool;
+	param.BlockName = nullptr;
+	param.Durable = 500;
+	param.ObtainAmount = 0;
+
+	SetParams(param);
+}
 Block::~Block()
 {
 }
@@ -9,7 +19,7 @@ Block::~Block()
 void Block::InitRayCollider()
 {
 	m_StaticCol.CreateBox(m_position, Quaternion::Identity, BLOCK_SIZE);
-	m_StaticCol.GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_RayBlock);
+	m_StaticCol.GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
 	m_registColider = true;
 	DestructibleObject* obj = this;
 	m_StaticCol.GetRigidBody().GetBody()->setUserPointer((void*)obj);
@@ -50,6 +60,7 @@ void Block::Damage(const ToolInfo& tool)
 	}
 	if (durable == 0)
 	{
+		m_BlockManager->RemoveBlock(this);
 		//耐久値が0なのでコライダーを削除
 		SetColliderEnable(false);
 	}

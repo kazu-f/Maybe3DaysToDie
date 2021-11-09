@@ -34,13 +34,7 @@ namespace nsTerrain {
 		/// </summary>
 		void CalcColliderEnable();
 
-		/// <summary>
-		/// 座標を設定。
-		/// </summary>
-		void SetPosition(const Vector3& pos)
-		{
-			m_position = pos;
-		}
+
 		/// <summary>
 		/// 地形のスケールをセット。
 		/// </summary>
