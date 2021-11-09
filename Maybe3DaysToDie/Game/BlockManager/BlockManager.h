@@ -17,5 +17,6 @@ public:
 private:
 	std::vector<prefab::ModelRender*>(BlockModel) = { nullptr };		//ブロックのモデル
 	int m_modelNum = 0;
+	int MaxInstanceNum = ChunkWidth * ChunkWidth * ChunkHeight;
 };
 

@@ -32,7 +32,7 @@ void BlockManager::AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot
 			if (BlockName == model->GetInitData().m_tkmFilePath)
 			{
 				//ブロックの名前がかぶっているとき
-				//model->AddInstancing(pos, rot, scale);
+				model->UpdateInstancingData(pos, rot, scale);
 				return;
 			}
 		}
@@ -41,10 +41,9 @@ void BlockManager::AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot
 	ModelInitData InitData;
 	InitData.m_tkmFilePath = BlockName;
 	prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
-	model->Init(InitData);
-	model->SetPosition(pos);
-	model->SetRotation(rot);
-	model->SetScale(scale);
+	//チャンクのサイズ分インスタンシング描画する
+	model->Init(InitData, nullptr, 0, MaxInstanceNum);
+	model->UpdateInstancingData(pos, rot, scale);
 	BlockModel[m_modelNum] = std::move(model);
 	m_modelNum++;
 }
