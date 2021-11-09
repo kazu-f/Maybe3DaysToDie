@@ -71,7 +71,6 @@ void BlockManager::AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot
 				//コライダーを有効化
 				GetBlock(pos).SetColliderEnable(true);
 				GetBlock(pos).SetName(BlockName);
-				m_modelInstanceNum[m_modelNum]++;
 				return;
 			}
 		}
@@ -84,7 +83,6 @@ void BlockManager::AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot
 	model->Init(InitData, nullptr, 0, MaxInstanceNum);
 	model->UpdateInstancingData(pos, rot, scale);
 	BlockModel[m_modelNum] = model;
-	m_modelInstanceNum[m_modelNum] = 1;
 	//コライダーを有効化
 	GetBlock(pos).SetColliderEnable(true);
 	GetBlock(pos).SetName(BlockName);

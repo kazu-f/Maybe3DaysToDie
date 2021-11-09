@@ -24,7 +24,6 @@ public:
 private:
 	Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];
 	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル
-	int m_modelInstanceNum[BlockKinds] = { 0 };
 	int m_modelNum = 0;
 };
 
