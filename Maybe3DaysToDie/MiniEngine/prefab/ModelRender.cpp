@@ -109,6 +109,15 @@ namespace Engine {
 				m_model.Draw(renderContext);
 			}
 		}
+
+		void ModelRender::AddInitInstancing(Vector3& pos, Quaternion& rot, Vector3& scale)
+		{
+			m_maxInstance++;
+			m_instancingData.reset(new Matrix[m_maxInstance]);
+			m_instancingDataSB.Init(sizeof(Matrix), m_maxInstance, m_instancingData.get());
+			m_isEnableInstancing = true;
+			UpdateInstancingData(pos, rot, scale);
+		}
 		void ModelRender::InitInstancing(int maxInstance)
 		{
 			m_maxInstance = maxInstance;
