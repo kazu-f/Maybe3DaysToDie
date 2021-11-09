@@ -110,7 +110,7 @@ namespace Engine {
 			}
 		}
 
-		void ModelRender::AddInitInstancing(Vector3& pos, Quaternion& rot, Vector3& scale)
+		void ModelRender::AddInstancing(Vector3& pos, Quaternion& rot, Vector3& scale)
 		{
 			m_maxInstance++;
 			m_instancingData.reset(new Matrix[m_maxInstance]);
