@@ -25,15 +25,18 @@ void BlockManager::Update()
 
 void BlockManager::AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot, Vector3& scale)
 {
-	for (auto& model : BlockModel)
+	if (m_modelNum > 0)
 	{
-		if (BlockName == model->GetInitData().m_tkmFilePath)
+		for (auto& model : BlockModel)
 		{
-			//ブロックの名前がかぶっているとき
-			model->AddInstancing(pos, rot, scale);
-			return;
+			if (BlockName == model->GetInitData().m_tkmFilePath)
+			{
+				//ブロックの名前がかぶっているとき
+				//model->AddInstancing(pos, rot, scale);
+				return;
+			}
 		}
-	}		
+	}
 	//ブロックの名前がかぶっていないのでまだ、そのモデルがない
 	ModelInitData InitData;
 	InitData.m_tkmFilePath = BlockName;
@@ -42,5 +45,6 @@ void BlockManager::AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot
 	model->SetPosition(pos);
 	model->SetRotation(rot);
 	model->SetScale(scale);
-	BlockModel.push_back(std::move(model));
+	BlockModel[m_modelNum] = std::move(model);
+	m_modelNum++;
 }

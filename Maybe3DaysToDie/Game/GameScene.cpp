@@ -8,6 +8,8 @@
 #include "DestroyObject/DestroyObject.h"
 #include "Tool/Tool.h"
 
+#include "BlockManager/BlockManager.h"
+
 #include "DateTime.h"
 CGameScene::~CGameScene()
 {
@@ -46,6 +48,8 @@ bool CGameScene::Start()
 	m_DestroyObject = NewGO<DestroyObject>(0);
 	tool = new Tool;
 	m_DestroyObject->SetTool(tool);
+	m_BlockManager = NewGO<BlockManager>(0);
+	m_PlacementObject->SetBlockManager(m_BlockManager);
 
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
 

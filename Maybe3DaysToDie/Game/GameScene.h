@@ -6,6 +6,7 @@ class GameCamera;
 class PlacementObject;
 class DestroyObject;
 class Tool;
+class BlockManager;
 class CGameScene : public IGameObject
 {
 public:
@@ -31,5 +32,5 @@ private:
 	Tool* tool = nullptr;
 	//Samples//
 	CFontRender* m_fontRender = nullptr;			//フォントレンダー。
-
+	BlockManager* m_BlockManager = nullptr;
 };

@@ -16,5 +16,6 @@ public:
 	void AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot, Vector3& scale);
 private:
 	std::vector<prefab::ModelRender*>(BlockModel) = { nullptr };		//ブロックのモデル
+	int m_modelNum = 0;
 };
 

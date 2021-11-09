@@ -278,7 +278,6 @@ namespace Engine {
 				return m_modeInitData;
 			}
 
-			void AddInstancing(Vector3& pos, Quaternion& rot, Vector3& scale);
 		private:	//初期化関数。
 			/// <summary>
 			/// インスタンシング描画用のSB構築。
