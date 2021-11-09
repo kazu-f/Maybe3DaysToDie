@@ -6,7 +6,7 @@
 
 namespace nsTerrain {
 	namespace {
-		const Vector3 TERRAIN_SIZE = { TERRAIN_UNIT ,TERRAIN_UNIT ,TERRAIN_UNIT };
+		const Vector3 TERRAIN_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };
 		const float MIN_VOXEL = 0.5f;
 		const float MAX_VOXEL = 1.0f;
 	}

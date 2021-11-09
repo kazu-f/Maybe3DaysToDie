@@ -51,5 +51,6 @@ public:
 
 private:
 	Tool* m_tool = nullptr;
+
 };
 

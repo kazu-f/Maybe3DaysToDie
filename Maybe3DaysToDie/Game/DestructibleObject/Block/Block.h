@@ -12,5 +12,11 @@ public:
 	{
 
 	}
+
+	/// <summary>
+	/// コライダーの初期化。
+	/// </summary>
+	void InitRayCollider();
+
 };
 

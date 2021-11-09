@@ -71,9 +71,9 @@ namespace nsTerrain {
 
 	Terrain& TerrainWorld::GetTerrain(const Vector3& pos)
 	{
-		int resX = static_cast<int>(std::floor(pos.x / TERRAIN_UNIT));
-		int resY = static_cast<int>(std::floor(pos.y / TERRAIN_UNIT));
-		int resZ = static_cast<int>(std::floor(pos.z / TERRAIN_UNIT));
+		int resX = static_cast<int>(std::floor(pos.x / OBJECT_UNIT));
+		int resY = static_cast<int>(std::floor(pos.y / OBJECT_UNIT));
+		int resZ = static_cast<int>(std::floor(pos.z / OBJECT_UNIT));
 		
 		return m_terrainMap[resX][resY][resZ];
 	}
@@ -127,9 +127,9 @@ namespace nsTerrain {
 
 					m_terrainMap[x][y][z].SetVoxel(point);
 					Vector3 pos;
-					pos.x = static_cast<float>(x) * TERRAIN_UNIT;
-					pos.y = static_cast<float>(y) * TERRAIN_UNIT;
-					pos.z = static_cast<float>(z) * TERRAIN_UNIT;
+					pos.x = static_cast<float>(x) * OBJECT_UNIT;
+					pos.y = static_cast<float>(y) * OBJECT_UNIT;
+					pos.z = static_cast<float>(z) * OBJECT_UNIT;
 					m_terrainMap[x][y][z].SetPosition(pos);
 
 					m_terrainMap[x][y][z].InitRayCollider();
@@ -264,7 +264,7 @@ namespace nsTerrain {
 				edgePos[p].z -= 0.5f;
 
 				//頂点の座標を計算。
-				vertPos[p] = (position + EdgeVertex[indice]) * TERRAIN_UNIT;
+				vertPos[p] = (position + EdgeVertex[indice]) * OBJECT_UNIT;
 				m_vertices.push_back(vertPos[p]);	//頂点を積む。
 				//中心座標を計算する。
 				center += vertPos[p];

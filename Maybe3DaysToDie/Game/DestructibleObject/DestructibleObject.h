@@ -1,5 +1,9 @@
 #pragma once
 struct ToolInfo;
+
+static const float OBJECT_UNIT = 100.0f;
+static const float OBJECT_HALF_UNIT = 50.0f;
+
 struct ObjectParams {
 	char* BlockName = nullptr;		//–¼‘O
 	int Durable = 0;		//‘Ï‹v’l
