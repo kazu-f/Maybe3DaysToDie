@@ -10,4 +10,5 @@ x64/
 *.pdb
 *.ini
 *.idb
+*.dat
 .vscode
