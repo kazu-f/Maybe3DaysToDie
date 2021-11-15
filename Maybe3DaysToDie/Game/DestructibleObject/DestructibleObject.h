@@ -6,6 +6,7 @@ static const float OBJECT_HALF_UNIT = 50.0f;
 
 struct ObjectParams {
 	const char* BlockName = nullptr;		//名前
+	unsigned char BlockID = 0;
 	int Durable = 0;		//耐久値
 	int ObtainAmount = 0;		//入手量
 	//todo [リファクタリング] 適性ツールの型をintからenumにする

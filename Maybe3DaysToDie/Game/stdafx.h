@@ -18,6 +18,8 @@ enum ToolKinds {
 const int ChunkWidth = 16;		//横幅
 const int ChunkHeight = 8;		//高さ
 
+const int MAX_CHUNK_SIDE = 256;		//ワールド全体の一辺にいくつチャンクがあるか
+
 const float SetRange = 500.0f;		//プレイヤーが届く範囲
 
 

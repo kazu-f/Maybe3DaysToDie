@@ -29,7 +29,10 @@ namespace nsTerrain {
 		void ForwardRender(RenderContext& rc) override final;
 	public:	//特定の地形を取得する。
 		Terrain& GetTerrain(const Vector3& pos);
-
+		Terrain& GetTerrain(const int pos[3])
+		{
+			return m_terrainMap[pos[0]][pos[1]][pos[2]];
+		}
 		/// <summary>
 		/// 地形が更新された。
 		/// </summary>
