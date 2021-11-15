@@ -33,6 +33,11 @@ namespace nsTerrain {
 		{
 			return m_terrainMap[pos[0]][pos[1]][pos[2]];
 		}
+
+		Terrain* GetTerrainPtr()
+		{
+			return &m_terrainMap[0][0][0];
+		}
 		/// <summary>
 		/// 地形が更新された。
 		/// </summary>

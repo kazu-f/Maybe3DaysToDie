@@ -37,6 +37,7 @@ CGameScene::~CGameScene()
 		DeleteGO(m_BlockManager);
 		m_BlockManager = nullptr;
 	}
+
 	//sample//
 	DeleteGO(m_fontRender);
 }
@@ -76,4 +77,5 @@ bool CGameScene::Start()
 
 void CGameScene::Update()
 {
+
 }
