@@ -51,3 +51,23 @@ void TerrainSave::Save()
 	fwrite(&m_ChunkData, sizeof(ChunkData), MAX_CHUNK_SIDE * MAX_CHUNK_SIDE, fp);
 	fclose(fp);
 }
+
+void TerrainSave::Load()
+{
+	FILE* fp;
+	fp = fopen("SaveData/TerrainData.dat", "rb");
+	if (fp == NULL)
+	{
+		//セーブデータがありません
+		return;
+	}
+
+	//for (int x = 0; x < MAX_CHUNK_SIDE; x++)
+	//{
+	//	for (int y = 0; y < MAX_CHUNK_SIDE; y++)
+	//	{
+	//		m_ChunkData[x][y].Reset();
+	//	}
+	//}
+	fread(&m_ChunkData, sizeof(ChunkData), MAX_CHUNK_SIDE * MAX_CHUNK_SIDE, fp);
+}

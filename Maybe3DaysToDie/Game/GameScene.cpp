@@ -77,5 +77,14 @@ bool CGameScene::Start()
 
 void CGameScene::Update()
 {
-
+	if (GetAsyncKeyState('A'))
+	{
+		m_TerrainSave.SetTerrainWorld(m_Stage->GetTerrainWorld());
+		m_TerrainSave.Save();
+	}
+	if (GetAsyncKeyState('B'))
+	{
+		m_TerrainSave.SetTerrainWorld(m_Stage->GetTerrainWorld());
+		m_TerrainSave.Load();
+	}
 }
