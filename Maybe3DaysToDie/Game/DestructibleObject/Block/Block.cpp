@@ -5,11 +5,11 @@
 
 Block::Block()
 {
-	param.AptitudeTool = ToolKinds::DebugTool;
 	param.BlockName = nullptr;
 	param.Durable = 500;
 	param.ObtainAmount = 0;
-
+	param.AptitudeTool = ToolKinds::DebugTool;
+	param.Type = ObjectType::Block;
 	SetParams(param);
 }
 Block::~Block()

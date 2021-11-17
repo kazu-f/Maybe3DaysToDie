@@ -10,6 +10,7 @@ struct ObjectParams {
 	int Durable = 0;		//耐久値
 	int ObtainAmount = 0;		//入手量
 	ToolKinds AptitudeTool = ToolKinds::DebugTool;		//適性ツール
+	ObjectType Type = ObjectType::Type;
 };
 class DestructibleObject
 {
