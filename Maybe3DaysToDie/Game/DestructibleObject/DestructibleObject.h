@@ -9,7 +9,6 @@ struct ObjectParams {
 	unsigned char BlockID = 0;
 	int Durable = 0;		//耐久値
 	int ObtainAmount = 0;		//入手量
-	//todo [リファクタリング] 適性ツールの型をintからenumにする
 	ToolKinds AptitudeTool = ToolKinds::DebugTool;		//適性ツール
 };
 class DestructibleObject
