@@ -20,6 +20,10 @@ public:
 	void AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot, Vector3& scale);
 	void RemoveBlock(Block*blockptr);
 	Block& GetBlock(const Vector3& pos);
+	Block& GetBlock(const int pos[3])
+	{
+		return m_Block[pos[0]][pos[1]][pos[2]];
+	}
 
 private:
 	Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];

@@ -11,6 +11,11 @@ enum ToolKinds {
 	others = 1 << 3,		//その他
 	DebugTool = 0xffffffff,		//デバッグ用ツール
 };
+enum class ObjectType {
+	Type = 0,
+	Terrain = 1 << 0,
+	Block = 1 << 1,
+};
 
 #include "DestructibleObject/DestructibleObject.h"
 
@@ -22,9 +27,4 @@ const int MAX_CHUNK_SIDE = 256;		//ワールド全体の一辺にいくつチャンクがあるか
 
 const float SetRange = 500.0f;		//プレイヤーが届く範囲
 
-enum ObjectType {
-	Type = 0,
-	Terrain = 1 << 0,
-	Block = 1 << 1,
-};
 using namespace Engine;

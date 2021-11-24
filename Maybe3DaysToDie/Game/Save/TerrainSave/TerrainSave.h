@@ -9,7 +9,7 @@ private:
 		unsigned char ChunkID[2] = { 0 };		//ワールドでのチャンクの位置(2次元の座標)
 		unsigned char TerrainID[ChunkWidth][ChunkHeight][ChunkWidth] = { 0 };		//使用しているブロックの種類
 		unsigned short TerrainDurable[ChunkWidth][ChunkHeight][ChunkWidth] = { 0 };		//ブロックの耐久値
-
+		ObjectType TerrainType = ObjectType::Type;
 		//void Reset()
 		//{
 		//	for (int i = 0; i < 2; i++)
@@ -18,7 +18,7 @@ private:
 		//	}
 		//	for (int x = 0; x < ChunkWidth; x++)
 		//	{
-		//		for (int y = 0; y < ChunkWidth; y++)
+		//		for (int y = 0; y < ChunkWidth; y++)0
 		//		{
 		//			for (int z = 0; z < ChunkWidth; z++)
 		//			{
