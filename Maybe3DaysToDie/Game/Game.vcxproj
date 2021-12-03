@@ -219,6 +219,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Enemy\IEnemyState.h" />
     <ClInclude Include="Navigation\NVMDebugDraw.h" />
+    <ClInclude Include="SaveDataFile.h" />
     <ClInclude Include="Stage\Hill\Hill.h" />
     <ClInclude Include="Navigation\NVMGenerator.h" />
     <ClInclude Include="PlacementObject\PlacementObject.h" />

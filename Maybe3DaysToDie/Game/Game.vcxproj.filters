@@ -83,6 +83,7 @@
     <ClInclude Include="Save\TerrainSave\TerrainSave.h" />
     <ClInclude Include="BlockManager\BlockManager.h" />
     <ClInclude Include="Load\LoadingByChunk.h" />
+    <ClInclude Include="SaveDataFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
