@@ -73,7 +73,7 @@ namespace nsTerrain {
 	void Terrain::CalcVoxel()
 	{
 		if (m_params.Durable > 0) {
-			float t = static_cast<float>(m_params.Durable / m_maxDurable);
+			float t = static_cast<float>(m_params.Durable) / static_cast<float>(m_maxDurable);
 			t = max(0.0f, min(1.0f, t));
 			m_voxel = Math::Lerp(t, MIN_VOXEL, MAX_VOXEL);
 		}
