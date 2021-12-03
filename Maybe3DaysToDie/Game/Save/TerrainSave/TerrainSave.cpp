@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TerrainSave.h"
+#include "SaveDataFile.h"
 #include <direct.h>
 
 void TerrainSave::Save()
@@ -9,7 +10,7 @@ void TerrainSave::Save()
 		return;
 	}
 	FILE* fp;
-	fp = fopen("SaveData/TerrainData.dat", "wb");
+	fp = fopen(SaveDataFilePath_Terrain, "wb");
 	if (fp == NULL)
 	{
 		if (_mkdir("SaveData") != 0)
@@ -17,7 +18,7 @@ void TerrainSave::Save()
 			//ディレクトリが作成できなかった
 			return;
 		}
-		fp = fopen("SaveData/TerrainData.dat", "wb");
+		fp = fopen(SaveDataFilePath_Terrain, "wb");
 	}
 
 	for (int chunk_x = 0; chunk_x < MAX_CHUNK_SIDE; chunk_x++)
@@ -57,7 +58,7 @@ void TerrainSave::Save()
 void TerrainSave::Load()
 {
 	FILE* fp;
-	fp = fopen("SaveData/TerrainData.dat", "rb");
+	fp = fopen(SaveDataFilePath_Terrain, "rb");
 	if (fp == NULL)
 	{
 		//セーブデータがありません
