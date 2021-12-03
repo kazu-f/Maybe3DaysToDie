@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="BlockManager\BlockManager.cpp" />
     <ClCompile Include="DestroyObject\DestroyObject.cpp" />
+    <ClCompile Include="Load\LoadingByChunk.cpp" />
     <ClCompile Include="Navigation\NavigationAgent.cpp" />
     <ClCompile Include="Navigation\AStar.cpp" />
     <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
@@ -205,6 +206,7 @@
   <ItemGroup>
     <ClInclude Include="BlockManager\BlockManager.h" />
     <ClInclude Include="DestroyObject\DestroyObject.h" />
+    <ClInclude Include="Load\LoadingByChunk.h" />
     <ClInclude Include="Navigation\NavigationAgent.h" />
     <ClInclude Include="Navigation\AStar.h" />
     <ClInclude Include="DestructibleObject\DestructibleObject.h" />
