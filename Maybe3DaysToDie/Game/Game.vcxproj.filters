@@ -6,90 +6,314 @@
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="Player\Player.cpp" />
-    <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
-    <ClCompile Include="Enemy\EnemyGenerator.cpp" />
-    <ClCompile Include="Enemy\IEnemy.cpp" />
-    <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
-    <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
-    <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp" />
-    <ClCompile Include="Player\PlayerStatus\PlayerWater.cpp" />
     <ClCompile Include="DateTime.cpp" />
-    <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
-    <ClCompile Include="DestructibleObject\Block\Block.cpp" />
-    <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
-    <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
-    <ClCompile Include="Stage\IStage.cpp" />
-    <ClCompile Include="Scene\TerrainDebugScene.cpp" />
-    <ClCompile Include="TerrainManager\TerrainManager.cpp" />
-    <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
-    <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
-    <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
-    <ClCompile Include="Enemy\StandardZombie\StandardZombie.cpp" />
-    <ClCompile Include="Enemy\IEnemyState.cpp" />
-    <ClCompile Include="PlacementObject\PlacementObject.cpp" />
-    <ClCompile Include="Stage\Hill\Hill.cpp" />
-    <ClCompile Include="Enemy\StandardZombie\STDZombieAttack.cpp" />
-    <ClCompile Include="Enemy\StandardZombie\STDZombieTracking.cpp" />
-    <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp" />
-    <ClCompile Include="Navigation\NVMDebugDraw.cpp" />
-    <ClCompile Include="Navigation\NVMGenerator.cpp" />
-    <ClCompile Include="Navigation\AStar.cpp" />
-    <ClCompile Include="Navigation\NavigationAgent.cpp" />
-    <ClCompile Include="DestroyObject\DestroyObject.cpp" />
-    <ClCompile Include="Tool\Tool.cpp" />
-    <ClCompile Include="Save\TerrainSave\TerrainSave.cpp" />
-    <ClCompile Include="BlockManager\BlockManager.cpp" />
-    <ClCompile Include="Load\LoadingByChunk.cpp" />
+    <ClCompile Include="BlockManager\BlockManager.cpp">
+      <Filter>BlockManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DestroyObject\DestroyObject.cpp">
+      <Filter>DestroyObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DestructibleObject\Block\Block.cpp">
+      <Filter>DestructibleObject\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="DestructibleObject\DestructibleObject.cpp">
+      <Filter>DestructibleObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp">
+      <Filter>DestructibleObject\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\EnemyGenerator.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\IEnemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\StandardZombie\STDZombieAttack.cpp">
+      <Filter>Enemy\StandardZombie</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\StandardZombie\STDZombieTracking.cpp">
+      <Filter>Enemy\StandardZombie</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp">
+      <Filter>Enemy\StandardZombie</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\StandardZombie\StandardZombie.cpp">
+      <Filter>Enemy\StandardZombie</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\IEnemyState.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Load\LoadingByChunk.cpp">
+      <Filter>Load</Filter>
+    </ClCompile>
+    <ClCompile Include="Navigation\NVMDebugDraw.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="Navigation\NVMGenerator.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="Navigation\NavigationAgent.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="Navigation\AStar.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="PlacementObject\PlacementObject.cpp">
+      <Filter>PlacementObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp">
+      <Filter>Player\PlayerStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp">
+      <Filter>Player\PlayerStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp">
+      <Filter>Player\PlayerStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\PlayerStatus\PlayerWater.cpp">
+      <Filter>Player\PlayerStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp">
+      <Filter>Player\PlayerStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="Save\TerrainSave\TerrainSave.cpp">
+      <Filter>Save\TerrainSave</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TerrainDebugScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage\IStage.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp">
+      <Filter>Stage\SuperFlat</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage\Hill\Hill.cpp">
+      <Filter>Stage\Hill</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainManager\TerrainManager.cpp">
+      <Filter>TerrainManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainManager\TerrainWorld.cpp">
+      <Filter>TerrainManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp">
+      <Filter>TerrainManager\TerrainRender</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp">
+      <Filter>TerrainManager\TerrainRender</Filter>
+    </ClCompile>
+    <ClCompile Include="Tool\Tool.cpp">
+      <Filter>Tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="Player\Player.h" />
-    <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
-    <ClInclude Include="Enemy\EnemyGenerator.h" />
-    <ClInclude Include="Enemy\IEnemy.h" />
-    <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
-    <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
-    <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
-    <ClInclude Include="Player\PlayerStatus\PlayerWater.h" />
     <ClInclude Include="DateTime.h" />
-    <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
-    <ClInclude Include="DestructibleObject\Block\Block.h" />
-    <ClInclude Include="DestructibleObject\DestructibleObject.h" />
-    <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
-    <ClInclude Include="Stage\IStage.h" />
-    <ClInclude Include="Scene\TerrainDebugScene.h" />
-    <ClInclude Include="TerrainManager\TerrainManager.h" />
-    <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
-    <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />
-    <ClInclude Include="TerrainManager\TerrainWorld.h" />
-    <ClInclude Include="TerrainManager\MarchingCubeTable.h" />
-    <ClInclude Include="Enemy\StandardZombie\StandardZombie.h" />
     <ClInclude Include="GameScene.h" />
-    <ClInclude Include="Enemy\IEnemyState.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="PlacementObject\PlacementObject.h" />
-    <ClInclude Include="Stage\Hill\Hill.h" />
-    <ClInclude Include="Enemy\StandardZombie\STDZombieAttack.h" />
-    <ClInclude Include="Enemy\StandardZombie\STDZombieTracking.h" />
-    <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h" />
-    <ClInclude Include="Navigation\NVMDebugDraw.h" />
-    <ClInclude Include="Navigation\NVMGenerator.h" />
-    <ClInclude Include="Navigation\AStar.h" />
-    <ClInclude Include="Navigation\NavigationAgent.h" />
-    <ClInclude Include="DestroyObject\DestroyObject.h" />
-    <ClInclude Include="Tool\Tool.h" />
-    <ClInclude Include="Save\TerrainSave\TerrainSave.h" />
-    <ClInclude Include="BlockManager\BlockManager.h" />
-    <ClInclude Include="Load\LoadingByChunk.h" />
+    <ClInclude Include="BlockManager\BlockManager.h">
+      <Filter>BlockManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DestroyObject\DestroyObject.h">
+      <Filter>DestroyObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DestructibleObject\Block\Block.h">
+      <Filter>DestructibleObject\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="DestructibleObject\DestructibleObject.h">
+      <Filter>DestructibleObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DestructibleObject\Terrain\Terrain.h">
+      <Filter>DestructibleObject\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\EnemyGenerator.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\IEnemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\IEnemyState.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\StandardZombie\STDZombieAttack.h">
+      <Filter>Enemy\StandardZombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\StandardZombie\STDZombieTracking.h">
+      <Filter>Enemy\StandardZombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h">
+      <Filter>Enemy\StandardZombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\StandardZombie\StandardZombie.h">
+      <Filter>Enemy\StandardZombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Load\LoadingByChunk.h">
+      <Filter>Load</Filter>
+    </ClInclude>
+    <ClInclude Include="Navigation\NVMDebugDraw.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="Navigation\NVMGenerator.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="Navigation\NavigationAgent.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="Navigation\AStar.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="PlacementObject\PlacementObject.h">
+      <Filter>PlacementObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\PlayerStatus\PlayerHp.h">
+      <Filter>Player\PlayerStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\PlayerStatus\PlayerHunger.h">
+      <Filter>Player\PlayerStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\PlayerStatus\PlayerStamina.h">
+      <Filter>Player\PlayerStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\PlayerStatus\PlayerWater.h">
+      <Filter>Player\PlayerStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h">
+      <Filter>Player\PlayerStatus</Filter>
+    </ClInclude>
+    <ClInclude Include="Save\TerrainSave\TerrainSave.h">
+      <Filter>Save\TerrainSave</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TerrainDebugScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage\IStage.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage\SuperFlat\SuperFlat.h">
+      <Filter>Stage\SuperFlat</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage\Hill\Hill.h">
+      <Filter>Stage\Hill</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainManager\TerrainManager.h">
+      <Filter>TerrainManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainManager\TerrainWorld.h">
+      <Filter>TerrainManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainManager\MarchingCubeTable.h">
+      <Filter>TerrainManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h">
+      <Filter>TerrainManager\TerrainRender</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h">
+      <Filter>TerrainManager\TerrainRender</Filter>
+    </ClInclude>
+    <ClInclude Include="Tool\Tool.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\HPGauge.png" />
-    <ImageContentTask Include="Assets\sprite\HPIcon.png" />
-    <ImageContentTask Include="Assets\sprite\shoesIcon.png" />
-    <ImageContentTask Include="Assets\sprite\staminaGauge.png" />
-    <ImageContentTask Include="Assets\sprite\statusGauge.png" />
-    <ImageContentTask Include="Assets\sprite\preset\fade.png" />
+    <ImageContentTask Include="Assets\sprite\HPGauge.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\HPIcon.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\statusGauge.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\staminaGauge.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\shoesIcon.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\preset\fade.png">
+      <Filter>Assets\sprite\preset</Filter>
+    </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="BlockManager">
+      <UniqueIdentifier>{869c0d17-1f90-4b7f-bc8c-488e53065e2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{bdca46e4-4aa1-4906-82e1-5316c833d0ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\sprite">
+      <UniqueIdentifier>{bc1bd033-a44b-45c5-be75-f3a4c22e544b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\sprite\preset">
+      <UniqueIdentifier>{334a2ab0-e1b8-4ac2-a13e-dae9aac6396e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DestroyObject">
+      <UniqueIdentifier>{385982f2-f94d-4c10-b2fc-a260bc74e606}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DestructibleObject">
+      <UniqueIdentifier>{a302e1bb-94e5-4455-8a95-1ab540c15d9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DestructibleObject\Block">
+      <UniqueIdentifier>{eb1be1c2-7420-4f42-ab1c-8a58ee1c31ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DestructibleObject\Terrain">
+      <UniqueIdentifier>{e6e6ce47-4baf-4c2b-adb6-08bc100316c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{df24dd86-f531-4dd6-b659-c75dcb5dec68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\StandardZombie">
+      <UniqueIdentifier>{2f925963-1c2a-4af3-9871-09be6618ed91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Load">
+      <UniqueIdentifier>{76753149-fff1-46fb-b579-cb08c3907f77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Navigation">
+      <UniqueIdentifier>{1fabaf0c-a86b-45aa-aa84-7332e8a8b8dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlacementObject">
+      <UniqueIdentifier>{0e798e9d-29d5-451f-9d2c-a2a9aabd59e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{fabfa072-110f-42df-8cfe-7d917a89944d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\PlayerStatus">
+      <UniqueIdentifier>{887bba0a-accc-4990-849d-d1ca723f5ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Save">
+      <UniqueIdentifier>{9688fcec-dd47-4e64-a66c-f3cdaea0d169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Save\TerrainSave">
+      <UniqueIdentifier>{843ae0db-1ced-47f7-9643-fadb324db6cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{a37e7184-fbdd-4ac3-b28b-f47da210013a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage">
+      <UniqueIdentifier>{18b4ce56-b27f-41cc-b2fa-5b1f97c3b155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\SuperFlat">
+      <UniqueIdentifier>{a5ce0e93-1325-4f79-9979-a2a5469f1122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Hill">
+      <UniqueIdentifier>{635458ab-11a0-43ca-bb90-ca1862e69028}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TerrainManager">
+      <UniqueIdentifier>{7d0b6c60-5c13-4d7b-9389-983eeff76e6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TerrainManager\TerrainRender">
+      <UniqueIdentifier>{6913270d-d011-4600-bcbb-aa2f45c0e088}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tool">
+      <UniqueIdentifier>{d8d26c92-a96c-4326-bb27-d5460326d0f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
