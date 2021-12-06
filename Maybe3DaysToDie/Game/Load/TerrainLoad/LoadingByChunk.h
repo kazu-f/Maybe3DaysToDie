@@ -2,7 +2,7 @@
 
 class SaveDataFile;
 class WorldConfig;
-class LoadingByChunk:public IGameObject
+class LoadingByChunk :public IGameObject
 {
 private:
 
@@ -35,8 +35,8 @@ public:
 	void SetPlayerPos(const Vector3& pos)
 	{
 		int GridPos[2] = { 0 };
-		GridPos[0] = static_cast<int>(std::floor(pos.x / OBJECT_UNIT));
-		GridPos[1] = static_cast<int>(std::floor(pos.z / OBJECT_UNIT));
+		GridPos[0] = static_cast<int>(std::floor(pos.x / OBJECT_UNIT)) + MAX_CHUNK_SIDE / 2;
+		GridPos[1] = static_cast<int>(std::floor(pos.z / OBJECT_UNIT)) + MAX_CHUNK_SIDE / 2;
 		for (int i = 0; i < 2; i++)
 		{
 			if (PlayerPosInGrid[i] != GridPos[i])

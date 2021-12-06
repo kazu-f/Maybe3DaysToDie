@@ -1,9 +1,10 @@
 #pragma once
+//ゲーム中にロードしているチャンクの範囲
 enum class LoadingRange
 {
-	Short = 1,
-	Middle = 1 << 1,
-	Far = 1 << 2,
+	Short = 1 << 3,			//8
+	Middle = 1 << 4,		//16
+	Far = 1 << 5,			//32
 };
 
 class WorldConfig
