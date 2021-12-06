@@ -40,7 +40,8 @@
     <ClCompile Include="Tool\Tool.cpp" />
     <ClCompile Include="Save\TerrainSave\TerrainSave.cpp" />
     <ClCompile Include="BlockManager\BlockManager.cpp" />
-    <ClCompile Include="Load\LoadingByChunk.cpp" />
+    <ClCompile Include="Load\TerrainLoad\LoadingByChunk.cpp" />
+    <ClCompile Include="Load\TerrainLoad\TerrainLoad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -82,8 +83,9 @@
     <ClInclude Include="Tool\Tool.h" />
     <ClInclude Include="Save\TerrainSave\TerrainSave.h" />
     <ClInclude Include="BlockManager\BlockManager.h" />
-    <ClInclude Include="Load\LoadingByChunk.h" />
+    <ClInclude Include="Load\TerrainLoad\LoadingByChunk.h" />
     <ClInclude Include="SaveDataFile.h" />
+    <ClInclude Include="Load\TerrainLoad\TerrainLoad.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

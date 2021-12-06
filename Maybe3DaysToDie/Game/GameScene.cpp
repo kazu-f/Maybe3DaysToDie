@@ -77,5 +77,8 @@ bool CGameScene::Start()
 
 void CGameScene::Update()
 {
-
+	if (GetAsyncKeyState(VK_SPACE))
+	{
+		m_TerrainSave.Save();
+	}
 }

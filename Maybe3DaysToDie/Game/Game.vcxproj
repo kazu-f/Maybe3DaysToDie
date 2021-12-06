@@ -161,7 +161,7 @@
   <ItemGroup>
     <ClCompile Include="BlockManager\BlockManager.cpp" />
     <ClCompile Include="DestroyObject\DestroyObject.cpp" />
-    <ClCompile Include="Load\LoadingByChunk.cpp" />
+    <ClCompile Include="Load\TerrainLoad\LoadingByChunk.cpp" />
     <ClCompile Include="Navigation\NavigationAgent.cpp" />
     <ClCompile Include="Navigation\AStar.cpp" />
     <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
@@ -196,6 +196,7 @@
     <ClCompile Include="Enemy\StandardZombie\STDZombieAttack.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieTracking.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp" />
+    <ClCompile Include="Load\TerrainLoad\TerrainLoad.cpp" />
     <ClCompile Include="TerrainManager\TerrainManager.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
@@ -206,7 +207,7 @@
   <ItemGroup>
     <ClInclude Include="BlockManager\BlockManager.h" />
     <ClInclude Include="DestroyObject\DestroyObject.h" />
-    <ClInclude Include="Load\LoadingByChunk.h" />
+    <ClInclude Include="Load\TerrainLoad\LoadingByChunk.h" />
     <ClInclude Include="Navigation\NavigationAgent.h" />
     <ClInclude Include="Navigation\AStar.h" />
     <ClInclude Include="DestructibleObject\DestructibleObject.h" />
@@ -238,6 +239,7 @@
     <ClInclude Include="Enemy\StandardZombie\STDZombieAttack.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieTracking.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h" />
+    <ClInclude Include="Load\TerrainLoad\TerrainLoad.h" />
     <ClInclude Include="TerrainManager\MarchingCubeTable.h" />
     <ClInclude Include="TerrainManager\TerrainManager.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
