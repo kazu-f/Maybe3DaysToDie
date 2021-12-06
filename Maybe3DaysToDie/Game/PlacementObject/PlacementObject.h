@@ -2,6 +2,7 @@
 #include "DestructibleObject/Block/Block.h"
 #include "MiniEngine/physics/CollisionAttr.h"
 
+class BlockManager;
 //todo プレイヤー側から呼ぶようになったらIGameObjectを継承しないように
 class PlacementObject:public IGameObject
 {
@@ -51,13 +52,20 @@ public:
 	/// </summary>
 	void CalcObjectPos();
 
+	/// <summary>
+	/// ブロックマネージャーをセット
+	/// </summary>
+	void SetBlockManager(BlockManager*manager)
+	{
+		m_BlockManager = manager;
+	}
 private:
 	prefab::ModelRender* m_ObjectModel = nullptr;		//オブジェクトモデル
 	Vector3 m_pos = Vector3::Zero;		//モデルのポジション
 	Vector3 m_scale = Vector3::One;		//モデルのスケール
 	Quaternion m_qrot = Quaternion::Identity;		//モデルの回転
-	const float m_SetRange = 500.0f;		//設置範囲
 	std::vector<Block*> m_model;
 	bool CanPlace = false;
+	BlockManager* m_BlockManager = nullptr;
 };
 

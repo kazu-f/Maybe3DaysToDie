@@ -5,6 +5,7 @@
 namespace Engine {
 	void CPhysicsStaticObject::Release()
 	{
+		m_rigidBody.Release();
 	}
 	void CPhysicsStaticObject::CreateCommon(const Vector3& pos, const Quaternion& rot)
 	{

@@ -8,6 +8,16 @@
 namespace nsTerrain {
 	bool TerrainWorld::Start()
 	{
+		for (int x = 0; x < width; x++)
+		{
+			for (int y = 0; y < height; y++)
+			{
+				for (int z = 0; z < width; z++)
+				{
+					m_terrainMap[x][y][z].SetTerrainWorld(this);
+				}
+			}
+		}
 		//地形描画クラス作成。
 		m_terrainRender = NewGO<TerrainRender>(10);
 		TerrainInitData initData;
@@ -26,12 +36,7 @@ namespace nsTerrain {
 		m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
 
 		//物理オブジェクト作成。
-		m_staticObj.CreateBuffer(
-			Vector3::Zero,
-			Quaternion::Identity,
-			Vector3::One,
-			m_vertices
-		);
+		CreateCollider();
 
 		PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
 
@@ -39,10 +44,21 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::Update()
 	{
-		////頂点をクリア。
-		//m_terrainRender->ClearVertex();
-		////メッシュデータを作成。
-		//CreateMeshData();
+		//地形の更新があった場合に頂点を再形成。
+		if (m_isUpdated) {
+			//頂点をクリア。
+			m_terrainRender->ClearVertex();
+			m_vertices.clear();
+			//メッシュデータを作成。
+			CreateMeshData();
+			//コライダー作成。
+			CreateCollider();
+
+			m_isUpdated = false;
+		}
+		if (InputKeyCode().IsTriggerKey(VK_F4)) {
+			m_NVMGenerator.ChangeDrawFlag();
+		}
 	}
 	void TerrainWorld::OnDestroy()
 	{
@@ -51,6 +67,15 @@ namespace nsTerrain {
 	void TerrainWorld::ForwardRender(RenderContext& rc)
 	{
 		m_NVMGenerator.DebugDraw(m_terrainRender);
+	}
+
+	Terrain& TerrainWorld::GetTerrain(const Vector3& pos)
+	{
+		int resX = static_cast<int>(std::floor(pos.x / OBJECT_UNIT));
+		int resY = static_cast<int>(std::floor(pos.y / OBJECT_UNIT));
+		int resZ = static_cast<int>(std::floor(pos.z / OBJECT_UNIT));
+		
+		return m_terrainMap[resX][resY][resZ];
 	}
 	void TerrainWorld::PopurerTerrainMap()
 	{
@@ -100,15 +125,15 @@ namespace nsTerrain {
 						point = 1.0f;
 					}
 
-					terrainMap[x][y][z].SetVoxel(point);
+					m_terrainMap[x][y][z].SetVoxel(point);
 					Vector3 pos;
-					pos.x = static_cast<float>(x) * TERRAIN_UNIT;
-					pos.y = static_cast<float>(y) * TERRAIN_UNIT;
-					pos.z = static_cast<float>(z) * TERRAIN_UNIT;
-					terrainMap[x][y][z].SetPosition(pos);
+					pos.x = static_cast<float>(x) * OBJECT_UNIT;
+					pos.y = static_cast<float>(y) * OBJECT_UNIT;
+					pos.z = static_cast<float>(z) * OBJECT_UNIT;
+					m_terrainMap[x][y][z].SetPosition(pos);
 
-					terrainMap[x][y][z].InitRayCollider();
-					terrainMap[x][y][z].CalcColliderEnable();
+					m_terrainMap[x][y][z].InitRayCollider();
+					m_terrainMap[x][y][z].CalcColliderEnable();
 				}
 			}
 		}
@@ -140,7 +165,7 @@ namespace nsTerrain {
 					{
 						Vector3Int corner = { x, y, z };
 						corner += nsMarching::CornerTable[i];
-						cube.cube[i] = terrainMap[corner.x][corner.y][corner.z].GetVoxel();
+						cube.cube[i] = m_terrainMap[corner.x][corner.y][corner.z].GetVoxel();
 					}
 
 					Vector3 pos;
@@ -239,7 +264,7 @@ namespace nsTerrain {
 				edgePos[p].z -= 0.5f;
 
 				//頂点の座標を計算。
-				vertPos[p] = (position + EdgeVertex[indice]) * TERRAIN_UNIT;
+				vertPos[p] = (position + EdgeVertex[indice]) * OBJECT_UNIT;
 				m_vertices.push_back(vertPos[p]);	//頂点を積む。
 				//中心座標を計算する。
 				center += vertPos[p];
@@ -301,5 +326,15 @@ namespace nsTerrain {
 
 		}
 
+	}
+	void TerrainWorld::CreateCollider()
+	{
+		//物理オブジェクト作成。
+		m_staticObj.CreateBuffer(
+			Vector3::Zero,
+			Quaternion::Identity,
+			Vector3::One,
+			m_vertices
+		);		
 	}
 }

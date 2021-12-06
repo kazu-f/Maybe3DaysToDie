@@ -37,6 +37,11 @@ public:
 	{
 		return m_enemyGenerator;
 	}
+
+	nsTerrain::TerrainWorld* GetTerrainWorld()
+	{
+		return m_Terrain;
+	}
 private:
 	//Hill m_stage;
 	EnemyGenerator m_enemyGenerator;				//エネミージェネレーター。

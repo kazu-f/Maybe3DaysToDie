@@ -109,6 +109,7 @@ namespace Engine {
 				m_model.Draw(renderContext);
 			}
 		}
+
 		void ModelRender::InitInstancing(int maxInstance)
 		{
 			m_maxInstance = maxInstance;

@@ -1,5 +1,6 @@
 #pragma once
 
+struct ToolInfo;
 namespace nsTerrain {
 	class TerrainWorld;
 
@@ -33,13 +34,7 @@ namespace nsTerrain {
 		/// </summary>
 		void CalcColliderEnable();
 
-		/// <summary>
-		/// 座標を設定。
-		/// </summary>
-		void SetPosition(const Vector3& pos)
-		{
-			m_position = pos;
-		}
+
 		/// <summary>
 		/// 地形のスケールをセット。
 		/// </summary>
@@ -55,6 +50,12 @@ namespace nsTerrain {
 		{
 			return m_voxel;
 		}
+		/// <summary>
+		/// ダメージを与える。
+		/// </summary>
+		void Damage(const ToolInfo& tool)override final;
+	private:
+		void CalcVoxel();
 
 	private:
 
@@ -63,8 +64,6 @@ namespace nsTerrain {
 		TerrainWorld* m_world = nullptr;		//地形ワールド。
 		
 		int m_terrainId = -1;		//地形id番号。
-		int m_maxDurable = 0;		//最大耐久値。
-		int m_durable = 0;			//現在の耐久値。
 		float m_voxel = 1.0f;		//ボクセル値。
 
 		bool m_registColider = false;

@@ -37,6 +37,12 @@
     <ClCompile Include="Navigation\AStar.cpp" />
     <ClCompile Include="Navigation\NavigationAgent.cpp" />
     <ClCompile Include="DestroyObject\DestroyObject.cpp" />
+    <ClCompile Include="Tool\Tool.cpp" />
+    <ClCompile Include="Save\TerrainSave\TerrainSave.cpp" />
+    <ClCompile Include="BlockManager\BlockManager.cpp" />
+    <ClCompile Include="Load\TerrainLoad\LoadingByChunk.cpp" />
+    <ClCompile Include="Load\TerrainLoad\TerrainLoad.cpp" />
+    <ClCompile Include="GameConfig\WorldConfig\WorldConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -75,6 +81,13 @@
     <ClInclude Include="Navigation\AStar.h" />
     <ClInclude Include="Navigation\NavigationAgent.h" />
     <ClInclude Include="DestroyObject\DestroyObject.h" />
+    <ClInclude Include="Tool\Tool.h" />
+    <ClInclude Include="Save\TerrainSave\TerrainSave.h" />
+    <ClInclude Include="BlockManager\BlockManager.h" />
+    <ClInclude Include="Load\TerrainLoad\LoadingByChunk.h" />
+    <ClInclude Include="SaveDataFile.h" />
+    <ClInclude Include="Load\TerrainLoad\TerrainLoad.h" />
+    <ClInclude Include="GameConfig\WorldConfig\WorldConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

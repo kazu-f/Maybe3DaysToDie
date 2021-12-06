@@ -31,7 +31,7 @@ void SuperFlat::CreateStage()
 	//チャンクごとにマップを生成
 	for (int Width = 0; Width < ChunkWidth; Width++)
 	{
-		for (int Depth = 0; Depth < ChunkDepth; Depth++)
+		for (int Depth = 0; Depth < ChunkWidth; Depth++)
 		{
 			prefab::ModelRender* m_ptr = NewGO<prefab::ModelRender>(0);
 			m_ptr->Init(modelInitData);
