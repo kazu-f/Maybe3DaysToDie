@@ -203,7 +203,7 @@
     <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
     <ClCompile Include="Save\TerrainSave\TerrainSave.cpp" />
     <ClCompile Include="Tool\Tool.cpp" />
-    <ClCompile Include="WorldConfig.cpp" />
+    <ClCompile Include="GameConfig\WorldConfig\WorldConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockManager\BlockManager.h" />
@@ -248,7 +248,7 @@
     <ClInclude Include="TerrainManager\TerrainWorld.h" />
     <ClInclude Include="Save\TerrainSave\TerrainSave.h" />
     <ClInclude Include="Tool\Tool.h" />
-    <ClInclude Include="WorldConfig.h" />
+    <ClInclude Include="GameConfig\WorldConfig\WorldConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

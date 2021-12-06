@@ -42,7 +42,7 @@
     <ClCompile Include="BlockManager\BlockManager.cpp" />
     <ClCompile Include="Load\TerrainLoad\LoadingByChunk.cpp" />
     <ClCompile Include="Load\TerrainLoad\TerrainLoad.cpp" />
-    <ClCompile Include="WorldConfig.cpp" />
+    <ClCompile Include="GameConfig\WorldConfig\WorldConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -87,7 +87,7 @@
     <ClInclude Include="Load\TerrainLoad\LoadingByChunk.h" />
     <ClInclude Include="SaveDataFile.h" />
     <ClInclude Include="Load\TerrainLoad\TerrainLoad.h" />
-    <ClInclude Include="WorldConfig.h" />
+    <ClInclude Include="GameConfig\WorldConfig\WorldConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

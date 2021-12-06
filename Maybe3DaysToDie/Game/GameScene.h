@@ -1,7 +1,8 @@
 #pragma once
+#include "GameConfig/WorldConfig/WorldConfig.h"
+
 #include "Save/TerrainSave/TerrainSave.h"
 #include "Load/TerrainLoad/TerrainLoad.h"
-#include "Load/TerrainLoad/LoadingByChunk.h"
 
 class Player;
 class Stage;
@@ -10,6 +11,9 @@ class PlacementObject;
 class DestroyObject;
 class Tool;
 class BlockManager;
+
+class LoadingByChunk;
+
 class CGameScene : public IGameObject
 {
 public:
@@ -40,4 +44,5 @@ private:
 	TerrainLoad m_TerrainLoad;
 	SaveDataFile m_SaveDataFile;
 	LoadingByChunk* m_LoadingByChunk = nullptr;
+	WorldConfig m_WorldConfig;		//ÉèÅ[ÉãÉhê›íË
 };

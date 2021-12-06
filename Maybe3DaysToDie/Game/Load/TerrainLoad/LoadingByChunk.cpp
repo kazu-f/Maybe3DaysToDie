@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "LoadingByChunk.h"
+#include "GameConfig/WorldConfig/WorldConfig.h"
 
 LoadingByChunk::LoadingByChunk()
 {
@@ -18,16 +19,22 @@ bool LoadingByChunk::Start()
 
 void LoadingByChunk::Update()
 {
-	//ロードするチャンクの一辺の大きさ
-	int LoadingRange = static_cast<int>(m_LoadingRange);
-	LoadingRange *= 2;
-	LoadingRange + 1;
-
-	for (int Chunk_X = 0; Chunk_X < LoadingRange; Chunk_X++)
+	if (m_isDirty == false)
 	{
-		for (int Chunk_Y = 0; Chunk_Y < LoadingRange; Chunk_Y++)
+		return;
+	}
+
+	////////////////////////////////////////////
+	/////ここから下は更新する必要があるとき/////
+	////////////////////////////////////////////
+	for (int Chunk_X = 0; Chunk_X < m_config->GetLoadingChunkRange(); Chunk_X++)
+	{
+		for (int Chunk_Y = 0; Chunk_Y < m_config->GetLoadingChunkRange(); Chunk_Y++)
 		{
 
 		}
 	}
+
+	//更新フラグを下す
+	m_isDirty = false;
 }
