@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "TerrainSave.h"
-#include "SaveDataFile.h"
 #include <direct.h>
 
 void TerrainSave::Save()

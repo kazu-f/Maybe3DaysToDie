@@ -1,7 +1,8 @@
 #pragma once
 #include "TerrainManager/TerrainWorld.h"
+#include "SaveDataFile.h"
 
-class TerrainSave
+class TerrainSave:public ISave
 {
 public:
 	TerrainSave() {}

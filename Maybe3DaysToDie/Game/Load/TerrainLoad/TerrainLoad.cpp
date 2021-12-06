@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "SaveDataFile.h"
 #include "TerrainLoad.h"
 
 TerrainLoad::TerrainLoad()

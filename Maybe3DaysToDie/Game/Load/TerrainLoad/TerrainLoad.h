@@ -1,5 +1,7 @@
 #pragma once
-class TerrainLoad
+#include "SaveDataFile.h"
+
+class TerrainLoad:public ISave
 {
 public:
 	TerrainLoad();
