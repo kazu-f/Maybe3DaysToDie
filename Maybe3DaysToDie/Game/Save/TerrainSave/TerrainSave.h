@@ -2,7 +2,7 @@
 #include "TerrainManager/TerrainWorld.h"
 #include "SaveDataFile.h"
 
-class TerrainSave:public ISave
+class TerrainSave
 {
 public:
 	TerrainSave() {}
@@ -13,6 +13,12 @@ public:
 	{
 		m_TerrainWorld = terrain;
 	}
+	void SetSaveDataFile(SaveDataFile* file)
+	{
+		m_SaveDataFile = file;
+	}
+
 private:
 	nsTerrain::TerrainWorld* m_TerrainWorld = nullptr;
+	SaveDataFile* m_SaveDataFile = nullptr;
 };

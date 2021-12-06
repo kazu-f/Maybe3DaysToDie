@@ -1,6 +1,6 @@
 #pragma once
 #include "Save/TerrainSave/TerrainSave.h"
-
+#include "Load/TerrainLoad/TerrainLoad.h"
 class Player;
 class Stage;
 class GameCamera;
@@ -35,4 +35,6 @@ private:
 	CFontRender* m_fontRender = nullptr;			//フォントレンダー。
 	BlockManager* m_BlockManager = nullptr;
 	TerrainSave m_TerrainSave;		//地形セーブ用のクラス
+	TerrainLoad m_TerrainLoad;
+	SaveDataFile m_SaveDataFile;
 };

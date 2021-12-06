@@ -49,6 +49,11 @@ bool CGameScene::Start()
 	m_Player->SetCameraPtr(m_Camera);
 	m_Stage = NewGO<Stage>(0, "stage");
 
+	//セーブデータファイルをセット
+	m_TerrainSave.SetSaveDataFile(&m_SaveDataFile);
+	m_TerrainLoad.SetSaveDataFile(&m_SaveDataFile);
+
+
 	//todo プレイヤーの処理等に置くようにしてください
 	m_PlacementObject = NewGO<PlacementObject>(0);
 	m_DestroyObject = NewGO<DestroyObject>(0);
@@ -79,6 +84,8 @@ void CGameScene::Update()
 {
 	if (GetAsyncKeyState(VK_SPACE))
 	{
+		//テラインをセットしているけど、ここでセットしているのはテラインが作られるのが遅いため。
+		m_TerrainSave.SetTerrainWorld(m_Stage->GetTerrainWorld());
 		m_TerrainSave.Save();
 	}
 }

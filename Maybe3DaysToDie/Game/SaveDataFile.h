@@ -1,8 +1,8 @@
 #pragma once
 
-class ISave
+class SaveDataFile
 {
-protected:
+public:
 	struct  ChunkData
 	{
 		unsigned char ChunkID[2] = { 0 };		//ワールドでのチャンクの位置(2次元の座標)
