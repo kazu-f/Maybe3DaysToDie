@@ -77,6 +77,7 @@ bool CGameScene::Start()
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
 	m_fontRender->SetScale(0.5f);
 
+	m_LoadingByChunk = NewGO<LoadingByChunk>(0);
 	return true;
 }
 

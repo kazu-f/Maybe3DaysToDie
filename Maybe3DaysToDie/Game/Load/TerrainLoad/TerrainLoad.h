@@ -8,6 +8,11 @@ public:
 	~TerrainLoad();
 
 	void Load();
+
+	/// <summary>
+	/// セーブデータファイルをセット
+	/// </summary>
+	/// <param name="file">セーブデータファイル</param>
 	void SetSaveDataFile(SaveDataFile* file)
 	{
 		m_SaveDataFile = file;
