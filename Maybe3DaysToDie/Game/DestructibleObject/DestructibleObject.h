@@ -40,24 +40,24 @@ public:
 	{
 		return m_params;
 	}
-	/// <summary>
-	/// コライダーを生成
-	/// </summary>
-	void CreateCollider(prefab::ModelRender* model)
-	{
-		m_StaticCol.CreateMesh(model->GetPosition(), model->GetRotation(), model->GetScale(), model);
-		m_StaticCol.GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
-	}
+	///// <summary>
+	///// コライダーを生成
+	///// </summary>
+	//void CreateCollider(prefab::ModelRender* model)
+	//{
+	//	m_StaticCol.CreateMesh(model->GetPosition(), model->GetRotation(), model->GetScale(), model);
+	//	m_StaticCol.GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
+	//}
 
-	/// <summary>
-	/// コライダーの座標と回転をセット
-	/// </summary>
-	/// <param name="pos">座標</param>
-	/// <param name="rot">回転</param>
-	void SetColPos(const Vector3& pos,const Quaternion&rot)
-	{
-		m_StaticCol.SetPosAndRot(pos, rot);
-	}
+	///// <summary>
+	///// コライダーの座標と回転をセット
+	///// </summary>
+	///// <param name="pos">座標</param>
+	///// <param name="rot">回転</param>
+	//void SetColPos(const Vector3& pos,const Quaternion&rot)
+	//{
+	//	m_StaticCol.SetPosAndRot(pos, rot);
+	//}
 
 	/// <summary>
 	/// ダメージを与える。
@@ -110,7 +110,7 @@ public:
 		m_params.AptitudeTool = ToolKinds::DebugTool;
 	}
 protected:
-	CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
+	//CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
 	Vector3 m_position = Vector3::Zero;		//ポジション
 	Quaternion m_qrot = Quaternion::Identity;		//回転
 	Vector3 m_scale = Vector3::One;		//スケール

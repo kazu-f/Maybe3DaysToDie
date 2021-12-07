@@ -11,7 +11,7 @@ ChunkBlock::~ChunkBlock()
 
 }
 
-void ChunkBlock::InitCol()
+void ChunkBlock::InitCol(int ChunkID[2])
 {
 	for (int x = 0; x < ChunkWidth; x++)
 	{
@@ -23,6 +23,12 @@ void ChunkBlock::InitCol()
 				pos.x = static_cast<float>(x) * OBJECT_UNIT;
 				pos.y = static_cast<float>(y) * OBJECT_UNIT;
 				pos.z = static_cast<float>(z) * OBJECT_UNIT;
+				//チャンクの位置を加算
+				float geta = 0;
+				geta = OBJECT_UNIT * ChunkWidth;
+				pos.x += geta * ChunkID[0];
+				pos.z += geta * ChunkID[1];
+				//コリジョンを作成
 				m_StaticCol[x][y][z].CreateBox(pos, Quaternion::Identity, BLOCK_SIZE);
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
 			}

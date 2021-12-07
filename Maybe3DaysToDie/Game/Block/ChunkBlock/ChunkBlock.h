@@ -11,7 +11,7 @@ public:
 	/// <summary>
 	/// コライダーを初期化
 	/// </summary>
-	void InitCol();
+	void InitCol(int ChunkID[2]);
 
 	/// <summary>
 	/// コライダーの位置をチャンクに合わせて移動する

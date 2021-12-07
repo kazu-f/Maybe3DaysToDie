@@ -63,7 +63,7 @@ void Hill::CreateStage()
 			//メモリ確保
 			nsTerrain::Terrain* t_ptr = new nsTerrain::Terrain();
 			//コライダーの作成
-			t_ptr->CreateCollider(m_ptr);
+			//t_ptr->CreateCollider(m_ptr);
 			//配列に追加
 			m_model.push_back(std::move(m_ptr));
 			m_Terrain.push_back(std::move(t_ptr));

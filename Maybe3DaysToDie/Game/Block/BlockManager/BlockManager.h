@@ -1,6 +1,6 @@
 #pragma once
 #include "DestructibleObject/Block/Block.h"
-#include "Block/ChunkBlock/ChunkBlock.h"
+//#include "Block/ChunkBlock/ChunkBlock.h"
 
 static const int BlockKinds = 1;		//ƒuƒƒbƒN‚Ìí—Ş
 static const int MaxInstanceNum = ChunkWidth * ChunkWidth * ChunkHeight;
