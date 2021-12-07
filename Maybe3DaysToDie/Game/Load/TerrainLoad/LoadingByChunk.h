@@ -1,4 +1,5 @@
 #pragma once
+#include "Block/ChunkBlock/ChunkBlock.h"
 
 class SaveDataFile;
 class WorldConfig;
@@ -55,4 +56,5 @@ private:
 	SaveDataFile* m_SaveDataFile = nullptr;
 	int PlayerPosInGrid[2] = { 0 };
 	bool m_isDirty = false;		//更新するかどうか
+	ChunkBlock m_ChunkBlock[16][16];		//チャンクごとのブロック
 };

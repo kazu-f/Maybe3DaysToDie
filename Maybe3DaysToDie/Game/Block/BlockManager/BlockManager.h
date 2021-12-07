@@ -1,6 +1,6 @@
 #pragma once
 #include "DestructibleObject/Block/Block.h"
-#include "Block/ChunkBlock/ChunkBlock.h"
+//#include "Block/ChunkBlock/ChunkBlock.h"
 
 static const int BlockKinds = 1;		//ブロックの種類
 static const int MaxInstanceNum = ChunkWidth * ChunkWidth * ChunkHeight;
@@ -10,6 +10,8 @@ class BlockManager :public IGameObject
 private:
 	struct Chunk_Block 
 	{
+	public:
+		Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];
 	};
 
 public:
@@ -31,7 +33,13 @@ public:
 		return m_Block[pos[0]][pos[1]][pos[2]];
 	}
 
+	Chunk_Block& GetChunkBlock(int ChunkID[2])
+	{
+		return m_ChunkBlock[ChunkID[0]][ChunkID[1]];
+	}
+
 private:
+	Chunk_Block m_ChunkBlock[64][64];
 	Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];
 	//ChunkBlock m_ChunkBlock[16][16];
 	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル
