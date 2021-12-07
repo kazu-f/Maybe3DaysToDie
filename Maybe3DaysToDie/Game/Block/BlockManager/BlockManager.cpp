@@ -29,9 +29,6 @@ bool BlockManager::Start()
 				pos.y = static_cast<float>(y) * OBJECT_UNIT;
 				pos.z = static_cast<float>(z) * OBJECT_UNIT;
 				m_Block[x][y][z].SetPosition(pos);
-				//コライダーを作成
-				m_Block[x][y][z].InitRayCollider();
-				m_Block[x][y][z].SetColliderEnable(false);
 			}
 		}
 
@@ -71,7 +68,6 @@ void BlockManager::AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot
 				//ブロックの名前がかぶっているとき
 				model->UpdateInstancingData(pos, rot, scale);
 				//コライダーを有効化
-				GetBlock(pos).SetColliderEnable(true);
 				GetBlock(pos).SetName(BlockName);
 				return;
 			}
@@ -86,7 +82,6 @@ void BlockManager::AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot
 	model->UpdateInstancingData(pos, rot, scale);
 	BlockModel[m_modelNum] = model;
 	//コライダーを有効化
-	GetBlock(pos).SetColliderEnable(true);
 	GetBlock(pos).SetName(BlockName);
 
 	m_modelNum++;

@@ -11,7 +11,34 @@ ChunkBlock::~ChunkBlock()
 
 }
 
-void ChunkBlock::InitCol(int ChunkID[2])
+void ChunkBlock::UpdateCol()
+{
+	if (m_BlockManager->IsBlockDirty())
+	{
+		for (int x = 0; x < ChunkWidth; x++)
+		{
+			for (int y = 0; y < ChunkHeight; y++)
+			{
+				for (int z = 0; z < ChunkWidth; z++)
+				{
+					//ブロックのポインタをコライダーに渡しておく
+					auto& blocks = m_BlockManager->GetChunkBlock(m_ChunkID);
+					if (blocks.m_Block[x][y][z].GetParam().Durable > 0)
+					{
+						PhysicsWorld().AddRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+					}
+					else
+					{
+						PhysicsWorld().RemoveRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+					}
+				}
+			}
+		}
+
+	}
+}
+
+void ChunkBlock::InitCol()
 {
 	for (int x = 0; x < ChunkWidth; x++)
 	{
@@ -26,8 +53,9 @@ void ChunkBlock::InitCol(int ChunkID[2])
 				//チャンクの位置を加算
 				float geta = 0;
 				geta = OBJECT_UNIT * ChunkWidth;
-				pos.x += geta * ChunkID[0];
-				pos.z += geta * ChunkID[1];
+				//座標{0,0}が中心なので減算
+				pos.x += geta * m_ChunkID[0] - MAX_CHUNK_SIDE / 2;
+				pos.z += geta * m_ChunkID[1] - MAX_CHUNK_SIDE / 2;
 				//コリジョンを作成
 				m_StaticCol[x][y][z].CreateBox(pos, Quaternion::Identity, BLOCK_SIZE);
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
@@ -36,7 +64,7 @@ void ChunkBlock::InitCol(int ChunkID[2])
 	}
 }
 
-void ChunkBlock::MoveChunk(int ChunkID[2])
+void ChunkBlock::MoveChunk()
 {
 	for (int x = 0; x < ChunkWidth; x++)
 	{
@@ -51,14 +79,22 @@ void ChunkBlock::MoveChunk(int ChunkID[2])
 				//チャンクの位置を加算
 				float geta = 0;
 				geta = OBJECT_UNIT * ChunkWidth;
-				pos.x += geta * ChunkID[0];
-				pos.z += geta * ChunkID[1];
+				pos.x += geta * m_ChunkID[0] - MAX_CHUNK_SIDE / 2;
+				pos.z += geta * m_ChunkID[1] - MAX_CHUNK_SIDE / 2;
 				//ポジションをセット
 				m_StaticCol[x][y][z].SetPosAndRot(pos, Quaternion::Identity);
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
 				//ブロックのポインタをコライダーに渡しておく
-				auto& blocks = m_BlockManager->GetChunkBlock(ChunkID);
+				auto& blocks = m_BlockManager->GetChunkBlock(m_ChunkID);
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)blocks.m_Block[x][y][z].GetPointer());
+				if (blocks.m_Block[x][y][z].GetParam().Durable > 0)
+				{
+					PhysicsWorld().AddRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+				}
+				else
+				{
+					PhysicsWorld().RemoveRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+				}
 			}
 		}
 	}

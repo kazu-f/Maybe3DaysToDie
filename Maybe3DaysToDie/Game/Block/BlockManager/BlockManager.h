@@ -38,11 +38,21 @@ public:
 		return m_ChunkBlock[ChunkID[0]][ChunkID[1]];
 	}
 
+	bool IsBlockDirty()
+	{
+		return ChunkBlockDirty;
+	}
+
+	void ResetBlockDirty()
+	{
+		ChunkBlockDirty = false;
+	}
 private:
 	Chunk_Block m_ChunkBlock[64][64];
 	Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];
 	//ChunkBlock m_ChunkBlock[16][16];
 	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル
 	int m_modelNum = 0;
+	bool ChunkBlockDirty = false;
 };
 

@@ -48,6 +48,21 @@ public:
 		}
 	}
 
+	/// <summary>
+	/// ChunkBlockにBlockManagerをセット
+	/// </summary>
+	/// <param name="manag"></param>
+	void SetBlockManagerForChunkBlock(BlockManager* manag)
+	{
+		for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
+		{
+			for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
+			{
+				m_ChunkBlock[Chunk_X][Chunk_Z].SetBlockManager(manag);
+			}
+		}
+	}
+
 	bool Start();
 
 	void Update();
@@ -56,5 +71,5 @@ private:
 	SaveDataFile* m_SaveDataFile = nullptr;
 	int PlayerPosInGrid[2] = { 0 };
 	bool m_isDirty = false;		//更新するかどうか
-	ChunkBlock m_ChunkBlock[16][16];		//チャンクごとのブロック
+	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];		//チャンクごとのブロック
 };

@@ -7,8 +7,8 @@ static const float OBJECT_HALF_UNIT = 50.0f;
 struct ObjectParams {
 	const char* BlockName = nullptr;		//名前
 	unsigned char BlockID = 0;
-	int Durable = 0;		//耐久値
-	int ObtainAmount = 0;		//入手量
+	unsigned short Durable = 0;		//耐久値
+	unsigned char ObtainAmount = 0;		//入手量
 	ToolKinds AptitudeTool = ToolKinds::DebugTool;		//適性ツール
 	ObjectType Type = ObjectType::Type;
 };

@@ -14,6 +14,15 @@ LoadingByChunk::~LoadingByChunk()
 
 bool LoadingByChunk::Start()
 {
+	for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
+	{
+		for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
+		{
+			m_ChunkBlock[Chunk_X][Chunk_Z].InitCol();
+			int ChunkID[2] = { (Chunk_X,Chunk_Z) };
+			m_ChunkBlock[Chunk_X][Chunk_Z].SetChunkID(ChunkID);
+		}
+	}
 	return true;
 }
 

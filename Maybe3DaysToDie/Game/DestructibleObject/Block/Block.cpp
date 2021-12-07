@@ -16,31 +16,6 @@ Block::~Block()
 {
 }
 
-void Block::InitRayCollider()
-{
-	//m_StaticCol.CreateBox(m_position, Quaternion::Identity, BLOCK_SIZE);
-	//m_StaticCol.GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
-	//m_registColider = true;
-	//DestructibleObject* obj = this;
-	//m_StaticCol.GetRigidBody().GetBody()->setUserPointer((void*)obj);
-}
-
-void Block::SetColliderEnable(bool flag)
-{
-	////既に登録or解除済み。
-	//if (m_registColider == flag) return;
-
-	////登録、解除。
-	//if (flag)
-	//{
-	//	PhysicsWorld().AddRigidBody(m_StaticCol.GetRigidBody());
-	//}
-	//else
-	//{
-	//	PhysicsWorld().RemoveRigidBody(m_StaticCol.GetRigidBody());
-	//}
-	//m_registColider = flag;
-}
 
 void Block::Damage(const ToolInfo& tool)
 {
@@ -61,7 +36,5 @@ void Block::Damage(const ToolInfo& tool)
 	if (durable == 0)
 	{
 		m_BlockManager->RemoveBlock(this);
-		//耐久値が0なのでコライダーを削除
-		SetColliderEnable(false);
 	}
 }
