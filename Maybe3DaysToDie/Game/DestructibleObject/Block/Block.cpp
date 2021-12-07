@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Block.h"
 #include "Tool/Tool.h"
-#include "BlockManager/BlockManager.h"
+#include "Block/BlockManager/BlockManager.h"
 
 Block::Block()
 {

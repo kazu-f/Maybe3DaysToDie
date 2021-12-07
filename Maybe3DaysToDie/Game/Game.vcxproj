@@ -159,7 +159,8 @@
     </ImageContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BlockManager\BlockManager.cpp" />
+    <ClCompile Include="Block\BlockManager\BlockManager.cpp" />
+    <ClCompile Include="Block\ChunkBlock\ChunkBlock.cpp" />
     <ClCompile Include="DestroyObject\DestroyObject.cpp" />
     <ClCompile Include="Load\TerrainLoad\LoadingByChunk.cpp" />
     <ClCompile Include="Navigation\NavigationAgent.cpp" />
@@ -206,7 +207,8 @@
     <ClCompile Include="GameConfig\WorldConfig\WorldConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BlockManager\BlockManager.h" />
+    <ClInclude Include="Block\BlockManager\BlockManager.h" />
+    <ClInclude Include="Block\ChunkBlock\ChunkBlock.h" />
     <ClInclude Include="DestroyObject\DestroyObject.h" />
     <ClInclude Include="Load\TerrainLoad\LoadingByChunk.h" />
     <ClInclude Include="Navigation\NavigationAgent.h" />
