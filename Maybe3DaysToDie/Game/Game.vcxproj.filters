@@ -116,6 +116,9 @@
       <Filter>Tool</Filter>
     </ClCompile>
     <ClCompile Include="Block\ChunkBlock\ChunkBlock.cpp" />
+    <ClCompile Include="Tool\ToolDataFile.cpp">
+      <Filter>Tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -236,6 +239,9 @@
       <Filter>Tool</Filter>
     </ClInclude>
     <ClInclude Include="Block\ChunkBlock\ChunkBlock.h" />
+    <ClInclude Include="Tool\ToolDataFile.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">
