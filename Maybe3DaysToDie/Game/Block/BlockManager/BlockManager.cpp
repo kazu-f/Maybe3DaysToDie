@@ -15,24 +15,30 @@ void BlockManager::OnDestroy()
 
 bool BlockManager::Start()
 {
-
-	for (int x = 0; x < ChunkWidth; x++)
+	for (int Chunk_X = 0; Chunk_X < 64; Chunk_X++)
 	{
-		for (int y = 0; y < ChunkHeight; y++)
+		for (int Chunk_Z = 0; Chunk_Z < 64; Chunk_Z++)
 		{
-			for (int z = 0; z < ChunkWidth; z++)
+			for (int x = 0; x < ChunkWidth; x++)
 			{
-				//マネージャーをセット
-				m_Block[x][y][z].SetBlockManager(this);
-				Vector3 pos;
-				pos.x = static_cast<float>(x) * OBJECT_UNIT;
-				pos.y = static_cast<float>(y) * OBJECT_UNIT;
-				pos.z = static_cast<float>(z) * OBJECT_UNIT;
-				m_Block[x][y][z].SetPosition(pos);
+				for (int y = 0; y < ChunkHeight; y++)
+				{
+					for (int z = 0; z < ChunkWidth; z++)
+					{
+						//マネージャーをセット
+						m_ChunkBlock[Chunk_X][Chunk_Z].m_Block[x][y][z].SetBlockManager(this);
+						Vector3 pos;
+						pos.x = static_cast<float>(x) * OBJECT_UNIT;
+						pos.y = static_cast<float>(y) * OBJECT_UNIT;
+						pos.z = static_cast<float>(z) * OBJECT_UNIT;
+						m_ChunkBlock[Chunk_X][Chunk_Z].m_Block[x][y][z].SetPosition(pos);
+					}
+				}
+
 			}
 		}
-
 	}
+
 	return true;
 }
 
@@ -48,12 +54,14 @@ Block& BlockManager::GetBlock(const Vector3& pos)
 	Pos.x += OBJECT_UNIT / 2;
 	Pos.y += OBJECT_UNIT / 2;
 	Pos.z += OBJECT_UNIT / 2;
-
+	
+	int Chunk_X = pos.x / (MAX_CHUNK_SIDE * ChunkWidth);
+	int Chunk_Z = pos.z / (MAX_CHUNK_SIDE * ChunkWidth);
 	int resX = static_cast<int>(std::floor(Pos.x / OBJECT_UNIT));
 	int resY = static_cast<int>(std::floor(Pos.y / OBJECT_UNIT));
 	int resZ = static_cast<int>(std::floor(Pos.z / OBJECT_UNIT));
 
-	return m_Block[resX][resY][resZ];
+	return m_ChunkBlock[Chunk_X][Chunk_Z].m_Block[resX][resY][resZ];
 }
 
 
@@ -96,16 +104,23 @@ void BlockManager::RemoveBlock(Block* blockptr)
 		//インスタンシングデータをリセット
 		model->ResetInstancingDatas();
 		//ここからセットしなおす
-		for (int x = 0; x < ChunkWidth; x++)
+		for (int Chunk_X = 0; Chunk_X < 64; Chunk_X++)
 		{
-			for (int y = 0; y < ChunkHeight; y++)
+			for (int Chunk_Z = 0; Chunk_Z < 64; Chunk_Z++)
 			{
-				for (int z = 0; z < ChunkWidth; z++)
+
+				for (int x = 0; x < ChunkWidth; x++)
 				{
-					auto& block = m_Block[x][y][z];
-					if (block.GetParam().BlockName == Name)
+					for (int y = 0; y < ChunkHeight; y++)
 					{
-						model->UpdateInstancingData(block.GetPosition(), block.GetRotation(), block.GetScale());
+						for (int z = 0; z < ChunkWidth; z++)
+						{
+							auto& block = m_ChunkBlock[Chunk_X][Chunk_Z].m_Block[x][y][z];
+							if (block.GetParam().BlockName == Name)
+							{
+								model->UpdateInstancingData(block.GetPosition(), block.GetRotation(), block.GetScale());
+							}
+						}
 					}
 				}
 			}

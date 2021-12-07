@@ -11,31 +11,9 @@ ChunkBlock::~ChunkBlock()
 
 }
 
-void ChunkBlock::UpdateCol()
+void ChunkBlock::Init()
 {
-	if (m_BlockManager->IsBlockDirty())
-	{
-		for (int x = 0; x < ChunkWidth; x++)
-		{
-			for (int y = 0; y < ChunkHeight; y++)
-			{
-				for (int z = 0; z < ChunkWidth; z++)
-				{
-					//ブロックのポインタをコライダーに渡しておく
-					auto& blocks = m_BlockManager->GetChunkBlock(m_ChunkID);
-					if (blocks.m_Block[x][y][z].GetParam().Durable > 0)
-					{
-						PhysicsWorld().AddRigidBody(m_StaticCol[x][y][z].GetRigidBody());
-					}
-					else
-					{
-						PhysicsWorld().RemoveRigidBody(m_StaticCol[x][y][z].GetRigidBody());
-					}
-				}
-			}
-		}
-
-	}
+	InitCol();
 }
 
 void ChunkBlock::InitCol()
@@ -63,6 +41,30 @@ void ChunkBlock::InitCol()
 		}
 	}
 }
+
+void ChunkBlock::UpdateCol()
+{
+	for (int x = 0; x < ChunkWidth; x++)
+	{
+		for (int y = 0; y < ChunkHeight; y++)
+		{
+			for (int z = 0; z < ChunkWidth; z++)
+			{
+				//ブロックのポインタをコライダーに渡しておく
+				auto& blocks = m_BlockManager->GetChunkBlock(m_ChunkID);
+				if (blocks.m_Block[x][y][z].GetParam().Durable > 0)
+				{
+					PhysicsWorld().AddRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+				}
+				else
+				{
+					PhysicsWorld().RemoveRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+				}
+			}
+		}
+	}
+}
+
 
 void ChunkBlock::MoveChunk()
 {

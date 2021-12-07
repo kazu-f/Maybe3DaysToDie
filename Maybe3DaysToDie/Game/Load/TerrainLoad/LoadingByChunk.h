@@ -1,5 +1,6 @@
 #pragma once
 #include "Block/ChunkBlock/ChunkBlock.h"
+#include "GameConfig/WorldConfig/WorldConfig.h"
 
 class SaveDataFile;
 class WorldConfig;
@@ -54,6 +55,7 @@ public:
 	/// <param name="manag"></param>
 	void SetBlockManagerForChunkBlock(BlockManager* manag)
 	{
+		m_BlockManager = manag;
 		for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
 		{
 			for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
@@ -61,6 +63,7 @@ public:
 				m_ChunkBlock[Chunk_X][Chunk_Z].SetBlockManager(manag);
 			}
 		}
+		IsBlockManagerSet = true;
 	}
 
 	bool Start();
@@ -70,6 +73,8 @@ private:
 	WorldConfig* m_config = nullptr;
 	SaveDataFile* m_SaveDataFile = nullptr;
 	int PlayerPosInGrid[2] = { 0 };
-	bool m_isDirty = false;		//更新するかどうか
+	bool m_isDirty = true;		//更新するかどうか
 	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];		//チャンクごとのブロック
+	bool IsBlockManagerSet = false;
+	BlockManager* m_BlockManager = nullptr;
 };

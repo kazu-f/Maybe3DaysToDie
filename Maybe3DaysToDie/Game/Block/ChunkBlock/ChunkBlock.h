@@ -8,6 +8,8 @@ public:
 	ChunkBlock();
 	~ChunkBlock();
 
+	void Init();
+
 	/// <summary>
 	/// コライダーを更新
 	/// </summary>

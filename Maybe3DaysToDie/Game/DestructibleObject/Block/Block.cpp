@@ -6,7 +6,7 @@
 Block::Block()
 {
 	param.BlockName = nullptr;
-	param.Durable = 500;
+	param.Durable = 0;
 	param.ObtainAmount = 0;
 	param.AptitudeTool = ToolKinds::DebugTool;
 	param.Type = ObjectType::Block;

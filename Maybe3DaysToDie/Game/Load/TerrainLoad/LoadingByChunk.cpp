@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "LoadingByChunk.h"
-#include "GameConfig/WorldConfig/WorldConfig.h"
 
 LoadingByChunk::LoadingByChunk()
 {
@@ -14,13 +13,20 @@ LoadingByChunk::~LoadingByChunk()
 
 bool LoadingByChunk::Start()
 {
+	if (IsBlockManagerSet == false)
+	{
+		//BlockManagerをセットしてください。
+		std::abort();
+	}
 	for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
 	{
 		for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
 		{
-			m_ChunkBlock[Chunk_X][Chunk_Z].InitCol();
+			//IDをセット
 			int ChunkID[2] = { (Chunk_X,Chunk_Z) };
 			m_ChunkBlock[Chunk_X][Chunk_Z].SetChunkID(ChunkID);
+			//初期化
+			m_ChunkBlock[Chunk_X][Chunk_Z].Init();
 		}
 	}
 	return true;
@@ -28,6 +34,19 @@ bool LoadingByChunk::Start()
 
 void LoadingByChunk::Update()
 {
+	if (m_BlockManager->IsBlockDirty())
+	{
+		for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
+		{
+			for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
+			{
+				//コライダーを更新
+				m_ChunkBlock[Chunk_X][Chunk_Z].UpdateCol();
+			}
+		}
+		m_BlockManager->ResetBlockDirty();
+	}
+
 	if (m_isDirty == false)
 	{
 		return;
