@@ -7,7 +7,7 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="DateTime.cpp" />
-    <ClCompile Include="BlockManager\BlockManager.cpp">
+    <ClCompile Include="Block\BlockManager\BlockManager.cpp">
       <Filter>BlockManager</Filter>
     </ClCompile>
     <ClCompile Include="DestroyObject\DestroyObject.cpp">
@@ -115,6 +115,7 @@
     <ClCompile Include="Tool\Tool.cpp">
       <Filter>Tool</Filter>
     </ClCompile>
+    <ClCompile Include="Block\ChunkBlock\ChunkBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -123,7 +124,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SaveDataFile.h" />
-    <ClInclude Include="BlockManager\BlockManager.h">
+    <ClInclude Include="Block\BlockManager\BlockManager.h">
       <Filter>BlockManager</Filter>
     </ClInclude>
     <ClInclude Include="DestroyObject\DestroyObject.h">
@@ -234,6 +235,7 @@
     <ClInclude Include="Tool\Tool.h">
       <Filter>Tool</Filter>
     </ClInclude>
+    <ClInclude Include="Block\ChunkBlock\ChunkBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">

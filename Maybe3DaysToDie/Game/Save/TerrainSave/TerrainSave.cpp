@@ -25,9 +25,9 @@ void TerrainSave::Save()
 		fp = fopen(m_SaveDataFile->SaveDataFilePath_Terrain, "wb");
 	}
 
-	for (int chunk_x = 0; chunk_x < MAX_CHUNK_SIDE; chunk_x++)
+	for (int chunk_x = 1; chunk_x < MAX_CHUNK_SIDE; chunk_x++)
 	{
-		for (int chunk_y = 0; chunk_y < MAX_CHUNK_SIDE; chunk_y++)
+		for (int chunk_y = 1; chunk_y < MAX_CHUNK_SIDE; chunk_y++)
 		{
 			//チャンクごとの位置を記憶
 			m_SaveDataFile->m_ChunkData[chunk_x][chunk_y].ChunkID[0] = chunk_x;

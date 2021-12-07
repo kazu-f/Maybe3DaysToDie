@@ -18,6 +18,11 @@ public:
 	DestructibleObject() {}
 	virtual ~DestructibleObject() {}
 
+	DestructibleObject* GetPointer()
+	{
+		return this;
+	}
+
 	/// <summary>
 	/// オブジェクトの各種パラメータをセット
 	/// </summary>
@@ -42,6 +47,16 @@ public:
 	{
 		m_StaticCol.CreateMesh(model->GetPosition(), model->GetRotation(), model->GetScale(), model);
 		m_StaticCol.GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
+	}
+
+	/// <summary>
+	/// コライダーの座標と回転をセット
+	/// </summary>
+	/// <param name="pos">座標</param>
+	/// <param name="rot">回転</param>
+	void SetColPos(const Vector3& pos,const Quaternion&rot)
+	{
+		m_StaticCol.SetPosAndRot(pos, rot);
 	}
 
 	/// <summary>

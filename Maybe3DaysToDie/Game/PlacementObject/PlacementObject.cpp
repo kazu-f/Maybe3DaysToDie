@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "PlacementObject.h"
-#include "BlockManager/BlockManager.h"
+#include "Block/BlockManager/BlockManager.h"
 
 PlacementObject::PlacementObject()
 {

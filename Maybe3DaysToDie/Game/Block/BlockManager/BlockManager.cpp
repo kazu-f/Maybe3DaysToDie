@@ -15,31 +15,26 @@ void BlockManager::OnDestroy()
 
 bool BlockManager::Start()
 {
-	for (int Chunk_X = 0; Chunk_X < 16; Chunk_X++)
-	{
-		for(int Chunk_Y = 0;Chunk_Y < 16;Chunk_Y++)
-		{
-			for (int x = 0; x < ChunkWidth; x++)
-			{
-				for (int y = 0; y < ChunkHeight; y++)
-				{
-					for (int z = 0; z < ChunkWidth; z++)
-					{
-						//マネージャーをセット
-						m_ChunkBlock[Chunk_X][Chunk_Y].m_Block[x][y][z].SetBlockManager(this);
-						Vector3 pos;
-						pos.x = static_cast<float>(x) * OBJECT_UNIT;
-						pos.y = static_cast<float>(y) * OBJECT_UNIT;
-						pos.z = static_cast<float>(z) * OBJECT_UNIT;
-						m_ChunkBlock[Chunk_X][Chunk_Y].m_Block[x][y][z].SetPosition(pos);
-						//コライダーを作成
-						m_ChunkBlock[Chunk_X][Chunk_Y].m_Block[x][y][z].InitRayCollider();
-						m_ChunkBlock[Chunk_X][Chunk_Y].m_Block[x][y][z].SetColliderEnable(false);
-					}
-				}
 
+	for (int x = 0; x < ChunkWidth; x++)
+	{
+		for (int y = 0; y < ChunkHeight; y++)
+		{
+			for (int z = 0; z < ChunkWidth; z++)
+			{
+				//マネージャーをセット
+				m_Block[x][y][z].SetBlockManager(this);
+				Vector3 pos;
+				pos.x = static_cast<float>(x) * OBJECT_UNIT;
+				pos.y = static_cast<float>(y) * OBJECT_UNIT;
+				pos.z = static_cast<float>(z) * OBJECT_UNIT;
+				m_Block[x][y][z].SetPosition(pos);
+				//コライダーを作成
+				m_Block[x][y][z].InitRayCollider();
+				m_Block[x][y][z].SetColliderEnable(false);
 			}
 		}
+
 	}
 	return true;
 }
@@ -61,7 +56,7 @@ Block& BlockManager::GetBlock(const Vector3& pos)
 	int resY = static_cast<int>(std::floor(Pos.y / OBJECT_UNIT));
 	int resZ = static_cast<int>(std::floor(Pos.z / OBJECT_UNIT));
 
-	return m_ChunkBlock[0][0].m_Block[resX][resY][resZ];
+	return m_Block[resX][resY][resZ];
 }
 
 
@@ -112,7 +107,7 @@ void BlockManager::RemoveBlock(Block* blockptr)
 			{
 				for (int z = 0; z < ChunkWidth; z++)
 				{
-					auto& block = m_ChunkBlock[0][0].m_Block[x][y][z];
+					auto& block = m_Block[x][y][z];
 					if (block.GetParam().BlockName == Name)
 					{
 						model->UpdateInstancingData(block.GetPosition(), block.GetRotation(), block.GetScale());
