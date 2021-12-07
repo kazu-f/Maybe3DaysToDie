@@ -18,6 +18,7 @@ enum class ObjectType {
 };
 
 #include "DestructibleObject/DestructibleObject.h"
+#include "nlohmann/json.hpp"						//jsonファイルを扱うためのヘッダ。
 
 //チャンクのサイズ
 const int ChunkWidth = 16;		//横幅
