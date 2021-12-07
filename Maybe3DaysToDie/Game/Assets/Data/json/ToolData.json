@@ -12,13 +12,13 @@
       "damage": 50,
       "durable": 100,
       "useStamina": 5,
-      "tool": "Axe"
+      "tool": 1
     },
     "DebugAxe": {
       "damage": 5000,
       "durable": 10000,
       "useStamina": 0,
-      "tool": "Axe"
+      "tool": 1
     }
   },
 
@@ -30,7 +30,7 @@
       "damage": 1000000,
       "durable": 1000000,
       "useStamina": 0,
-      "tool": "All"
+      "tool": -1
     }
   }
 }
