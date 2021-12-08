@@ -48,7 +48,7 @@ public:
 		ChunkBlockDirty = false;
 	}
 private:
-	Chunk_Block m_ChunkBlock[64][64];
+	Chunk_Block m_ChunkBlock[MAX_CHUNK_SIDE][MAX_CHUNK_SIDE];
 	//Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];
 	//ChunkBlock m_ChunkBlock[16][16];
 	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル

@@ -24,7 +24,7 @@ public:
 	/// コライダーの位置をチャンクに合わせて移動する
 	/// </summary>
 	/// <param name="ChunkID">チャンクID</param>
-	void MoveChunk();
+	void MoveChunk(int ChunkID[2]);
 
 	void SetBlockManager(BlockManager* manag)
 	{
@@ -36,6 +36,13 @@ public:
 		m_ChunkID[0] = ChunkID[0];
 		m_ChunkID[1] = ChunkID[1];
 	}
+
+	void GetChunkID(int id[2])
+	{
+		id[0] = m_ChunkID[0];
+		id[1] = m_ChunkID[1];
+	}
+
 private:
 	CPhysicsStaticObject m_StaticCol[ChunkWidth][ChunkHeight][ChunkWidth];		//静的物理オブジェクト
 	const Vector3 BLOCK_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };

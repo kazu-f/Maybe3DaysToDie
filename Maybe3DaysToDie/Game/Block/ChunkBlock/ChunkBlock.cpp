@@ -32,8 +32,8 @@ void ChunkBlock::InitCol()
 				float geta = 0;
 				geta = OBJECT_UNIT * ChunkWidth;
 				//座標{0,0}が中心なので減算
-				pos.x += geta * m_ChunkID[0] - MAX_CHUNK_SIDE / 2;
-				pos.z += geta * m_ChunkID[1] - MAX_CHUNK_SIDE / 2;
+				pos.x += geta * (m_ChunkID[0] - MAX_CHUNK_SIDE / 2);
+				pos.z += geta * (m_ChunkID[1] - MAX_CHUNK_SIDE / 2);
 				//コリジョンを作成
 				m_StaticCol[x][y][z].CreateBox(pos, Quaternion::Identity, BLOCK_SIZE);
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
@@ -66,8 +66,10 @@ void ChunkBlock::UpdateCol()
 }
 
 
-void ChunkBlock::MoveChunk()
+void ChunkBlock::MoveChunk(int ChunkID[2])
 {
+	//チャンクIDをセット
+	SetChunkID(ChunkID);
 	for (int x = 0; x < ChunkWidth; x++)
 	{
 		for (int y = 0; y < ChunkHeight; y++)
@@ -81,8 +83,8 @@ void ChunkBlock::MoveChunk()
 				//チャンクの位置を加算
 				float geta = 0;
 				geta = OBJECT_UNIT * ChunkWidth;
-				pos.x += geta * m_ChunkID[0] - MAX_CHUNK_SIDE / 2;
-				pos.z += geta * m_ChunkID[1] - MAX_CHUNK_SIDE / 2;
+				pos.x += geta * (m_ChunkID[0] - MAX_CHUNK_SIDE / 2);
+				pos.z += geta * (m_ChunkID[1] - MAX_CHUNK_SIDE / 2);
 				//ポジションをセット
 				m_StaticCol[x][y][z].SetPosAndRot(pos, Quaternion::Identity);
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);

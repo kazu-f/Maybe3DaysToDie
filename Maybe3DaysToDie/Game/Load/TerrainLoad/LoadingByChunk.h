@@ -37,13 +37,20 @@ public:
 	void SetPlayerPos(const Vector3& pos)
 	{
 		int GridPos[2] = { 0 };
-		GridPos[0] = static_cast<int>(std::floor(pos.x / OBJECT_UNIT)) + MAX_CHUNK_SIDE / 2;
-		GridPos[1] = static_cast<int>(std::floor(pos.z / OBJECT_UNIT)) + MAX_CHUNK_SIDE / 2;
+		GridPos[0] = static_cast<int>(std::floor((pos.x / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
+		GridPos[1] = static_cast<int>(std::floor((pos.z / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
 		for (int i = 0; i < 2; i++)
 		{
 			if (PlayerPosInGrid[i] != GridPos[i])
 			{
+				//todo この処理気に入らん
+				if (PlayerPosInGrid[i] < GridPos[i])
+				{
+					//上方向に移動したかどうか
+					IsMoveUp[i] = true;
+				}
 				PlayerPosInGrid[i] = GridPos[i];
+				IsChunkMove[i] = true;
 				m_isDirty = true;
 			}
 		}
@@ -77,4 +84,6 @@ private:
 	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];		//チャンクごとのブロック
 	bool IsBlockManagerSet = false;
 	BlockManager* m_BlockManager = nullptr;
+	bool IsChunkMove[2] = { false };
+	bool IsMoveUp[2] = { false };
 };
