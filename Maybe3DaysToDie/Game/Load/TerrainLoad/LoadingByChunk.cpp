@@ -24,9 +24,9 @@ bool LoadingByChunk::Start()
 		for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
 		{
 			//IDをセット
-			int ChunkID[2] = { (Chunk_X,Chunk_Z) };
-			ChunkID[0] += PlayerPosInGrid[0] - 1;
-			ChunkID[1] += PlayerPosInGrid[1] - 1;
+			int ChunkID[2] = { 0 };
+			ChunkID[0] += PlayerPosInGrid[0] + Chunk_X - 1 ;
+			ChunkID[1] += PlayerPosInGrid[1] + Chunk_Z - 1 ;
 			m_ChunkBlock[Chunk_X][Chunk_Z].SetChunkID(ChunkID);
 			//初期化
 			m_ChunkBlock[Chunk_X][Chunk_Z].Init();
@@ -119,7 +119,7 @@ void LoadingByChunk::Update()
 							if (ChunkID[1] <= PlayerPosInGrid[1] - 2)
 							{
 								//Zが現在の位置より2低いとき移動
-								ChunkID[1] = PlayerPosInGrid[0] + 1;
+								ChunkID[1] = PlayerPosInGrid[1] + 1;
 								m_ChunkBlock[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
 							}
 						}
@@ -138,7 +138,7 @@ void LoadingByChunk::Update()
 							if (ChunkID[1] >= PlayerPosInGrid[1] + 2)
 							{
 								//Zが現在の位置より2大きいとき移動
-								ChunkID[1] = PlayerPosInGrid[0] - 1;
+								ChunkID[1] = PlayerPosInGrid[1] - 1;
 								m_ChunkBlock[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
 							}
 						}
