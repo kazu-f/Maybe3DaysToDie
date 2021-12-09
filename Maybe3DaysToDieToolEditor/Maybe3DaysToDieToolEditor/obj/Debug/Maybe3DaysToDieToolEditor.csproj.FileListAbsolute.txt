@@ -1,0 +1,10 @@
+C:\Users\kbc19\Desktop\GraduationWork\Game\Maybe3DaysToDie\Maybe3DaysToDieToolEditor\Maybe3DaysToDieToolEditor\bin\Debug\Maybe3DaysToDieToolEditor.exe.config
+C:\Users\kbc19\Desktop\GraduationWork\Game\Maybe3DaysToDie\Maybe3DaysToDieToolEditor\Maybe3DaysToDieToolEditor\bin\Debug\Maybe3DaysToDieToolEditor.exe
+C:\Users\kbc19\Desktop\GraduationWork\Game\Maybe3DaysToDie\Maybe3DaysToDieToolEditor\Maybe3DaysToDieToolEditor\bin\Debug\Maybe3DaysToDieToolEditor.pdb
+C:\Users\kbc19\Desktop\GraduationWork\Game\Maybe3DaysToDie\Maybe3DaysToDieToolEditor\Maybe3DaysToDieToolEditor\obj\Debug\Maybe3DaysToDieToolEditor.csprojAssemblyReference.cache
+C:\Users\kbc19\Desktop\GraduationWork\Game\Maybe3DaysToDie\Maybe3DaysToDieToolEditor\Maybe3DaysToDieToolEditor\obj\Debug\Maybe3DaysToDieToolEditor.Properties.Resources.resources
+C:\Users\kbc19\Desktop\GraduationWork\Game\Maybe3DaysToDie\Maybe3DaysToDieToolEditor\Maybe3DaysToDieToolEditor\obj\Debug\Maybe3DaysToDieToolEditor.csproj.GenerateResource.cache
+C:\Users\kbc19\Desktop\GraduationWork\Game\Maybe3DaysToDie\Maybe3DaysToDieToolEditor\Maybe3DaysToDieToolEditor\obj\Debug\Maybe3DaysToDieToolEditor.csproj.CoreCompileInputs.cache
+C:\Users\kbc19\Desktop\GraduationWork\Game\Maybe3DaysToDie\Maybe3DaysToDieToolEditor\Maybe3DaysToDieToolEditor\obj\Debug\Maybe3DaysToDieToolEditor.exe
+C:\Users\kbc19\Desktop\GraduationWork\Game\Maybe3DaysToDie\Maybe3DaysToDieToolEditor\Maybe3DaysToDieToolEditor\obj\Debug\Maybe3DaysToDieToolEditor.pdb
+C:\Users\kbc19\Desktop\GraduationWork\Game\Maybe3DaysToDie\Maybe3DaysToDieToolEditor\Maybe3DaysToDieToolEditor\obj\Debug\Maybe3DaysToDieToolEditor.Maybe3DaysToDie_ToolEditor.resources
