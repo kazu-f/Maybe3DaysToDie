@@ -56,6 +56,7 @@ void LoadingByChunk::Update()
 		return;
 	}
 
+	//todo ‚ß‚¿‚á‚­‚¿‚á‰˜‚¢ƒR[ƒh‚È‚Ì‚ÅŒã‚©‚çŒ©’¼‚µ
 	for (int i = 0; i < 2; i++)
 	{
 		if (IsChunkMove[i] == true)
