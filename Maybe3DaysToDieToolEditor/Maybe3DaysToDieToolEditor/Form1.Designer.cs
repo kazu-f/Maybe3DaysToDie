@@ -52,6 +52,9 @@ namespace Maybe3DaysToDieToolEditor
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.ItemGroupBox = new System.Windows.Forms.GroupBox();
             this.ItemNameLabel = new System.Windows.Forms.Label();
+            this.UnDoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reDoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CommandStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).BeginInit();
             this.ItemGroupBox.SuspendLayout();
@@ -115,6 +118,9 @@ namespace Maybe3DaysToDieToolEditor
             // EditorEToolStripMenuItem
             // 
             this.EditorEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UnDoToolStripMenuItem,
+            this.reDoToolStripMenuItem,
+            this.CommandStripSeparator1,
             this.CutOutXToolStripMenuItem,
             this.CopyCToolStripMenuItem,
             this.PastVToolStripMenuItem,
@@ -128,27 +134,27 @@ namespace Maybe3DaysToDieToolEditor
             // 
             this.CutOutXToolStripMenuItem.Name = "CutOutXToolStripMenuItem";
             this.CutOutXToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.CutOutXToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.CutOutXToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.CutOutXToolStripMenuItem.Text = "切り取り(&T)";
             // 
             // CopyCToolStripMenuItem
             // 
             this.CopyCToolStripMenuItem.Name = "CopyCToolStripMenuItem";
             this.CopyCToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.CopyCToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.CopyCToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.CopyCToolStripMenuItem.Text = "コピー(&Y)";
             // 
             // PastVToolStripMenuItem
             // 
             this.PastVToolStripMenuItem.Name = "PastVToolStripMenuItem";
             this.PastVToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.PastVToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.PastVToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.PastVToolStripMenuItem.Text = "貼り付け(&P)";
             // 
             // EditortoolStripSeparator1
             // 
             this.EditortoolStripSeparator1.Name = "EditortoolStripSeparator1";
-            this.EditortoolStripSeparator1.Size = new System.Drawing.Size(210, 6);
+            this.EditortoolStripSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // AddToolStripMenuItem1
             // 
@@ -157,26 +163,26 @@ namespace Maybe3DaysToDieToolEditor
             this.MaterialDataToolStripMenuItem,
             this.PlaceObjDataToolStripMenuItem});
             this.AddToolStripMenuItem1.Name = "AddToolStripMenuItem1";
-            this.AddToolStripMenuItem1.Size = new System.Drawing.Size(213, 26);
+            this.AddToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.AddToolStripMenuItem1.Text = "追加";
             // 
             // ToolDataToolStripMenuItem
             // 
             this.ToolDataToolStripMenuItem.Name = "ToolDataToolStripMenuItem";
-            this.ToolDataToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
+            this.ToolDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.ToolDataToolStripMenuItem.Text = "ツール";
             this.ToolDataToolStripMenuItem.Click += new System.EventHandler(this.ToolDataToolStripMenuItem_Click);
             // 
             // MaterialDataToolStripMenuItem
             // 
             this.MaterialDataToolStripMenuItem.Name = "MaterialDataToolStripMenuItem";
-            this.MaterialDataToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
+            this.MaterialDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.MaterialDataToolStripMenuItem.Text = "素材";
             // 
             // PlaceObjDataToolStripMenuItem
             // 
             this.PlaceObjDataToolStripMenuItem.Name = "PlaceObjDataToolStripMenuItem";
-            this.PlaceObjDataToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
+            this.PlaceObjDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.PlaceObjDataToolStripMenuItem.Text = "設置物";
             // 
             // ItemList
@@ -197,15 +203,16 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolGroupBox.TabIndex = 2;
             this.ToolGroupBox.TabStop = false;
             this.ToolGroupBox.Text = "ToolData";
+            this.ToolGroupBox.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
             // NameTextBox
             // 
-            this.NameTextBox.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.NameTextBox.Location = new System.Drawing.Point(173, 21);
+            this.NameTextBox.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.NameTextBox.Location = new System.Drawing.Point(129, 25);
             this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(412, 27);
+            this.NameTextBox.Size = new System.Drawing.Size(412, 22);
             this.NameTextBox.TabIndex = 0;
-            this.NameTextBox.TextChanged += new System.EventHandler(this.NameTextBox_TextChanged);
+            this.NameTextBox.Leave += new System.EventHandler(this.NameTextBox_Leave);
             // 
             // ItemGroupBox
             // 
@@ -213,20 +220,43 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemGroupBox.Controls.Add(this.NameTextBox);
             this.ItemGroupBox.Location = new System.Drawing.Point(199, 33);
             this.ItemGroupBox.Name = "ItemGroupBox";
-            this.ItemGroupBox.Size = new System.Drawing.Size(1271, 59);
+            this.ItemGroupBox.Size = new System.Drawing.Size(1271, 64);
             this.ItemGroupBox.TabIndex = 3;
             this.ItemGroupBox.TabStop = false;
             this.ItemGroupBox.Text = "ItemData";
+            this.ItemGroupBox.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
             // ItemNameLabel
             // 
             this.ItemNameLabel.AutoSize = true;
-            this.ItemNameLabel.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.ItemNameLabel.Location = new System.Drawing.Point(51, 24);
+            this.ItemNameLabel.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ItemNameLabel.Location = new System.Drawing.Point(35, 28);
             this.ItemNameLabel.Name = "ItemNameLabel";
-            this.ItemNameLabel.Size = new System.Drawing.Size(102, 20);
+            this.ItemNameLabel.Size = new System.Drawing.Size(71, 15);
             this.ItemNameLabel.TabIndex = 1;
             this.ItemNameLabel.Text = "ItemName";
+            this.ItemNameLabel.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
+            // 
+            // UnDoToolStripMenuItem
+            // 
+            this.UnDoToolStripMenuItem.Name = "UnDoToolStripMenuItem";
+            this.UnDoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.UnDoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.UnDoToolStripMenuItem.Text = "元に戻す";
+            this.UnDoToolStripMenuItem.Click += new System.EventHandler(this.UnDoToolStripMenuItem_Click);
+            // 
+            // reDoToolStripMenuItem
+            // 
+            this.reDoToolStripMenuItem.Name = "reDoToolStripMenuItem";
+            this.reDoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.reDoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.reDoToolStripMenuItem.Text = "やり直す";
+            this.reDoToolStripMenuItem.Click += new System.EventHandler(this.reDoToolStripMenuItem_Click);
+            // 
+            // CommandStripSeparator1
+            // 
+            this.CommandStripSeparator1.Name = "CommandStripSeparator1";
+            this.CommandStripSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // Maybe3DaysToDie_ToolEditor
             // 
@@ -240,6 +270,7 @@ namespace Maybe3DaysToDieToolEditor
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Maybe3DaysToDie_ToolEditor";
             this.Text = "Maybe3DaysToDie_ToolEditor";
+            this.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).EndInit();
@@ -275,6 +306,9 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.TextBox NameTextBox;
         private System.Windows.Forms.GroupBox ItemGroupBox;
         private System.Windows.Forms.Label ItemNameLabel;
+        private System.Windows.Forms.ToolStripMenuItem UnDoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reDoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator CommandStripSeparator1;
     }
 }
 

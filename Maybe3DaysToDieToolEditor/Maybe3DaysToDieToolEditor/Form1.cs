@@ -14,6 +14,7 @@ namespace Maybe3DaysToDieToolEditor
     {
         BindingList<Item> itemList = new BindingList<Item>();
         BindingSource bs = new BindingSource();
+        EditorCommandList commandList = new EditorCommandList();
         public Maybe3DaysToDie_ToolEditor()
         {
             InitializeComponent();
@@ -52,10 +53,41 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NameTextBox_TextChanged(object sender, EventArgs e)
+        private void NameTextBox_Leave(object sender, EventArgs e)
         {
-            ((Item)ItemList.SelectedItem).itemName = NameTextBox.Text;
+            var item = ((Item)ItemList.SelectedItem);
+            if (item == null) return;
+            Command.RenameItemCommand command = new Command.RenameItemCommand(item, NameTextBox.Text);
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+                bs.ResetBindings(false);
+            }
+        }
+
+        private void UnDoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            commandList.CommandUnDo();
+            NameTextBox.Text = ((Item)ItemList.SelectedItem).itemName;
             bs.ResetBindings(false);
+        }
+
+        private void reDoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            commandList.CommandReDo();
+            NameTextBox.Text = ((Item)ItemList.SelectedItem).itemName;
+            bs.ResetBindings(false);
+        }
+
+        //フォーカスを外す。
+        private void DeFocus()
+        {
+            this.ActiveControl = null;
+        }
+
+        private void MouseCapture(object sender, EventArgs e)
+        {
+            DeFocus();
         }
     }
 }
