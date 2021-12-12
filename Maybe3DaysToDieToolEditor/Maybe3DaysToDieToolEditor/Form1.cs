@@ -94,8 +94,12 @@ namespace Maybe3DaysToDieToolEditor
         private void UnDoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             commandList.CommandUnDo();
-            NameTextBox.Text = ((Item)ItemList.SelectedItem).itemName;
-            bs.ResetBindings(false);
+            var item = ((Item)ItemList.SelectedItem);
+            if (item != null)
+            {
+                NameTextBox.Text = ((Item)ItemList.SelectedItem).itemName;
+                bs.ResetBindings(false);
+            }
         }
 
         /// <summary>
@@ -106,8 +110,12 @@ namespace Maybe3DaysToDieToolEditor
         private void reDoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             commandList.CommandReDo();
-            NameTextBox.Text = ((Item)ItemList.SelectedItem).itemName;
-            bs.ResetBindings(false);
+            var item = ((Item)ItemList.SelectedItem);
+            if (item != null)
+            {
+                NameTextBox.Text = ((Item)ItemList.SelectedItem).itemName;
+                bs.ResetBindings(false);
+            }
         }
 
         //フォーカスを外す。
