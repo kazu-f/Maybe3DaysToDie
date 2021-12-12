@@ -51,16 +51,26 @@ namespace Maybe3DaysToDieToolEditor
         {
             var item = ItemList.SelectedItem;
             //アイテムデータならばテキストボックスに表記。
-            if(item is Item)NameTextBox.Text = ((Item)ItemList.SelectedItem).itemName;
-            //データタイプに応じて処理を分岐。
-            if (typeof(ToolData) == item.GetType()) SelectToolData((ToolData)item);
+            if (item is Item) DispItemData((Item)item);
         }
 
         /// <summary>
-        /// ツールデータが選択されたとき。
+        /// アイテムの情報を表示する。
+        /// </summary>
+        /// <param name="item"></param>
+        private void DispItemData(Item item)
+        {
+            NameTextBox.Text = item.itemName;
+            //データタイプに応じて処理を分岐。
+            if (typeof(ToolData) == item.GetType()) DispToolData((ToolData)item);
+
+        }
+
+        /// <summary>
+        /// ツールデータを表示する。
         /// </summary>
         /// <param name="tool"></param>
-        private void SelectToolData(ToolData tool)
+        private void DispToolData(ToolData tool)
         {
             //ツールの情報を表示する。
             DamageNumeric.Value = tool.damage;
@@ -85,7 +95,22 @@ namespace Maybe3DaysToDieToolEditor
                 bs.ResetBindings(false);
             }
         }
-
+        /// <summary>
+        /// 適性ツールのコンボボックスが変更されたとき。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ToolComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var item = ItemList.SelectedItem;
+            if (item == null) return;
+            if (item.GetType() != typeof(ToolData)) return;
+            Command.ChangeToolKinds command = new Command.ChangeToolKinds((ToolData)item, toolKinds.SelectedValue);
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
+        }
         /// <summary>
         /// UnDo処理。
         /// </summary>
@@ -94,10 +119,11 @@ namespace Maybe3DaysToDieToolEditor
         private void UnDoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             commandList.CommandUnDo();
-            var item = ((Item)ItemList.SelectedItem);
+            var item = ItemList.SelectedItem;
             if (item != null)
             {
-                NameTextBox.Text = ((Item)ItemList.SelectedItem).itemName;
+                //アイテムデータならばテキストボックスに表記。
+                if (item is Item) DispItemData((Item)item);
                 bs.ResetBindings(false);
             }
         }
@@ -110,10 +136,11 @@ namespace Maybe3DaysToDieToolEditor
         private void reDoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             commandList.CommandReDo();
-            var item = ((Item)ItemList.SelectedItem);
+            var item = ItemList.SelectedItem;
             if (item != null)
             {
-                NameTextBox.Text = ((Item)ItemList.SelectedItem).itemName;
+                //アイテムデータならばテキストボックスに表記。
+                if (item is Item) DispItemData((Item)item);
                 bs.ResetBindings(false);
             }
         }
@@ -128,5 +155,6 @@ namespace Maybe3DaysToDieToolEditor
         {
             DeFocus();
         }
+
     }
 }

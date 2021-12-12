@@ -23,8 +23,23 @@ namespace Maybe3DaysToDieToolEditor
 
     class ToolKindsComboBox
     {
-        public List<ToolKindsDataSource> toolKindsData;
-        private ComboBox toolKindsCB;
+        public List<ToolKindsDataSource> toolKindsData;     //コンボボックスの表示するリスト
+        private ComboBox toolKindsCB;                       //適性ツールを選ぶコンボボックス。
+
+        //選択している値を取得する。
+        public int SelectedValue
+        {
+            get
+            {
+                if (toolKindsCB == null) return 0;
+                var val = toolKindsCB.SelectedValue;
+                if(val.GetType() == typeof(int))
+                {
+                    return (int)val;
+                }
+                return 0;
+            }
+        }
         
         public ToolKindsComboBox(ComboBox comboBox)
         {
