@@ -11,6 +11,7 @@ namespace Maybe3DaysToDieToolEditor
     /// <summary>
     /// アイテムの基本的な情報。
     /// </summary>
+    [KnownType(typeof(ToolData))]
     [DataContract]
     abstract class Item 
     {
@@ -34,9 +35,9 @@ namespace Maybe3DaysToDieToolEditor
     [DataContract]
     class ToolData : Item
     {
-        public int damage { get; set; } = 0;
-        public int durable { get; set; } = 0;
-        public int useStamina { get; set; } = 0;
-        public int tool { get; set; } = 0;
+        [DataMember(Name = "damage")] public int damage { get; set; } = 0;
+        [DataMember(Name = "durable")] public int durable { get; set; } = 0;
+        [DataMember(Name = "useStamina")] public int useStamina { get; set; } = 0;
+        [DataMember(Name = "tool")] public int tool { get; set; } = 0;
     }
 }

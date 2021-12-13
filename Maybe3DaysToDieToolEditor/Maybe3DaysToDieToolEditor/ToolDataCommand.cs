@@ -16,10 +16,10 @@ namespace Maybe3DaysToDieToolEditor
             ToolData m_tool;
             int beforeVal;
             int afterVal;
-            public ChangeToolDamage(ToolData toolData, int toolKind)
+            public ChangeToolDamage(ToolData toolData, int tDamage)
             {
                 beforeVal = toolData.damage;
-                afterVal = toolKind;
+                afterVal = tDamage;
                 m_tool = toolData;
             }
             public override void UnDo()
@@ -29,6 +29,60 @@ namespace Maybe3DaysToDieToolEditor
             public override void ReDo()
             {
                 m_tool.damage = afterVal;        //適性ツール変更。
+            }
+            public override bool IsChanged()
+            {
+                return beforeVal != afterVal;
+            }
+        }
+        /// <summary>
+        /// ツール耐久を変更したときの処理。
+        /// </summary>
+        class ChangeToolDurable : ICommand
+        {
+            ToolData m_tool;
+            int beforeVal;
+            int afterVal;
+            public ChangeToolDurable(ToolData toolData, int tDurable)
+            {
+                beforeVal = toolData.durable;
+                afterVal = tDurable;
+                m_tool = toolData;
+            }
+            public override void UnDo()
+            {
+                m_tool.durable = beforeVal;        //適性ツール変更。
+            }
+            public override void ReDo()
+            {
+                m_tool.durable = afterVal;        //適性ツール変更。
+            }
+            public override bool IsChanged()
+            {
+                return beforeVal != afterVal;
+            }
+        }
+        /// <summary>
+        /// ツールの消費スタミナを変更したときの処理。
+        /// </summary>
+        class ChangeToolUseStamina : ICommand
+        {
+            ToolData m_tool;
+            int beforeVal;
+            int afterVal;
+            public ChangeToolUseStamina(ToolData toolData, int tUseStamina)
+            {
+                beforeVal = toolData.useStamina;
+                afterVal = tUseStamina;
+                m_tool = toolData;
+            }
+            public override void UnDo()
+            {
+                m_tool.useStamina = beforeVal;        //適性ツール変更。
+            }
+            public override void ReDo()
+            {
+                m_tool.useStamina = afterVal;        //適性ツール変更。
             }
             public override bool IsChanged()
             {

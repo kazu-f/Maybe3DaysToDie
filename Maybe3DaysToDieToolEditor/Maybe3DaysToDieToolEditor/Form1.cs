@@ -12,10 +12,11 @@ namespace Maybe3DaysToDieToolEditor
 {
     public partial class Maybe3DaysToDie_ToolEditor : Form
     {
-        BindingList<Item> itemList = new BindingList<Item>();
+        List<Item> itemList = new List<Item>();
         BindingSource bs = new BindingSource();
         EditorCommandList commandList = new EditorCommandList();
         ToolKindsComboBox toolKinds;
+        SaveItemDataList saveData;
         public Maybe3DaysToDie_ToolEditor()
         {
             InitializeComponent();
@@ -27,6 +28,7 @@ namespace Maybe3DaysToDieToolEditor
 
             //設定を行う。
             toolKinds = new ToolKindsComboBox(ToolComboBox);
+            saveData = new SaveItemDataList();
         }
 
         #region リスト操作の処理。
@@ -157,6 +159,56 @@ namespace Maybe3DaysToDieToolEditor
             }
         }
         /// <summary>
+        /// ツールの耐久を変更。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LeaveDurableValue(object sender, EventArgs e)
+        {
+            //テキストを戻す。
+            int value = 0;
+            if (!int.TryParse(DurableNumeric.Text, out value))
+            {
+                DurableNumeric.Text = DurableNumeric.Value.ToString();
+            }
+
+            var item = ItemList.SelectedItem;
+            if (item == null) return;
+            if (item.GetType() != typeof(ToolData)) return;
+
+            Command.ChangeToolDurable command = new Command.ChangeToolDurable((ToolData)item, (int)DurableNumeric.Value);
+            //変更があればコマンドリストに追加。
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
+        }
+        /// <summary>
+        /// ツールのスタミナを変更。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LeaveUseStaminaValue(object sender, EventArgs e)
+        {
+            //テキストを戻す。
+            int value = 0;
+            if (!int.TryParse(UseStaminaNumeric.Text, out value))
+            {
+                UseStaminaNumeric.Text = DurableNumeric.Value.ToString();
+            }
+
+            var item = ItemList.SelectedItem;
+            if (item == null) return;
+            if (item.GetType() != typeof(ToolData)) return;
+
+            Command.ChangeToolUseStamina command = new Command.ChangeToolUseStamina((ToolData)item, (int)UseStaminaNumeric.Value);
+            //変更があればコマンドリストに追加。
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
+        }
+        /// <summary>
         /// 適性ツールのコンボボックスが変更されたとき。
         /// </summary>
         /// <param name="sender"></param>
@@ -222,6 +274,27 @@ namespace Maybe3DaysToDieToolEditor
         {
             DeFocus();
         }
+
+        #region ファイル保存関係。
+        /// <summary>
+        /// 名前を付けて保存。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveData.SaveJsonFile(itemList, true);
+        }
+        /// <summary>
+        /// 上書き保存。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveData.SaveJsonFile(itemList);
+        }
+        #endregion ファイル保存関係。
 
     }
 }
