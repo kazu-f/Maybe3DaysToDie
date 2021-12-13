@@ -15,9 +15,9 @@ void BlockManager::OnDestroy()
 
 bool BlockManager::Start()
 {
-	for (int Chunk_X = 0; Chunk_X < 64; Chunk_X++)
+	for (int Chunk_X = 0; Chunk_X < MAX_CHUNK_SIDE; Chunk_X++)
 	{
-		for (int Chunk_Z = 0; Chunk_Z < 64; Chunk_Z++)
+		for (int Chunk_Z = 0; Chunk_Z < MAX_CHUNK_SIDE; Chunk_Z++)
 		{
 			for (int x = 0; x < ChunkWidth; x++)
 			{
@@ -104,9 +104,9 @@ void BlockManager::RemoveBlock(Block* blockptr)
 		//インスタンシングデータをリセット
 		model->ResetInstancingDatas();
 		//ここからセットしなおす
-		for (int Chunk_X = 0; Chunk_X < 64; Chunk_X++)
+		for (int Chunk_X = 0; Chunk_X < MAX_CHUNK_SIDE; Chunk_X++)
 		{
-			for (int Chunk_Z = 0; Chunk_Z < 64; Chunk_Z++)
+			for (int Chunk_Z = 0; Chunk_Z < MAX_CHUNK_SIDE; Chunk_Z++)
 			{
 
 				for (int x = 0; x < ChunkWidth; x++)
