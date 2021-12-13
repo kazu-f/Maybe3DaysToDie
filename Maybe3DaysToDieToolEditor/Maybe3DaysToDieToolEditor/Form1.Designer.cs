@@ -323,6 +323,7 @@ namespace Maybe3DaysToDieToolEditor
             this.DamageNumeric.Size = new System.Drawing.Size(120, 22);
             this.DamageNumeric.TabIndex = 1;
             this.DamageNumeric.ThousandsSeparator = true;
+            this.DamageNumeric.Leave += new System.EventHandler(this.LeaveDamageValue);
             // 
             // DamageLabel
             // 
