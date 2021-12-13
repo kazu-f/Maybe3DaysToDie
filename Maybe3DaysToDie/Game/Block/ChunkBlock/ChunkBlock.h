@@ -48,4 +48,5 @@ private:
 	const Vector3 BLOCK_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };
 	BlockManager* m_BlockManager = nullptr;
 	int m_ChunkID[2] = { 0 };
+	bool IsDebug = true;		//å„Ç≈è¡Ç∑ó\íËî≠ï\óp
 };

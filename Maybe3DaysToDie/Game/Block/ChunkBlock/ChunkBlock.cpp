@@ -60,6 +60,15 @@ void ChunkBlock::UpdateCol()
 				{
 					PhysicsWorld().RemoveRigidBody(m_StaticCol[x][y][z].GetRigidBody());
 				}
+
+				if (y == 0)
+				{
+					if (IsDebug)
+					{
+						PhysicsWorld().AddRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+
+					}
+				}
 			}
 		}
 	}
@@ -98,6 +107,14 @@ void ChunkBlock::MoveChunk(int ChunkID[2])
 				else
 				{
 					PhysicsWorld().RemoveRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+				}
+				if (y == 0)
+				{
+					if (IsDebug)
+					{
+						PhysicsWorld().AddRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+
+					}
 				}
 			}
 		}
