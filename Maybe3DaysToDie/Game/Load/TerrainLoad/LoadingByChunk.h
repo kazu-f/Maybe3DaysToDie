@@ -76,6 +76,8 @@ public:
 	bool Start();
 
 	void Update();
+
+	void UpdateMoveChunk();
 private:
 	WorldConfig* m_config = nullptr;
 	SaveDataFile* m_SaveDataFile = nullptr;
