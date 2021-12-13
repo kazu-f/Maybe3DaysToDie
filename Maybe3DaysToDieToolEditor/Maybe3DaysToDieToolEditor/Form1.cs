@@ -29,6 +29,7 @@ namespace Maybe3DaysToDieToolEditor
             toolKinds = new ToolKindsComboBox(ToolComboBox);
         }
 
+        #region リスト操作の処理。
         /// <summary>
         /// リストからデータを削除する。
         /// </summary>
@@ -63,6 +64,9 @@ namespace Maybe3DaysToDieToolEditor
             bs.ResetBindings(false);
         }
 
+        #endregion
+
+        #region データを表示する処理。
         /// <summary>
         /// リストの選択が変更されたとき。
         /// </summary>
@@ -103,8 +107,11 @@ namespace Maybe3DaysToDieToolEditor
             UseStaminaNumeric.Value = tool.useStamina;
             toolKinds.SelectValue(tool.tool);
         }
+        #endregion
 
         #region 変更したときのコマンド。
+
+        #region アイテム共通。
         /// <summary>
         /// テキストボックスの中が変更されたとき。
         /// </summary>
@@ -119,6 +126,34 @@ namespace Maybe3DaysToDieToolEditor
             {
                 commandList.AddCommand(command);
                 bs.ResetBindings(false);
+            }
+        }
+        #endregion
+
+        #region ツールデータ。
+        /// <summary>
+        /// ツールダメージを変更したとき。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LeaveDamageValue(object sender, EventArgs e)
+        {
+            //テキストを戻す。
+            int value = 0;
+            if (!int.TryParse(DamageNumeric.Text,out value))
+            {
+                DamageNumeric.Text = DamageNumeric.Value.ToString();
+            }
+
+            var item = ItemList.SelectedItem;
+            if (item == null) return;
+            if (item.GetType() != typeof(ToolData)) return;
+
+            Command.ChangeToolDamage command = new Command.ChangeToolDamage((ToolData)item, (int)DamageNumeric.Value);
+            //変更があればコマンドリストに追加。
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
             }
         }
         /// <summary>
@@ -137,6 +172,8 @@ namespace Maybe3DaysToDieToolEditor
                 commandList.AddCommand(command);
             }
         }
+        #endregion
+
         #endregion
 
         #region UnDo、ReDo処理。
@@ -185,5 +222,6 @@ namespace Maybe3DaysToDieToolEditor
         {
             DeFocus();
         }
+
     }
 }
