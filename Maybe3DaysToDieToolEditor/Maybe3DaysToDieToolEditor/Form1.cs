@@ -30,6 +30,27 @@ namespace Maybe3DaysToDieToolEditor
         }
 
         /// <summary>
+        /// リストからデータを削除する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = ItemList.SelectedItem;
+            if (item == null) return;       //選択がなければ処理しない。
+            //アイテムデータならばリストから削除。
+            if (item is Item)
+            {
+                if (itemList.Remove((Item)item))
+                {
+                    var reDisp = ItemList.SelectedItem;
+                    if (item is Item) DispItemData((Item)reDisp);
+
+                    bs.ResetBindings(false);
+                }
+            }
+        }
+        /// <summary>
         /// リストに新しいツールデータを追加する。
         /// </summary>
         /// <param name="sender"></param>
@@ -60,10 +81,14 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="item"></param>
         private void DispItemData(Item item)
         {
+            if (item == null)
+            {
+                NameTextBox.Text = "";
+                return;
+            }
             NameTextBox.Text = item.itemName;
             //データタイプに応じて処理を分岐。
             if (typeof(ToolData) == item.GetType()) DispToolData((ToolData)item);
-
         }
 
         /// <summary>
@@ -79,6 +104,7 @@ namespace Maybe3DaysToDieToolEditor
             toolKinds.SelectValue(tool.tool);
         }
 
+        #region 変更したときのコマンド。
         /// <summary>
         /// テキストボックスの中が変更されたとき。
         /// </summary>
@@ -111,6 +137,9 @@ namespace Maybe3DaysToDieToolEditor
                 commandList.AddCommand(command);
             }
         }
+        #endregion
+
+        #region UnDo、ReDo処理。
         /// <summary>
         /// UnDo処理。
         /// </summary>
@@ -144,6 +173,7 @@ namespace Maybe3DaysToDieToolEditor
                 bs.ResetBindings(false);
             }
         }
+        #endregion
 
         //フォーカスを外す。
         private void DeFocus()
@@ -155,6 +185,5 @@ namespace Maybe3DaysToDieToolEditor
         {
             DeFocus();
         }
-
     }
 }

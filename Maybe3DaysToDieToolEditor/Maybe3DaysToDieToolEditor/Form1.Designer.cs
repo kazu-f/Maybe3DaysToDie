@@ -63,6 +63,7 @@ namespace Maybe3DaysToDieToolEditor
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.ItemGroupBox = new System.Windows.Forms.GroupBox();
             this.ItemNameLabel = new System.Windows.Forms.Label();
+            this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).BeginInit();
             this.ToolGroupBox.SuspendLayout();
@@ -137,7 +138,8 @@ namespace Maybe3DaysToDieToolEditor
             this.CopyCToolStripMenuItem,
             this.PastVToolStripMenuItem,
             this.EditortoolStripSeparator1,
-            this.AddToolStripMenuItem1});
+            this.AddToolStripMenuItem1,
+            this.DeleteToolStripMenuItem});
             this.EditorEToolStripMenuItem.Name = "EditorEToolStripMenuItem";
             this.EditorEToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
             this.EditorEToolStripMenuItem.Text = "編集(&E)";
@@ -146,7 +148,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             this.UnDoToolStripMenuItem.Name = "UnDoToolStripMenuItem";
             this.UnDoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.UnDoToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.UnDoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.UnDoToolStripMenuItem.Text = "元に戻す";
             this.UnDoToolStripMenuItem.Click += new System.EventHandler(this.UnDoToolStripMenuItem_Click);
             // 
@@ -154,40 +156,40 @@ namespace Maybe3DaysToDieToolEditor
             // 
             this.reDoToolStripMenuItem.Name = "reDoToolStripMenuItem";
             this.reDoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.reDoToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.reDoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.reDoToolStripMenuItem.Text = "やり直す";
             this.reDoToolStripMenuItem.Click += new System.EventHandler(this.reDoToolStripMenuItem_Click);
             // 
             // CommandStripSeparator1
             // 
             this.CommandStripSeparator1.Name = "CommandStripSeparator1";
-            this.CommandStripSeparator1.Size = new System.Drawing.Size(210, 6);
+            this.CommandStripSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // CutOutXToolStripMenuItem
             // 
             this.CutOutXToolStripMenuItem.Name = "CutOutXToolStripMenuItem";
             this.CutOutXToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.CutOutXToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.CutOutXToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.CutOutXToolStripMenuItem.Text = "切り取り(&T)";
             // 
             // CopyCToolStripMenuItem
             // 
             this.CopyCToolStripMenuItem.Name = "CopyCToolStripMenuItem";
             this.CopyCToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.CopyCToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.CopyCToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.CopyCToolStripMenuItem.Text = "コピー(&Y)";
             // 
             // PastVToolStripMenuItem
             // 
             this.PastVToolStripMenuItem.Name = "PastVToolStripMenuItem";
             this.PastVToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.PastVToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
+            this.PastVToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.PastVToolStripMenuItem.Text = "貼り付け(&P)";
             // 
             // EditortoolStripSeparator1
             // 
             this.EditortoolStripSeparator1.Name = "EditortoolStripSeparator1";
-            this.EditortoolStripSeparator1.Size = new System.Drawing.Size(210, 6);
+            this.EditortoolStripSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // AddToolStripMenuItem1
             // 
@@ -196,7 +198,7 @@ namespace Maybe3DaysToDieToolEditor
             this.MaterialDataToolStripMenuItem,
             this.PlaceObjDataToolStripMenuItem});
             this.AddToolStripMenuItem1.Name = "AddToolStripMenuItem1";
-            this.AddToolStripMenuItem1.Size = new System.Drawing.Size(213, 26);
+            this.AddToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.AddToolStripMenuItem1.Text = "追加";
             // 
             // ToolDataToolStripMenuItem
@@ -363,6 +365,13 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemNameLabel.Text = "ItemName";
             this.ItemNameLabel.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
+            // DeleteToolStripMenuItem
+            // 
+            this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.DeleteToolStripMenuItem.Text = "削除";
+            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
+            // 
             // Maybe3DaysToDie_ToolEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -427,6 +436,7 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.Label UseStaminaLabel;
         private System.Windows.Forms.Label ToolKindsLabel;
         private System.Windows.Forms.ComboBox ToolComboBox;
+        private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
     }
 }
 
