@@ -94,11 +94,11 @@ namespace nsTerrain {
 		}
 
 	private:
-		static const int width = 16;
-		static const int height = 8;
+		//static const int width = 16;
+		//static const int height = 8;
 		float m_terrainSurface = 0.5f;
 
-		Terrain m_terrainMap[width][height][width];
+		Terrain m_terrainMap[ChunkWidth][ChunkHeight][ChunkWidth];
 		CNoise m_perlinNoise;
 		TerrainRender* m_terrainRender = nullptr;		//地形描画クラス。
 		NVMGenerator m_NVMGenerator;					//NVM生成。

@@ -1,4 +1,6 @@
 #pragma once
+#include "Load/TerrainLoad/LoadingByChunk.h"
+
 class PlayerHp;
 class PlayerStamina;
 class PlayerHunger;
@@ -56,6 +58,11 @@ public:
 	/// <param name="mulSp">速度に掛けたい値</param>
 	void SetMulSpeed(const float mulSp) {
 		m_mulSpeed = mulSp;
+	}
+
+	void SetLoadingByChunk(LoadingByChunk* lbc)
+	{
+		m_LoadingByChunk = lbc;
 	}
 
 private:
@@ -121,5 +128,6 @@ private:
 	float m_mulSpeed = 1.0f;			//スピードに掛ける値
 
 	CFontRender* m_Font = nullptr;
+	LoadingByChunk* m_LoadingByChunk = nullptr;
 };
 

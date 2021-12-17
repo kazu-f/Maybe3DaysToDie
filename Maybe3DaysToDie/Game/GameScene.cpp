@@ -84,6 +84,8 @@ bool CGameScene::Start()
 	m_LoadingByChunk = NewGO<LoadingByChunk>(0);
 	//ワールド設定をセット
 	m_LoadingByChunk->SetWorldConfig(&m_WorldConfig);
+	m_LoadingByChunk->SetBlockManagerForChunkBlock(m_BlockManager);
+	m_Player->SetLoadingByChunk(m_LoadingByChunk);
 	return true;
 }
 

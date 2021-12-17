@@ -73,6 +73,7 @@ void Player::Update()
 	//ƒ‚ƒfƒ‹î•ñ‚ðXV
 	ModelUpdate();
 
+	m_LoadingByChunk->SetPlayerPos(m_Pos);
 }
 
 void Player::OnDestroy()

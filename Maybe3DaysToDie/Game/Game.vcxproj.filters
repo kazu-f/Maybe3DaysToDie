@@ -242,6 +242,129 @@
     <ClInclude Include="Tool\ToolDataFile.h">
       <Filter>Tool</Filter>
     </ClInclude>
+    <ClInclude Include="nlohmann\ordered_map.hpp">
+      <Filter>nlohmann</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\json.hpp">
+      <Filter>nlohmann</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\json_fwd.hpp">
+      <Filter>nlohmann</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\byte_container_with_subtype.hpp">
+      <Filter>nlohmann</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\adl_serializer.hpp">
+      <Filter>nlohmann</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\exceptions.hpp">
+      <Filter>nlohmann\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\hash.hpp">
+      <Filter>nlohmann\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\json_pointer.hpp">
+      <Filter>nlohmann\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\json_ref.hpp">
+      <Filter>nlohmann\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\macro_scope.hpp">
+      <Filter>nlohmann\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\macro_unscope.hpp">
+      <Filter>nlohmann\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\string_escape.hpp">
+      <Filter>nlohmann\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\value_t.hpp">
+      <Filter>nlohmann\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\conversions\from_json.hpp">
+      <Filter>nlohmann\detail\conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\conversions\to_chars.hpp">
+      <Filter>nlohmann\detail\conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\conversions\to_json.hpp">
+      <Filter>nlohmann\detail\conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\input\binary_reader.hpp">
+      <Filter>nlohmann\detail\input</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\input\input_adapters.hpp">
+      <Filter>nlohmann\detail\input</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\input\json_sax.hpp">
+      <Filter>nlohmann\detail\input</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\input\lexer.hpp">
+      <Filter>nlohmann\detail\input</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\input\parser.hpp">
+      <Filter>nlohmann\detail\input</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\input\position_t.hpp">
+      <Filter>nlohmann\detail\input</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\iterators\internal_iterator.hpp">
+      <Filter>nlohmann\detail\iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\iterators\iter_impl.hpp">
+      <Filter>nlohmann\detail\iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\iterators\iterator_traits.hpp">
+      <Filter>nlohmann\detail\iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\iterators\iteration_proxy.hpp">
+      <Filter>nlohmann\detail\iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\iterators\json_reverse_iterator.hpp">
+      <Filter>nlohmann\detail\iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\iterators\primitive_iterator.hpp">
+      <Filter>nlohmann\detail\iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\meta\cpp_future.hpp">
+      <Filter>nlohmann\detail\meta</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\meta\detected.hpp">
+      <Filter>nlohmann\detail\meta</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\meta\identity_tag.hpp">
+      <Filter>nlohmann\detail\meta</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\meta\is_sax.hpp">
+      <Filter>nlohmann\detail\meta</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\meta\type_traits.hpp">
+      <Filter>nlohmann\detail\meta</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\meta\void_t.hpp">
+      <Filter>nlohmann\detail\meta</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\meta\call_std\end.hpp">
+      <Filter>nlohmann\detail\meta\call_std</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\meta\call_std\begin.hpp">
+      <Filter>nlohmann\detail\meta\call_std</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\output\binary_writer.hpp">
+      <Filter>nlohmann\detail\output</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\output\output_adapters.hpp">
+      <Filter>nlohmann\detail\output</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\detail\output\serializer.hpp">
+      <Filter>nlohmann\detail\output</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp">
+      <Filter>nlohmann\thirdparty\hedley</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp">
+      <Filter>nlohmann\thirdparty\hedley</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">
@@ -344,6 +467,36 @@
     </Filter>
     <Filter Include="Tool">
       <UniqueIdentifier>{744cd739-ee3f-4b2f-bf21-029cbfa75127}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nlohmann">
+      <UniqueIdentifier>{b6d69c4b-6bd7-4b46-afeb-5031384b264d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nlohmann\detail">
+      <UniqueIdentifier>{2c7f876a-7706-4e81-b7dc-b80ca297e130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nlohmann\detail\conversions">
+      <UniqueIdentifier>{ee7e5427-e818-4ec7-b8d1-06e2a3ebb004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nlohmann\detail\input">
+      <UniqueIdentifier>{a485fedd-866b-4a2b-8d5c-82d2d9c2b00a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nlohmann\detail\iterators">
+      <UniqueIdentifier>{497f461f-fe68-4cfe-b513-2e24deb2e79f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nlohmann\detail\meta">
+      <UniqueIdentifier>{4dcf8a29-a808-42a8-97a6-051215a9d536}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nlohmann\detail\meta\call_std">
+      <UniqueIdentifier>{d44c949d-f53d-439d-bc87-3b0cb5b16f10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nlohmann\detail\output">
+      <UniqueIdentifier>{6e302520-49e5-4bd3-9704-0b3aa1e765dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nlohmann\thirdparty">
+      <UniqueIdentifier>{558a2a4f-5763-4249-8ac5-98f14cad56d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nlohmann\thirdparty\hedley">
+      <UniqueIdentifier>{366bc28c-681a-43b1-9009-3f8cc62ed50e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

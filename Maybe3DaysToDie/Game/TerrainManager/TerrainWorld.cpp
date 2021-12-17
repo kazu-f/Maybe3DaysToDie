@@ -8,11 +8,11 @@
 namespace nsTerrain {
 	bool TerrainWorld::Start()
 	{
-		for (int x = 0; x < width; x++)
+		for (int x = 0; x < ChunkWidth; x++)
 		{
-			for (int y = 0; y < height; y++)
+			for (int y = 0; y < ChunkHeight; y++)
 			{
-				for (int z = 0; z < width; z++)
+				for (int z = 0; z < ChunkWidth; z++)
 				{
 					m_terrainMap[x][y][z].SetTerrainWorld(this);
 				}
@@ -21,7 +21,7 @@ namespace nsTerrain {
 		//地形描画クラス作成。
 		m_terrainRender = NewGO<TerrainRender>(10);
 		TerrainInitData initData;
-		initData.vertexNum = width * width * height * 15;
+		initData.vertexNum = ChunkWidth * ChunkWidth * ChunkHeight * 15;
 
 		m_terrainRender->Init(initData);
 		//m_terrainRender->SetPosition({ -TERRAIN_UNIT * width / 2,-TERRAIN_UNIT * height / 2 ,-TERRAIN_UNIT * width / 2 });
@@ -79,21 +79,21 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::PopurerTerrainMap()
 	{
-		for (int x = 0; x < width; x++)
+		for (int x = 0; x < ChunkWidth; x++)
 		{
-			for (int y = 0; y < height; y++)
+			for (int y = 0; y < ChunkHeight; y++)
 			{
-				for (int z = 0; z < width ; z++)
+				for (int z = 0; z < ChunkWidth; z++)
 				{
 					float noise = m_perlinNoise.CalculationNoise(
-						(static_cast<double>(x) / static_cast<double>(width) * 1.5 + 0.001),
-						(static_cast<double>(z) / static_cast<double>(width) * 1.5 + 0.001)
+						(static_cast<double>(x) / static_cast<double>(ChunkWidth) * 1.5 + 0.001),
+						(static_cast<double>(z) / static_cast<double>(ChunkWidth) * 1.5 + 0.001)
 						//,(static_cast<double>(y) / static_cast<double>(height) * 1.5 + 0.001)
 					);
 
 					noise = max(0.0f, min(1.0f, noise));
 
-					float thisHeight = (static_cast<float>(height)* noise);
+					float thisHeight = (static_cast<float>(ChunkHeight)* noise);
 
 					float point = 0;
 
@@ -154,11 +154,11 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::CreateMeshData()
 	{
-		for (int x = 0; x < width - 1; x++)
+		for (int x = 0; x < ChunkWidth - 1; x++)
 		{
-			for (int y = 0; y < height - 1; y++)
+			for (int y = 0; y < ChunkHeight - 1; y++)
 			{
-				for (int z = 0; z < width - 1; z++)
+				for (int z = 0; z < ChunkWidth - 1; z++)
 				{
 					Cube cube;
 					for (int i = 0; i < 8; i++)

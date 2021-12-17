@@ -1,0 +1,36 @@
+{
+  "ToolName": [
+    "AxeData",
+    "DebugTool"
+  ],
+  "AxeData": {
+    "ObjName": [
+      "StoneAxe",
+      "DebugAxe"
+    ],
+    "StoneAxe": {
+      "damage": 50,
+      "durable": 100,
+      "useStamina": 5,
+      "tool": 1
+    },
+    "DebugAxe": {
+      "damage": 5000,
+      "durable": 10000,
+      "useStamina": 0,
+      "tool": 1
+    }
+  },
+
+  "DebugTool": {
+    "ObjName": [
+      "DebugTool"
+    ],
+    "DebugTool": {
+      "damage": 1000000,
+      "durable": 1000000,
+      "useStamina": 0,
+      "tool": -1
+    }
+  }
+}

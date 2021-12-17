@@ -38,7 +38,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, TEXT("Game"), initParam);
 	//デバッグモードオン
-	//PhysicsWorld().SetDebugMode(1);
+	PhysicsWorld().SetDebugMode(1);
 	//フェードイン
 	CFade::GetInstance()->StartFadeIn();
 	//マウスカーソルの表示を消す
