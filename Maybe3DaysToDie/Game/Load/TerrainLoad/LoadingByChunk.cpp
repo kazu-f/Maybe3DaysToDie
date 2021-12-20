@@ -27,9 +27,9 @@ bool LoadingByChunk::Start()
 			int ChunkID[2] = { 0 };
 			ChunkID[0] += PlayerPosInGrid[0] + Chunk_X - 1 ;
 			ChunkID[1] += PlayerPosInGrid[1] + Chunk_Z - 1 ;
-			m_ChunkBlock[Chunk_X][Chunk_Z].SetChunkID(ChunkID);
+			m_ChunkCol[Chunk_X][Chunk_Z].SetChunkID(ChunkID);
 			//初期化
-			m_ChunkBlock[Chunk_X][Chunk_Z].Init();
+			m_ChunkCol[Chunk_X][Chunk_Z].Init();
 		}
 	}
 	return true;
@@ -44,7 +44,7 @@ void LoadingByChunk::Update()
 			for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
 			{
 				//コライダーを更新
-				m_ChunkBlock[Chunk_X][Chunk_Z].UpdateCol();
+				m_ChunkCol[Chunk_X][Chunk_Z].UpdateCol();
 			}
 		}
 		m_BlockManager->ResetBlockDirty();
@@ -102,12 +102,12 @@ void LoadingByChunk::UpdateMoveChunk()
 						{
 							int ChunkID[2] = { 0 };
 							//現在のチャンクIDを取得
-							m_ChunkBlock[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
+							m_ChunkCol[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
 							if (ChunkID[0] <= PlayerPosInGrid[0] - 2)
 							{
 								//Xが現在の位置より2低いとき移動
 								ChunkID[0] = PlayerPosInGrid[0] + 1;
-								m_ChunkBlock[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
+								m_ChunkCol[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
 							}
 						}
 					}
@@ -121,12 +121,12 @@ void LoadingByChunk::UpdateMoveChunk()
 						{
 							int ChunkID[2] = { 0 };
 							//現在のチャンクIDを取得
-							m_ChunkBlock[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
+							m_ChunkCol[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
 							if (ChunkID[0] >= PlayerPosInGrid[0] + 2)
 							{
 								//Xが現在の位置より2大きいとき移動
 								ChunkID[0] = PlayerPosInGrid[0] - 1;
-								m_ChunkBlock[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
+								m_ChunkCol[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
 							}
 						}
 					}
@@ -144,12 +144,12 @@ void LoadingByChunk::UpdateMoveChunk()
 						{
 							int ChunkID[2] = { 0 };
 							//現在のチャンクIDを取得
-							m_ChunkBlock[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
+							m_ChunkCol[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
 							if (ChunkID[1] <= PlayerPosInGrid[1] - 2)
 							{
 								//Zが現在の位置より2低いとき移動
 								ChunkID[1] = PlayerPosInGrid[1] + 1;
-								m_ChunkBlock[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
+								m_ChunkCol[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
 							}
 						}
 					}
@@ -163,12 +163,12 @@ void LoadingByChunk::UpdateMoveChunk()
 						{
 							int ChunkID[2] = { 0 };
 							//現在のチャンクIDを取得
-							m_ChunkBlock[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
+							m_ChunkCol[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
 							if (ChunkID[1] >= PlayerPosInGrid[1] + 2)
 							{
 								//Zが現在の位置より2大きいとき移動
 								ChunkID[1] = PlayerPosInGrid[1] - 1;
-								m_ChunkBlock[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
+								m_ChunkCol[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
 							}
 						}
 					}

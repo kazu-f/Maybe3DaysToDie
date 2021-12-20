@@ -67,7 +67,7 @@ public:
 		{
 			for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
 			{
-				m_ChunkBlock[Chunk_X][Chunk_Z].SetBlockManager(manag);
+				m_ChunkCol[Chunk_X][Chunk_Z].SetBlockManager(manag);
 			}
 		}
 		IsBlockManagerSet = true;
@@ -83,7 +83,7 @@ private:
 	SaveDataFile* m_SaveDataFile = nullptr;
 	int PlayerPosInGrid[2] = { 0 };
 	bool m_isDirty = true;		//更新するかどうか
-	ChunkCollision m_ChunkBlock[LoadingChunks][LoadingChunks];		//チャンクごとのブロック
+	ChunkCollision m_ChunkCol[LoadingChunks][LoadingChunks];		//チャンクごとのブロック
 	bool IsBlockManagerSet = false;
 	BlockManager* m_BlockManager = nullptr;
 	bool IsChunkMove[2] = { false };
