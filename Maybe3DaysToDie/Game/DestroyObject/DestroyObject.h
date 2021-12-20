@@ -40,7 +40,7 @@ public:
 	DestroyObject();
 	~DestroyObject();
 
-	void AddObjectDamage(int damage);
+	void AddObjectDamage();
 
 	void Update();
 

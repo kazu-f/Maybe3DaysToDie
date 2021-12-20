@@ -17,11 +17,11 @@ void DestroyObject::Update()
 {
 	if (Pad(0).IsTrigger(enButtonB))
 	{
-		AddObjectDamage(100);
+		AddObjectDamage();
 	}
 }
 
-void DestroyObject::AddObjectDamage(int damage)
+void DestroyObject::AddObjectDamage()
 {
 	//Ž‹“_‚ÌˆÊ’u
 	Vector3 m_Start = MainCamera().GetPosition();

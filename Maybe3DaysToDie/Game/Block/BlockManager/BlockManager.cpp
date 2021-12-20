@@ -55,8 +55,6 @@ Block& BlockManager::GetBlock(const Vector3& pos)
 	Pos.y += OBJECT_UNIT / 2;
 	Pos.z += OBJECT_UNIT / 2;
 	
-	//int Chunk_X = pos.x / (MAX_CHUNK_SIDE * ChunkWidth);
-	//int Chunk_Z = pos.z / (MAX_CHUNK_SIDE * ChunkWidth);
 	int Chunk_X = static_cast<int>(std::floor((pos.x / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
 	int Chunk_Z = static_cast<int>(std::floor((pos.z / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
 	int resX = static_cast<int>(std::floor(Pos.x / OBJECT_UNIT));

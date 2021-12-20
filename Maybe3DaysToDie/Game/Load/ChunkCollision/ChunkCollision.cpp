@@ -37,6 +37,9 @@ void ChunkCollision::InitCol()
 				//コリジョンを作成
 				m_StaticCol[x][y][z].CreateBox(pos, Quaternion::Identity, BLOCK_SIZE);
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
+				//ブロックのポインタを渡しておく
+				auto& blocks = m_BlockManager->GetChunkBlock(m_ChunkID);
+				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)blocks.m_Block[x][y][z].GetPointer());
 			}
 		}
 	}
