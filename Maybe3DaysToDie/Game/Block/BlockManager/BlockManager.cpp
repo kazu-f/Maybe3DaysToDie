@@ -55,8 +55,10 @@ Block& BlockManager::GetBlock(const Vector3& pos)
 	Pos.y += OBJECT_UNIT / 2;
 	Pos.z += OBJECT_UNIT / 2;
 	
-	int Chunk_X = pos.x / (MAX_CHUNK_SIDE * ChunkWidth);
-	int Chunk_Z = pos.z / (MAX_CHUNK_SIDE * ChunkWidth);
+	//int Chunk_X = pos.x / (MAX_CHUNK_SIDE * ChunkWidth);
+	//int Chunk_Z = pos.z / (MAX_CHUNK_SIDE * ChunkWidth);
+	int Chunk_X = static_cast<int>(std::floor((pos.x / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
+	int Chunk_Z = static_cast<int>(std::floor((pos.z / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
 	int resX = static_cast<int>(std::floor(Pos.x / OBJECT_UNIT));
 	int resY = static_cast<int>(std::floor(Pos.y / OBJECT_UNIT));
 	int resZ = static_cast<int>(std::floor(Pos.z / OBJECT_UNIT));
@@ -65,38 +67,43 @@ Block& BlockManager::GetBlock(const Vector3& pos)
 }
 
 
-void BlockManager::AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot, Vector3& scale)
+void BlockManager::AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)
 {
+	ChunkBlockDirty = true;
+	//ブロックを取得
+	auto& block = GetBlock(pos);
+
 	if (m_modelNum > 0)
 	{
 		for (auto& model : BlockModel)
 		{
-			if (BlockName == model->GetInitData().m_tkmFilePath)
+			if (params.BlockName == model->GetInitData().m_tkmFilePath)
 			{
 				//ブロックの名前がかぶっているとき
 				model->UpdateInstancingData(pos, rot, scale);
-				//コライダーを有効化
-				GetBlock(pos).SetName(BlockName);
+				//パラメータをセット
+				block.SetParams(params);
 				return;
 			}
 		}
 	}
 	//ブロックの名前がかぶっていないのでまだ、そのモデルがない
 	ModelInitData InitData;
-	InitData.m_tkmFilePath = BlockName;
+	InitData.m_tkmFilePath = params.BlockName;
 	prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
 	//チャンクのサイズ分インスタンシング描画する
 	model->Init(InitData, nullptr, 0, MaxInstanceNum);
 	model->UpdateInstancingData(pos, rot, scale);
 	BlockModel[m_modelNum] = model;
-	//コライダーを有効化
-	GetBlock(pos).SetName(BlockName);
+	//パラメータをセット
+	block.SetParams(params);
 
 	m_modelNum++;
 }
 
 void BlockManager::RemoveBlock(Block* blockptr)
 {
+	ChunkBlockDirty = true;
 	for (auto& model : BlockModel)
 	{
 		const char* Name = blockptr->GetParam().BlockName;

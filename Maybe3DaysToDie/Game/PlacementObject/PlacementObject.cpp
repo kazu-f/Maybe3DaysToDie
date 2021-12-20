@@ -51,7 +51,12 @@ void PlacementObject::Update()
 
 	if (Pad(0).IsTrigger(enButtonA))
 	{
-		PlaceObject();
+		//パラメータ
+		ObjectParams param;
+		param.Durable = 500;
+		auto name = "Assets/modelData/CubeBlock/woodBlock.tkm";
+		param.BlockName = name;
+		PlaceObject(param);
 	}
 }
 
@@ -88,14 +93,13 @@ void PlacementObject::CalcObjectPos()
 }
 
 //todo [最適化]後で処理見直せ
-void PlacementObject::PlaceObject()
+void PlacementObject::PlaceObject(ObjectParams& params)
 {
 	if (CanPlace)
 	{
-		auto name = "Assets/modelData/CubeBlock/woodBlock.tkm";
 		Quaternion rot = Quaternion::Identity;
 		Vector3 scale = Vector3::One;
-		m_BlockManager->AddBlock(name, m_pos, rot, scale);
+		m_BlockManager->AddBlock(params, m_pos, rot, scale);
 		////初期化
 		//ModelInitData m_modelInitData;
 		//m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";

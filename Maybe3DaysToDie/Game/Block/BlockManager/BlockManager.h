@@ -25,7 +25,7 @@ public:
 	void OnDestroy()override final;
 	bool Start()override final;
 	void Update()override final;
-	void AddBlock(const char* BlockName, Vector3& pos, Quaternion& rot, Vector3& scale);
+	void AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale);
 	void RemoveBlock(Block*blockptr);
 	Block& GetBlock(const Vector3& pos);
 	//Block& GetBlock(const int pos[3])

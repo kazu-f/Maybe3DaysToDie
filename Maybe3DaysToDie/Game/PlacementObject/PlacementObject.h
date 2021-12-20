@@ -45,7 +45,7 @@ public:
 	/// <summary>
 	/// オブジェクトを設置
 	/// </summary>
-	void PlaceObject();
+	void PlaceObject(ObjectParams& params);
 
 	/// <summary>
 	/// 設置するオブジェクトの位置を計算
