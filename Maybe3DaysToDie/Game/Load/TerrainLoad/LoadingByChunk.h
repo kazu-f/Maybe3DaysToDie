@@ -1,5 +1,5 @@
 #pragma once
-#include "Block/ChunkBlock/ChunkBlock.h"
+#include "Load/ChunkCollision/ChunkCollision.h"
 #include "GameConfig/WorldConfig/WorldConfig.h"
 
 class SaveDataFile;
@@ -83,7 +83,7 @@ private:
 	SaveDataFile* m_SaveDataFile = nullptr;
 	int PlayerPosInGrid[2] = { 0 };
 	bool m_isDirty = true;		//更新するかどうか
-	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];		//チャンクごとのブロック
+	ChunkCollision m_ChunkBlock[LoadingChunks][LoadingChunks];		//チャンクごとのブロック
 	bool IsBlockManagerSet = false;
 	BlockManager* m_BlockManager = nullptr;
 	bool IsChunkMove[2] = { false };

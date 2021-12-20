@@ -2,11 +2,11 @@
 #include "Block/BlockManager/BlockManager.h"
 
 //チャンクごとのブロック
-class ChunkBlock
+class ChunkCollision
 {
 public:
-	ChunkBlock();
-	~ChunkBlock();
+	ChunkCollision();
+	~ChunkCollision();
 
 	void Init();
 

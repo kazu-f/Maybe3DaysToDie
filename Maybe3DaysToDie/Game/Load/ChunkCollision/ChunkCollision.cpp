@@ -1,22 +1,22 @@
 #include "stdafx.h"
-#include "ChunkBlock.h"
+#include "ChunkCollision.h"
 
-ChunkBlock::ChunkBlock()
+ChunkCollision::ChunkCollision()
 {
 
 }
 
-ChunkBlock::~ChunkBlock()
+ChunkCollision::~ChunkCollision()
 {
 
 }
 
-void ChunkBlock::Init()
+void ChunkCollision::Init()
 {
 	InitCol();
 }
 
-void ChunkBlock::InitCol()
+void ChunkCollision::InitCol()
 {
 	for (int x = 0; x < ChunkWidth; x++)
 	{
@@ -42,7 +42,7 @@ void ChunkBlock::InitCol()
 	}
 }
 
-void ChunkBlock::UpdateCol()
+void ChunkCollision::UpdateCol()
 {
 	for (int x = 0; x < ChunkWidth; x++)
 	{
@@ -75,7 +75,7 @@ void ChunkBlock::UpdateCol()
 }
 
 
-void ChunkBlock::MoveChunk(int ChunkID[2])
+void ChunkCollision::MoveChunk(int ChunkID[2])
 {
 	//チャンクIDをセット
 	SetChunkID(ChunkID);

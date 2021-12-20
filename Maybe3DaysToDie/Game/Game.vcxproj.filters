@@ -115,7 +115,7 @@
     <ClCompile Include="Tool\Tool.cpp">
       <Filter>Tool</Filter>
     </ClCompile>
-    <ClCompile Include="Block\ChunkBlock\ChunkBlock.cpp" />
+    <ClCompile Include="Load\ChunkCollision\ChunkCollision.cpp" />
     <ClCompile Include="Tool\ToolDataFile.cpp">
       <Filter>Tool</Filter>
     </ClCompile>
@@ -238,7 +238,7 @@
     <ClInclude Include="Tool\Tool.h">
       <Filter>Tool</Filter>
     </ClInclude>
-    <ClInclude Include="Block\ChunkBlock\ChunkBlock.h" />
+    <ClInclude Include="Load\ChunkCollision\ChunkCollision.h" />
     <ClInclude Include="Tool\ToolDataFile.h">
       <Filter>Tool</Filter>
     </ClInclude>
