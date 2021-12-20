@@ -43,11 +43,11 @@ bool Player::Start()
 	AnInitData[State::Crouch].tkaFilePath = "Assets/animData/PlayerIdle.tka";
 	AnInitData[State::Jump].tkaFilePath = "Assets/animData/PlayerIdle.tka";
 	AnInitData[State::Run].tkaFilePath = "Assets/animData/PlayerIdle.tka";
-	m_Model = NewGO<prefab::ModelRender>(0);
-	m_Model->Init(PlayerModel, AnInitData,State::Num);
-	m_Model->SetPosition(m_Pos);
-	m_Model->SetRotation(m_Rot);
-	m_Model->SetScale(m_Scale);
+	//m_Model = NewGO<prefab::ModelRender>(0);
+	//m_Model->Init(PlayerModel, AnInitData,State::Num);
+	//m_Model->SetPosition(m_Pos);
+	//m_Model->SetRotation(m_Rot);
+	//m_Model->SetScale(m_Scale);
 	m_Characon.Init(100.0f, 100.0f, m_Pos);
 	return true;
 }
@@ -79,7 +79,7 @@ void Player::Update()
 void Player::OnDestroy()
 {
 	//モデルを削除
-	DeleteGO(m_Model);
+	//DeleteGO(m_Model);
 	//Hpを削除
 	DeleteGO(m_Hp);
 	//スタミナを削除
@@ -160,7 +160,7 @@ void Player::Move()
 
 	//カメラにポジションを渡す
 	cameraptr->SetPosition(m_Pos);
-	m_Model->SetPosition(Vector3::Zero);
+	//m_Model->SetPosition(Vector3::Zero);
 }
 
 void Player::Rotation()
@@ -173,5 +173,5 @@ void Player::ModelUpdate()
 	Rotation();
 	//移動
 	Move();
-	m_Model->PlayAnimation(State::Idle,GameTime().GetFrameDeltaTime());
+	//m_Model->PlayAnimation(State::Idle,GameTime().GetFrameDeltaTime());
 }
