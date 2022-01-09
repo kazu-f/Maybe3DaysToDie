@@ -42,6 +42,7 @@ namespace Maybe3DaysToDieToolEditor
             //デフォルトでTrueなので指定する必要はない
             sfd.CheckPathExists = true;
 
+            string ret = null;
             //ダイアログを表示する
             if (sfd.ShowDialog() == DialogResult.OK)
             {
@@ -53,24 +54,42 @@ namespace Maybe3DaysToDieToolEditor
                 stream = sfd.OpenFile();
                 if (stream != null)
                 {
+                    ret = sfd.FileName;
                     DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Item[]));
+                    var writer = JsonReaderWriterFactory.CreateJsonWriter(stream, Encoding.UTF8, true, true, "  ");
                     try
                     {
-                        serializer.WriteObject(stream, list.ToArray());
-                        ////リストの中身を回す。
-                        //foreach (var item in list)
-                        //{
-                        //    serializer.WriteObject(stream, item);
-                        //}
+                        serializer.WriteObject(writer, list.ToArray());
+                        writer.Flush();
+                    }
+                    catch
+                    {
+                        ret = null;
                     }
                     finally
                     {
                         stream.Close();
                     }
+
+                    ////リストの中身を回す。
+                    //foreach (var item in list)
+                    //{
+                    //    try
+                    //    {
+                    //        serializer.WriteObject(writer, item);
+                    //    }
+                    //    catch
+                    //    {
+                    //        ret = null;
+                    //    }
+                    //    finally
+                    //    {
+                    //        stream.Close();
+                    //    }
+                    //}
                 }
-                return sfd.FileName;
             }
-            return null;
+            return ret;
         }
 
         private string OverwriteSaveJsonFile(List<Item> list,string path)
@@ -81,9 +100,11 @@ namespace Maybe3DaysToDieToolEditor
             if (stream != null)
             {
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Item[]));
+                var writer = JsonReaderWriterFactory.CreateJsonWriter(stream, Encoding.UTF8, true, true, "  ");
                 try
                 {
-                    serializer.WriteObject(stream, list);
+                    serializer.WriteObject(writer, list.ToArray());
+                    writer.Flush();
                 }
                 catch
                 {
