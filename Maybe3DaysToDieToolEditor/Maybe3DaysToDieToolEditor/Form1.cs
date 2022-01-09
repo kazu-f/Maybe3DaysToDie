@@ -12,6 +12,7 @@ namespace Maybe3DaysToDieToolEditor
 {
     public partial class Maybe3DaysToDie_ToolEditor : Form
     {
+        string filePath = null;
         List<Item> itemList = new List<Item>();
         BindingSource bs = new BindingSource();
         EditorCommandList commandList = new EditorCommandList();
@@ -283,7 +284,7 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="e"></param>
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveData.SaveJsonFile(itemList, true);
+            filePath = saveData.SaveJsonFile(itemList);
         }
         /// <summary>
         /// 上書き保存。
@@ -292,7 +293,7 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="e"></param>
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveData.SaveJsonFile(itemList);
+            filePath = saveData.SaveJsonFile(itemList, filePath);
         }
         #endregion ファイル保存関係。
 

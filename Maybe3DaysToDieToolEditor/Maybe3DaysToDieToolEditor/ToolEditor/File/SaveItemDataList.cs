@@ -11,13 +11,11 @@ namespace Maybe3DaysToDieToolEditor
 {
     class SaveItemDataList
     {
-        private string filePath = null;
-
         /// <summary>
         /// 名前を付けて保存。
         /// </summary>
         /// <param name="list"></param>
-        public void SaveAsJsonFile(List<Item> list)
+        public string SaveAsJsonFile(List<Item> list)
         {
             //SaveFileDialogクラスのインスタンスを作成
             SaveFileDialog sfd = new SaveFileDialog();
@@ -70,14 +68,16 @@ namespace Maybe3DaysToDieToolEditor
                         stream.Close();
                     }
                 }
-                filePath = sfd.FileName;
+                return sfd.FileName;
             }
+            return null;
         }
 
-        private void OverwriteSaveJsonFile(List<Item> list)
+        private string OverwriteSaveJsonFile(List<Item> list,string path)
         {
+            string ret = path;
             System.IO.Stream stream;
-            stream = new System.IO.FileStream(filePath, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
+            stream = new System.IO.FileStream(path, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
             if (stream != null)
             {
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Item[]));
@@ -85,18 +85,23 @@ namespace Maybe3DaysToDieToolEditor
                 {
                     serializer.WriteObject(stream, list);
                 }
+                catch
+                {
+                    ret = null;
+                }
                 finally
                 {
                     stream.Close();
                 }
             }
+            return ret;
         }
 
         /// <summary>
         /// セーブコマンド。
         /// </summary>
         /// <param name="list"></param>
-        public void SaveJsonFile(List<Item>list, bool isSaveAs = false)
+        public string SaveJsonFile(List<Item>list, string path = null)
         {
             if (list.Count() <= 0)
             {
@@ -106,17 +111,16 @@ namespace Maybe3DaysToDieToolEditor
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
 
-                return;
+                return path;
             }
-            if (filePath == null || isSaveAs)
+            if (path == null)
             {
                 //名前を付けて保存。
-                SaveAsJsonFile(list);
-                return;
+                return SaveAsJsonFile(list);
             }
             else
             {
-                OverwriteSaveJsonFile(list);
+                return OverwriteSaveJsonFile(list,path);
             }
         }
     }
