@@ -18,6 +18,7 @@ namespace Maybe3DaysToDieToolEditor
         EditorCommandList commandList = new EditorCommandList();
         ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
+        LoadItemDataList loadData;
         public Maybe3DaysToDie_ToolEditor()
         {
             InitializeComponent();
@@ -30,6 +31,7 @@ namespace Maybe3DaysToDieToolEditor
             //設定を行う。
             toolKinds = new ToolKindsComboBox(ToolComboBox);
             saveData = new SaveItemDataList();
+            loadData = new LoadItemDataList();
         }
 
         #region リスト操作の処理。
@@ -294,6 +296,22 @@ namespace Maybe3DaysToDieToolEditor
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             filePath = saveData.SaveJsonFile(itemList, filePath);
+        }
+        /// <summary>
+        /// 読み込み。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenFileOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<Item> list;
+            filePath = loadData.LoadJsonFile(out list);
+            if(list != null)
+            {
+                itemList = list;
+                bs.DataSource = itemList;
+                bs.ResetBindings(false);
+            }
         }
         #endregion ファイル保存関係。
 

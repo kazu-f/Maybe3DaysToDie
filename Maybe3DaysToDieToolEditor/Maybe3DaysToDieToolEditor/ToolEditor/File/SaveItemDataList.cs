@@ -29,7 +29,6 @@ namespace Maybe3DaysToDieToolEditor
             //指定しない（空の文字列）の時は、現在のディレクトリが表示される
             sfd.Filter = "JSONファイル(*.json)|*.json";
             //[ファイルの種類]ではじめに選択されるものを指定する
-            //2番目の「すべてのファイル」が選択されているようにする
             sfd.FilterIndex = 1;
             //タイトルを設定する
             sfd.Title = "保存先のファイルを選択してください";
@@ -55,11 +54,11 @@ namespace Maybe3DaysToDieToolEditor
                 if (stream != null)
                 {
                     ret = sfd.FileName;
-                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Item[]));
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Item>));
                     var writer = JsonReaderWriterFactory.CreateJsonWriter(stream, Encoding.UTF8, true, true, "  ");
                     try
                     {
-                        serializer.WriteObject(writer, list.ToArray());
+                        serializer.WriteObject(writer, list);
                         writer.Flush();
                     }
                     catch
@@ -99,11 +98,11 @@ namespace Maybe3DaysToDieToolEditor
             stream = new System.IO.FileStream(path, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
             if (stream != null)
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Item[]));
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Item>));
                 var writer = JsonReaderWriterFactory.CreateJsonWriter(stream, Encoding.UTF8, true, true, "  ");
                 try
                 {
-                    serializer.WriteObject(writer, list.ToArray());
+                    serializer.WriteObject(writer, list);
                     writer.Flush();
                 }
                 catch

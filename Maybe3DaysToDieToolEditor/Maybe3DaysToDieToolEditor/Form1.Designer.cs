@@ -109,6 +109,7 @@ namespace Maybe3DaysToDieToolEditor
             this.OpenFileOToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.OpenFileOToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.OpenFileOToolStripMenuItem.Text = "開く(&O)...";
+            this.OpenFileOToolStripMenuItem.Click += new System.EventHandler(this.OpenFileOToolStripMenuItem_Click);
             // 
             // FiletoolStripSeparator1
             // 
