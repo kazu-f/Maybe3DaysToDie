@@ -26,7 +26,6 @@ public:
 	int GetLoadingChunkRange()
 	{
 		int range = static_cast<int>(m_LoadingRange);
-		range++;
 		return range;
 	}
 private:
