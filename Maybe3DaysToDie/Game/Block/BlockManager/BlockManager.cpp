@@ -51,16 +51,36 @@ Block& BlockManager::GetBlock(const Vector3& pos)
 {
 	//レイテストの関係でfloatの値がずれるときがあるので下駄をはかす
 	Vector3 Pos = pos;
-	Pos.x += OBJECT_UNIT / 2;
-	Pos.y += OBJECT_UNIT / 2;
-	Pos.z += OBJECT_UNIT / 2;
+	Pos.x += OBJECT_UNIT / 4;
+	Pos.y += OBJECT_UNIT / 4;
+	Pos.z += OBJECT_UNIT / 4;
 	
+	Pos.x = abs(Pos.x);
+	Pos.y = abs(Pos.y);
+	Pos.z = abs(Pos.z);
+
 	int Chunk_X = static_cast<int>(std::floor((pos.x / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
 	int Chunk_Z = static_cast<int>(std::floor((pos.z / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
 	int resX = static_cast<int>(std::floor(Pos.x / OBJECT_UNIT));
 	int resY = static_cast<int>(std::floor(Pos.y / OBJECT_UNIT));
 	int resZ = static_cast<int>(std::floor(Pos.z / OBJECT_UNIT));
 
+	resX %= ChunkWidth;
+	resY %= ChunkHeight;
+	resZ %= ChunkWidth;
+
+	if (Pos.x < 0.0f)
+	{
+		resX = ChunkWidth - resX;
+	}
+	if (Pos.y < 0.0f)
+	{
+		resY = ChunkHeight - resY;
+	}	
+	if (Pos.z < 0.0f)
+	{
+		resZ = ChunkWidth - resZ;
+	}
 	return m_ChunkBlock[Chunk_X][Chunk_Z].m_Block[resX][resY][resZ];
 }
 
@@ -102,9 +122,14 @@ void BlockManager::AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot,
 void BlockManager::RemoveBlock(Block* blockptr)
 {
 	ChunkBlockDirty = true;
+	const char* Name = blockptr->GetParam().BlockName;
+	if (Name == nullptr)
+	{
+		//名前がセットされていないので何か分からないものを壊そうとしている
+		return;
+	}
 	for (auto& model : BlockModel)
 	{
-		const char* Name = blockptr->GetParam().BlockName;
 		blockptr->ResetParams();
 		//インスタンシングデータをリセット
 		model->ResetInstancingDatas();
