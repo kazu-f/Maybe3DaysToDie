@@ -59,8 +59,8 @@ Block& BlockManager::GetBlock(const Vector3& pos)
 	Pos.y = abs(Pos.y);
 	Pos.z = abs(Pos.z);
 
-	int Chunk_X = static_cast<int>(std::floor((pos.x / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
-	int Chunk_Z = static_cast<int>(std::floor((pos.z / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
+	int Chunk_X = static_cast<int>(std::floor((pos.x / OBJECT_UNIT) / ChunkWidth));
+	int Chunk_Z = static_cast<int>(std::floor((pos.z / OBJECT_UNIT) / ChunkWidth));
 	int resX = static_cast<int>(std::floor(Pos.x / OBJECT_UNIT));
 	int resY = static_cast<int>(std::floor(Pos.y / OBJECT_UNIT));
 	int resZ = static_cast<int>(std::floor(Pos.z / OBJECT_UNIT));

@@ -37,8 +37,10 @@ public:
 	void SetPlayerPos(const Vector3& pos)
 	{
 		int GridPos[2] = { 0 };
-		GridPos[0] = static_cast<int>(std::floor((pos.x / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
-		GridPos[1] = static_cast<int>(std::floor((pos.z / OBJECT_UNIT) / ChunkWidth)) + MAX_CHUNK_SIDE / 2;
+		GridPos[0] = static_cast<int>(std::floor((pos.x / OBJECT_UNIT) / ChunkWidth));// +MAX_CHUNK_SIDE / 2;
+		GridPos[1] = static_cast<int>(std::floor((pos.z / OBJECT_UNIT) / ChunkWidth));// +MAX_CHUNK_SIDE / 2;
+		GridPos[0] = max(min(MAX_CHUNK_SIDE - 1, GridPos[0]), 1);
+		GridPos[1] = max(min(MAX_CHUNK_SIDE - 1, GridPos[1]), 1);
 		for (int i = 0; i < 2; i++)
 		{
 			if (PlayerPosInGrid[i] != GridPos[i])
