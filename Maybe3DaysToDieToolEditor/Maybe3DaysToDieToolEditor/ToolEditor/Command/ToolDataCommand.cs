@@ -119,5 +119,33 @@ namespace Maybe3DaysToDieToolEditor
                 return beforeVal != afterVal;
             }
         }
+
+        class ChangeToolTKM : ICommand
+        {
+            ToolData m_tool;
+            string beforeStr;
+            string afterStr;
+
+            public ChangeToolTKM(ToolData toolData, string toolTkm)
+            {
+                beforeStr = toolData.tkmFile;
+                afterStr = toolTkm;
+                m_tool = toolData;
+            }
+
+            public override void UnDo()
+            {
+                m_tool.tkmFile = beforeStr;        //モデルファイル変更。
+            }
+            public override void ReDo()
+            {
+                m_tool.tkmFile = afterStr;        //モデルファイル変更。。
+            }
+            public override bool IsChanged()
+            {
+                return beforeStr != afterStr;
+            }
+        }
+
     }
 }

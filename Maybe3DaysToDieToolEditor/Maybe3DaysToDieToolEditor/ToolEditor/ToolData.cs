@@ -39,5 +39,6 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "durable")] public int durable { get; set; } = 0;
         [DataMember(Name = "useStamina")] public int useStamina { get; set; } = 0;
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
+        [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
     }
 }

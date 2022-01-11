@@ -53,6 +53,9 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemList = new System.Windows.Forms.ListBox();
             this.toolDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ToolGroupBox = new System.Windows.Forms.GroupBox();
+            this.ModelFileSelectButton = new System.Windows.Forms.Button();
+            this.ModelFilePathTextBox = new System.Windows.Forms.TextBox();
+            this.ModelFile = new System.Windows.Forms.Label();
             this.ToolKindsLabel = new System.Windows.Forms.Label();
             this.ToolComboBox = new System.Windows.Forms.ComboBox();
             this.UseStaminaNumeric = new System.Windows.Forms.NumericUpDown();
@@ -64,9 +67,6 @@ namespace Maybe3DaysToDieToolEditor
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.ItemGroupBox = new System.Windows.Forms.GroupBox();
             this.ItemNameLabel = new System.Windows.Forms.Label();
-            this.ModelFile = new System.Windows.Forms.Label();
-            this.ModelFilePathTextBox = new System.Windows.Forms.TextBox();
-            this.ModelFileSelectButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).BeginInit();
             this.ToolGroupBox.SuspendLayout();
@@ -264,6 +264,33 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolGroupBox.Text = "ToolData";
             this.ToolGroupBox.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
+            // ModelFileSelectButton
+            // 
+            this.ModelFileSelectButton.Location = new System.Drawing.Point(833, 154);
+            this.ModelFileSelectButton.Name = "ModelFileSelectButton";
+            this.ModelFileSelectButton.Size = new System.Drawing.Size(102, 23);
+            this.ModelFileSelectButton.TabIndex = 10;
+            this.ModelFileSelectButton.Text = "ファイル選択";
+            this.ModelFileSelectButton.UseVisualStyleBackColor = true;
+            // 
+            // ModelFilePathTextBox
+            // 
+            this.ModelFilePathTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ModelFilePathTextBox.Location = new System.Drawing.Point(113, 154);
+            this.ModelFilePathTextBox.Name = "ModelFilePathTextBox";
+            this.ModelFilePathTextBox.ReadOnly = true;
+            this.ModelFilePathTextBox.Size = new System.Drawing.Size(703, 22);
+            this.ModelFilePathTextBox.TabIndex = 9;
+            // 
+            // ModelFile
+            // 
+            this.ModelFile.AutoSize = true;
+            this.ModelFile.Location = new System.Drawing.Point(23, 157);
+            this.ModelFile.Name = "ModelFile";
+            this.ModelFile.Size = new System.Drawing.Size(84, 15);
+            this.ModelFile.TabIndex = 8;
+            this.ModelFile.Text = "モデルファイル";
+            // 
             // ToolKindsLabel
             // 
             this.ToolKindsLabel.AutoSize = true;
@@ -383,34 +410,6 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemNameLabel.TabIndex = 1;
             this.ItemNameLabel.Text = "ItemName";
             this.ItemNameLabel.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
-            // 
-            // ModelFile
-            // 
-            this.ModelFile.AutoSize = true;
-            this.ModelFile.Location = new System.Drawing.Point(23, 157);
-            this.ModelFile.Name = "ModelFile";
-            this.ModelFile.Size = new System.Drawing.Size(84, 15);
-            this.ModelFile.TabIndex = 8;
-            this.ModelFile.Text = "モデルファイル";
-            // 
-            // ModelFilePathTextBox
-            // 
-            this.ModelFilePathTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ModelFilePathTextBox.Location = new System.Drawing.Point(113, 154);
-            this.ModelFilePathTextBox.Name = "ModelFilePathTextBox";
-            this.ModelFilePathTextBox.ReadOnly = true;
-            this.ModelFilePathTextBox.Size = new System.Drawing.Size(703, 22);
-            this.ModelFilePathTextBox.TabIndex = 9;
-            this.ModelFilePathTextBox.TextChanged += new System.EventHandler(this.ModelFilePathTextBox_TextChanged);
-            // 
-            // ModelFileSelectButton
-            // 
-            this.ModelFileSelectButton.Location = new System.Drawing.Point(833, 154);
-            this.ModelFileSelectButton.Name = "ModelFileSelectButton";
-            this.ModelFileSelectButton.Size = new System.Drawing.Size(102, 23);
-            this.ModelFileSelectButton.TabIndex = 10;
-            this.ModelFileSelectButton.Text = "ファイル選択";
-            this.ModelFileSelectButton.UseVisualStyleBackColor = true;
             // 
             // Maybe3DaysToDie_ToolEditor
             // 

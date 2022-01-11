@@ -34,7 +34,7 @@ namespace Maybe3DaysToDieToolEditor
             saveData = new SaveItemDataList();
             loadData = new LoadItemDataList();
             //ファイル選択用の処理を構成する。
-            selectModelData = new SelectDataFile(ModelFileSelectButton, ModelFilePathTextBox, "tkm");
+            selectModelData = new SelectDataFile(ModelFileSelectButton, ModelFilePathTextBox, "tkm", ToolTkmFileChangeCommand);
         }
 
         #region リスト操作の処理。
@@ -114,6 +114,7 @@ namespace Maybe3DaysToDieToolEditor
             DurableNumeric.Value = tool.durable;
             UseStaminaNumeric.Value = tool.useStamina;
             toolKinds.SelectValue(tool.tool);
+            ModelFilePathTextBox.Text = tool.tkmFile;
         }
         #endregion
 
@@ -231,13 +232,20 @@ namespace Maybe3DaysToDieToolEditor
             }
         }
         /// <summary>
-        /// 
+        /// ツールのモデルファイルを選択したとき。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ModelFilePathTextBox_TextChanged(object sender, EventArgs e)
+        private void ToolTkmFileChangeCommand()
         {
-
+            var item = ItemList.SelectedItem;
+            if (item == null) return;
+            if (item.GetType() != typeof(ToolData)) return;
+            Command.ChangeToolTKM command = new Command.ChangeToolTKM((ToolData)item, ModelFilePathTextBox.Text);
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
         }
         #endregion
 

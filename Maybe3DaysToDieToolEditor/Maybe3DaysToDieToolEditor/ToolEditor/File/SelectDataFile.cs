@@ -7,9 +7,11 @@ using System.Windows.Forms;
 
 namespace Maybe3DaysToDieToolEditor
 {
+    delegate void FileCommand();
     class SelectDataFile
     {
         private OpenFileDialog openFile = new OpenFileDialog();
+        private FileCommand ChangeMethod = null;
         private Button openFileButton = null;
         private TextBox filePathTextBox = null;
         private string fileExtension = null;
@@ -19,8 +21,10 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         /// <param name="button">ボタン</param>
         /// <param name="extension">選択するファイルの拡張子</param>
-        public SelectDataFile(Button button, TextBox textBox, string extension)
+        public SelectDataFile(Button button, TextBox textBox, string extension, FileCommand method)
         {
+            ChangeMethod = method;
+
             fileExtension = extension;
             //はじめのファイル名を指定する
             //はじめに「ファイル名」で表示される文字列を指定する
@@ -72,6 +76,8 @@ namespace Maybe3DaysToDieToolEditor
 
                 string fileName = filePath.Substring(index);
                 filePathTextBox.Text = fileName;
+                //コマンドを実行する。
+                ChangeMethod();
             }
         }
     }
