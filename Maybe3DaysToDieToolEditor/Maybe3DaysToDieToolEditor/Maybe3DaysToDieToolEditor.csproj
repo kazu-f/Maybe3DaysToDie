@@ -59,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToolEditor\File\LoadItemDataList.cs" />
     <Compile Include="ToolEditor\File\SaveItemDataList.cs" />
+    <Compile Include="ToolEditor\File\SelectDataFile.cs" />
     <Compile Include="ToolEditor\ToolData.cs" />
     <Compile Include="ToolEditor\Command\ToolDataCommand.cs" />
     <Compile Include="ToolEditor\ToolKindsComboBox.cs" />

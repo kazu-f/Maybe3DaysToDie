@@ -19,6 +19,7 @@ namespace Maybe3DaysToDieToolEditor
         ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
         LoadItemDataList loadData;
+        SelectDataFile selectModelData;
         public Maybe3DaysToDie_ToolEditor()
         {
             InitializeComponent();
@@ -32,6 +33,8 @@ namespace Maybe3DaysToDieToolEditor
             toolKinds = new ToolKindsComboBox(ToolComboBox);
             saveData = new SaveItemDataList();
             loadData = new LoadItemDataList();
+            //ファイル選択用の処理を構成する。
+            selectModelData = new SelectDataFile(ModelFileSelectButton, ModelFilePathTextBox, "tkm");
         }
 
         #region リスト操作の処理。
@@ -226,6 +229,15 @@ namespace Maybe3DaysToDieToolEditor
             {
                 commandList.AddCommand(command);
             }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ModelFilePathTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
         #endregion
 

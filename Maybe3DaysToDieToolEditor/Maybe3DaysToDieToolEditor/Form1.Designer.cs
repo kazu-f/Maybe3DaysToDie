@@ -64,6 +64,9 @@ namespace Maybe3DaysToDieToolEditor
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.ItemGroupBox = new System.Windows.Forms.GroupBox();
             this.ItemNameLabel = new System.Windows.Forms.Label();
+            this.ModelFile = new System.Windows.Forms.Label();
+            this.ModelFilePathTextBox = new System.Windows.Forms.TextBox();
+            this.ModelFileSelectButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).BeginInit();
             this.ToolGroupBox.SuspendLayout();
@@ -242,6 +245,9 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // ToolGroupBox
             // 
+            this.ToolGroupBox.Controls.Add(this.ModelFileSelectButton);
+            this.ToolGroupBox.Controls.Add(this.ModelFilePathTextBox);
+            this.ToolGroupBox.Controls.Add(this.ModelFile);
             this.ToolGroupBox.Controls.Add(this.ToolKindsLabel);
             this.ToolGroupBox.Controls.Add(this.ToolComboBox);
             this.ToolGroupBox.Controls.Add(this.UseStaminaNumeric);
@@ -261,7 +267,7 @@ namespace Maybe3DaysToDieToolEditor
             // ToolKindsLabel
             // 
             this.ToolKindsLabel.AutoSize = true;
-            this.ToolKindsLabel.Location = new System.Drawing.Point(35, 125);
+            this.ToolKindsLabel.Location = new System.Drawing.Point(35, 100);
             this.ToolKindsLabel.Name = "ToolKindsLabel";
             this.ToolKindsLabel.Size = new System.Drawing.Size(72, 15);
             this.ToolKindsLabel.TabIndex = 7;
@@ -271,7 +277,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             this.ToolComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ToolComboBox.FormattingEnabled = true;
-            this.ToolComboBox.Location = new System.Drawing.Point(113, 122);
+            this.ToolComboBox.Location = new System.Drawing.Point(113, 97);
             this.ToolComboBox.Name = "ToolComboBox";
             this.ToolComboBox.Size = new System.Drawing.Size(121, 23);
             this.ToolComboBox.TabIndex = 6;
@@ -378,6 +384,34 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemNameLabel.Text = "ItemName";
             this.ItemNameLabel.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
+            // ModelFile
+            // 
+            this.ModelFile.AutoSize = true;
+            this.ModelFile.Location = new System.Drawing.Point(23, 157);
+            this.ModelFile.Name = "ModelFile";
+            this.ModelFile.Size = new System.Drawing.Size(84, 15);
+            this.ModelFile.TabIndex = 8;
+            this.ModelFile.Text = "モデルファイル";
+            // 
+            // ModelFilePathTextBox
+            // 
+            this.ModelFilePathTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ModelFilePathTextBox.Location = new System.Drawing.Point(113, 154);
+            this.ModelFilePathTextBox.Name = "ModelFilePathTextBox";
+            this.ModelFilePathTextBox.ReadOnly = true;
+            this.ModelFilePathTextBox.Size = new System.Drawing.Size(703, 22);
+            this.ModelFilePathTextBox.TabIndex = 9;
+            this.ModelFilePathTextBox.TextChanged += new System.EventHandler(this.ModelFilePathTextBox_TextChanged);
+            // 
+            // ModelFileSelectButton
+            // 
+            this.ModelFileSelectButton.Location = new System.Drawing.Point(833, 154);
+            this.ModelFileSelectButton.Name = "ModelFileSelectButton";
+            this.ModelFileSelectButton.Size = new System.Drawing.Size(102, 23);
+            this.ModelFileSelectButton.TabIndex = 10;
+            this.ModelFileSelectButton.Text = "ファイル選択";
+            this.ModelFileSelectButton.UseVisualStyleBackColor = true;
+            // 
             // Maybe3DaysToDie_ToolEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -443,6 +477,9 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.Label ToolKindsLabel;
         private System.Windows.Forms.ComboBox ToolComboBox;
         private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
+        private System.Windows.Forms.Button ModelFileSelectButton;
+        private System.Windows.Forms.TextBox ModelFilePathTextBox;
+        private System.Windows.Forms.Label ModelFile;
     }
 }
 
