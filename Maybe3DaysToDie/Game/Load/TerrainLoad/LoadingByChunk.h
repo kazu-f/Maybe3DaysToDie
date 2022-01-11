@@ -46,14 +46,7 @@ public:
 		{
 			if (PlayerPosInGrid[i] != GridPos[i])
 			{
-				//todo ‚±‚Ìˆ—‹C‚É“ü‚ç‚ñ
-				if (PlayerPosInGrid[i] < GridPos[i])
-				{
-					//ã•ûŒü‚ÉˆÚ“®‚µ‚½‚©‚Ç‚¤‚©
-					IsMoveUp[i] = true;
-				}
 				PlayerPosInGrid[i] = GridPos[i];
-				IsChunkMove[i] = true;
 				m_isDirty = true;
 			}
 		}
@@ -91,6 +84,4 @@ private:
 	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];
 	bool IsBlockManagerSet = false;
 	BlockManager* m_BlockManager = nullptr;
-	bool IsChunkMove[2] = { false };
-	bool IsMoveUp[2] = { false };
 };

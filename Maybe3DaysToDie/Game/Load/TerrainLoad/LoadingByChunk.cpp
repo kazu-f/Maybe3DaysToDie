@@ -109,97 +109,26 @@ void LoadingByChunk::Update()
 void LoadingByChunk::UpdateMoveChunk()
 {
 	//todo めちゃくちゃ汚いコードなので後から見直し
+	int Grid[2] = { 0 };
+	Grid[0] -= std::floor(LoadingChunkCols / 2);
+	Grid[1] -= std::floor(LoadingChunkCols / 2);
+
+	//左下
+	Grid[0] += PlayerPosInGrid[0];
+	Grid[1] += PlayerPosInGrid[1];
+
+	//現在移動中のグリッド
+	int NowGrid[2];
 	for (int i = 0; i < 2; i++)
 	{
-		if (IsChunkMove[i] == true)
+		for (int x = 0; x < LoadingChunkCols; x++)
 		{
-			if (i == 0)
+			NowGrid[0] = Grid[0] + x;
+			for (int z = 0; z < LoadingChunkCols; z++)
 			{
-				//X軸方向に移動
-				if (IsMoveUp[i] == true)
-				{
-					//プラス方向に移動
-					for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
-					{
-						for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
-						{
-							int ChunkID[2] = { 0 };
-							//現在のチャンクIDを取得
-							m_ChunkCol[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
-							if (ChunkID[0] <= PlayerPosInGrid[0] - 2)
-							{
-								//Xが現在の位置より2低いとき移動
-								ChunkID[0] = PlayerPosInGrid[0] + 1;
-								m_ChunkCol[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
-							}
-						}
-					}
-				}
-				else
-				{
-					//マイナス方向に移動
-					for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
-					{
-						for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
-						{
-							int ChunkID[2] = { 0 };
-							//現在のチャンクIDを取得
-							m_ChunkCol[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
-							if (ChunkID[0] >= PlayerPosInGrid[0] + 2)
-							{
-								//Xが現在の位置より2大きいとき移動
-								ChunkID[0] = PlayerPosInGrid[0] - 1;
-								m_ChunkCol[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
-							}
-						}
-					}
-				}
-			}
-			else if (i == 1)
-			{
-				//Z軸方向に移動
-				if (IsMoveUp[i] == true)
-				{
-					//プラス方向に移動
-					for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
-					{
-						for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
-						{
-							int ChunkID[2] = { 0 };
-							//現在のチャンクIDを取得
-							m_ChunkCol[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
-							if (ChunkID[1] <= PlayerPosInGrid[1] - 2)
-							{
-								//Zが現在の位置より2低いとき移動
-								ChunkID[1] = PlayerPosInGrid[1] + 1;
-								m_ChunkCol[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
-							}
-						}
-					}
-				}
-				else
-				{
-					//マイナス方向に移動
-					for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
-					{
-						for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
-						{
-							int ChunkID[2] = { 0 };
-							//現在のチャンクIDを取得
-							m_ChunkCol[Chunk_X][Chunk_Z].GetChunkID(ChunkID);
-							if (ChunkID[1] >= PlayerPosInGrid[1] + 2)
-							{
-								//Zが現在の位置より2大きいとき移動
-								ChunkID[1] = PlayerPosInGrid[1] - 1;
-								m_ChunkCol[Chunk_X][Chunk_Z].MoveChunk(ChunkID);
-							}
-						}
-					}
-				}
+				NowGrid[1] = Grid[1] + z;
+				m_ChunkCol[x][z].MoveChunk(NowGrid);
 			}
 		}
-		IsChunkMove[i] = false;
-		IsMoveUp[i] = false;
 	}
-
 }
