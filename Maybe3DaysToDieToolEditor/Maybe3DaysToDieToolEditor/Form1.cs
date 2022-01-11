@@ -308,10 +308,17 @@ namespace Maybe3DaysToDieToolEditor
             filePath = loadData.LoadJsonFile(out list);
             if(list != null)
             {
+                //コマンドリストをリセット。
+                commandList.ResetCommandList();
+                //アイテムのリストを読み込んだものに変更。
                 itemList = list;
                 bs.DataSource = itemList;
+                //表記を変更。
+                ItemList.SelectedItem = itemList[0];
+                DispItemData(itemList[0]);
                 bs.ResetBindings(false);
             }
+            DeFocus();
         }
         #endregion ファイル保存関係。
 

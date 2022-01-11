@@ -20,7 +20,6 @@ namespace Maybe3DaysToDieToolEditor
 
         public EditorCommandList()
         {
-            commandList = new List<ICommand>();
             ResetCommandList();
         }
 
@@ -75,13 +74,16 @@ namespace Maybe3DaysToDieToolEditor
             commandList[currentCommandNo].ReDo();
         }
 
-        private void ResetCommandList()
+        public void ResetCommandList()
         {
+            commandList = new List<ICommand>();
             for (int i = 0; i < COMMAND_SIZE; i++)
             {
                 commandList.Add(null);
             }
             currentCommandNo = 0;      //コマンドの中身がない。
+            currentCommandStart = 0;
+            currentCommandEnd = 0;
         }
     }
 }
