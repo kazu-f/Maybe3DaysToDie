@@ -102,6 +102,15 @@ public:
 		return m_scale;
 	}
 
+	/// <summary>
+	/// 物理オブジェクトの座標と回転を設定。
+	/// </summary>
+	void SetPosAndRot(const Vector3& pos, const Quaternion& rot)
+	{
+		m_position = pos;
+		m_qrot = rot;
+	}
+
 	void ResetParams()
 	{
 		m_params.BlockName = nullptr;

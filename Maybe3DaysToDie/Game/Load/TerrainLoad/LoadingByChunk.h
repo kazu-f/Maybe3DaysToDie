@@ -1,5 +1,6 @@
 #pragma once
 #include "Load/ChunkCollision/ChunkCollision.h"
+#include "Load/ChunkBlock/ChunkBlock.h"
 #include "GameConfig/WorldConfig/WorldConfig.h"
 
 class SaveDataFile;
@@ -65,9 +66,9 @@ public:
 	void SetBlockManagerForChunkBlock(BlockManager* manag)
 	{
 		m_BlockManager = manag;
-		for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
+		for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
 		{
-			for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
+			for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
 			{
 				m_ChunkCol[Chunk_X][Chunk_Z].SetBlockManager(manag);
 			}
@@ -76,7 +77,8 @@ public:
 	}
 
 	bool Start();
-
+	void InitChunkCols();
+	void InitChunkBlocks();
 	void Update();
 
 	void UpdateMoveChunk();
@@ -85,7 +87,8 @@ private:
 	SaveDataFile* m_SaveDataFile = nullptr;
 	int PlayerPosInGrid[2] = { 0 };
 	bool m_isDirty = true;		//更新するかどうか
-	ChunkCollision m_ChunkCol[LoadingChunks][LoadingChunks];		//チャンクごとのブロック
+	ChunkCollision m_ChunkCol[LoadingChunkCols][LoadingChunkCols];		//チャンクごとのブロック
+	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];
 	bool IsBlockManagerSet = false;
 	BlockManager* m_BlockManager = nullptr;
 	bool IsChunkMove[2] = { false };

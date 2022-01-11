@@ -19,29 +19,52 @@ bool LoadingByChunk::Start()
 		std::abort();
 	}
 	SetPlayerPos(Vector3::Zero);
+	InitChunkCols();
+	InitChunkBlocks();
+	return true;
+}
+
+void LoadingByChunk::InitChunkCols()
+{
+	for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
+	{
+		for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
+		{
+			//IDをセット
+			int ChunkID[2] = { 0 };
+			ChunkID[0] += PlayerPosInGrid[0] + Chunk_X - 1;
+			ChunkID[1] += PlayerPosInGrid[1] + Chunk_Z - 1;
+			m_ChunkCol[Chunk_X][Chunk_Z].SetChunkID(ChunkID);
+			//初期化
+			m_ChunkCol[Chunk_X][Chunk_Z].Init();
+		}
+	}
+}
+
+void LoadingByChunk::InitChunkBlocks()
+{
 	for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
 	{
 		for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
 		{
 			//IDをセット
 			int ChunkID[2] = { 0 };
-			ChunkID[0] += PlayerPosInGrid[0] + Chunk_X - 1 ;
-			ChunkID[1] += PlayerPosInGrid[1] + Chunk_Z - 1 ;
-			m_ChunkCol[Chunk_X][Chunk_Z].SetChunkID(ChunkID);
+			ChunkID[0] += PlayerPosInGrid[0] + Chunk_X - 1;
+			ChunkID[1] += PlayerPosInGrid[1] + Chunk_Z - 1;
+			m_ChunkBlock[Chunk_X][Chunk_Z].SetChunkID(ChunkID);
 			//初期化
-			m_ChunkCol[Chunk_X][Chunk_Z].Init();
+			m_ChunkBlock[Chunk_X][Chunk_Z].Init();
 		}
 	}
-	return true;
 }
 
 void LoadingByChunk::Update()
 {
 	if (m_BlockManager->IsBlockDirty())
 	{
-		for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
+		for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
 		{
-			for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
+			for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
 			{
 				//コライダーを更新
 				m_ChunkCol[Chunk_X][Chunk_Z].UpdateCol();
@@ -96,9 +119,9 @@ void LoadingByChunk::UpdateMoveChunk()
 				if (IsMoveUp[i] == true)
 				{
 					//プラス方向に移動
-					for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
+					for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
 					{
-						for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
+						for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
 						{
 							int ChunkID[2] = { 0 };
 							//現在のチャンクIDを取得
@@ -115,9 +138,9 @@ void LoadingByChunk::UpdateMoveChunk()
 				else
 				{
 					//マイナス方向に移動
-					for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
+					for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
 					{
-						for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
+						for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
 						{
 							int ChunkID[2] = { 0 };
 							//現在のチャンクIDを取得
@@ -138,9 +161,9 @@ void LoadingByChunk::UpdateMoveChunk()
 				if (IsMoveUp[i] == true)
 				{
 					//プラス方向に移動
-					for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
+					for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
 					{
-						for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
+						for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
 						{
 							int ChunkID[2] = { 0 };
 							//現在のチャンクIDを取得
@@ -157,9 +180,9 @@ void LoadingByChunk::UpdateMoveChunk()
 				else
 				{
 					//マイナス方向に移動
-					for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
+					for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
 					{
-						for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
+						for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
 						{
 							int ChunkID[2] = { 0 };
 							//現在のチャンクIDを取得
