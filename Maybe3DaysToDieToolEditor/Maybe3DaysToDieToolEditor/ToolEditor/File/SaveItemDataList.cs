@@ -11,15 +11,11 @@ namespace Maybe3DaysToDieToolEditor
 {
     class SaveItemDataList
     {
-        /// <summary>
-        /// 名前を付けて保存。
-        /// </summary>
-        /// <param name="list"></param>
-        public string SaveAsJsonFile(List<Item> list)
+        private SaveFileDialog sfd;
+        
+        public SaveItemDataList()
         {
-            //SaveFileDialogクラスのインスタンスを作成
-            SaveFileDialog sfd = new SaveFileDialog();
-
+            sfd = new SaveFileDialog();
             //はじめのファイル名を指定する
             //はじめに「ファイル名」で表示される文字列を指定する
             sfd.FileName = "新しいファイル.json";
@@ -40,7 +36,14 @@ namespace Maybe3DaysToDieToolEditor
             //存在しないパスが指定されたとき警告を表示する
             //デフォルトでTrueなので指定する必要はない
             sfd.CheckPathExists = true;
+        }
 
+        /// <summary>
+        /// 名前を付けて保存。
+        /// </summary>
+        /// <param name="list"></param>
+        public string SaveAsJsonFile(List<Item> list)
+        {
             string ret = null;
             //ダイアログを表示する
             if (sfd.ShowDialog() == DialogResult.OK)
@@ -68,24 +71,8 @@ namespace Maybe3DaysToDieToolEditor
                     finally
                     {
                         stream.Close();
+                        if(ret != null) sfd.InitialDirectory = System.IO.Path.GetDirectoryName(ret);
                     }
-
-                    ////リストの中身を回す。
-                    //foreach (var item in list)
-                    //{
-                    //    try
-                    //    {
-                    //        serializer.WriteObject(writer, item);
-                    //    }
-                    //    catch
-                    //    {
-                    //        ret = null;
-                    //    }
-                    //    finally
-                    //    {
-                    //        stream.Close();
-                    //    }
-                    //}
                 }
             }
             return ret;

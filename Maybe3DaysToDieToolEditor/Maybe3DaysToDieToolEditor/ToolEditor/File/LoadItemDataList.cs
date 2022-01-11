@@ -11,10 +11,11 @@ namespace Maybe3DaysToDieToolEditor
 {
     class LoadItemDataList
     {
-        public string LoadJsonFile(out List<Item> list)
+        private OpenFileDialog ofd;
+        public LoadItemDataList()
         {
             //SaveFileDialogクラスのインスタンスを作成
-            OpenFileDialog ofd = new OpenFileDialog();
+            ofd = new OpenFileDialog();
 
             //はじめのファイル名を指定する
             //はじめに「ファイル名」で表示される文字列を指定する
@@ -36,6 +37,10 @@ namespace Maybe3DaysToDieToolEditor
             //存在しないパスが指定されたとき警告を表示する
             //デフォルトでTrueなので指定する必要はない
             ofd.CheckPathExists = true;
+        }
+
+        public string LoadJsonFile(out List<Item> list)
+        {
             string ret = null;
             list = null;
             //ダイアログを表示する
@@ -63,6 +68,7 @@ namespace Maybe3DaysToDieToolEditor
                 finally
                 {
                     stream.Close();
+                    if(ret != null) ofd.InitialDirectory = System.IO.Path.GetDirectoryName(ret);
                 }
             }
 

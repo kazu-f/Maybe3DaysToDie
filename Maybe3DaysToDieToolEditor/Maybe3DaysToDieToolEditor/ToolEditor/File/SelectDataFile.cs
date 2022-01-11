@@ -76,6 +76,7 @@ namespace Maybe3DaysToDieToolEditor
 
                 string fileName = filePath.Substring(index);
                 filePathTextBox.Text = fileName;
+                openFile.InitialDirectory = System.IO.Path.GetDirectoryName(openFile.FileName);
                 //コマンドを実行する。
                 ChangeMethod();
             }
