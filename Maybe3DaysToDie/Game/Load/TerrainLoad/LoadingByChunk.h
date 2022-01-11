@@ -70,11 +70,33 @@ public:
 	}
 
 	bool Start();
+
+	/// <summary>
+	/// コライダーの初期化
+	/// </summary>
 	void InitChunkCols();
+
+	/// <summary>
+	/// ブロックの初期化
+	/// </summary>
 	void InitChunkBlocks();
+
 	void Update();
 
+	/// <summary>
+	/// チャンクを移動したときの更新
+	/// </summary>
 	void UpdateMoveChunk();
+
+	/// <summary>
+	/// コライダーの更新
+	/// </summary>
+	void UpdateChunkCols();
+
+	/// <summary>
+	/// ブロックの更新
+	/// </summary>
+	void UpdateChunkBlocks();
 private:
 	WorldConfig* m_config = nullptr;
 	SaveDataFile* m_SaveDataFile = nullptr;

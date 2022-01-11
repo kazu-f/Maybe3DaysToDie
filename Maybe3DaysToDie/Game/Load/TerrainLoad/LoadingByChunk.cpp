@@ -26,34 +26,63 @@ bool LoadingByChunk::Start()
 
 void LoadingByChunk::InitChunkCols()
 {
-	for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
+	int Grid[2] = { 0 };
+	//プレイヤーのいるチャンク
+	Grid[0] = PlayerPosInGrid[0];
+	Grid[1] = PlayerPosInGrid[1];
+	Grid[0] -= std::floor(LoadingChunkCols / 2);
+	Grid[1] -= std::floor(LoadingChunkCols / 2);
+	//最大値と最小値を決めておく
+	//最大値はチャンクの端からロードするチャンクの半分を引いたもの
+	//最小値は0
+	Grid[0] = max(min(Grid[0], MAX_CHUNK_SIDE - std::floor(LoadingChunkCols / 2)), 0);
+	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - std::floor(LoadingChunkCols / 2)), 0);
+
+	//現在移動中のグリッド
+	int NowGrid[2];
+	for (int i = 0; i < 2; i++)
 	{
-		for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
+		for (int x = 0; x < LoadingChunkCols; x++)
 		{
-			//IDをセット
-			int ChunkID[2] = { 0 };
-			ChunkID[0] += PlayerPosInGrid[0] + Chunk_X - 1;
-			ChunkID[1] += PlayerPosInGrid[1] + Chunk_Z - 1;
-			m_ChunkCol[Chunk_X][Chunk_Z].SetChunkID(ChunkID);
-			//初期化
-			m_ChunkCol[Chunk_X][Chunk_Z].Init();
+			NowGrid[0] = Grid[0] + x;
+			for (int z = 0; z < LoadingChunkCols; z++)
+			{
+				NowGrid[1] = Grid[1] + z;
+				m_ChunkCol[x][z].SetChunkID(NowGrid);
+				//初期化
+				m_ChunkCol[x][z].Init();
+			}
 		}
 	}
 }
 
 void LoadingByChunk::InitChunkBlocks()
 {
-	for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
+	int Grid[2] = { 0 };
+	//プレイヤーのいるチャンク
+	Grid[0] = PlayerPosInGrid[0];
+	Grid[1] = PlayerPosInGrid[1];
+	Grid[0] -= std::floor(LoadingChunks / 2);
+	Grid[1] -= std::floor(LoadingChunks / 2);
+	//最大値と最小値を決めておく
+	//最大値はチャンクの端からロードするチャンクの半分を引いたもの
+	//最小値は0
+	Grid[0] = max(min(Grid[0], MAX_CHUNK_SIDE - std::floor(LoadingChunks / 2)), 0);
+	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - std::floor(LoadingChunks / 2)), 0);
+	//現在移動中のグリッド
+	int NowGrid[2];
+	for (int i = 0; i < 2; i++)
 	{
-		for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
+		for (int x = 0; x < LoadingChunks; x++)
 		{
-			//IDをセット
-			int ChunkID[2] = { 0 };
-			ChunkID[0] += PlayerPosInGrid[0] + Chunk_X - 1;
-			ChunkID[1] += PlayerPosInGrid[1] + Chunk_Z - 1;
-			m_ChunkBlock[Chunk_X][Chunk_Z].SetChunkID(ChunkID);
-			//初期化
-			m_ChunkBlock[Chunk_X][Chunk_Z].Init();
+			NowGrid[0] = Grid[0] + x;
+			for (int z = 0; z < LoadingChunks; z++)
+			{
+				NowGrid[1] = Grid[1] + z;
+				m_ChunkBlock[x][z].SetChunkID(NowGrid);
+				//初期化
+				m_ChunkBlock[x][z].Init();
+			}
 		}
 	}
 }
@@ -108,14 +137,25 @@ void LoadingByChunk::Update()
 
 void LoadingByChunk::UpdateMoveChunk()
 {
-	//todo めちゃくちゃ汚いコードなので後から見直し
+	//コライダーを移動
+	UpdateChunkCols();
+	//ブロックを移動
+	UpdateChunkBlocks();
+}
+
+void LoadingByChunk::UpdateChunkCols()
+{
 	int Grid[2] = { 0 };
+	//プレイヤーの左下のチャンク
+	Grid[0] = PlayerPosInGrid[0];
+	Grid[1] = PlayerPosInGrid[1];
 	Grid[0] -= std::floor(LoadingChunkCols / 2);
 	Grid[1] -= std::floor(LoadingChunkCols / 2);
-
-	//左下
-	Grid[0] += PlayerPosInGrid[0];
-	Grid[1] += PlayerPosInGrid[1];
+	//最大値と最小値を決めておく
+	//最大値はチャンクの端からロードするチャンクの半分を引いたもの
+	//最小値は0
+	Grid[0] = max(min(Grid[0], MAX_CHUNK_SIDE - std::floor(LoadingChunkCols / 2)), 0);
+	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - std::floor(LoadingChunkCols / 2)), 0);
 
 	//現在移動中のグリッド
 	int NowGrid[2];
@@ -128,6 +168,37 @@ void LoadingByChunk::UpdateMoveChunk()
 			{
 				NowGrid[1] = Grid[1] + z;
 				m_ChunkCol[x][z].MoveChunk(NowGrid);
+			}
+		}
+	}
+
+
+}
+
+void LoadingByChunk::UpdateChunkBlocks()
+{
+	int Grid[2] = { 0 };
+	//プレイヤーの左下のチャンク
+	Grid[0] = PlayerPosInGrid[0];
+	Grid[1] = PlayerPosInGrid[1];
+	Grid[0] -= std::floor(LoadingChunks / 2);
+	Grid[1] -= std::floor(LoadingChunks / 2);
+	//最大値と最小値を決めておく
+	//最大値はチャンクの端からロードするチャンクの半分を引いたもの
+	//最小値は0
+	Grid[0] = max(min(Grid[0], MAX_CHUNK_SIDE - std::floor(LoadingChunks / 2)), 0);
+	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - std::floor(LoadingChunks / 2)), 0);
+	//現在移動中のグリッド
+	int NowGrid[2];
+	for (int i = 0; i < 2; i++)
+	{
+		for (int x = 0; x < LoadingChunks; x++)
+		{
+			NowGrid[0] = Grid[0] + x;
+			for (int z = 0; z < LoadingChunks; z++)
+			{
+				NowGrid[1] = Grid[1] + z;
+				m_ChunkBlock[x][z].MoveChunk(NowGrid);
 			}
 		}
 	}
