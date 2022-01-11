@@ -310,8 +310,11 @@ namespace Maybe3DaysToDieToolEditor
             {
                 itemList = list;
                 bs.DataSource = itemList;
+                ItemList.SelectedItem = itemList[0];
+                DispItemData(itemList[0]);
                 bs.ResetBindings(false);
             }
+            DeFocus();
         }
         #endregion ファイル保存関係。
 
