@@ -14,7 +14,6 @@ namespace Maybe3DaysToDieToolEditor
         private FileCommand ChangeMethod = null;
         private Button openFileButton = null;
         private TextBox filePathTextBox = null;
-        private string fileExtension = null;
 
         /// <summary>
         /// ファイルを選択するためのダイアログを表示するボタンの処理をつける。
@@ -24,8 +23,6 @@ namespace Maybe3DaysToDieToolEditor
         public SelectDataFile(Button button, TextBox textBox, string extension, FileCommand method)
         {
             ChangeMethod = method;
-
-            fileExtension = extension;
             //はじめのファイル名を指定する
             //はじめに「ファイル名」で表示される文字列を指定する
             //ofd.FileName = "新しいファイル.fmcr";
@@ -33,7 +30,7 @@ namespace Maybe3DaysToDieToolEditor
             openFile.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
             //[ファイルの種類]に表示される選択肢を指定する
             //指定しない（空の文字列）の時は、現在のディレクトリが表示される
-            openFile.Filter = fileExtension + "ファイル(*." + fileExtension + ")|*." + fileExtension;
+            openFile.Filter = extension + "ファイル(*." + extension + ")|*." + extension;
             //[ファイルの種類]ではじめに選択されるものを指定する
             openFile.FilterIndex = 1;
             //タイトルを設定する

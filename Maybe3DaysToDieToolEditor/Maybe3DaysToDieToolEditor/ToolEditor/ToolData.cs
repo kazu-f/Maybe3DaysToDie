@@ -15,8 +15,9 @@ namespace Maybe3DaysToDieToolEditor
     [DataContract]
     abstract class Item 
     {
-        [DataMember(Name = "name")]
-        public string itemName { get; set; }
+        [DataMember(Name = "name")] public string itemName { get; set; }
+        [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
+        [DataMember(Name = "iconData")] public string iconData { get; set; } = "";
     }
 
     public enum ToolKinds : uint
@@ -39,6 +40,5 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "durable")] public int durable { get; set; } = 0;
         [DataMember(Name = "useStamina")] public int useStamina { get; set; } = 0;
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
-        [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
     }
 }
