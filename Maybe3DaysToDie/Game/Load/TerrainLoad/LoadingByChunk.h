@@ -97,6 +97,12 @@ public:
 	/// ブロックの更新
 	/// </summary>
 	void UpdateChunkBlocks();
+
+	/// <summary>
+	/// チャンクブロックをチャンクコライダーと紐づけする
+	/// </summary>
+	void LinkChunk();
+
 private:
 	WorldConfig* m_config = nullptr;
 	SaveDataFile* m_SaveDataFile = nullptr;

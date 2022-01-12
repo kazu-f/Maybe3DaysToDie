@@ -1,6 +1,7 @@
 #pragma once
 #include "Block/BlockManager/BlockManager.h"
 
+class ChunkBlock;
 //チャンクごとのブロック
 class ChunkCollision
 {
@@ -43,10 +44,19 @@ public:
 		id[1] = m_ChunkID[1];
 	}
 
+	/// <summary>
+	/// チャンクブロックとリンクさせる
+	/// </summary>
+	/// <param name="CB">対応するチャンクブロック</param>
+	void LinkChunkBlocks(ChunkBlock*CB)
+	{
+		m_ChunkBlocks = CB;
+	}
 private:
 	CPhysicsStaticObject m_StaticCol[ChunkWidth][ChunkHeight][ChunkWidth];		//静的物理オブジェクト
 	const Vector3 BLOCK_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };
 	BlockManager* m_BlockManager = nullptr;
+	ChunkBlock* m_ChunkBlocks = nullptr;
 	int m_ChunkID[2] = { 0 };
 	bool IsDebug = true;		//後で消す予定発表用
 };

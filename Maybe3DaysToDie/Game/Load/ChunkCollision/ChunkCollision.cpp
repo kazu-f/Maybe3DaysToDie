@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ChunkCollision.h"
+#include "Load/ChunkBlock/ChunkBlock.h"
 
 ChunkCollision::ChunkCollision()
 {

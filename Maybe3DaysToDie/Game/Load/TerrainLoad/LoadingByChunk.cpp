@@ -19,8 +19,10 @@ bool LoadingByChunk::Start()
 		std::abort();
 	}
 	SetPlayerPos(Vector3::Zero);
-	InitChunkCols();
+	//ブロックを初期化
 	InitChunkBlocks();
+	//コライダーを初期化
+	InitChunkCols();
 	return true;
 }
 
@@ -49,6 +51,13 @@ void LoadingByChunk::InitChunkCols()
 			{
 				NowGrid[1] = Grid[1] + z;
 				m_ChunkCol[x][z].SetChunkID(NowGrid);
+				//対応するチャンクブロックをセット
+				//チャンクブロックの真ん中9チャンクが対応している
+				//todo 端っこの時にリンクがおかしくなると思うので直す
+				int LinkChunk[2] = { 0 };
+				LinkChunk[0] = std::floor(LoadingChunks / 2) + x;
+				LinkChunk[1] = std::floor(LoadingChunks / 2) + z;
+				m_ChunkCol[x][z].LinkChunkBlocks(&m_ChunkBlock[LinkChunk[0]][LinkChunk[1]]);
 				//初期化
 				m_ChunkCol[x][z].Init();
 			}
@@ -108,7 +117,10 @@ void LoadingByChunk::Update()
 		return;
 	}
 
+	//チャンク移動
 	UpdateMoveChunk();
+	//チャンクを紐づけ
+	LinkChunk();
 
 	////////////////////////////////////////////
 	/////ここから下は更新する必要があるとき/////
@@ -137,10 +149,10 @@ void LoadingByChunk::Update()
 
 void LoadingByChunk::UpdateMoveChunk()
 {
-	//コライダーを移動
-	UpdateChunkCols();
 	//ブロックを移動
 	UpdateChunkBlocks();
+	//コライダーを移動
+	UpdateChunkCols();
 }
 
 void LoadingByChunk::UpdateChunkCols()
@@ -199,6 +211,50 @@ void LoadingByChunk::UpdateChunkBlocks()
 			{
 				NowGrid[1] = Grid[1] + z;
 				m_ChunkBlock[x][z].MoveChunk(NowGrid);
+			}
+		}
+	}
+}
+
+void LoadingByChunk::LinkChunk()
+{
+	//todo リファクタリングでコード見直し
+	for (int colx = 0; colx < LoadingChunkCols; colx++)
+	{
+		for (int colz = 0; colz < LoadingChunkCols; colz++)
+		{
+			int ColChunkID[2] = { 0 };
+			//コライダーのチャンクIDを取得
+			m_ChunkCol[colx][colz].GetChunkID(ColChunkID);
+			bool Linked = false;
+			for (int blockx = 0; blockx < LoadingChunks; blockx++)
+			{
+				Linked = false;
+				for (int blockz = 0; blockz < LoadingChunks; blockz++)
+				{
+					int BlockChunkID[2] = { 0 };
+					//ブロックのチャンクIDを取得
+					m_ChunkBlock[blockx][blockz].GetChunkID(BlockChunkID);
+					if (ColChunkID[0] == BlockChunkID[0])
+					{
+						if (ColChunkID[1] == BlockChunkID[1])
+						{
+							//対応しているチャンクが同じなので紐づけ
+							m_ChunkCol[colx][colz].LinkChunkBlocks(&m_ChunkBlock[blockx][blockz]);
+							Linked = true;
+						}
+					}
+					if (Linked == true)
+					{
+						//リンクで来たのでbreak
+						break;
+					}
+				}
+				if (Linked == true)
+				{
+					//リンクで来たのでbreak
+					break;
+				}
 			}
 		}
 	}

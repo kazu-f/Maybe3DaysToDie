@@ -20,6 +20,12 @@ public:
 		m_BlockManager = manag;
 	}
 
+	void GetChunkID(int id[2])
+	{
+		id[0] = m_ChunkID[0];
+		id[1] = m_ChunkID[1];
+	}
+
 	/// <summary>
 	/// コライダーの位置をチャンクに合わせて移動する
 	/// </summary>
