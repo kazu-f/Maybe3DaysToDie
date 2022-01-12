@@ -34,7 +34,7 @@ namespace Maybe3DaysToDieToolEditor
             saveData = new SaveItemDataList();
             loadData = new LoadItemDataList();
             //ファイル選択用の処理を構成する。
-            selectModelData = new SelectDataFile(ModelFileSelectButton, ModelFilePathTextBox, "tkm", ToolTkmFileChangeCommand);
+            selectModelData = new SelectDataFile(ModelFileSelectButton, ModelFilePathTextBox, "tkm", ItemTkmFileChangeCommand);
         }
 
         #region リスト操作の処理。
@@ -95,10 +95,12 @@ namespace Maybe3DaysToDieToolEditor
         {
             if (item == null)
             {
-                NameTextBox.Text = "";
                 return;
             }
+            //アイテムの情報を表示する。
             NameTextBox.Text = item.itemName;
+            ModelFilePathTextBox.Text = item.tkmFile;
+
             //データタイプに応じて処理を分岐。
             if (typeof(ToolData) == item.GetType()) DispToolData((ToolData)item);
         }
@@ -114,7 +116,6 @@ namespace Maybe3DaysToDieToolEditor
             DurableNumeric.Value = tool.durable;
             UseStaminaNumeric.Value = tool.useStamina;
             toolKinds.SelectValue(tool.tool);
-            ModelFilePathTextBox.Text = tool.tkmFile;
         }
         #endregion
 
@@ -135,6 +136,21 @@ namespace Maybe3DaysToDieToolEditor
             {
                 commandList.AddCommand(command);
                 bs.ResetBindings(false);
+            }
+        }
+        /// <summary>
+        /// アイテムのモデルファイルを選択したとき。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemTkmFileChangeCommand()
+        {
+            var item = ItemList.SelectedItem;
+            if (item == null) return;
+            Command.ChangeItemModel command = new Command.ChangeItemModel((Item)item, ModelFilePathTextBox.Text);
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
             }
         }
         #endregion
@@ -226,22 +242,6 @@ namespace Maybe3DaysToDieToolEditor
             if (item == null) return;
             if (item.GetType() != typeof(ToolData)) return;
             Command.ChangeToolKinds command = new Command.ChangeToolKinds((ToolData)item, toolKinds.SelectedValue);
-            if (command.IsChanged())
-            {
-                commandList.AddCommand(command);
-            }
-        }
-        /// <summary>
-        /// ツールのモデルファイルを選択したとき。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ToolTkmFileChangeCommand()
-        {
-            var item = ItemList.SelectedItem;
-            if (item == null) return;
-            if (item.GetType() != typeof(ToolData)) return;
-            Command.ChangeToolTKM command = new Command.ChangeToolTKM((ToolData)item, ModelFilePathTextBox.Text);
             if (command.IsChanged())
             {
                 commandList.AddCommand(command);
