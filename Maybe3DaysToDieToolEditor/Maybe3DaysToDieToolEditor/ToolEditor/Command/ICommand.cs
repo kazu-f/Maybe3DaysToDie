@@ -53,10 +53,10 @@ namespace Maybe3DaysToDieToolEditor
             string beforeStr;
             string afterStr;
 
-            public ChangeItemModel(Item itemData, string toolTkm)
+            public ChangeItemModel(Item itemData, string itemTkm)
             {
                 beforeStr = itemData.tkmFile;
-                afterStr = toolTkm;
+                afterStr = itemTkm;
                 m_item = itemData;
             }
 
@@ -67,6 +67,36 @@ namespace Maybe3DaysToDieToolEditor
             public override void ReDo()
             {
                 m_item.tkmFile = afterStr;        //モデルファイル変更。。
+            }
+            public override bool IsChanged()
+            {
+                return beforeStr != afterStr;
+            }
+        }
+
+        /// <summary>
+        /// アイテムのアイコンファイルを変更するコマンド。
+        /// </summary>
+        class ChangeItemIcon : ICommand
+        {
+            Item m_item;
+            string beforeStr;
+            string afterStr;
+
+            public ChangeItemIcon(Item itemData, string itemIcon)
+            {
+                beforeStr = itemData.iconData;
+                afterStr = itemIcon;
+                m_item = itemData;
+            }
+
+            public override void UnDo()
+            {
+                m_item.iconData = beforeStr;        //モデルファイル変更。
+            }
+            public override void ReDo()
+            {
+                m_item.iconData = afterStr;        //モデルファイル変更。。
             }
             public override bool IsChanged()
             {

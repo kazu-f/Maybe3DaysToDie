@@ -17,6 +17,7 @@ namespace Maybe3DaysToDieToolEditor
     {
         [DataMember(Name = "name")] public string itemName { get; set; }
         [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
+        [DataMember(Name = "iconData")] public string iconData { get; set; } = "";
     }
 
     public enum ToolKinds : uint

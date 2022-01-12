@@ -19,7 +19,8 @@ namespace Maybe3DaysToDieToolEditor
         ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
         LoadItemDataList loadData;
-        SelectDataFile selectModelData;
+        SelectDataFile selectModelData;         //モデルデータを選ぶ処理。
+        SelectDataFile selectIconData;          //アイコンデータを選ぶ処理。
         public Maybe3DaysToDie_ToolEditor()
         {
             InitializeComponent();
@@ -35,6 +36,7 @@ namespace Maybe3DaysToDieToolEditor
             loadData = new LoadItemDataList();
             //ファイル選択用の処理を構成する。
             selectModelData = new SelectDataFile(ModelFileSelectButton, ModelFilePathTextBox, "tkm", ItemTkmFileChangeCommand);
+            selectIconData = new SelectDataFile(IconFileSelectButton, IconDataTextBox, "png", ItemIconFileChangeCommand);
         }
 
         #region リスト操作の処理。
@@ -100,6 +102,7 @@ namespace Maybe3DaysToDieToolEditor
             //アイテムの情報を表示する。
             NameTextBox.Text = item.itemName;
             ModelFilePathTextBox.Text = item.tkmFile;
+            IconDataTextBox.Text = item.iconData;
 
             //データタイプに応じて処理を分岐。
             if (typeof(ToolData) == item.GetType()) DispToolData((ToolData)item);
@@ -141,13 +144,24 @@ namespace Maybe3DaysToDieToolEditor
         /// <summary>
         /// アイテムのモデルファイルを選択したとき。
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ItemTkmFileChangeCommand()
         {
             var item = ItemList.SelectedItem;
             if (item == null) return;
             Command.ChangeItemModel command = new Command.ChangeItemModel((Item)item, ModelFilePathTextBox.Text);
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
+        }
+        /// <summary>
+        /// アイテムのアイコンのファイルを選択したとき。
+        /// </summary>
+        private void ItemIconFileChangeCommand()
+        {
+            var item = ItemList.SelectedItem;
+            if (item == null) return;
+            Command.ChangeItemIcon command = new Command.ChangeItemIcon((Item)item, IconDataTextBox.Text);
             if (command.IsChanged())
             {
                 commandList.AddCommand(command);

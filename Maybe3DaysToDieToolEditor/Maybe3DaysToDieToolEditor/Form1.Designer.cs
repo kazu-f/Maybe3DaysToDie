@@ -63,10 +63,13 @@ namespace Maybe3DaysToDieToolEditor
             this.DamageLabel = new System.Windows.Forms.Label();
             this.ModelFileSelectButton = new System.Windows.Forms.Button();
             this.ModelFilePathTextBox = new System.Windows.Forms.TextBox();
-            this.ModelFile = new System.Windows.Forms.Label();
+            this.ModelDataLabel = new System.Windows.Forms.Label();
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.ItemGroupBox = new System.Windows.Forms.GroupBox();
             this.ItemNameLabel = new System.Windows.Forms.Label();
+            this.IconDataLabel = new System.Windows.Forms.Label();
+            this.IconDataTextBox = new System.Windows.Forms.TextBox();
+            this.IconFileSelectButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).BeginInit();
             this.ToolGroupBox.SuspendLayout();
@@ -253,9 +256,9 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolGroupBox.Controls.Add(this.DurableLabel);
             this.ToolGroupBox.Controls.Add(this.DamageNumeric);
             this.ToolGroupBox.Controls.Add(this.DamageLabel);
-            this.ToolGroupBox.Location = new System.Drawing.Point(198, 176);
+            this.ToolGroupBox.Location = new System.Drawing.Point(198, 164);
             this.ToolGroupBox.Name = "ToolGroupBox";
-            this.ToolGroupBox.Size = new System.Drawing.Size(1272, 656);
+            this.ToolGroupBox.Size = new System.Drawing.Size(1272, 668);
             this.ToolGroupBox.TabIndex = 2;
             this.ToolGroupBox.TabStop = false;
             this.ToolGroupBox.Text = "ToolData";
@@ -351,7 +354,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // ModelFileSelectButton
             // 
-            this.ModelFileSelectButton.Location = new System.Drawing.Point(849, 62);
+            this.ModelFileSelectButton.Location = new System.Drawing.Point(849, 53);
             this.ModelFileSelectButton.Name = "ModelFileSelectButton";
             this.ModelFileSelectButton.Size = new System.Drawing.Size(102, 23);
             this.ModelFileSelectButton.TabIndex = 10;
@@ -361,20 +364,20 @@ namespace Maybe3DaysToDieToolEditor
             // ModelFilePathTextBox
             // 
             this.ModelFilePathTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ModelFilePathTextBox.Location = new System.Drawing.Point(129, 62);
+            this.ModelFilePathTextBox.Location = new System.Drawing.Point(129, 53);
             this.ModelFilePathTextBox.Name = "ModelFilePathTextBox";
             this.ModelFilePathTextBox.ReadOnly = true;
             this.ModelFilePathTextBox.Size = new System.Drawing.Size(703, 22);
             this.ModelFilePathTextBox.TabIndex = 9;
             // 
-            // ModelFile
+            // ModelDataLabel
             // 
-            this.ModelFile.AutoSize = true;
-            this.ModelFile.Location = new System.Drawing.Point(34, 66);
-            this.ModelFile.Name = "ModelFile";
-            this.ModelFile.Size = new System.Drawing.Size(73, 15);
-            this.ModelFile.TabIndex = 8;
-            this.ModelFile.Text = "ModelData";
+            this.ModelDataLabel.AutoSize = true;
+            this.ModelDataLabel.Location = new System.Drawing.Point(34, 57);
+            this.ModelDataLabel.Name = "ModelDataLabel";
+            this.ModelDataLabel.Size = new System.Drawing.Size(73, 15);
+            this.ModelDataLabel.TabIndex = 8;
+            this.ModelDataLabel.Text = "ModelData";
             // 
             // NameTextBox
             // 
@@ -387,14 +390,17 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // ItemGroupBox
             // 
+            this.ItemGroupBox.Controls.Add(this.IconFileSelectButton);
             this.ItemGroupBox.Controls.Add(this.ModelFileSelectButton);
             this.ItemGroupBox.Controls.Add(this.ItemNameLabel);
+            this.ItemGroupBox.Controls.Add(this.IconDataTextBox);
             this.ItemGroupBox.Controls.Add(this.ModelFilePathTextBox);
+            this.ItemGroupBox.Controls.Add(this.IconDataLabel);
             this.ItemGroupBox.Controls.Add(this.NameTextBox);
-            this.ItemGroupBox.Controls.Add(this.ModelFile);
+            this.ItemGroupBox.Controls.Add(this.ModelDataLabel);
             this.ItemGroupBox.Location = new System.Drawing.Point(199, 33);
             this.ItemGroupBox.Name = "ItemGroupBox";
-            this.ItemGroupBox.Size = new System.Drawing.Size(1271, 137);
+            this.ItemGroupBox.Size = new System.Drawing.Size(1271, 125);
             this.ItemGroupBox.TabIndex = 3;
             this.ItemGroupBox.TabStop = false;
             this.ItemGroupBox.Text = "ItemData";
@@ -410,6 +416,33 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemNameLabel.TabIndex = 1;
             this.ItemNameLabel.Text = "ItemName";
             this.ItemNameLabel.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
+            // 
+            // IconDataLabel
+            // 
+            this.IconDataLabel.AutoSize = true;
+            this.IconDataLabel.Location = new System.Drawing.Point(34, 85);
+            this.IconDataLabel.Name = "IconDataLabel";
+            this.IconDataLabel.Size = new System.Drawing.Size(64, 15);
+            this.IconDataLabel.TabIndex = 8;
+            this.IconDataLabel.Text = "IconData";
+            // 
+            // IconDataTextBox
+            // 
+            this.IconDataTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.IconDataTextBox.Location = new System.Drawing.Point(129, 81);
+            this.IconDataTextBox.Name = "IconDataTextBox";
+            this.IconDataTextBox.ReadOnly = true;
+            this.IconDataTextBox.Size = new System.Drawing.Size(703, 22);
+            this.IconDataTextBox.TabIndex = 9;
+            // 
+            // IconFileSelectButton
+            // 
+            this.IconFileSelectButton.Location = new System.Drawing.Point(849, 81);
+            this.IconFileSelectButton.Name = "IconFileSelectButton";
+            this.IconFileSelectButton.Size = new System.Drawing.Size(102, 23);
+            this.IconFileSelectButton.TabIndex = 10;
+            this.IconFileSelectButton.Text = "ファイル選択";
+            this.IconFileSelectButton.UseVisualStyleBackColor = true;
             // 
             // Maybe3DaysToDie_ToolEditor
             // 
@@ -478,7 +511,10 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
         private System.Windows.Forms.Button ModelFileSelectButton;
         private System.Windows.Forms.TextBox ModelFilePathTextBox;
-        private System.Windows.Forms.Label ModelFile;
+        private System.Windows.Forms.Label ModelDataLabel;
+        private System.Windows.Forms.Button IconFileSelectButton;
+        private System.Windows.Forms.TextBox IconDataTextBox;
+        private System.Windows.Forms.Label IconDataLabel;
     }
 }
 
