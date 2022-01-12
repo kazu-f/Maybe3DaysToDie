@@ -18,7 +18,6 @@ class Player : public IGameObject
 		Idle,			//待機
 		Walk,			//歩く
 		Run,			//走る
-		Crouch,			//しゃがみ
 		Jump,			//ジャンプ
 		Attack,			//攻撃
 		Num				//ステート数
