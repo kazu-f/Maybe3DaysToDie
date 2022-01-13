@@ -40,7 +40,6 @@ bool Player::Start()
 	AnInitData[State::Walk].tkaFilePath = "Assets/animData/PlayerWalk.tka";
 	AnInitData[State::Walk].isLoop = true;
 	AnInitData[State::Attack].tkaFilePath = "Assets/animData/PlayerIdle.tka";
-	AnInitData[State::Crouch].tkaFilePath = "Assets/animData/PlayerIdle.tka";
 	AnInitData[State::Jump].tkaFilePath = "Assets/animData/PlayerIdle.tka";
 	AnInitData[State::Run].tkaFilePath = "Assets/animData/PlayerIdle.tka";
 	//m_Model = NewGO<prefab::ModelRender>(0);

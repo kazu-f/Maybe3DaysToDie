@@ -20,6 +20,7 @@ class Player : public IGameObject
 		Run,			//走る
 		Jump,			//ジャンプ
 		Attack,			//攻撃
+		Inventry,		//インベントリを開く
 		Num				//ステート数
 	};
 
