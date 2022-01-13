@@ -85,6 +85,8 @@ bool CGameScene::Start()
 	//ワールド設定をセット
 	m_LoadingByChunk->SetWorldConfig(&m_WorldConfig);
 	m_LoadingByChunk->SetBlockManagerForChunkBlock(m_BlockManager);
+	//セーブデータファイルをセット
+	m_LoadingByChunk->SetSaveDataFile(&m_SaveDataFile);
 	m_Player->SetLoadingByChunk(m_LoadingByChunk);
 	return true;
 }

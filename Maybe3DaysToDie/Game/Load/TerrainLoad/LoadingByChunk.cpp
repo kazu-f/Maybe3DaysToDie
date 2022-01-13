@@ -42,27 +42,26 @@ void LoadingByChunk::InitChunkCols()
 
 	//現在移動中のグリッド
 	int NowGrid[2];
-	for (int i = 0; i < 2; i++)
+
+	for (int x = 0; x < LoadingChunkCols; x++)
 	{
-		for (int x = 0; x < LoadingChunkCols; x++)
+		NowGrid[0] = Grid[0] + x;
+		for (int z = 0; z < LoadingChunkCols; z++)
 		{
-			NowGrid[0] = Grid[0] + x;
-			for (int z = 0; z < LoadingChunkCols; z++)
-			{
-				NowGrid[1] = Grid[1] + z;
-				m_ChunkCol[x][z].SetChunkID(NowGrid);
-				//対応するチャンクブロックをセット
-				//チャンクブロックの真ん中9チャンクが対応している
-				//todo 端っこの時にリンクがおかしくなると思うので直す
-				int LinkChunk[2] = { 0 };
-				LinkChunk[0] = std::floor(LoadingChunks / 2) + x;
-				LinkChunk[1] = std::floor(LoadingChunks / 2) + z;
-				m_ChunkCol[x][z].LinkChunkBlocks(&m_ChunkBlock[LinkChunk[0]][LinkChunk[1]]);
-				//初期化
-				m_ChunkCol[x][z].Init();
-			}
+			NowGrid[1] = Grid[1] + z;
+			m_ChunkCol[x][z].SetChunkID(NowGrid);
+			//対応するチャンクブロックをセット
+			//チャンクブロックの真ん中9チャンクが対応している
+			//todo 端っこの時にリンクがおかしくなると思うので直す
+			int LinkChunk[2] = { 0 };
+			LinkChunk[0] = std::floor(LoadingChunks / 2) + x;
+			LinkChunk[1] = std::floor(LoadingChunks / 2) + z;
+			m_ChunkCol[x][z].LinkChunkBlocks(&m_ChunkBlock[LinkChunk[0]][LinkChunk[1]]);
+			//初期化
+			m_ChunkCol[x][z].Init();
 		}
 	}
+
 }
 
 void LoadingByChunk::InitChunkBlocks()
@@ -80,18 +79,17 @@ void LoadingByChunk::InitChunkBlocks()
 	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - std::floor(LoadingChunks / 2)), 0);
 	//現在移動中のグリッド
 	int NowGrid[2];
-	for (int i = 0; i < 2; i++)
+
+	for (int x = 0; x < LoadingChunks; x++)
 	{
-		for (int x = 0; x < LoadingChunks; x++)
+		NowGrid[0] = Grid[0] + x;
+		for (int z = 0; z < LoadingChunks; z++)
 		{
-			NowGrid[0] = Grid[0] + x;
-			for (int z = 0; z < LoadingChunks; z++)
-			{
-				NowGrid[1] = Grid[1] + z;
-				m_ChunkBlock[x][z].SetChunkID(NowGrid);
-				//初期化
-				m_ChunkBlock[x][z].Init();
-			}
+			NowGrid[1] = Grid[1] + z;
+			m_ChunkBlock[x][z].SetSaveDataFile(m_SaveDataFile);
+			m_ChunkBlock[x][z].SetChunkID(NowGrid);
+			//初期化
+			m_ChunkBlock[x][z].Init();
 		}
 	}
 }
@@ -171,19 +169,16 @@ void LoadingByChunk::UpdateChunkCols()
 
 	//現在移動中のグリッド
 	int NowGrid[2];
-	for (int i = 0; i < 2; i++)
+
+	for (int x = 0; x < LoadingChunkCols; x++)
 	{
-		for (int x = 0; x < LoadingChunkCols; x++)
+		NowGrid[0] = Grid[0] + x;
+		for (int z = 0; z < LoadingChunkCols; z++)
 		{
-			NowGrid[0] = Grid[0] + x;
-			for (int z = 0; z < LoadingChunkCols; z++)
-			{
-				NowGrid[1] = Grid[1] + z;
-				m_ChunkCol[x][z].MoveChunk(NowGrid);
-			}
+			NowGrid[1] = Grid[1] + z;
+			m_ChunkCol[x][z].MoveChunk(NowGrid);
 		}
 	}
-
 
 }
 
@@ -202,16 +197,14 @@ void LoadingByChunk::UpdateChunkBlocks()
 	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - std::floor(LoadingChunks / 2)), 0);
 	//現在移動中のグリッド
 	int NowGrid[2];
-	for (int i = 0; i < 2; i++)
+
+	for (int x = 0; x < LoadingChunks; x++)
 	{
-		for (int x = 0; x < LoadingChunks; x++)
+		NowGrid[0] = Grid[0] + x;
+		for (int z = 0; z < LoadingChunks; z++)
 		{
-			NowGrid[0] = Grid[0] + x;
-			for (int z = 0; z < LoadingChunks; z++)
-			{
-				NowGrid[1] = Grid[1] + z;
-				m_ChunkBlock[x][z].MoveChunk(NowGrid);
-			}
+			NowGrid[1] = Grid[1] + z;
+			m_ChunkBlock[x][z].MoveChunk(NowGrid);
 		}
 	}
 }
