@@ -88,6 +88,7 @@ void PlacementObject::CalcObjectPos()
 	{
 		lastPos = callback.hitColPos;
 		lastPos += callback.hitNormal * 100.0f;
+		m_hitObj = ((DestructibleObject*)callback.ColObj->getUserPointer());
 	}
 	m_pos.Set(lastPos);
 }
@@ -97,8 +98,13 @@ void PlacementObject::PlaceObject(ObjectParams& params)
 {
 	if (CanPlace)
 	{
-		Quaternion rot = Quaternion::Identity;
-		Vector3 scale = Vector3::One;
-		m_BlockManager->AddBlock(params, m_pos, rot, scale);
+		if (m_hitObj != nullptr)
+		{
+			//設置可能な時
+			Quaternion rot = Quaternion::Identity;
+			Vector3 scale = Vector3::One;
+			//ヒットしているオブジェクトの位置にブロックを追加
+			m_hitObj->AddBlock(params, m_pos, rot, scale);
+		}
 	}
 }

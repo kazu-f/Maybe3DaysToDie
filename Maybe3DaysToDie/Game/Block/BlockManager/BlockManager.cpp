@@ -47,50 +47,8 @@ void BlockManager::Update()
 
 }
 
-Block& BlockManager::GetBlock(const Vector3& pos)
+void BlockManager::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)
 {
-	//レイテストの関係でfloatの値がずれるときがあるので下駄をはかす
-	Vector3 Pos = pos;
-	Pos.x += OBJECT_UNIT / 4;
-	Pos.y += OBJECT_UNIT / 4;
-	Pos.z += OBJECT_UNIT / 4;
-	
-	Pos.x = abs(Pos.x);
-	Pos.y = abs(Pos.y);
-	Pos.z = abs(Pos.z);
-
-	int Chunk_X = static_cast<int>(std::floor((pos.x / OBJECT_UNIT) / ChunkWidth));
-	int Chunk_Z = static_cast<int>(std::floor((pos.z / OBJECT_UNIT) / ChunkWidth));
-	int resX = static_cast<int>(std::floor(Pos.x / OBJECT_UNIT));
-	int resY = static_cast<int>(std::floor(Pos.y / OBJECT_UNIT));
-	int resZ = static_cast<int>(std::floor(Pos.z / OBJECT_UNIT));
-
-	resX %= ChunkWidth;
-	resY %= ChunkHeight;
-	resZ %= ChunkWidth;
-
-	if (Pos.x < 0.0f)
-	{
-		resX = ChunkWidth - resX;
-	}
-	if (Pos.y < 0.0f)
-	{
-		resY = ChunkHeight - resY;
-	}	
-	if (Pos.z < 0.0f)
-	{
-		resZ = ChunkWidth - resZ;
-	}
-	return m_ChunkBlock[Chunk_X][Chunk_Z].m_Block[resX][resY][resZ];
-}
-
-
-void BlockManager::AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)
-{
-	ChunkBlockDirty = true;
-	//ブロックを取得
-	auto& block = GetBlock(pos);
-
 	if (m_modelNum > 0)
 	{
 		for (auto& model : BlockModel)
@@ -98,9 +56,8 @@ void BlockManager::AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot,
 			if (params.BlockName == model->GetInitData().m_tkmFilePath)
 			{
 				//ブロックの名前がかぶっているとき
+				//インスタンシングデータを更新
 				model->UpdateInstancingData(pos, rot, scale);
-				//パラメータをセット
-				block.SetParams(params);
 				return;
 			}
 		}
@@ -113,9 +70,6 @@ void BlockManager::AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot,
 	model->Init(InitData, nullptr, 0, MaxInstanceNum);
 	model->UpdateInstancingData(pos, rot, scale);
 	BlockModel[m_modelNum] = model;
-	//パラメータをセット
-	block.SetParams(params);
-
 	m_modelNum++;
 }
 

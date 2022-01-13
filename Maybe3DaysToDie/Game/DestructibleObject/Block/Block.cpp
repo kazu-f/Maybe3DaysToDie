@@ -38,3 +38,11 @@ void Block::Damage(const ToolInfo& tool)
 		m_BlockManager->RemoveBlock(this);
 	}
 }
+
+void Block::AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)
+{
+	//パラメータをセット
+	SetParams(params);
+	//モデルを追加
+	m_BlockManager->AddModel(params, pos, rot, scale);
+}

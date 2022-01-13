@@ -3,9 +3,15 @@
 
 void ChunkBlock::Init()
 {
-	if (m_SaveDataFile != nullptr)
+	for (int x = 0; x < ChunkWidth; x++)
 	{
-		int i = 0;
+		for (int y = 0; y < ChunkHeight; y++)
+		{
+			for (int z = 0; z < ChunkWidth; z++)
+			{
+				m_Block[x][y][z].SetBlockManager(m_BlockManager);
+			}
+		}
 	}
 }
 
