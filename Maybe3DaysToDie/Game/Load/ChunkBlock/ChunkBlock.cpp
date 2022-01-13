@@ -10,6 +10,8 @@ void ChunkBlock::MoveChunk(int ChunkID[2])
 {
 	//チャンクIDをセット
 	SetChunkID(ChunkID);
+	//セーブデータファイルからチャンクの情報を取得
+	auto& chunkData = m_SaveDataFile->m_ChunkData[m_ChunkID[0]][m_ChunkID[1]];
 	for (int x = 0; x < ChunkWidth; x++)
 	{
 		for (int y = 0; y < ChunkHeight; y++)
@@ -27,6 +29,12 @@ void ChunkBlock::MoveChunk(int ChunkID[2])
 				pos.z += geta * m_ChunkID[1];
 				//ポジションをセット
 				m_Block[x][y][z].SetPosAndRot(pos, Quaternion::Identity);
+				//パラメータ
+				//ObjectParams param;
+				//param.BlockID = chunkData.ObjId[x][y][z];
+				//param.Durable = chunkData.ObjDurable[x][y][z];
+				////パラメータをセット
+				//m_Block[x][y][z].SetParams(param);
 			}
 		}
 	}

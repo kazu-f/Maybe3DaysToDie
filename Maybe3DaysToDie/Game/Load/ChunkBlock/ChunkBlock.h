@@ -40,8 +40,10 @@ public:
 	{
 		m_SaveDataFile = file;
 	}
+
+public:
+	Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];		//ÉuÉçÉbÉN
 private:
-	Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];
 	BlockManager* m_BlockManager = nullptr;
 	int m_ChunkID[2] = { 0 };
 	SaveDataFile* m_SaveDataFile = nullptr;
