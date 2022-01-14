@@ -59,6 +59,7 @@ void ChunkCollision::UpdateCol()
 				//ブロックのポインタをコライダーに渡しておく
 				//auto& blocks = m_BlockManager->GetChunkBlock(m_ChunkID);
 				auto& blocks = m_ChunkBlocks->m_Block[x][y][z];
+				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)blocks.GetPointer());
 				if (blocks.GetParam().Durable > 0)
 				{
 					PhysicsWorld().AddRigidBody(m_StaticCol[x][y][z].GetRigidBody());
@@ -82,10 +83,13 @@ void ChunkCollision::UpdateCol()
 }
 
 
-void ChunkCollision::MoveChunk(int ChunkID[2])
+void ChunkCollision::MoveChunk()
 {
-	//チャンクIDをセット
-	SetChunkID(ChunkID);
+	if (IsMove == false)
+	{
+		return;
+	}
+
 	for (int x = 0; x < ChunkWidth; x++)
 	{
 		for (int y = 0; y < ChunkHeight; y++)

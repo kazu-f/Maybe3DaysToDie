@@ -314,9 +314,8 @@
     <ImageContentTask Include="Assets\sprite\preset\fade.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\sprite\HotBar.png" />
-    <Image Include="Assets\sprite\HPGauge.dds" />
-    <Image Include="Assets\sprite\SelectBar.png" />
+    <ImageContentTask Include="Assets\sprite\HotBar.png" />
+    <ImageContentTask Include="Assets\sprite\SelectBar.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

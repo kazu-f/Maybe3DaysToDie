@@ -49,6 +49,7 @@ void BlockManager::Update()
 
 void BlockManager::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)
 {
+	ChunkBlockDirty = true;
 	if (m_modelNum > 0)
 	{
 		for (auto& model : BlockModel)

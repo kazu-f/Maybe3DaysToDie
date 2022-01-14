@@ -3,6 +3,8 @@
 #include "MiniEngine/physics/CollisionAttr.h"
 
 class BlockManager;
+class LoadingByChunk;
+class SaveDataFile;
 //todo プレイヤー側から呼ぶようになったらIGameObjectを継承しないように
 class PlacementObject:public IGameObject
 {
@@ -61,6 +63,23 @@ public:
 	{
 		m_BlockManager = manager;
 	}
+
+	/// <summary>
+	/// チャンク読み込み処理をセット
+	/// </summary>
+	void SetLoadingChunk(LoadingByChunk* lbc)
+	{
+		m_LoadingChunk = lbc;
+	}
+
+	/// <summary>
+	/// セーブデータファイルをセット
+	/// </summary>
+	void SetSaveData(SaveDataFile* sdf)
+	{
+		m_SaveData = sdf;
+	}
+
 private:
 	prefab::ModelRender* m_ObjectModel = nullptr;		//オブジェクトモデル
 	Vector3 m_pos = Vector3::Zero;		//モデルのポジション
@@ -70,5 +89,7 @@ private:
 	bool CanPlace = false;
 	BlockManager* m_BlockManager = nullptr;
 	DestructibleObject* m_hitObj = nullptr;
+	LoadingByChunk* m_LoadingChunk = nullptr;
+	SaveDataFile* m_SaveData = nullptr;
 };
 

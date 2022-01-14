@@ -6,6 +6,7 @@ class PlayerStamina;
 class PlayerHunger;
 class PlayerWater;
 class GameCamera;
+class ItemBar;
 class Player : public IGameObject
 {
 	//配列用の定数
@@ -65,6 +66,10 @@ public:
 		m_LoadingByChunk = lbc;
 	}
 
+	void SetItemBar(ItemBar* itemBar) {
+		m_ItemBar = itemBar;
+	}
+
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
@@ -119,13 +124,17 @@ private:
 	/////水分//////////////////////////////////////////////////////
 	PlayerWater* m_Water = nullptr;
 	///////////////////////////////////////////////////////////////
+
+	/////ホットバー//////////////////////////////////////////////
+	ItemBar* m_ItemBar = nullptr;
+	/// ////////////////////////////////////////////////////////
 	State m_State = State::Idle;
 	float m_DeltaTime = 0.0f;
 
 	bool m_IsChasePlayer = false;
 	GameCamera* cameraptr = nullptr;
 
-	float m_mulSpeed = 1.0f;			//スピードに掛ける値
+	float m_mulSpeed = 1.0f;			//移動速度(バフ、デバフ用）
 
 	CFontRender* m_Font = nullptr;
 	LoadingByChunk* m_LoadingByChunk = nullptr;

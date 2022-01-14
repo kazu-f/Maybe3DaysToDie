@@ -393,6 +393,8 @@
     <ImageContentTask Include="Assets\sprite\preset\fade.png">
       <Filter>Assets\sprite\preset</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\HotBar.png" />
+    <ImageContentTask Include="Assets\sprite\SelectBar.png" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -506,10 +508,5 @@
     <Filter Include="nlohmann\thirdparty\hedley">
       <UniqueIdentifier>{366bc28c-681a-43b1-9009-3f8cc62ed50e}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\sprite\HotBar.png" />
-    <Image Include="Assets\sprite\HPGauge.dds" />
-    <Image Include="Assets\sprite\SelectBar.png" />
   </ItemGroup>
 </Project>

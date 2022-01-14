@@ -24,8 +24,7 @@ public:
 	/// <summary>
 	/// コライダーの位置をチャンクに合わせて移動する
 	/// </summary>
-	/// <param name="ChunkID">チャンクID</param>
-	void MoveChunk(int ChunkID[2]);
+	void MoveChunk();
 
 	void SetBlockManager(BlockManager* manag)
 	{
@@ -34,8 +33,14 @@ public:
 
 	void SetChunkID(int ChunkID[2])
 	{
-		m_ChunkID[0] = ChunkID[0];
-		m_ChunkID[1] = ChunkID[1];
+		for (int i = 0; i < 2; i++)
+		{
+			if (m_ChunkID[i] != ChunkID[i])
+			{
+				m_ChunkID[i] = ChunkID[i];
+				IsMove = true;
+			}
+		}
 	}
 
 	void GetChunkID(int id[2])
@@ -59,4 +64,5 @@ private:
 	ChunkBlock* m_ChunkBlocks = nullptr;
 	int m_ChunkID[2] = { 0 };
 	bool IsDebug = true;		//後で消す予定発表用
+	bool IsMove = false;
 };

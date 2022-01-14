@@ -3,6 +3,7 @@
 #include "GameCamera.h"
 #include "Player/Player.h"
 #include "Stage.h"
+#include "ItemBar.h"
 
 #include "PlacementObject/PlacementObject.h"
 #include "DestroyObject/DestroyObject.h"
@@ -49,6 +50,8 @@ CGameScene::~CGameScene()
 bool CGameScene::Start()
 {
 	m_Player = NewGO<Player>(0, "player");
+	m_Player->SetItemBar(m_ItemBar);
+	m_ItemBar = NewGO<ItemBar>(0, "itemBar");
 	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Player->SetCameraPtr(m_Camera);
 	m_Stage = NewGO<Stage>(0, "stage");
@@ -88,6 +91,8 @@ bool CGameScene::Start()
 	//セーブデータファイルをセット
 	m_LoadingByChunk->SetSaveDataFile(&m_SaveDataFile);
 	m_Player->SetLoadingByChunk(m_LoadingByChunk);
+	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
+	m_PlacementObject->SetSaveData(&m_SaveDataFile);
 	return true;
 }
 
