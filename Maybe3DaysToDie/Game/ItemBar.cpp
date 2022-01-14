@@ -4,7 +4,7 @@
 namespace {
     const Vector2 ItemBarPos( 0.0f,-250.0f );
     const float ItemOneBoxSize = 10.0f;
-    const float ItemBarWidthSize = 100.0f;
+    const float ItemBarWidthSize = 2000.0f;
 }
 
 bool ItemBar::Start()
