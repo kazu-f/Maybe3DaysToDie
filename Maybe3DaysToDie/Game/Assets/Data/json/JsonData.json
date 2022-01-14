@@ -1,0 +1,22 @@
+[
+  {
+    "__type": "ToolData:#Maybe3DaysToDieToolEditor",
+    "iconData": "",
+    "name": "ToolData1",
+    "tkmFile": "",
+    "damage": 30,
+    "durable": 100,
+    "tool": 1,
+    "useStamina": 5
+  },
+  {
+    "__type": "ToolData:#Maybe3DaysToDieToolEditor",
+    "iconData": "",
+    "name": "ToolData2",
+    "tkmFile": "",
+    "damage": 35,
+    "durable": 120,
+    "tool": 2,
+    "useStamina": 8
+  }
+]
