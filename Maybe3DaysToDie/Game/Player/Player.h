@@ -22,6 +22,8 @@ class Player : public IGameObject
 		Jump,			//ジャンプ
 		Attack,			//攻撃
 		Inventry,		//インベントリを開く
+		Damage,			//攻撃に当たった
+		Dead,			//死にました
 		Num				//ステート数
 	};
 
@@ -68,6 +70,21 @@ public:
 
 	void SetItemBar(ItemBar* itemBar) {
 		m_ItemBar = itemBar;
+	}
+
+	/// <summary>
+	/// プレイヤーが攻撃をくらった際に入る関数。
+	/// プレイヤーへの当たり判定はしてないです。
+	/// </summary>
+	/// <param name="Damage">ダメージ量</param>
+	void HitDamage(const float Damage) {
+		float PlayerHp = m_Hp->GetHp() - Damage;
+		if (PlayerHp < 0) {
+			m_NextState = State::Dead;
+		}
+		else {
+			m_NextState = State::Damage;
+		}
 	}
 
 private:
@@ -128,7 +145,8 @@ private:
 	/////ホットバー//////////////////////////////////////////////
 	ItemBar* m_ItemBar = nullptr;
 	/// ////////////////////////////////////////////////////////
-	State m_State = State::Idle;
+	State m_CurrentState = State::Idle;				//現在のステート
+	State m_NextState = State::Idle;				//次に変わるステート
 	float m_DeltaTime = 0.0f;
 
 	bool m_IsChasePlayer = false;
