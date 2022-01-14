@@ -88,6 +88,8 @@ bool CGameScene::Start()
 	//セーブデータファイルをセット
 	m_LoadingByChunk->SetSaveDataFile(&m_SaveDataFile);
 	m_Player->SetLoadingByChunk(m_LoadingByChunk);
+	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
+	m_PlacementObject->SetSaveData(&m_SaveDataFile);
 	return true;
 }
 

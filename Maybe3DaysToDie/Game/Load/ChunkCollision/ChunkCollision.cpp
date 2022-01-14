@@ -86,6 +86,11 @@ void ChunkCollision::MoveChunk(int ChunkID[2])
 {
 	//チャンクIDをセット
 	SetChunkID(ChunkID);
+	if (IsMove == false)
+	{
+		return;
+	}
+
 	for (int x = 0; x < ChunkWidth; x++)
 	{
 		for (int y = 0; y < ChunkHeight; y++)

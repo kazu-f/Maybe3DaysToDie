@@ -252,3 +252,19 @@ void LoadingByChunk::LinkChunk()
 		}
 	}
 }
+
+ChunkBlock& LoadingByChunk::GetChunkBlocks(int ID[2])
+{
+	for (int x = 0; x < LoadingChunks; x++)
+	{
+		for (int z = 0; z < LoadingChunks; z++)
+		{
+			int chunkID[2] = { 0 };
+			m_ChunkBlock[x][z].GetChunkID(chunkID);
+			if (chunkID[0] == ID[0] && chunkID[1] == ID[1])
+			{
+				return m_ChunkBlock[x][z];
+			}
+		}
+	}
+}

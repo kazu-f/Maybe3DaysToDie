@@ -12,8 +12,14 @@ public:
 
 	void SetChunkID(int ChunkID[2])
 	{
-		m_ChunkID[0] = ChunkID[0];
-		m_ChunkID[1] = ChunkID[1];
+		for (int i = 0; i < 2; i++)
+		{
+			if (m_ChunkID[i] != ChunkID[i])
+			{
+				m_ChunkID[i] = ChunkID[i];
+				IsMove = true;
+			}
+		}
 	}
 	void SetBlockManager(BlockManager* manag)
 	{
@@ -41,11 +47,14 @@ public:
 		m_SaveDataFile = file;
 	}
 
+
+	Block& GetBlock(Vector3 pos);
 public:
 	Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];		//ƒuƒƒbƒN
 private:
 	BlockManager* m_BlockManager = nullptr;
 	int m_ChunkID[2] = { 0 };
 	SaveDataFile* m_SaveDataFile = nullptr;
+	bool IsMove = false;
 };
 
