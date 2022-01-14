@@ -24,7 +24,7 @@ public:
 		m_itemIcon->SetPosition(pos);
 	}
 	//アイテムのアイコンを表示するか。
-	void SetItemModelEnable(bool isEnable)
+	void SetItemIconEnable(bool isEnable)
 	{
 		m_itemIcon->SetActiveFlag(isEnable);
 	}
