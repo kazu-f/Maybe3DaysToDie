@@ -21,7 +21,7 @@ bool ItemBar::Start()
 
 void ItemBar::Update()
 {
-    WPARAM wPram;
+    WPARAM wPram=NULL;
     int zDelta = GET_WHEEL_DELTA_WPARAM(wPram);
     if (zDelta < 0) {
         m_SelectNum++;
