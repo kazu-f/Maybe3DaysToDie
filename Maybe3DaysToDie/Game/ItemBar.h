@@ -11,7 +11,7 @@ public:
 private:
 	prefab::CSpriteRender* m_ItemIcon = nullptr;
 	prefab::CSpriteRender* m_SelectItemIcon = nullptr;
-	Vector3 m_SelectPos[SelectNum] = {};	//選択中のアイテムバーの位置
+	Vector2 m_SelectPos[SelectNum] = {};	//選択中のアイテムバーの位置
 	int m_SelectNum = 0;						//今選択しているアイテムバーのスロットNo
 };
 

@@ -7,6 +7,8 @@
 class Player;
 class Stage;
 class GameCamera;
+class ItemBar;
+
 class PlacementObject;
 class DestroyObject;
 class Tool;
@@ -32,6 +34,7 @@ private:
 	Player* m_Player = nullptr;
 	GameCamera* m_Camera = nullptr;
 	Stage* m_Stage = nullptr;
+	ItemBar* m_ItemBar = nullptr;
 	//仮置き//
 	//todo 後ほどプレイヤー等においてください
 	PlacementObject* m_PlacementObject = nullptr;		//設置オブジェクト

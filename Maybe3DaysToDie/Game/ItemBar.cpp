@@ -16,6 +16,10 @@ bool ItemBar::Start()
     m_SelectItemIcon = NewGO<prefab::CSpriteRender>(0);
     m_SelectItemIcon->Init("Assets/spirte/SelectBar.dds", ItemOneBoxSize, ItemOneBoxSize);
     m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
+
+    for (int i = 0; i < SelectNum; i++) {
+        m_SelectPos[i] = { -1000.0f +( 100.0f * i),-250.0f };
+    }
     return true;
 }
 
@@ -23,10 +27,10 @@ void ItemBar::Update()
 {
     WPARAM wPram=NULL;
     int zDelta = GET_WHEEL_DELTA_WPARAM(wPram);
-    if (zDelta < 0) {
+    if (zDelta > 120) {
         m_SelectNum++;
     }
-    else if(zDelta > 0){
+    else if(zDelta < -120){
         m_SelectNum--;
     }
     m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
