@@ -115,15 +115,12 @@
     <ClCompile Include="Tool\Tool.cpp">
       <Filter>Tool</Filter>
     </ClCompile>
+    <ClCompile Include="Load\ChunkCollision\ChunkCollision.cpp" />
     <ClCompile Include="Tool\ToolDataFile.cpp">
       <Filter>Tool</Filter>
     </ClCompile>
-    <ClCompile Include="Load\ChunkCollision\ChunkCollision.cpp">
-      <Filter>Load\ChunkCollision</Filter>
-    </ClCompile>
-    <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp">
-      <Filter>Load\ChunkBlock</Filter>
-    </ClCompile>
+    <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp" />
+    <ClCompile Include="ItemBar.cpp" />
     <ClCompile Include="Item\IGameItem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +241,7 @@
     <ClInclude Include="Tool\Tool.h">
       <Filter>Tool</Filter>
     </ClInclude>
+    <ClInclude Include="Load\ChunkCollision\ChunkCollision.h" />
     <ClInclude Include="Tool\ToolDataFile.h">
       <Filter>Tool</Filter>
     </ClInclude>
@@ -370,12 +368,8 @@
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp">
       <Filter>nlohmann\thirdparty\hedley</Filter>
     </ClInclude>
-    <ClInclude Include="Load\ChunkCollision\ChunkCollision.h">
-      <Filter>Load\ChunkCollision</Filter>
-    </ClInclude>
-    <ClInclude Include="Load\ChunkBlock\ChunkBlock.h">
-      <Filter>Load\ChunkBlock</Filter>
-    </ClInclude>
+    <ClInclude Include="Load\ChunkBlock\ChunkBlock.h" />
+    <ClInclude Include="ItemBar.h" />
     <ClInclude Include="Item\IGameItem.h" />
   </ItemGroup>
   <ItemGroup>
@@ -510,11 +504,10 @@
     <Filter Include="nlohmann\thirdparty\hedley">
       <UniqueIdentifier>{366bc28c-681a-43b1-9009-3f8cc62ed50e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Load\ChunkBlock">
-      <UniqueIdentifier>{ad9cbf15-d0a0-4924-b035-d344c8838e0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Load\ChunkCollision">
-      <UniqueIdentifier>{81336fc7-1669-4fbf-a70a-4e886c781cf5}</UniqueIdentifier>
-    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\sprite\HotBar.png" />
+    <Image Include="Assets\sprite\HPGauge.dds" />
+    <Image Include="Assets\sprite\SelectBar.png" />
   </ItemGroup>
 </Project>
