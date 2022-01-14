@@ -33,10 +33,9 @@ public:
 	}
 
 	/// <summary>
-	/// コライダーの位置をチャンクに合わせて移動する
+	/// ブロックの位置をチャンクに合わせて移動する
 	/// </summary>
-	/// <param name="ChunkID">チャンクID</param>
-	void MoveChunk(int ChunkID[2]);
+	void MoveChunk();
 
 	/// <summary>
 	/// セーブデータファイルをセット

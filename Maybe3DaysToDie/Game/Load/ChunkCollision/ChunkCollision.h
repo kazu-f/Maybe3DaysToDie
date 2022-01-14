@@ -24,8 +24,7 @@ public:
 	/// <summary>
 	/// コライダーの位置をチャンクに合わせて移動する
 	/// </summary>
-	/// <param name="ChunkID">チャンクID</param>
-	void MoveChunk(int ChunkID[2]);
+	void MoveChunk();
 
 	void SetBlockManager(BlockManager* manag)
 	{

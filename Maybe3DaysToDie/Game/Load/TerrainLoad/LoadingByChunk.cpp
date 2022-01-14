@@ -117,8 +117,6 @@ void LoadingByChunk::Update()
 
 	//チャンク移動
 	UpdateMoveChunk();
-	//チャンクを紐づけ
-	LinkChunk();
 
 	////////////////////////////////////////////
 	/////ここから下は更新する必要があるとき/////
@@ -176,7 +174,12 @@ void LoadingByChunk::UpdateChunkCols()
 		for (int z = 0; z < LoadingChunkCols; z++)
 		{
 			NowGrid[1] = Grid[1] + z;
-			m_ChunkCol[x][z].MoveChunk(NowGrid);
+			//チャンクIDをセット
+			m_ChunkCol[x][z].SetChunkID(NowGrid);
+			//チャンクを紐づけ
+			LinkChunk();
+			//チャンク移動
+			m_ChunkCol[x][z].MoveChunk();
 		}
 	}
 
@@ -204,7 +207,10 @@ void LoadingByChunk::UpdateChunkBlocks()
 		for (int z = 0; z < LoadingChunks; z++)
 		{
 			NowGrid[1] = Grid[1] + z;
-			m_ChunkBlock[x][z].MoveChunk(NowGrid);
+			//チャンクIDをセット
+			m_ChunkBlock[x][z].SetChunkID(NowGrid);
+			//チャンク移動
+			m_ChunkBlock[x][z].MoveChunk();
 		}
 	}
 }

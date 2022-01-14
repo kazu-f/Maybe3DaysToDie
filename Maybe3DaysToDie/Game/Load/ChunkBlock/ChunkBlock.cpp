@@ -26,11 +26,8 @@ void ChunkBlock::Init()
 	}
 }
 
-void ChunkBlock::MoveChunk(int ChunkID[2])
+void ChunkBlock::MoveChunk()
 {
-
-	//チャンクIDをセット
-	SetChunkID(ChunkID);
 	if (IsMove == false)
 	{
 		//チャンク移動がない

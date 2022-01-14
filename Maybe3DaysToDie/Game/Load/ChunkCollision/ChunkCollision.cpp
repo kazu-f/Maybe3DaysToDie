@@ -82,10 +82,8 @@ void ChunkCollision::UpdateCol()
 }
 
 
-void ChunkCollision::MoveChunk(int ChunkID[2])
+void ChunkCollision::MoveChunk()
 {
-	//チャンクIDをセット
-	SetChunkID(ChunkID);
 	if (IsMove == false)
 	{
 		return;
