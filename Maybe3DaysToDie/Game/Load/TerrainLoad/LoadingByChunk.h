@@ -110,7 +110,12 @@ public:
 	/// </summary>
 	void LinkChunk();
 
-private:
+	/// <summary>
+	/// ポジションから対応するチャンクブロックを取得
+	/// </summary>
+	ChunkBlock& GetChunkBlocks(int ID[2]);
+
+ private:
 	WorldConfig* m_config = nullptr;
 	SaveDataFile* m_SaveDataFile = nullptr;
 	int PlayerPosInGrid[2] = { 0 };

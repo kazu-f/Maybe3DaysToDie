@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "PlacementObject.h"
 #include "Block/BlockManager/BlockManager.h"
+#include "Load/TerrainLoad/LoadingByChunk.h"
+#include "SaveDataFile.h"
 
 PlacementObject::PlacementObject()
 {
@@ -104,7 +106,40 @@ void PlacementObject::PlaceObject(ObjectParams& params)
 			Quaternion rot = Quaternion::Identity;
 			Vector3 scale = Vector3::One;
 			//ヒットしているオブジェクトの位置にブロックを追加
-			m_hitObj->AddBlock(params, m_pos, rot, scale);
+			//m_hitObj->AddBlock(params, m_pos, rot, scale);
+
+			//設置するオブジェクトのチャンクIDを計算
+			int ID[2] = { 0 };
+			int x = m_pos.x / OBJECT_UNIT;
+			ID[0] = static_cast<int>(x / ChunkWidth);
+			int z = m_pos.z / OBJECT_UNIT;
+			ID[1] = static_cast<int>(z / ChunkWidth);
+			//対応するブロックを取得
+			//レイテストでずれることがあるので下駄をはかす
+			Vector3 Pos = m_pos;
+			Pos.x += OBJECT_UNIT / 4;
+			Pos.y += OBJECT_UNIT / 4;
+			Pos.z += OBJECT_UNIT / 4;
+
+			Pos.x = abs(Pos.x);
+			Pos.y = abs(Pos.y);
+			Pos.z = abs(Pos.z);
+
+			//セーブデータファイルからチャンクの情報を取得
+			auto& chunkData = m_SaveData->m_ChunkData[ID[0]][ID[1]];
+			//ポジションに対応するブロックを取得
+			int id_x = Pos.x / OBJECT_UNIT;
+			id_x = static_cast<int>(id_x % ChunkWidth);
+			int id_y = Pos.y / OBJECT_UNIT;
+			id_y = static_cast<int>(id_y % ChunkHeight);
+			int id_z = Pos.z / OBJECT_UNIT;
+			id_z = static_cast<int>(id_z % ChunkWidth);
+
+			//セーブデータに直接書き込み
+			chunkData.ObjId[id_x][id_y][id_z] = params.BlockID;
+			chunkData.ObjDurable[id_x][id_y][id_z] = params.Durable;
+			auto& block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
+			block.AddBlock(params, m_pos, rot, scale);
 		}
 	}
 }
