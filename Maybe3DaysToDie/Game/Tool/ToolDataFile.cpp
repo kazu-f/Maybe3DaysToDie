@@ -34,22 +34,20 @@ void ToolDataFile::InitToolFile(const char* filePath)
 	ifs.close();			//ファイルは閉じておく。
 
 	//ツールの種類ごとに読み込む。
-	for (auto toolType : jTool["ToolName"])
+	for (auto tool : jTool)
 	{
-		std::string toolTypeStr = toolType;
-		//ツールの名前ごとに読み込む。
-		for (auto& toolName : jTool[toolTypeStr]["ObjName"])
-		{
-			std::string toolNameStr = toolName;
+		std::string itemName = tool["name"];
+		std::string tkmFilePath = tool["tkmFile"];
+		std::string iconDataPath = tool["iconData"];
+		ToolInfo info;
+		info.AttackPower = tool[damage];
+		info.Durable = tool[durable];
+		info.UseStamina = tool[useStamina];
+		info.tool = tool[toolTypeTag];
 
-			ToolInfo info;
-			info.AttackPower = jTool[toolTypeStr][toolNameStr][damage];
-			info.Durable = jTool[toolTypeStr][toolNameStr][durable];
-			info.UseStamina = jTool[toolTypeStr][toolNameStr][useStamina];
-			info.tool = jTool[toolTypeStr][toolNameStr][toolTypeTag];
+		GameItemTool* gameItemTool = new GameItemTool(itemName, tkmFilePath.c_str(), iconDataPath.c_str(), info);
 
-			m_toolInfoArray.push_back(info);
-		}
+		m_toolArray.push_back(gameItemTool);
 	}
 
 

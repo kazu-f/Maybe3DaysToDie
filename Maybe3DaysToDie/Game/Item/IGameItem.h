@@ -6,6 +6,9 @@
 class IGameItem
 {
 public:
+	IGameItem(std::string& itemName,const char* tkmPath,const char* iconPath);
+
+public:
 	//モデルのワールド行列を作るためのデータをセット。
 	void SetModelWorldMatrix(const Vector3& pos,const Quaternion& rot,const Vector3& scale = Vector3::One)
 	{
