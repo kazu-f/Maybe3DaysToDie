@@ -124,6 +124,7 @@
     <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp">
       <Filter>Load\ChunkBlock</Filter>
     </ClCompile>
+    <ClCompile Include="Item\IGameItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -375,6 +376,7 @@
     <ClInclude Include="Load\ChunkBlock\ChunkBlock.h">
       <Filter>Load\ChunkBlock</Filter>
     </ClInclude>
+    <ClInclude Include="Item\IGameItem.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">
