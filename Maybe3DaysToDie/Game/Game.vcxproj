@@ -161,7 +161,7 @@
   <ItemGroup>
     <ClCompile Include="Block\BlockManager\BlockManager.cpp" />
     <ClCompile Include="ItemBar.cpp" />
-    <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp" />
+     <ClCompile Include="Item\IGameItem.cpp" />    <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp" />
     <ClCompile Include="Load\ChunkCollision\ChunkCollision.cpp" />
     <ClCompile Include="DestroyObject\DestroyObject.cpp" />
     <ClCompile Include="Load\TerrainLoad\LoadingByChunk.cpp" />
@@ -211,8 +211,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block\BlockManager\BlockManager.h" />
+
     <ClInclude Include="ItemBar.h" />
-    <ClInclude Include="Load\ChunkBlock\ChunkBlock.h" />
+    <ClInclude Include="Item\IGameItem.h" />    <ClInclude Include="Load\ChunkBlock\ChunkBlock.h" />
     <ClInclude Include="Load\ChunkCollision\ChunkCollision.h" />
     <ClInclude Include="DestroyObject\DestroyObject.h" />
     <ClInclude Include="Load\TerrainLoad\LoadingByChunk.h" />

@@ -12,6 +12,7 @@ private:
 		bool isHit = false;		//è’ìÀÉtÉâÉO
 		Vector3 hitNormal = Vector3::Zero;
 		Vector3 hitColPos = Vector3::Zero;
+		const btCollisionObject* ColObj = nullptr;
 		//è’ìÀÇµÇΩÇ∆Ç´Ç…åƒÇŒÇÍÇÈä÷êî
 		virtual btScalar addSingleResult(
 			btCollisionWorld::LocalRayResult& convexResult,
@@ -29,6 +30,7 @@ private:
 				{
 					m_closestHitFraction = convexResult.m_hitFraction;
 				}
+				ColObj = convexResult.m_collisionObject;
 				return m_closestHitFraction;
 			}
 			return 0.0f;
@@ -67,5 +69,6 @@ private:
 	std::vector<Block*> m_model;
 	bool CanPlace = false;
 	BlockManager* m_BlockManager = nullptr;
+	DestructibleObject* m_hitObj = nullptr;
 };
 

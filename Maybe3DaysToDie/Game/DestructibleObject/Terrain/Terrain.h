@@ -54,6 +54,19 @@ namespace nsTerrain {
 		/// ダメージを与える。
 		/// </summary>
 		void Damage(const ToolInfo& tool)override final;
+
+		/// <summary>
+	/// ブロックを追加
+	/// </summary>
+	/// <param name="params">パラメータ</param>
+	/// <param name="pos">位置</param>
+	/// <param name="rot">回転</param>
+	/// <param name="scale">拡大率</param>
+		void AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)override final
+		{
+
+		}
+
 	private:
 		void CalcVoxel();
 
