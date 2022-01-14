@@ -64,6 +64,15 @@ public:
 	/// </summary>
 	virtual void Damage(const ToolInfo& tool) = 0;
 
+	/// <summary>
+	/// ÉuÉçÉbÉNÇÃí«â¡
+	/// </summary>
+	/// <param name="params"></param>
+	/// <param name="pos"></param>
+	/// <param name="rot"></param>
+	/// <param name="scale"></param>
+	virtual void AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale) = 0;
+
 	//void Deletethis()
 	//{
 	//	if(m_StaticCol.GetRigidBody())

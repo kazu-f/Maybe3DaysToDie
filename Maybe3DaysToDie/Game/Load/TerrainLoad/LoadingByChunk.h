@@ -66,6 +66,13 @@ public:
 				m_ChunkCol[Chunk_X][Chunk_Z].SetBlockManager(manag);
 			}
 		}
+		for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
+		{
+			for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
+			{
+				m_ChunkBlock[Chunk_X][Chunk_Z].SetBlockManager(manag);
+			}
+		}
 		IsBlockManagerSet = true;
 	}
 
