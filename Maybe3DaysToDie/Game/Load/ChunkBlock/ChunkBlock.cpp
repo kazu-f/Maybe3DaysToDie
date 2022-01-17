@@ -1,6 +1,18 @@
 #include "stdafx.h"
 #include "ChunkBlock.h"
 
+void ChunkBlock::OnDestroy()
+{
+	for (auto& model : BlockModel)
+	{
+		if (model != nullptr)
+		{
+			DeleteGO(model);
+			model = nullptr;
+		}
+	}
+}
+
 void ChunkBlock::Init()
 {
 	for (int x = 0; x < ChunkWidth; x++)
@@ -9,7 +21,7 @@ void ChunkBlock::Init()
 		{
 			for (int z = 0; z < ChunkWidth; z++)
 			{
-				m_Block[x][y][z].SetBlockManager(m_BlockManager);
+				m_Block[x][y][z].SetChunkBlock(this);
 				Vector3 pos;
 				pos.x = static_cast<float>(x) * OBJECT_UNIT;
 				pos.y = static_cast<float>(y) * OBJECT_UNIT;
@@ -75,4 +87,64 @@ Block& ChunkBlock::GetBlock(Vector3 pos)
 	z = static_cast<int>(z % ChunkWidth);
 
 	return m_Block[x][y][z];
+}
+
+void ChunkBlock::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)
+{
+	ChunkBlockDirty = true;
+	if (m_modelNum > 0)
+	{
+		for (auto& model : BlockModel)
+		{
+			if (params.BlockName == model->GetInitData().m_tkmFilePath)
+			{
+				//ブロックの名前がかぶっているとき
+				//インスタンシングデータを更新
+				model->UpdateInstancingData(pos, rot, scale);
+				return;
+			}
+		}
+	}
+	//ブロックの名前がかぶっていないのでまだ、そのモデルがない
+	ModelInitData InitData;
+	InitData.m_tkmFilePath = params.BlockName;
+	prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
+	//チャンクのサイズ分インスタンシング描画する
+	model->Init(InitData, nullptr, 0, MaxInstanceNum);
+	model->UpdateInstancingData(pos, rot, scale);
+	BlockModel[m_modelNum] = model;
+	m_modelNum++;
+}
+
+void ChunkBlock::RemoveBlock(Block* blockptr)
+{
+	ChunkBlockDirty = true;
+	const char* Name = blockptr->GetParam().BlockName;
+	if (Name == nullptr)
+	{
+		//名前がセットされていないので何か分からないものを壊そうとしている
+		return;
+	}
+	for (auto& model : BlockModel)
+	{
+		blockptr->ResetParams();
+		//インスタンシングデータをリセット
+		model->ResetInstancingDatas();
+		//ここからセットしなおす
+
+		for (int x = 0; x < ChunkWidth; x++)
+		{
+			for (int y = 0; y < ChunkHeight; y++)
+			{
+				for (int z = 0; z < ChunkWidth; z++)
+				{
+					auto& block = m_Block[x][y][z];
+					if (block.GetParam().BlockName == Name)
+					{
+						model->UpdateInstancingData(block.GetPosition(), block.GetRotation(), block.GetScale());
+					}
+				}
+			}
+		}
+	}
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include "Block/BlockManager/BlockManager.h"
 
 class ChunkBlock;
 //チャンクごとのブロック
@@ -25,11 +24,6 @@ public:
 	/// コライダーの位置をチャンクに合わせて移動する
 	/// </summary>
 	void MoveChunk();
-
-	void SetBlockManager(BlockManager* manag)
-	{
-		m_BlockManager = manag;
-	}
 
 	void SetChunkID(int ChunkID[2])
 	{
@@ -60,7 +54,6 @@ public:
 private:
 	CPhysicsStaticObject m_StaticCol[ChunkWidth][ChunkHeight][ChunkWidth];		//静的物理オブジェクト
 	const Vector3 BLOCK_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };
-	BlockManager* m_BlockManager = nullptr;
 	ChunkBlock* m_ChunkBlocks = nullptr;
 	int m_ChunkID[2] = { 0 };
 	bool IsDebug = true;		//後で消す予定発表用

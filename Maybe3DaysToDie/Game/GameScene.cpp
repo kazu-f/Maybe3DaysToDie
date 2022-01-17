@@ -9,8 +9,6 @@
 #include "DestroyObject/DestroyObject.h"
 #include "Tool/Tool.h"
 
-#include "Block/BlockManager/BlockManager.h"
-
 #include "DateTime.h"
 
 #include "Load/TerrainLoad/LoadingByChunk.h"
@@ -37,11 +35,6 @@ CGameScene::~CGameScene()
 		delete tool;
 		tool = nullptr;
 	}
-	if (m_BlockManager != nullptr)
-	{
-		DeleteGO(m_BlockManager);
-		m_BlockManager = nullptr;
-	}
 
 	//sample//
 	DeleteGO(m_fontRender);
@@ -65,8 +58,6 @@ bool CGameScene::Start()
 	m_DestroyObject = NewGO<DestroyObject>(0);
 	tool = new Tool;
 	m_DestroyObject->SetTool(tool);
-	m_BlockManager = NewGO<BlockManager>(0);
-	m_PlacementObject->SetBlockManager(m_BlockManager);
 
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
 
@@ -87,7 +78,6 @@ bool CGameScene::Start()
 	m_LoadingByChunk = NewGO<LoadingByChunk>(0);
 	//ワールド設定をセット
 	m_LoadingByChunk->SetWorldConfig(&m_WorldConfig);
-	m_LoadingByChunk->SetBlockManagerForChunkBlock(m_BlockManager);
 	//セーブデータファイルをセット
 	m_LoadingByChunk->SetSaveDataFile(&m_SaveDataFile);
 	m_Player->SetLoadingByChunk(m_LoadingByChunk);

@@ -52,30 +52,6 @@ public:
 		}
 	}
 
-	/// <summary>
-	/// ChunkBlockにBlockManagerをセット
-	/// </summary>
-	/// <param name="manag"></param>
-	void SetBlockManagerForChunkBlock(BlockManager* manag)
-	{
-		m_BlockManager = manag;
-		for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
-		{
-			for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
-			{
-				m_ChunkCol[Chunk_X][Chunk_Z].SetBlockManager(manag);
-			}
-		}
-		for (int Chunk_X = 0; Chunk_X < LoadingChunks; Chunk_X++)
-		{
-			for (int Chunk_Z = 0; Chunk_Z < LoadingChunks; Chunk_Z++)
-			{
-				m_ChunkBlock[Chunk_X][Chunk_Z].SetBlockManager(manag);
-			}
-		}
-		IsBlockManagerSet = true;
-	}
-
 	bool Start();
 
 	/// <summary>
@@ -122,6 +98,4 @@ public:
 	bool m_isDirty = true;		//更新するかどうか
 	ChunkCollision m_ChunkCol[LoadingChunkCols][LoadingChunkCols];		//チャンクごとのブロック
 	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];
-	bool IsBlockManagerSet = false;
-	BlockManager* m_BlockManager = nullptr;
 };

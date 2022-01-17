@@ -159,7 +159,6 @@
     </ImageContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Block\BlockManager\BlockManager.cpp" />
     <ClCompile Include="ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
     <ClCompile Include="Item\IGameItem.cpp" />
@@ -212,7 +211,6 @@
     <ClCompile Include="Tool\ToolDataFile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Block\BlockManager\BlockManager.h" />
     <ClInclude Include="ItemBar.h" />
     <ClInclude Include="Item\GameItemTool.h" />
     <ClInclude Include="Item\IGameItem.h" />
