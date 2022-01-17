@@ -2,12 +2,23 @@
 #include "DestructibleObject/Block/Block.h"
 #include "SaveDataFile.h"
 
+static const int BlockKinds = 1;		//ブロックの種類
+static const int MaxInstanceNum = ChunkWidth * ChunkWidth * ChunkHeight;
+
 class ChunkBlock
 {
 public:
-	ChunkBlock() {}
-	~ChunkBlock() {}
+	ChunkBlock() 
+	{		
+		//サイズの最大値セット
+		BlockModel.resize(BlockKinds);
+	}
+	~ChunkBlock() 
+	{
+		OnDestroy();
+	}
 
+	void OnDestroy();
 	void Init();
 
 	void SetChunkID(int ChunkID[2])
@@ -20,10 +31,6 @@ public:
 				IsMove = true;
 			}
 		}
-	}
-	void SetBlockManager(BlockManager* manag)
-	{
-		m_BlockManager = manag;
 	}
 
 	void GetChunkID(int id[2])
@@ -46,14 +53,36 @@ public:
 		m_SaveDataFile = file;
 	}
 
+	/// <summary>
+	/// モデルの追加
+	/// </summary>
+	void AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale);
+
+	/// <summary>
+	/// モデルの削除
+	/// </summary>
+	void RemoveBlock(Block* blockptr);
 
 	Block& GetBlock(Vector3 pos);
+
+	bool IsBlockDirty()
+	{
+		return ChunkBlockDirty;
+	}
+
+	void ResetBlockDirty()
+	{
+		ChunkBlockDirty = false;
+	}
 public:
 	Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];		//ブロック
 private:
-	BlockManager* m_BlockManager = nullptr;
 	int m_ChunkID[2] = { 0 };
 	SaveDataFile* m_SaveDataFile = nullptr;
 	bool IsMove = false;
+	//todo ChunkBlockでモデル表示できるようにBlockManagerからモデルを削除する
+	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル
+	int m_modelNum = 0;
+	bool ChunkBlockDirty = true;
 };
 

@@ -39,8 +39,6 @@ void ChunkCollision::InitCol()
 				m_StaticCol[x][y][z].CreateBox(pos, Quaternion::Identity, BLOCK_SIZE);
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
 				//ブロックのポインタを渡しておく
-				//auto& blocks = m_BlockManager->GetChunkBlock(m_ChunkID);
-				//m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)blocks.m_Block[x][y][z].GetPointer());
 				auto& blocks = m_ChunkBlocks->m_Block[x][y][z];
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)blocks.GetPointer());
 			}
@@ -50,6 +48,11 @@ void ChunkCollision::InitCol()
 
 void ChunkCollision::UpdateCol()
 {
+	if (m_ChunkBlocks->IsBlockDirty() == false)
+	{
+		//対応しているチャンクブロックが更新する必要のないとき
+		return;
+	}
 	for (int x = 0; x < ChunkWidth; x++)
 	{
 		for (int y = 0; y < ChunkHeight; y++)
@@ -57,7 +60,6 @@ void ChunkCollision::UpdateCol()
 			for (int z = 0; z < ChunkWidth; z++)
 			{
 				//ブロックのポインタをコライダーに渡しておく
-				//auto& blocks = m_BlockManager->GetChunkBlock(m_ChunkID);
 				auto& blocks = m_ChunkBlocks->m_Block[x][y][z];
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)blocks.GetPointer());
 				if (blocks.GetParam().Durable > 0)
@@ -80,6 +82,8 @@ void ChunkCollision::UpdateCol()
 			}
 		}
 	}
+
+	m_ChunkBlocks->ResetBlockDirty();
 }
 
 
@@ -109,8 +113,6 @@ void ChunkCollision::MoveChunk()
 				m_StaticCol[x][y][z].SetPosAndRot(pos, Quaternion::Identity);
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Ground_RayBlock);
 				//ブロックのポインタをコライダーに渡しておく
-				//auto& blocks = m_BlockManager->GetChunkBlock(m_ChunkID);
-				//m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)blocks.m_Block[x][y][z].GetPointer());
 				auto& blocks = m_ChunkBlocks->m_Block[x][y][z];
 				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)blocks.GetPointer());
 				if (blocks.GetParam().Durable > 0)
