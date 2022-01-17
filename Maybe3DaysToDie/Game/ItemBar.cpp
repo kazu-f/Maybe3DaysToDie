@@ -3,7 +3,6 @@
 
 namespace {
     const Vector2 ItemBarPos( 0.0f,-285.0f );
-    const float ItemOneBoxSize = 75.0f;
     const float ItemBarWidthSize = 600.0f;
 }
 
@@ -13,13 +12,13 @@ bool ItemBar::Start()
     m_ItemIcon->Init("Assets/sprite/HotBar.dds", ItemBarWidthSize, ItemOneBoxSize);
     m_ItemIcon->SetPosition(ItemBarPos);
 
+    for (int i = 0; i < SelectNum; i++) {
+        m_SelectPos[i] = { -1000.0f +( 100.0f * i),ItemBarPos.y };
+    }
     m_SelectItemIcon = NewGO<prefab::CSpriteRender>(0);
     m_SelectItemIcon->Init("Assets/sprite/SelectBar.dds", ItemOneBoxSize, ItemOneBoxSize);
     m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
 
-    for (int i = 0; i < SelectNum; i++) {
-        m_SelectPos[i] = { -1000.0f +( 100.0f * i),ItemBarPos.y };
-    }
     return true;
 }
 
