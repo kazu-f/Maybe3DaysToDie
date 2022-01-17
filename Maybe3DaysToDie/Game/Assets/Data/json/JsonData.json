@@ -11,9 +11,9 @@
   },
   {
     "__type": "ToolData:#Maybe3DaysToDieToolEditor",
-    "iconData": "",
+    "iconData": "Assets\\sprite\\ItemIcon\\PickaxeIcon.png",
     "name": "ToolData2",
-    "tkmFile": "",
+    "tkmFile": "Assets\\modelData\\ItemModel\\Tools\\Pickaxe\\Pickaxe.tkm",
     "damage": 35,
     "durable": 120,
     "tool": 2,

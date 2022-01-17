@@ -45,7 +45,7 @@ void ToolDataFile::InitToolFile(const char* filePath)
 		info.UseStamina = tool[useStamina];
 		info.tool = tool[toolTypeTag];
 
-		GameItemTool* gameItemTool = new GameItemTool(itemName, tkmFilePath.c_str(), iconDataPath.c_str(), info);
+		GameItemTool* gameItemTool = new GameItemTool(itemName, tkmFilePath, iconDataPath, info);
 
 		m_toolArray.push_back(gameItemTool);
 	}

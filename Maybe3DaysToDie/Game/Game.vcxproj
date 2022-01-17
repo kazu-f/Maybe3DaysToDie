@@ -315,6 +315,9 @@
     <ImageContentTask Include="Assets\sprite\HotBar.png" />
     <ImageContentTask Include="Assets\sprite\SelectBar.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\ItemIcon\PickaxeIcon.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

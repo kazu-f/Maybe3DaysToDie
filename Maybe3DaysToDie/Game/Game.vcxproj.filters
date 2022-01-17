@@ -389,6 +389,7 @@
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\HotBar.png" />
     <ImageContentTask Include="Assets\sprite\SelectBar.png" />
+    <ImageContentTask Include="Assets\sprite\ItemIcon\PickaxeIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
