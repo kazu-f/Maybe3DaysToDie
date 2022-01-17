@@ -83,6 +83,8 @@ bool CGameScene::Start()
 	m_Player->SetLoadingByChunk(m_LoadingByChunk);
 	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
 	m_PlacementObject->SetSaveData(&m_SaveDataFile);
+	m_DestroyObject->SetSaveData(&m_SaveDataFile);
+
 	return true;
 }
 

@@ -2,6 +2,7 @@
 #include "DestroyObject.h"
 #include "TerrainManager/TerrainWorld.h"
 #include "Tool/Tool.h"
+#include "SaveDataFile.h"
 
 DestroyObject::DestroyObject()
 {
@@ -55,6 +56,39 @@ void DestroyObject::AddObjectDamage()
 		if (obj != nullptr)
 		{
 			obj->Damage(m_tool->GetInfo());
+			ObjectParams param = obj->GetParam();
+
+			//設置するオブジェクトのチャンクIDを計算
+			int ID[2] = { 0 };
+			int x = lastPos.x / OBJECT_UNIT;
+			ID[0] = static_cast<int>(x / ChunkWidth);
+			int z = lastPos.z / OBJECT_UNIT;
+			ID[1] = static_cast<int>(z / ChunkWidth);
+			//対応するブロックを取得
+			//レイテストでずれることがあるので下駄をはかす
+			Vector3 Pos = lastPos;
+			Pos.x += OBJECT_UNIT / 4;
+			Pos.y += OBJECT_UNIT / 4;
+			Pos.z += OBJECT_UNIT / 4;
+
+			Pos.x = abs(Pos.x);
+			Pos.y = abs(Pos.y);
+			Pos.z = abs(Pos.z);
+
+			//セーブデータファイルからチャンクの情報を取得
+			auto& chunkData = m_SaveData->m_ChunkData[ID[0]][ID[1]];
+			//ポジションに対応するブロックを取得
+			int id_x = Pos.x / OBJECT_UNIT;
+			id_x = static_cast<int>(id_x % ChunkWidth);
+			int id_y = Pos.y / OBJECT_UNIT;
+			id_y = static_cast<int>(id_y % ChunkHeight);
+			int id_z = Pos.z / OBJECT_UNIT;
+			id_z = static_cast<int>(id_z % ChunkWidth);
+
+			//セーブデータに直接書き込み
+			chunkData.ObjId[id_x][id_y][id_z] = param.BlockID;
+			chunkData.ObjDurable[id_x][id_y][id_z] = param.Durable;
+
 		}
 	}
 }
