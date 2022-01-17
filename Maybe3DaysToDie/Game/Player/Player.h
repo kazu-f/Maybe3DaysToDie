@@ -77,15 +77,7 @@ public:
 	/// プレイヤーへの当たり判定はしてないです。
 	/// </summary>
 	/// <param name="Damage">ダメージ量</param>
-	void HitDamage(const float Damage) {
-		float PlayerHp = m_Hp->GetHp() - Damage;
-		if (PlayerHp < 0) {
-			m_NextState = State::Dead;
-		}
-		else {
-			m_NextState = State::Damage;
-		}
-	}
+	void HitDamage(const float Damage);
 
 private:
 	/// <summary>

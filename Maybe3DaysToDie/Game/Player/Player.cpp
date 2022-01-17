@@ -174,3 +174,13 @@ void Player::ModelUpdate()
 	Move();
 	//m_Model->PlayAnimation(State::Idle,GameTime().GetFrameDeltaTime());
 }
+
+void Player::HitDamage(float damage) {
+	float PlayerHp = m_Hp->GetHp() - Damage;
+	if (PlayerHp < 0) {
+		m_NextState = State::Dead;
+	}
+	else {
+		m_NextState = State::Damage;
+	}
+}
