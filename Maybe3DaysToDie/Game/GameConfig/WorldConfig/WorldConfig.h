@@ -7,7 +7,7 @@ enum class LoadingRange
 	Far = 1 << 5,			//32
 };
 static const int LoadingChunkCols = 3;
-static const int LoadingChunks = 9;
+static const int LoadingChunks = 3;
 class WorldConfig
 {
 public:
