@@ -18,6 +18,7 @@ bool LoadingByChunk::Start()
 	InitChunkBlocks();
 	//コライダーを初期化
 	InitChunkCols();
+	LinkChunk();
 	return true;
 }
 

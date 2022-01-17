@@ -51,32 +51,20 @@ namespace Maybe3DaysToDieToolEditor
             this.PlaceObjDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ItemList = new System.Windows.Forms.ListBox();
-            this.toolDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.ToolGroupBox = new System.Windows.Forms.GroupBox();
-            this.ToolKindsLabel = new System.Windows.Forms.Label();
-            this.ToolComboBox = new System.Windows.Forms.ComboBox();
-            this.UseStaminaNumeric = new System.Windows.Forms.NumericUpDown();
-            this.UseStaminaLabel = new System.Windows.Forms.Label();
-            this.DurableNumeric = new System.Windows.Forms.NumericUpDown();
-            this.DurableLabel = new System.Windows.Forms.Label();
-            this.DamageNumeric = new System.Windows.Forms.NumericUpDown();
-            this.DamageLabel = new System.Windows.Forms.Label();
             this.ModelFileSelectButton = new System.Windows.Forms.Button();
             this.ModelFilePathTextBox = new System.Windows.Forms.TextBox();
             this.ModelDataLabel = new System.Windows.Forms.Label();
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.ItemGroupBox = new System.Windows.Forms.GroupBox();
-            this.ItemNameLabel = new System.Windows.Forms.Label();
-            this.IconDataLabel = new System.Windows.Forms.Label();
-            this.IconDataTextBox = new System.Windows.Forms.TextBox();
             this.IconFileSelectButton = new System.Windows.Forms.Button();
+            this.ItemNameLabel = new System.Windows.Forms.Label();
+            this.IconDataTextBox = new System.Windows.Forms.TextBox();
+            this.IconDataLabel = new System.Windows.Forms.Label();
+            this.toolDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.toolDataPanel1 = new Maybe3DaysToDieToolEditor.ToolDataPanel();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).BeginInit();
-            this.ToolGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.UseStaminaNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DamageNumeric)).BeginInit();
             this.ItemGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -100,7 +88,7 @@ namespace Maybe3DaysToDieToolEditor
             this.SaveToolStripMenuItem,
             this.SaveAsToolStripMenuItem});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            this.FileToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(82, 26);
             this.FileToolStripMenuItem.Text = "ファイル(&F)";
             // 
             // CreateNewToolStripMenuItem
@@ -150,7 +138,7 @@ namespace Maybe3DaysToDieToolEditor
             this.AddToolStripMenuItem1,
             this.DeleteToolStripMenuItem});
             this.EditorEToolStripMenuItem.Name = "EditorEToolStripMenuItem";
-            this.EditorEToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.EditorEToolStripMenuItem.Size = new System.Drawing.Size(71, 26);
             this.EditorEToolStripMenuItem.Text = "編集(&E)";
             // 
             // UnDoToolStripMenuItem
@@ -246,112 +234,6 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemList.TabIndex = 1;
             this.ItemList.SelectedIndexChanged += new System.EventHandler(this.ItemList_SelectedIndexChanged);
             // 
-            // ToolGroupBox
-            // 
-            this.ToolGroupBox.Controls.Add(this.ToolKindsLabel);
-            this.ToolGroupBox.Controls.Add(this.ToolComboBox);
-            this.ToolGroupBox.Controls.Add(this.UseStaminaNumeric);
-            this.ToolGroupBox.Controls.Add(this.UseStaminaLabel);
-            this.ToolGroupBox.Controls.Add(this.DurableNumeric);
-            this.ToolGroupBox.Controls.Add(this.DurableLabel);
-            this.ToolGroupBox.Controls.Add(this.DamageNumeric);
-            this.ToolGroupBox.Controls.Add(this.DamageLabel);
-            this.ToolGroupBox.Location = new System.Drawing.Point(198, 164);
-            this.ToolGroupBox.Name = "ToolGroupBox";
-            this.ToolGroupBox.Size = new System.Drawing.Size(1272, 668);
-            this.ToolGroupBox.TabIndex = 2;
-            this.ToolGroupBox.TabStop = false;
-            this.ToolGroupBox.Text = "ToolData";
-            this.ToolGroupBox.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
-            // 
-            // ToolKindsLabel
-            // 
-            this.ToolKindsLabel.AutoSize = true;
-            this.ToolKindsLabel.Location = new System.Drawing.Point(35, 100);
-            this.ToolKindsLabel.Name = "ToolKindsLabel";
-            this.ToolKindsLabel.Size = new System.Drawing.Size(72, 15);
-            this.ToolKindsLabel.TabIndex = 7;
-            this.ToolKindsLabel.Text = "適性ツール";
-            // 
-            // ToolComboBox
-            // 
-            this.ToolComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ToolComboBox.FormattingEnabled = true;
-            this.ToolComboBox.Location = new System.Drawing.Point(113, 97);
-            this.ToolComboBox.Name = "ToolComboBox";
-            this.ToolComboBox.Size = new System.Drawing.Size(121, 23);
-            this.ToolComboBox.TabIndex = 6;
-            this.ToolComboBox.SelectionChangeCommitted += new System.EventHandler(this.ToolComboBox_SelectionChangeCommitted);
-            // 
-            // UseStaminaNumeric
-            // 
-            this.UseStaminaNumeric.Location = new System.Drawing.Point(773, 48);
-            this.UseStaminaNumeric.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.UseStaminaNumeric.Name = "UseStaminaNumeric";
-            this.UseStaminaNumeric.Size = new System.Drawing.Size(120, 22);
-            this.UseStaminaNumeric.TabIndex = 5;
-            this.UseStaminaNumeric.ThousandsSeparator = true;
-            this.UseStaminaNumeric.Leave += new System.EventHandler(this.LeaveUseStaminaValue);
-            // 
-            // UseStaminaLabel
-            // 
-            this.UseStaminaLabel.AutoSize = true;
-            this.UseStaminaLabel.Location = new System.Drawing.Point(715, 48);
-            this.UseStaminaLabel.Name = "UseStaminaLabel";
-            this.UseStaminaLabel.Size = new System.Drawing.Size(49, 15);
-            this.UseStaminaLabel.TabIndex = 4;
-            this.UseStaminaLabel.Text = "スタミナ";
-            // 
-            // DurableNumeric
-            // 
-            this.DurableNumeric.Location = new System.Drawing.Point(447, 46);
-            this.DurableNumeric.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.DurableNumeric.Name = "DurableNumeric";
-            this.DurableNumeric.Size = new System.Drawing.Size(120, 22);
-            this.DurableNumeric.TabIndex = 3;
-            this.DurableNumeric.ThousandsSeparator = true;
-            this.DurableNumeric.Leave += new System.EventHandler(this.LeaveDurableValue);
-            // 
-            // DurableLabel
-            // 
-            this.DurableLabel.AutoSize = true;
-            this.DurableLabel.Location = new System.Drawing.Point(389, 48);
-            this.DurableLabel.Name = "DurableLabel";
-            this.DurableLabel.Size = new System.Drawing.Size(52, 15);
-            this.DurableLabel.TabIndex = 2;
-            this.DurableLabel.Text = "耐久力";
-            // 
-            // DamageNumeric
-            // 
-            this.DamageNumeric.Location = new System.Drawing.Point(113, 48);
-            this.DamageNumeric.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.DamageNumeric.Name = "DamageNumeric";
-            this.DamageNumeric.Size = new System.Drawing.Size(120, 22);
-            this.DamageNumeric.TabIndex = 1;
-            this.DamageNumeric.ThousandsSeparator = true;
-            this.DamageNumeric.Leave += new System.EventHandler(this.LeaveDamageValue);
-            // 
-            // DamageLabel
-            // 
-            this.DamageLabel.AutoSize = true;
-            this.DamageLabel.Location = new System.Drawing.Point(55, 48);
-            this.DamageLabel.Name = "DamageLabel";
-            this.DamageLabel.Size = new System.Drawing.Size(52, 15);
-            this.DamageLabel.TabIndex = 0;
-            this.DamageLabel.Text = "攻撃力";
-            // 
             // ModelFileSelectButton
             // 
             this.ModelFileSelectButton.Location = new System.Drawing.Point(849, 53);
@@ -406,6 +288,15 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemGroupBox.Text = "ItemData";
             this.ItemGroupBox.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
+            // IconFileSelectButton
+            // 
+            this.IconFileSelectButton.Location = new System.Drawing.Point(849, 81);
+            this.IconFileSelectButton.Name = "IconFileSelectButton";
+            this.IconFileSelectButton.Size = new System.Drawing.Size(102, 23);
+            this.IconFileSelectButton.TabIndex = 10;
+            this.IconFileSelectButton.Text = "ファイル選択";
+            this.IconFileSelectButton.UseVisualStyleBackColor = true;
+            // 
             // ItemNameLabel
             // 
             this.ItemNameLabel.AutoSize = true;
@@ -417,15 +308,6 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemNameLabel.Text = "ItemName";
             this.ItemNameLabel.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
-            // IconDataLabel
-            // 
-            this.IconDataLabel.AutoSize = true;
-            this.IconDataLabel.Location = new System.Drawing.Point(34, 85);
-            this.IconDataLabel.Name = "IconDataLabel";
-            this.IconDataLabel.Size = new System.Drawing.Size(64, 15);
-            this.IconDataLabel.TabIndex = 8;
-            this.IconDataLabel.Text = "IconData";
-            // 
             // IconDataTextBox
             // 
             this.IconDataTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -435,22 +317,30 @@ namespace Maybe3DaysToDieToolEditor
             this.IconDataTextBox.Size = new System.Drawing.Size(703, 22);
             this.IconDataTextBox.TabIndex = 9;
             // 
-            // IconFileSelectButton
+            // IconDataLabel
             // 
-            this.IconFileSelectButton.Location = new System.Drawing.Point(849, 81);
-            this.IconFileSelectButton.Name = "IconFileSelectButton";
-            this.IconFileSelectButton.Size = new System.Drawing.Size(102, 23);
-            this.IconFileSelectButton.TabIndex = 10;
-            this.IconFileSelectButton.Text = "ファイル選択";
-            this.IconFileSelectButton.UseVisualStyleBackColor = true;
+            this.IconDataLabel.AutoSize = true;
+            this.IconDataLabel.Location = new System.Drawing.Point(34, 85);
+            this.IconDataLabel.Name = "IconDataLabel";
+            this.IconDataLabel.Size = new System.Drawing.Size(64, 15);
+            this.IconDataLabel.TabIndex = 8;
+            this.IconDataLabel.Text = "IconData";
+            // 
+            // toolDataPanel1
+            // 
+            this.toolDataPanel1.Location = new System.Drawing.Point(199, 165);
+            this.toolDataPanel1.Name = "toolDataPanel1";
+            this.toolDataPanel1.Size = new System.Drawing.Size(1272, 668);
+            this.toolDataPanel1.TabIndex = 4;
+            this.toolDataPanel1.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
             // Maybe3DaysToDie_ToolEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1482, 853);
+            this.Controls.Add(this.toolDataPanel1);
             this.Controls.Add(this.ItemGroupBox);
-            this.Controls.Add(this.ToolGroupBox);
             this.Controls.Add(this.ItemList);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -459,14 +349,9 @@ namespace Maybe3DaysToDieToolEditor
             this.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).EndInit();
-            this.ToolGroupBox.ResumeLayout(false);
-            this.ToolGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.UseStaminaNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DamageNumeric)).EndInit();
             this.ItemGroupBox.ResumeLayout(false);
             this.ItemGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -493,21 +378,12 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.ToolStripMenuItem PlaceObjDataToolStripMenuItem;
         private System.Windows.Forms.BindingSource toolDataBindingSource;
         private System.Windows.Forms.ListBox ItemList;
-        private System.Windows.Forms.GroupBox ToolGroupBox;
         private System.Windows.Forms.TextBox NameTextBox;
         private System.Windows.Forms.GroupBox ItemGroupBox;
         private System.Windows.Forms.Label ItemNameLabel;
         private System.Windows.Forms.ToolStripMenuItem UnDoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reDoToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator CommandStripSeparator1;
-        private System.Windows.Forms.NumericUpDown DurableNumeric;
-        private System.Windows.Forms.Label DurableLabel;
-        private System.Windows.Forms.NumericUpDown DamageNumeric;
-        private System.Windows.Forms.Label DamageLabel;
-        private System.Windows.Forms.NumericUpDown UseStaminaNumeric;
-        private System.Windows.Forms.Label UseStaminaLabel;
-        private System.Windows.Forms.Label ToolKindsLabel;
-        private System.Windows.Forms.ComboBox ToolComboBox;
         private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
         private System.Windows.Forms.Button ModelFileSelectButton;
         private System.Windows.Forms.TextBox ModelFilePathTextBox;
@@ -515,6 +391,7 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.Button IconFileSelectButton;
         private System.Windows.Forms.TextBox IconDataTextBox;
         private System.Windows.Forms.Label IconDataLabel;
+        private ToolDataPanel toolDataPanel1;
     }
 }
 

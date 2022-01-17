@@ -10,7 +10,7 @@ namespace Maybe3DaysToDieToolEditor
     /// <summary>
     /// UnDo,ReDoのためのコマンドリスト。
     /// </summary>
-    class EditorCommandList
+    public class EditorCommandList
     {
         private const int COMMAND_SIZE = 11;        //雑な実装だからコマンド範囲 + 1になってる。
         List<ICommand> commandList;                 //コマンドリスト。

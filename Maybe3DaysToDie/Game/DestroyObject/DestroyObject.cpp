@@ -55,9 +55,13 @@ void DestroyObject::AddObjectDamage()
 		DestructibleObject* obj = ((DestructibleObject*)callback.ColObj->getUserPointer());
 		if (obj != nullptr)
 		{
-			obj->Damage(m_tool->GetInfo());
 			ObjectParams param = obj->GetParam();
-
+			if (param.Durable == 0)
+			{
+				return;
+			}
+			obj->Damage(m_tool->GetInfo());
+			param = obj->GetParam();
 			//設置するオブジェクトのチャンクIDを計算
 			int ID[2] = { 0 };
 			int x = lastPos.x / OBJECT_UNIT;
@@ -86,7 +90,14 @@ void DestroyObject::AddObjectDamage()
 			id_z = static_cast<int>(id_z % ChunkWidth);
 
 			//セーブデータに直接書き込み
-			chunkData.ObjId[id_x][id_y][id_z] = param.BlockID;
+			if (param.Durable > 0)
+			{
+				chunkData.ObjId[id_x][id_y][id_z] = param.BlockID;
+			}
+			else
+			{
+				chunkData.ObjId[id_x][id_y][id_z] = 1;
+			}
 			chunkData.ObjDurable[id_x][id_y][id_z] = param.Durable;
 
 		}
