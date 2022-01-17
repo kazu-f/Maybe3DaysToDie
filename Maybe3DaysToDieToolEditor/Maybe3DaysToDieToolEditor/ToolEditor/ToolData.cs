@@ -13,7 +13,7 @@ namespace Maybe3DaysToDieToolEditor
     /// </summary>
     [KnownType(typeof(ToolData))]
     [DataContract]
-    abstract class Item 
+    public abstract class Item 
     {
         [DataMember(Name = "name")] public string itemName { get; set; }
         [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
@@ -34,7 +34,7 @@ namespace Maybe3DaysToDieToolEditor
     /// ツールの情報。
     /// </summary>
     [DataContract]
-    class ToolData : Item
+    public class ToolData : Item
     {
         [DataMember(Name = "damage")] public int damage { get; set; } = 0;
         [DataMember(Name = "durable")] public int durable { get; set; } = 0;

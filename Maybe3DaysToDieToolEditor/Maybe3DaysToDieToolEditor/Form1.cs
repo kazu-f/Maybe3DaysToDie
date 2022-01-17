@@ -13,10 +13,10 @@ namespace Maybe3DaysToDieToolEditor
     public partial class Maybe3DaysToDie_ToolEditor : Form
     {
         string filePath = null;
-        List<Item> itemList = new List<Item>();
+        List<Item> m_itemList = new List<Item>();
         BindingSource bs = new BindingSource();
         EditorCommandList commandList = new EditorCommandList();
-        ToolKindsComboBox toolKinds;
+        //ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
         LoadItemDataList loadData;
         SelectDataFile selectModelData;         //モデルデータを選ぶ処理。
@@ -24,14 +24,17 @@ namespace Maybe3DaysToDieToolEditor
         public Maybe3DaysToDie_ToolEditor()
         {
             InitializeComponent();
-            bs.DataSource = itemList;
+            bs.DataSource = m_itemList;
 
             ItemList.DisplayMember = "itemName";
             ItemList.ValueMember = "itemName";
             ItemList.DataSource = bs;
 
+            toolDataPanel1.commandList = commandList;
+            toolDataPanel1.listBox = ItemList;
+
             //設定を行う。
-            toolKinds = new ToolKindsComboBox(ToolComboBox);
+            //toolKinds = new ToolKindsComboBox(ToolComboBox);
             saveData = new SaveItemDataList();
             loadData = new LoadItemDataList();
             //ファイル選択用の処理を構成する。
@@ -52,7 +55,7 @@ namespace Maybe3DaysToDieToolEditor
             //アイテムデータならばリストから削除。
             if (item is Item)
             {
-                if (itemList.Remove((Item)item))
+                if (m_itemList.Remove((Item)item))
                 {
                     var reDisp = ItemList.SelectedItem;
                     if (item is Item) DispItemData((Item)reDisp);
@@ -69,7 +72,7 @@ namespace Maybe3DaysToDieToolEditor
         private void ToolDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var newTool = new ToolData { itemName = "ToolData" };
-            itemList.Add(newTool);
+            m_itemList.Add(newTool);
 
             bs.ResetBindings(false);
         }
@@ -105,26 +108,12 @@ namespace Maybe3DaysToDieToolEditor
             IconDataTextBox.Text = item.iconData;
 
             //データタイプに応じて処理を分岐。
-            if (typeof(ToolData) == item.GetType()) DispToolData((ToolData)item);
-        }
-
-        /// <summary>
-        /// ツールデータを表示する。
-        /// </summary>
-        /// <param name="tool"></param>
-        private void DispToolData(ToolData tool)
-        {
-            //ツールの情報を表示する。
-            DamageNumeric.Value = tool.damage;
-            DurableNumeric.Value = tool.durable;
-            UseStaminaNumeric.Value = tool.useStamina;
-            toolKinds.SelectValue(tool.tool);
+            if (typeof(ToolData) == item.GetType()) toolDataPanel1.DispToolData((ToolData)item);
         }
         #endregion
 
-        #region 変更したときのコマンド。
+        #region アイテム共通の変更したときのコマンド。
 
-        #region アイテム共通。
         /// <summary>
         /// テキストボックスの中が変更されたとき。
         /// </summary>
@@ -167,101 +156,6 @@ namespace Maybe3DaysToDieToolEditor
                 commandList.AddCommand(command);
             }
         }
-        #endregion
-
-        #region ツールデータ。
-        /// <summary>
-        /// ツールダメージを変更したとき。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LeaveDamageValue(object sender, EventArgs e)
-        {
-            //テキストを戻す。
-            int value = 0;
-            if (!int.TryParse(DamageNumeric.Text,out value))
-            {
-                DamageNumeric.Text = DamageNumeric.Value.ToString();
-            }
-
-            var item = ItemList.SelectedItem;
-            if (item == null) return;
-            if (item.GetType() != typeof(ToolData)) return;
-
-            Command.ChangeToolDamage command = new Command.ChangeToolDamage((ToolData)item, (int)DamageNumeric.Value);
-            //変更があればコマンドリストに追加。
-            if (command.IsChanged())
-            {
-                commandList.AddCommand(command);
-            }
-        }
-        /// <summary>
-        /// ツールの耐久を変更。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LeaveDurableValue(object sender, EventArgs e)
-        {
-            //テキストを戻す。
-            int value = 0;
-            if (!int.TryParse(DurableNumeric.Text, out value))
-            {
-                DurableNumeric.Text = DurableNumeric.Value.ToString();
-            }
-
-            var item = ItemList.SelectedItem;
-            if (item == null) return;
-            if (item.GetType() != typeof(ToolData)) return;
-
-            Command.ChangeToolDurable command = new Command.ChangeToolDurable((ToolData)item, (int)DurableNumeric.Value);
-            //変更があればコマンドリストに追加。
-            if (command.IsChanged())
-            {
-                commandList.AddCommand(command);
-            }
-        }
-        /// <summary>
-        /// ツールのスタミナを変更。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LeaveUseStaminaValue(object sender, EventArgs e)
-        {
-            //テキストを戻す。
-            int value = 0;
-            if (!int.TryParse(UseStaminaNumeric.Text, out value))
-            {
-                UseStaminaNumeric.Text = DurableNumeric.Value.ToString();
-            }
-
-            var item = ItemList.SelectedItem;
-            if (item == null) return;
-            if (item.GetType() != typeof(ToolData)) return;
-
-            Command.ChangeToolUseStamina command = new Command.ChangeToolUseStamina((ToolData)item, (int)UseStaminaNumeric.Value);
-            //変更があればコマンドリストに追加。
-            if (command.IsChanged())
-            {
-                commandList.AddCommand(command);
-            }
-        }
-        /// <summary>
-        /// 適性ツールのコンボボックスが変更されたとき。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ToolComboBox_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            var item = ItemList.SelectedItem;
-            if (item == null) return;
-            if (item.GetType() != typeof(ToolData)) return;
-            Command.ChangeToolKinds command = new Command.ChangeToolKinds((ToolData)item, toolKinds.SelectedValue);
-            if (command.IsChanged())
-            {
-                commandList.AddCommand(command);
-            }
-        }
-        #endregion
 
         #endregion
 
@@ -305,6 +199,7 @@ namespace Maybe3DaysToDieToolEditor
         private void DeFocus()
         {
             this.ActiveControl = null;
+            this.toolDataPanel1.ActiveControl = null;
         }
 
         private void MouseCapture(object sender, EventArgs e)
@@ -320,7 +215,7 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="e"></param>
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            filePath = saveData.SaveJsonFile(itemList);
+            filePath = saveData.SaveJsonFile(m_itemList);
         }
         /// <summary>
         /// 上書き保存。
@@ -329,7 +224,7 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="e"></param>
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            filePath = saveData.SaveJsonFile(itemList, filePath);
+            filePath = saveData.SaveJsonFile(m_itemList, filePath);
         }
         /// <summary>
         /// 読み込み。
@@ -345,16 +240,15 @@ namespace Maybe3DaysToDieToolEditor
                 //コマンドリストをリセット。
                 commandList.ResetCommandList();
                 //アイテムのリストを読み込んだものに変更。
-                itemList = list;
-                bs.DataSource = itemList;
+                m_itemList = list;
+                bs.DataSource = m_itemList;
                 //表記を変更。
-                ItemList.SelectedItem = itemList[0];
-                DispItemData(itemList[0]);
+                ItemList.SelectedItem = m_itemList[0];
+                DispItemData(m_itemList[0]);
                 bs.ResetBindings(false);
             }
             DeFocus();
         }
         #endregion ファイル保存関係。
-
     }
 }

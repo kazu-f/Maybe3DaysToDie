@@ -1,8 +1,8 @@
 #pragma once
-#include "IGameItem.h"
+#include "GameItemBase.h"
 #include "Tool/Tool.h"
 
-class GameItemTool : public IGameItem
+class GameItemTool : public GameItemBase
 {
 public:
 	GameItemTool(std::string& itemName, std::string& tkmPath, std::string& tkmIcon, const ToolInfo& toolInfo);

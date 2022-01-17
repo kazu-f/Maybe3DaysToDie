@@ -118,8 +118,9 @@
     </ClCompile>
     <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp" />
     <ClCompile Include="ItemBar.cpp" />
-    <ClCompile Include="Item\IGameItem.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
+    <ClCompile Include="Item\GameItemBase.cpp" />
+    <ClCompile Include="Status\Inventory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -365,8 +366,9 @@
     </ClInclude>
     <ClInclude Include="Load\ChunkBlock\ChunkBlock.h" />
     <ClInclude Include="ItemBar.h" />
-    <ClInclude Include="Item\IGameItem.h" />
     <ClInclude Include="Item\GameItemTool.h" />
+    <ClInclude Include="Item\GameItemBase.h" />
+    <ClInclude Include="Status\Inventory.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">

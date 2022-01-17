@@ -3,10 +3,10 @@
 /// <summary>
 /// ゲームのアイテムの基底クラス。
 /// </summary>
-class IGameItem
+class GameItemBase
 {
 public:
-	IGameItem(std::string& itemName, std::string& tkmPath, std::string& iconPath);
+	GameItemBase(std::string& itemName, std::string& tkmPath, std::string& iconPath);
 
 public:
 	//モデルのワールド行列を作るためのデータをセット。

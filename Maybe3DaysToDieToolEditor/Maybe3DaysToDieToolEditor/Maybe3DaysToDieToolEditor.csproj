@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ToolDataPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolDataPanel.Designer.cs">
+      <DependentUpon>ToolDataPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolEditor\Command\EditorCommandList.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -75,6 +81,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ToolDataPanel.resx">
+      <DependentUpon>ToolDataPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\DataSources\Item.datasource" />
     <None Include="Properties\DataSources\ToolData.datasource" />
     <None Include="Properties\Settings.settings">
