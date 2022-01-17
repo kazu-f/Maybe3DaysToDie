@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "IGameItem.h"
+#include "GameItemBase.h"
 
 namespace {
 	const float ItemOneBoxSize = 75.0f;
 }
 
-IGameItem::IGameItem(std::string& itemName, std::string& tkmPath, std::string& iconPath)
+GameItemBase::GameItemBase(std::string& itemName, std::string& tkmPath, std::string& iconPath)
 {
 	m_itemName = itemName;
 

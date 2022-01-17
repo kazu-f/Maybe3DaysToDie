@@ -161,7 +161,7 @@
   <ItemGroup>
     <ClCompile Include="ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
-    <ClCompile Include="Item\IGameItem.cpp" />
+    <ClCompile Include="Item\GameItemBase.cpp" />
     <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp" />
     <ClCompile Include="Load\ChunkCollision\ChunkCollision.cpp" />
     <ClCompile Include="DestroyObject\DestroyObject.cpp" />
@@ -213,7 +213,7 @@
   <ItemGroup>
     <ClInclude Include="ItemBar.h" />
     <ClInclude Include="Item\GameItemTool.h" />
-    <ClInclude Include="Item\IGameItem.h" />
+    <ClInclude Include="Item\GameItemBase.h" />
     <ClInclude Include="Load\ChunkBlock\ChunkBlock.h" />
     <ClInclude Include="Load\ChunkCollision\ChunkCollision.h" />
     <ClInclude Include="DestroyObject\DestroyObject.h" />
