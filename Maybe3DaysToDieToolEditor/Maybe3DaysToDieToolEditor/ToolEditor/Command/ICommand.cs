@@ -8,7 +8,7 @@ namespace Maybe3DaysToDieToolEditor
 {
     namespace Command
     {
-        abstract class ICommand
+        public abstract class ICommand
         {
             public abstract void UnDo();
             public abstract void ReDo();
@@ -18,7 +18,7 @@ namespace Maybe3DaysToDieToolEditor
         /// <summary>
         /// アイテムの名前を変更するコマンド。
         /// </summary>
-        class RenameItemCommand : ICommand
+        public class RenameItemCommand : ICommand
         {
             Item m_Item;
             string beforeStr;
@@ -47,7 +47,7 @@ namespace Maybe3DaysToDieToolEditor
         /// <summary>
         /// アイテムのモデルファイルを変更するコマンド。
         /// </summary>
-        class ChangeItemModel : ICommand
+        public class ChangeItemModel : ICommand
         {
             Item m_item;
             string beforeStr;
@@ -77,7 +77,7 @@ namespace Maybe3DaysToDieToolEditor
         /// <summary>
         /// アイテムのアイコンファイルを変更するコマンド。
         /// </summary>
-        class ChangeItemIcon : ICommand
+        public class ChangeItemIcon : ICommand
         {
             Item m_item;
             string beforeStr;
