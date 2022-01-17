@@ -13,11 +13,6 @@ LoadingByChunk::~LoadingByChunk()
 
 bool LoadingByChunk::Start()
 {
-	if (IsBlockManagerSet == false)
-	{
-		//BlockManagerをセットしてください。
-		std::abort();
-	}
 	SetPlayerPos(Vector3::Zero);
 	//ブロックを初期化
 	InitChunkBlocks();
@@ -96,17 +91,13 @@ void LoadingByChunk::InitChunkBlocks()
 
 void LoadingByChunk::Update()
 {
-	if (m_BlockManager->IsBlockDirty())
+	for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
 	{
-		for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
+		for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
 		{
-			for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
-			{
-				//コライダーを更新
-				m_ChunkCol[Chunk_X][Chunk_Z].UpdateCol();
-			}
+			//コライダーを更新
+			m_ChunkCol[Chunk_X][Chunk_Z].UpdateCol();
 		}
-		m_BlockManager->ResetBlockDirty();
 	}
 
 

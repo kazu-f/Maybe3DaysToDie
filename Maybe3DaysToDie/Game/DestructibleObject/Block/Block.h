@@ -1,6 +1,7 @@
 #pragma once
 
 class BlockManager;
+class ChunkBlock;
 class Block:public DestructibleObject
 {
 public:
@@ -30,6 +31,14 @@ public:
 		m_BlockManager = manager;
 	}
 
+	/// <summary>
+	/// チャンクブロックをセット
+	/// </summary>
+	void SetChunkBlock(ChunkBlock* CB)
+	{
+		m_ChunkBlock = CB;
+	}
+
 	//ブロックの名前をセット
 	void SetName(const char* name)
 	{
@@ -39,6 +48,7 @@ public:
 private:
 	const Vector3 BLOCK_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };
 	BlockManager* m_BlockManager = nullptr;
+	ChunkBlock* m_ChunkBlock = nullptr;
 	ObjectParams param;
 };
 

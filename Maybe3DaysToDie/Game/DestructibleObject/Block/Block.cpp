@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Block.h"
 #include "Tool/Tool.h"
-#include "Block/BlockManager/BlockManager.h"
+#include "Load/ChunkBlock/ChunkBlock.h"
 
 Block::Block()
 {
@@ -35,7 +35,7 @@ void Block::Damage(const ToolInfo& tool)
 	}
 	if (durable == 0)
 	{
-		m_BlockManager->RemoveBlock(this);
+		m_ChunkBlock->RemoveBlock(this);
 	}
 }
 
@@ -44,5 +44,5 @@ void Block::AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector
 	//パラメータをセット
 	SetParams(params);
 	//モデルを追加
-	m_BlockManager->AddModel(params, pos, rot, scale);
+	m_ChunkBlock->AddModel(params, pos, rot, scale);
 }

@@ -2,7 +2,6 @@
 #include "DestructibleObject/Block/Block.h"
 #include "MiniEngine/physics/CollisionAttr.h"
 
-class BlockManager;
 class LoadingByChunk;
 class SaveDataFile;
 //todo プレイヤー側から呼ぶようになったらIGameObjectを継承しないように
@@ -57,14 +56,6 @@ public:
 	void CalcObjectPos();
 
 	/// <summary>
-	/// ブロックマネージャーをセット
-	/// </summary>
-	void SetBlockManager(BlockManager*manager)
-	{
-		m_BlockManager = manager;
-	}
-
-	/// <summary>
 	/// チャンク読み込み処理をセット
 	/// </summary>
 	void SetLoadingChunk(LoadingByChunk* lbc)
@@ -87,7 +78,6 @@ private:
 	Quaternion m_qrot = Quaternion::Identity;		//モデルの回転
 	std::vector<Block*> m_model;
 	bool CanPlace = false;
-	BlockManager* m_BlockManager = nullptr;
 	DestructibleObject* m_hitObj = nullptr;
 	LoadingByChunk* m_LoadingChunk = nullptr;
 	SaveDataFile* m_SaveData = nullptr;

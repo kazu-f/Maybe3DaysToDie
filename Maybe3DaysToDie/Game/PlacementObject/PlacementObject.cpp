@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "PlacementObject.h"
-#include "Block/BlockManager/BlockManager.h"
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "SaveDataFile.h"
 

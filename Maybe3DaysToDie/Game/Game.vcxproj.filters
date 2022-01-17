@@ -7,9 +7,6 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="DateTime.cpp" />
-    <ClCompile Include="Block\BlockManager\BlockManager.cpp">
-      <Filter>BlockManager</Filter>
-    </ClCompile>
     <ClCompile Include="DestroyObject\DestroyObject.cpp">
       <Filter>DestroyObject</Filter>
     </ClCompile>
@@ -131,9 +128,6 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SaveDataFile.h" />
-    <ClInclude Include="Block\BlockManager\BlockManager.h">
-      <Filter>BlockManager</Filter>
-    </ClInclude>
     <ClInclude Include="DestroyObject\DestroyObject.h">
       <Filter>DestroyObject</Filter>
     </ClInclude>
