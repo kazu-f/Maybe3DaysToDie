@@ -6,7 +6,7 @@
 class IGameItem
 {
 public:
-	IGameItem(std::string& itemName,const char* tkmPath,const char* iconPath);
+	IGameItem(std::string& itemName, std::string& tkmPath, std::string& iconPath);
 
 public:
 	//モデルのワールド行列を作るためのデータをセット。

@@ -5,7 +5,7 @@
 class GameItemTool : public IGameItem
 {
 public:
-	GameItemTool(std::string& itemName, const char* tkmPath, const char* tkmIcon, const ToolInfo& toolInfo);
+	GameItemTool(std::string& itemName, std::string& tkmPath, std::string& tkmIcon, const ToolInfo& toolInfo);
 
 private:
 	Tool m_tool;
