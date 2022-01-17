@@ -120,6 +120,7 @@
     <ClCompile Include="ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
     <ClCompile Include="Item\GameItemBase.cpp" />
+    <ClCompile Include="Status\Inventory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -367,6 +368,7 @@
     <ClInclude Include="ItemBar.h" />
     <ClInclude Include="Item\GameItemTool.h" />
     <ClInclude Include="Item\GameItemBase.h" />
+    <ClInclude Include="Status\Inventory.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">
