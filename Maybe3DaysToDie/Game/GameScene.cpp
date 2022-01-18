@@ -84,6 +84,7 @@ bool CGameScene::Start()
 	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
 	m_PlacementObject->SetSaveData(&m_SaveDataFile);
 	m_DestroyObject->SetSaveData(&m_SaveDataFile);
+	m_SaveDataFile.ObjectFilePath[0] = "Assets/modelData/CubeBlock/woodBlock.tkm";
 
 	return true;
 }

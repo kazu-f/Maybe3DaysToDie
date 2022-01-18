@@ -7,6 +7,7 @@ class ItemBar : public IGameObject
 public:
 	bool Start()override;
 	void Update()override;
+	void OnDestroy()override;
 
 	float GetItemSize()const {
 		return ItemOneBoxSize;

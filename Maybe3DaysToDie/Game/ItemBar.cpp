@@ -34,3 +34,9 @@ void ItemBar::Update()
     }
     m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
 }
+
+void ItemBar::OnDestroy()
+{
+    DeleteGO(m_ItemIcon);
+    DeleteGO(m_SelectItemIcon);
+}
