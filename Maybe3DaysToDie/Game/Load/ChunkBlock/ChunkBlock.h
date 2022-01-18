@@ -2,7 +2,6 @@
 #include "DestructibleObject/Block/Block.h"
 #include "SaveDataFile.h"
 
-static const int BlockKinds = 1;		//ブロックの種類
 static const int MaxInstanceNum = ChunkWidth * ChunkWidth * ChunkHeight;
 
 class ChunkBlock
@@ -82,7 +81,6 @@ private:
 	bool IsMove = false;
 	//todo ChunkBlockでモデル表示できるようにBlockManagerからモデルを削除する
 	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル
-	int m_modelNum = 0;
 	bool ChunkBlockDirty = true;
 };
 

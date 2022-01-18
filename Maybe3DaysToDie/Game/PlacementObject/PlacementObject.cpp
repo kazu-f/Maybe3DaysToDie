@@ -56,8 +56,6 @@ void PlacementObject::Update()
 		ObjectParams param;
 		param.BlockID = 0;
 		param.Durable = 500;
-		auto name = "Assets/modelData/CubeBlock/woodBlock.tkm";
-		param.BlockName = name;
 		PlaceObject(param);
 	}
 }

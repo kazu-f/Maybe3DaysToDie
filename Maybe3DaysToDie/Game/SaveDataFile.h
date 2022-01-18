@@ -14,6 +14,5 @@ public:
 	const char* SaveDataFilePath_Terrain = "SaveData/TerrainData.dat";
 	ChunkData m_ChunkData[MAX_CHUNK_SIDE][MAX_CHUNK_SIDE];
 	//ツールが使えないので仮置き
-	static const int MaxID = 1;		//オブジェクトの種類
-	const char* ObjectFilePath[MaxID] = { nullptr };
+	const char* ObjectFilePath[BlockKinds] = { nullptr };
 };

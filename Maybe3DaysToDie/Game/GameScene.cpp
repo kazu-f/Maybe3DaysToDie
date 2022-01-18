@@ -85,6 +85,8 @@ bool CGameScene::Start()
 	m_PlacementObject->SetSaveData(&m_SaveDataFile);
 	m_DestroyObject->SetSaveData(&m_SaveDataFile);
 	m_SaveDataFile.ObjectFilePath[0] = "Assets/modelData/CubeBlock/woodBlock.tkm";
+	m_SaveDataFile.ObjectFilePath[1] = "Assets/modelData/CubeBlock/BookBlock.tkm";
+	m_SaveDataFile.ObjectFilePath[2] = "Assets/modelData/CubeBlock/ShelfBlock.tkm";
 
 	return true;
 }

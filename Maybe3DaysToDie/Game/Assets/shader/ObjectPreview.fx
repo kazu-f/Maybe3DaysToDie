@@ -35,6 +35,5 @@ float4 PSMain(SPSIn psIn) :SV_Target0
 	float4 albedo = g_texture.Sample(g_sampler, psIn.uv);
 	//”¼“§–¾‚É‚·‚é
 	albedo.a = 0.75f;
-
 	return albedo;
 }
