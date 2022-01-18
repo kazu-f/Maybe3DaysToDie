@@ -51,7 +51,7 @@ public:
 
 	void SetCameraPtr(GameCamera* ptr)
 	{
-		cameraptr = ptr;
+		m_Camera = ptr;
 	}
 
 	/// <summary>
@@ -157,11 +157,12 @@ private:
 	float m_DeltaTime = 0.0f;
 
 	bool m_IsChasePlayer = false;
-	GameCamera* cameraptr = nullptr;
+	GameCamera* m_Camera = nullptr;
 
 	float m_mulSpeed = 1.0f;			//移動速度(バフ、デバフ用）
 
 	CFontRender* m_Font = nullptr;
-	LoadingByChunk* m_LoadingByChunk = nullptr;
+	LoadingByChunk* m_LoadingByChunk = nullptr; 
+
 };
 

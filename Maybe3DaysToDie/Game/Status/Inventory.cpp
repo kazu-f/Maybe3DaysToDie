@@ -17,10 +17,22 @@ void Inventory::Update()
 			m_player->OpenInventory();
 			m_Inbentory->SetMulColor({ 1.0f, 1.0f, 1.0f, 100.0f });
 			m_IsShow = true;
+			while (true) {
+				int returnNo = ShowCursor(true);
+				if (returnNo >= 0) {
+					break;
+				}
+			}
 		}
 		else {
 			m_player->CloseInventory();
 			m_IsShow = false;
+			while (true) {
+				int returnNo = ShowCursor(false);
+				if (returnNo < 0) {
+					break;
+				}
+			}
 		}
 	}
 	if (m_player->GetState() != Player::State::Inventry) {

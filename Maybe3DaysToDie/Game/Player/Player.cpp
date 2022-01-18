@@ -5,11 +5,11 @@
 #include "PlayerStatus/PlayerHunger.h"
 #include "PlayerStatus/PlayerWater.h"
 #include "GameCamera.h"
-
 namespace {
 	const float MoveDistance = 1000.0f;			//1フレームに動く距離
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
 	const float NeckLimitY = 10.0f;				//上や下を向ける限界
+
 }
 
 bool Player::Start()
@@ -70,14 +70,14 @@ void Player::Update()
 		PeriodicUpdate();
 		//移動処理
 		Move();
+		m_Camera->SetMovingMouse(false);
 	}
 	else
 	{
-		int a;
-		a = 0;	
+		m_Camera->SetMovingMouse(true);		
 	}
 	//カメラにポジションを渡す
-	cameraptr->SetPosition(m_Pos);
+	m_Camera->SetPosition(m_Pos);
 	//モデル情報を更新
 	ModelUpdate();
 

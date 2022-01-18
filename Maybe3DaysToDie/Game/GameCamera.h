@@ -53,6 +53,14 @@ public:
 		return m_Pos;
 	}
 
+	/// <summary>
+	/// マウスを動かしたいときの関数
+	/// trueでマウスを動かせる
+	/// </summary>
+	/// <param name="isMoving">動かしますか？</param>
+	void SetMovingMouse(const bool isMoving) {
+		m_IsMovingMouse = isMoving;
+	}
 private:
 	Vector3 m_Pos = { 0.0f, 1000.0f, 0.0f };	//位置
 	Vector3 m_Target = { 0.0f,1000.0f,100.0f};			//ターゲット
@@ -74,5 +82,7 @@ private:
 	float yrot = 0.0f;
 	//カメラの高さ
 	float CameraHeight = 170.0f;
+
+	bool m_IsMovingMouse = false;	//マウスが動かせるか
 };
 

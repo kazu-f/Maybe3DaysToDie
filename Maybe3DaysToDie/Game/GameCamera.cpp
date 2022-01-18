@@ -12,8 +12,10 @@ bool GameCamera::Start()
 
 void GameCamera::Update()
 {
-	//マウスで向きを変える
-	Rotate();
+	if (!m_IsMovingMouse) {
+		//マウスで向きを変える
+		Rotate();
+	}
 	m_Pos.y += CameraHeight;
 	m_Target = m_Pos + ForwardUpdate() * m_CameraDist;
 	MainCamera().SetPosition(m_Pos);
