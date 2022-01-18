@@ -88,7 +88,7 @@ namespace Maybe3DaysToDieToolEditor
             this.SaveToolStripMenuItem,
             this.SaveAsToolStripMenuItem});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            this.FileToolStripMenuItem.Size = new System.Drawing.Size(82, 26);
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
             this.FileToolStripMenuItem.Text = "ファイル(&F)";
             // 
             // CreateNewToolStripMenuItem
@@ -138,7 +138,7 @@ namespace Maybe3DaysToDieToolEditor
             this.AddToolStripMenuItem1,
             this.DeleteToolStripMenuItem});
             this.EditorEToolStripMenuItem.Name = "EditorEToolStripMenuItem";
-            this.EditorEToolStripMenuItem.Size = new System.Drawing.Size(71, 26);
+            this.EditorEToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
             this.EditorEToolStripMenuItem.Text = "編集(&E)";
             // 
             // UnDoToolStripMenuItem
