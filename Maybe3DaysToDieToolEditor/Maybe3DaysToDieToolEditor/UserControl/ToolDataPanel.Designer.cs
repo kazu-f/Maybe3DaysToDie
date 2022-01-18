@@ -79,6 +79,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolComboBox.Name = "ToolComboBox";
             this.ToolComboBox.Size = new System.Drawing.Size(121, 23);
             this.ToolComboBox.TabIndex = 22;
+            this.ToolComboBox.SelectionChangeCommitted += new System.EventHandler(this.ToolComboBox_SelectionChangeCommitted);
             // 
             // UseStaminaNumeric
             // 
@@ -92,6 +93,7 @@ namespace Maybe3DaysToDieToolEditor
             this.UseStaminaNumeric.Size = new System.Drawing.Size(120, 22);
             this.UseStaminaNumeric.TabIndex = 21;
             this.UseStaminaNumeric.ThousandsSeparator = true;
+            this.UseStaminaNumeric.Leave += new System.EventHandler(this.LeaveUseStaminaValue);
             // 
             // UseStaminaLabel
             // 
@@ -114,6 +116,7 @@ namespace Maybe3DaysToDieToolEditor
             this.DurableNumeric.Size = new System.Drawing.Size(120, 22);
             this.DurableNumeric.TabIndex = 19;
             this.DurableNumeric.ThousandsSeparator = true;
+            this.DurableNumeric.Leave += new System.EventHandler(this.LeaveDurableValue);
             // 
             // DurableLabel
             // 
@@ -136,6 +139,7 @@ namespace Maybe3DaysToDieToolEditor
             this.DamageNumeric.Size = new System.Drawing.Size(120, 22);
             this.DamageNumeric.TabIndex = 17;
             this.DamageNumeric.ThousandsSeparator = true;
+            this.DamageNumeric.Leave += new System.EventHandler(this.LeaveDamageValue);
             // 
             // DamageLabel
             // 
