@@ -328,9 +328,9 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // toolDataPanel1
             // 
-            this.toolDataPanel1.Location = new System.Drawing.Point(199, 165);
+            this.toolDataPanel1.Location = new System.Drawing.Point(198, 312);
             this.toolDataPanel1.Name = "toolDataPanel1";
-            this.toolDataPanel1.Size = new System.Drawing.Size(1272, 668);
+            this.toolDataPanel1.Size = new System.Drawing.Size(1272, 520);
             this.toolDataPanel1.TabIndex = 4;
             this.toolDataPanel1.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
