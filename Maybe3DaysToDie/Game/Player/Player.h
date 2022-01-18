@@ -14,18 +14,6 @@ class Player : public IGameObject
 	enum Vector {
 		X, Y, Z
 	};
-	//プレイヤーが持つステートの種類
-	enum State {
-		Idle,			//待機
-		Walk,			//歩く
-		Run,			//走る
-		Jump,			//ジャンプ
-		Attack,			//攻撃
-		Inventry,		//インベントリを開く
-		Damage,			//攻撃に当たった
-		Dead,			//死にました
-		Num				//ステート数
-	};
 
 private:
 	/// <summary>
@@ -45,6 +33,18 @@ private:
 	void OnDestroy()override final;
 
 public:
+	//プレイヤーが持つステートの種類
+	enum State {
+		Idle,			//待機
+		Walk,			//歩く
+		Run,			//走る
+		Jump,			//ジャンプ
+		Attack,			//攻撃
+		Inventry,		//インベントリを開く
+		Damage,			//攻撃に当たった
+		Dead,			//死にました
+		Num				//ステート数
+	};
 	const Vector3 GetPosition() const {
 		return m_Pos;
 	}
@@ -78,6 +78,15 @@ public:
 	/// </summary>
 	/// <param name="Damage">ダメージ量</param>
 	void HitDamage(const float Damage);
+
+	/// <summary>
+	/// インベントリを表示する
+	/// </summary>
+	void OpenInventory();
+
+	State GetState() const {
+		return m_CurrentState;
+	}
 
 private:
 	/// <summary>

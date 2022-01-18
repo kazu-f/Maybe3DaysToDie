@@ -53,22 +53,24 @@ bool Player::Start()
 
 void Player::Update()
 {
-	static bool IsPush = false;
-	if (GetAsyncKeyState('G')) {
-		if (!IsPush) {
-			m_IsChasePlayer = !m_IsChasePlayer;
+	if (m_CurrentState != State::Inventry) {
+		static bool IsPush = false;
+		if (GetAsyncKeyState('G')) {
+			if (!IsPush) {
+				m_IsChasePlayer = !m_IsChasePlayer;
+			}
+			IsPush = true;
 		}
-		IsPush = true;
+		else {
+			IsPush = false;
+		}
+		//時間経過による回復
+		PeriodicUpdate();
+		//ステートを更新
+		StateUpdate();
+		//移動処理
+		Move();
 	}
-	else {
-		IsPush = false;
-	}
-	//時間経過による回復
-	PeriodicUpdate();
-	//ステートを更新
-	StateUpdate();
-	//移動処理
-	Move();
 	//モデル情報を更新
 	ModelUpdate();
 

@@ -13,7 +13,11 @@ bool Inventory::Start()
 void Inventory::Update()
 {
 	if (GetAsyncKeyState(VK_TAB)) {
-		m_player.
+		m_player->OpenInventory();
+		m_Inbentory->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.8f });
+	}
+	if (m_player->GetState() != Player::State::Inventry) {
+		m_Inbentory->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.0f });
 	}
 }
 

@@ -5,6 +5,10 @@
 class Player;
 class Inventory :public IGameObject
 {
+public:
+	void SetPlayer(Player* pp) {
+		m_player = pp;
+	}
 private:
 	bool Start()override;
 	void Update()override;
