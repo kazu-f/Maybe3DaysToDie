@@ -28,4 +28,6 @@ const int MAX_CHUNK_SIDE = 64;		//ワールド全体の一辺にいくつチャンクがあるか
 
 const float SetRange = 500.0f;		//プレイヤーが届く範囲
 
+static const int BlockKinds = 3;		//ブロックの種類
+
 using namespace Engine;
