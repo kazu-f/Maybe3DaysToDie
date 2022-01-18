@@ -54,7 +54,7 @@ void PlacementObject::Update()
 	{
 		//ƒpƒ‰ƒ[ƒ^
 		ObjectParams param;
-		param.BlockID = 0;
+		param.BlockID = 1;
 		param.Durable = 500;
 		PlaceObject(param);
 	}

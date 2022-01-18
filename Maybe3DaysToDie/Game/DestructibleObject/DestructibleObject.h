@@ -30,6 +30,7 @@ public:
 	void SetParams(ObjectParams&param)
 	{
 		m_params.BlockName = param.BlockName;
+		m_params.BlockID = param.BlockID;
 		m_params.Durable = param.Durable;
 		m_maxDurable = param.Durable;
 		m_params.ObtainAmount = param.ObtainAmount;
