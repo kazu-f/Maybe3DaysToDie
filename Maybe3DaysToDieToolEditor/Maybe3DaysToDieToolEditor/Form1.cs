@@ -199,7 +199,6 @@ namespace Maybe3DaysToDieToolEditor
         private void DeFocus()
         {
             this.ActiveControl = null;
-            this.toolDataPanel1.ActiveControl = null;
         }
 
         private void MouseCapture(object sender, EventArgs e)

@@ -130,5 +130,10 @@ namespace Maybe3DaysToDieToolEditor
             }
         }
         #endregion
+
+        private void activeControlNull(object sender, EventArgs e)
+        {
+            this.ParentForm.ActiveControl = null;
+        }
     }
 }

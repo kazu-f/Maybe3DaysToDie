@@ -47,10 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ToolDataPanel.cs">
+    <Compile Include="UserControl\PlacementObjectPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ToolDataPanel.Designer.cs">
+    <Compile Include="UserControl\PlacementObjectPanel.Designer.cs">
+      <DependentUpon>PlacementObjectPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\ToolDataPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\ToolDataPanel.Designer.cs">
       <DependentUpon>ToolDataPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolEditor\Command\EditorCommandList.cs" />
@@ -81,7 +87,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ToolDataPanel.resx">
+    <EmbeddedResource Include="UserControl\PlacementObjectPanel.resx">
+      <DependentUpon>PlacementObjectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\ToolDataPanel.resx">
       <DependentUpon>ToolDataPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\Item.datasource" />
