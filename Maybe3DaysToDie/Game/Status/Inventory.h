@@ -16,5 +16,6 @@ private:
 
 	prefab::CSpriteRender* m_Inbentory = nullptr;
 	bool m_IsShow = false;
+	bool m_IsTriggerTab = false;
 	Player* m_player = nullptr;
 };

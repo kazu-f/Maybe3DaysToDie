@@ -53,6 +53,8 @@ bool Player::Start()
 
 void Player::Update()
 {
+	//ステートを更新
+	StateUpdate();
 	if (m_CurrentState != State::Inventry) {
 		static bool IsPush = false;
 		if (GetAsyncKeyState('G')) {
@@ -66,11 +68,16 @@ void Player::Update()
 		}
 		//時間経過による回復
 		PeriodicUpdate();
-		//ステートを更新
-		StateUpdate();
 		//移動処理
 		Move();
 	}
+	else
+	{
+		int a;
+		a = 0;	
+	}
+	//カメラにポジションを渡す
+	cameraptr->SetPosition(m_Pos);
 	//モデル情報を更新
 	ModelUpdate();
 
@@ -100,7 +107,7 @@ void Player::StateUpdate()
 
 void Player::ChangeState()
 {
-
+	m_CurrentState = m_NextState;
 }
 
 void Player::Move()
@@ -159,8 +166,6 @@ void Player::Move()
 	MoveSpeed *= MoveDistance * m_mulSpeed;
 	m_Pos = m_Characon.Execute(MoveSpeed);
 
-	//カメラにポジションを渡す
-	cameraptr->SetPosition(m_Pos);
 	//m_Model->SetPosition(Vector3::Zero);
 }
 
@@ -172,8 +177,6 @@ void Player::ModelUpdate()
 {
 	//回転
 	Rotation();
-	//移動
-	Move();
 	//m_Model->PlayAnimation(State::Idle,GameTime().GetFrameDeltaTime());
 }
 
@@ -189,7 +192,12 @@ void Player::HitDamage(float damage) {
 
 void Player::OpenInventory()
 {
-	if (!State::Dead == m_CurrentState) {
+	if (State::Dead != m_CurrentState) {
 		m_NextState = State::Inventry;
 	}
+}
+
+void Player::CloseInventory()
+{
+	m_NextState = State::Idle;
 }

@@ -9,14 +9,14 @@ namespace {
 bool ItemBar::Start()
 {
     m_ItemIcon = NewGO<prefab::CSpriteRender>(0);
-    m_ItemIcon->Init("Assets/sprite/HotBar.dds", ItemBarWidthSize, ItemOneBoxSize);
+    m_ItemIcon->Init("Assets/sprite/ItemUI/HotBar.dds", ItemBarWidthSize, ItemOneBoxSize);
     m_ItemIcon->SetPosition(ItemBarPos);
 
     for (int i = 0; i < SelectNum; i++) {
         m_SelectPos[i] = { -1000.0f +( 100.0f * i),ItemBarPos.y };
     }
     m_SelectItemIcon = NewGO<prefab::CSpriteRender>(0);
-    m_SelectItemIcon->Init("Assets/sprite/SelectBar.dds", ItemOneBoxSize, ItemOneBoxSize);
+    m_SelectItemIcon->Init("Assets/sprite/ItemUI/SelectBar.dds", ItemOneBoxSize, ItemOneBoxSize);
     m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
 
     return true;

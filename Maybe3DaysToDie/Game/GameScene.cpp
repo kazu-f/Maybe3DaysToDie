@@ -4,6 +4,7 @@
 #include "Player/Player.h"
 #include "Stage.h"
 #include "ItemBar.h"
+#include "Status/Inventory.h"
 
 #include "PlacementObject/PlacementObject.h"
 #include "DestroyObject/DestroyObject.h"
@@ -19,7 +20,10 @@ CGameScene::~CGameScene()
 	DeleteGO(m_Player);
 	DeleteGO(m_Camera);
 	DeleteGO(m_Stage);
-	
+	DeleteGO(m_ItemBar);
+	DeleteGO(m_Inventory);
+
+
 	if (m_PlacementObject != nullptr)
 	{
 		DeleteGO(m_PlacementObject);
@@ -48,6 +52,8 @@ bool CGameScene::Start()
 	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Player->SetCameraPtr(m_Camera);
 	m_Stage = NewGO<Stage>(0, "stage");
+	m_Inventory = NewGO<Inventory>(0, "inventory");
+	m_Inventory->SetPlayer(m_Player);
 
 	//セーブデータファイルをセット
 	m_TerrainSave.SetSaveDataFile(&m_SaveDataFile);

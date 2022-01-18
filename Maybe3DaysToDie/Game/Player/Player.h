@@ -84,6 +84,12 @@ public:
 	/// </summary>
 	void OpenInventory();
 
+	void CloseInventory();
+
+	/// <summary>
+	/// 現在のステートを取得
+	/// </summary>
+	/// <returns>現在のステート</returns>
 	State GetState() const {
 		return m_CurrentState;
 	}
