@@ -80,41 +80,47 @@ void ChunkBlock::MoveChunk()
 				param.BlockName = m_SaveDataFile->ObjectFilePath[id];
 				//パラメータをセット
 				m_Block[x][y][z].SetParams(param);
-				if (m_modelNum > 0)
+
+				if (param.Durable > 0)
 				{
-					if (param.Durable != 0)
+					bool InitedModel = false;
+					if (m_modelNum > 0)
 					{
 						for (auto& model : BlockModel)
 						{
-							Quaternion rot = Quaternion::Identity;
-							Vector3 scale = Vector3::One;
 							//今はモデル1種類だけだからファイルパス固定
 							if (param.BlockName == model->GetInitData().m_tkmFilePath)
 							{
 								//ブロックの名前がかぶっているとき
 								//インスタンシングデータを更新
+								Quaternion rot = Quaternion::Identity;
+								Vector3 scale = Vector3::One;
 								model->UpdateInstancingData(pos, rot, scale);
-								return;
+								InitedModel = true;
+								break;
 							}
-							else
-							{
-								//ブロックの名前がかぶっていないのでまだ、そのモデルがない
-								ModelInitData InitData;
-								InitData.m_tkmFilePath = param.BlockName;
-								prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
-								//チャンクのサイズ分インスタンシング描画する
-								model->Init(InitData, nullptr, 0, MaxInstanceNum);
-								model->UpdateInstancingData(pos, rot, scale);
-								BlockModel[m_modelNum] = model;
-								m_modelNum++;
-							}
+
 						}
+					}
+					if (InitedModel == false)
+					{
+						//ブロックの名前がかぶっていないのでまだ、そのモデルがない
+						ModelInitData InitData;
+						Quaternion rot = Quaternion::Identity;
+						Vector3 scale = Vector3::One;
+						InitData.m_tkmFilePath = param.BlockName;
+						prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
+						//チャンクのサイズ分インスタンシング描画する
+						model->Init(InitData, nullptr, 0, MaxInstanceNum);
+						model->UpdateInstancingData(pos, rot, scale);
+						BlockModel[m_modelNum] = model;
+						m_modelNum++;
 					}
 				}
 			}
 		}
 	}
-
+	IsMove = false;
 }
 
 Block& ChunkBlock::GetBlock(Vector3 pos)
