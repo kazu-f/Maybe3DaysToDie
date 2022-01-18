@@ -88,7 +88,7 @@ namespace Maybe3DaysToDieToolEditor
             this.SaveToolStripMenuItem,
             this.SaveAsToolStripMenuItem});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            this.FileToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(82, 26);
             this.FileToolStripMenuItem.Text = "ファイル(&F)";
             // 
             // CreateNewToolStripMenuItem
@@ -138,7 +138,7 @@ namespace Maybe3DaysToDieToolEditor
             this.AddToolStripMenuItem1,
             this.DeleteToolStripMenuItem});
             this.EditorEToolStripMenuItem.Name = "EditorEToolStripMenuItem";
-            this.EditorEToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.EditorEToolStripMenuItem.Size = new System.Drawing.Size(71, 26);
             this.EditorEToolStripMenuItem.Text = "編集(&E)";
             // 
             // UnDoToolStripMenuItem
@@ -328,9 +328,9 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // toolDataPanel1
             // 
-            this.toolDataPanel1.Location = new System.Drawing.Point(199, 165);
+            this.toolDataPanel1.Location = new System.Drawing.Point(198, 312);
             this.toolDataPanel1.Name = "toolDataPanel1";
-            this.toolDataPanel1.Size = new System.Drawing.Size(1272, 668);
+            this.toolDataPanel1.Size = new System.Drawing.Size(1272, 520);
             this.toolDataPanel1.TabIndex = 4;
             this.toolDataPanel1.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 

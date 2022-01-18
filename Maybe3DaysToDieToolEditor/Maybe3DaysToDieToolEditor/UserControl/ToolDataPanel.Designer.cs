@@ -56,7 +56,7 @@ namespace Maybe3DaysToDieToolEditor
             this.groupBoxToolData.Controls.Add(this.DamageLabel);
             this.groupBoxToolData.Location = new System.Drawing.Point(0, 0);
             this.groupBoxToolData.Name = "groupBoxToolData";
-            this.groupBoxToolData.Size = new System.Drawing.Size(1272, 668);
+            this.groupBoxToolData.Size = new System.Drawing.Size(1272, 520);
             this.groupBoxToolData.TabIndex = 16;
             this.groupBoxToolData.TabStop = false;
             this.groupBoxToolData.Text = "ToolData";
@@ -152,7 +152,7 @@ namespace Maybe3DaysToDieToolEditor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBoxToolData);
             this.Name = "ToolDataPanel";
-            this.Size = new System.Drawing.Size(1272, 668);
+            this.Size = new System.Drawing.Size(1272, 520);
             this.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
             this.groupBoxToolData.ResumeLayout(false);
             this.groupBoxToolData.PerformLayout();
