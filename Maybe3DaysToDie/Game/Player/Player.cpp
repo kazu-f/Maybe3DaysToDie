@@ -176,11 +176,18 @@ void Player::ModelUpdate()
 }
 
 void Player::HitDamage(float damage) {
-	float PlayerHp = m_Hp->GetHp() - Damage;
+	float PlayerHp = m_Hp->GetHp() - damage;
 	if (PlayerHp < 0) {
 		m_NextState = State::Dead;
 	}
 	else {
 		m_NextState = State::Damage;
+	}
+}
+
+void Player::OpenInventory()
+{
+	if (!State::Dead == m_CurrentState) {
+		m_NextState = State::Inventry;
 	}
 }

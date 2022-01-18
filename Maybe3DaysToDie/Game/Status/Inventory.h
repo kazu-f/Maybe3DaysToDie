@@ -2,6 +2,7 @@
 
 #include "Item/GameItemBase.h"
 
+class Player;
 class Inventory :public IGameObject
 {
 private:
@@ -11,5 +12,5 @@ private:
 
 	prefab::CSpriteRender* m_Inbentory = nullptr;
 	bool m_IsShow = false;
-	
+	Player* m_player = nullptr;
 };
