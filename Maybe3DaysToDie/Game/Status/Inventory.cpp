@@ -36,8 +36,6 @@ void Inventory::Update()
 			}
 		}
 	}
-	if (m_player->GetState() != Player::State::Inventry) {
-	}
 	if (GetAsyncKeyState(VK_TAB)) {
 		if (!m_IsTriggerTab)
 			m_IsTriggerTab = true;
