@@ -94,6 +94,12 @@ bool CGameScene::Start()
 	m_SaveDataFile.ObjectFilePath[1] = "Assets/modelData/CubeBlock/BookBlock.tkm";
 	m_SaveDataFile.ObjectFilePath[2] = "Assets/modelData/CubeBlock/ShelfBlock.tkm";
 
+	m_block = NewGO<prefab::ModelRender>(0);
+	ModelInitData initdata;
+	initdata.m_tkmFilePath = "Assets/modelData/CubeBlock/kari.tkm";
+	m_block->SetPosition({ 500.0f,200.0f,500.0f });
+	m_block->Init(initdata);
+
 	return true;
 }
 

@@ -49,4 +49,5 @@ private:
 	SaveDataFile m_SaveDataFile;
 	LoadingByChunk* m_LoadingByChunk = nullptr;
 	WorldConfig m_WorldConfig;		//ワールド設定
+	prefab::ModelRender* m_block = nullptr;		//ちゃんとモデルが表示できるか確認用
 };
