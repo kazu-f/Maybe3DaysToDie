@@ -15,9 +15,9 @@ bool ItemBar::Start()
     for (int i = 0; i < SelectNum; i++) {
         m_SelectPos[i] = { -1000.0f +( 100.0f * i),ItemBarPos.y };
     }
-    m_SelectItemIcon = NewGO<prefab::CSpriteRender>(0);
+    m_SelectItemIcon = NewGO<prefab::CSpriteRender>(1);
     m_SelectItemIcon->Init("Assets/sprite/ItemUI/SelectBar.dds", ItemOneBoxSize, ItemOneBoxSize);
-    m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
+    m_SelectItemIcon->SetPosition(ItemBarPos);
 
     return true;
 }
