@@ -96,7 +96,7 @@ bool CGameScene::Start()
 
 	m_block = NewGO<prefab::ModelRender>(0);
 	ModelInitData initdata;
-	initdata.m_tkmFilePath = "Assets/modelData/CubeBlock/kari.tkm";
+	initdata.m_tkmFilePath = "Assets/modelData/CubeBlock/BookBlock.tkm";
 	m_block->SetPosition({ 500.0f,200.0f,500.0f });
 	m_block->Init(initdata);
 
