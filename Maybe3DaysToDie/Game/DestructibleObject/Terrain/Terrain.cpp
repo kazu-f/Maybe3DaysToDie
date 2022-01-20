@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Terrain.h"
-#include "TerrainManager/TerrainWorld.h"
+#include "TerrainManager/TerrainChunkData.h"
 #include "Tool/Tool.h"
 
 
@@ -21,41 +21,6 @@ namespace nsTerrain {
 	{
 	}
 
-	void Terrain::InitRayCollider()
-	{
-		//m_StaticCol.CreateBox(m_position, Quaternion::Identity, TERRAIN_SIZE);
-		//m_StaticCol.GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_RayBlock);
-		//m_registColider = true;
-		//DestructibleObject* obj = this;
-		//m_StaticCol.GetRigidBody().GetBody()->setUserPointer((void*)obj);
-	}
-	void Terrain::SetColliderEnable(bool flag)
-	{
-		////Šù‚É“o˜^or‰ðœÏ‚ÝB
-		//if (m_registColider == flag) return;
-
-		////“o˜^A‰ðœB
-		//if (flag)
-		//{
-		//	PhysicsWorld().AddRigidBody(m_StaticCol.GetRigidBody());
-		//}
-		//else
-		//{
-		//	PhysicsWorld().RemoveRigidBody(m_StaticCol.GetRigidBody());
-		//}
-		//m_registColider = flag;
-	}
-	void Terrain::CalcColliderEnable()
-	{
-		if (m_voxel > 0.0f)
-		{
-			SetColliderEnable(true);
-		}
-		else
-		{
-			SetColliderEnable(false);
-		}
-	}
 	void Terrain::Damage(const ToolInfo& tool)
 	{
 		int damage = tool.AttackPower;
@@ -80,8 +45,8 @@ namespace nsTerrain {
 		else {
 			m_voxel = 0.0f;
 		}
-		CalcColliderEnable();
+
 		//’nŒ`‚ªXV‚³‚ê‚½B
-		m_world->EnableUpdated();
+		m_chunkData->EnableUpdated();
 	}
 }

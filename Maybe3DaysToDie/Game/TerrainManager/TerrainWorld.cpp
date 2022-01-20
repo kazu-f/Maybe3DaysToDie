@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TerrainWorld.h"
+#include "TerrainChunkData.h"
 #include "TerrainRender\TerrainRender.h"
 #include "Enemy/StandardZombie/StandardZombie.h"
 #include "Enemy/EnemyGenerator.h"
@@ -8,16 +9,6 @@
 namespace nsTerrain {
 	bool TerrainWorld::Start()
 	{
-		for (int x = 0; x < ChunkWidth; x++)
-		{
-			for (int y = 0; y < ChunkHeight; y++)
-			{
-				for (int z = 0; z < ChunkWidth; z++)
-				{
-					m_terrainMap[x][y][z].SetTerrainWorld(this);
-				}
-			}
-		}
 		//地形描画クラス作成。
 		m_terrainRender = NewGO<TerrainRender>(10);
 		TerrainInitData initData;
@@ -26,14 +17,12 @@ namespace nsTerrain {
 		m_terrainRender->Init(initData);
 		//m_terrainRender->SetPosition({ -TERRAIN_UNIT * width / 2,-TERRAIN_UNIT * height / 2 ,-TERRAIN_UNIT * width / 2 });
 
-		//地形データ作成。
-		PopurerTerrainMap();
 		//メッシュデータを作成。
 		CreateMeshData();
-		//NVMデータを作成。
-		m_NVMGenerator.CreateNVM(m_terrainRender, true);
-		//敵キャラを作成。
-		m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
+		////NVMデータを作成。
+		//m_NVMGenerator.CreateNVM(m_terrainRender, true);
+		////敵キャラを作成。
+		//m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
 
 		//物理オブジェクト作成。
 		CreateCollider();
@@ -45,7 +34,7 @@ namespace nsTerrain {
 	void TerrainWorld::Update()
 	{
 		//地形の更新があった場合に頂点を再形成。
-		if (m_isUpdated) {
+		if (m_terrainChunkData->IsUpdated()) {
 			//頂点をクリア。
 			m_terrainRender->ClearVertex();
 			m_vertices.clear();
@@ -54,11 +43,12 @@ namespace nsTerrain {
 			//コライダー作成。
 			CreateCollider();
 
-			m_isUpdated = false;
+			m_terrainChunkData->ResetUpdated();
 		}
-		if (InputKeyCode().IsTriggerKey(VK_F4)) {
-			m_NVMGenerator.ChangeDrawFlag();
-		}
+		m_terrainRender->SetPosition(m_position);
+		//if (InputKeyCode().IsTriggerKey(VK_F4)) {
+		//	m_NVMGenerator.ChangeDrawFlag();
+		//}
 	}
 	void TerrainWorld::OnDestroy()
 	{
@@ -66,7 +56,7 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::ForwardRender(RenderContext& rc)
 	{
-		m_NVMGenerator.DebugDraw(m_terrainRender);
+		//m_NVMGenerator.DebugDraw(m_terrainRender);
 	}
 
 	Terrain& TerrainWorld::GetTerrain(const Vector3& pos)
@@ -74,70 +64,14 @@ namespace nsTerrain {
 		int resX = static_cast<int>(std::floor(pos.x / OBJECT_UNIT));
 		int resY = static_cast<int>(std::floor(pos.y / OBJECT_UNIT));
 		int resZ = static_cast<int>(std::floor(pos.z / OBJECT_UNIT));
-		
-		return m_terrainMap[resX][resY][resZ];
+
+		return *(m_terrainChunkData->GetTerrainData(resX, resY, resZ));
 	}
-	void TerrainWorld::PopurerTerrainMap()
+	Terrain& TerrainWorld::GetTerrain(const int pos[3])
 	{
-		for (int x = 0; x < ChunkWidth; x++)
-		{
-			for (int y = 0; y < ChunkHeight; y++)
-			{
-				for (int z = 0; z < ChunkWidth; z++)
-				{
-					float noise = m_perlinNoise.CalculationNoise(
-						(static_cast<double>(x) / static_cast<double>(ChunkWidth) * 1.5 + 0.001),
-						(static_cast<double>(z) / static_cast<double>(ChunkWidth) * 1.5 + 0.001)
-						//,(static_cast<double>(y) / static_cast<double>(height) * 1.5 + 0.001)
-					);
-
-					noise = max(0.0f, min(1.0f, noise));
-
-					float thisHeight = (static_cast<float>(ChunkHeight)* noise);
-
-					float point = 0;
-
-					////この場所の高さに対してブロックが届いていない。
-					//if (y <= thisHeight - m_terrainSurface)
-					//	point = 0.0f;
-					////この場所の上にもブロックがある。
-					//else if (y > thisHeight + m_terrainSurface)
-					//	point = 1.0f;
-					////この場所のブロックの影響値計算。(上方向。)
-					//else if (y > thisHeight)
-					//	point = (float)y - thisHeight;
-					////この場所のブロックの影響値計算。(下方向。)
-					//else
-					//	point = thisHeight - (float)y;
-
-					//この場所の高さに対してブロックが届いていない。
-					if (y >= thisHeight - m_terrainSurface)
-						point = 0.0f;
-					//この場所の上にもブロックがある。
-					else if (y < thisHeight + m_terrainSurface)
-						point = 1.0f;
-					//この場所のブロックの影響値。
-					else
-						point = 0.5f;
-
-					if (y == 0)
-					{
-						point = 1.0f;
-					}
-
-					m_terrainMap[x][y][z].SetVoxel(point);
-					Vector3 pos;
-					pos.x = static_cast<float>(x) * OBJECT_UNIT;
-					pos.y = static_cast<float>(y) * OBJECT_UNIT;
-					pos.z = static_cast<float>(z) * OBJECT_UNIT;
-					m_terrainMap[x][y][z].SetPosition(pos);
-
-					m_terrainMap[x][y][z].InitRayCollider();
-					m_terrainMap[x][y][z].CalcColliderEnable();
-				}
-			}
-		}
+		return *(m_terrainChunkData->GetTerrainData(pos[0], pos[1], pos[2]));
 	}
+
 	int TerrainWorld::GetCubeConfihuration(const Cube& cube)
 	{
 		int configrationIndex = 0;
@@ -146,7 +80,7 @@ namespace nsTerrain {
 		{
 			//各頂点の影響度？から
 			//三角形テーブルのインデックスを作成する。
-			if (cube.cube[i] < m_terrainSurface)
+			if (cube.cube[i] < nsMarching::TERRAIN_SURFACE)
 				configrationIndex |= 1 << i;
 		}
 
@@ -165,7 +99,13 @@ namespace nsTerrain {
 					{
 						Vector3Int corner = { x, y, z };
 						corner += nsMarching::CornerTable[i];
-						cube.cube[i] = m_terrainMap[corner.x][corner.y][corner.z].GetVoxel();
+						auto* terrain = m_terrainChunkData->GetTerrainData(corner);
+						if (terrain != nullptr) {
+							cube.cube[i] = terrain->GetVoxel();
+						}
+						else {
+							cube.cube[i] = 0.0f;
+						}
 					}
 
 					Vector3 pos;
@@ -331,7 +271,7 @@ namespace nsTerrain {
 	{
 		//物理オブジェクト作成。
 		m_staticObj.CreateBuffer(
-			Vector3::Zero,
+			m_position,
 			Quaternion::Identity,
 			Vector3::One,
 			m_vertices

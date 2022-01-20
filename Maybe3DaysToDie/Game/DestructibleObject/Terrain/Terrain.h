@@ -2,7 +2,7 @@
 
 struct ToolInfo;
 namespace nsTerrain {
-	class TerrainWorld;
+	class TerrainChunkData;
 
 	static const int NEAR_VERT_COUNT = 4;
 
@@ -16,24 +16,18 @@ namespace nsTerrain {
 		/// <summary>
 		/// ワールドをセット。
 		/// </summary>
-		void SetTerrainWorld(TerrainWorld* world)
+		void SetTerrainChunk(TerrainChunkData* world)
 		{
-			m_world = world;
+			m_chunkData = world;
 		}
-		/// <summary>
-		/// コライダーの初期化。
-		/// </summary>
-		void InitRayCollider();
-		/// <summary>
-		/// コライダーの登録、解除。
-		/// </summary>
-		void SetColliderEnable(bool flag);
 
 		/// <summary>
 		/// コライダーの登録を解除するかどうかを計算。
 		/// </summary>
-		void CalcColliderEnable();
-
+		bool IsTerrainEnabled()
+		{
+			return (m_voxel > 0.0f);
+		}
 
 		/// <summary>
 		/// 地形のスケールをセット。
@@ -74,7 +68,7 @@ namespace nsTerrain {
 
 
 	private:
-		TerrainWorld* m_world = nullptr;		//地形ワールド。
+		TerrainChunkData* m_chunkData = nullptr;		//チャンク情報。
 		
 		int m_terrainId = -1;		//地形id番号。
 		float m_voxel = 1.0f;		//ボクセル値。

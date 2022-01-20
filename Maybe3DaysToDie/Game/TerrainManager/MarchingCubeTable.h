@@ -102,6 +102,7 @@ public:
 
 //MarchingCubeに使うテーブル変数。
 namespace nsMarching {
+	const float TERRAIN_SURFACE = 0.5f;
 
 	//角テーブル。
 	const Vector3Int CornerTable[8] = {

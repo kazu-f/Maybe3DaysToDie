@@ -39,7 +39,8 @@ void Stage::OnDestroy()
 
 void Stage::NewGround()
 {
-	m_Terrain = NewGO<nsTerrain::TerrainWorld>(0,"Terrain");
+	m_Terrain = NewGO<nsTerrain::TerrainManager>(0,"Terrain");
+
 	//m_stage.CreateStage();
 	//m_Model = NewGO<prefab::ModelRender>(0);
 	//ModelInitData InitModelUnity;

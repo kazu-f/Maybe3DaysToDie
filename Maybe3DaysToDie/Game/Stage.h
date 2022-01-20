@@ -2,7 +2,7 @@
 #include "Stage/SuperFlat/SuperFlat.h"
 #include "Stage/Hill/Hill.h"
 #include "Enemy/EnemyGenerator.h"
-#include "TerrainManager/TerrainWorld.h"
+#include "TerrainManager/TerrainManager.h"
 
 class Stage : public IGameObject
 {
@@ -38,14 +38,14 @@ public:
 		return m_enemyGenerator;
 	}
 
-	nsTerrain::TerrainWorld* GetTerrainWorld()
+	nsTerrain::TerrainManager* GetTerrainWorld()
 	{
 		return m_Terrain;
 	}
 private:
 	//Hill m_stage;
 	EnemyGenerator m_enemyGenerator;				//エネミージェネレーター。
-	nsTerrain::TerrainWorld* m_Terrain;
+	nsTerrain::TerrainManager* m_Terrain;
 	//prefab::ModelRender* m_Model = nullptr;		//地面
 	//CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
 	//Vector3 m_pos = Vector3::Zero;		//ポジション
