@@ -85,7 +85,7 @@ public:
 	/// <summary>
 	/// ブロックの更新
 	/// </summary>
-	void UpdateChunkBlocks();
+	void UpdateChunkBlocksAndTerrains();
 
 	/// <summary>
 	/// テラインの更新
