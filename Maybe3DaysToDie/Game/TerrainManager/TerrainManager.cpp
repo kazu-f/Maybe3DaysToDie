@@ -9,9 +9,9 @@ namespace nsTerrain {
 	{
 		PopurerTerrainMap();		//地形データを生成。
 
-		for (int chunkX = 0; chunkX < LoadingChunkCols; chunkX++)
+		for (int chunkX = 0; chunkX < TERRAIN_WORLD_CHUNKSIZE; chunkX++)
 		{
-			for (int chunkY = 0; chunkY < LoadingChunkCols; chunkY++)
+			for (int chunkY = 0; chunkY < TERRAIN_WORLD_CHUNKSIZE; chunkY++)
 			{
 				//地形を生成する。
 				m_terrainWorlds[chunkX][chunkY] = NewGO<TerrainWorld>(0);
@@ -47,9 +47,9 @@ namespace nsTerrain {
 	}
 	void TerrainManager::OnDestroy()
 	{
-		for (int chunkX = 0; chunkX < LoadingChunkCols; chunkX++)
+		for (int chunkX = 0; chunkX < TERRAIN_WORLD_CHUNKSIZE; chunkX++)
 		{
-			for (int chunkY = 0; chunkY < LoadingChunkCols; chunkY++)
+			for (int chunkY = 0; chunkY < TERRAIN_WORLD_CHUNKSIZE; chunkY++)
 			{
 				DeleteGO(m_terrainWorlds[chunkX][chunkY]);
 			}
