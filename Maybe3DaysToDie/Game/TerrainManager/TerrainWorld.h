@@ -2,8 +2,6 @@
 
 #include "MarchingCubeTable.h"
 #include "DestructibleObject/Terrain/Terrain.h"
-#include "Navigation/NVMGenerator.h"
-#include "Enemy/EnemyGenerator.h"
 
 namespace nsTerrain {
 
@@ -39,6 +37,21 @@ namespace nsTerrain {
 		{
 			m_position = pos;
 		}
+		/// <summary>
+		/// 地形描画クラスを取得。
+		/// </summary>
+		TerrainRender* GetTerrainRender()
+		{
+			return m_terrainRender;
+		}
+		/// <summary>
+		/// 初期化済みかどうか。
+		/// </summary>
+		bool IsInited()
+		{
+			return m_isInited;
+		}
+
 	public:	//特定の地形を取得する。
 		Terrain& GetTerrain(const Vector3& pos);
 		Terrain& GetTerrain(const int pos[3]);
@@ -91,11 +104,10 @@ namespace nsTerrain {
 
 		TerrainChunkData* m_terrainChunkData = nullptr;
 		TerrainRender* m_terrainRender = nullptr;		//地形描画クラス。
-		//NVMGenerator m_NVMGenerator;					//NVM生成。
-		//EnemyGenerator m_enemyGenerator;				//enemyGenerator.
 		std::vector<Vector3> m_vertices;				//頂点データ。
 		CPhysicsStaticObject m_staticObj;				//物理オブジェクト。
 		Vector3 m_position = Vector3::Zero;				//座標。
+		bool m_isInited = false;						//初期化済みフラグ。
 	};
 
 }

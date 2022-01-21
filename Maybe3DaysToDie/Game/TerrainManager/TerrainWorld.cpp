@@ -2,8 +2,6 @@
 #include "TerrainWorld.h"
 #include "TerrainChunkData.h"
 #include "TerrainRender\TerrainRender.h"
-#include "Enemy/StandardZombie/StandardZombie.h"
-#include "Enemy/EnemyGenerator.h"
 
 
 namespace nsTerrain {
@@ -19,15 +17,13 @@ namespace nsTerrain {
 
 		//メッシュデータを作成。
 		CreateMeshData();
-		////NVMデータを作成。
-		//m_NVMGenerator.CreateNVM(m_terrainRender, true);
-		////敵キャラを作成。
-		//m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
 
 		//物理オブジェクト作成。
 		CreateCollider();
 
 		PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
+
+		m_isInited = true;
 
 		return true;
 	}
@@ -46,9 +42,6 @@ namespace nsTerrain {
 			m_terrainChunkData->ResetUpdated();
 		}
 		m_terrainRender->SetPosition(m_position);
-		//if (InputKeyCode().IsTriggerKey(VK_F4)) {
-		//	m_NVMGenerator.ChangeDrawFlag();
-		//}
 	}
 	void TerrainWorld::OnDestroy()
 	{

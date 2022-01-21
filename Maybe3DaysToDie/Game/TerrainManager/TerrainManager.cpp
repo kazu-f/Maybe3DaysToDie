@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "TerrainManager.h"
 #include "DestructibleObject/Terrain/Terrain.h"
+#include "Enemy/StandardZombie/StandardZombie.h"
+#include "Enemy/EnemyGenerator.h"
 
 namespace nsTerrain {
 	bool TerrainManager::Start()
@@ -28,6 +30,20 @@ namespace nsTerrain {
 	}
 	void TerrainManager::Update()
 	{
+		if (m_terrainWorlds[0][0]->IsInited()
+			&& !m_isInitNVM)
+		{
+			//NVMデータを作成。
+			m_NVMGenerator.CreateNVM(m_terrainWorlds[0][0]->GetTerrainRender(), true);
+			//敵キャラを作成。
+			m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
+
+			m_isInitNVM = true;
+		}
+
+		if (InputKeyCode().IsTriggerKey(VK_F4)) {
+			m_NVMGenerator.ChangeDrawFlag();
+		}
 	}
 	void TerrainManager::OnDestroy()
 	{
@@ -113,5 +129,9 @@ namespace nsTerrain {
 				}
 			}
 		}
+	}
+	void TerrainManager::ForwardRender(RenderContext& rc)
+	{
+		m_NVMGenerator.DebugDraw(m_terrainWorlds[0][0]->GetTerrainRender());
 	}
 }

@@ -3,6 +3,8 @@
 #include "TerrainChunkData.h"
 #include "TerrainWorld.h"
 #include <Game\GameConfig\WorldConfig\WorldConfig.h>
+#include "Navigation/NVMGenerator.h"
+#include "Enemy/EnemyGenerator.h"
 
 namespace nsTerrain {
 
@@ -18,6 +20,7 @@ namespace nsTerrain {
 		bool Start()override final;
 		void Update()override final;
 		void OnDestroy() override final;
+		void ForwardRender(RenderContext& rc) override final;
 
 	private:
 		/// <summary>
@@ -34,6 +37,9 @@ namespace nsTerrain {
 		CNoise m_perlinNoise;
 		TerrainChunkData m_terrainChunkData[MAX_CHUNK_SIDE][MAX_CHUNK_SIDE];
 		TerrainWorld* m_terrainWorlds[LoadingChunkCols][LoadingChunkCols] = { nullptr };
+		NVMGenerator m_NVMGenerator;					//NVM生成。
+		EnemyGenerator m_enemyGenerator;				//enemyGenerator.
+		bool m_isInitNVM = false;						//ナビメッシュ生成済みか？
 	};
 
 }
