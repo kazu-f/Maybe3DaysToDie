@@ -27,6 +27,10 @@ namespace nsTerrain {
 		{
 			return m_terrainChunkData[chunkX][chunkY];
 		}
+		TerrainWorld& GetTerrainWorld(int chunkX, int chunkY)
+		{
+			return *m_terrainWorlds[chunkX][chunkY];
+		}
 
 	private:
 		/// <summary>

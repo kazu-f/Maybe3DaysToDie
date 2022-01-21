@@ -6,6 +6,8 @@
 
 class Stage : public IGameObject
 {
+public:
+	Stage();
 private:
 	/// <summary>
 	/// 初期化
@@ -20,10 +22,6 @@ private:
 	/// deleteをすると呼ばれる関数
 	/// </summary>
 	void OnDestroy();
-	/// <summary>
-	/// コリジョン作成
-	/// </summary>
-	void CreatePhysics();
 	/// <summary>
 	/// 地面を表示する
 	/// </summary>

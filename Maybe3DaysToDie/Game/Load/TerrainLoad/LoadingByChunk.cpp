@@ -207,6 +207,11 @@ void LoadingByChunk::UpdateChunkBlocks()
 	}
 }
 
+void LoadingByChunk::UpdateTerains()
+{
+
+}
+
 void LoadingByChunk::LinkChunk()
 {
 	//todo リファクタリングでコード見直し

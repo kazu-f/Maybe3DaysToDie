@@ -1,6 +1,7 @@
 #pragma once
 
 class ChunkBlock;
+class nsTerrain::TerrainManager;
 //チャンクごとのブロック
 class ChunkCollision
 {
@@ -51,10 +52,13 @@ public:
 	{
 		m_ChunkBlocks = CB;
 	}
+
+	void LinkTerrainManager()
 private:
 	CPhysicsStaticObject m_StaticCol[ChunkWidth][ChunkHeight][ChunkWidth];		//静的物理オブジェクト
 	const Vector3 BLOCK_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };
 	ChunkBlock* m_ChunkBlocks = nullptr;
+	nsTerrain::TerrainManager* m_TerrainManager = nullptr;
 	int m_ChunkID[2] = { 0 };
 	bool IsDebug = true;		//後で消す予定発表用
 	bool IsMove = false;

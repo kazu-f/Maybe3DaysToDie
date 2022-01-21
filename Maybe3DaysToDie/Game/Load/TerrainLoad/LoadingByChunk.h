@@ -1,6 +1,7 @@
 #pragma once
 #include "Load/ChunkCollision/ChunkCollision.h"
 #include "Load/ChunkBlock/ChunkBlock.h"
+#include "TerrainManager/TerrainManager.h"
 #include "GameConfig/WorldConfig/WorldConfig.h"
 
 class SaveDataFile;
@@ -29,6 +30,11 @@ public:
 	void SetWorldConfig(WorldConfig* config)
 	{
 		m_config = config;
+	}
+
+	void SetTerrainManager(nsTerrain::TerrainManager* manager)
+	{
+		m_TerrainManager = manager;
 	}
 
 	/// <summary>
@@ -82,6 +88,11 @@ public:
 	void UpdateChunkBlocks();
 
 	/// <summary>
+	/// テラインの更新
+	/// </summary>
+	void UpdateTerains();
+
+	/// <summary>
 	/// チャンクブロックをチャンクコライダーと紐づけする
 	/// </summary>
 	void LinkChunk();
@@ -91,6 +102,7 @@ public:
 	/// </summary>
 	ChunkBlock& GetChunkBlocks(int ID[2]);
 
+
  private:
 	WorldConfig* m_config = nullptr;
 	SaveDataFile* m_SaveDataFile = nullptr;
@@ -98,4 +110,5 @@ public:
 	bool m_isDirty = true;		//更新するかどうか
 	ChunkCollision m_ChunkCol[LoadingChunkCols][LoadingChunkCols];		//チャンクごとのブロック
 	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];
+	nsTerrain::TerrainManager* m_TerrainManager = nullptr;		//テラインマネージャー
 };
