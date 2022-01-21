@@ -159,6 +159,7 @@
     </ImageContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Item\BlockItem.cpp" />
     <ClCompile Include="ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
     <ClCompile Include="Item\GameItemBase.cpp" />
@@ -213,6 +214,7 @@
     <ClCompile Include="Tool\ToolDataFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Item\BlockItem.h" />
     <ClInclude Include="ItemBar.h" />
     <ClInclude Include="Item\GameItemTool.h" />
     <ClInclude Include="Item\GameItemBase.h" />

@@ -124,6 +124,7 @@
     <ClCompile Include="TerrainManager\TerrainChunkData.cpp">
       <Filter>TerrainManager</Filter>
     </ClCompile>
+    <ClCompile Include="Item\BlockItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -375,6 +376,7 @@
     <ClInclude Include="TerrainManager\TerrainChunkData.h">
       <Filter>TerrainManager</Filter>
     </ClInclude>
+    <ClInclude Include="Item\BlockItem.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">
