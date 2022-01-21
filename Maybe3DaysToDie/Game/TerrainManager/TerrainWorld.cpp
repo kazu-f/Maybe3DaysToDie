@@ -81,11 +81,11 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::CreateMeshData()
 	{
-		for (int x = 0; x < ChunkWidth - 1; x++)
+		for (int x = 0; x < ChunkWidth; x++)
 		{
 			for (int y = 0; y < ChunkHeight - 1; y++)
 			{
-				for (int z = 0; z < ChunkWidth - 1; z++)
+				for (int z = 0; z < ChunkWidth; z++)
 				{
 					Cube cube;
 					for (int i = 0; i < 8; i++)

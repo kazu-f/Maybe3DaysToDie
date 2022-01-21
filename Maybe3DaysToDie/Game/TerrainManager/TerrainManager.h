@@ -35,6 +35,7 @@ namespace nsTerrain {
 		void ChunkTerrainGenerate(int chunkX, int chunkY);
 	private:
 		CNoise m_perlinNoise;
+		Terrain m_terrains[MAX_CHUNK_SIDE * ChunkWidth + 1][ChunkHeight][MAX_CHUNK_SIDE * ChunkWidth + 1];
 		TerrainChunkData m_terrainChunkData[MAX_CHUNK_SIDE][MAX_CHUNK_SIDE];
 		TerrainWorld* m_terrainWorlds[LoadingChunkCols][LoadingChunkCols] = { nullptr };
 		NVMGenerator m_NVMGenerator;					//NVMê∂ê¨ÅB
