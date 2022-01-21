@@ -62,6 +62,9 @@ void Inventory::SwhichInventoryState()
 	else {
 		m_player->CloseInventory();
 		m_IsShow = false;
+		//マウスカーソルの位置を固定
+		int DefaultPoint[2] = { 500,300 };
+		SetCursorPos(DefaultPoint[0], DefaultPoint[1]);
 		while (true) {
 			int returnNo = ShowCursor(false);
 			m_Inbentory->SetActiveFlag(false);

@@ -13,8 +13,9 @@ bool ItemBar::Start()
     m_ItemIcon->SetPosition(ItemBarPos);
 
     for (int i = 0; i < SelectNum; i++) {
-        m_SelectPos[i] = { -1000.0f +( 100.0f * i),ItemBarPos.y };
+        m_SelectPos[i] = { -500.0f ,ItemBarPos.y };
     }
+
     m_SelectItemIcon = NewGO<prefab::CSpriteRender>(1);
     m_SelectItemIcon->Init("Assets/sprite/ItemUI/SelectBar.dds", ItemOneBoxSize, ItemOneBoxSize);
     m_SelectItemIcon->SetPosition(ItemBarPos);
@@ -25,13 +26,14 @@ bool ItemBar::Start()
 void ItemBar::Update()
 {
     WPARAM wPram=NULL;
-    int zDelta = GET_WHEEL_DELTA_WPARAM(wPram);
-    if (zDelta > 120) {
+    
+ /*   int zDelta = GET_WHEEL_DELTA_WPARAM(wPram);
+    if (zDelta > 1) {
         m_SelectNum++;
-    }
-    else if(zDelta < -120){
+    }   
+    else if(zDelta < -1){
         m_SelectNum--;
-    }
+    }*/
     m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
 }
 
@@ -39,4 +41,16 @@ void ItemBar::OnDestroy()
 {
     DeleteGO(m_ItemIcon);
     DeleteGO(m_SelectItemIcon);
+}
+
+LRESULT ItemBar::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+    if (zDelta > 1) {
+        m_SelectNum++;
+    }
+    else if (zDelta < -1) {
+        m_SelectNum--;
+    }
+    return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }

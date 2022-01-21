@@ -9,7 +9,6 @@ namespace {
 	const float MoveDistance = 1000.0f;			//1フレームに動く距離
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
 	const float NeckLimitY = 10.0f;				//上や下を向ける限界
-
 }
 
 bool Player::Start()
