@@ -14,7 +14,8 @@ namespace Maybe3DaysToDieToolEditor
     {
         string filePath = null;
         List<Item> m_itemList = new List<Item>();
-        BindingSource bs = new BindingSource();
+        BindingSource listBoxBS = new BindingSource();
+        BindingSource itemDataBS = new BindingSource();
         EditorCommandList commandList = new EditorCommandList();
         //ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
@@ -24,14 +25,19 @@ namespace Maybe3DaysToDieToolEditor
         public Maybe3DaysToDie_ToolEditor()
         {
             InitializeComponent();
-            bs.DataSource = m_itemList;
+            listBoxBS.DataSource = m_itemList;
+            itemDataBS.DataSource = m_itemList;
 
             ItemList.DisplayMember = "itemName";
             ItemList.ValueMember = "itemName";
-            ItemList.DataSource = bs;
+            ItemList.DataSource = listBoxBS;
 
             toolDataPanel1.commandList = commandList;
             toolDataPanel1.listBox = ItemList;
+
+            placementObjectPanel1.commandList = commandList;
+            placementObjectPanel1.listBox = ItemList;
+            placementObjectPanel1.ItemDataBS = itemDataBS;
 
             //設定を行う。
             //toolKinds = new ToolKindsComboBox(ToolComboBox);
@@ -41,6 +47,13 @@ namespace Maybe3DaysToDieToolEditor
             selectModelData = new SelectDataFile(ModelFileSelectButton, ModelFilePathTextBox, "tkm", ItemTkmFileChangeCommand);
             selectIconData = new SelectDataFile(IconFileSelectButton, IconDataTextBox, "png", ItemIconFileChangeCommand);
         }
+
+        private void UpdateBS()
+        {
+            listBoxBS.ResetBindings(false);
+            itemDataBS.ResetBindings(false);
+        }
+
 
         #region リスト操作の処理。
         /// <summary>
@@ -60,7 +73,12 @@ namespace Maybe3DaysToDieToolEditor
                     var reDisp = ItemList.SelectedItem;
                     if (item is Item) DispItemData((Item)reDisp);
 
-                    bs.ResetBindings(false);
+                    for(int i = 0;i< m_itemList.Count; i++)
+                    {
+                        m_itemList[i].itemID = i;
+                    }
+
+                    UpdateBS();
                 }
             }
         }
@@ -74,7 +92,30 @@ namespace Maybe3DaysToDieToolEditor
             var newTool = new ToolData { itemName = "ToolData" };
             m_itemList.Add(newTool);
 
-            bs.ResetBindings(false);
+            for (int i = 0; i < m_itemList.Count; i++)
+            {
+                m_itemList[i].itemID = i;
+            }
+
+            UpdateBS();
+        }
+
+        /// <summary>
+        /// リストに新しい設置物データを追加する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PlaceObjDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var newTool = new PlacementObject { itemName = "PlacementObject" };
+            m_itemList.Add(newTool);
+
+            for (int i = 0; i < m_itemList.Count; i++)
+            {
+                m_itemList[i].itemID = i;
+            }
+
+            UpdateBS();
         }
 
         #endregion
@@ -106,9 +147,19 @@ namespace Maybe3DaysToDieToolEditor
             NameTextBox.Text = item.itemName;
             ModelFilePathTextBox.Text = item.tkmFile;
             IconDataTextBox.Text = item.iconData;
+            ItemIDDispLabel.Text = item.itemID.ToString();
 
             //データタイプに応じて処理を分岐。
-            if (typeof(ToolData) == item.GetType()) toolDataPanel1.DispToolData((ToolData)item);
+            if (typeof(ToolData) == item.GetType())
+            {
+                toolDataPanel1.DispToolData((ToolData)item);
+                toolDataPanel1.BringToFront();
+            }
+            else if (typeof(PlacementObject) == item.GetType())
+            {
+                //placementObjectPanel1.DispToolData((PlacementObject)item);
+                placementObjectPanel1.BringToFront();
+            }
         }
         #endregion
 
@@ -127,7 +178,7 @@ namespace Maybe3DaysToDieToolEditor
             if (command.IsChanged())
             {
                 commandList.AddCommand(command);
-                bs.ResetBindings(false);
+                UpdateBS();
             }
         }
         /// <summary>
@@ -173,7 +224,7 @@ namespace Maybe3DaysToDieToolEditor
             {
                 //アイテムデータならばテキストボックスに表記。
                 if (item is Item) DispItemData((Item)item);
-                bs.ResetBindings(false);
+                UpdateBS();
             }
         }
 
@@ -190,7 +241,7 @@ namespace Maybe3DaysToDieToolEditor
             {
                 //アイテムデータならばテキストボックスに表記。
                 if (item is Item) DispItemData((Item)item);
-                bs.ResetBindings(false);
+                UpdateBS();
             }
         }
         #endregion
@@ -240,14 +291,15 @@ namespace Maybe3DaysToDieToolEditor
                 commandList.ResetCommandList();
                 //アイテムのリストを読み込んだものに変更。
                 m_itemList = list;
-                bs.DataSource = m_itemList;
+                listBoxBS.DataSource = m_itemList;
                 //表記を変更。
                 ItemList.SelectedItem = m_itemList[0];
                 DispItemData(m_itemList[0]);
-                bs.ResetBindings(false);
+                UpdateBS();
             }
             DeFocus();
         }
         #endregion ファイル保存関係。
+
     }
 }
