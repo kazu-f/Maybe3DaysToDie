@@ -1,4 +1,5 @@
 #pragma once
+#include "TerrainManager/TerrainWorld.h"
 
 class ChunkBlock;
 //チャンクごとのブロック
@@ -51,10 +52,20 @@ public:
 	{
 		m_ChunkBlocks = CB;
 	}
+
+	/// <summary>
+	/// テラインチャンクデータとリンクさせる
+	/// </summary>
+	/// <param name="TW">対応するテラインチャンクデータ</param>
+	void LinkTerrainWorld(nsTerrain::TerrainChunkData*TCD)
+	{
+		m_TerrainData = TCD;
+	}
 private:
 	CPhysicsStaticObject m_StaticCol[ChunkWidth][ChunkHeight][ChunkWidth];		//静的物理オブジェクト
 	const Vector3 BLOCK_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };
 	ChunkBlock* m_ChunkBlocks = nullptr;
+	nsTerrain::TerrainChunkData* m_TerrainData = nullptr;
 	int m_ChunkID[2] = { 0 };
 	bool IsDebug = true;		//後で消す予定発表用
 	bool IsMove = false;

@@ -27,6 +27,10 @@ namespace nsTerrain {
 		{
 			return m_terrainChunkData[chunkX][chunkY];
 		}
+		TerrainWorld* GetTerrainWorld(int chunkX, int chunkY)
+		{
+			return m_terrainWorlds[chunkX][chunkY];
+		}
 
 	private:
 		/// <summary>
@@ -40,7 +44,7 @@ namespace nsTerrain {
 		/// <param name="chunkY">チャンクのy位置</param>
 		void ChunkTerrainGenerate(int chunkX, int chunkY);
 	private:
-		static const int TERRAIN_WORLD_CHUNKSIZE = LoadingChunkCols;		//地形の表示範囲。
+		static const int TERRAIN_WORLD_CHUNKSIZE = LoadingChunks;		//地形の表示範囲。
 	private:
 		CNoise m_perlinNoise;
 		Terrain m_terrains[MAX_CHUNK_SIDE * ChunkWidth + 1][ChunkHeight][MAX_CHUNK_SIDE * ChunkWidth + 1];

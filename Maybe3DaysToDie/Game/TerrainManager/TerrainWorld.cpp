@@ -52,6 +52,19 @@ namespace nsTerrain {
 		//m_NVMGenerator.DebugDraw(m_terrainRender);
 	}
 
+	bool TerrainWorld::SetTerrainChunkData(TerrainChunkData* terrainCD)
+	{
+		if (m_terrainChunkData != terrainCD)
+		{
+			//変更がある
+			m_terrainChunkData = terrainCD;
+			//マーチンキューブの更新フラグも立てる
+			m_terrainChunkData->EnableUpdated();
+			return true;
+		}
+		return false;
+	}
+
 	Terrain& TerrainWorld::GetTerrain(const Vector3& pos)
 	{
 		int resX = static_cast<int>(std::floor(pos.x / OBJECT_UNIT));

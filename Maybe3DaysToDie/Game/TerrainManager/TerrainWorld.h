@@ -26,10 +26,8 @@ namespace nsTerrain {
 		/// <summary>
 		/// 地形情報データを登録。
 		/// </summary>
-		void SetTerrainChunkData(TerrainChunkData* terrainCD)
-		{
-			m_terrainChunkData = terrainCD;
-		}
+		bool SetTerrainChunkData(TerrainChunkData* terrainCD);
+
 		/// <summary>
 		/// 地形の座標を設定する。
 		/// </summary>
