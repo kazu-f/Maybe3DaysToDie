@@ -202,6 +202,7 @@
     <ClCompile Include="Enemy\StandardZombie\STDZombieTracking.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp" />
     <ClCompile Include="Load\TerrainLoad\TerrainLoad.cpp" />
+    <ClCompile Include="TerrainManager\TerrainChunkData.cpp" />
     <ClCompile Include="TerrainManager\TerrainManager.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="Enemy\StandardZombie\STDZombieTracking.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h" />
     <ClInclude Include="Load\TerrainLoad\TerrainLoad.h" />
+    <ClInclude Include="TerrainManager\TerrainChunkData.h" />
     <ClInclude Include="TerrainManager\MarchingCubeTable.h" />
     <ClInclude Include="TerrainManager\TerrainManager.h" />
     <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />

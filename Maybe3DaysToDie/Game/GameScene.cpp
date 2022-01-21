@@ -102,7 +102,7 @@ void CGameScene::Update()
 	if (GetAsyncKeyState(VK_SPACE))
 	{
 		//テラインをセットしているけど、ここでセットしているのはテラインが作られるのが遅いため。
-		m_TerrainSave.SetTerrainWorld(m_Stage->GetTerrainWorld());
+		m_TerrainSave.SetTerrainWorld(nullptr);
 		m_TerrainSave.Save();
 	}
 }
