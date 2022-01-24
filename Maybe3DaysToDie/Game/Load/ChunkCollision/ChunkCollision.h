@@ -17,6 +17,16 @@ public:
 	void UpdateCol();
 
 	/// <summary>
+	/// ブロックに向けてコリジョンを更新する
+	/// </summary>
+	void UpdateColForBlock();
+
+	/// <summary>
+	/// 地形に向けてコリジョンを更新する
+	/// </summary>
+	void UpdateColForTerrain();
+
+	/// <summary>
 	/// コライダーを初期化
 	/// </summary>
 	void InitCol();
@@ -67,6 +77,5 @@ private:
 	ChunkBlock* m_ChunkBlocks = nullptr;
 	nsTerrain::TerrainChunkData* m_TerrainData = nullptr;
 	int m_ChunkID[2] = { 0 };
-	bool IsDebug = true;		//後で消す予定発表用
 	bool IsMove = false;
 };
