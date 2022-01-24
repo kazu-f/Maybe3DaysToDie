@@ -7,11 +7,11 @@ namespace nsTerrain {
 	class TerrainChunkData
 	{
 	public:
-		void SetTerrainData(const Terrain& terrain, const int x, const int y, const int z)
+		void SetTerrainData(Terrain* terrain, const int x, const int y, const int z)
 		{
 			if (CheckChunkSize(x,y,z)) {
 				m_terrainMap[x][y][z] = terrain;
-				m_terrainMap[x][y][z].SetTerrainChunk(this);
+				m_terrainMap[x][y][z]->SetTerrainChunk(this);
 			}
 		}
 		/// <summary>
@@ -24,7 +24,7 @@ namespace nsTerrain {
 		Terrain* GetTerrainData(const int x, const int y, const int z)
 		{
 			if (CheckChunkSize(x, y, z)) {
-				return &m_terrainMap[x][y][z];
+				return m_terrainMap[x][y][z];
 			}
 			return nullptr;
 		}
@@ -37,7 +37,7 @@ namespace nsTerrain {
 		{
 			if (CheckChunkSize(pos.x, pos.y, pos.z))
 			{
-				return &m_terrainMap[pos.x][pos.y][pos.z];
+				return m_terrainMap[pos.x][pos.y][pos.z];
 			}
 			return nullptr;
 		}
@@ -74,9 +74,9 @@ namespace nsTerrain {
 		bool CheckChunkSize(int x,int y,int z)
 		{
 			return (
-				CheckSize(ChunkWidth, x)
+				CheckSize(ChunkWidth + 1, x)
 				&& CheckSize(ChunkHeight, y)
-				&& CheckSize(ChunkWidth, z)
+				&& CheckSize(ChunkWidth + 1, z)
 				);
 		}
 
@@ -85,7 +85,7 @@ namespace nsTerrain {
 			return (num >= 0) && (num < maxSize);
 		}
 	private:
-		Terrain m_terrainMap[ChunkWidth][ChunkHeight][ChunkWidth];
+		Terrain* m_terrainMap[ChunkWidth + 1][ChunkHeight][ChunkWidth + 1] = { nullptr };
 		bool m_isUpdated = false;						//地形の更新がある。
 	};
 }

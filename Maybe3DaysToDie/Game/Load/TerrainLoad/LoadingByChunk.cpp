@@ -138,7 +138,7 @@ void LoadingByChunk::Update()
 void LoadingByChunk::UpdateMoveChunk()
 {
 	//ブロックを移動
-	UpdateChunkBlocks();
+	UpdateChunkBlocksAndTerrains();
 	//コライダーを移動
 	UpdateChunkCols();
 }
@@ -177,7 +177,7 @@ void LoadingByChunk::UpdateChunkCols()
 
 }
 
-void LoadingByChunk::UpdateChunkBlocks()
+void LoadingByChunk::UpdateChunkBlocksAndTerrains()
 {
 	int Grid[2] = { 0 };
 	//プレイヤーの左下のチャンク
@@ -203,8 +203,25 @@ void LoadingByChunk::UpdateChunkBlocks()
 			m_ChunkBlock[x][z].SetChunkID(NowGrid);
 			//チャンク移動
 			m_ChunkBlock[x][z].MoveChunk();
+
+			const auto& terrainWorld = m_TerrainManager->GetTerrainWorld(x, z);
+			//テラインワールドにチャンクデータをセット
+			if (terrainWorld->SetTerrainChunkData(&m_TerrainManager->GetTerrainChunkData(NowGrid[0], NowGrid[1])))
+			{
+				//テラインワールドの対応しているチャンクに変更があった時
+				//テラインワールドの位置をセット
+				Vector3 terrainPos = Vector3::Zero;
+				terrainPos.x = static_cast<float>(NowGrid[0] * ChunkWidth * OBJECT_UNIT);
+				terrainPos.z = static_cast<float>(NowGrid[1] * ChunkWidth * OBJECT_UNIT);
+				terrainWorld->SetTerrainPosition(terrainPos);
+			}
 		}
 	}
+}
+
+void LoadingByChunk::UpdateTerains()
+{
+
 }
 
 void LoadingByChunk::LinkChunk()
@@ -232,6 +249,9 @@ void LoadingByChunk::LinkChunk()
 						{
 							//対応しているチャンクが同じなので紐づけ
 							m_ChunkCol[colx][colz].LinkChunkBlocks(&m_ChunkBlock[blockx][blockz]);
+							//対応しているチャンクデータをセット
+							//チャンクデータは存在するチャンク数分だけあるのでチャンクIDから取得
+							m_ChunkCol[colx][colz].LinkTerrainWorld(&m_TerrainManager->GetTerrainChunkData(ColChunkID[0], ColChunkID[1]));
 							Linked = true;
 						}
 					}

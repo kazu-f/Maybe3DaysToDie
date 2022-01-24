@@ -12,10 +12,12 @@ namespace Maybe3DaysToDieToolEditor
     /// アイテムの基本的な情報。
     /// </summary>
     [KnownType(typeof(ToolData))]
+    [KnownType(typeof(PlacementObject))]
     [DataContract]
     public abstract class Item 
     {
-        [DataMember(Name = "name")] public string itemName { get; set; }
+        [DataMember(Name = "itemID")] public int itemID { get; set; } = 0;
+        [DataMember(Name = "name")] public string itemName { get; set; } = "";
         [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
         [DataMember(Name = "iconData")] public string iconData { get; set; } = "";
     }
@@ -41,4 +43,35 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "useStamina")] public int useStamina { get; set; } = 0;
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
     }
+
+    /// <summary>
+    /// 設置物の情報。
+    /// </summary>
+    [DataContract]
+    public class PlacementObject : Item
+    {
+        [DataMember(Name = "durable")] public int durable { get; set; } = 0;
+        [DataMember(Name = "tool")] public int tool { get; set; } = 0;
+        [DataMember(Name = "collect")] public CollectItem collectItem;
+    }
+
+    /// <summary>
+    /// 設置物からの採取情報。
+    /// </summary>
+    [DataContract]
+    public struct CollectItem
+    {
+        public Item corectItem;                                         //採取するアイテム。
+        [DataMember(Name = "corectItemID")] public int ItemID {
+            get {
+                return corectItem.itemID;
+            }
+            set
+            {
+                corectItem.itemID = value;
+            }
+        }
+        [DataMember(Name = "corectionNum")] public int corectNum;       //採取量。
+    }
+
 }

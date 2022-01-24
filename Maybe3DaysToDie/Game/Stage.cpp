@@ -3,12 +3,15 @@
 #include "Enemy/EnemyGenerator.h"
 #include "Enemy/StandardZombie/StandardZombie.h"
 
-bool Stage::Start()
+Stage::Stage()
 {
 	//ここで地面を作る
 	NewGround();
-	//物理オブジェクト作成
-	CreatePhysics();
+}
+
+
+bool Stage::Start()
+{
 	return true;
 }
 
@@ -50,10 +53,4 @@ void Stage::NewGround()
 	//m_pos.z += 50.0f;
 	//m_Model->SetPosition(m_pos);
 	//m_Model->SetShadowReceiverFlag(true);
-}
-
-void Stage::CreatePhysics()
-{
-	////静的物理オブジェクトを作成
-	//m_StaticCol.CreateMesh(m_pos, m_qrot, m_scale, m_Model);
 }

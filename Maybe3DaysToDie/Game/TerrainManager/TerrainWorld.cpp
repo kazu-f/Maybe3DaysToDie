@@ -2,8 +2,6 @@
 #include "TerrainWorld.h"
 #include "TerrainChunkData.h"
 #include "TerrainRender\TerrainRender.h"
-#include "Enemy/StandardZombie/StandardZombie.h"
-#include "Enemy/EnemyGenerator.h"
 
 
 namespace nsTerrain {
@@ -19,15 +17,13 @@ namespace nsTerrain {
 
 		//メッシュデータを作成。
 		CreateMeshData();
-		////NVMデータを作成。
-		//m_NVMGenerator.CreateNVM(m_terrainRender, true);
-		////敵キャラを作成。
-		//m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
 
 		//物理オブジェクト作成。
 		CreateCollider();
 
 		PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
+
+		m_isInited = true;
 
 		return true;
 	}
@@ -46,9 +42,6 @@ namespace nsTerrain {
 			m_terrainChunkData->ResetUpdated();
 		}
 		m_terrainRender->SetPosition(m_position);
-		//if (InputKeyCode().IsTriggerKey(VK_F4)) {
-		//	m_NVMGenerator.ChangeDrawFlag();
-		//}
 	}
 	void TerrainWorld::OnDestroy()
 	{
@@ -57,6 +50,19 @@ namespace nsTerrain {
 	void TerrainWorld::ForwardRender(RenderContext& rc)
 	{
 		//m_NVMGenerator.DebugDraw(m_terrainRender);
+	}
+
+	bool TerrainWorld::SetTerrainChunkData(TerrainChunkData* terrainCD)
+	{
+		if (m_terrainChunkData != terrainCD)
+		{
+			//変更がある
+			m_terrainChunkData = terrainCD;
+			//マーチンキューブの更新フラグも立てる
+			m_terrainChunkData->EnableUpdated();
+			return true;
+		}
+		return false;
 	}
 
 	Terrain& TerrainWorld::GetTerrain(const Vector3& pos)
@@ -88,11 +94,11 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::CreateMeshData()
 	{
-		for (int x = 0; x < ChunkWidth - 1; x++)
+		for (int x = 0; x < ChunkWidth; x++)
 		{
 			for (int y = 0; y < ChunkHeight - 1; y++)
 			{
-				for (int z = 0; z < ChunkWidth - 1; z++)
+				for (int z = 0; z < ChunkWidth; z++)
 				{
 					Cube cube;
 					for (int i = 0; i < 8; i++)

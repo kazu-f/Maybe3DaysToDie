@@ -82,6 +82,7 @@ bool CGameScene::Start()
 
 	//動的にワールドを読み込むLoadingByChunkをNewGO
 	m_LoadingByChunk = NewGO<LoadingByChunk>(0);
+	m_LoadingByChunk->SetTerrainManager(m_Stage->GetTerrainWorld());
 	//ワールド設定をセット
 	m_LoadingByChunk->SetWorldConfig(&m_WorldConfig);
 	//セーブデータファイルをセット
