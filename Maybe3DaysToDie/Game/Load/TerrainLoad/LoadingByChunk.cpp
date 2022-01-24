@@ -78,7 +78,7 @@ void LoadingByChunk::InitChunkBlocks()
 	Grid[0] -= std::floor(LoadingChunks / 2);
 	Grid[1] -= std::floor(LoadingChunks / 2);
 	//最大値と最小値を決めておく
-	//最大値はチャンクの端からロードするチャンクの半分を引いたもの
+	//最大値はチャンクの端からロードするチャンクを引いたもの
 	//最小値は0
 	Grid[0] = max(min(Grid[0], MAX_CHUNK_SIDE - std::floor(LoadingChunks / 2)), 0);
 	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - std::floor(LoadingChunks / 2)), 0);
@@ -181,7 +181,7 @@ void LoadingByChunk::UpdateChunkCols()
 	Grid[0] -= std::floor(LoadingChunkCols / 2);
 	Grid[1] -= std::floor(LoadingChunkCols / 2);
 	//最大値と最小値を決めておく
-	//最大値はチャンクの端からロードするチャンクの半分を引いたもの
+	//最大値はチャンクの端からロードするチャンクを引いたもの
 	//最小値は0
 	Grid[0] = max(min(Grid[0], MAX_CHUNK_SIDE - LoadingChunkCols), 0);
 	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - LoadingChunkCols), 0);
