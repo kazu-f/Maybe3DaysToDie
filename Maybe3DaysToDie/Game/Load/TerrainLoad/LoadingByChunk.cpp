@@ -183,8 +183,8 @@ void LoadingByChunk::UpdateChunkCols()
 	//最大値と最小値を決めておく
 	//最大値はチャンクの端からロードするチャンクの半分を引いたもの
 	//最小値は0
-	Grid[0] = max(min(Grid[0], MAX_CHUNK_SIDE - std::floor(LoadingChunkCols / 2)), 0);
-	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - std::floor(LoadingChunkCols / 2)), 0);
+	Grid[0] = max(min(Grid[0], MAX_CHUNK_SIDE - LoadingChunkCols), 0);
+	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - LoadingChunkCols), 0);
 
 	//現在移動中のグリッド
 	int NowGrid[2];
@@ -217,8 +217,8 @@ void LoadingByChunk::UpdateChunkBlocksAndTerrains()
 	//最大値と最小値を決めておく
 	//最大値はチャンクの端からロードするチャンクの半分を引いたもの
 	//最小値は0
-	Grid[0] = max(min(Grid[0], MAX_CHUNK_SIDE - std::floor(LoadingChunks / 2)), 0);
-	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - std::floor(LoadingChunks / 2)), 0);
+	Grid[0] = max(min(Grid[0], MAX_CHUNK_SIDE - LoadingChunks), 0);
+	Grid[1] = max(min(Grid[1], MAX_CHUNK_SIDE - LoadingChunks), 0);
 	//現在移動中のグリッド
 	int NowGrid[2];
 
