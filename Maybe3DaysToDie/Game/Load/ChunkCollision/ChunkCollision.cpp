@@ -55,7 +55,6 @@ void ChunkCollision::UpdateCol()
 		return;
 	}
 
-
 	//todo 地形にrayhitするようにする
 	//地形のコリジョンはまだ全く触っていない。
 	//ブロック用にコリジョン更新

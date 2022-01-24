@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include "LoadingByChunk.h"
 
-LoadingByChunk::LoadingByChunk()
-{
-
-}
-
 LoadingByChunk::~LoadingByChunk()
 {
 
@@ -13,6 +8,8 @@ LoadingByChunk::~LoadingByChunk()
 
 bool LoadingByChunk::Start()
 {
+	//モデルを初期化
+	InitModels();
 	SetPlayerPos(Vector3::Zero);
 	//ブロックを初期化
 	InitChunkBlocks();
@@ -20,6 +17,18 @@ bool LoadingByChunk::Start()
 	InitChunkCols();
 	LinkChunk();
 	return true;
+}
+
+void LoadingByChunk::OnDestroy()
+{
+	for (auto& model : BlockModel)
+	{
+		if (model != nullptr)
+		{
+			DeleteGO(model);
+			model = nullptr;
+		}
+	}
 }
 
 void LoadingByChunk::InitChunkCols()
@@ -90,8 +99,28 @@ void LoadingByChunk::InitChunkBlocks()
 	}
 }
 
+void LoadingByChunk::InitModels()
+{
+	int m_modelNum = 0;
+	for (int ObjectID = 0; ObjectID < BlockKinds; ObjectID++)
+	{
+		//モデルを初期化
+		//ブロックの名前がかぶっていないのでまだ、そのモデルがない
+		ModelInitData InitData;
+		InitData.m_tkmFilePath = m_SaveDataFile->ObjectFilePath[ObjectID];
+		prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
+		//チャンクのサイズ分インスタンシング描画する
+		model->Init(InitData, nullptr, 0, MaxInstanceNum);
+		BlockModel[m_modelNum] = model;
+		m_modelNum++;
+	}
+}
+
 void LoadingByChunk::Update()
 {
+	//モデルの更新
+	UpdateModels();
+
 	for (int Chunk_X = 0; Chunk_X < LoadingChunkCols; Chunk_X++)
 	{
 		for (int Chunk_Z = 0; Chunk_Z < LoadingChunkCols; Chunk_Z++)
@@ -282,6 +311,54 @@ ChunkBlock& LoadingByChunk::GetChunkBlocks(int ID[2])
 			if (chunkID[0] == ID[0] && chunkID[1] == ID[1])
 			{
 				return m_ChunkBlock[x][z];
+			}
+		}
+	}
+}
+
+void LoadingByChunk::UpdateModels()
+{
+	bool Dirty = false;
+	for (int x = 0; x < LoadingChunks; x++)
+	{
+		for (int z = 0; z < LoadingChunks; z++)
+		{
+			if (m_ChunkBlock[x][z].IsModelUpdated())
+			{
+				//更新あり
+				Dirty = true;
+			}
+			if (Dirty)
+			{
+				break;
+			}
+		}
+		if (Dirty)
+		{
+			break;
+		}
+	}
+
+	if (Dirty == false)
+	{
+		//更新無いときreturn
+		return;
+	}
+
+	for (int BlockID = 0; BlockID < BlockKinds; BlockID++)
+	{
+		//インスタンシングデータをリセット
+		BlockModel[BlockID]->ResetInstancingDatas();
+		for (int x = 0; x < LoadingChunks; x++)
+		{
+			for (int z = 0; z < LoadingChunks; z++)
+			{
+				auto& Datas = m_ChunkBlock[x][z].GetInstancingData(BlockID);
+				for (auto& data : Datas)
+				{
+					//インスタンシングデータを追加
+					BlockModel[BlockID]->UpdateInstancingData(data.pos,data.rot,data.scale);
+				}
 			}
 		}
 	}

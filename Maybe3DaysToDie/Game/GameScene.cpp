@@ -94,6 +94,7 @@ bool CGameScene::Start()
 	m_SaveDataFile.ObjectFilePath[0] = "Assets/modelData/CubeBlock/woodBlock.tkm";
 	m_SaveDataFile.ObjectFilePath[1] = "Assets/modelData/CubeBlock/BookBlock.tkm";
 	m_SaveDataFile.ObjectFilePath[2] = "Assets/modelData/CubeBlock/ShelfBlock.tkm";
+	m_SaveDataFile.ObjectFilePath[3] = "Assets/modelData/CubeBlock/CardBoard.tkm";
 
 	return true;
 }
