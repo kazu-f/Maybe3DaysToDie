@@ -12,13 +12,6 @@ public:
 	float GetItemSize()const {
 		return ItemOneBoxSize;
 	}
-	
-	LRESULT CALLBACK WindowProc(
-		HWND hwnd,      // ウィンドウハンドル
-		UINT uMsg,      // メッセージコード
-		WPARAM wParam,  // w-パラメータ
-		LPARAM lParam   // l-パラメータ
-	);
 private:
 	prefab::CSpriteRender* m_ItemIcon = nullptr;
 	prefab::CSpriteRender* m_SelectItemIcon = nullptr;
