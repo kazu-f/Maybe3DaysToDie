@@ -11,8 +11,15 @@ class LoadingByChunk :public IGameObject
 private:
 
 public:
-	LoadingByChunk();
+	LoadingByChunk()
+	{
+		//サイズの最大値セット
+		BlockModel.resize(BlockKinds);
+	}
 	~LoadingByChunk();
+
+
+	void OnDestroy();
 
 	/// <summary>
 	/// セーブデータファイルをセット
@@ -70,6 +77,11 @@ public:
 	/// </summary>
 	void InitChunkBlocks();
 
+	/// <summary>
+	/// モデルの初期化
+	/// </summary>
+	void InitModels();
+
 	void Update();
 
 	/// <summary>
@@ -102,6 +114,10 @@ public:
 	/// </summary>
 	ChunkBlock& GetChunkBlocks(int ID[2]);
 
+	/// <summary>
+	/// モデルの更新
+	/// </summary>
+	void UpdateModels();
 
  private:
 	WorldConfig* m_config = nullptr;
@@ -111,4 +127,5 @@ public:
 	ChunkCollision m_ChunkCol[LoadingChunkCols][LoadingChunkCols];		//チャンクごとのブロック
 	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];
 	nsTerrain::TerrainManager* m_TerrainManager = nullptr;		//テラインマネージャー
+	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル
 };
