@@ -72,6 +72,10 @@ void ItemBar::Update()
 		param.Durable = 500;
 		m_PlacementObject->PlaceObject(param);
 	}
+
+	if (GetAsyncKeyState(MK_RBUTTON)) {
+		m_DestroyObject->AddObjectDamage();
+	}
 	//if (GetAsyncKeyState(MK_SHIFT)) {
 	//	m_SelectNum--;
 	//	if (m_SelectNum < 0) {
