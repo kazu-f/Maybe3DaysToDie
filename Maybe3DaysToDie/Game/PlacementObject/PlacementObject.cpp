@@ -49,15 +49,6 @@ void PlacementObject::Update()
 	m_ObjectModel->SetPosition(m_pos);
 	m_ObjectModel->SetRotation(m_qrot);
 	m_ObjectModel->SetScale(m_scale);
-
-	if (Pad(0).IsTrigger(enButtonA))
-	{
-		//ƒpƒ‰ƒ[ƒ^
-		ObjectParams param;
-		param.BlockID = 1;
-		param.Durable = 500;
-		PlaceObject(param);
-	}
 }
 
 void PlacementObject::CalcObjectPos()

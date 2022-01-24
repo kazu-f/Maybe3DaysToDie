@@ -95,6 +95,18 @@ bool CGameScene::Start()
 	m_SaveDataFile.ObjectFilePath[1] = "Assets/modelData/CubeBlock/BookBlock.tkm";
 	m_SaveDataFile.ObjectFilePath[2] = "Assets/modelData/CubeBlock/ShelfBlock.tkm";
 
+	//ワールドデータ関係を記録する
+	m_ItemBar->SetWorldData(
+		m_PlacementObject,
+		m_DestroyObject,
+		&m_SaveDataFile,
+		tool,
+		m_LoadingByChunk,
+		&m_TerrainSave,
+		&m_TerrainLoad,
+		&m_WorldConfig,
+		m_Stage
+	);
 	return true;
 }
 
