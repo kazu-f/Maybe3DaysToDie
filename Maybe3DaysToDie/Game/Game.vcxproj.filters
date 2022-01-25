@@ -125,6 +125,7 @@
       <Filter>TerrainManager</Filter>
     </ClCompile>
     <ClCompile Include="Item\BlockItem.cpp" />
+    <ClCompile Include="MultiThread\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -377,6 +378,7 @@
       <Filter>TerrainManager</Filter>
     </ClInclude>
     <ClInclude Include="Item\BlockItem.h" />
+    <ClInclude Include="MultiThread\Thread.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">

@@ -209,6 +209,7 @@
     <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
     <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
     <ClCompile Include="Save\TerrainSave\TerrainSave.cpp" />
+    <ClCompile Include="MultiThread\Thread.cpp" />
     <ClCompile Include="Tool\Tool.cpp" />
     <ClCompile Include="GameConfig\WorldConfig\WorldConfig.cpp" />
     <ClCompile Include="Tool\ToolDataFile.cpp" />
@@ -303,6 +304,7 @@
     <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />
     <ClInclude Include="TerrainManager\TerrainWorld.h" />
     <ClInclude Include="Save\TerrainSave\TerrainSave.h" />
+    <ClInclude Include="MultiThread\Thread.h" />
     <ClInclude Include="Tool\Tool.h" />
     <ClInclude Include="GameConfig\WorldConfig\WorldConfig.h" />
     <ClInclude Include="Tool\ToolDataFile.h" />
