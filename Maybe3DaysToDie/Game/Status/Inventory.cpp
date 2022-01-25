@@ -3,24 +3,6 @@
 #include "Player/Player.h"
 #include <windowsx.h>
 
-LRESULT Inventory::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	switch (msg)
-	{
-
-	case WM_LBUTTONDOWN:
-	{
-		m_Pt.x = GET_X_LPARAM(lParam);
-		m_Pt.y = GET_Y_LPARAM(lParam);
-	}
-	break;
-
-	default:
-		return DefWindowProc(hWnd, msg, wParam, lParam);
-	}
-	return 0;
-}
-
 bool Inventory::Start()
 {
 	m_Inbentory = NewGO<prefab::CSpriteRender>(2);
