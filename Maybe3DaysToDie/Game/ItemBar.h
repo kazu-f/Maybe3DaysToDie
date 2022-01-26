@@ -8,7 +8,6 @@ class Tool;
 class SaveDataFile;
 class TerrainSave;
 class TerrainLoad;
-class WorldConfig;
 class Stage;
 
 class Mause;
@@ -35,7 +34,6 @@ public:
 		LoadingByChunk* Lc,
 		TerrainSave* Ts,
 		TerrainLoad* Tl,
-		WorldConfig* Wc,
 		Stage* s) {
 		m_PlacementObject = Po;
 		m_DestroyObject = Do;
@@ -44,7 +42,6 @@ public:
 		m_LoadingByChunk = Lc;
 		m_TerrainSave = Ts;
 		m_TerrainLoad = Tl;
-		m_WorldConfig = Wc;
 		m_Stage = s;
 	}
 private:
@@ -63,7 +60,6 @@ private:
 	TerrainSave* m_TerrainSave = nullptr;		//地形セーブ用のクラス
 	TerrainLoad* m_TerrainLoad = nullptr;
 	Stage* m_Stage = nullptr;
-	WorldConfig* m_WorldConfig = nullptr;//ワールド設定
 
 	float m_InstallTime = 0.0f;
 };

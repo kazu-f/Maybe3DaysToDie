@@ -1,5 +1,4 @@
 #pragma once
-#include "GameConfig/WorldConfig/WorldConfig.h"
 
 #include "Save/TerrainSave/TerrainSave.h"
 #include "Load/TerrainLoad/TerrainLoad.h"
@@ -48,5 +47,4 @@ private:
 	TerrainLoad m_TerrainLoad;
 	SaveDataFile m_SaveDataFile;
 	LoadingByChunk* m_LoadingByChunk = nullptr;
-	WorldConfig m_WorldConfig;		//ƒ[ƒ‹ƒhİ’è
 };

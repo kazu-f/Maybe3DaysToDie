@@ -26,4 +26,8 @@ const float SetRange = 500.0f;		//プレイヤーが届く範囲
 
 static const int BlockKinds = 4;		//ブロックの種類
 
+//ゲーム中にロードしているチャンクの範囲
+static const int LoadingChunkCols = 3;
+static const int LoadingChunks = 9;
+
 using namespace Engine;

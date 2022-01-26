@@ -40,9 +40,6 @@
     <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp">
       <Filter>Enemy\StandardZombie</Filter>
     </ClCompile>
-    <ClCompile Include="GameConfig\WorldConfig\WorldConfig.cpp">
-      <Filter>GameConfig\WorldConfig</Filter>
-    </ClCompile>
     <ClCompile Include="Load\TerrainLoad\TerrainLoad.cpp">
       <Filter>Load\TerrainLoad</Filter>
     </ClCompile>
@@ -166,9 +163,6 @@
     </ClInclude>
     <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h">
       <Filter>Enemy\StandardZombie</Filter>
-    </ClInclude>
-    <ClInclude Include="GameConfig\WorldConfig\WorldConfig.h">
-      <Filter>GameConfig\WorldConfig</Filter>
     </ClInclude>
     <ClInclude Include="Load\TerrainLoad\TerrainLoad.h">
       <Filter>Load\TerrainLoad</Filter>

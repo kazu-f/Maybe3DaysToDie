@@ -10,7 +10,6 @@
 #include "Load/TerrainLoad/TerrainLoad.h"
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "Stage.h"
-#include "GameConfig/WorldConfig/WorldConfig.h"
 
 namespace {
 	const Vector2 ItemBarPos = { -300.0f,-285.0f };
@@ -36,8 +35,6 @@ bool ItemBar::Start()
 	m_DestroyObject->SetTool(m_Tool);
 
 	m_LoadingByChunk->SetTerrainManager(m_Stage->GetTerrainWorld());
-	//ワールド設定をセット
-	m_LoadingByChunk->SetWorldConfig(m_WorldConfig);
 	//セーブデータファイルをセット
 	m_LoadingByChunk->SetSaveDataFile(m_SaveDataFile);
 	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
