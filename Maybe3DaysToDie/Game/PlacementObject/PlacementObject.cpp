@@ -125,8 +125,8 @@ void PlacementObject::PlaceObject(ObjectParams& params)
 			id_z = static_cast<int>(id_z % ChunkWidth);
 
 			//セーブデータに直接書き込み
-			chunkData.ObjId[id_x][id_y][id_z] = params.BlockID;
-			chunkData.ObjDurable[id_x][id_y][id_z] = params.Durable;
+			chunkData.ObjData[id_x][id_y][id_z].ObjId = params.BlockID;
+			chunkData.ObjData[id_x][id_y][id_z].ObjDurable = params.Durable;
 			auto& block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
 			block.AddBlock(params, m_pos, rot, scale);
 		}

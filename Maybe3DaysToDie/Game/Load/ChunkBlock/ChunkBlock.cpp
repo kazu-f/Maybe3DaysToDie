@@ -64,8 +64,8 @@ void ChunkBlock::MoveChunk()
 				m_Block[x][y][z].SetPosAndRot(pos, Quaternion::Identity);
 				//パラメータ
 				ObjectParams param;
-				param.BlockID = chunkData.ObjId[x][y][z];
-				param.Durable = chunkData.ObjDurable[x][y][z];
+				param.BlockID = chunkData.ObjData[x][y][z].ObjId;
+				param.Durable = chunkData.ObjData[x][y][z].ObjDurable;
 				int BlockID = static_cast<int>(param.BlockID);
 				param.BlockName = m_SaveDataFile->ObjectFilePath[BlockID];
 				//パラメータをセット
