@@ -138,5 +138,9 @@ void ChunkCollision::MoveChunk()
 			}
 		}
 	}
-	UpdateCol();
+	//移動したのでコリジョン更新
+	//ブロック用にコリジョン更新
+	UpdateColForBlock();
+	//地形用にコリジョン更新
+	UpdateColForTerrain();
 }

@@ -73,7 +73,6 @@ void PlacementObject::CalcObjectPos()
 	//最終的な位置
 	Vector3 lastPos;
 	lastPos.Set(end);
-	CanPlace = callback.isHit;
 	//レイが衝突しているとき
 	if (callback.isHit)
 	{
@@ -82,6 +81,18 @@ void PlacementObject::CalcObjectPos()
 		m_hitObj = ((DestructibleObject*)callback.ColObj->getUserPointer());
 	}
 	m_pos.Set(lastPos);
+	CanPlace = false;
+	if (m_pos.x >= 0.0f && m_pos.x <= (ChunkWidth - 1) * OBJECT_UNIT * MAX_CHUNK_SIDE)
+	{
+		if (m_pos.z >= 0.0f && m_pos.z <= (ChunkWidth - 1) * OBJECT_UNIT * MAX_CHUNK_SIDE)
+		{
+			if (m_pos.y >= 0.0f && m_pos.y <= (ChunkHeight - 1) * OBJECT_UNIT)
+			{
+				//位置が範囲内の時
+				CanPlace = callback.isHit;
+			}
+		}
+	}
 }
 
 //todo [最適化]後で処理見直せ
@@ -124,6 +135,8 @@ void PlacementObject::PlaceObject(ObjectParams& params)
 			int id_z = Pos.z / OBJECT_UNIT;
 			id_z = static_cast<int>(id_z % ChunkWidth);
 
+			//todo 上限言ったら0になる横は配列外アクセス
+			
 			//セーブデータに直接書き込み
 			chunkData.ObjData[id_x][id_y][id_z].ObjId = params.BlockID;
 			chunkData.ObjData[id_x][id_y][id_z].ObjDurable = params.Durable;
