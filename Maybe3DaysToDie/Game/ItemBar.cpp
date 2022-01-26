@@ -45,7 +45,6 @@ bool ItemBar::Start()
 	m_DestroyObject->SetSaveData(m_SaveDataFile);
 	return true;
 }
-
 void ItemBar::Update()
 {
 	//WPARAM wPram = NULL;
@@ -56,21 +55,26 @@ void ItemBar::Update()
 	//else if (zDelta < -0) {
 	//	m_SelectNum--;
 	//}
-
-	int zDelta = GET_WHEEL_DELTA_WPARAM(WM_MOUSEWHEEL);
-	if (zDelta > 1) {
-		m_SelectNum++;
-	}
-	else if (zDelta < -1) {
-		m_SelectNum--;
-	}
-	WPARAM wParam = GET_KEYSTATE_WPARAM(MK_LBUTTON);
+	//int zDelta = GET_WHEEL_DELTA_WPARAM(wp);
+	//if (zDelta > 0) {
+	//	m_SelectNum++;
+	//}
+	//else if (zDelta < -0) {
+	//	m_SelectNum--;
+	//}
 	if (GetAsyncKeyState(MK_LBUTTON)) {
-		//パラメータ
-		ObjectParams param;
-		param.BlockID = 1;
-		param.Durable = 500;
-		m_PlacementObject->PlaceObject(param);
+		m_InstallTime += GameTime().GetFrameDeltaTime();
+		if (m_InstallTime > 0.2f) {
+			//パラメータ
+			ObjectParams param;
+			param.BlockID = 1;
+			param.Durable = 500;
+			m_PlacementObject->PlaceObject(param);
+			m_InstallTime = 0.0f;
+		}
+	}
+	else {
+		m_InstallTime = 0.2f;
 	}
 
 	if (GetAsyncKeyState(MK_RBUTTON)) {
@@ -90,4 +94,19 @@ void ItemBar::OnDestroy()
 {
 	DeleteGO(m_ItemIcon);
 	DeleteGO(m_SelectItemIcon);
+}
+
+LRESULT ItemBar::WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
+{
+	switch (msg) {
+	case WM_MOUSEWHEEL:
+		int zDelta = GET_WHEEL_DELTA_WPARAM(wp);
+		if (zDelta > 0) {
+			m_SelectNum++;
+		}
+		else if (zDelta < -0) {
+			m_SelectNum--;
+		}
+	}
+	return 0;
 }

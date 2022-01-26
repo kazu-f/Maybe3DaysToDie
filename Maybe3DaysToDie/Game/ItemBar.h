@@ -11,6 +11,8 @@ class TerrainLoad;
 class WorldConfig;
 class Stage;
 
+class Mause;
+
 namespace {
 	const int SelectNum = 8;	//アイテムバーの数
 }
@@ -46,6 +48,8 @@ public:
 		m_Stage = s;
 	}
 private:
+	LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
+private:
 	prefab::CSpriteRender* m_ItemIcon = nullptr;
 	prefab::CSpriteRender* m_SelectItemIcon = nullptr;
 	const float ItemOneBoxSize = 75.0f;			//アイテム１個のサイズ
@@ -60,5 +64,7 @@ private:
 	TerrainLoad* m_TerrainLoad = nullptr;
 	Stage* m_Stage = nullptr;
 	WorldConfig* m_WorldConfig = nullptr;//ワールド設定
+
+	float m_InstallTime = 0.0f;
 };
 

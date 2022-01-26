@@ -22,8 +22,6 @@ private:
 	bool Start()override;
 	void Update()override;
 	void OnDestroy()override;
-
-	LRESULT  CALLBACK  WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	/// <summary>
 	/// インベントリの状態に遷移するかの判定をする
 	/// </summary>
@@ -38,5 +36,4 @@ private:
 	Player* m_player = nullptr;
 	GameItemBase* m_ItemSlot[7][6] = { nullptr };
 
-	POINT m_Pt;							//マウスカーソルの座標
 };
