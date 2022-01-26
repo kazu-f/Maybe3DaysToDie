@@ -25,7 +25,6 @@ public:
 	float GetItemSize()const {
 		return ItemOneBoxSize;
 	}
-
 	void SetWorldData(
 		PlacementObject* Po,
 		DestroyObject* Do,

@@ -59,6 +59,7 @@ void ItemBar::Update()
 	//else if (zDelta < -0) {
 	//	m_SelectNum--;
 	//}
+	WndProc(g_hWnd, NULL, WM_LBUTTONDOWN, 0);
 	if (GetAsyncKeyState(MK_LBUTTON)) {
 		m_InstallTime += GameTime().GetFrameDeltaTime();
 		if (m_InstallTime > 0.2f) {
@@ -84,7 +85,12 @@ void ItemBar::Update()
 	//	}
 	//}
 	m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
-
+	for (int a = 1; a <= 10; a++) {
+		wchar_t* keyState = (wchar_t*)a;
+		if (GetAsyncKeyState((int)keyState)) {
+			m_SelectNum = a;
+		}
+	}
 }
 
 void ItemBar::OnDestroy()
@@ -95,15 +101,12 @@ void ItemBar::OnDestroy()
 
 LRESULT ItemBar::WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 {
-	switch (msg) {
-	case WM_MOUSEWHEEL:
-		int zDelta = GET_WHEEL_DELTA_WPARAM(wp);
-		if (zDelta > 0) {
-			m_SelectNum++;
-		}
-		else if (zDelta < -0) {
-			m_SelectNum--;
-		}
+	int zDelta = GET_WHEEL_DELTA_WPARAM(wp);
+	if (zDelta > 0) {
+		m_SelectNum++;
+	}
+	else if (zDelta < -0) {
+		m_SelectNum--;
 	}
 	return 0;
 }
