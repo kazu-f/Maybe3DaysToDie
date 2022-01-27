@@ -73,7 +73,7 @@ void Player::Update()
 	}
 	else
 	{
-		m_Camera->SetMovingMouse(true);		
+		m_Camera->SetMovingMouse(true);
 	}
 	//カメラにポジションを渡す
 	m_Camera->SetPosition(m_Pos);
@@ -150,18 +150,34 @@ void Player::Move()
 
 		m_mulSpeed = 2.0f;
 	}
-	static float gravity = 0.0f;
-	gravity -= 0.01;
-	if (!m_IsChasePlayer) {
-		if (GetAsyncKeyState('1')) {
-			MoveSpeed.y = 1.0f;
+	/////重力処理////////////////////////
+	{
+		static float gravity = 0.0f;
+		gravity -= 0.7;
+		if (!m_IsChasePlayer) {
 			gravity = 0.0f;
 		}
+
+		/////////ジャンプ処理/////////////////////////////////////////////
+		{
+			if (GetAsyncKeyState(VK_SPACE)) {
+				//神視点の時はジャンプし続ける
+				if (m_IsChasePlayer) {
+					if (m_Characon.IsOnGround()) {
+						MoveSpeed.y = 5.0f;
+					}
+				}
+				else {
+					MoveSpeed.y = 5.0f;
+				}
+			}
+		}
+		/////////////////////
+		if (m_Characon.IsOnGround()) {
+			gravity = 0.0f;
+		}
+		MoveSpeed.y += gravity;
 	}
-	if (m_Characon.IsOnGround()) {
-		gravity = 0.0f;
-	}
-	MoveSpeed.y += gravity;
 	MoveSpeed *= MoveDistance * m_mulSpeed;
 	m_Pos = m_Characon.Execute(MoveSpeed);
 
