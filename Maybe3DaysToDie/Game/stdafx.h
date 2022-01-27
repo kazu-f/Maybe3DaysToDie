@@ -12,6 +12,11 @@ enum ToolKinds {
 	DebugTool = 0xffffffff,		//デバッグ用ツール
 };
 
+//アクセスできるオブジェクトの種類
+enum AccessTag {
+	NonAccess = 0,		//アクセスできない
+	Root = 1 << 0,		//ルート
+};
 
 #include "DestructibleObject/DestructibleObject.h"
 #include "nlohmann/json.hpp"						//jsonファイルを扱うためのヘッダ。

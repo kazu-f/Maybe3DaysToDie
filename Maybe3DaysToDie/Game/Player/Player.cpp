@@ -46,7 +46,7 @@ bool Player::Start()
 	//m_Model->SetPosition(m_Pos);
 	//m_Model->SetRotation(m_Rot);
 	//m_Model->SetScale(m_Scale);
-	m_Characon.Init(100.0f, 100.0f, m_Pos);
+	m_Characon.Init(50.0f, 90.0f, m_Pos);
 	return true;
 }
 

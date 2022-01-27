@@ -45,6 +45,7 @@ public:
 	}
 private:
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
+	void ItemSlotKey(int vKey,int slot);
 private:
 	prefab::CSpriteRender* m_ItemIcon = nullptr;
 	prefab::CSpriteRender* m_SelectItemIcon = nullptr;
@@ -60,6 +61,7 @@ private:
 	TerrainLoad* m_TerrainLoad = nullptr;
 	Stage* m_Stage = nullptr;
 
-	float m_InstallTime = 0.0f;
+	float m_InstallTime = 0.0f;		//ê›íuÇ≈Ç´ÇÈéûä‘
+	float m_DeleteTime = 0.0f;
 };
 
