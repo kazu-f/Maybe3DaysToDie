@@ -3,6 +3,7 @@
 #include "TerrainManager/TerrainWorld.h"
 #include "Tool/Tool.h"
 #include "SaveDataFile.h"
+#include "RayTest.h"
 
 DestroyObject::DestroyObject()
 {

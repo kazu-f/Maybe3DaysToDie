@@ -2,6 +2,7 @@
 #include "PlacementObject.h"
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "SaveDataFile.h"
+#include "RayTest.h"
 
 PlacementObject::PlacementObject()
 {
