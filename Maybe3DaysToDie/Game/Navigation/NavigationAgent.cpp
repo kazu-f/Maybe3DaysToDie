@@ -10,7 +10,7 @@ void NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start
 
 	//Œo˜H‚ðŒvŽZ‚·‚éB
 	if (m_isArrive && m_serchTime > serchTime) {
-		m_nodeList = m_astar.Search(start, goal, m_generator->GetCellList());
+		//m_nodeList = m_astar.Search(start, goal, m_generator->GetCellList());
 		m_serchTime = 0.0f;
 	}
 

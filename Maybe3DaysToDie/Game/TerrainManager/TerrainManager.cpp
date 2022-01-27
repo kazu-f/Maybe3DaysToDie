@@ -34,7 +34,7 @@ namespace nsTerrain {
 			&& !m_isInitNVM)
 		{
 			//NVMデータを作成。
-			m_NVMGenerator.CreateNVM(m_terrainWorlds[0][0]->GetTerrainRender(), true);
+			//m_NVMGenerator.CreateNVM(m_terrainWorlds[0][0]->GetTerrainRender(), true);
 			//敵キャラを作成。
 			m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
 

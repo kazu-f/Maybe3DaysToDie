@@ -4,7 +4,7 @@ struct ToolInfo;
 namespace nsTerrain {
 	class TerrainChunkData;
 
-	static const int NEAR_VERT_COUNT = 4;
+	static const int NEAR_CHUNK_MAXCOUNT = 4;
 
 
 	//地形オブジェクト。
@@ -16,10 +16,7 @@ namespace nsTerrain {
 		/// <summary>
 		/// ワールドをセット。
 		/// </summary>
-		void SetTerrainChunk(TerrainChunkData* world)
-		{
-			m_chunkData = world;
-		}
+		void AddTerrainChunk(TerrainChunkData* world);
 
 		/// <summary>
 		/// コライダーの登録を解除するかどうかを計算。
@@ -68,12 +65,13 @@ namespace nsTerrain {
 
 
 	private:
-		TerrainChunkData* m_chunkData = nullptr;		//チャンク情報。
-		
+		TerrainChunkData* m_chunkData[NEAR_CHUNK_MAXCOUNT] = { nullptr };		//チャンク情報。
+		char m_terrainChunkDataSize = 0;											//チャンク情報の保持数。
+
 		int m_terrainId = -1;		//地形id番号。
 		float m_voxel = 1.0f;		//ボクセル値。
 
-		bool m_registColider = false;
+		//bool m_registColider = false;
 	};
 
 }

@@ -21,6 +21,21 @@ namespace nsTerrain {
 	{
 	}
 
+	void Terrain::AddTerrainChunk(TerrainChunkData* world)
+	{
+		//チャンクデータ保持数が最大数を越えていない。
+		if (m_terrainChunkDataSize < NEAR_CHUNK_MAXCOUNT) {
+			for (int i = 0; i < m_terrainChunkDataSize; i++)
+			{
+				//登録済みなら無視。
+				if (m_chunkData[i] == world) return;
+			}
+
+			m_chunkData[m_terrainChunkDataSize] = world;
+			m_terrainChunkDataSize++;
+		}
+	}
+
 	void Terrain::Damage(const ToolInfo& tool)
 	{
 		int damage = tool.AttackPower;
@@ -47,6 +62,9 @@ namespace nsTerrain {
 		}
 
 		//地形が更新された。
-		m_chunkData->EnableUpdated();
+		for (int i = 0; i < m_terrainChunkDataSize; i++)
+		{
+			m_chunkData[i]->EnableUpdated();
+		}
 	}
 }

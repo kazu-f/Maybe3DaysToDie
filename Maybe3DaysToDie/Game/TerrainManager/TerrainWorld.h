@@ -2,6 +2,7 @@
 
 #include "MarchingCubeTable.h"
 #include "DestructibleObject/Terrain/Terrain.h"
+#include "Navigation/NVMGenerator.h"
 
 namespace nsTerrain {
 
@@ -22,7 +23,13 @@ namespace nsTerrain {
 		void Update()override final;
 		void OnDestroy()override final;
 		void ForwardRender(RenderContext& rc) override final;
+	
 	public:
+		/// <summary>
+		/// ナビメッシュを生成する。
+		/// </summary>
+		void CreateNVM();
+
 		/// <summary>
 		/// 地形情報データを登録。
 		/// </summary>
@@ -105,6 +112,11 @@ namespace nsTerrain {
 		std::vector<Vector3> m_vertices;				//頂点データ。
 		CPhysicsStaticObject m_staticObj;				//物理オブジェクト。
 		Vector3 m_position = Vector3::Zero;				//座標。
+
+		std::vector<NVMGenerator::Cell> m_cellList;		//セルリスト。
+		bool m_isNVMDebug = false;						//デバッグ描画する？
+		NVMDebugDraw* m_nvmDebugDraw = nullptr;			//デバッグ描画。
+
 		bool m_isInited = false;						//初期化済みフラグ。
 	};
 
