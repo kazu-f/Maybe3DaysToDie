@@ -123,6 +123,7 @@
     </ClCompile>
     <ClCompile Include="Item\BlockItem.cpp" />
     <ClCompile Include="MultiThread\Thread.cpp" />
+    <ClCompile Include="AccessObject\AccessObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -373,6 +374,8 @@
     </ClInclude>
     <ClInclude Include="Item\BlockItem.h" />
     <ClInclude Include="MultiThread\Thread.h" />
+    <ClInclude Include="AccessObject\AccessObject.h" />
+    <ClInclude Include="RayTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">
