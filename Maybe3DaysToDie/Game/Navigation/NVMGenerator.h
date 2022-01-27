@@ -15,12 +15,14 @@ class NVMDebugDraw;
 class NVMGenerator
 {
 public:
+
 	//セルの状態。
 	enum ListNo {
 		EnNoneList,
 		EnCloseList,
 		EnOpenList
 	};
+
 	/// <summary>
 	/// AStarで使用するセル情報。
 	/// </summary>
@@ -35,35 +37,49 @@ public:
 		float totalCost = 0.0f;					//最終的なコスト。
 		int listNum = EnNoneList;				//どのリストに属しているか。
 	};
+
+	using CellList = std::vector<Cell>;
+	using ChunkID = Vector2;
+
+private:
+	static bool isInstantiate;								//インスタンスが作成されているか。
+	bool m_isDebugDraw = false;								//デバッグ描画する？
+	NVMDebugDraw* m_nvmDebugDraw = nullptr;					//デバッグ描画。
+	std::map<ChunkID, CellList> m_chunkIDtoCellListMap;		//チャンクIDからセルリストを取得するマップ。
+
 public:
 	NVMGenerator();
 	~NVMGenerator();
-public:
 
+public:
 	/// <summary>
 	/// 地形よりNVMを作成する。
 	/// </summary>
 	/// <param name="terrain">地形</param>
 	/// <param name="isDebugDraw">デバッグ描画。</param>
 	void CreateNVM(nsTerrain::TerrainRender* terrain, bool isDebugDraw = false);
-	/// <summary>
+	
+	/// /// <summary>
 	/// 地形データよりNVMを更新する。
 	/// <para>ブロックが破壊されたらチャンク分NVMの更新を行う。</para>
 	/// </summary>
 	/// <param name="terrain"></param>
 	void UpdateNVM(nsTerrain::TerrainRender* terrain);
-	/// <summary>
+	
+	/// /// <summary>
 	/// デバッグ描画。
 	/// </summary>
 	void DebugDraw(nsTerrain::TerrainRender* terrain);
-	/// <summary>
-	/// セルリストを取得。
-	/// </summary>
-	/// <returns></returns>
-	std::vector<Cell>& GetCellList()
-	{
-		return m_cellList;
-	}
+	
+	///// /// <summary>
+	///// セルリストを取得。
+	///// </summary>
+	///// <returns></returns>
+	//std::vector<Cell>& GetCellList()
+	//{
+	//	return m_cellList;
+	//}
+
 	/// <summary>
 	/// デバッグ描画のフラグを切り替える。
 	/// </summary>
@@ -71,10 +87,5 @@ public:
 	{
 		m_isDebugDraw = !m_isDebugDraw;
 	}
-private:
-	static bool isInstantiate;				//インスタンスが作成されているか。
-	std::vector<Cell> m_cellList;			//セルリスト。
-	bool m_isDebugDraw = false;				//デバッグ描画する？
-	NVMDebugDraw* m_nvmDebugDraw = nullptr;	//デバッグ描画。
 };
 
