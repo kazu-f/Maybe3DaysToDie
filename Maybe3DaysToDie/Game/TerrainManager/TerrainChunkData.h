@@ -11,7 +11,7 @@ namespace nsTerrain {
 		{
 			if (CheckChunkSize(x,y,z)) {
 				m_terrainMap[x][y][z] = terrain;
-				m_terrainMap[x][y][z]->SetTerrainChunk(this);
+				m_terrainMap[x][y][z]->AddTerrainChunk(this);
 			}
 		}
 		/// <summary>
