@@ -65,7 +65,7 @@ void ItemBar::Update()
 		if (m_InstallTime > 0.2f) {
 			//ƒpƒ‰ƒ[ƒ^
 			ObjectParams param;
-			param.BlockID = 1;
+			param.BlockID = 3;
 			param.Durable = 500;
 			m_PlacementObject->PlaceObject(param);
 			m_InstallTime = 0.0f;
@@ -76,7 +76,14 @@ void ItemBar::Update()
 	}
 
 	if (GetAsyncKeyState(MK_RBUTTON)) {
+		m_DeleteTime += GameTime().GetFrameDeltaTime();
+		if (m_DeleteTime > 0.2f) {
 		m_DestroyObject->AddObjectDamage();
+		m_DeleteTime = 0.0f;
+		}
+	}
+	else {
+		m_DeleteTime = 0.2f;
 	}
 	//if (GetAsyncKeyState(MK_SHIFT)) {
 	//	m_SelectNum--;
@@ -85,12 +92,14 @@ void ItemBar::Update()
 	//	}
 	//}
 	m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
-	for (int a = 1; a <= 10; a++) {
-		wchar_t* keyState = (wchar_t*)a;
-		if (GetAsyncKeyState((int)keyState)) {
-			m_SelectNum = a;
-		}
-	}
+	ItemSlotKey('1', 0);
+	ItemSlotKey('2', 1);
+	ItemSlotKey('3', 2);
+	ItemSlotKey('4', 3);
+	ItemSlotKey('5', 4);
+	ItemSlotKey('6', 5);
+	ItemSlotKey('7', 6);
+	ItemSlotKey('8', 7);
 }
 
 void ItemBar::OnDestroy()
@@ -109,4 +118,11 @@ LRESULT ItemBar::WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 		m_SelectNum--;
 	}
 	return 0;
+}
+
+void ItemBar::ItemSlotKey(int vKey, int slot)
+{
+	if (GetAsyncKeyState(vKey)) {
+		m_SelectNum = slot;
+	}
 }
