@@ -159,6 +159,7 @@
     </ImageContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AccessObject\AccessObject.cpp" />
     <ClCompile Include="Item\BlockItem.cpp" />
     <ClCompile Include="ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
@@ -209,11 +210,12 @@
     <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
     <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
     <ClCompile Include="Save\TerrainSave\TerrainSave.cpp" />
+    <ClCompile Include="MultiThread\Thread.cpp" />
     <ClCompile Include="Tool\Tool.cpp" />
-    <ClCompile Include="GameConfig\WorldConfig\WorldConfig.cpp" />
     <ClCompile Include="Tool\ToolDataFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccessObject\AccessObject.h" />
     <ClInclude Include="Item\BlockItem.h" />
     <ClInclude Include="ItemBar.h" />
     <ClInclude Include="Item\GameItemTool.h" />
@@ -275,6 +277,7 @@
     <ClInclude Include="nlohmann\ordered_map.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp" />
+    <ClInclude Include="RayTest.h" />
     <ClInclude Include="SaveDataFile.h" />
     <ClInclude Include="Stage\Hill\Hill.h" />
     <ClInclude Include="Navigation\NVMGenerator.h" />
@@ -303,8 +306,8 @@
     <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />
     <ClInclude Include="TerrainManager\TerrainWorld.h" />
     <ClInclude Include="Save\TerrainSave\TerrainSave.h" />
+    <ClInclude Include="MultiThread\Thread.h" />
     <ClInclude Include="Tool\Tool.h" />
-    <ClInclude Include="GameConfig\WorldConfig\WorldConfig.h" />
     <ClInclude Include="Tool\ToolDataFile.h" />
   </ItemGroup>
   <ItemGroup>

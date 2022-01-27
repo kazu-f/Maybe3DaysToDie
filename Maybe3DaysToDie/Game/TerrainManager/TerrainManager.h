@@ -2,7 +2,6 @@
 #include "MarchingCubeTable.h"
 #include "TerrainChunkData.h"
 #include "TerrainWorld.h"
-#include <Game\GameConfig\WorldConfig\WorldConfig.h>
 #include "Navigation/NVMGenerator.h"
 #include "Enemy/EnemyGenerator.h"
 

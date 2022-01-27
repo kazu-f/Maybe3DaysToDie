@@ -3,6 +3,7 @@
 #include "TerrainManager/TerrainWorld.h"
 #include "Tool/Tool.h"
 #include "SaveDataFile.h"
+#include "RayTest.h"
 
 DestroyObject::DestroyObject()
 {
@@ -92,13 +93,13 @@ void DestroyObject::AddObjectDamage()
 			//セーブデータに直接書き込み
 			if (param.Durable > 0)
 			{
-				chunkData.ObjId[id_x][id_y][id_z] = param.BlockID;
+				chunkData.ObjData[id_x][id_y][id_z].ObjId = param.BlockID;
 			}
 			else
 			{
-				chunkData.ObjId[id_x][id_y][id_z] = 1;
+				chunkData.ObjData[id_x][id_y][id_z].ObjId = 0;
 			}
-			chunkData.ObjDurable[id_x][id_y][id_z] = param.Durable;
+			chunkData.ObjData[id_x][id_y][id_z].ObjDurable = param.Durable;
 
 		}
 	}

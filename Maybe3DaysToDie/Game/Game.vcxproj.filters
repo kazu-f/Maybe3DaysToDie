@@ -40,9 +40,6 @@
     <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp">
       <Filter>Enemy\StandardZombie</Filter>
     </ClCompile>
-    <ClCompile Include="GameConfig\WorldConfig\WorldConfig.cpp">
-      <Filter>GameConfig\WorldConfig</Filter>
-    </ClCompile>
     <ClCompile Include="Load\TerrainLoad\TerrainLoad.cpp">
       <Filter>Load\TerrainLoad</Filter>
     </ClCompile>
@@ -125,6 +122,8 @@
       <Filter>TerrainManager</Filter>
     </ClCompile>
     <ClCompile Include="Item\BlockItem.cpp" />
+    <ClCompile Include="MultiThread\Thread.cpp" />
+    <ClCompile Include="AccessObject\AccessObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -165,9 +164,6 @@
     </ClInclude>
     <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h">
       <Filter>Enemy\StandardZombie</Filter>
-    </ClInclude>
-    <ClInclude Include="GameConfig\WorldConfig\WorldConfig.h">
-      <Filter>GameConfig\WorldConfig</Filter>
     </ClInclude>
     <ClInclude Include="Load\TerrainLoad\TerrainLoad.h">
       <Filter>Load\TerrainLoad</Filter>
@@ -377,6 +373,9 @@
       <Filter>TerrainManager</Filter>
     </ClInclude>
     <ClInclude Include="Item\BlockItem.h" />
+    <ClInclude Include="MultiThread\Thread.h" />
+    <ClInclude Include="AccessObject\AccessObject.h" />
+    <ClInclude Include="RayTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">

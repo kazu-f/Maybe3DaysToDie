@@ -2,17 +2,22 @@
 #include "Load/ChunkCollision/ChunkCollision.h"
 #include "Load/ChunkBlock/ChunkBlock.h"
 #include "TerrainManager/TerrainManager.h"
-#include "GameConfig/WorldConfig/WorldConfig.h"
 
 class SaveDataFile;
-class WorldConfig;
 class LoadingByChunk :public IGameObject
 {
 private:
 
 public:
-	LoadingByChunk();
+	LoadingByChunk()
+	{
+		//サイズの最大値セット
+		BlockModel.resize(BlockKinds);
+	}
 	~LoadingByChunk();
+
+
+	void OnDestroy();
 
 	/// <summary>
 	/// セーブデータファイルをセット
@@ -21,15 +26,6 @@ public:
 	void SetSaveDataFile(SaveDataFile* file)
 	{
 		m_SaveDataFile = file;
-	}
-
-	/// <summary>
-	/// ワールド設定をセット
-	/// </summary>
-	/// <param name="config">ワールド設定</param>
-	void SetWorldConfig(WorldConfig* config)
-	{
-		m_config = config;
 	}
 
 	void SetTerrainManager(nsTerrain::TerrainManager* manager)
@@ -70,6 +66,11 @@ public:
 	/// </summary>
 	void InitChunkBlocks();
 
+	/// <summary>
+	/// モデルの初期化
+	/// </summary>
+	void InitModels();
+
 	void Update();
 
 	/// <summary>
@@ -102,13 +103,17 @@ public:
 	/// </summary>
 	ChunkBlock& GetChunkBlocks(int ID[2]);
 
+	/// <summary>
+	/// モデルの更新
+	/// </summary>
+	void UpdateModels();
 
  private:
-	WorldConfig* m_config = nullptr;
 	SaveDataFile* m_SaveDataFile = nullptr;
 	int PlayerPosInGrid[2] = { 0 };
 	bool m_isDirty = true;		//更新するかどうか
 	ChunkCollision m_ChunkCol[LoadingChunkCols][LoadingChunkCols];		//チャンクごとのブロック
 	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];
 	nsTerrain::TerrainManager* m_TerrainManager = nullptr;		//テラインマネージャー
+	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル
 };

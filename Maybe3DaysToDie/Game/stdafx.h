@@ -11,10 +11,11 @@ enum ToolKinds {
 	others = 1 << 3,		//その他
 	DebugTool = 0xffffffff,		//デバッグ用ツール
 };
-enum class ObjectType {
-	Type = 0,
-	Terrain = 1 << 0,
-	Block = 1 << 1,
+
+//アクセスできるオブジェクトの種類
+enum AccessTag {
+	NonAccess = 0,		//アクセスできない
+	Root = 1 << 0,		//ルート
 };
 
 #include "DestructibleObject/DestructibleObject.h"
@@ -28,6 +29,10 @@ const int MAX_CHUNK_SIDE = 64;		//ワールド全体の一辺にいくつチャンクがあるか
 
 const float SetRange = 500.0f;		//プレイヤーが届く範囲
 
-static const int BlockKinds = 3;		//ブロックの種類
+static const int BlockKinds = 4;		//ブロックの種類
+
+//ゲーム中にロードしているチャンクの範囲
+static const int LoadingChunkCols = 3;
+static const int LoadingChunks = 9;
 
 using namespace Engine;

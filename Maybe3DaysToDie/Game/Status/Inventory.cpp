@@ -3,24 +3,6 @@
 #include "Player/Player.h"
 #include <windowsx.h>
 
-LRESULT Inventory::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	switch (msg)
-	{
-
-	case WM_LBUTTONDOWN:
-	{
-		m_Pt.x = GET_X_LPARAM(lParam);
-		m_Pt.y = GET_Y_LPARAM(lParam);
-	}
-	break;
-
-	default:
-		return DefWindowProc(hWnd, msg, wParam, lParam);
-	}
-	return 0;
-}
-
 bool Inventory::Start()
 {
 	m_Inbentory = NewGO<prefab::CSpriteRender>(2);
@@ -62,6 +44,9 @@ void Inventory::SwhichInventoryState()
 	else {
 		m_player->CloseInventory();
 		m_IsShow = false;
+		//マウスカーソルの位置を固定
+		int DefaultPoint[2] = { 500,300 };
+		SetCursorPos(DefaultPoint[0], DefaultPoint[1]);
 		while (true) {
 			int returnNo = ShowCursor(false);
 			m_Inbentory->SetActiveFlag(false);

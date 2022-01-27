@@ -3,6 +3,11 @@
 #include "SaveDataFile.h"
 
 static const int MaxInstanceNum = ChunkWidth * ChunkWidth * ChunkHeight;
+struct InstancingData {
+	Vector3 pos = Vector3::Zero;
+	Quaternion rot = Quaternion::Identity;
+	Vector3 scale = Vector3::One;
+};
 
 class ChunkBlock
 {
@@ -10,14 +15,12 @@ public:
 	ChunkBlock() 
 	{		
 		//サイズの最大値セット
-		BlockModel.resize(BlockKinds);
+		//BlockModel.resize(BlockKinds);
 	}
 	~ChunkBlock() 
 	{
-		OnDestroy();
 	}
 
-	void OnDestroy();
 	void Init();
 
 	void SetChunkID(int ChunkID[2])
@@ -73,14 +76,28 @@ public:
 	{
 		ChunkBlockDirty = false;
 	}
+
+	bool IsModelUpdated()
+	{
+		return m_IsModelUpdated;
+	}
+	/// <summary>
+	/// そのチャンクにあるモデルのインスタンシングデータを取得
+	/// </summary>
+	/// <param name="BlockID">ブロックID</param>
+	/// <returns>インスタンシングデータ</returns>
+	std::vector<InstancingData>& GetInstancingData(int BlockID)
+	{
+		return m_InstancingData[BlockID];
+	}
 public:
 	Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];		//ブロック
 private:
 	int m_ChunkID[2] = { 0 };
 	SaveDataFile* m_SaveDataFile = nullptr;
 	bool IsMove = false;
-	//todo ChunkBlockでモデル表示できるようにBlockManagerからモデルを削除する
-	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル
 	bool ChunkBlockDirty = true;
+	//インスタンシングデータ
+	std::vector<InstancingData> m_InstancingData[BlockKinds];
+	bool m_IsModelUpdated = false;
 };
-

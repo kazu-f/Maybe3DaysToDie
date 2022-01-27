@@ -29,9 +29,6 @@ void TerrainSave::Save()
 	{
 		for (int chunk_y = 0; chunk_y < MAX_CHUNK_SIDE; chunk_y++)
 		{
-			//チャンクごとの位置を記憶
-			m_SaveDataFile->m_ChunkData[chunk_x][chunk_y].ChunkID[0] = chunk_x;
-			m_SaveDataFile->m_ChunkData[chunk_x][chunk_y].ChunkID[1] = chunk_y;
 			for (int terrain_x = 0; terrain_x < ChunkWidth; terrain_x++)
 			{
 				for (int terrain_y = 0; terrain_y < ChunkHeight; terrain_y++)
@@ -45,9 +42,9 @@ void TerrainSave::Save()
 						terrainID[2] = terrain_z;
 						auto& TerrainParam = m_TerrainWorld->GetTerrain(terrainID).GetParam();
 						//ブロックのIDを記憶
-						m_SaveDataFile->m_ChunkData[chunk_x][chunk_y].ObjId[terrainID[0]][terrainID[1]][terrainID[2]] = TerrainParam.BlockID;
+						m_SaveDataFile->m_ChunkData[chunk_x][chunk_y].ObjData[terrainID[0]][terrainID[1]][terrainID[2]].ObjId = TerrainParam.BlockID;
 						//ブロックの耐久値を記憶
-						m_SaveDataFile->m_ChunkData[chunk_x][chunk_y].ObjDurable[terrainID[0]][terrainID[1]][terrainID[2]] = TerrainParam.Durable;
+						m_SaveDataFile->m_ChunkData[chunk_x][chunk_y].ObjData[terrainID[0]][terrainID[1]][terrainID[2]].ObjDurable = TerrainParam.Durable;
 						////オブジェクトのタイプを記憶
 						//m_SaveDataFile->m_ChunkData[chunk_x][chunk_y].ObjType = TerrainParam.Type;
 					}

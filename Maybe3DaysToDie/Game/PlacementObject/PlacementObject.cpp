@@ -2,6 +2,7 @@
 #include "PlacementObject.h"
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "SaveDataFile.h"
+#include "RayTest.h"
 
 PlacementObject::PlacementObject()
 {
@@ -49,15 +50,6 @@ void PlacementObject::Update()
 	m_ObjectModel->SetPosition(m_pos);
 	m_ObjectModel->SetRotation(m_qrot);
 	m_ObjectModel->SetScale(m_scale);
-
-	if (Pad(0).IsTrigger(enButtonA))
-	{
-		//パラメータ
-		ObjectParams param;
-		param.BlockID = 1;
-		param.Durable = 500;
-		PlaceObject(param);
-	}
 }
 
 void PlacementObject::CalcObjectPos()
@@ -82,7 +74,6 @@ void PlacementObject::CalcObjectPos()
 	//最終的な位置
 	Vector3 lastPos;
 	lastPos.Set(end);
-	CanPlace = callback.isHit;
 	//レイが衝突しているとき
 	if (callback.isHit)
 	{
@@ -91,6 +82,18 @@ void PlacementObject::CalcObjectPos()
 		m_hitObj = ((DestructibleObject*)callback.ColObj->getUserPointer());
 	}
 	m_pos.Set(lastPos);
+	CanPlace = false;
+	if (m_pos.x >= 0.0f && m_pos.x <= (ChunkWidth - 1) * OBJECT_UNIT * MAX_CHUNK_SIDE)
+	{
+		if (m_pos.z >= 0.0f && m_pos.z <= (ChunkWidth - 1) * OBJECT_UNIT * MAX_CHUNK_SIDE)
+		{
+			if (m_pos.y >= 0.0f && m_pos.y <= (ChunkHeight - 1) * OBJECT_UNIT)
+			{
+				//位置が範囲内の時
+				CanPlace = callback.isHit;
+			}
+		}
+	}
 }
 
 //todo [最適化]後で処理見直せ
@@ -132,10 +135,10 @@ void PlacementObject::PlaceObject(ObjectParams& params)
 			id_y = static_cast<int>(id_y % ChunkHeight);
 			int id_z = Pos.z / OBJECT_UNIT;
 			id_z = static_cast<int>(id_z % ChunkWidth);
-
+			
 			//セーブデータに直接書き込み
-			chunkData.ObjId[id_x][id_y][id_z] = params.BlockID;
-			chunkData.ObjDurable[id_x][id_y][id_z] = params.Durable;
+			chunkData.ObjData[id_x][id_y][id_z].ObjId = params.BlockID;
+			chunkData.ObjData[id_x][id_y][id_z].ObjDurable = params.Durable;
 			auto& block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
 			block.AddBlock(params, m_pos, rot, scale);
 		}

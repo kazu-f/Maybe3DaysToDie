@@ -1,4 +1,17 @@
 #pragma once
+
+class PlacementObject;
+class DestroyObject;
+class LoadingByChunk;
+class Stage;
+class Tool;
+class SaveDataFile;
+class TerrainSave;
+class TerrainLoad;
+class Stage;
+
+class Mause;
+
 namespace {
 	const int SelectNum = 8;	//アイテムバーの数
 }
@@ -12,11 +25,41 @@ public:
 	float GetItemSize()const {
 		return ItemOneBoxSize;
 	}
+	void SetWorldData(
+		PlacementObject* Po,
+		DestroyObject* Do,
+		SaveDataFile* Sf,
+		Tool* T,
+		LoadingByChunk* Lc,
+		TerrainSave* Ts,
+		TerrainLoad* Tl,
+		Stage* s) {
+		m_PlacementObject = Po;
+		m_DestroyObject = Do;
+		m_SaveDataFile = Sf;
+		m_Tool = T;
+		m_LoadingByChunk = Lc;
+		m_TerrainSave = Ts;
+		m_TerrainLoad = Tl;
+		m_Stage = s;
+	}
+private:
+	LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 private:
 	prefab::CSpriteRender* m_ItemIcon = nullptr;
 	prefab::CSpriteRender* m_SelectItemIcon = nullptr;
 	const float ItemOneBoxSize = 75.0f;			//アイテム１個のサイズ
 	Vector2 m_SelectPos[SelectNum] = {};	//選択中のアイテムバーの位置
 	int m_SelectNum = 0;						//今選択しているアイテムバーのスロットNo
+	PlacementObject* m_PlacementObject = nullptr;
+	DestroyObject* m_DestroyObject = nullptr;
+	SaveDataFile* m_SaveDataFile = nullptr;
+	Tool* m_Tool = nullptr;
+	LoadingByChunk* m_LoadingByChunk = nullptr;
+	TerrainSave* m_TerrainSave = nullptr;		//地形セーブ用のクラス
+	TerrainLoad* m_TerrainLoad = nullptr;
+	Stage* m_Stage = nullptr;
+
+	float m_InstallTime = 0.0f;
 };
 
