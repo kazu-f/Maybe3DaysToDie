@@ -135,8 +135,6 @@ void PlacementObject::PlaceObject(ObjectParams& params)
 			id_y = static_cast<int>(id_y % ChunkHeight);
 			int id_z = Pos.z / OBJECT_UNIT;
 			id_z = static_cast<int>(id_z % ChunkWidth);
-
-			//todo 上限言ったら0になる横は配列外アクセス
 			
 			//セーブデータに直接書き込み
 			chunkData.ObjData[id_x][id_y][id_z].ObjId = params.BlockID;

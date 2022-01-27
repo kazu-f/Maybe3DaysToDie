@@ -93,7 +93,10 @@ bool CGameScene::Start()
 	m_SaveDataFile.ObjectFilePath[1] = "Assets/modelData/CubeBlock/BookBlock.tkm";
 	m_SaveDataFile.ObjectFilePath[2] = "Assets/modelData/CubeBlock/ShelfBlock.tkm";
 	m_SaveDataFile.ObjectFilePath[3] = "Assets/modelData/CubeBlock/CardBoard.tkm";
-
+	m_SaveDataFile.ObjectAccessTag[0] = AccessTag::NonAccess;
+	m_SaveDataFile.ObjectAccessTag[1] = AccessTag::NonAccess;
+	m_SaveDataFile.ObjectAccessTag[2] = AccessTag::NonAccess;
+	m_SaveDataFile.ObjectAccessTag[3] = AccessTag::Root;
 	//ワールドデータ関係を記録する
 	m_ItemBar->SetWorldData(
 		m_PlacementObject,
