@@ -157,7 +157,7 @@ namespace Maybe3DaysToDieToolEditor
             }
             else if (typeof(PlacementObject) == item.GetType())
             {
-                //placementObjectPanel1.DispToolData((PlacementObject)item);
+                placementObjectPanel1.DispPlacementObject((PlacementObject)item);
                 placementObjectPanel1.BringToFront();
             }
         }

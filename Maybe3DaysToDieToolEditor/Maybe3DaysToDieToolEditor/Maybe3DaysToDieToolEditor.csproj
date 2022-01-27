@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ToolEditor\Command\PlacementObjectCommand.cs" />
     <Compile Include="UserControl\PlacementObjectPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

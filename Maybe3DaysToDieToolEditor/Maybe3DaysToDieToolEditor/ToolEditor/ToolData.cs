@@ -64,7 +64,8 @@ namespace Maybe3DaysToDieToolEditor
         public Item corectItem;                                         //採取するアイテム。
         [DataMember(Name = "corectItemID")] public int ItemID {
             get {
-                return corectItem.itemID;
+                if (corectItem == null) return 0;
+                else return corectItem.itemID;
             }
             set
             {
