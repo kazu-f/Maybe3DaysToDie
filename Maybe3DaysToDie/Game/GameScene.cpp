@@ -86,6 +86,8 @@ bool CGameScene::Start()
 	m_LoadingByChunk->SetTerrainManager(m_Stage->GetTerrainWorld());
 	//セーブデータファイルをセット
 	m_LoadingByChunk->SetSaveDataFile(&m_SaveDataFile);
+	//ワールドテーブルデータをセット
+	m_LoadingByChunk->SetWorldTableData(m_Stage->GetWorldTableData());
 	m_Player->SetLoadingByChunk(m_LoadingByChunk);
 	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
 	m_PlacementObject->SetSaveData(&m_SaveDataFile);
