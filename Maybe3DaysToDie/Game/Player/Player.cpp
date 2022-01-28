@@ -179,19 +179,19 @@ void Player::Move()
 		{
 			NowTime += GameTime().GetFrameDeltaTime();
 			float f = NowTime - JumpTime;
-			MoveSpeed.y = -JumpSpeed * pow(f, 2);
-			if (NowTime > JumpTime)
+			MoveSpeed.y = gravity * pow(f, 2) + JumpTime;
+			if (IsJumping && m_Characon.IsOnGround())
 			{
-				if (m_Characon.IsOnGround())
-				{
-					//地面についたのでジャンプ終了
-					IsJump = false;
-					NowTime = 0.0f;
-				}
-
+				//ジャンプ中に地面についたのでジャンプ終了
+				IsJump = false;
+				IsJumping = false;
+				NowTime = 0.0f;
+				MoveSpeed.y = 0.0f;
 			}
-			//ジャンプ中は重力無視
-			gravity = 0.0f;
+			else
+			{
+				IsJumping = true;
+			}
 		}
 
 		/////////////////////
