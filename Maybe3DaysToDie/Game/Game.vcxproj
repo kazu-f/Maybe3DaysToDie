@@ -213,6 +213,7 @@
     <ClCompile Include="MultiThread\Thread.cpp" />
     <ClCompile Include="Tool\Tool.cpp" />
     <ClCompile Include="Tool\ToolDataFile.cpp" />
+    <ClCompile Include="WorldChunk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
@@ -309,6 +310,7 @@
     <ClInclude Include="MultiThread\Thread.h" />
     <ClInclude Include="Tool\Tool.h" />
     <ClInclude Include="Tool\ToolDataFile.h" />
+    <ClInclude Include="WorldChunk.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
