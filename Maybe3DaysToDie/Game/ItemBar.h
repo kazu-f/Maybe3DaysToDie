@@ -9,7 +9,7 @@ class SaveDataFile;
 class TerrainSave;
 class TerrainLoad;
 class Stage;
-
+class Player;
 class Mause;
 
 namespace {
@@ -43,6 +43,10 @@ public:
 		m_TerrainLoad = Tl;
 		m_Stage = s;
 	}
+
+	void SetPlayer(Player* pl) {
+		m_Player = pl;
+	}
 private:
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 	void ItemSlotKey(int vKey,int slot);
@@ -60,6 +64,7 @@ private:
 	TerrainSave* m_TerrainSave = nullptr;		//地形セーブ用のクラス
 	TerrainLoad* m_TerrainLoad = nullptr;
 	Stage* m_Stage = nullptr;
+	Player* m_Player=nullptr;
 
 	float m_InstallTime = 0.0f;		//設置できる時間
 	float m_DeleteTime = 0.0f;
