@@ -18,3 +18,20 @@ public:
 	const char* ObjectFilePath[BlockKinds] = { nullptr };
 	AccessTag ObjectAccessTag[BlockKinds] = { AccessTag::NonAccess};
 };
+
+class WorldTableData {
+public:
+	//ブロック単位のデータ
+	struct TableData {
+		//そこにオブジェクトがあるかどうか
+		bool OnObject = { false };
+		//隣接ブロックがあるかどうか
+		bool IsAdjacentObject[4] = { false };
+	};
+	//チャンクにまとめたもの
+	struct ChunkTableData {
+		TableData Data[ChunkWidth][ChunkHeight][ChunkWidth];
+	};
+	//全体のデータは読み込んでいる範囲のデータ
+	ChunkTableData m_ChunkTableData[LoadingChunks][LoadingChunks];
+};
