@@ -59,7 +59,6 @@ void ItemBar::Update()
 	//else if (zDelta < -0) {
 	//	m_SelectNum--;
 	//}
-	WndProc(g_hWnd, NULL, WM_LBUTTONDOWN, 0);
 	if (GetAsyncKeyState(MK_LBUTTON)) {
 		m_InstallTime += GameTime().GetFrameDeltaTime();
 		if (m_InstallTime > 0.2f) {
