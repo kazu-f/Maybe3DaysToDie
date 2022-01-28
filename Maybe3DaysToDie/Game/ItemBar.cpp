@@ -10,6 +10,7 @@
 #include "Load/TerrainLoad/TerrainLoad.h"
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "Stage.h"
+#include "Player/Player.h"
 
 namespace {
 	const Vector2 ItemBarPos = { -300.0f,-285.0f };
@@ -44,61 +45,43 @@ bool ItemBar::Start()
 }
 void ItemBar::Update()
 {
-	//WPARAM wPram = NULL;
-	//int zDelta = HIWORD(WM_MOUSEWHEEL) / 120;
-	//if (zDelta > 0) {
-	//	m_SelectNum++;
-	//}
-	//else if (zDelta < -0) {
-	//	m_SelectNum--;
-	//}
-	//int zDelta = GET_WHEEL_DELTA_WPARAM(wp);
-	//if (zDelta > 0) {
-	//	m_SelectNum++;
-	//}
-	//else if (zDelta < -0) {
-	//	m_SelectNum--;
-	//}
-	if (GetAsyncKeyState(MK_LBUTTON)) {
-		m_InstallTime += GameTime().GetFrameDeltaTime();
-		if (m_InstallTime > 0.2f) {
-			//パラメータ
-			ObjectParams param;
-			param.BlockID = 3;
-			param.Durable = 500;
-			m_PlacementObject->PlaceObject(param);
-			m_InstallTime = 0.0f;
+	if (m_Player->GetState() != Player::State::Inventry) {
+		if (GetAsyncKeyState(MK_LBUTTON)) {
+			m_InstallTime += GameTime().GetFrameDeltaTime();
+			if (m_InstallTime > 0.2f) {
+				//パラメータ
+				ObjectParams param;
+				param.BlockID = 3;
+				param.Durable = 500;
+				m_PlacementObject->PlaceObject(param);
+				m_InstallTime = 0.0f;
+			}
 		}
-	}
-	else {
-		m_InstallTime = 0.2f;
-	}
+		else {
+			m_InstallTime = 0.2f;
+		}
 
-	if (GetAsyncKeyState(MK_RBUTTON)) {
-		m_DeleteTime += GameTime().GetFrameDeltaTime();
-		if (m_DeleteTime > 0.2f) {
-		m_DestroyObject->AddObjectDamage();
-		m_DeleteTime = 0.0f;
+		if (GetAsyncKeyState(MK_RBUTTON)) {
+			m_DeleteTime += GameTime().GetFrameDeltaTime();
+			if (m_DeleteTime > 0.2f) {
+				m_DestroyObject->AddObjectDamage();
+				m_DeleteTime = 0.0f;
+			}
 		}
+		else {
+			m_DeleteTime = 0.2f;
+		}
+
+		ItemSlotKey('1', 0);
+		ItemSlotKey('2', 1);
+		ItemSlotKey('3', 2);
+		ItemSlotKey('4', 3);
+		ItemSlotKey('5', 4);
+		ItemSlotKey('6', 5);
+		ItemSlotKey('7', 6);
+		ItemSlotKey('8', 7);
 	}
-	else {
-		m_DeleteTime = 0.2f;
-	}
-	//if (GetAsyncKeyState(MK_SHIFT)) {
-	//	m_SelectNum--;
-	//	if (m_SelectNum < 0) {
-	//		m_SelectNum = SelectNum - 1;
-	//	}
-	//}
 	m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
-	ItemSlotKey('1', 0);
-	ItemSlotKey('2', 1);
-	ItemSlotKey('3', 2);
-	ItemSlotKey('4', 3);
-	ItemSlotKey('5', 4);
-	ItemSlotKey('6', 5);
-	ItemSlotKey('7', 6);
-	ItemSlotKey('8', 7);
 }
 
 void ItemBar::OnDestroy()
