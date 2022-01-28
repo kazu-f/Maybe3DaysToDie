@@ -3,7 +3,6 @@
 #include "Load/ChunkBlock/ChunkBlock.h"
 #include "TerrainManager/TerrainManager.h"
 
-class SaveDataFile;
 class LoadingByChunk :public IGameObject
 {
 private:
@@ -26,6 +25,15 @@ public:
 	void SetSaveDataFile(SaveDataFile* file)
 	{
 		m_SaveDataFile = file;
+	}
+
+	/// <summary>
+	/// ワールドデータのポインタをセット
+	/// </summary>
+	/// <param name="ptr">ワールドテーブルデータ</param>
+	void SetWorldTableData(WorldTableData* ptr)
+	{
+		m_WorldTableData = ptr;
 	}
 
 	void SetTerrainManager(nsTerrain::TerrainManager* manager)
@@ -110,6 +118,7 @@ public:
 
  private:
 	SaveDataFile* m_SaveDataFile = nullptr;
+	WorldTableData* m_WorldTableData = nullptr;
 	int PlayerPosInGrid[2] = { 0 };
 	bool m_isDirty = true;		//更新するかどうか
 	ChunkCollision m_ChunkCol[LoadingChunkCols][LoadingChunkCols];		//チャンクごとのブロック
