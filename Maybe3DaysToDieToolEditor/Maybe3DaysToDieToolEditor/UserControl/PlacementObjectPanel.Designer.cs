@@ -29,31 +29,57 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            "1:",
+            "",
+            "",
+            ""}, -1);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            "2:",
+            "",
+            "",
+            ""}, -1);
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            "3:",
+            "",
+            "",
+            ""}, -1);
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            "4:",
+            "",
+            "",
+            ""}, -1);
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            "5:",
+            "",
+            "",
+            ""}, -1);
             this.groupBoxPlacementObject = new System.Windows.Forms.GroupBox();
+            this.collectItemListView = new System.Windows.Forms.ListView();
+            this.ItemID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ItemName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ItemNum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CollectItemDel = new System.Windows.Forms.Button();
+            this.CollectItemAddButton = new System.Windows.Forms.Button();
+            this.collectNumeric = new System.Windows.Forms.NumericUpDown();
+            this.labelCollect = new System.Windows.Forms.Label();
             this.ColectItemLabel = new System.Windows.Forms.Label();
             this.ColectItemDropDownList = new System.Windows.Forms.ComboBox();
             this.DurableNumeric = new System.Windows.Forms.NumericUpDown();
             this.DurableLabel = new System.Windows.Forms.Label();
             this.ToolKindsLabel = new System.Windows.Forms.Label();
             this.ToolComboBox = new System.Windows.Forms.ComboBox();
-            this.collectNumeric = new System.Windows.Forms.NumericUpDown();
-            this.labelCollect = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.ItemID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ItemName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CollectNum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CollectItemAddButton = new System.Windows.Forms.Button();
-            this.CollectItemDel = new System.Windows.Forms.Button();
+            this.CollectItems = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxPlacementObject.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collectNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxPlacementObject
             // 
+            this.groupBoxPlacementObject.Controls.Add(this.collectItemListView);
             this.groupBoxPlacementObject.Controls.Add(this.CollectItemDel);
             this.groupBoxPlacementObject.Controls.Add(this.CollectItemAddButton);
-            this.groupBoxPlacementObject.Controls.Add(this.listView1);
             this.groupBoxPlacementObject.Controls.Add(this.collectNumeric);
             this.groupBoxPlacementObject.Controls.Add(this.labelCollect);
             this.groupBoxPlacementObject.Controls.Add(this.ColectItemLabel);
@@ -69,6 +95,83 @@ namespace Maybe3DaysToDieToolEditor
             this.groupBoxPlacementObject.TabStop = false;
             this.groupBoxPlacementObject.Text = "PlacementObject";
             this.groupBoxPlacementObject.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
+            // 
+            // collectItemListView
+            // 
+            this.collectItemListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.CollectItems,
+            this.ItemID,
+            this.ItemName,
+            this.ItemNum});
+            this.collectItemListView.HideSelection = false;
+            this.collectItemListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5});
+            this.collectItemListView.Location = new System.Drawing.Point(32, 207);
+            this.collectItemListView.MultiSelect = false;
+            this.collectItemListView.Name = "collectItemListView";
+            this.collectItemListView.Size = new System.Drawing.Size(625, 200);
+            this.collectItemListView.TabIndex = 34;
+            this.collectItemListView.UseCompatibleStateImageBehavior = false;
+            this.collectItemListView.View = System.Windows.Forms.View.Details;
+            // 
+            // ItemID
+            // 
+            this.ItemID.Text = "ID";
+            this.ItemID.Width = 50;
+            // 
+            // ItemName
+            // 
+            this.ItemName.Text = "Name";
+            this.ItemName.Width = 300;
+            // 
+            // ItemNum
+            // 
+            this.ItemNum.Text = "Num";
+            // 
+            // CollectItemDel
+            // 
+            this.CollectItemDel.Location = new System.Drawing.Point(691, 252);
+            this.CollectItemDel.Name = "CollectItemDel";
+            this.CollectItemDel.Size = new System.Drawing.Size(75, 38);
+            this.CollectItemDel.TabIndex = 33;
+            this.CollectItemDel.Text = "削除";
+            this.CollectItemDel.UseVisualStyleBackColor = true;
+            // 
+            // CollectItemAddButton
+            // 
+            this.CollectItemAddButton.Location = new System.Drawing.Point(691, 207);
+            this.CollectItemAddButton.Name = "CollectItemAddButton";
+            this.CollectItemAddButton.Size = new System.Drawing.Size(75, 39);
+            this.CollectItemAddButton.TabIndex = 33;
+            this.CollectItemAddButton.Text = "追加";
+            this.CollectItemAddButton.UseVisualStyleBackColor = true;
+            this.CollectItemAddButton.Click += new System.EventHandler(this.CollectItemAddButton_Click);
+            // 
+            // collectNumeric
+            // 
+            this.collectNumeric.Location = new System.Drawing.Point(822, 160);
+            this.collectNumeric.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.collectNumeric.Name = "collectNumeric";
+            this.collectNumeric.Size = new System.Drawing.Size(120, 22);
+            this.collectNumeric.TabIndex = 31;
+            this.collectNumeric.ThousandsSeparator = true;
+            // 
+            // labelCollect
+            // 
+            this.labelCollect.AutoSize = true;
+            this.labelCollect.Location = new System.Drawing.Point(764, 162);
+            this.labelCollect.Name = "labelCollect";
+            this.labelCollect.Size = new System.Drawing.Size(52, 15);
+            this.labelCollect.TabIndex = 30;
+            this.labelCollect.Text = "採取量";
             // 
             // ColectItemLabel
             // 
@@ -129,74 +232,9 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolComboBox.Size = new System.Drawing.Size(121, 23);
             this.ToolComboBox.TabIndex = 24;
             // 
-            // collectNumeric
+            // CollectItems
             // 
-            this.collectNumeric.Location = new System.Drawing.Point(822, 160);
-            this.collectNumeric.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.collectNumeric.Name = "collectNumeric";
-            this.collectNumeric.Size = new System.Drawing.Size(120, 22);
-            this.collectNumeric.TabIndex = 31;
-            this.collectNumeric.ThousandsSeparator = true;
-            // 
-            // labelCollect
-            // 
-            this.labelCollect.AutoSize = true;
-            this.labelCollect.Location = new System.Drawing.Point(764, 162);
-            this.labelCollect.Name = "labelCollect";
-            this.labelCollect.Size = new System.Drawing.Size(52, 15);
-            this.labelCollect.TabIndex = 30;
-            this.labelCollect.Text = "採取量";
-            // 
-            // listView1
-            // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ItemID,
-            this.ItemName,
-            this.CollectNum});
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(32, 207);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(625, 196);
-            this.listView1.TabIndex = 32;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
-            // ItemID
-            // 
-            this.ItemID.Text = "ItemID";
-            this.ItemID.Width = 5;
-            // 
-            // ItemName
-            // 
-            this.ItemName.Text = "ItemName";
-            this.ItemName.Width = 20;
-            // 
-            // CollectNum
-            // 
-            this.CollectNum.Text = "CollectNum";
-            this.CollectNum.Width = 5;
-            // 
-            // CollectItemAddButton
-            // 
-            this.CollectItemAddButton.Location = new System.Drawing.Point(691, 223);
-            this.CollectItemAddButton.Name = "CollectItemAddButton";
-            this.CollectItemAddButton.Size = new System.Drawing.Size(75, 23);
-            this.CollectItemAddButton.TabIndex = 33;
-            this.CollectItemAddButton.Text = "追加";
-            this.CollectItemAddButton.UseVisualStyleBackColor = true;
-            this.CollectItemAddButton.Click += new System.EventHandler(this.CollectItemAddButton_Click);
-            // 
-            // CollectItemDel
-            // 
-            this.CollectItemDel.Location = new System.Drawing.Point(691, 252);
-            this.CollectItemDel.Name = "CollectItemDel";
-            this.CollectItemDel.Size = new System.Drawing.Size(75, 23);
-            this.CollectItemDel.TabIndex = 33;
-            this.CollectItemDel.Text = "削除";
-            this.CollectItemDel.UseVisualStyleBackColor = true;
+            this.CollectItems.Text = "";
             // 
             // PlacementObjectPanel
             // 
@@ -207,8 +245,8 @@ namespace Maybe3DaysToDieToolEditor
             this.Size = new System.Drawing.Size(1272, 520);
             this.groupBoxPlacementObject.ResumeLayout(false);
             this.groupBoxPlacementObject.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collectNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -224,11 +262,12 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.Label ColectItemLabel;
         private System.Windows.Forms.NumericUpDown collectNumeric;
         private System.Windows.Forms.Label labelCollect;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader ItemID;
-        private System.Windows.Forms.ColumnHeader ItemName;
-        private System.Windows.Forms.ColumnHeader CollectNum;
         private System.Windows.Forms.Button CollectItemDel;
         private System.Windows.Forms.Button CollectItemAddButton;
+        private System.Windows.Forms.ListView collectItemListView;
+        private System.Windows.Forms.ColumnHeader ItemID;
+        private System.Windows.Forms.ColumnHeader ItemName;
+        private System.Windows.Forms.ColumnHeader ItemNum;
+        private System.Windows.Forms.ColumnHeader CollectItems;
     }
 }
