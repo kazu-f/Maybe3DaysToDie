@@ -158,7 +158,10 @@ private:
 
 	bool m_IsChasePlayer = false;
 	GameCamera* m_Camera = nullptr;
-
+	bool IsJump = false;
+	float JumpTime = 1.0f;
+	float NowTime = 0.0f;
+	float JumpSpeed = 1.0f;
 	float m_mulSpeed = 1.0f;			//移動速度(バフ、デバフ用）
 
 	CFontRender* m_Font = nullptr;
