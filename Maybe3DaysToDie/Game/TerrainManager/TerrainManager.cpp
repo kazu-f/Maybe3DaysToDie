@@ -35,15 +35,15 @@ namespace nsTerrain {
 		{
 			//NVMデータを作成。
 			//m_NVMGenerator.CreateNVM(m_terrainWorlds[0][0]->GetTerrainRender(), true);
-			//敵キャラを作成。
-			m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
+			////敵キャラを作成。
+			//m_enemyGenerator.Create<StandardZombie>(&m_NVMGenerator);
 
 			m_isInitNVM = true;
 		}
 
-		if (InputKeyCode().IsTriggerKey(VK_F4)) {
-			m_NVMGenerator.ChangeDrawFlag();
-		}
+		//if (InputKeyCode().IsTriggerKey(VK_F4)) {
+		//	m_NVMGenerator.ChangeDrawFlag();
+		//}
 	}
 	void TerrainManager::OnDestroy()
 	{
@@ -131,6 +131,6 @@ namespace nsTerrain {
 	}
 	void TerrainManager::ForwardRender(RenderContext& rc)
 	{
-		m_NVMGenerator.DebugDraw(m_terrainWorlds[0][0]->GetTerrainRender());
+		//m_NVMGenerator.DebugDraw(m_terrainWorlds[0][0]->GetTerrainRender());
 	}
 }

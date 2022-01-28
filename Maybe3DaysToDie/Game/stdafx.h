@@ -33,6 +33,6 @@ static const int BlockKinds = 4;		//ブロックの種類
 
 //ゲーム中にロードしているチャンクの範囲
 static const int LoadingChunkCols = 3;
-static const int LoadingChunks = 9;
+static const int LoadingChunks = 3;
 
 using namespace Engine;

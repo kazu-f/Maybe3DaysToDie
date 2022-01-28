@@ -147,13 +147,12 @@ void Player::Move()
 		MoveSpeed.Length() > 0.5f &&
 		m_Stamina->IsUseStamina(1))
 	{
-
 		m_mulSpeed = 2.0f;
 	}
 	/////重力処理////////////////////////
 	{
 		static float gravity = 0.0f;
-		gravity -= 0.7;
+		gravity -= 1.0f * GameTime().GetFrameDeltaTime();
 		if (!m_IsChasePlayer) {
 			gravity = 0.0f;
 		}
@@ -162,16 +161,39 @@ void Player::Move()
 		{
 			if (GetAsyncKeyState(VK_SPACE)) {
 				//神視点の時はジャンプし続ける
-				if (m_IsChasePlayer) {
-					if (m_Characon.IsOnGround()) {
-						MoveSpeed.y = 5.0f;
-					}
+				if (m_Characon.IsOnGround())
+				{
+					IsJump = true;
 				}
-				else {
-					MoveSpeed.y = 5.0f;
-				}
+				//if (m_IsChasePlayer) {
+				//	if (m_Characon.IsOnGround()) {
+				//		MoveSpeed.y = 10.0f;
+				//	}
+				//}
+				//else {
+				//	MoveSpeed.y = 10.0f;
+				//}
 			}
 		}
+		if (IsJump)
+		{
+			NowTime += GameTime().GetFrameDeltaTime();
+			float f = NowTime - JumpTime;
+			MoveSpeed.y = gravity * pow(f, 2) + JumpTime;
+			if (IsJumping && m_Characon.IsOnGround())
+			{
+				//ジャンプ中に地面についたのでジャンプ終了
+				IsJump = false;
+				IsJumping = false;
+				NowTime = 0.0f;
+				MoveSpeed.y = 0.0f;
+			}
+			else
+			{
+				IsJumping = true;
+			}
+		}
+
 		/////////////////////
 		if (m_Characon.IsOnGround()) {
 			gravity = 0.0f;

@@ -49,6 +49,7 @@ bool CGameScene::Start()
 	m_Player = NewGO<Player>(0, "player");
 	m_Player->SetItemBar(m_ItemBar);
 	m_ItemBar = NewGO<ItemBar>(0, "itemBar");
+	m_ItemBar->SetPlayer(m_Player);
 	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Player->SetCameraPtr(m_Camera);
 	m_Stage = NewGO<Stage>(0, "stage");
@@ -85,6 +86,8 @@ bool CGameScene::Start()
 	m_LoadingByChunk->SetTerrainManager(m_Stage->GetTerrainWorld());
 	//セーブデータファイルをセット
 	m_LoadingByChunk->SetSaveDataFile(&m_SaveDataFile);
+	//ワールドテーブルデータをセット
+	m_LoadingByChunk->SetWorldTableData(m_Stage->GetWorldTableData());
 	m_Player->SetLoadingByChunk(m_LoadingByChunk);
 	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
 	m_PlacementObject->SetSaveData(&m_SaveDataFile);
