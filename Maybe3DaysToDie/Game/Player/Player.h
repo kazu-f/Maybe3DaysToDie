@@ -160,7 +160,7 @@ private:
 	GameCamera* m_Camera = nullptr;
 	bool IsJump = false;
 	bool IsJumping = false;
-	const float JumpTime = 0.3f;
+	const float JumpTime = 1.0f;
 	float NowTime = 0.0f;
 	float m_mulSpeed = 1.0f;			//移動速度(バフ、デバフ用）
 

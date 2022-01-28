@@ -152,7 +152,7 @@ void Player::Move()
 	/////重力処理////////////////////////
 	{
 		static float gravity = 0.0f;
-		gravity -= 1.0f * GameTime().GetFrameDeltaTime();
+		gravity -= GameTime().GetFrameDeltaTime();
 		if (!m_IsChasePlayer) {
 			gravity = 0.0f;
 		}
@@ -178,8 +178,8 @@ void Player::Move()
 		if (IsJump)
 		{
 			NowTime += GameTime().GetFrameDeltaTime();
-			float f = NowTime - JumpTime;
-			MoveSpeed.y = gravity * pow(f, 2) + JumpTime;
+			float f = NowTime - 0.3f;
+			MoveSpeed.y = ((  gravity) * pow(f, 2)) + JumpTime;
 			if (IsJumping && m_Characon.IsOnGround())
 			{
 				//ジャンプ中に地面についたのでジャンプ終了
