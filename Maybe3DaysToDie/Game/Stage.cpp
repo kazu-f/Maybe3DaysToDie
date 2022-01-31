@@ -2,6 +2,7 @@
 #include "Stage.h"
 #include "Enemy/EnemyGenerator.h"
 #include "Enemy/StandardZombie/StandardZombie.h"
+#include "NaviMeshManager.h"
 
 Stage::Stage()
 {
@@ -12,9 +13,6 @@ Stage::Stage()
 
 bool Stage::Start()
 {
-	//メインカメラの描画距離をロードしているチャンクに合わせる
-	MainCamera().SetFar(OBJECT_UNIT * ChunkWidth * LoadingChunks / 2);
-	m_SkyCube->SetScale(ChunkWidth * LoadingChunks);
 	return true;
 }
 

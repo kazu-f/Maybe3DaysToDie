@@ -13,7 +13,9 @@ class NaviMeshManager : public IGameObject
 {
 private:
 	//pl情報。
-	Player* m_playerPtr = nullptr;						//プレイヤー。
+	Player* m_playerPtr = nullptr;							//プレイヤー。
+	LoadingByChunk* m_loadingByChunk = nullptr;				//チャンクローディング。
+	nsTerrain::TerrainManager* m_terrainManager = nullptr;	//地形。
 
 	
 	int m_playerGrid[2] = { 0 };						//前フレームのPlayerのグリッド位置。
@@ -25,6 +27,11 @@ public:
 	virtual ~NaviMeshManager();
 	bool Start() override;
 	void Update() override;
+
+	void SetLoadingByChunk(LoadingByChunk* loadingByChunk)
+	{
+		m_loadingByChunk = loadingByChunk;
+	}
 
 private:
 	void CalcPlayerGrid();

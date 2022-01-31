@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "NaviMeshManager.h"
 #include "Player/Player.h"
+#include "Load/TerrainLoad/LoadingByChunk.h"
 
 NaviMeshManager::~NaviMeshManager()
 {
@@ -10,8 +11,8 @@ bool NaviMeshManager::Start()
 {
 	//よくないがFindあるんだし使うよなぁ！？
 	m_playerPtr = FindGO<Player>("player");
-
-
+	m_terrainManager = FindGO<nsTerrain::TerrainManager>("Terrain");
+	m_loadingByChunk = FindGO<LoadingByChunk>("LoadingByChunk");
 
 	//最初のNVM初期化処理及び、チャンクの初期化処理を呼び出す。
 	return true;
@@ -19,14 +20,16 @@ bool NaviMeshManager::Start()
 
 void NaviMeshManager::Update()
 {
-	if (!m_isUpdateNVM)
+	if (!m_loadingByChunk->IsNvmDirty())
 	{
 		//地形の更新がない。
+		MessageBoxA(NULL, "a", "a", MB_OK);
 		return;
 	}
 
-	//NVMを更新していく。
-
+	//NVMを更新していく。更新するTerrainWorldはLoadingByChunkから取れるようにする。
+	m_terrainManager->GetTerrainWorld(m_playerGrid[0], m_playerGrid[1])->CreateNVM();
+	m_loadingByChunk->NvmDirtyFlagDown();
 }
 
 void NaviMeshManager::CalcPlayerGrid()
