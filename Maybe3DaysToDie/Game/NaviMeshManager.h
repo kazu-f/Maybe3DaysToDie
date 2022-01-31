@@ -17,7 +17,6 @@ private:
 	LoadingByChunk* m_loadingByChunk = nullptr;				//チャンクローディング。
 	nsTerrain::TerrainManager* m_terrainManager = nullptr;	//地形。
 
-	
 	int m_playerGrid[2] = { 0 };						//前フレームのPlayerのグリッド位置。
 	
 	//NVM.

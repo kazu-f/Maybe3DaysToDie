@@ -23,12 +23,12 @@ void NaviMeshManager::Update()
 	if (!m_loadingByChunk->IsNvmDirty())
 	{
 		//地形の更新がない。
-		MessageBoxA(NULL, "a", "a", MB_OK);
 		return;
 	}
 
 	//NVMを更新していく。更新するTerrainWorldはLoadingByChunkから取れるようにする。
 	m_terrainManager->GetTerrainWorld(m_playerGrid[0], m_playerGrid[1])->CreateNVM();
+	//MessageBoxA(NULL, "a", "a", MB_OK);
 	m_loadingByChunk->NvmDirtyFlagDown();
 }
 
