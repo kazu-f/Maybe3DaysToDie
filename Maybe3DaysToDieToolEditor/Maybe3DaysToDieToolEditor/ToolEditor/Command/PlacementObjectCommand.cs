@@ -61,5 +61,34 @@ namespace Maybe3DaysToDieToolEditor
                 return !m_place.collectItemList.Contains(m_addCollectItem);
             }
         }
+        //採取アイテム削除のコマンド。
+        class RemovePlacementObjCollectItem : ICommand
+        {
+            PlacementObject m_place;
+            CollectItem m_removeCollectItem = null;
+            int m_index = int.MaxValue;
+
+            public RemovePlacementObjCollectItem(PlacementObject place, int index)
+            {
+                m_place = place;
+                m_removeCollectItem = place.collectItemList[index];
+                m_index = index;
+            }
+            public override void UnDo()
+            {
+                //リストに戻す。
+                m_place.collectItemList.Insert(m_index, m_removeCollectItem);
+            }
+            public override void ReDo()
+            {
+                //リストから削除。
+                m_place.collectItemList.Remove(m_removeCollectItem);
+            }
+            public override bool IsChanged()
+            {
+                //リストに登録されているか。
+                return m_place.collectItemList.Contains(m_removeCollectItem);
+            }
+        }
     }
 }
