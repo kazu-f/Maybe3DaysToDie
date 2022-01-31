@@ -81,6 +81,11 @@ public:
 	{
 		return m_IsModelUpdated;
 	}
+
+	void ResetModelUpdated()
+	{
+		m_IsModelUpdated = false;
+	}
 	/// <summary>
 	/// そのチャンクにあるモデルのインスタンシングデータを取得
 	/// </summary>

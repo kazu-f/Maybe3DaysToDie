@@ -13,7 +13,6 @@ Stage::Stage()
 
 bool Stage::Start()
 {
-	m_naviMeshManager = NewGO<NaviMeshManager>(0);
 	return true;
 }
 
@@ -26,8 +25,6 @@ void Stage::Update()
 	if (GetAsyncKeyState('K')) {
 		m_enemyGenerator.ReleaseEnemy();
 	}
-
-
 }
 
 void Stage::OnDestroy()
@@ -45,7 +42,7 @@ void Stage::OnDestroy()
 void Stage::NewGround()
 {
 	m_Terrain = NewGO<nsTerrain::TerrainManager>(0,"Terrain");
-
+	m_SkyCube = NewGO<prefab::CSky>(0);
 	//m_stage.CreateStage();
 	//m_Model = NewGO<prefab::ModelRender>(0);
 	//ModelInitData InitModelUnity;

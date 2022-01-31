@@ -127,7 +127,7 @@ namespace Engine {
 			return m_cameraRotation;
 		}
 		/// <summary>
-		/// ‰“•½–Ê‚Ü‚Å‚Ì‹——£‚ğİ’èB
+		/// ‰“•½–Ê‚Ü‚Å‚Ì‹——£‚ğİ’èB’PˆÊ‚Ícm
 		/// </summary>
 		void SetFar(float fFar)
 		{
