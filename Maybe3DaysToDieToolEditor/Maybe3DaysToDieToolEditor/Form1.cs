@@ -287,6 +287,8 @@ namespace Maybe3DaysToDieToolEditor
             filePath = loadData.LoadJsonFile(out list);
             if(list != null)
             {
+                //データの構築を行う。
+                BuildOpenFileItemData(list);
                 //コマンドリストをリセット。
                 commandList.ResetCommandList();
                 //アイテムのリストを読み込んだものに変更。
@@ -298,6 +300,27 @@ namespace Maybe3DaysToDieToolEditor
                 UpdateBS();
             }
             DeFocus();
+        }
+
+        /// <summary>
+        /// ファイルから開いたデータから構築を行う。
+        /// </summary>
+        /// <param name="list">開いたアイテムのリスト。</param>
+        private void BuildOpenFileItemData(List<Item> list)
+        {
+            foreach (var item in list)
+            {
+                //設置物。
+                if (item.GetType() == typeof(PlacementObject))
+                {
+                    //採取アイテムを登録し直す。
+                    var place = (PlacementObject)item;
+                    foreach (var collect in place.collectItemList)
+                    {
+                        collect.BuildCollectItemData(list);
+                    }
+                }
+            }
         }
         #endregion ファイル保存関係。
 
