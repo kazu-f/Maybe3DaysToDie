@@ -121,16 +121,34 @@ public:
 	/// </summary>
 	void UpdateModels();
 
+	/// <summary>
+	/// ナビメッシュを更新するかどうか
+	/// </summary>
 	bool IsNvmDirty()
 	{
 		return m_IsUpdated;
 	}
 
+	/// <summary>
+	/// ナビメッシュ更新のフラグ下す
+	/// </summary>
 	void NvmDirtyFlagDown()
 	{
 		m_IsUpdated = false;
 	}
 
+	/// <summary>
+	/// ナビメッシュ更新のフラグを立てる
+	/// </summary>
+	void NvmDirtyFlagUp()
+	{
+		m_IsUpdated = true;
+	}
+
+	ChunkBlock* GetChunkBlock(int x, int z)
+	{
+		return &m_ChunkBlock[x][z];
+	}
  private:
 	SaveDataFile* m_SaveDataFile = nullptr;
 	WorldTableData* m_WorldTableData = nullptr;
