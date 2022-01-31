@@ -124,25 +124,25 @@ public:
 	/// <summary>
 	/// ナビメッシュを更新するかどうか
 	/// </summary>
-	bool IsNvmDirty()
+	bool IsNvmDirty(int x,int z)
 	{
-		return m_IsUpdated;
+		return m_IsUpdatedChunk[x][z];
 	}
 
 	/// <summary>
 	/// ナビメッシュ更新のフラグ下す
 	/// </summary>
-	void NvmDirtyFlagDown()
+	void NvmDirtyFlagDown(int x,int z)
 	{
-		m_IsUpdated = false;
+		m_IsUpdatedChunk[x][z] = false;
 	}
 
 	/// <summary>
 	/// ナビメッシュ更新のフラグを立てる
 	/// </summary>
-	void NvmDirtyFlagUp()
+	void NvmDirtyFlagUp(int x,int z)
 	{
-		m_IsUpdated = true;
+		m_IsUpdatedChunk[x][z] = true;
 	}
 
 	ChunkBlock* GetChunkBlock(int x, int z)
@@ -158,5 +158,5 @@ public:
 	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];
 	nsTerrain::TerrainManager* m_TerrainManager = nullptr;		//テラインマネージャー
 	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル
-	bool m_IsUpdated = false;
+	bool m_IsUpdatedChunk[LoadingChunkCols][LoadingChunkCols];
 };

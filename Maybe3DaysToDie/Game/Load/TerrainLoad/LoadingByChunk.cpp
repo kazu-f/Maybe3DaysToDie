@@ -55,6 +55,7 @@ void LoadingByChunk::InitChunkCols()
 		{
 			NowGrid[1] = Grid[1] + z;
 			m_ChunkCol[x][z].SetChunkID(NowGrid);
+			m_ChunkCol[x][z].SetLoadChunkID(x, z);
 			//対応するチャンクブロックをセット
 			//チャンクブロックの真ん中9チャンクが対応している
 			//todo 端っこの時にリンクがおかしくなると思うので直す
@@ -140,10 +141,14 @@ void LoadingByChunk::Update()
 	////////////////////////////////////////////
 	/////ここから下は更新する必要があるとき/////
 	////////////////////////////////////////////
-
-	//NVMの更新フラグを立てる
-	m_IsUpdated = true;
-
+	for (int x = 0; x < LoadingChunks; x++)
+	{
+		for (int z = 0; z < LoadingChunks; z++)
+		{
+			//移動したのですべてのNVMの更新フラグを立てる
+			m_IsUpdatedChunk[x][z] = true;
+		}
+	}
 	//チャンク移動
 	UpdateMoveChunk();
 

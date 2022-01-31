@@ -56,7 +56,7 @@ void ChunkCollision::UpdateCol()
 		return;
 	}
 	//ナビメッシュ更新のフラグを立てる。
-	m_LoadingByChunk->NvmDirtyFlagUp();
+	m_LoadingByChunk->NvmDirtyFlagUp(m_LoadID[0], m_LoadID[1]);
 	//todo 地形にrayhitするようにする
 	//地形のコリジョンはまだ全く触っていない。
 	//ブロック用にコリジョン更新

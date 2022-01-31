@@ -43,6 +43,7 @@ void Stage::NewGround()
 {
 	m_Terrain = NewGO<nsTerrain::TerrainManager>(0,"Terrain");
 	m_SkyCube = NewGO<prefab::CSky>(0);
+	m_naviMeshManager = NewGO<NaviMeshManager>(0);
 	//m_stage.CreateStage();
 	//m_Model = NewGO<prefab::ModelRender>(0);
 	//ModelInitData InitModelUnity;
