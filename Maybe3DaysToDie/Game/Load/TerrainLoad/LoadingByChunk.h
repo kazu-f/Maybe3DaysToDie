@@ -158,5 +158,5 @@ public:
 	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];
 	nsTerrain::TerrainManager* m_TerrainManager = nullptr;		//テラインマネージャー
 	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル
-	bool m_IsUpdatedChunk[LoadingChunkCols][LoadingChunkCols];
+	bool m_IsUpdatedChunk[LoadingChunks][LoadingChunks];
 };

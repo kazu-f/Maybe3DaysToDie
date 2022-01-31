@@ -12,6 +12,18 @@ namespace Maybe3DaysToDieToolEditor
 {
     public partial class Maybe3DaysToDie_ToolEditor : Form
     {
+        #region 定数類。
+        public enum EnMaxStackNum
+        {
+            enStack_Tool = 1,
+            enStack_Eat = 30,
+            enStack_Place = 999,
+            enStack_Material = 999
+        }
+
+        #endregion
+
+        #region フォーム関連の変数。
         string filePath = null;
         List<Item> m_itemList = new List<Item>();
         BindingSource listBoxBS = new BindingSource();
@@ -22,6 +34,8 @@ namespace Maybe3DaysToDieToolEditor
         LoadItemDataList loadData;
         SelectDataFile selectModelData;         //モデルデータを選ぶ処理。
         SelectDataFile selectIconData;          //アイコンデータを選ぶ処理。
+        #endregion
+
         public Maybe3DaysToDie_ToolEditor()
         {
             InitializeComponent();
@@ -154,11 +168,13 @@ namespace Maybe3DaysToDieToolEditor
             {
                 toolDataPanel1.DispToolData((ToolData)item);
                 toolDataPanel1.BringToFront();
+                MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Tool;
             }
             else if (typeof(PlacementObject) == item.GetType())
             {
                 placementObjectPanel1.DispPlacementObject((PlacementObject)item);
                 placementObjectPanel1.BringToFront();
+                MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Place;
             }
         }
         #endregion
@@ -175,6 +191,29 @@ namespace Maybe3DaysToDieToolEditor
             var item = ((Item)ItemList.SelectedItem);
             if (item == null) return;
             Command.RenameItemCommand command = new Command.RenameItemCommand(item, NameTextBox.Text);
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+                UpdateBS();
+            }
+        }
+        /// <summary>
+        /// アイテムのスタック数が変更されたとき。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemStackNumeric_Leave(object sender, EventArgs e)
+        {   
+            //テキストを戻す。
+            int value = 0;
+            if (!int.TryParse(MaxItemStackNumeric.Text, out value))
+            {
+                MaxItemStackNumeric.Text = MaxItemStackNumeric.Value.ToString();
+            }
+
+            var item = ((Item)ItemList.SelectedItem);
+            if (item == null) return;
+            Command.ItemStackChangeCommand command = new Command.ItemStackChangeCommand(item, (int)MaxItemStackNumeric.Value);
             if (command.IsChanged())
             {
                 commandList.AddCommand(command);
