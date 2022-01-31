@@ -88,6 +88,18 @@ namespace Engine {
 				m_model.ChangeAlbedo(tex);
 			}
 
+			/// <summary>
+			/// ディスクリプタヒープの構築を行う。
+			/// </summary>
+			/// <remarks>
+			/// アルベドマップなどを差し替えたときに呼び出す必要があります。
+			/// 基本的には使用しないでください。
+			/// </remarks>
+			void CreateDescriptorHeaps()
+			{
+				m_model.CreateDescriptorHeaps();
+			}
+
 		public:		//座標などの変更を行う関数。
 			/// <summary>
 			/// モデルを移動させる。
