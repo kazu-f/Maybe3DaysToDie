@@ -40,7 +40,7 @@ public:
 		Run,			//走る
 		Jump,			//ジャンプ
 		Attack,			//攻撃
-		Inventry,		//インベントリを開く
+		Menu,			//メニュー画面中
 		Damage,			//攻撃に当たった
 		Dead,			//死にました
 		Num				//ステート数
@@ -124,6 +124,8 @@ private:
 	/// モデルを更新
 	/// </summary>
 	void ModelUpdate();
+
+	void SwichDebugMode();
 private:
 	////////////モデル/////////////////////////////////////////////
 	//prefab::ModelRender* m_Model = nullptr;		//プレイヤーモデル
@@ -156,11 +158,10 @@ private:
 	State m_NextState = State::Idle;				//次に変わるステート
 	float m_DeltaTime = 0.0f;
 
-	bool m_IsChasePlayer = false;
+	bool m_IsDebugPlayer = true;		//自由に動き回るモード
 	GameCamera* m_Camera = nullptr;
 	bool IsJump = false;
 	bool IsJumping = false;
-	const float JumpTime = 1.0f;
 	float NowTime = 0.0f;
 	float m_mulSpeed = 1.0f;			//移動速度(バフ、デバフ用）
 

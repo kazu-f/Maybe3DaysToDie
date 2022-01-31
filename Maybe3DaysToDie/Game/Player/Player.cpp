@@ -24,12 +24,6 @@ bool Player::Start()
 
 	//水分を作る
 	m_Water = NewGO<PlayerWater>(0, "playerWater");
-
-	m_Font = NewGO<CFontRender>(0);
-	m_Font->SetText(L"Press'G' MoveMode Chenge\nPress'1' Fly");
-	m_Font->SetPosition({ -640.0f,100.0f });
-	m_Font->SetColor(Vector4::Red);
-	m_Font->SetScale(0.6f);
 	ModelInitData PlayerModel;
 	PlayerModel.m_tkmFilePath = "Assets/modelData/Player.tkm";
 
@@ -54,27 +48,23 @@ void Player::Update()
 {
 	//ステートを更新
 	StateUpdate();
-	if (m_CurrentState != State::Inventry) {
-		static bool IsPush = false;
-		if (GetAsyncKeyState('G')) {
-			if (!IsPush) {
-				m_IsChasePlayer = !m_IsChasePlayer;
-			}
-			IsPush = true;
-		}
-		else {
-			IsPush = false;
-		}
-		//時間経過による回復
-		PeriodicUpdate();
+
+	switch (m_CurrentState)
+	{
+	case State::Menu:
+		m_Camera->SetMovingMouse(true);
+		break;
+	case State::Dead:
+
+	default:
 		//移動処理
 		Move();
+		SwichDebugMode();
 		m_Camera->SetMovingMouse(false);
+		break;
 	}
-	else
-	{
-		m_Camera->SetMovingMouse(true);
-	}
+	//時間経過による回復
+	PeriodicUpdate();
 	//カメラにポジションを渡す
 	m_Camera->SetPosition(m_Pos);
 	//モデル情報を更新
@@ -117,7 +107,7 @@ void Player::Move()
 	Vector3 MoveSpeed = Vector3::Zero;
 	//Wキーが押されたら
 	if (GetAsyncKeyState('W')) {
-		if (m_IsChasePlayer) {
+		if (m_IsDebugPlayer) {
 			MoveSpeed += Forward;
 		}
 		else {
@@ -126,7 +116,7 @@ void Player::Move()
 	}
 	//Sキーが押されたら
 	if (GetAsyncKeyState('S')) {
-		if (m_IsChasePlayer) {
+		if (m_IsDebugPlayer) {
 			MoveSpeed -= Forward;
 		}
 		else {
@@ -153,7 +143,7 @@ void Player::Move()
 	{
 		static float gravity = 0.0f;
 		gravity -= GameTime().GetFrameDeltaTime();
-		if (!m_IsChasePlayer) {
+		if (!m_IsDebugPlayer) {
 			gravity = 0.0f;
 		}
 
@@ -178,8 +168,10 @@ void Player::Move()
 		if (IsJump)
 		{
 			NowTime += GameTime().GetFrameDeltaTime();
-			float f = NowTime - 0.3f;
-			MoveSpeed.y = ((  gravity) * pow(f, 2)) + JumpTime;
+			const float JumpTime = 0.3f;
+			float f = NowTime - JumpTime;
+			const float JumpPower = 0.5f;
+			MoveSpeed.y = ((gravity)*pow(f, 2)) + JumpPower;
 			if (IsJumping && m_Characon.IsOnGround())
 			{
 				//ジャンプ中に地面についたのでジャンプ終了
@@ -217,6 +209,20 @@ void Player::ModelUpdate()
 	//m_Model->PlayAnimation(State::Idle,GameTime().GetFrameDeltaTime());
 }
 
+void Player::SwichDebugMode()
+{
+	static bool IsPush = false;
+	if (GetAsyncKeyState('G')) {
+		if (!IsPush) {
+			m_IsDebugPlayer = !m_IsDebugPlayer;
+		}
+		IsPush = true;
+	}
+	else {
+		IsPush = false;
+	}
+}
+
 void Player::HitDamage(float damage) {
 	float PlayerHp = m_Hp->GetHp() - damage;
 	if (PlayerHp < 0) {
@@ -230,7 +236,7 @@ void Player::HitDamage(float damage) {
 void Player::OpenInventory()
 {
 	if (State::Dead != m_CurrentState) {
-		m_NextState = State::Inventry;
+		m_NextState = State::Menu;
 	}
 }
 
