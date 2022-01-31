@@ -2,6 +2,7 @@
 #include "Stage.h"
 #include "Enemy/EnemyGenerator.h"
 #include "Enemy/StandardZombie/StandardZombie.h"
+#include "NaviMeshManager.h"
 
 Stage::Stage()
 {
@@ -12,6 +13,7 @@ Stage::Stage()
 
 bool Stage::Start()
 {
+	m_naviMeshManager = NewGO<NaviMeshManager>(0);
 	return true;
 }
 

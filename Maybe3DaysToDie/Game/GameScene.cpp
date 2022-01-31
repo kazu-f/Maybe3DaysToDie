@@ -15,6 +15,7 @@
 #include "Load/TerrainLoad/LoadingByChunk.h"
 
 
+
 CGameScene::~CGameScene()
 {
 	DeleteGO(m_Player);
@@ -46,6 +47,7 @@ CGameScene::~CGameScene()
 
 bool CGameScene::Start()
 {
+
 	m_Player = NewGO<Player>(0, "player");
 	m_Player->SetItemBar(m_ItemBar);
 	m_ItemBar = NewGO<ItemBar>(0, "itemBar");
@@ -82,7 +84,7 @@ bool CGameScene::Start()
 	m_fontRender->SetScale(0.5f);
 
 	//動的にワールドを読み込むLoadingByChunkをNewGO
-	m_LoadingByChunk = NewGO<LoadingByChunk>(0);
+	m_LoadingByChunk = NewGO<LoadingByChunk>(0, "LoadingByChunk");
 	m_LoadingByChunk->SetTerrainManager(m_Stage->GetTerrainWorld());
 	//セーブデータファイルをセット
 	m_LoadingByChunk->SetSaveDataFile(&m_SaveDataFile);
