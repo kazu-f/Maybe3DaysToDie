@@ -121,6 +121,16 @@ public:
 	/// </summary>
 	void UpdateModels();
 
+	bool IsNvmDirty()
+	{
+		return m_IsUpdated;
+	}
+
+	void NvmDirtyFlagDown()
+	{
+		m_IsUpdated = false;
+	}
+
  private:
 	SaveDataFile* m_SaveDataFile = nullptr;
 	WorldTableData* m_WorldTableData = nullptr;
@@ -130,4 +140,5 @@ public:
 	ChunkBlock m_ChunkBlock[LoadingChunks][LoadingChunks];
 	nsTerrain::TerrainManager* m_TerrainManager = nullptr;		//テラインマネージャー
 	std::vector<prefab::ModelRender*>BlockModel = { nullptr };		//ブロックのモデル
+	bool m_IsUpdated = false;
 };
