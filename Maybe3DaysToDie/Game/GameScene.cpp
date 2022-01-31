@@ -4,7 +4,7 @@
 #include "Player/Player.h"
 #include "Stage.h"
 #include "ItemBar.h"
-#include "Status/Inventory.h"
+#include "Player/Inventory.h"
 
 #include "PlacementObject/PlacementObject.h"
 #include "DestroyObject/DestroyObject.h"
