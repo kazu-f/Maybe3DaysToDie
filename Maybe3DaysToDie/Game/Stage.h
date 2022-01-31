@@ -51,6 +51,7 @@ private:
 	EnemyGenerator m_enemyGenerator;				//エネミージェネレーター。
 	nsTerrain::TerrainManager* m_Terrain;
 	WorldTableData m_WorldTableData;
+	prefab::CSky* m_SkyCube = nullptr;		//スカイキューブ
 	//prefab::ModelRender* m_Model = nullptr;		//地面
 	//CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
 	//Vector3 m_pos = Vector3::Zero;		//ポジション

@@ -12,6 +12,9 @@ Stage::Stage()
 
 bool Stage::Start()
 {
+	//メインカメラの描画距離をロードしているチャンクに合わせる
+	MainCamera().SetFar(OBJECT_UNIT * ChunkWidth * LoadingChunks / 2);
+	m_SkyCube->SetScale(ChunkWidth * LoadingChunks);
 	return true;
 }
 
@@ -24,8 +27,6 @@ void Stage::Update()
 	if (GetAsyncKeyState('K')) {
 		m_enemyGenerator.ReleaseEnemy();
 	}
-
-
 }
 
 void Stage::OnDestroy()
@@ -43,7 +44,7 @@ void Stage::OnDestroy()
 void Stage::NewGround()
 {
 	m_Terrain = NewGO<nsTerrain::TerrainManager>(0,"Terrain");
-
+	m_SkyCube = NewGO<prefab::CSky>(0);
 	//m_stage.CreateStage();
 	//m_Model = NewGO<prefab::ModelRender>(0);
 	//ModelInitData InitModelUnity;

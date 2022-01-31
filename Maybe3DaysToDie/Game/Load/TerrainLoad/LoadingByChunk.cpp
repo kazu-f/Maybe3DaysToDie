@@ -316,6 +316,7 @@ void LoadingByChunk::UpdateModels()
 		{
 			if (m_ChunkBlock[x][z].IsModelUpdated())
 			{
+				//todo 更新フラグを下す
 				//更新あり
 				Dirty = true;
 				//ブロック設置orブロック破壊したのでNVMも更新
@@ -352,6 +353,7 @@ void LoadingByChunk::UpdateModels()
 					//インスタンシングデータを追加
 					BlockModel[BlockID]->UpdateInstancingData(data.pos,data.rot,data.scale);
 				}
+				m_ChunkBlock[x][z].ResetModelUpdated();
 			}
 		}
 	}
