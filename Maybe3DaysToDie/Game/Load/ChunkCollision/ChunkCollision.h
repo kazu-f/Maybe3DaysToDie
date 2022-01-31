@@ -80,12 +80,22 @@ public:
 	{
 		m_LoadingByChunk = ptr;
 	}
+
+	/// <summary>
+	/// ロードしているチャンクに対応させるためIDを持たす
+	/// </summary>
+	void SetLoadChunkID(int x,int z)
+	{
+		m_LoadID[0] = x;
+		m_LoadID[1] = z;
+	}
 private:
 	CPhysicsStaticObject m_StaticCol[ChunkWidth][ChunkHeight][ChunkWidth];		//静的物理オブジェクト
 	const Vector3 BLOCK_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };
 	ChunkBlock* m_ChunkBlocks = nullptr;
 	nsTerrain::TerrainChunkData* m_TerrainData = nullptr;
 	int m_ChunkID[2] = { 0 };
+	int m_LoadID[2] = { 0 };
 	bool IsMove = false;
 	LoadingByChunk* m_LoadingByChunk = nullptr;
 };
