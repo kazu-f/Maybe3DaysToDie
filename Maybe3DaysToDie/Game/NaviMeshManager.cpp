@@ -20,16 +20,26 @@ bool NaviMeshManager::Start()
 
 void NaviMeshManager::Update()
 {
-	if (!m_loadingByChunk->IsNvmDirty())
+	for (int x = 0; x < 3; x++)
 	{
-		//地形の更新がない。
-		return;
+		for (int y = 0; y < 3; y++)
+		{
+			if (m_loadingByChunk->IsNvmDirty(x, y))
+			{
+				//
+				m_terrainManager->GetTerrainWorld(x, y)->CreateNVM();
+				m_loadingByChunk->NvmDirtyFlagDown(x, y);
+			}
+		}
 	}
 
-	//NVMを更新していく。更新するTerrainWorldはLoadingByChunkから取れるようにする。
-	m_terrainManager->GetTerrainWorld(m_playerGrid[0], m_playerGrid[1])->CreateNVM();
-	//MessageBoxA(NULL, "a", "a", MB_OK);
-	m_loadingByChunk->NvmDirtyFlagDown();
+	//if (IsNvmDirty)
+	//{
+	//	//地形の更新がない。
+	//	return;
+	//}
+
+
 }
 
 void NaviMeshManager::CalcPlayerGrid()

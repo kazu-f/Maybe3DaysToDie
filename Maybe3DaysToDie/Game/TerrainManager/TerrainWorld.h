@@ -114,7 +114,7 @@ namespace nsTerrain {
 		Vector3 m_position = Vector3::Zero;				//座標。
 
 		std::vector<NVMGenerator::Cell> m_cellList;		//セルリスト。
-		bool m_isNVMDebug = true;						//デバッグ描画する？
+		bool m_isNVMDebug = false;						//デバッグ描画する？
 		NVMDebugDraw* m_nvmDebugDraw = nullptr;			//デバッグ描画。
 
 		bool m_isInited = false;						//初期化済みフラグ。
