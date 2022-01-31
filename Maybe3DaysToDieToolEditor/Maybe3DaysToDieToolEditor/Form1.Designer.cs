@@ -56,18 +56,21 @@ namespace Maybe3DaysToDieToolEditor
             this.ModelDataLabel = new System.Windows.Forms.Label();
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.ItemGroupBox = new System.Windows.Forms.GroupBox();
+            this.ItemIDDispLabel = new System.Windows.Forms.Label();
+            this.ItemIDLabel = new System.Windows.Forms.Label();
             this.IconFileSelectButton = new System.Windows.Forms.Button();
             this.ItemNameLabel = new System.Windows.Forms.Label();
             this.IconDataTextBox = new System.Windows.Forms.TextBox();
             this.IconDataLabel = new System.Windows.Forms.Label();
             this.toolDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.toolDataPanel1 = new Maybe3DaysToDieToolEditor.ToolDataPanel();
-            this.ItemIDLabel = new System.Windows.Forms.Label();
-            this.ItemIDDispLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.MaxItemStackNumeric = new System.Windows.Forms.NumericUpDown();
             this.placementObjectPanel1 = new Maybe3DaysToDieToolEditor.PlacementObjectPanel();
+            this.toolDataPanel1 = new Maybe3DaysToDieToolEditor.ToolDataPanel();
             this.menuStrip1.SuspendLayout();
             this.ItemGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxItemStackNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -78,7 +81,7 @@ namespace Maybe3DaysToDieToolEditor
             this.EditorEToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1482, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1482, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -91,7 +94,7 @@ namespace Maybe3DaysToDieToolEditor
             this.SaveToolStripMenuItem,
             this.SaveAsToolStripMenuItem});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            this.FileToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(82, 26);
             this.FileToolStripMenuItem.Text = "ファイル(&F)";
             // 
             // CreateNewToolStripMenuItem
@@ -141,7 +144,7 @@ namespace Maybe3DaysToDieToolEditor
             this.AddToolStripMenuItem1,
             this.DeleteToolStripMenuItem});
             this.EditorEToolStripMenuItem.Name = "EditorEToolStripMenuItem";
-            this.EditorEToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.EditorEToolStripMenuItem.Size = new System.Drawing.Size(71, 26);
             this.EditorEToolStripMenuItem.Text = "編集(&E)";
             // 
             // UnDoToolStripMenuItem
@@ -198,7 +201,7 @@ namespace Maybe3DaysToDieToolEditor
             this.MaterialDataToolStripMenuItem,
             this.PlaceObjDataToolStripMenuItem});
             this.AddToolStripMenuItem1.Name = "AddToolStripMenuItem1";
-            this.AddToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.AddToolStripMenuItem1.Size = new System.Drawing.Size(213, 26);
             this.AddToolStripMenuItem1.Text = "追加";
             // 
             // ToolDataToolStripMenuItem
@@ -217,7 +220,7 @@ namespace Maybe3DaysToDieToolEditor
             // PlaceObjDataToolStripMenuItem
             // 
             this.PlaceObjDataToolStripMenuItem.Name = "PlaceObjDataToolStripMenuItem";
-            this.PlaceObjDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.PlaceObjDataToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
             this.PlaceObjDataToolStripMenuItem.Text = "設置物";
             this.PlaceObjDataToolStripMenuItem.Click += new System.EventHandler(this.PlaceObjDataToolStripMenuItem_Click);
             // 
@@ -276,6 +279,8 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // ItemGroupBox
             // 
+            this.ItemGroupBox.Controls.Add(this.MaxItemStackNumeric);
+            this.ItemGroupBox.Controls.Add(this.label1);
             this.ItemGroupBox.Controls.Add(this.ItemIDDispLabel);
             this.ItemGroupBox.Controls.Add(this.ItemIDLabel);
             this.ItemGroupBox.Controls.Add(this.IconFileSelectButton);
@@ -293,6 +298,25 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemGroupBox.TabStop = false;
             this.ItemGroupBox.Text = "ItemData";
             this.ItemGroupBox.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
+            // 
+            // ItemIDDispLabel
+            // 
+            this.ItemIDDispLabel.Location = new System.Drawing.Point(1084, 24);
+            this.ItemIDDispLabel.Name = "ItemIDDispLabel";
+            this.ItemIDDispLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ItemIDDispLabel.Size = new System.Drawing.Size(100, 23);
+            this.ItemIDDispLabel.TabIndex = 12;
+            this.ItemIDDispLabel.Text = "0";
+            this.ItemIDDispLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // ItemIDLabel
+            // 
+            this.ItemIDLabel.AutoSize = true;
+            this.ItemIDLabel.Location = new System.Drawing.Point(1057, 28);
+            this.ItemIDLabel.Name = "ItemIDLabel";
+            this.ItemIDLabel.Size = new System.Drawing.Size(21, 15);
+            this.ItemIDLabel.TabIndex = 11;
+            this.ItemIDLabel.Text = "ID";
             // 
             // IconFileSelectButton
             // 
@@ -332,32 +356,37 @@ namespace Maybe3DaysToDieToolEditor
             this.IconDataLabel.TabIndex = 8;
             this.IconDataLabel.Text = "IconData";
             // 
-            // toolDataPanel1
+            // label1
             // 
-            this.toolDataPanel1.Location = new System.Drawing.Point(198, 312);
-            this.toolDataPanel1.Name = "toolDataPanel1";
-            this.toolDataPanel1.Size = new System.Drawing.Size(1272, 520);
-            this.toolDataPanel1.TabIndex = 4;
-            this.toolDataPanel1.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(978, 56);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 15);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "ItemStackNum";
             // 
-            // ItemIDLabel
+            // MaxItemStackNumeric
             // 
-            this.ItemIDLabel.AutoSize = true;
-            this.ItemIDLabel.Location = new System.Drawing.Point(1057, 28);
-            this.ItemIDLabel.Name = "ItemIDLabel";
-            this.ItemIDLabel.Size = new System.Drawing.Size(21, 15);
-            this.ItemIDLabel.TabIndex = 11;
-            this.ItemIDLabel.Text = "ID";
-            // 
-            // ItemIDDispLabel
-            // 
-            this.ItemIDDispLabel.Location = new System.Drawing.Point(1084, 24);
-            this.ItemIDDispLabel.Name = "ItemIDDispLabel";
-            this.ItemIDDispLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.ItemIDDispLabel.Size = new System.Drawing.Size(100, 23);
-            this.ItemIDDispLabel.TabIndex = 12;
-            this.ItemIDDispLabel.Text = "0";
-            this.ItemIDDispLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.MaxItemStackNumeric.Location = new System.Drawing.Point(1084, 54);
+            this.MaxItemStackNumeric.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.MaxItemStackNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MaxItemStackNumeric.Name = "MaxItemStackNumeric";
+            this.MaxItemStackNumeric.Size = new System.Drawing.Size(120, 22);
+            this.MaxItemStackNumeric.TabIndex = 14;
+            this.MaxItemStackNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MaxItemStackNumeric.Leave += new System.EventHandler(this.ItemStackNumeric_Leave);
             // 
             // placementObjectPanel1
             // 
@@ -365,6 +394,14 @@ namespace Maybe3DaysToDieToolEditor
             this.placementObjectPanel1.Name = "placementObjectPanel1";
             this.placementObjectPanel1.Size = new System.Drawing.Size(1272, 520);
             this.placementObjectPanel1.TabIndex = 5;
+            // 
+            // toolDataPanel1
+            // 
+            this.toolDataPanel1.Location = new System.Drawing.Point(198, 312);
+            this.toolDataPanel1.Name = "toolDataPanel1";
+            this.toolDataPanel1.Size = new System.Drawing.Size(1272, 520);
+            this.toolDataPanel1.TabIndex = 4;
+            this.toolDataPanel1.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
             // Maybe3DaysToDie_ToolEditor
             // 
@@ -385,6 +422,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemGroupBox.ResumeLayout(false);
             this.ItemGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxItemStackNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -428,6 +466,8 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.Label ItemIDDispLabel;
         private System.Windows.Forms.Label ItemIDLabel;
         private PlacementObjectPanel placementObjectPanel1;
+        private System.Windows.Forms.NumericUpDown MaxItemStackNumeric;
+        private System.Windows.Forms.Label label1;
     }
 }
 
