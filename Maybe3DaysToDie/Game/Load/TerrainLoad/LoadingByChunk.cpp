@@ -236,6 +236,11 @@ void LoadingByChunk::UpdateTerains()
 
 }
 
+void LoadingByChunk::UpdateWorldTableData()
+{
+
+}
+
 void LoadingByChunk::LinkChunk()
 {
 	//todo リファクタリングでコード見直し
