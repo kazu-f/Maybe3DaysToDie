@@ -213,6 +213,7 @@
     <ClCompile Include="MultiThread\Thread.cpp" />
     <ClCompile Include="Tool\Tool.cpp" />
     <ClCompile Include="Tool\ToolDataFile.cpp" />
+    <ClCompile Include="NaviMeshManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
@@ -278,6 +279,7 @@
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp" />
     <ClInclude Include="RayTest.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SaveDataFile.h" />
     <ClInclude Include="Stage\Hill\Hill.h" />
     <ClInclude Include="Navigation\NVMGenerator.h" />
@@ -309,6 +311,7 @@
     <ClInclude Include="MultiThread\Thread.h" />
     <ClInclude Include="Tool\Tool.h" />
     <ClInclude Include="Tool\ToolDataFile.h" />
+    <ClInclude Include="NaviMeshManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />

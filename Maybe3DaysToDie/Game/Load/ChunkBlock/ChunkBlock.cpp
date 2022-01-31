@@ -88,6 +88,9 @@ void ChunkBlock::MoveChunk()
 			}
 		}
 	}
+
+
+	
 	IsMove = false;
 }
 

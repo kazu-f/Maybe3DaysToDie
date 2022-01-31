@@ -140,6 +140,9 @@ void LoadingByChunk::Update()
 	/////ここから下は更新する必要があるとき/////
 	////////////////////////////////////////////
 
+	//NVMの更新フラグを立てる
+	m_IsUpdated = true;
+
 	//チャンク移動
 	UpdateMoveChunk();
 
@@ -315,6 +318,8 @@ void LoadingByChunk::UpdateModels()
 			{
 				//更新あり
 				Dirty = true;
+				//ブロック設置orブロック破壊したのでNVMも更新
+				m_IsUpdated = true;
 			}
 			if (Dirty)
 			{
