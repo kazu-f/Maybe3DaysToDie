@@ -145,6 +145,10 @@ public:
 		m_IsUpdated = true;
 	}
 
+	ChunkBlock* GetChunkBlock(int x, int z)
+	{
+		return &m_ChunkBlock[x][z];
+	}
  private:
 	SaveDataFile* m_SaveDataFile = nullptr;
 	WorldTableData* m_WorldTableData = nullptr;
