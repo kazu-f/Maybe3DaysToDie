@@ -8,6 +8,7 @@ namespace Maybe3DaysToDieToolEditor
 {
     namespace Command
     {
+        //耐久値変更のコマンド。
         class ChangePlacementObjectDurable : ICommand
         {
             PlacementObject m_place;
@@ -31,6 +32,33 @@ namespace Maybe3DaysToDieToolEditor
             public override bool IsChanged()
             {
                 return beforeVal != afterVal;
+            }
+        }
+        //採取アイテム追加のコマンド。
+        class AddPlacementObjCollectItem : ICommand
+        {
+            PlacementObject m_place;
+            CollectItem m_addCollectItem = null;
+
+            public AddPlacementObjCollectItem(PlacementObject place, CollectItem addItem)
+            {
+                m_addCollectItem = addItem;
+                m_place = place;
+            }
+            public override void UnDo()
+            {
+                //リストから削除。
+                m_place.collectItemList.Remove(m_addCollectItem);
+            }
+            public override void ReDo()
+            {
+                //リストに追加。
+                m_place.collectItemList.Add(m_addCollectItem);
+            }
+            public override bool IsChanged()
+            {
+                //リストに登録されているか。
+                return !m_place.collectItemList.Contains(m_addCollectItem);
             }
         }
     }

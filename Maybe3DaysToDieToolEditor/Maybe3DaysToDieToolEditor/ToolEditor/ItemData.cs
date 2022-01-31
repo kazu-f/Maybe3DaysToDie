@@ -52,27 +52,50 @@ namespace Maybe3DaysToDieToolEditor
     {
         [DataMember(Name = "durable")] public int durable { get; set; } = 0;
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
-        [DataMember(Name = "collect")] public CollectItem collectItem;
+        [DataMember(Name = "collectItems")] public List<CollectItem> collectItemList = new List<CollectItem>();
     }
 
     /// <summary>
     /// 設置物からの採取情報。
     /// </summary>
     [DataContract]
-    public struct CollectItem
+    public class CollectItem
     {
-        public Item corectItem;                                         //採取するアイテム。
+        public CollectItem(Item _item,int _collectNum)
+        {
+            collectItem = _item;
+            this.collectNum = _collectNum;
+            collectItemID = _item.itemID;
+        }
+        /// <summary>
+        /// アイテムIDから採取アイテムデータを構築し直す。
+        /// </summary>
+        /// <param name="itemList">アイテムリスト。</param>
+        public void BuildCollectItemData(List<Item> itemList)
+        {
+            if(collectItemID != -1 && itemList.Count > collectItemID) collectItem = itemList[collectItemID];
+        }
+
+        public Item collectItem;                                         //採取するアイテム。
+        private int collectItemID = -1;                                 //採取するアイテムのID。
+        public string ItemName {
+            get {
+                if (collectItem == null) return "NoData";
+                else return collectItem.itemName; 
+            }
+        }
+
         [DataMember(Name = "corectItemID")] public int ItemID {
             get {
-                if (corectItem == null) return 0;
-                else return corectItem.itemID;
+                if (collectItem == null) return 0;
+                else return collectItem.itemID;
             }
             set
             {
-                corectItem.itemID = value;
+                collectItemID = value;
             }
         }
-        [DataMember(Name = "corectionNum")] public int corectNum;       //採取量。
+        [DataMember(Name = "corectionNum")] public int collectNum;       //採取量。
     }
 
 }

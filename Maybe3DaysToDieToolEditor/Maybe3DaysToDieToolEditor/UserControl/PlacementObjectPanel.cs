@@ -40,8 +40,32 @@ namespace Maybe3DaysToDieToolEditor
         public void DispPlacementObject(PlacementObject obj)
         {
             DurableNumeric.Value = obj.durable;
-            ColectItemDropDownList.SelectedIndex = obj.collectItem.ItemID;
             toolKinds.SelectValue(obj.tool);
+            DispListView(obj);
+        }
+
+        private void DispListView(PlacementObject obj)
+        {
+            //リストを一旦空にする。
+            for(int i = 0; i < collectItemListView.Items.Count; i++)
+            {
+                var listData = collectItemListView.Items[i];
+                listData.SubItems[0].Text = (i + 1) + ":";
+                for (int j = 1;j < collectItemListView.Columns.Count; j++)
+                {
+                    listData.SubItems[j].Text = "";
+                }
+            }
+
+            //リストにデータを表示する。
+            for (int i = 0;i < obj.collectItemList.Count;i++)
+            {
+                var listData = collectItemListView.Items[i];
+                var item = obj.collectItemList[i];
+                listData.SubItems[1].Text = item.ItemID.ToString();
+                listData.SubItems[2].Text = item.ItemName;
+                listData.SubItems[3].Text = item.collectNum.ToString();
+            }
         }
 
         #region 設置物のデータの変更コマンド。
@@ -73,7 +97,52 @@ namespace Maybe3DaysToDieToolEditor
             }
         }
 
+        /// <summary>
+        /// 採取アイテムを追加するボタンが押された。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CollectItemAddButton_Click(object sender, EventArgs e)
+        {
+            var item = listBox.SelectedItem;
+            if (item == null) return;
+            if (item.GetType() != typeof(PlacementObject)) return;
+
+            if (ColectItemDropDownList.SelectedItem is Item)
+            {
+                var place = (PlacementObject)item;
+                //登録できるアイテムの上限に来ているかどうか。
+                if (collectItemListView.Items.Count > place.collectItemList.Count)
+                {
+                    CollectItem collect = new CollectItem((Item)ColectItemDropDownList.SelectedItem, (int)collectNumeric.Value);
+                    //place.collectItemList.Add(collect);
+                    Command.AddPlacementObjCollectItem command = new Command.AddPlacementObjCollectItem(place, collect);
+                    //変更があればコマンドリストに追加。
+                    if (command.IsChanged())
+                    {
+                        commandList.AddCommand(command);
+                    }
+
+                    DispListView(place);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "登録できるアイテムの種類の上限です。",
+                        "エラー",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                        );
+                }
+            }
+            
+        }
+        /// <summary>
+        /// 採取アイテムの削除ボタンが押されたとき。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CollectItemDel_Click(object sender, EventArgs e)
         {
 
         }
