@@ -102,6 +102,11 @@ public:
 	void UpdateTerains();
 
 	/// <summary>
+	/// ワールドテーブルデータの更新
+	/// </summary>
+	void UpdateWorldTableData();
+
+	/// <summary>
 	/// チャンクブロックをチャンクコライダーと紐づけする
 	/// </summary>
 	void LinkChunk();
