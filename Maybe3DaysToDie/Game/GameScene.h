@@ -2,6 +2,7 @@
 
 #include "Save/TerrainSave/TerrainSave.h"
 #include "Load/TerrainLoad/TerrainLoad.h"
+#include "AccessObject/AccessObject.h"
 
 class Player;
 class Stage;
@@ -47,4 +48,5 @@ private:
 	TerrainLoad m_TerrainLoad;
 	SaveDataFile m_SaveDataFile;
 	LoadingByChunk* m_LoadingByChunk = nullptr;
+	AccessObject m_AccessObject;		//設置物にアクセスするためのクラス
 };

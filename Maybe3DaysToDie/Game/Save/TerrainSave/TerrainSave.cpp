@@ -45,8 +45,6 @@ void TerrainSave::Save()
 						m_SaveDataFile->m_ChunkData[chunk_x][chunk_y].ObjData[terrainID[0]][terrainID[1]][terrainID[2]].ObjId = TerrainParam.BlockID;
 						//ブロックの耐久値を記憶
 						m_SaveDataFile->m_ChunkData[chunk_x][chunk_y].ObjData[terrainID[0]][terrainID[1]][terrainID[2]].ObjDurable = TerrainParam.Durable;
-						////オブジェクトのタイプを記憶
-						//m_SaveDataFile->m_ChunkData[chunk_x][chunk_y].ObjType = TerrainParam.Type;
 					}
 				}
 			}

@@ -328,6 +328,9 @@
     <ImageContentTask Include="Assets\sprite\ItemUI\inbentori.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\SelectBar.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Root.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

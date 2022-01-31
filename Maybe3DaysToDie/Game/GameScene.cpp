@@ -111,6 +111,7 @@ bool CGameScene::Start()
 		&m_TerrainLoad,
 		m_Stage
 	);
+	m_AccessObject.SetSaveData(&m_SaveDataFile);
 	return true;
 }
 
@@ -122,4 +123,13 @@ void CGameScene::Update()
 		m_TerrainSave.SetTerrainWorld(nullptr);
 		m_TerrainSave.Save();
 	}
+	//if (GetAsyncKeyState('F'))
+	//{
+	//	m_AccessObject.Access();
+	//}
+	//if (GetAsyncKeyState(VK_END))
+	//{
+	//	m_AccessObject.EndAccess();
+	//}
+
 }
