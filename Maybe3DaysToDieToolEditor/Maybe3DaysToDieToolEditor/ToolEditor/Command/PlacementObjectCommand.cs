@@ -8,6 +8,7 @@ namespace Maybe3DaysToDieToolEditor
 {
     namespace Command
     {
+        //耐久値変更のコマンド。
         class ChangePlacementObjectDurable : ICommand
         {
             PlacementObject m_place;
@@ -31,6 +32,62 @@ namespace Maybe3DaysToDieToolEditor
             public override bool IsChanged()
             {
                 return beforeVal != afterVal;
+            }
+        }
+        //採取アイテム追加のコマンド。
+        class AddPlacementObjCollectItem : ICommand
+        {
+            PlacementObject m_place;
+            CollectItem m_addCollectItem = null;
+
+            public AddPlacementObjCollectItem(PlacementObject place, CollectItem addItem)
+            {
+                m_addCollectItem = addItem;
+                m_place = place;
+            }
+            public override void UnDo()
+            {
+                //リストから削除。
+                m_place.collectItemList.Remove(m_addCollectItem);
+            }
+            public override void ReDo()
+            {
+                //リストに追加。
+                m_place.collectItemList.Add(m_addCollectItem);
+            }
+            public override bool IsChanged()
+            {
+                //リストに登録されているか。
+                return !m_place.collectItemList.Contains(m_addCollectItem);
+            }
+        }
+        //採取アイテム削除のコマンド。
+        class RemovePlacementObjCollectItem : ICommand
+        {
+            PlacementObject m_place;
+            CollectItem m_removeCollectItem = null;
+            int m_index = int.MaxValue;
+
+            public RemovePlacementObjCollectItem(PlacementObject place, int index)
+            {
+                m_place = place;
+                m_removeCollectItem = place.collectItemList[index];
+                m_index = index;
+            }
+            public override void UnDo()
+            {
+                //リストに戻す。
+                m_place.collectItemList.Insert(m_index, m_removeCollectItem);
+            }
+            public override void ReDo()
+            {
+                //リストから削除。
+                m_place.collectItemList.Remove(m_removeCollectItem);
+            }
+            public override bool IsChanged()
+            {
+                //リストに登録されているか。
+                return m_place.collectItemList.Contains(m_removeCollectItem);
             }
         }
     }

@@ -2,8 +2,42 @@
 #include "AccessObject.h"
 #include "RayTest.h"
 
+AccessObject::AccessObject()
+{
+	Init();
+}
+
+AccessObject::~AccessObject()
+{
+	OnDestroy();
+}
+
+void AccessObject::Init()
+{
+	m_BoxSprite = NewGO<prefab::CSpriteRender>(2);
+	SpriteInitData initData;
+	initData.m_ddsFilePath[0] = "Assets/sprite/Root.dds";
+	initData.m_fxFilePath = "Assets/shader/sprite.fx";
+	initData.m_width = FRAME_BUFFER_H;
+	initData.m_height = FRAME_BUFFER_H;
+	//スプライトを初期化
+	m_BoxSprite->Init(initData);
+	m_BoxSprite->SetPosition(Vector2::Zero);
+	m_BoxSprite->SetActiveFlag(IsSpriteActive);
+}
+
+void AccessObject::OnDestroy()
+{
+	DeleteGO(m_BoxSprite);
+}
+
 void AccessObject::Access()
 {
+	if (IsSpriteActive)
+	{
+		//既にアクセス中です。
+		return;
+	}
 	//視点の位置
 	Vector3 m_Start = MainCamera().GetPosition();
 	//視線方向にポジションを加算
@@ -41,7 +75,8 @@ void AccessObject::SwitchAction(AccessTag tag)
 		break;
 	case AccessTag::Root:
 		//ルートできるオブジェクト
-
+		//スプライト表示
+		SwitchSpriteActive();
 		break;
 	}
 }

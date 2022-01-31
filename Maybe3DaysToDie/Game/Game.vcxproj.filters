@@ -409,6 +409,7 @@
     <ImageContentTask Include="Assets\sprite\ItemUI\HotBar.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\inbentori.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\SelectBar.png" />
+    <ImageContentTask Include="Assets\sprite\Root.png" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
