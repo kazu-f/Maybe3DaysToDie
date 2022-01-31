@@ -41,6 +41,7 @@ namespace Engine {
 			m_modelRender->FindMaterial([&](auto* mat) {
 				mat->SetAlbedoMap(m_skyCube);
 				});
+			m_modelRender->CreateDescriptorHeaps();		//ディスクリプタヒープを再構築。
 			//ディファードに登録。
 			GraphicsEngine()->GetDefferd()->SetCubeMapTexture(m_skyCube);
 
