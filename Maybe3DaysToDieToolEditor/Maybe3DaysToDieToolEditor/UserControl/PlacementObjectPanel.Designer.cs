@@ -29,33 +29,34 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "1:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "2:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
             "3:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
             "4:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
             "5:",
             "",
             "",
             ""}, -1);
             this.groupBoxPlacementObject = new System.Windows.Forms.GroupBox();
             this.collectItemListView = new System.Windows.Forms.ListView();
+            this.CollectItems = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ItemID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ItemName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ItemNum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -69,7 +70,6 @@ namespace Maybe3DaysToDieToolEditor
             this.DurableLabel = new System.Windows.Forms.Label();
             this.ToolKindsLabel = new System.Windows.Forms.Label();
             this.ToolComboBox = new System.Windows.Forms.ComboBox();
-            this.CollectItems = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxPlacementObject.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collectNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).BeginInit();
@@ -103,13 +103,14 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemID,
             this.ItemName,
             this.ItemNum});
+            this.collectItemListView.FullRowSelect = true;
             this.collectItemListView.HideSelection = false;
             this.collectItemListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5});
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9,
+            listViewItem10});
             this.collectItemListView.Location = new System.Drawing.Point(32, 207);
             this.collectItemListView.MultiSelect = false;
             this.collectItemListView.Name = "collectItemListView";
@@ -117,6 +118,10 @@ namespace Maybe3DaysToDieToolEditor
             this.collectItemListView.TabIndex = 34;
             this.collectItemListView.UseCompatibleStateImageBehavior = false;
             this.collectItemListView.View = System.Windows.Forms.View.Details;
+            // 
+            // CollectItems
+            // 
+            this.CollectItems.Text = "";
             // 
             // ItemID
             // 
@@ -140,6 +145,7 @@ namespace Maybe3DaysToDieToolEditor
             this.CollectItemDel.TabIndex = 33;
             this.CollectItemDel.Text = "削除";
             this.CollectItemDel.UseVisualStyleBackColor = true;
+            this.CollectItemDel.Click += new System.EventHandler(this.CollectItemDel_Click);
             // 
             // CollectItemAddButton
             // 
@@ -231,10 +237,6 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolComboBox.Name = "ToolComboBox";
             this.ToolComboBox.Size = new System.Drawing.Size(121, 23);
             this.ToolComboBox.TabIndex = 24;
-            // 
-            // CollectItems
-            // 
-            this.CollectItems.Text = "";
             // 
             // PlacementObjectPanel
             // 
