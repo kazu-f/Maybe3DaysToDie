@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AccessObject\AccessObject.cpp" />
+    <ClCompile Include="AstarForWorldTableData.cpp" />
     <ClCompile Include="Item\BlockItem.cpp" />
     <ClCompile Include="ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
@@ -213,10 +214,11 @@
     <ClCompile Include="MultiThread\Thread.cpp" />
     <ClCompile Include="Tool\Tool.cpp" />
     <ClCompile Include="Tool\ToolDataFile.cpp" />
-    <ClCompile Include="WorldChunk.cpp" />
+    <ClCompile Include="NaviMeshManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
+    <ClInclude Include="AstarForWorldTableData.h" />
     <ClInclude Include="Item\BlockItem.h" />
     <ClInclude Include="ItemBar.h" />
     <ClInclude Include="Item\GameItemTool.h" />
@@ -279,6 +281,7 @@
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp" />
     <ClInclude Include="RayTest.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SaveDataFile.h" />
     <ClInclude Include="Stage\Hill\Hill.h" />
     <ClInclude Include="Navigation\NVMGenerator.h" />
@@ -310,7 +313,7 @@
     <ClInclude Include="MultiThread\Thread.h" />
     <ClInclude Include="Tool\Tool.h" />
     <ClInclude Include="Tool\ToolDataFile.h" />
-    <ClInclude Include="WorldChunk.h" />
+    <ClInclude Include="NaviMeshManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\HPGauge.png" />
@@ -329,6 +332,9 @@
     <ImageContentTask Include="Assets\sprite\ItemUI\HotBar.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\inbentori.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\SelectBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

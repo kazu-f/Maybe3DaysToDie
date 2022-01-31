@@ -124,7 +124,10 @@
     <ClCompile Include="Item\BlockItem.cpp" />
     <ClCompile Include="MultiThread\Thread.cpp" />
     <ClCompile Include="AccessObject\AccessObject.cpp" />
-    <ClCompile Include="WorldChunk.cpp" />
+    <ClCompile Include="AstarForWorldTableData.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="NaviMeshManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -377,7 +380,11 @@
     <ClInclude Include="MultiThread\Thread.h" />
     <ClInclude Include="AccessObject\AccessObject.h" />
     <ClInclude Include="RayTest.h" />
-    <ClInclude Include="WorldChunk.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="AstarForWorldTableData.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="NaviMeshManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">
@@ -515,5 +522,8 @@
     <Filter Include="nlohmann\thirdparty\hedley">
       <UniqueIdentifier>{366bc28c-681a-43b1-9009-3f8cc62ed50e}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game.rc" />
   </ItemGroup>
 </Project>
