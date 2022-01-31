@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ChunkBlock.h"
+#include "Load/TerrainLoad/LoadingByChunk.h"
 
 void ChunkBlock::Init()
 {
@@ -121,6 +122,8 @@ void ChunkBlock::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, V
 	data.scale = scale;
 	//配列に追加
 	m_InstancingData[BlockID].push_back(data);
+	//ナビメッシュ更新のフラグを立てる。
+	m_LoadingByChunk->NvmDirtyFlagUp(m_LoadID[0], m_LoadID[1]);
 }
 
 void ChunkBlock::RemoveBlock(Block* blockptr)
@@ -160,5 +163,6 @@ void ChunkBlock::RemoveBlock(Block* blockptr)
 			}
 		}
 	}
-
+	//ナビメッシュ更新のフラグを立てる。
+	m_LoadingByChunk->NvmDirtyFlagUp(m_LoadID[0], m_LoadID[1]);
 }

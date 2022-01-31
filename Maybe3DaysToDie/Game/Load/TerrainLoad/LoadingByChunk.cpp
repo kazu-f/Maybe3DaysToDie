@@ -55,7 +55,6 @@ void LoadingByChunk::InitChunkCols()
 		{
 			NowGrid[1] = Grid[1] + z;
 			m_ChunkCol[x][z].SetChunkID(NowGrid);
-			m_ChunkCol[x][z].SetLoadChunkID(x, z);
 			//対応するチャンクブロックをセット
 			//チャンクブロックの真ん中9チャンクが対応している
 			//todo 端っこの時にリンクがおかしくなると思うので直す
@@ -65,7 +64,6 @@ void LoadingByChunk::InitChunkCols()
 			m_ChunkCol[x][z].LinkChunkBlocks(&m_ChunkBlock[LinkChunk[0]][LinkChunk[1]]);
 			//初期化
 			m_ChunkCol[x][z].Init();
-			m_ChunkCol[x][z].SetLoadingByChunk(this);
 		}
 	}
 
@@ -95,6 +93,7 @@ void LoadingByChunk::InitChunkBlocks()
 			NowGrid[1] = Grid[1] + z;
 			m_ChunkBlock[x][z].SetSaveDataFile(m_SaveDataFile);
 			m_ChunkBlock[x][z].SetChunkID(NowGrid);
+			m_ChunkBlock[x][z].SetLoadingByChunk(this);
 			//初期化
 			m_ChunkBlock[x][z].Init();
 		}
@@ -278,6 +277,7 @@ void LoadingByChunk::LinkChunk()
 							//対応しているチャンクデータをセット
 							//チャンクデータは存在するチャンク数分だけあるのでチャンクIDから取得
 							m_ChunkCol[colx][colz].LinkTerrainWorld(&m_TerrainManager->GetTerrainChunkData(ColChunkID[0], ColChunkID[1]));
+							m_ChunkBlock[colx][colz].SetLoadChunkID(blockx, blockz);
 							Linked = true;
 						}
 					}

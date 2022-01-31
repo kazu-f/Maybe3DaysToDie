@@ -2,7 +2,6 @@
 #include "ChunkCollision.h"
 #include "Load/ChunkBlock/ChunkBlock.h"
 #include "TerrainManager/TerrainChunkData.h"
-#include "Load/TerrainLoad/LoadingByChunk.h"
 
 ChunkCollision::ChunkCollision()
 {
@@ -55,9 +54,6 @@ void ChunkCollision::UpdateCol()
 		//対応しているチャンクブロックが更新する必要のないとき
 		return;
 	}
-	//ナビメッシュ更新のフラグを立てる。
-	m_LoadingByChunk->NvmDirtyFlagUp(m_LoadID[0], m_LoadID[1]);
-	//todo 地形にrayhitするようにする
 	//地形のコリジョンはまだ全く触っていない。
 	//ブロック用にコリジョン更新
 	UpdateColForBlock();
