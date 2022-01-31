@@ -2,6 +2,7 @@
 #include "TerrainManager/TerrainWorld.h"
 
 class ChunkBlock;
+class LoadingByChunk;
 //チャンクごとのブロック
 class ChunkCollision
 {
@@ -71,6 +72,14 @@ public:
 	{
 		m_TerrainData = TCD;
 	}
+
+	/// <summary>
+	/// LoadingByChunkのポインタをセット
+	/// </summary>
+	void SetLoadingByChunk(LoadingByChunk* ptr)
+	{
+		m_LoadingByChunk = ptr;
+	}
 private:
 	CPhysicsStaticObject m_StaticCol[ChunkWidth][ChunkHeight][ChunkWidth];		//静的物理オブジェクト
 	const Vector3 BLOCK_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };
@@ -78,4 +87,5 @@ private:
 	nsTerrain::TerrainChunkData* m_TerrainData = nullptr;
 	int m_ChunkID[2] = { 0 };
 	bool IsMove = false;
+	LoadingByChunk* m_LoadingByChunk = nullptr;
 };

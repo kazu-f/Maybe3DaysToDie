@@ -121,14 +121,28 @@ public:
 	/// </summary>
 	void UpdateModels();
 
+	/// <summary>
+	/// ナビメッシュを更新するかどうか
+	/// </summary>
 	bool IsNvmDirty()
 	{
 		return m_IsUpdated;
 	}
 
+	/// <summary>
+	/// ナビメッシュ更新のフラグ下す
+	/// </summary>
 	void NvmDirtyFlagDown()
 	{
 		m_IsUpdated = false;
+	}
+
+	/// <summary>
+	/// ナビメッシュ更新のフラグを立てる
+	/// </summary>
+	void NvmDirtyFlagUp()
+	{
+		m_IsUpdated = true;
 	}
 
  private:

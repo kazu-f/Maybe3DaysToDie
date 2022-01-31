@@ -64,6 +64,7 @@ void LoadingByChunk::InitChunkCols()
 			m_ChunkCol[x][z].LinkChunkBlocks(&m_ChunkBlock[LinkChunk[0]][LinkChunk[1]]);
 			//初期化
 			m_ChunkCol[x][z].Init();
+			m_ChunkCol[x][z].SetLoadingByChunk(this);
 		}
 	}
 
@@ -319,8 +320,6 @@ void LoadingByChunk::UpdateModels()
 				//todo 更新フラグを下す
 				//更新あり
 				Dirty = true;
-				//ブロック設置orブロック破壊したのでNVMも更新
-				m_IsUpdated = true;
 			}
 			if (Dirty)
 			{
