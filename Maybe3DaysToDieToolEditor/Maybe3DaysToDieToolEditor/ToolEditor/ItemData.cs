@@ -21,6 +21,7 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "stackNum")] public int itemStackNum { get; set; } = 1;
         [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
         [DataMember(Name = "iconData")] public string iconData { get; set; } = "";
+        public bool isRegist = true;               //リスト登録フラグ。
     }
 
     public enum ToolKinds : uint
@@ -91,14 +92,16 @@ namespace Maybe3DaysToDieToolEditor
         private int collectItemID = -1;                                 //採取するアイテムのID。
         public string ItemName {
             get {
-                if (collectItem == null) return "NoData";
+                if (collectItem == null
+                    || collectItem.isRegist == false) return "NoData";
                 else return collectItem.itemName; 
             }
         }
 
         [DataMember(Name = "corectItemID")] public int ItemID {
             get {
-                if (collectItem == null) return 0;
+                if (collectItem == null
+                    || collectItem.isRegist == false) return -1;
                 else return collectItem.itemID;
             }
             set

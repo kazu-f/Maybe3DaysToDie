@@ -91,6 +91,7 @@ namespace Maybe3DaysToDieToolEditor
             {
                 if (m_itemList.Remove((Item)item))
                 {
+                    ((Item)item).isRegist = false;      //登録から外れる。
                     var reDisp = ItemList.SelectedItem;
                     if (item is Item) DispItemData((Item)reDisp);
 
