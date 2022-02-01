@@ -1,4 +1,6 @@
 #pragma once
+
+class Player;
 class PlayerWater final : public IGameObject
 {
 private:
@@ -28,6 +30,11 @@ private:
 	/// 水分フレームを初期化
 	/// </summary>
 	void FlameSpriteInit();
+
+public:
+	void SetPlayer(Player* pp){
+		m_Player = pp;
+	}
 private:
 	prefab::CSpriteRender* m_CurrentWaterSprite = nullptr;	//現在の水分のスプライト
 	prefab::CSpriteRender* m_FlameWaterSprite = nullptr;	//水分の枠のスプライト
@@ -35,5 +42,6 @@ private:
 	float m_DecWaterTime = 1.0f;							//喉が乾く時間
 	int m_Water = 100;										//水分
 	int m_MaxWater = 100;									//水分の最大量
+	Player* m_Player = nullptr;
 };
 

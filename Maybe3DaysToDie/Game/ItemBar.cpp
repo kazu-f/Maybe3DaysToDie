@@ -45,7 +45,7 @@ bool ItemBar::Start()
 }
 void ItemBar::Update()
 {
-	if (m_Player->GetState() != Player::State::Inventry) {
+	if (m_Player->GetState() != Player::State::Menu) {
 		if (GetAsyncKeyState(MK_LBUTTON)) {
 			m_InstallTime += GameTime().GetFrameDeltaTime();
 			if (m_InstallTime > 0.2f) {

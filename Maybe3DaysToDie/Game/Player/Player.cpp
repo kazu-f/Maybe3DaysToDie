@@ -5,6 +5,7 @@
 #include "PlayerStatus/PlayerHunger.h"
 #include "PlayerStatus/PlayerWater.h"
 #include "GameCamera.h"
+#include "AccessObject/AccessObject.h"
 namespace {
 	const float MoveDistance = 1000.0f;			//1フレームに動く距離
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
@@ -21,9 +22,12 @@ bool Player::Start()
 
 	//空腹度を作る
 	m_Hunger = NewGO<PlayerHunger>(0, "playerHunger");
+	m_Hunger->SetPlayer(this);
 
 	//水分を作る
 	m_Water = NewGO<PlayerWater>(0, "playerWater");
+	m_Water->SetPlayer(this);
+
 	ModelInitData PlayerModel;
 	PlayerModel.m_tkmFilePath = "Assets/modelData/Player.tkm";
 
@@ -55,13 +59,20 @@ void Player::Update()
 		m_Camera->SetMovingMouse(true);
 		break;
 	case State::Dead:
-
+	case State::Run:
+		m_mulSpeed = 1.0f;
+	case Debug:
+		m_mulSpeed *= 2.0f;
 	default:
 		//移動処理
 		Move();
 		SwichDebugMode();
 		m_Camera->SetMovingMouse(false);
 		break;
+	}
+
+	if (GetAsyncKeyState('e')) {
+
 	}
 	//時間経過による回復
 	PeriodicUpdate();
@@ -131,14 +142,20 @@ void Player::Move()
 	if (GetAsyncKeyState('D')) {
 		MoveSpeed += MainCamera().GetRight();
 	}
-
-	m_mulSpeed = 1.0f;
-	if (GetAsyncKeyState(VK_LSHIFT) &&
-		MoveSpeed.Length() > 0.5f &&
-		m_Stamina->IsUseStamina(1))
+	
+	//////移動速度//////////////////////////
 	{
-		m_mulSpeed = 2.0f;
+		m_mulSpeed = 0.5f;
+		///ダッシュ機能////////////////////////
+		if (GetAsyncKeyState(VK_LSHIFT) &&
+			MoveSpeed.Length() > 0.5f &&
+			m_Stamina->IsUseStamina(1))
+		{
+			m_NextState = State::Run;
+		}
 	}
+	///////////////////////////////////////////////
+	
 	/////重力処理////////////////////////
 	{
 		static float gravity = 0.0f;
@@ -154,6 +171,10 @@ void Player::Move()
 				if (m_Characon.IsOnGround())
 				{
 					IsJump = true;
+				}
+				if (m_IsDebugPlayer) {
+					IsJump = false;
+					MoveSpeed.y += 1.0f;
 				}
 				//if (m_IsChasePlayer) {
 				//	if (m_Characon.IsOnGround()) {
@@ -192,6 +213,9 @@ void Player::Move()
 		}
 		MoveSpeed.y += gravity;
 	}
+	////////////////////////////////////////
+
+
 	MoveSpeed *= MoveDistance * m_mulSpeed;
 	m_Pos = m_Characon.Execute(MoveSpeed);
 
@@ -214,13 +238,25 @@ void Player::SwichDebugMode()
 	static bool IsPush = false;
 	if (GetAsyncKeyState('G')) {
 		if (!IsPush) {
-			m_IsDebugPlayer = !m_IsDebugPlayer;
+			static State BuckUpState=State::Idle;
+			if (m_CurrentState == State::Debug) {
+				m_NextState = BuckUpState;
+			}
+			else {
+				m_NextState = State::Debug;
+				BuckUpState = m_CurrentState;
+			}
 		}
 		IsPush = true;
 	}
 	else {
 		IsPush = false;
 	}
+}
+
+bool Player::IsDubug()
+{
+	return false;
 }
 
 void Player::HitDamage(float damage) {

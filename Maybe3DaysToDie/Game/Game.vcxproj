@@ -180,6 +180,8 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Enemy\IEnemyState.cpp" />
     <ClCompile Include="Navigation\NVMDebugDraw.cpp" />
+    <ClCompile Include="PlayerDead.cpp" />
+    <ClCompile Include="Player\Inventory.cpp" />
     <ClCompile Include="Stage\Hill\Hill.cpp" />
     <ClCompile Include="Navigation\NVMGenerator.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
@@ -192,7 +194,6 @@
     <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
     <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="Status\Inventory.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -278,6 +279,8 @@
     <ClInclude Include="nlohmann\ordered_map.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp" />
+    <ClInclude Include="PlayerDead.h" />
+    <ClInclude Include="Player\Inventory.h" />
     <ClInclude Include="RayTest.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SaveDataFile.h" />
@@ -292,7 +295,6 @@
     <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
     <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="Status\Inventory.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
     <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
