@@ -163,7 +163,7 @@ void Player::Move()
 	{
 		static float gravity = 0.0f;
 		gravity -= GameTime().GetFrameDeltaTime();
-		if (!IsDubug()) {
+		if (IsDubug()) {
 			gravity = 0.0f;
 		}
 
