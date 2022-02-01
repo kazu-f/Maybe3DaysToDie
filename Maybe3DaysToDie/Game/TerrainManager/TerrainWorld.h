@@ -3,6 +3,7 @@
 #include "MarchingCubeTable.h"
 #include "DestructibleObject/Terrain/Terrain.h"
 #include "Navigation/NVMGenerator.h"
+#include "TerrainChunkData.h"
 
 namespace nsTerrain {
 
@@ -55,6 +56,23 @@ namespace nsTerrain {
 		bool IsInited()
 		{
 			return m_isInited;
+		}
+
+		/// <summary>
+		/// nvmを更新するか。
+		/// </summary>
+		/// <returns></returns>
+		bool IsUpdateNvm()
+		{
+			return m_isUpdateNvm;
+		}
+
+		/// <summary>
+		/// nvmフラグをリセット。
+		/// </summary>
+		void ResetUpdateNvmFlag()
+		{
+			m_isUpdateNvm = false;
 		}
 
 	public:	//特定の地形を取得する。
@@ -114,7 +132,8 @@ namespace nsTerrain {
 		Vector3 m_position = Vector3::Zero;				//座標。
 
 		std::vector<NVMGenerator::Cell> m_cellList;		//セルリスト。
-		bool m_isNVMDebug = false;						//デバッグ描画する？
+		bool m_isNVMDebug = true;						//デバッグ描画する？
+		bool m_isUpdateNvm = false;						//nvmを初期化する？
 		NVMDebugDraw* m_nvmDebugDraw = nullptr;			//デバッグ描画。
 
 		bool m_isInited = false;						//初期化済みフラグ。

@@ -20,14 +20,18 @@ bool NaviMeshManager::Start()
 
 void NaviMeshManager::Update()
 {
-	for (int x = 0; x < 3; x++)
+	//NVMを更新するのはコリジョンがある範囲のみ。
+
+
+	for (int x = 0; x < LoadingChunkCols; x++)
 	{
-		for (int y = 0; y < 3; y++)
+		for (int y = 0; y < LoadingChunkCols; y++)
 		{
-			if (m_loadingByChunk->IsNvmDirty(x, y))
+			if ( m_loadingByChunk->IsNvmDirty(x, y) || m_terrainManager->GetTerrainWorld(x, y)->IsUpdateNvm() )
 			{
-				//
+				//更新が必要なチャンクは更新する。
 				m_terrainManager->GetTerrainWorld(x, y)->CreateNVM();
+				m_terrainManager->GetTerrainWorld(x, y)->ResetUpdateNvmFlag();
 				m_loadingByChunk->NvmDirtyFlagDown(x, y);
 			}
 		}

@@ -67,7 +67,14 @@ namespace Maybe3DaysToDieToolEditor
             listBoxBS.ResetBindings(false);
             itemDataBS.ResetBindings(false);
         }
-
+        /// <summary>
+        /// ユーザコントロールをすべて非表示にする。
+        /// </summary>
+        private void GroupBoxPanelDisable()
+        {
+            toolDataPanel1.Visible = false;
+            placementObjectPanel1.Visible = false;
+        }
 
         #region リスト操作の処理。
         /// <summary>
@@ -166,14 +173,18 @@ namespace Maybe3DaysToDieToolEditor
             //データタイプに応じて処理を分岐。
             if (typeof(ToolData) == item.GetType())
             {
-                toolDataPanel1.DispToolData((ToolData)item);
+                GroupBoxPanelDisable();
                 toolDataPanel1.BringToFront();
+                toolDataPanel1.Visible = true;
+                toolDataPanel1.DispToolData((ToolData)item);
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Tool;
             }
             else if (typeof(PlacementObject) == item.GetType())
             {
-                placementObjectPanel1.DispPlacementObject((PlacementObject)item);
+                GroupBoxPanelDisable();
                 placementObjectPanel1.BringToFront();
+                placementObjectPanel1.Visible = true;
+                placementObjectPanel1.DispPlacementObject((PlacementObject)item);
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Place;
             }
         }

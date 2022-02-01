@@ -33,6 +33,15 @@ namespace Maybe3DaysToDieToolEditor
         DebugTool = 0xffffffff,  //デバッグ用ツール
     };
 
+    //設置物のタイプ。
+    public enum EnPlaceTypes
+    {
+        enType_Terrain,
+        enType_Block,
+        enType_Object,
+        enPlaceTypeNum
+    }
+
     /// <summary>
     /// ツールの情報。
     /// </summary>
@@ -53,6 +62,7 @@ namespace Maybe3DaysToDieToolEditor
     {
         [DataMember(Name = "durable")] public int durable { get; set; } = 0;
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
+        [DataMember(Name = "Type")] public EnPlaceTypes placeType { get; set; } = EnPlaceTypes.enType_Terrain;
         [DataMember(Name = "collectItems")] public List<CollectItem> collectItemList = new List<CollectItem>();
     }
 
