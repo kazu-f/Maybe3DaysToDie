@@ -50,6 +50,7 @@ namespace Maybe3DaysToDieToolEditor
             DurableNumeric.Value = obj.durable;
             toolKinds.SelectValue(obj.tool);
             DispListView(obj);
+            placeTypeRBs[(int)obj.placeType].Checked = true;
         }
 
         private void DispListView(PlacementObject obj)
@@ -103,6 +104,7 @@ namespace Maybe3DaysToDieToolEditor
             {
                 commandList.AddCommand(command);
             }
+            DispPlacementObject((PlacementObject)item);
         }
 
         /// <summary>
@@ -131,7 +133,7 @@ namespace Maybe3DaysToDieToolEditor
                         commandList.AddCommand(command);
                     }
 
-                    DispListView(place);
+                    DispPlacementObject(place);
                 }
                 else
                 {
@@ -175,7 +177,7 @@ namespace Maybe3DaysToDieToolEditor
                         }
                     }
 
-                    DispListView(place);
+                    DispPlacementObject(place);
                 }
             }
 
@@ -188,6 +190,12 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="e"></param>
         private void Radio_CheckedChanged(object sender, EventArgs e)
         {
+            var item = listBox.SelectedItem;
+            if (item == null) return;
+            if (item.GetType() != typeof(PlacementObject)) return;
+
+            var place = (PlacementObject)item;
+
             EnPlaceTypes enPlaceTypes = EnPlaceTypes.enPlaceTypeNum;
             for (int i = 0; i < (int)EnPlaceTypes.enPlaceTypeNum; i++)
             {
@@ -198,6 +206,14 @@ namespace Maybe3DaysToDieToolEditor
                 }
             }
 
+            Command.ChangePlacementObjType command = new Command.ChangePlacementObjType(place, enPlaceTypes);
+            //変更があればコマンドリストに追加。
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
+            //再表記。
+            DispPlacementObject(place);
         }
 
         #endregion
