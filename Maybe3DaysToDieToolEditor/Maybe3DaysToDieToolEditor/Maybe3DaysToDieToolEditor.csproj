@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyUserControl\FoodAndCurePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyUserControl\FoodAndCurePanel.Designer.cs">
+      <DependentUpon>FoodAndCurePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyUserControl\MaterialPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -84,6 +90,9 @@
     <Compile Include="ToolEditor\ToolKindsComboBox.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyUserControl\FoodAndCurePanel.resx">
+      <DependentUpon>FoodAndCurePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyUserControl\MaterialPanel.resx">
       <DependentUpon>MaterialPanel.cs</DependentUpon>

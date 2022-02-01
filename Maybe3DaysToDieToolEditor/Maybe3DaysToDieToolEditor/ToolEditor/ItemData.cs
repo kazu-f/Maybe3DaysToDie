@@ -112,4 +112,16 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "corectionNum")] public int collectNum;       //採取量。
     }
 
+    /// <summary>
+    /// 食料や回復アイテム等の情報。
+    /// </summary>
+    [DataContract]
+    public class FoodAndCure : Item
+    {
+        [DataMember(Name = "HP")] public int hp { get; set; } = 0;
+        [DataMember(Name = "water")] public int water { get; set; } = 0;
+        [DataMember(Name = "food")] public int food { get; set; } = 0;
+        [DataMember(Name = "stamina")] public int stamina { get; set; } = 0;
+    }
+
 }
