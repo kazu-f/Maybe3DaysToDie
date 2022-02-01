@@ -16,7 +16,7 @@ namespace Maybe3DaysToDieToolEditor
         public enum EnMaxStackNum
         {
             enStack_Tool = 1,
-            enStack_Eat = 30,
+            enStack_Food = 30,
             enStack_Place = 999,
             enStack_Material = 999
         }
@@ -53,6 +53,9 @@ namespace Maybe3DaysToDieToolEditor
             placementObjectPanel1.listBox = ItemList;
             placementObjectPanel1.ItemDataBS = itemDataBS;
 
+            foodAndCurePanel1.commandList = commandList;
+            foodAndCurePanel1.listBox = ItemList;
+
             GroupBoxPanelDisable();
             toolDataPanel1.Visible = true;
 
@@ -63,7 +66,6 @@ namespace Maybe3DaysToDieToolEditor
             //ファイル選択用の処理を構成する。
             selectModelData = new SelectDataFile(ModelFileSelectButton, ModelFilePathTextBox, "tkm", ItemTkmFileChangeCommand);
             selectIconData = new SelectDataFile(IconFileSelectButton, IconDataTextBox, "png", ItemIconFileChangeCommand);
-            GroupBoxPanelDisable();
         }
 
         private void UpdateBS()
@@ -213,7 +215,8 @@ namespace Maybe3DaysToDieToolEditor
             {
                 GroupBoxPanelDisable();
                 foodAndCurePanel1.Visible = true;
-
+                foodAndCurePanel1.DispFoodAndCureItem((FoodAndCure)item);
+                MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Food;
             }
             else
             {
