@@ -170,11 +170,13 @@ void Player::Move()
 		/////////ジャンプ処理/////////////////////////////////////////////
 		{
 			if (GetAsyncKeyState(VK_SPACE)) {
-				//神視点の時はジャンプし続ける
+				//地面に設置しているときだけ
+				//ジャンプする
 				if (m_Characon.IsOnGround())
 				{
 					IsJump = true;
 				}
+				//神視点の時はジャンプし続ける
 				if (IsDubug()) {
 					IsJump = false;
 					MoveSpeed.y += 1.0f;
@@ -195,7 +197,7 @@ void Player::Move()
 			const float JumpTime = 0.3f;
 			float f = NowTime - JumpTime;
 			const float JumpPower = 0.5f;
-			MoveSpeed.y = ((gravity)*pow(f, 2)) + JumpPower;
+			MoveSpeed.y = ((gravity)*pow(f, 2.0f)) + JumpPower;
 			if (IsJumping && m_Characon.IsOnGround())
 			{
 				//ジャンプ中に地面についたのでジャンプ終了
@@ -270,6 +272,7 @@ void Player::HitDamage(float damage) {
 	if (PlayerHp < 0) {
 		m_NextState = State::Dead;
 	}
+	m_Hp->HitDamage(PlayerHp);
 }
 
 void Player::OpenInventory()

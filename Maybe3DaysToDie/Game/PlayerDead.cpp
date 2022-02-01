@@ -16,16 +16,25 @@ bool PlayerDead::Start()
 
 	m_BackSprite = InitSprite("Assets/sprite/BackColor.dds");
 
-	m_SelectSprite =	InitSprite("Assets/sprite/SelectBotton.dds");
+	m_SelectSprite = InitSprite("Assets/sprite/SelectBotton.dds");
     return true;
 }
 
 void PlayerDead::Update()
 {
+	POINT MausePoint;
+	GetCursorPos(&MausePoint);
+	if (fabsf(MausePoint.x) > 150.0f && fabsf(MausePoint.y) > 50.0f) {
+		DeleteGO(this);
+	}
 }
 
 void PlayerDead::OnDestroy()
 {
+	DeleteGO(m_Font);
+	DeleteGO(m_BottonSprite);
+	DeleteGO(m_BackSprite);
+	DeleteGO(m_SelectSprite);
 }
 
 prefab::CSpriteRender* PlayerDead::InitSprite(const char* fileName)
