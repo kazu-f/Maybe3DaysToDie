@@ -53,6 +53,9 @@ namespace Maybe3DaysToDieToolEditor
             placementObjectPanel1.listBox = ItemList;
             placementObjectPanel1.ItemDataBS = itemDataBS;
 
+            GroupBoxPanelDisable();
+            toolDataPanel1.Visible = true;
+
             //設定を行う。
             //toolKinds = new ToolKindsComboBox(ToolComboBox);
             saveData = new SaveItemDataList();
@@ -67,7 +70,14 @@ namespace Maybe3DaysToDieToolEditor
             listBoxBS.ResetBindings(false);
             itemDataBS.ResetBindings(false);
         }
-
+        /// <summary>
+        /// ユーザコントロールをすべて非表示にする。
+        /// </summary>
+        private void GroupBoxPanelDisable()
+        {
+            toolDataPanel1.Visible = false;
+            placementObjectPanel1.Visible = false;
+        }
 
         #region リスト操作の処理。
         /// <summary>
@@ -84,6 +94,7 @@ namespace Maybe3DaysToDieToolEditor
             {
                 if (m_itemList.Remove((Item)item))
                 {
+                    ((Item)item).isRegist = false;      //登録から外れる。
                     var reDisp = ItemList.SelectedItem;
                     if (item is Item) DispItemData((Item)reDisp);
 
@@ -166,14 +177,16 @@ namespace Maybe3DaysToDieToolEditor
             //データタイプに応じて処理を分岐。
             if (typeof(ToolData) == item.GetType())
             {
+                GroupBoxPanelDisable();
+                toolDataPanel1.Visible = true;
                 toolDataPanel1.DispToolData((ToolData)item);
-                toolDataPanel1.BringToFront();
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Tool;
             }
             else if (typeof(PlacementObject) == item.GetType())
             {
+                GroupBoxPanelDisable();
+                placementObjectPanel1.Visible = true;
                 placementObjectPanel1.DispPlacementObject((PlacementObject)item);
-                placementObjectPanel1.BringToFront();
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Place;
             }
         }
@@ -349,6 +362,7 @@ namespace Maybe3DaysToDieToolEditor
         {
             foreach (var item in list)
             {
+                item.isRegist = true;
                 //設置物。
                 if (item.GetType() == typeof(PlacementObject))
                 {

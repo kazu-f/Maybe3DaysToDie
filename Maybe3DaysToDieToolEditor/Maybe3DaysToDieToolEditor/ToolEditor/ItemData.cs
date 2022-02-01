@@ -21,6 +21,7 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "stackNum")] public int itemStackNum { get; set; } = 1;
         [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
         [DataMember(Name = "iconData")] public string iconData { get; set; } = "";
+        public bool isRegist = true;               //リスト登録フラグ。
     }
 
     public enum ToolKinds : uint
@@ -32,6 +33,15 @@ namespace Maybe3DaysToDieToolEditor
         others = 1 << 3,         //その他
         DebugTool = 0xffffffff,  //デバッグ用ツール
     };
+
+    //設置物のタイプ。
+    public enum EnPlaceTypes
+    {
+        enType_Terrain,
+        enType_Block,
+        enType_Object,
+        enPlaceTypeNum
+    }
 
     /// <summary>
     /// ツールの情報。
@@ -53,6 +63,7 @@ namespace Maybe3DaysToDieToolEditor
     {
         [DataMember(Name = "durable")] public int durable { get; set; } = 0;
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
+        [DataMember(Name = "Type")] public EnPlaceTypes placeType { get; set; } = EnPlaceTypes.enType_Terrain;
         [DataMember(Name = "collectItems")] public List<CollectItem> collectItemList = new List<CollectItem>();
     }
 
@@ -81,14 +92,16 @@ namespace Maybe3DaysToDieToolEditor
         private int collectItemID = -1;                                 //採取するアイテムのID。
         public string ItemName {
             get {
-                if (collectItem == null) return "NoData";
+                if (collectItem == null
+                    || collectItem.isRegist == false) return "NoData";
                 else return collectItem.itemName; 
             }
         }
 
         [DataMember(Name = "corectItemID")] public int ItemID {
             get {
-                if (collectItem == null) return 0;
+                if (collectItem == null
+                    || collectItem.isRegist == false) return -1;
                 else return collectItem.itemID;
             }
             set

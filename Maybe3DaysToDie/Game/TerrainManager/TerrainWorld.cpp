@@ -39,8 +39,8 @@ namespace nsTerrain {
 			CreateMeshData();
 			//コライダー作成。
 			CreateCollider();
-			//NVMを再生成。
-			CreateNVM();
+			//nvm更新。
+			m_isUpdateNvm = true;
 			m_terrainChunkData->ResetUpdated();
 		}
 

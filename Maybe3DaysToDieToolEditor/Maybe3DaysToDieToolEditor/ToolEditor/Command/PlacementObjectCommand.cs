@@ -90,5 +90,31 @@ namespace Maybe3DaysToDieToolEditor
                 return m_place.collectItemList.Contains(m_removeCollectItem);
             }
         }
+        //設置物のオブジェクトタイプ変更のコマンド。
+        class ChangePlacementObjType : ICommand
+        {
+            PlacementObject m_place;
+            EnPlaceTypes beforeVal;
+            EnPlaceTypes afterVal;
+
+            public ChangePlacementObjType(PlacementObject place, EnPlaceTypes val)
+            {
+                m_place = place;
+                beforeVal = place.placeType;
+                afterVal = val;
+            }
+            public override void UnDo()
+            {
+                m_place.placeType = beforeVal;
+            }
+            public override void ReDo()
+            {
+                m_place.placeType = afterVal;
+            }
+            public override bool IsChanged()
+            {
+                return beforeVal != afterVal;
+            }
+        }
     }
 }

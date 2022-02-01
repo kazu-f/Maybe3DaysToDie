@@ -57,7 +57,7 @@ namespace Maybe3DaysToDieToolEditor
             this.groupBoxToolData.Location = new System.Drawing.Point(0, 0);
             this.groupBoxToolData.Name = "groupBoxToolData";
             this.groupBoxToolData.Size = new System.Drawing.Size(1272, 520);
-            this.groupBoxToolData.TabIndex = 16;
+            this.groupBoxToolData.TabIndex = 30;
             this.groupBoxToolData.TabStop = false;
             this.groupBoxToolData.Text = "ToolData";
             this.groupBoxToolData.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
@@ -68,7 +68,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolKindsLabel.Location = new System.Drawing.Point(40, 99);
             this.ToolKindsLabel.Name = "ToolKindsLabel";
             this.ToolKindsLabel.Size = new System.Drawing.Size(72, 15);
-            this.ToolKindsLabel.TabIndex = 23;
+            this.ToolKindsLabel.TabIndex = 37;
             this.ToolKindsLabel.Text = "適性ツール";
             // 
             // ToolComboBox
@@ -78,7 +78,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolComboBox.Location = new System.Drawing.Point(118, 96);
             this.ToolComboBox.Name = "ToolComboBox";
             this.ToolComboBox.Size = new System.Drawing.Size(121, 23);
-            this.ToolComboBox.TabIndex = 22;
+            this.ToolComboBox.TabIndex = 38;
             this.ToolComboBox.SelectionChangeCommitted += new System.EventHandler(this.ToolComboBox_SelectionChangeCommitted);
             // 
             // UseStaminaNumeric
@@ -91,7 +91,7 @@ namespace Maybe3DaysToDieToolEditor
             0});
             this.UseStaminaNumeric.Name = "UseStaminaNumeric";
             this.UseStaminaNumeric.Size = new System.Drawing.Size(120, 22);
-            this.UseStaminaNumeric.TabIndex = 21;
+            this.UseStaminaNumeric.TabIndex = 36;
             this.UseStaminaNumeric.ThousandsSeparator = true;
             this.UseStaminaNumeric.Leave += new System.EventHandler(this.LeaveUseStaminaValue);
             // 
@@ -101,7 +101,7 @@ namespace Maybe3DaysToDieToolEditor
             this.UseStaminaLabel.Location = new System.Drawing.Point(720, 47);
             this.UseStaminaLabel.Name = "UseStaminaLabel";
             this.UseStaminaLabel.Size = new System.Drawing.Size(49, 15);
-            this.UseStaminaLabel.TabIndex = 20;
+            this.UseStaminaLabel.TabIndex = 35;
             this.UseStaminaLabel.Text = "スタミナ";
             // 
             // DurableNumeric
@@ -114,7 +114,7 @@ namespace Maybe3DaysToDieToolEditor
             0});
             this.DurableNumeric.Name = "DurableNumeric";
             this.DurableNumeric.Size = new System.Drawing.Size(120, 22);
-            this.DurableNumeric.TabIndex = 19;
+            this.DurableNumeric.TabIndex = 34;
             this.DurableNumeric.ThousandsSeparator = true;
             this.DurableNumeric.Leave += new System.EventHandler(this.LeaveDurableValue);
             // 
@@ -124,7 +124,7 @@ namespace Maybe3DaysToDieToolEditor
             this.DurableLabel.Location = new System.Drawing.Point(394, 47);
             this.DurableLabel.Name = "DurableLabel";
             this.DurableLabel.Size = new System.Drawing.Size(52, 15);
-            this.DurableLabel.TabIndex = 18;
+            this.DurableLabel.TabIndex = 33;
             this.DurableLabel.Text = "耐久力";
             // 
             // DamageNumeric
@@ -137,7 +137,7 @@ namespace Maybe3DaysToDieToolEditor
             0});
             this.DamageNumeric.Name = "DamageNumeric";
             this.DamageNumeric.Size = new System.Drawing.Size(120, 22);
-            this.DamageNumeric.TabIndex = 17;
+            this.DamageNumeric.TabIndex = 32;
             this.DamageNumeric.ThousandsSeparator = true;
             this.DamageNumeric.Leave += new System.EventHandler(this.LeaveDamageValue);
             // 
@@ -147,7 +147,7 @@ namespace Maybe3DaysToDieToolEditor
             this.DamageLabel.Location = new System.Drawing.Point(60, 47);
             this.DamageLabel.Name = "DamageLabel";
             this.DamageLabel.Size = new System.Drawing.Size(52, 15);
-            this.DamageLabel.TabIndex = 16;
+            this.DamageLabel.TabIndex = 31;
             this.DamageLabel.Text = "攻撃力";
             // 
             // ToolDataPanel

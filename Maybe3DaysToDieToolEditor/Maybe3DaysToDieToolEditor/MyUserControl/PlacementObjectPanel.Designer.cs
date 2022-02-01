@@ -55,6 +55,10 @@ namespace Maybe3DaysToDieToolEditor
             "",
             ""}, -1);
             this.groupBoxPlacementObject = new System.Windows.Forms.GroupBox();
+            this.PlaceTypeRadioBoxGroup = new System.Windows.Forms.GroupBox();
+            this.RadioObject = new System.Windows.Forms.RadioButton();
+            this.RadioBlock = new System.Windows.Forms.RadioButton();
+            this.RadioTerrain = new System.Windows.Forms.RadioButton();
             this.collectItemListView = new System.Windows.Forms.ListView();
             this.CollectItems = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ItemID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -71,12 +75,14 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolKindsLabel = new System.Windows.Forms.Label();
             this.ToolComboBox = new System.Windows.Forms.ComboBox();
             this.groupBoxPlacementObject.SuspendLayout();
+            this.PlaceTypeRadioBoxGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collectNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxPlacementObject
             // 
+            this.groupBoxPlacementObject.Controls.Add(this.PlaceTypeRadioBoxGroup);
             this.groupBoxPlacementObject.Controls.Add(this.collectItemListView);
             this.groupBoxPlacementObject.Controls.Add(this.CollectItemDel);
             this.groupBoxPlacementObject.Controls.Add(this.CollectItemAddButton);
@@ -91,10 +97,58 @@ namespace Maybe3DaysToDieToolEditor
             this.groupBoxPlacementObject.Location = new System.Drawing.Point(0, 0);
             this.groupBoxPlacementObject.Name = "groupBoxPlacementObject";
             this.groupBoxPlacementObject.Size = new System.Drawing.Size(1272, 520);
-            this.groupBoxPlacementObject.TabIndex = 0;
+            this.groupBoxPlacementObject.TabIndex = 60;
             this.groupBoxPlacementObject.TabStop = false;
             this.groupBoxPlacementObject.Text = "PlacementObject";
             this.groupBoxPlacementObject.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
+            // 
+            // PlaceTypeRadioBoxGroup
+            // 
+            this.PlaceTypeRadioBoxGroup.Controls.Add(this.RadioObject);
+            this.PlaceTypeRadioBoxGroup.Controls.Add(this.RadioBlock);
+            this.PlaceTypeRadioBoxGroup.Controls.Add(this.RadioTerrain);
+            this.PlaceTypeRadioBoxGroup.Location = new System.Drawing.Point(350, 50);
+            this.PlaceTypeRadioBoxGroup.Name = "PlaceTypeRadioBoxGroup";
+            this.PlaceTypeRadioBoxGroup.Size = new System.Drawing.Size(400, 50);
+            this.PlaceTypeRadioBoxGroup.TabIndex = 65;
+            this.PlaceTypeRadioBoxGroup.TabStop = false;
+            this.PlaceTypeRadioBoxGroup.Text = "オブジェクトタイプ";
+            // 
+            // RadioObject
+            // 
+            this.RadioObject.AutoSize = true;
+            this.RadioObject.Location = new System.Drawing.Point(310, 20);
+            this.RadioObject.Name = "RadioObject";
+            this.RadioObject.Size = new System.Drawing.Size(70, 19);
+            this.RadioObject.TabIndex = 2;
+            this.RadioObject.TabStop = true;
+            this.RadioObject.Text = "Object";
+            this.RadioObject.UseVisualStyleBackColor = true;
+            this.RadioObject.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
+            // 
+            // RadioBlock
+            // 
+            this.RadioBlock.AutoSize = true;
+            this.RadioBlock.Location = new System.Drawing.Point(160, 20);
+            this.RadioBlock.Name = "RadioBlock";
+            this.RadioBlock.Size = new System.Drawing.Size(64, 19);
+            this.RadioBlock.TabIndex = 1;
+            this.RadioBlock.TabStop = true;
+            this.RadioBlock.Text = "Block";
+            this.RadioBlock.UseVisualStyleBackColor = true;
+            this.RadioBlock.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
+            // 
+            // RadioTerrain
+            // 
+            this.RadioTerrain.AutoSize = true;
+            this.RadioTerrain.Location = new System.Drawing.Point(10, 20);
+            this.RadioTerrain.Name = "RadioTerrain";
+            this.RadioTerrain.Size = new System.Drawing.Size(73, 19);
+            this.RadioTerrain.TabIndex = 0;
+            this.RadioTerrain.TabStop = true;
+            this.RadioTerrain.Text = "Terrain";
+            this.RadioTerrain.UseVisualStyleBackColor = true;
+            this.RadioTerrain.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
             // 
             // collectItemListView
             // 
@@ -115,7 +169,7 @@ namespace Maybe3DaysToDieToolEditor
             this.collectItemListView.MultiSelect = false;
             this.collectItemListView.Name = "collectItemListView";
             this.collectItemListView.Size = new System.Drawing.Size(625, 200);
-            this.collectItemListView.TabIndex = 34;
+            this.collectItemListView.TabIndex = 71;
             this.collectItemListView.UseCompatibleStateImageBehavior = false;
             this.collectItemListView.View = System.Windows.Forms.View.Details;
             // 
@@ -142,7 +196,7 @@ namespace Maybe3DaysToDieToolEditor
             this.CollectItemDel.Location = new System.Drawing.Point(691, 252);
             this.CollectItemDel.Name = "CollectItemDel";
             this.CollectItemDel.Size = new System.Drawing.Size(75, 38);
-            this.CollectItemDel.TabIndex = 33;
+            this.CollectItemDel.TabIndex = 73;
             this.CollectItemDel.Text = "削除";
             this.CollectItemDel.UseVisualStyleBackColor = true;
             this.CollectItemDel.Click += new System.EventHandler(this.CollectItemDel_Click);
@@ -152,14 +206,14 @@ namespace Maybe3DaysToDieToolEditor
             this.CollectItemAddButton.Location = new System.Drawing.Point(691, 207);
             this.CollectItemAddButton.Name = "CollectItemAddButton";
             this.CollectItemAddButton.Size = new System.Drawing.Size(75, 39);
-            this.CollectItemAddButton.TabIndex = 33;
+            this.CollectItemAddButton.TabIndex = 72;
             this.CollectItemAddButton.Text = "追加";
             this.CollectItemAddButton.UseVisualStyleBackColor = true;
             this.CollectItemAddButton.Click += new System.EventHandler(this.CollectItemAddButton_Click);
             // 
             // collectNumeric
             // 
-            this.collectNumeric.Location = new System.Drawing.Point(822, 160);
+            this.collectNumeric.Location = new System.Drawing.Point(820, 160);
             this.collectNumeric.Maximum = new decimal(new int[] {
             999,
             0,
@@ -167,16 +221,16 @@ namespace Maybe3DaysToDieToolEditor
             0});
             this.collectNumeric.Name = "collectNumeric";
             this.collectNumeric.Size = new System.Drawing.Size(120, 22);
-            this.collectNumeric.TabIndex = 31;
+            this.collectNumeric.TabIndex = 70;
             this.collectNumeric.ThousandsSeparator = true;
             // 
             // labelCollect
             // 
             this.labelCollect.AutoSize = true;
-            this.labelCollect.Location = new System.Drawing.Point(764, 162);
+            this.labelCollect.Location = new System.Drawing.Point(760, 160);
             this.labelCollect.Name = "labelCollect";
             this.labelCollect.Size = new System.Drawing.Size(52, 15);
-            this.labelCollect.TabIndex = 30;
+            this.labelCollect.TabIndex = 69;
             this.labelCollect.Text = "採取量";
             // 
             // ColectItemLabel
@@ -185,7 +239,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ColectItemLabel.Location = new System.Drawing.Point(29, 162);
             this.ColectItemLabel.Name = "ColectItemLabel";
             this.ColectItemLabel.Size = new System.Drawing.Size(82, 15);
-            this.ColectItemLabel.TabIndex = 29;
+            this.ColectItemLabel.TabIndex = 67;
             this.ColectItemLabel.Text = "採取アイテム";
             // 
             // ColectItemDropDownList
@@ -195,11 +249,11 @@ namespace Maybe3DaysToDieToolEditor
             this.ColectItemDropDownList.Location = new System.Drawing.Point(117, 159);
             this.ColectItemDropDownList.Name = "ColectItemDropDownList";
             this.ColectItemDropDownList.Size = new System.Drawing.Size(540, 23);
-            this.ColectItemDropDownList.TabIndex = 28;
+            this.ColectItemDropDownList.TabIndex = 68;
             // 
             // DurableNumeric
             // 
-            this.DurableNumeric.Location = new System.Drawing.Point(118, 47);
+            this.DurableNumeric.Location = new System.Drawing.Point(120, 50);
             this.DurableNumeric.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -207,36 +261,36 @@ namespace Maybe3DaysToDieToolEditor
             0});
             this.DurableNumeric.Name = "DurableNumeric";
             this.DurableNumeric.Size = new System.Drawing.Size(120, 22);
-            this.DurableNumeric.TabIndex = 27;
+            this.DurableNumeric.TabIndex = 62;
             this.DurableNumeric.ThousandsSeparator = true;
             this.DurableNumeric.Leave += new System.EventHandler(this.LeaveDurableValue);
             // 
             // DurableLabel
             // 
             this.DurableLabel.AutoSize = true;
-            this.DurableLabel.Location = new System.Drawing.Point(60, 49);
+            this.DurableLabel.Location = new System.Drawing.Point(60, 50);
             this.DurableLabel.Name = "DurableLabel";
             this.DurableLabel.Size = new System.Drawing.Size(52, 15);
-            this.DurableLabel.TabIndex = 26;
+            this.DurableLabel.TabIndex = 61;
             this.DurableLabel.Text = "耐久力";
             // 
             // ToolKindsLabel
             // 
             this.ToolKindsLabel.AutoSize = true;
-            this.ToolKindsLabel.Location = new System.Drawing.Point(40, 99);
+            this.ToolKindsLabel.Location = new System.Drawing.Point(40, 100);
             this.ToolKindsLabel.Name = "ToolKindsLabel";
             this.ToolKindsLabel.Size = new System.Drawing.Size(72, 15);
-            this.ToolKindsLabel.TabIndex = 25;
+            this.ToolKindsLabel.TabIndex = 63;
             this.ToolKindsLabel.Text = "適性ツール";
             // 
             // ToolComboBox
             // 
             this.ToolComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ToolComboBox.FormattingEnabled = true;
-            this.ToolComboBox.Location = new System.Drawing.Point(118, 96);
+            this.ToolComboBox.Location = new System.Drawing.Point(120, 100);
             this.ToolComboBox.Name = "ToolComboBox";
             this.ToolComboBox.Size = new System.Drawing.Size(121, 23);
-            this.ToolComboBox.TabIndex = 24;
+            this.ToolComboBox.TabIndex = 64;
             // 
             // PlacementObjectPanel
             // 
@@ -247,6 +301,8 @@ namespace Maybe3DaysToDieToolEditor
             this.Size = new System.Drawing.Size(1272, 520);
             this.groupBoxPlacementObject.ResumeLayout(false);
             this.groupBoxPlacementObject.PerformLayout();
+            this.PlaceTypeRadioBoxGroup.ResumeLayout(false);
+            this.PlaceTypeRadioBoxGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collectNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).EndInit();
             this.ResumeLayout(false);
@@ -271,5 +327,9 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.ColumnHeader ItemName;
         private System.Windows.Forms.ColumnHeader ItemNum;
         private System.Windows.Forms.ColumnHeader CollectItems;
+        private System.Windows.Forms.GroupBox PlaceTypeRadioBoxGroup;
+        private System.Windows.Forms.RadioButton RadioObject;
+        private System.Windows.Forms.RadioButton RadioBlock;
+        private System.Windows.Forms.RadioButton RadioTerrain;
     }
 }
