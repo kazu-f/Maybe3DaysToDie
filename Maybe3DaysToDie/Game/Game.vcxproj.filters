@@ -117,7 +117,6 @@
     <ClCompile Include="ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
     <ClCompile Include="Item\GameItemBase.cpp" />
-    <ClCompile Include="Status\Inventory.cpp" />
     <ClCompile Include="TerrainManager\TerrainChunkData.cpp">
       <Filter>TerrainManager</Filter>
     </ClCompile>
@@ -125,8 +124,10 @@
     <ClCompile Include="MultiThread\Thread.cpp" />
     <ClCompile Include="AccessObject\AccessObject.cpp" />
     <ClCompile Include="NaviMeshManager.cpp" />
+
     <ClCompile Include="IK\FootIK.cpp" />
-  </ItemGroup>
+    <ClCompile Include="Player\Inventory.cpp" />
+    <ClCompile Include="PlayerDead.cpp" />  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
     <ClInclude Include="GameCamera.h" />
@@ -370,7 +371,6 @@
     <ClInclude Include="ItemBar.h" />
     <ClInclude Include="Item\GameItemTool.h" />
     <ClInclude Include="Item\GameItemBase.h" />
-    <ClInclude Include="Status\Inventory.h" />
     <ClInclude Include="TerrainManager\TerrainChunkData.h">
       <Filter>TerrainManager</Filter>
     </ClInclude>
@@ -380,8 +380,9 @@
     <ClInclude Include="RayTest.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="NaviMeshManager.h" />
-    <ClInclude Include="IK\FootIK.h" />
-  </ItemGroup>
+
+    <ClInclude Include="IK\FootIK.h" />    <ClInclude Include="Player\Inventory.h" />
+    <ClInclude Include="PlayerDead.h" />  </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">
       <Filter>Assets\sprite</Filter>

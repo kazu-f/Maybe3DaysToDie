@@ -8,7 +8,7 @@ class Inventory :public IGameObject
 public:
 	void SetPlayer(Player* pp) {
 		m_player = pp;
-	}
+	} 
 	/// <summary>
 	/// アイテムをスロットのどこにセットする？
 	/// </summary>

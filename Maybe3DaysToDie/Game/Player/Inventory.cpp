@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Inventory.h"
+#include "Player/Inventory.h"
 #include "Player/Player.h"
 #include <windowsx.h>
 

@@ -27,15 +27,6 @@ public:
 		m_SaveDataFile = file;
 	}
 
-	/// <summary>
-	/// ワールドデータのポインタをセット
-	/// </summary>
-	/// <param name="ptr">ワールドテーブルデータ</param>
-	void SetWorldTableData(WorldTableData* ptr)
-	{
-		m_WorldTableData = ptr;
-	}
-
 	void SetTerrainManager(nsTerrain::TerrainManager* manager)
 	{
 		m_TerrainManager = manager;
@@ -151,7 +142,6 @@ public:
 	}
  private:
 	SaveDataFile* m_SaveDataFile = nullptr;
-	WorldTableData* m_WorldTableData = nullptr;
 	int PlayerPosInGrid[2] = { 0 };
 	bool m_isDirty = true;		//更新するかどうか
 	ChunkCollision m_ChunkCol[LoadingChunkCols][LoadingChunkCols];		//チャンクごとのブロック

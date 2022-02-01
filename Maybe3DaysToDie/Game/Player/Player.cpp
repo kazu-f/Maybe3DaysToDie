@@ -5,6 +5,7 @@
 #include "PlayerStatus/PlayerHunger.h"
 #include "PlayerStatus/PlayerWater.h"
 #include "GameCamera.h"
+#include "AccessObject/AccessObject.h"
 namespace {
 	const float MoveDistance = 1000.0f;			//1フレームに動く距離
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
@@ -21,15 +22,12 @@ bool Player::Start()
 
 	//空腹度を作る
 	m_Hunger = NewGO<PlayerHunger>(0, "playerHunger");
+	m_Hunger->SetPlayer(this);
 
 	//水分を作る
 	m_Water = NewGO<PlayerWater>(0, "playerWater");
+	m_Water->SetPlayer(this);
 
-	m_Font = NewGO<CFontRender>(0);
-	m_Font->SetText(L"Press'G' MoveMode Chenge\nPress'1' Fly");
-	m_Font->SetPosition({ -640.0f,100.0f });
-	m_Font->SetColor(Vector4::Red);
-	m_Font->SetScale(0.6f);
 	ModelInitData PlayerModel;
 	PlayerModel.m_tkmFilePath = "Assets/modelData/Player.tkm";
 
@@ -54,27 +52,33 @@ void Player::Update()
 {
 	//ステートを更新
 	StateUpdate();
-	if (m_CurrentState != State::Inventry) {
-		static bool IsPush = false;
-		if (GetAsyncKeyState('G')) {
-			if (!IsPush) {
-				m_IsChasePlayer = !m_IsChasePlayer;
-			}
-			IsPush = true;
-		}
-		else {
-			IsPush = false;
-		}
-		//時間経過による回復
-		PeriodicUpdate();
+
+	switch (m_CurrentState)
+	{
+	case State::Menu:
+		m_Camera->SetMovingMouse(true);
+		break;
+	case State::Dead:
+	case State::Run:
+		m_mulSpeed = 1.0f;
+	case Debug:
+		m_mulSpeed = 2.0f;
+	default:
 		//移動処理
 		Move();
+		SwichDebugMode();
 		m_Camera->SetMovingMouse(false);
+		break;
 	}
-	else
-	{
-		m_Camera->SetMovingMouse(true);
+
+	if (GetAsyncKeyState('e')) {
+		m_AccessObject->Access();
 	}
+	if (GetAsyncKeyState('r')) {
+		m_AccessObject->EndAccess();
+	}
+	//時間経過による回復
+	PeriodicUpdate();
 	//カメラにポジションを渡す
 	m_Camera->SetPosition(m_Pos);
 	//モデル情報を更新
@@ -117,7 +121,7 @@ void Player::Move()
 	Vector3 MoveSpeed = Vector3::Zero;
 	//Wキーが押されたら
 	if (GetAsyncKeyState('W')) {
-		if (m_IsChasePlayer) {
+		if (IsDubug()) {
 			MoveSpeed += Forward;
 		}
 		else {
@@ -126,7 +130,7 @@ void Player::Move()
 	}
 	//Sキーが押されたら
 	if (GetAsyncKeyState('S')) {
-		if (m_IsChasePlayer) {
+		if (IsDubug()) {
 			MoveSpeed -= Forward;
 		}
 		else {
@@ -141,19 +145,25 @@ void Player::Move()
 	if (GetAsyncKeyState('D')) {
 		MoveSpeed += MainCamera().GetRight();
 	}
-
-	m_mulSpeed = 1.0f;
-	if (GetAsyncKeyState(VK_LSHIFT) &&
-		MoveSpeed.Length() > 0.5f &&
-		m_Stamina->IsUseStamina(1))
+	
+	//////移動速度//////////////////////////
 	{
-		m_mulSpeed = 2.0f;
+		m_mulSpeed = 0.5f;
+		///ダッシュ機能////////////////////////
+		if (GetAsyncKeyState(VK_LSHIFT) &&
+			MoveSpeed.Length() > 0.5f &&
+			m_Stamina->IsUseStamina(1))
+		{
+			m_NextState = State::Run;
+		}
 	}
+	///////////////////////////////////////////////
+	
 	/////重力処理////////////////////////
 	{
 		static float gravity = 0.0f;
-		gravity -= 1.0f * GameTime().GetFrameDeltaTime();
-		if (!m_IsChasePlayer) {
+		gravity -= GameTime().GetFrameDeltaTime();
+		if (IsDubug()) {
 			gravity = 0.0f;
 		}
 
@@ -164,6 +174,10 @@ void Player::Move()
 				if (m_Characon.IsOnGround())
 				{
 					IsJump = true;
+				}
+				if (IsDubug()) {
+					IsJump = false;
+					MoveSpeed.y += 1.0f;
 				}
 				//if (m_IsChasePlayer) {
 				//	if (m_Characon.IsOnGround()) {
@@ -178,8 +192,10 @@ void Player::Move()
 		if (IsJump)
 		{
 			NowTime += GameTime().GetFrameDeltaTime();
+			const float JumpTime = 0.3f;
 			float f = NowTime - JumpTime;
-			MoveSpeed.y = gravity * pow(f, 2) + JumpTime;
+			const float JumpPower = 0.5f;
+			MoveSpeed.y = ((gravity)*pow(f, 2)) + JumpPower;
 			if (IsJumping && m_Characon.IsOnGround())
 			{
 				//ジャンプ中に地面についたのでジャンプ終了
@@ -200,6 +216,9 @@ void Player::Move()
 		}
 		MoveSpeed.y += gravity;
 	}
+	////////////////////////////////////////
+
+
 	MoveSpeed *= MoveDistance * m_mulSpeed;
 	m_Pos = m_Characon.Execute(MoveSpeed);
 
@@ -217,20 +236,46 @@ void Player::ModelUpdate()
 	//m_Model->PlayAnimation(State::Idle,GameTime().GetFrameDeltaTime());
 }
 
+void Player::SwichDebugMode()
+{
+	static bool IsPush = false;
+	if (GetAsyncKeyState('G')) {
+		if (!IsPush) {
+			static State BuckUpState=State::Idle;
+			if (m_CurrentState == State::Debug) {
+				m_NextState = BuckUpState;
+			}
+			else {
+				m_NextState = State::Debug;
+				BuckUpState = m_CurrentState;
+			}
+		}
+		IsPush = true;
+	}
+	else {
+		IsPush = false;
+	}
+}
+
+const bool Player::IsDubug() const
+{
+	if (m_CurrentState == State::Debug) {
+		return true;
+	}
+	return false;
+}
+
 void Player::HitDamage(float damage) {
 	float PlayerHp = m_Hp->GetHp() - damage;
 	if (PlayerHp < 0) {
 		m_NextState = State::Dead;
-	}
-	else {
-		m_NextState = State::Damage;
 	}
 }
 
 void Player::OpenInventory()
 {
 	if (State::Dead != m_CurrentState) {
-		m_NextState = State::Inventry;
+		m_NextState = State::Menu;
 	}
 }
 
