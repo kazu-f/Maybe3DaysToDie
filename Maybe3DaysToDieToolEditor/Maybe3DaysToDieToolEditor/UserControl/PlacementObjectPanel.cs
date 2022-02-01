@@ -17,6 +17,8 @@ namespace Maybe3DaysToDieToolEditor
         ToolKindsComboBox toolKinds;
         private BindingSource _itemDataBS = null;   //アイテムデータのバインディングソース。
 
+        private RadioButton[] placeTypeRBs;         //設置物のタイプを決めるラジオボタン。
+
         public BindingSource ItemDataBS{
             set 
             {
@@ -31,6 +33,12 @@ namespace Maybe3DaysToDieToolEditor
             InitializeComponent();
             //設定を行う。
             toolKinds = new ToolKindsComboBox(ToolComboBox);
+
+            //ラジオボタンの設定。
+            placeTypeRBs = new RadioButton[(int)EnPlaceTypes.enPlaceTypeNum];
+            placeTypeRBs[(int)EnPlaceTypes.enType_Terrain] = RadioTerrain;
+            placeTypeRBs[(int)EnPlaceTypes.enType_Block] = RadioBlock;
+            placeTypeRBs[(int)EnPlaceTypes.enType_Object] = RadioObject;
         }
 
         /// <summary>
@@ -172,6 +180,26 @@ namespace Maybe3DaysToDieToolEditor
             }
 
         }
+
+        /// <summary>
+        /// ラジオボタンが変更されたとき。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Radio_CheckedChanged(object sender, EventArgs e)
+        {
+            EnPlaceTypes enPlaceTypes = EnPlaceTypes.enPlaceTypeNum;
+            for (int i = 0; i < (int)EnPlaceTypes.enPlaceTypeNum; i++)
+            {
+                if (placeTypeRBs[i].Checked)
+                {
+                    enPlaceTypes = (EnPlaceTypes)i;
+                    break;
+                }
+            }
+
+        }
+
         #endregion
 
         private void activeControlNull(object sender, EventArgs e)

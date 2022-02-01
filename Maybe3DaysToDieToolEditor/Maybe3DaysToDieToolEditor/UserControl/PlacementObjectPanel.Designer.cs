@@ -29,32 +29,36 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "1:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "2:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
             "3:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
             "4:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
             "5:",
             "",
             "",
             ""}, -1);
             this.groupBoxPlacementObject = new System.Windows.Forms.GroupBox();
+            this.PlaceTypeRadioBoxGroup = new System.Windows.Forms.GroupBox();
+            this.RadioObject = new System.Windows.Forms.RadioButton();
+            this.RadioBlock = new System.Windows.Forms.RadioButton();
+            this.RadioTerrain = new System.Windows.Forms.RadioButton();
             this.collectItemListView = new System.Windows.Forms.ListView();
             this.CollectItems = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ItemID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -70,17 +74,15 @@ namespace Maybe3DaysToDieToolEditor
             this.DurableLabel = new System.Windows.Forms.Label();
             this.ToolKindsLabel = new System.Windows.Forms.Label();
             this.ToolComboBox = new System.Windows.Forms.ComboBox();
-            this.PlaceTypeCheckBox = new System.Windows.Forms.CheckedListBox();
-            this.PlaceType = new System.Windows.Forms.Label();
             this.groupBoxPlacementObject.SuspendLayout();
+            this.PlaceTypeRadioBoxGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collectNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxPlacementObject
             // 
-            this.groupBoxPlacementObject.Controls.Add(this.PlaceType);
-            this.groupBoxPlacementObject.Controls.Add(this.PlaceTypeCheckBox);
+            this.groupBoxPlacementObject.Controls.Add(this.PlaceTypeRadioBoxGroup);
             this.groupBoxPlacementObject.Controls.Add(this.collectItemListView);
             this.groupBoxPlacementObject.Controls.Add(this.CollectItemDel);
             this.groupBoxPlacementObject.Controls.Add(this.CollectItemAddButton);
@@ -100,6 +102,54 @@ namespace Maybe3DaysToDieToolEditor
             this.groupBoxPlacementObject.Text = "PlacementObject";
             this.groupBoxPlacementObject.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
             // 
+            // PlaceTypeRadioBoxGroup
+            // 
+            this.PlaceTypeRadioBoxGroup.Controls.Add(this.RadioObject);
+            this.PlaceTypeRadioBoxGroup.Controls.Add(this.RadioBlock);
+            this.PlaceTypeRadioBoxGroup.Controls.Add(this.RadioTerrain);
+            this.PlaceTypeRadioBoxGroup.Location = new System.Drawing.Point(350, 50);
+            this.PlaceTypeRadioBoxGroup.Name = "PlaceTypeRadioBoxGroup";
+            this.PlaceTypeRadioBoxGroup.Size = new System.Drawing.Size(400, 50);
+            this.PlaceTypeRadioBoxGroup.TabIndex = 65;
+            this.PlaceTypeRadioBoxGroup.TabStop = false;
+            this.PlaceTypeRadioBoxGroup.Text = "オブジェクトタイプ";
+            // 
+            // RadioObject
+            // 
+            this.RadioObject.AutoSize = true;
+            this.RadioObject.Location = new System.Drawing.Point(310, 20);
+            this.RadioObject.Name = "RadioObject";
+            this.RadioObject.Size = new System.Drawing.Size(70, 19);
+            this.RadioObject.TabIndex = 2;
+            this.RadioObject.TabStop = true;
+            this.RadioObject.Text = "Object";
+            this.RadioObject.UseVisualStyleBackColor = true;
+            this.RadioObject.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
+            // 
+            // RadioBlock
+            // 
+            this.RadioBlock.AutoSize = true;
+            this.RadioBlock.Location = new System.Drawing.Point(160, 20);
+            this.RadioBlock.Name = "RadioBlock";
+            this.RadioBlock.Size = new System.Drawing.Size(64, 19);
+            this.RadioBlock.TabIndex = 1;
+            this.RadioBlock.TabStop = true;
+            this.RadioBlock.Text = "Block";
+            this.RadioBlock.UseVisualStyleBackColor = true;
+            this.RadioBlock.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
+            // 
+            // RadioTerrain
+            // 
+            this.RadioTerrain.AutoSize = true;
+            this.RadioTerrain.Location = new System.Drawing.Point(10, 20);
+            this.RadioTerrain.Name = "RadioTerrain";
+            this.RadioTerrain.Size = new System.Drawing.Size(73, 19);
+            this.RadioTerrain.TabIndex = 0;
+            this.RadioTerrain.TabStop = true;
+            this.RadioTerrain.Text = "Terrain";
+            this.RadioTerrain.UseVisualStyleBackColor = true;
+            this.RadioTerrain.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
+            // 
             // collectItemListView
             // 
             this.collectItemListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -110,11 +160,11 @@ namespace Maybe3DaysToDieToolEditor
             this.collectItemListView.FullRowSelect = true;
             this.collectItemListView.HideSelection = false;
             this.collectItemListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5});
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9,
+            listViewItem10});
             this.collectItemListView.Location = new System.Drawing.Point(32, 207);
             this.collectItemListView.MultiSelect = false;
             this.collectItemListView.Name = "collectItemListView";
@@ -242,27 +292,6 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolComboBox.Size = new System.Drawing.Size(121, 23);
             this.ToolComboBox.TabIndex = 64;
             // 
-            // PlaceTypeCheckBox
-            // 
-            this.PlaceTypeCheckBox.FormattingEnabled = true;
-            this.PlaceTypeCheckBox.Items.AddRange(new object[] {
-            "Block",
-            "Terrain",
-            "Object"});
-            this.PlaceTypeCheckBox.Location = new System.Drawing.Point(400, 80);
-            this.PlaceTypeCheckBox.Name = "PlaceTypeCheckBox";
-            this.PlaceTypeCheckBox.Size = new System.Drawing.Size(169, 55);
-            this.PlaceTypeCheckBox.TabIndex = 66;
-            // 
-            // PlaceType
-            // 
-            this.PlaceType.AutoSize = true;
-            this.PlaceType.Location = new System.Drawing.Point(400, 50);
-            this.PlaceType.Name = "PlaceType";
-            this.PlaceType.Size = new System.Drawing.Size(103, 15);
-            this.PlaceType.TabIndex = 65;
-            this.PlaceType.Text = "オブジェクトタイプ";
-            // 
             // PlacementObjectPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -272,6 +301,8 @@ namespace Maybe3DaysToDieToolEditor
             this.Size = new System.Drawing.Size(1272, 520);
             this.groupBoxPlacementObject.ResumeLayout(false);
             this.groupBoxPlacementObject.PerformLayout();
+            this.PlaceTypeRadioBoxGroup.ResumeLayout(false);
+            this.PlaceTypeRadioBoxGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collectNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).EndInit();
             this.ResumeLayout(false);
@@ -296,7 +327,9 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.ColumnHeader ItemName;
         private System.Windows.Forms.ColumnHeader ItemNum;
         private System.Windows.Forms.ColumnHeader CollectItems;
-        private System.Windows.Forms.Label PlaceType;
-        private System.Windows.Forms.CheckedListBox PlaceTypeCheckBox;
+        private System.Windows.Forms.GroupBox PlaceTypeRadioBoxGroup;
+        private System.Windows.Forms.RadioButton RadioObject;
+        private System.Windows.Forms.RadioButton RadioBlock;
+        private System.Windows.Forms.RadioButton RadioTerrain;
     }
 }
