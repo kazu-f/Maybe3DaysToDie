@@ -64,6 +64,8 @@ bool CGameScene::Start()
 	
 	//todo プレイヤーの処理等に置くようにしてください
 	m_PlacementObject = NewGO<PlacementObject>(0);
+	
+
 	m_DestroyObject = NewGO<DestroyObject>(0);
 	tool = new Tool;
 	m_DestroyObject->SetTool(tool);
@@ -114,6 +116,7 @@ bool CGameScene::Start()
 		m_Stage
 	);
 	m_AccessObject.SetSaveData(&m_SaveDataFile);
+	m_Player->SetAccessObject(&m_AccessObject);
 	return true;
 }
 

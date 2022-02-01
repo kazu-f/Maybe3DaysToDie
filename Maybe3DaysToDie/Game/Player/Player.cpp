@@ -72,7 +72,10 @@ void Player::Update()
 	}
 
 	if (GetAsyncKeyState('e')) {
-
+		m_AccessObject->Access();
+	}
+	if (GetAsyncKeyState('r')) {
+		m_AccessObject->EndAccess();
 	}
 	//時間経過による回復
 	PeriodicUpdate();
@@ -118,7 +121,7 @@ void Player::Move()
 	Vector3 MoveSpeed = Vector3::Zero;
 	//Wキーが押されたら
 	if (GetAsyncKeyState('W')) {
-		if (m_IsDebugPlayer) {
+		if (IsDubug()) {
 			MoveSpeed += Forward;
 		}
 		else {
@@ -127,7 +130,7 @@ void Player::Move()
 	}
 	//Sキーが押されたら
 	if (GetAsyncKeyState('S')) {
-		if (m_IsDebugPlayer) {
+		if (IsDubug()) {
 			MoveSpeed -= Forward;
 		}
 		else {
@@ -160,7 +163,7 @@ void Player::Move()
 	{
 		static float gravity = 0.0f;
 		gravity -= GameTime().GetFrameDeltaTime();
-		if (!m_IsDebugPlayer) {
+		if (!IsDubug()) {
 			gravity = 0.0f;
 		}
 
@@ -172,7 +175,7 @@ void Player::Move()
 				{
 					IsJump = true;
 				}
-				if (m_IsDebugPlayer) {
+				if (IsDubug()) {
 					IsJump = false;
 					MoveSpeed.y += 1.0f;
 				}
@@ -254,7 +257,7 @@ void Player::SwichDebugMode()
 	}
 }
 
-bool Player::IsDubug()
+const bool Player::IsDubug() const
 {
 	return false;
 }
