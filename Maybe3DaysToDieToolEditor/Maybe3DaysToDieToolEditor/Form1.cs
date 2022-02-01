@@ -63,6 +63,7 @@ namespace Maybe3DaysToDieToolEditor
             //ファイル選択用の処理を構成する。
             selectModelData = new SelectDataFile(ModelFileSelectButton, ModelFilePathTextBox, "tkm", ItemTkmFileChangeCommand);
             selectIconData = new SelectDataFile(IconFileSelectButton, IconDataTextBox, "png", ItemIconFileChangeCommand);
+            GroupBoxPanelDisable();
         }
 
         private void UpdateBS()
@@ -77,6 +78,7 @@ namespace Maybe3DaysToDieToolEditor
         {
             toolDataPanel1.Visible = false;
             placementObjectPanel1.Visible = false;
+            foodAndCurePanel1.Visible = false;
         }
 
         #region リスト操作の処理。
@@ -142,7 +144,24 @@ namespace Maybe3DaysToDieToolEditor
 
             UpdateBS();
         }
+        /// <summary>
+        /// リストに食料等のアイテムを追加する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FoodAndCureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var newFood = new FoodAndCure { itemName = "FoodAndCure" };
+            m_itemList.Add(newFood);
 
+            for (int i = 0; i < m_itemList.Count; i++)
+            {
+                m_itemList[i].itemID = i;
+            }
+
+            UpdateBS();
+
+        }
         #endregion
 
         #region データを表示する処理。
@@ -173,6 +192,7 @@ namespace Maybe3DaysToDieToolEditor
             ModelFilePathTextBox.Text = item.tkmFile;
             IconDataTextBox.Text = item.iconData;
             ItemIDDispLabel.Text = item.itemID.ToString();
+            MaxItemStackNumeric.Value = item.itemStackNum;
 
             //データタイプに応じて処理を分岐。
             if (typeof(ToolData) == item.GetType())
@@ -188,6 +208,17 @@ namespace Maybe3DaysToDieToolEditor
                 placementObjectPanel1.Visible = true;
                 placementObjectPanel1.DispPlacementObject((PlacementObject)item);
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Place;
+            }
+            else if(typeof(FoodAndCure) == item.GetType())
+            {
+                GroupBoxPanelDisable();
+                foodAndCurePanel1.Visible = true;
+
+            }
+            else
+            {
+                GroupBoxPanelDisable();
+
             }
         }
         #endregion
