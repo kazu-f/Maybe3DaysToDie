@@ -9,6 +9,7 @@ struct InstancingData {
 	Vector3 scale = Vector3::One;
 };
 
+class LoadingByChunk;
 class ChunkBlock
 {
 public:
@@ -81,6 +82,11 @@ public:
 	{
 		return m_IsModelUpdated;
 	}
+
+	void ResetModelUpdated()
+	{
+		m_IsModelUpdated = false;
+	}
 	/// <summary>
 	/// そのチャンクにあるモデルのインスタンシングデータを取得
 	/// </summary>
@@ -89,6 +95,23 @@ public:
 	std::vector<InstancingData>& GetInstancingData(int BlockID)
 	{
 		return m_InstancingData[BlockID];
+	}
+
+	/// <summary>
+	/// LoadingByChunkのポインタをセット
+	/// </summary>
+	void SetLoadingByChunk(LoadingByChunk* ptr)
+	{
+		m_LoadingByChunk = ptr;
+	}
+
+	/// <summary>
+	/// ロードしているチャンクに対応させるためIDを持たす
+	/// </summary>
+	void SetLoadChunkID(int x, int z)
+	{
+		m_LoadID[0] = x;
+		m_LoadID[1] = z;
 	}
 public:
 	Block m_Block[ChunkWidth][ChunkHeight][ChunkWidth];		//ブロック
@@ -100,4 +123,7 @@ private:
 	//インスタンシングデータ
 	std::vector<InstancingData> m_InstancingData[BlockKinds];
 	bool m_IsModelUpdated = false;
+	LoadingByChunk* m_LoadingByChunk = nullptr;
+	int m_LoadID[2] = { 0 };
+
 };

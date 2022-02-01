@@ -71,6 +71,7 @@ public:
 	{
 		m_TerrainData = TCD;
 	}
+
 private:
 	CPhysicsStaticObject m_StaticCol[ChunkWidth][ChunkHeight][ChunkWidth];		//静的物理オブジェクト
 	const Vector3 BLOCK_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };

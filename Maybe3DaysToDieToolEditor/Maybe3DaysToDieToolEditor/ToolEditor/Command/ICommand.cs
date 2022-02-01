@@ -43,6 +43,34 @@ namespace Maybe3DaysToDieToolEditor
                 return afterStr != beforeStr;
             }
         }
+        /// <summary>
+        /// アイテムの名前を変更するコマンド。
+        /// </summary>
+        public class ItemStackChangeCommand : ICommand
+        {
+            Item m_Item;
+            int beforeStr;
+            int afterStr;
+
+            public ItemStackChangeCommand(Item item, int after)
+            {
+                beforeStr = item.itemStackNum;    //変更前の文字列。
+                afterStr = after;               //変更後の文字列。
+                m_Item = item;                  //変更のあったアイテムを記録。
+            }
+            public override void UnDo()
+            {
+                m_Item.itemStackNum = beforeStr;        //名前変更。
+            }
+            public override void ReDo()
+            {
+                m_Item.itemStackNum = afterStr;        //名前変更。
+            }
+            public override bool IsChanged()
+            {
+                return afterStr != beforeStr;
+            }
+        }
 
         /// <summary>
         /// アイテムのモデルファイルを変更するコマンド。

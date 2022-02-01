@@ -15,6 +15,7 @@ class DestroyObject;
 class Tool;
 
 class LoadingByChunk;
+class NaviMeshManager;
 
 class CGameScene : public IGameObject
 {

@@ -142,6 +142,14 @@ namespace Engine {
 		{
 			m_meshParts.ChangeAlbedo(tex);
 		}
+
+		/// <summary>
+		/// モデルのディスクリプタヒープを作り直す。
+		/// </summary>
+		void CreateDescriptorHeaps()
+		{
+			m_meshParts.CreateDescriptorHeaps();
+		}
 	private:
 
 		Matrix m_world;			//ワールド行列。

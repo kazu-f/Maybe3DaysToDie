@@ -5,6 +5,8 @@
 #include "TerrainManager/TerrainManager.h"
 #include "SaveDataFile.h"
 
+class NaviMeshManager;
+
 class Stage : public IGameObject
 {
 public:
@@ -51,7 +53,8 @@ private:
 	EnemyGenerator m_enemyGenerator;				//エネミージェネレーター。
 	nsTerrain::TerrainManager* m_Terrain;
 	WorldTableData m_WorldTableData;
-	//prefab::ModelRender* m_Model = nullptr;		//地面
+	NaviMeshManager* m_naviMeshManager = nullptr;	//prefab::ModelRender* m_Model = nullptr;		//地面
+	prefab::CSky* m_SkyCube = nullptr;
 	//CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
 	//Vector3 m_pos = Vector3::Zero;		//ポジション
 	//Quaternion m_qrot = Quaternion::Identity;		//回転

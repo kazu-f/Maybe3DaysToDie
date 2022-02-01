@@ -110,6 +110,7 @@ namespace Engine {
 			int meshNo,
 			const SShaderInitData& shaderData);
 
+	public:
 		/// <summary>
 		/// ディスクリプタヒープを作成。
 		/// </summary>

@@ -93,6 +93,7 @@ void LoadingByChunk::InitChunkBlocks()
 			NowGrid[1] = Grid[1] + z;
 			m_ChunkBlock[x][z].SetSaveDataFile(m_SaveDataFile);
 			m_ChunkBlock[x][z].SetChunkID(NowGrid);
+			m_ChunkBlock[x][z].SetLoadingByChunk(this);
 			//初期化
 			m_ChunkBlock[x][z].Init();
 		}
@@ -139,10 +140,14 @@ void LoadingByChunk::Update()
 	////////////////////////////////////////////
 	/////ここから下は更新する必要があるとき/////
 	////////////////////////////////////////////
-
-	//NVMの更新フラグを立てる
-	m_IsUpdated = true;
-
+	for (int x = 0; x < LoadingChunks; x++)
+	{
+		for (int z = 0; z < LoadingChunks; z++)
+		{
+			//移動したのですべてのNVMの更新フラグを立てる
+			m_IsUpdatedChunk[x][z] = true;
+		}
+	}
 	//チャンク移動
 	UpdateMoveChunk();
 
@@ -272,6 +277,7 @@ void LoadingByChunk::LinkChunk()
 							//対応しているチャンクデータをセット
 							//チャンクデータは存在するチャンク数分だけあるのでチャンクIDから取得
 							m_ChunkCol[colx][colz].LinkTerrainWorld(&m_TerrainManager->GetTerrainChunkData(ColChunkID[0], ColChunkID[1]));
+							m_ChunkBlock[colx][colz].SetLoadChunkID(blockx, blockz);
 							Linked = true;
 						}
 					}
@@ -316,10 +322,9 @@ void LoadingByChunk::UpdateModels()
 		{
 			if (m_ChunkBlock[x][z].IsModelUpdated())
 			{
+				//todo 更新フラグを下す
 				//更新あり
 				Dirty = true;
-				//ブロック設置orブロック破壊したのでNVMも更新
-				m_IsUpdated = true;
 			}
 			if (Dirty)
 			{
@@ -352,6 +357,7 @@ void LoadingByChunk::UpdateModels()
 					//インスタンシングデータを追加
 					BlockModel[BlockID]->UpdateInstancingData(data.pos,data.rot,data.scale);
 				}
+				m_ChunkBlock[x][z].ResetModelUpdated();
 			}
 		}
 	}
