@@ -362,6 +362,7 @@ namespace Maybe3DaysToDieToolEditor
         {
             foreach (var item in list)
             {
+                item.isRegist = true;
                 //設置物。
                 if (item.GetType() == typeof(PlacementObject))
                 {
