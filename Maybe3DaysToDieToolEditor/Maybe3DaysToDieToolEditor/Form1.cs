@@ -53,6 +53,9 @@ namespace Maybe3DaysToDieToolEditor
             placementObjectPanel1.listBox = ItemList;
             placementObjectPanel1.ItemDataBS = itemDataBS;
 
+            GroupBoxPanelDisable();
+            toolDataPanel1.Visible = true;
+
             //設定を行う。
             //toolKinds = new ToolKindsComboBox(ToolComboBox);
             saveData = new SaveItemDataList();
@@ -175,7 +178,6 @@ namespace Maybe3DaysToDieToolEditor
             if (typeof(ToolData) == item.GetType())
             {
                 GroupBoxPanelDisable();
-                toolDataPanel1.BringToFront();
                 toolDataPanel1.Visible = true;
                 toolDataPanel1.DispToolData((ToolData)item);
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Tool;
@@ -183,7 +185,6 @@ namespace Maybe3DaysToDieToolEditor
             else if (typeof(PlacementObject) == item.GetType())
             {
                 GroupBoxPanelDisable();
-                placementObjectPanel1.BringToFront();
                 placementObjectPanel1.Visible = true;
                 placementObjectPanel1.DispPlacementObject((PlacementObject)item);
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Place;
