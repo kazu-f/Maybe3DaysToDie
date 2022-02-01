@@ -62,7 +62,7 @@ void Player::Update()
 	case State::Run:
 		m_mulSpeed = 1.0f;
 	case Debug:
-		m_mulSpeed *= 2.0f;
+		m_mulSpeed = 2.0f;
 	default:
 		//ˆÚ“®ˆ—
 		Move();
@@ -259,6 +259,9 @@ void Player::SwichDebugMode()
 
 const bool Player::IsDubug() const
 {
+	if (m_CurrentState == State::Debug) {
+		return true;
+	}
 	return false;
 }
 
@@ -266,9 +269,6 @@ void Player::HitDamage(float damage) {
 	float PlayerHp = m_Hp->GetHp() - damage;
 	if (PlayerHp < 0) {
 		m_NextState = State::Dead;
-	}
-	else {
-		m_NextState = State::Damage;
 	}
 }
 

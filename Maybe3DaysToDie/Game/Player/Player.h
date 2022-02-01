@@ -42,7 +42,7 @@ public:
 		Jump,			//ジャンプ
 		Attack,			//攻撃
 		Menu,			//メニュー画面中
-		Damage,			//攻撃に当たった
+		//Damage,			//攻撃に当たった
 		Dead,			//死にました
 		Debug,			//デバッグモード
 		Num				//ステート数
