@@ -9,6 +9,7 @@ namespace Engine {
 	namespace {
 		//1mのスケールを設定する。
 		const float SCALE_1M = 100.0f;		//100.0cm
+		const float GROUND_SLOPE = 0.333f;
 
 		//衝突したときに呼ばれる関数オブジェクト(地面用)
 		struct SweepResultGround : public btCollisionWorld::ConvexResultCallback
@@ -38,7 +39,7 @@ namespace Engine {
 				//上方向と法線のなす角度を求める。
 				float angle = hitNormalTmp.Dot(Vector3::Up);	//上ベクトルと内積を取る。
 				angle = fabsf(acosf(angle));					//ラジアン単位の角度に直す。
-				if (angle < Math::PI * 0.3f						//地面の傾斜が一定より小さいため地面とみなす。
+				if (angle < Math::PI * GROUND_SLOPE						//地面の傾斜が一定より小さいため地面とみなす。
 					|| !(convexResult.m_hitCollisionObject->getUserIndex() & enCollisionAttr_Ground)		//コリジョン属性が地面と指定されている。
 					) {
 					//衝突している。
@@ -87,7 +88,7 @@ namespace Engine {
 				//上方向と衝突点の法線のなす角度を求める。
 				float angle = hitNormalTmp.Dot(Vector3::Up);		//上ベクトルと内積をとる。
 				angle = fabsf(acosf(angle));						//ラジアン角度に変換。
-				if (angle >= Math::PI * 0.3f				//地面との傾斜が一定以上なので壁とみなす。
+				if (angle >= Math::PI * GROUND_SLOPE				//地面との傾斜が一定以上なので壁とみなす。
 					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character		//コリジョンがキャラクタ属性なため壁とみなす。
 					) {
 					//衝突した。
