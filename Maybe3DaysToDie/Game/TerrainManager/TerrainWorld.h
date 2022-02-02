@@ -27,6 +27,23 @@ namespace nsTerrain {
 	
 	public:
 		/// <summary>
+		/// NVMをリセット。
+		/// </summary>
+		void ResetNvm()
+		{
+			m_cellList.clear();
+		}
+
+		/// <summary>
+		/// セルを追加。
+		/// </summary>
+		/// <param name="cell"></param>
+		void AddCell(NVMGenerator::Cell* cell)
+		{
+			m_cellList.push_back(*cell);
+		}
+
+		/// <summary>
 		/// ナビメッシュを生成する。
 		/// </summary>
 		void CreateNVM();
@@ -50,6 +67,16 @@ namespace nsTerrain {
 		{
 			return m_terrainRender;
 		}
+
+		/// <summary>
+		/// セルリストを取得。
+		/// </summary>
+		/// <returns></returns>
+		std::vector<NVMGenerator::Cell>& GetCellList()
+		{
+			return m_cellList;
+		}
+
 		/// <summary>
 		/// 初期化済みかどうか。
 		/// </summary>

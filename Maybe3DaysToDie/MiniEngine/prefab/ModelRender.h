@@ -290,6 +290,11 @@ namespace Engine {
 				return m_modeInitData;
 			}
 
+			Skeleton& GetSkeleton()
+			{
+				return m_skeleton;
+			}
+
 		private:	//初期化関数。
 			/// <summary>
 			/// インスタンシング描画用のSB構築。
