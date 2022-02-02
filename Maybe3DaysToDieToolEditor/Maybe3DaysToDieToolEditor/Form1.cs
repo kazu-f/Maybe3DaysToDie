@@ -194,7 +194,6 @@ namespace Maybe3DaysToDieToolEditor
             ModelFilePathTextBox.Text = item.tkmFile;
             IconDataTextBox.Text = item.iconData;
             ItemIDDispLabel.Text = item.itemID.ToString();
-            MaxItemStackNumeric.Value = item.itemStackNum;
 
             //データタイプに応じて処理を分岐。
             if (typeof(ToolData) == item.GetType())
@@ -223,6 +222,8 @@ namespace Maybe3DaysToDieToolEditor
                 GroupBoxPanelDisable();
 
             }
+            //最大値変更した後に表示する。
+            MaxItemStackNumeric.Value = item.itemStackNum;
         }
         #endregion
 
@@ -380,6 +381,7 @@ namespace Maybe3DaysToDieToolEditor
                 //アイテムのリストを読み込んだものに変更。
                 m_itemList = list;
                 listBoxBS.DataSource = m_itemList;
+                itemDataBS.DataSource = m_itemList;
                 //表記を変更。
                 ItemList.SelectedItem = m_itemList[0];
                 DispItemData(m_itemList[0]);

@@ -13,6 +13,7 @@ namespace Maybe3DaysToDieToolEditor
     /// </summary>
     [KnownType(typeof(ToolData))]
     [KnownType(typeof(PlacementObject))]
+    [KnownType(typeof(FoodAndCure))]
     [DataContract]
     public abstract class Item 
     {
