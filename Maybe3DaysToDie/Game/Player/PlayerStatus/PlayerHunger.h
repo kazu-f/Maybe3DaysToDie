@@ -1,4 +1,5 @@
 #pragma once
+class Player;
 /// <summary>
 /// プレイヤーの空腹度を表すクラス
 /// </summary>
@@ -26,6 +27,10 @@ public:
 	const void SetMaxHunger(const int maxHun) {
 		m_MaxHunger = maxHun;
 	}
+
+	void SetPlayer(Player* pp) {
+		m_Player = pp;
+	}
 private:
 	/// <summary>
 	/// 現在の空腹ゲージを初期化する
@@ -44,5 +49,7 @@ private:
 	float m_HungeryCountTime = 0.0f;					//経過時間
 	int m_Hunder = 100;									//空腹度
 	int m_MaxHunger = 100;								//満腹量
+	
+	Player* m_Player = nullptr;							//プレイヤーのポインタ
 };
 

@@ -2,6 +2,8 @@
 #include "PlayerHunger.h"
 #include "SpriteInitFunction.h"
 
+#include "Player/Player.h"
+
 namespace {
 	////////ゲージ用定数//////////////////////////////// 
 	const UINT GaugeSize[2] = { 300,15 };
@@ -35,6 +37,9 @@ void PlayerHunger::Update()
 	if (m_HungeryCountTime > m_HungeryTime) {
 		m_Hunder--;
 		m_HungeryCountTime = 0.0f;
+		if (m_Hunder < 0) {
+			m_Player->HitDamage(1.0f);
+		}
 	}
 	//スケール
 	Vector3 SpriteScale = Vector3::One;

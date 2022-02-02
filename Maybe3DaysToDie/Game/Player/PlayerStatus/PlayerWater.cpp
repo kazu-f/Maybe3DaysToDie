@@ -2,6 +2,8 @@
 #include "PlayerWater.h"
 #include "SpriteInitFunction.h"
 
+#include "Player/Player.h"
+
 namespace {
 	const Vector2 GaugePos = { -0.0f,-330.0f };		//スプライトの位置
 	const UINT GaugeSize[2] = { 300,15 };		//スプライトのサイズ
@@ -25,6 +27,9 @@ void PlayerWater::Update()
 	if (m_WaterCountTime > m_DecWaterTime) {
 		m_Water--;
 		m_WaterCountTime = 0.0f;
+		if (m_Water < 0) {
+			m_Player->HitDamage(1.0f);
+		}
 	}
 	//スプライトサイズの変数
 	Vector3 WaterSize = Vector3::One;

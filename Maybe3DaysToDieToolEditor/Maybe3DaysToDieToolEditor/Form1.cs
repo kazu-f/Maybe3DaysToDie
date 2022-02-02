@@ -16,7 +16,7 @@ namespace Maybe3DaysToDieToolEditor
         public enum EnMaxStackNum
         {
             enStack_Tool = 1,
-            enStack_Eat = 30,
+            enStack_Food = 30,
             enStack_Place = 999,
             enStack_Material = 999
         }
@@ -53,6 +53,12 @@ namespace Maybe3DaysToDieToolEditor
             placementObjectPanel1.listBox = ItemList;
             placementObjectPanel1.ItemDataBS = itemDataBS;
 
+            foodAndCurePanel1.commandList = commandList;
+            foodAndCurePanel1.listBox = ItemList;
+
+            GroupBoxPanelDisable();
+            toolDataPanel1.Visible = true;
+
             //設定を行う。
             //toolKinds = new ToolKindsComboBox(ToolComboBox);
             saveData = new SaveItemDataList();
@@ -67,7 +73,15 @@ namespace Maybe3DaysToDieToolEditor
             listBoxBS.ResetBindings(false);
             itemDataBS.ResetBindings(false);
         }
-
+        /// <summary>
+        /// ユーザコントロールをすべて非表示にする。
+        /// </summary>
+        private void GroupBoxPanelDisable()
+        {
+            toolDataPanel1.Visible = false;
+            placementObjectPanel1.Visible = false;
+            foodAndCurePanel1.Visible = false;
+        }
 
         #region リスト操作の処理。
         /// <summary>
@@ -84,6 +98,7 @@ namespace Maybe3DaysToDieToolEditor
             {
                 if (m_itemList.Remove((Item)item))
                 {
+                    ((Item)item).isRegist = false;      //登録から外れる。
                     var reDisp = ItemList.SelectedItem;
                     if (item is Item) DispItemData((Item)reDisp);
 
@@ -131,7 +146,24 @@ namespace Maybe3DaysToDieToolEditor
 
             UpdateBS();
         }
+        /// <summary>
+        /// リストに食料等のアイテムを追加する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FoodAndCureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var newFood = new FoodAndCure { itemName = "FoodAndCure" };
+            m_itemList.Add(newFood);
 
+            for (int i = 0; i < m_itemList.Count; i++)
+            {
+                m_itemList[i].itemID = i;
+            }
+
+            UpdateBS();
+
+        }
         #endregion
 
         #region データを表示する処理。
@@ -162,19 +194,34 @@ namespace Maybe3DaysToDieToolEditor
             ModelFilePathTextBox.Text = item.tkmFile;
             IconDataTextBox.Text = item.iconData;
             ItemIDDispLabel.Text = item.itemID.ToString();
+            MaxItemStackNumeric.Value = item.itemStackNum;
 
             //データタイプに応じて処理を分岐。
             if (typeof(ToolData) == item.GetType())
             {
+                GroupBoxPanelDisable();
+                toolDataPanel1.Visible = true;
                 toolDataPanel1.DispToolData((ToolData)item);
-                toolDataPanel1.BringToFront();
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Tool;
             }
             else if (typeof(PlacementObject) == item.GetType())
             {
+                GroupBoxPanelDisable();
+                placementObjectPanel1.Visible = true;
                 placementObjectPanel1.DispPlacementObject((PlacementObject)item);
-                placementObjectPanel1.BringToFront();
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Place;
+            }
+            else if(typeof(FoodAndCure) == item.GetType())
+            {
+                GroupBoxPanelDisable();
+                foodAndCurePanel1.Visible = true;
+                foodAndCurePanel1.DispFoodAndCureItem((FoodAndCure)item);
+                MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Food;
+            }
+            else
+            {
+                GroupBoxPanelDisable();
+
             }
         }
         #endregion
@@ -349,6 +396,7 @@ namespace Maybe3DaysToDieToolEditor
         {
             foreach (var item in list)
             {
+                item.isRegist = true;
                 //設置物。
                 if (item.GetType() == typeof(PlacementObject))
                 {

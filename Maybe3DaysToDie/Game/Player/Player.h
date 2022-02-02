@@ -7,6 +7,7 @@ class PlayerHunger;
 class PlayerWater;
 class GameCamera;
 class ItemBar;
+class AccessObject;
 class Player : public IGameObject
 {
 	//配列用の定数
@@ -40,9 +41,10 @@ public:
 		Run,			//走る
 		Jump,			//ジャンプ
 		Attack,			//攻撃
-		Inventry,		//インベントリを開く
-		Damage,			//攻撃に当たった
+		Menu,			//メニュー画面中
+		//Damage,			//攻撃に当たった
 		Dead,			//死にました
+		Debug,			//デバッグモード
 		Num				//ステート数
 	};
 	const Vector3 GetPosition() const {
@@ -94,6 +96,9 @@ public:
 		return m_CurrentState;
 	}
 
+	void SetAccessObject(AccessObject* AOp) {
+		m_AccessObject = AOp;
+	}
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
@@ -124,6 +129,17 @@ private:
 	/// モデルを更新
 	/// </summary>
 	void ModelUpdate();
+
+	/// <summary>
+	/// デバッグモードを切り替える関数
+	/// </summary>
+	void SwichDebugMode();
+
+	/// <summary>
+	/// デバッグモード化を判定する
+	/// </summary>
+	/// <returns>デバッグモードならtrue</returns>
+	const bool IsDubug()const ;
 private:
 	////////////モデル/////////////////////////////////////////////
 	//prefab::ModelRender* m_Model = nullptr;		//プレイヤーモデル
@@ -156,16 +172,15 @@ private:
 	State m_NextState = State::Idle;				//次に変わるステート
 	float m_DeltaTime = 0.0f;
 
-	bool m_IsChasePlayer = false;
 	GameCamera* m_Camera = nullptr;
 	bool IsJump = false;
 	bool IsJumping = false;
-	const float JumpTime = 0.3f;
 	float NowTime = 0.0f;
 	float m_mulSpeed = 1.0f;			//移動速度(バフ、デバフ用）
 
-	CFontRender* m_Font = nullptr;
 	LoadingByChunk* m_LoadingByChunk = nullptr; 
 
+	bool m_IsUseItem = true;
+	AccessObject* m_AccessObject = nullptr;
 };
 

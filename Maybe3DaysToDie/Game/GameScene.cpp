@@ -4,7 +4,7 @@
 #include "Player/Player.h"
 #include "Stage.h"
 #include "ItemBar.h"
-#include "Status/Inventory.h"
+#include "Player/Inventory.h"
 
 #include "PlacementObject/PlacementObject.h"
 #include "DestroyObject/DestroyObject.h"
@@ -64,6 +64,8 @@ bool CGameScene::Start()
 	
 	//todo プレイヤーの処理等に置くようにしてください
 	m_PlacementObject = NewGO<PlacementObject>(0);
+	
+
 	m_DestroyObject = NewGO<DestroyObject>(0);
 	tool = new Tool;
 	m_DestroyObject->SetTool(tool);
@@ -89,7 +91,6 @@ bool CGameScene::Start()
 	//セーブデータファイルをセット
 	m_LoadingByChunk->SetSaveDataFile(&m_SaveDataFile);
 	//ワールドテーブルデータをセット
-	m_LoadingByChunk->SetWorldTableData(m_Stage->GetWorldTableData());
 	m_Player->SetLoadingByChunk(m_LoadingByChunk);
 	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
 	m_PlacementObject->SetSaveData(&m_SaveDataFile);
@@ -114,6 +115,7 @@ bool CGameScene::Start()
 		m_Stage
 	);
 	m_AccessObject.SetSaveData(&m_SaveDataFile);
+	m_Player->SetAccessObject(&m_AccessObject);
 	return true;
 }
 

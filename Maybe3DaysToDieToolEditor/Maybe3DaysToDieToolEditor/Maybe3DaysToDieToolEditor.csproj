@@ -47,17 +47,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ToolEditor\Command\PlacementObjectCommand.cs" />
-    <Compile Include="UserControl\PlacementObjectPanel.cs">
+    <Compile Include="MyUserControl\FoodAndCurePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\PlacementObjectPanel.Designer.cs">
+    <Compile Include="MyUserControl\FoodAndCurePanel.Designer.cs">
+      <DependentUpon>FoodAndCurePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyUserControl\MaterialPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyUserControl\MaterialPanel.Designer.cs">
+      <DependentUpon>MaterialPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolEditor\Command\FoodAndCureCommand.cs" />
+    <Compile Include="ToolEditor\Command\PlacementObjectCommand.cs" />
+    <Compile Include="MyUserControl\PlacementObjectPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyUserControl\PlacementObjectPanel.Designer.cs">
       <DependentUpon>PlacementObjectPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\ToolDataPanel.cs">
+    <Compile Include="MyUserControl\ToolDataPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\ToolDataPanel.Designer.cs">
+    <Compile Include="MyUserControl\ToolDataPanel.Designer.cs">
       <DependentUpon>ToolDataPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolEditor\Command\EditorCommandList.cs" />
@@ -79,6 +92,12 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MyUserControl\FoodAndCurePanel.resx">
+      <DependentUpon>FoodAndCurePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyUserControl\MaterialPanel.resx">
+      <DependentUpon>MaterialPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -88,10 +107,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UserControl\PlacementObjectPanel.resx">
+    <EmbeddedResource Include="MyUserControl\PlacementObjectPanel.resx">
       <DependentUpon>PlacementObjectPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\ToolDataPanel.resx">
+    <EmbeddedResource Include="MyUserControl\ToolDataPanel.resx">
       <DependentUpon>ToolDataPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\Item.datasource" />

@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AccessObject\AccessObject.cpp" />
+    <ClCompile Include="IK\FootIK.cpp" />
     <ClCompile Include="Item\BlockItem.cpp" />
     <ClCompile Include="ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
@@ -180,6 +181,8 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Enemy\IEnemyState.cpp" />
     <ClCompile Include="Navigation\NVMDebugDraw.cpp" />
+    <ClCompile Include="PlayerDead.cpp" />
+    <ClCompile Include="Player\Inventory.cpp" />
     <ClCompile Include="Stage\Hill\Hill.cpp" />
     <ClCompile Include="Navigation\NVMGenerator.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
@@ -192,7 +195,6 @@
     <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
     <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="Status\Inventory.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -211,12 +213,14 @@
     <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
     <ClCompile Include="Save\TerrainSave\TerrainSave.cpp" />
     <ClCompile Include="MultiThread\Thread.cpp" />
+    <ClCompile Include="Title\TitleScene.cpp" />
     <ClCompile Include="Tool\Tool.cpp" />
     <ClCompile Include="Tool\ToolDataFile.cpp" />
     <ClCompile Include="NaviMeshManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
+    <ClInclude Include="IK\FootIK.h" />
     <ClInclude Include="Item\BlockItem.h" />
     <ClInclude Include="ItemBar.h" />
     <ClInclude Include="Item\GameItemTool.h" />
@@ -278,6 +282,8 @@
     <ClInclude Include="nlohmann\ordered_map.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp" />
+    <ClInclude Include="PlayerDead.h" />
+    <ClInclude Include="Player\Inventory.h" />
     <ClInclude Include="RayTest.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SaveDataFile.h" />
@@ -292,7 +298,6 @@
     <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
     <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="Status\Inventory.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
     <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
@@ -309,6 +314,7 @@
     <ClInclude Include="TerrainManager\TerrainWorld.h" />
     <ClInclude Include="Save\TerrainSave\TerrainSave.h" />
     <ClInclude Include="MultiThread\Thread.h" />
+    <ClInclude Include="Title\TitleScene.h" />
     <ClInclude Include="Tool\Tool.h" />
     <ClInclude Include="Tool\ToolDataFile.h" />
     <ClInclude Include="NaviMeshManager.h" />

@@ -44,15 +44,10 @@ public:
 		return m_Terrain;
 	}
 
-	WorldTableData* GetWorldTableData()
-	{
-		return &m_WorldTableData;
-	}
 private:
 	//Hill m_stage;
 	EnemyGenerator m_enemyGenerator;				//エネミージェネレーター。
 	nsTerrain::TerrainManager* m_Terrain;
-	WorldTableData m_WorldTableData;
 	NaviMeshManager* m_naviMeshManager = nullptr;	//prefab::ModelRender* m_Model = nullptr;		//地面
 	prefab::CSky* m_SkyCube = nullptr;
 	//CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
