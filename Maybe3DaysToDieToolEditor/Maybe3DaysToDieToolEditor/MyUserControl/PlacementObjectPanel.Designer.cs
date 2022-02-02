@@ -29,27 +29,27 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {
             "1:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
             "2:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem(new string[] {
             "3:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem(new string[] {
             "4:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem(new string[] {
             "5:",
             "",
             "",
@@ -96,7 +96,7 @@ namespace Maybe3DaysToDieToolEditor
             this.groupBoxPlacementObject.Controls.Add(this.ToolComboBox);
             this.groupBoxPlacementObject.Location = new System.Drawing.Point(0, 0);
             this.groupBoxPlacementObject.Name = "groupBoxPlacementObject";
-            this.groupBoxPlacementObject.Size = new System.Drawing.Size(1272, 520);
+            this.groupBoxPlacementObject.Size = new System.Drawing.Size(1270, 520);
             this.groupBoxPlacementObject.TabIndex = 60;
             this.groupBoxPlacementObject.TabStop = false;
             this.groupBoxPlacementObject.Text = "PlacementObject";
@@ -160,11 +160,11 @@ namespace Maybe3DaysToDieToolEditor
             this.collectItemListView.FullRowSelect = true;
             this.collectItemListView.HideSelection = false;
             this.collectItemListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem6,
-            listViewItem7,
-            listViewItem8,
-            listViewItem9,
-            listViewItem10});
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14,
+            listViewItem15});
             this.collectItemListView.Location = new System.Drawing.Point(32, 207);
             this.collectItemListView.MultiSelect = false;
             this.collectItemListView.Name = "collectItemListView";
@@ -213,7 +213,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // collectNumeric
             // 
-            this.collectNumeric.Location = new System.Drawing.Point(820, 160);
+            this.collectNumeric.Location = new System.Drawing.Point(530, 160);
             this.collectNumeric.Maximum = new decimal(new int[] {
             999,
             0,
@@ -227,7 +227,7 @@ namespace Maybe3DaysToDieToolEditor
             // labelCollect
             // 
             this.labelCollect.AutoSize = true;
-            this.labelCollect.Location = new System.Drawing.Point(760, 160);
+            this.labelCollect.Location = new System.Drawing.Point(470, 160);
             this.labelCollect.Name = "labelCollect";
             this.labelCollect.Size = new System.Drawing.Size(52, 15);
             this.labelCollect.TabIndex = 69;
@@ -248,7 +248,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ColectItemDropDownList.FormattingEnabled = true;
             this.ColectItemDropDownList.Location = new System.Drawing.Point(117, 159);
             this.ColectItemDropDownList.Name = "ColectItemDropDownList";
-            this.ColectItemDropDownList.Size = new System.Drawing.Size(540, 23);
+            this.ColectItemDropDownList.Size = new System.Drawing.Size(319, 23);
             this.ColectItemDropDownList.TabIndex = 68;
             // 
             // DurableNumeric
@@ -298,7 +298,7 @@ namespace Maybe3DaysToDieToolEditor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBoxPlacementObject);
             this.Name = "PlacementObjectPanel";
-            this.Size = new System.Drawing.Size(1272, 520);
+            this.Size = new System.Drawing.Size(1270, 520);
             this.groupBoxPlacementObject.ResumeLayout(false);
             this.groupBoxPlacementObject.PerformLayout();
             this.PlaceTypeRadioBoxGroup.ResumeLayout(false);

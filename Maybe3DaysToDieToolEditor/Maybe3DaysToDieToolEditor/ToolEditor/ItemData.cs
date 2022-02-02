@@ -25,6 +25,14 @@ namespace Maybe3DaysToDieToolEditor
         public bool isRegist = true;               //リスト登録フラグ。
     }
 
+    /// <summary>
+    /// アイテムをクラフトするための素材一覧。
+    /// </summary>
+    public class ItemCraftMaterial
+    {
+
+    }
+
     public enum ToolKinds : uint
     {
         hand = 0,                //素手
