@@ -2,6 +2,7 @@
 
 #include "IEnemyState.h"
 #include "Navigation/NavigationAgent.h"
+#include "IK/FootIK.h"
 
 class EnemyGenerator;
 
@@ -159,6 +160,11 @@ public://getter
 	{
 		return m_rot;
 	}
+
+	FootIK& GetIK()
+	{
+		return m_footIK;
+	}
 private:
 	prefab::ModelRender*	m_modelRender = nullptr;	//レンダー。
 	EnemyGenerator*			m_generatorPtr;				//ジェネレーターのポインタ。
@@ -166,6 +172,6 @@ private:
 	Vector3					m_pos = g_vec3Zero;			//座標。
 	Quaternion				m_rot = g_quatIdentity;		//回転。
 	NavigationAgent			m_agent;					//エージェント。
-
+	FootIK					m_footIK;
 };
 

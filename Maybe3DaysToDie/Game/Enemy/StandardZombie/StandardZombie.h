@@ -38,11 +38,16 @@ public:
 	///	スタート。
 	/// </summary>
 	/// <returns></returns>
-	bool Start() override final;
+	bool Start() override;
 	/// <summary>
 	/// 更新。
 	/// </summary>
-	void Update() override final;
+	void Update() override;
+
+	/// <summary>
+	/// 遅延更新。
+	/// </summary>
+	void PostUpdate() override;
 	/// <summary>
 	/// パラメーター値を取得。
 	/// </summary>

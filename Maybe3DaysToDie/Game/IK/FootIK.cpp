@@ -2,7 +2,7 @@
 #include "FootIK.h"
 #include "RayTest.h"
 
-void FootIK::Enable(Skeleton* skeleton,const FootIKParam& param)
+void FootIK::Enable(Skeleton* skeleton, FootIKParam& param)
 {
 	//スケルトンをセット
 	m_skeleton = skeleton;
@@ -77,8 +77,9 @@ void FootIK::CCD_IK(const SFoot& foot, Vector3 target)
 	Matrix mat = foot.m_bone->GetWorldMatrix();
 	//行列から位置を取得
 	Vector3 pos = { mat.m[3][0],mat.m[3][1],mat.m[3][2] };
-	while (true)
-	{
+	//while (true)
+	//{
+	for (int i = 0; i < 5; i++) {
 		while (parentID != m_RootBoneID)
 		{
 			//ルートボーンまで計算を繰り返す
@@ -139,6 +140,7 @@ void FootIK::CCD_IK(const SFoot& foot, Vector3 target)
 			return;
 		}
 	}
+	//}
 }
 
 void FootIK::ApplyIK()
