@@ -59,6 +59,7 @@
     <Compile Include="MyUserControl\MaterialPanel.Designer.cs">
       <DependentUpon>MaterialPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToolEditor\Command\FoodAndCureCommand.cs" />
     <Compile Include="ToolEditor\Command\PlacementObjectCommand.cs" />
     <Compile Include="MyUserControl\PlacementObjectPanel.cs">
       <SubType>UserControl</SubType>

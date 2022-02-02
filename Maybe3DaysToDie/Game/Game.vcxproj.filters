@@ -124,10 +124,11 @@
     <ClCompile Include="MultiThread\Thread.cpp" />
     <ClCompile Include="AccessObject\AccessObject.cpp" />
     <ClCompile Include="NaviMeshManager.cpp" />
-
     <ClCompile Include="IK\FootIK.cpp" />
     <ClCompile Include="Player\Inventory.cpp" />
-    <ClCompile Include="PlayerDead.cpp" />  </ItemGroup>
+    <ClCompile Include="PlayerDead.cpp" />
+    <ClCompile Include="Title\TitleScene.cpp" />
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
     <ClInclude Include="GameCamera.h" />
@@ -380,9 +381,11 @@
     <ClInclude Include="RayTest.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="NaviMeshManager.h" />
-
-    <ClInclude Include="IK\FootIK.h" />    <ClInclude Include="Player\Inventory.h" />
-    <ClInclude Include="PlayerDead.h" />  </ItemGroup>
+    <ClInclude Include="IK\FootIK.h" />
+    <ClInclude Include="Player\Inventory.h" />
+    <ClInclude Include="PlayerDead.h" />
+    <ClInclude Include="Title\TitleScene.h" />
+  </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">
       <Filter>Assets\sprite</Filter>
