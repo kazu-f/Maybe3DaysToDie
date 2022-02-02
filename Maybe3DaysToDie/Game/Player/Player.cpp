@@ -6,6 +6,7 @@
 #include "PlayerStatus/PlayerWater.h"
 #include "GameCamera.h"
 #include "AccessObject/AccessObject.h"
+#include "PlayerDead.h"
 namespace {
 	const float MoveDistance = 1000.0f;			//1フレームに動く距離
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
@@ -45,6 +46,7 @@ bool Player::Start()
 	//m_Model->SetRotation(m_Rot);
 	//m_Model->SetScale(m_Scale);
 	m_Characon.Init(50.0f, 90.0f, m_Pos);
+	PlayerDead* Dead = NewGO< PlayerDead>(0);
 	return true;
 }
 
