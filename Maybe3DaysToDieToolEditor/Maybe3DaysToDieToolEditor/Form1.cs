@@ -12,16 +12,6 @@ namespace Maybe3DaysToDieToolEditor
 {
     public partial class Maybe3DaysToDie_ToolEditor : Form
     {
-        #region 定数類。
-        public enum EnMaxStackNum
-        {
-            enStack_Tool = 1,
-            enStack_Food = 30,
-            enStack_Place = 999,
-            enStack_Material = 999
-        }
-
-        #endregion
 
         #region フォーム関連の変数。
         string filePath = null;
@@ -32,8 +22,6 @@ namespace Maybe3DaysToDieToolEditor
         //ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
         LoadItemDataList loadData;
-        SelectDataFile selectModelData;         //モデルデータを選ぶ処理。
-        SelectDataFile selectIconData;          //アイコンデータを選ぶ処理。
         #endregion
 
         public Maybe3DaysToDie_ToolEditor()
