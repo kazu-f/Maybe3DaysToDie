@@ -1,7 +1,6 @@
 #pragma once
 
 #include "TerrainManager/TerrainManager.h"
-#include "Navigation/NVMGenerator.h"
 
 class LoadingByChunk;
 class Player;
@@ -11,6 +10,15 @@ class Player;
 /// </summary>
 class NaviMeshManager : public IGameObject
 {
+private:
+	enum VERTEX
+	{
+		VERTEX_BackLeft,
+		VERTEX_BackRight,
+		VERTEX_FrontLeft,
+		VERTEX_FrontRight,
+	};
+
 private:
 	//pl情報。
 	Player* m_playerPtr = nullptr;							//プレイヤー。

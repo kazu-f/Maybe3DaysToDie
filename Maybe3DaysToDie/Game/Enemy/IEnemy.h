@@ -106,9 +106,9 @@ public://setter
 	/// NVMジェネレーターを設定。
 	/// </summary>
 	/// <param name="generator"></param>
-	void SetNVMGenerator(NVMGenerator* generator)
+	void SetNVMGenerator(Stage* stage)
 	{
-		m_agent.SetGenerator(generator);
+		m_agent.SetGenerator(stage);
 	}
 	/// <summary>
 	/// 位置を設定。
@@ -166,5 +166,6 @@ private:
 	Vector3					m_pos = g_vec3Zero;			//座標。
 	Quaternion				m_rot = g_quatIdentity;		//回転。
 	NavigationAgent			m_agent;					//エージェント。
+
 };
 

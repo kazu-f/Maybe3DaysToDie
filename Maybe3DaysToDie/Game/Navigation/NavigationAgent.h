@@ -1,7 +1,8 @@
 #pragma once
 
 #include "AStar.h"
-class NVMGenerator;
+class NaviMeshManager;
+class Stage;
 
 /// <summary>
 /// A*ラッパークラス。
@@ -13,9 +14,9 @@ public:
 	/// ジェネレータを設定。
 	/// </summary>
 	/// <param name="ganerator"></param>
-	void SetGenerator(NVMGenerator* ganerator)
+	void SetGenerator(Stage* stage)
 	{
-		m_generator = ganerator;
+		m_stage = stage;
 	}
 	/// <summary>
 	/// フットステップ付き、A*移動。
@@ -39,7 +40,7 @@ private:
 	AStar									m_astar;						//経路探査。
 	std::vector<NVMGenerator::Cell*>		m_nodeList;						//ノードセル。
 	bool									m_isArrive = true;				//到着してる？
-	NVMGenerator*							m_generator;					//ジェネレーターptr。
+	Stage*									m_stage;						//ジェネレーターptr。
 	Vector3									m_toWayPoint;					//次の経路に向かうベクトル。
 	Vector3									m_AgentPos;						//エージェントの位置。
 	Quaternion								m_AgentQrot;					//エージェントの回転。
