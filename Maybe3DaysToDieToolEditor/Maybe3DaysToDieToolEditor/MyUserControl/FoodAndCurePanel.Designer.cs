@@ -74,6 +74,7 @@ namespace Maybe3DaysToDieToolEditor
             this.FoodNumeric.Size = new System.Drawing.Size(120, 22);
             this.FoodNumeric.TabIndex = 96;
             this.FoodNumeric.ThousandsSeparator = true;
+            this.FoodNumeric.Leave += new System.EventHandler(this.FoodNumericLeave);
             // 
             // FoodLabel
             // 
@@ -96,6 +97,7 @@ namespace Maybe3DaysToDieToolEditor
             this.WaterNumeric.Size = new System.Drawing.Size(120, 22);
             this.WaterNumeric.TabIndex = 94;
             this.WaterNumeric.ThousandsSeparator = true;
+            this.WaterNumeric.Leave += new System.EventHandler(this.WaterNumericLeave);
             // 
             // WaterLabel
             // 
@@ -118,6 +120,7 @@ namespace Maybe3DaysToDieToolEditor
             this.HPNumeric.Size = new System.Drawing.Size(120, 22);
             this.HPNumeric.TabIndex = 92;
             this.HPNumeric.ThousandsSeparator = true;
+            this.HPNumeric.Leave += new System.EventHandler(this.HPNumericLeave);
             // 
             // HPLabel
             // 
@@ -140,6 +143,7 @@ namespace Maybe3DaysToDieToolEditor
             this.StaminaNumeric.Size = new System.Drawing.Size(120, 22);
             this.StaminaNumeric.TabIndex = 98;
             this.StaminaNumeric.ThousandsSeparator = true;
+            this.StaminaNumeric.Leave += new System.EventHandler(this.StaminaNumericLeave);
             // 
             // StaminaLabel
             // 
