@@ -310,6 +310,11 @@ namespace Maybe3DaysToDieToolEditor
             foreach (var item in list)
             {
                 item.isRegist = true;
+                //素材アイテムを登録し直す。
+                foreach (var material in item.itemCraftMaterials)
+                {
+                    material.BuildCollectItemData(list);
+                }
                 //設置物。
                 if (item.GetType() == typeof(PlacementObject))
                 {
