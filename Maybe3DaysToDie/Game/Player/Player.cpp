@@ -138,28 +138,41 @@ void Player::Move()
 	//Wキーが押されたら
 	if (GetAsyncKeyState('W')) {
 		if (IsDubug()) {
-			MoveSpeed += Forward;
+			MoveSpeed += MainCamera().GetForward();
 		}
 		else {
-			MoveSpeed += MainCamera().GetForward();
+			MoveSpeed += Forward;
 		}
 	}
 	//Sキーが押されたら
 	if (GetAsyncKeyState('S')) {
 		if (IsDubug()) {
-			MoveSpeed -= Forward;
-		}
-		else {
 			MoveSpeed -= MainCamera().GetForward();
 		}
+		else {
+			MoveSpeed -= Forward;
+		}
 	}
+
+	Vector3 RightMoveSpeed= MainCamera().GetRight();
+	RightMoveSpeed.y = 0.0f;
 	//Aキーが押されたら
 	if (GetAsyncKeyState('A')) {
-		MoveSpeed -= MainCamera().GetRight();
+		if (IsDubug()) {
+			MoveSpeed -= MainCamera().GetRight();
+		}
+		else {
+			MoveSpeed -= RightMoveSpeed;
+		}
 	}
 	//Dキーが押されたら
 	if (GetAsyncKeyState('D')) {
-		MoveSpeed += MainCamera().GetRight();
+		if (IsDubug()) {
+			MoveSpeed += MainCamera().GetRight();
+		}
+		else {
+			MoveSpeed += RightMoveSpeed;
+		}
 	}
 	
 	//////移動速度//////////////////////////
