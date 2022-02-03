@@ -29,6 +29,31 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            "1:",
+            "",
+            "",
+            ""}, -1);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            "2:",
+            "",
+            "",
+            ""}, -1);
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            "3:",
+            "",
+            "",
+            ""}, -1);
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            "4:",
+            "",
+            "",
+            ""}, -1);
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            "5:",
+            "",
+            "",
+            ""}, -1);
             this.ItemDataGroupBox = new System.Windows.Forms.GroupBox();
             this.MaxItemStackNumeric = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,12 +67,31 @@ namespace Maybe3DaysToDieToolEditor
             this.IconDataLabel = new System.Windows.Forms.Label();
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.ModelDataLabel = new System.Windows.Forms.Label();
+            this.craftItemListView = new System.Windows.Forms.ListView();
+            this.CraftMaterials = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ItemID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ItemName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ItemNum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CraftMaterialItemDelButton = new System.Windows.Forms.Button();
+            this.CraftMaterialItemAddButton = new System.Windows.Forms.Button();
+            this.CraftMaterialNumeric = new System.Windows.Forms.NumericUpDown();
+            this.labelCraftMaterialNum = new System.Windows.Forms.Label();
+            this.labelCraftMaterialItem = new System.Windows.Forms.Label();
+            this.CraftMaterialItemDropDownList = new System.Windows.Forms.ComboBox();
             this.ItemDataGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaxItemStackNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CraftMaterialNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // ItemDataGroupBox
             // 
+            this.ItemDataGroupBox.Controls.Add(this.craftItemListView);
+            this.ItemDataGroupBox.Controls.Add(this.CraftMaterialItemDelButton);
+            this.ItemDataGroupBox.Controls.Add(this.CraftMaterialItemAddButton);
+            this.ItemDataGroupBox.Controls.Add(this.CraftMaterialNumeric);
+            this.ItemDataGroupBox.Controls.Add(this.labelCraftMaterialNum);
+            this.ItemDataGroupBox.Controls.Add(this.labelCraftMaterialItem);
+            this.ItemDataGroupBox.Controls.Add(this.CraftMaterialItemDropDownList);
             this.ItemDataGroupBox.Controls.Add(this.MaxItemStackNumeric);
             this.ItemDataGroupBox.Controls.Add(this.label1);
             this.ItemDataGroupBox.Controls.Add(this.ItemIDDispLabel);
@@ -192,6 +236,106 @@ namespace Maybe3DaysToDieToolEditor
             this.ModelDataLabel.TabIndex = 3;
             this.ModelDataLabel.Text = "ModelData";
             // 
+            // craftItemListView
+            // 
+            this.craftItemListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.CraftMaterials,
+            this.ItemID,
+            this.ItemName,
+            this.ItemNum});
+            this.craftItemListView.FullRowSelect = true;
+            this.craftItemListView.HideSelection = false;
+            this.craftItemListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5});
+            this.craftItemListView.Location = new System.Drawing.Point(639, 134);
+            this.craftItemListView.MultiSelect = false;
+            this.craftItemListView.Name = "craftItemListView";
+            this.craftItemListView.Size = new System.Drawing.Size(625, 130);
+            this.craftItemListView.TabIndex = 19;
+            this.craftItemListView.UseCompatibleStateImageBehavior = false;
+            this.craftItemListView.View = System.Windows.Forms.View.Details;
+            // 
+            // CraftMaterials
+            // 
+            this.CraftMaterials.Text = "";
+            this.CraftMaterials.Width = 30;
+            // 
+            // ItemID
+            // 
+            this.ItemID.Text = "ID";
+            this.ItemID.Width = 50;
+            // 
+            // ItemName
+            // 
+            this.ItemName.Text = "Name";
+            this.ItemName.Width = 300;
+            // 
+            // ItemNum
+            // 
+            this.ItemNum.Text = "Num";
+            // 
+            // CraftMaterialItemDelButton
+            // 
+            this.CraftMaterialItemDelButton.Location = new System.Drawing.Point(511, 197);
+            this.CraftMaterialItemDelButton.Name = "CraftMaterialItemDelButton";
+            this.CraftMaterialItemDelButton.Size = new System.Drawing.Size(75, 38);
+            this.CraftMaterialItemDelButton.TabIndex = 18;
+            this.CraftMaterialItemDelButton.Text = "削除";
+            this.CraftMaterialItemDelButton.UseVisualStyleBackColor = true;
+            // 
+            // CraftMaterialItemAddButton
+            // 
+            this.CraftMaterialItemAddButton.Location = new System.Drawing.Point(511, 152);
+            this.CraftMaterialItemAddButton.Name = "CraftMaterialItemAddButton";
+            this.CraftMaterialItemAddButton.Size = new System.Drawing.Size(75, 39);
+            this.CraftMaterialItemAddButton.TabIndex = 17;
+            this.CraftMaterialItemAddButton.Text = "追加";
+            this.CraftMaterialItemAddButton.UseVisualStyleBackColor = true;
+            // 
+            // CraftMaterialNumeric
+            // 
+            this.CraftMaterialNumeric.Location = new System.Drawing.Point(127, 206);
+            this.CraftMaterialNumeric.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.CraftMaterialNumeric.Name = "CraftMaterialNumeric";
+            this.CraftMaterialNumeric.Size = new System.Drawing.Size(120, 22);
+            this.CraftMaterialNumeric.TabIndex = 16;
+            this.CraftMaterialNumeric.ThousandsSeparator = true;
+            // 
+            // labelCraftMaterialNum
+            // 
+            this.labelCraftMaterialNum.AutoSize = true;
+            this.labelCraftMaterialNum.Location = new System.Drawing.Point(67, 206);
+            this.labelCraftMaterialNum.Name = "labelCraftMaterialNum";
+            this.labelCraftMaterialNum.Size = new System.Drawing.Size(52, 15);
+            this.labelCraftMaterialNum.TabIndex = 15;
+            this.labelCraftMaterialNum.Text = "必要数";
+            // 
+            // labelCraftMaterialItem
+            // 
+            this.labelCraftMaterialItem.AutoSize = true;
+            this.labelCraftMaterialItem.Location = new System.Drawing.Point(39, 164);
+            this.labelCraftMaterialItem.Name = "labelCraftMaterialItem";
+            this.labelCraftMaterialItem.Size = new System.Drawing.Size(82, 15);
+            this.labelCraftMaterialItem.TabIndex = 13;
+            this.labelCraftMaterialItem.Text = "素材アイテム";
+            // 
+            // CraftMaterialItemDropDownList
+            // 
+            this.CraftMaterialItemDropDownList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CraftMaterialItemDropDownList.FormattingEnabled = true;
+            this.CraftMaterialItemDropDownList.Location = new System.Drawing.Point(127, 161);
+            this.CraftMaterialItemDropDownList.Name = "CraftMaterialItemDropDownList";
+            this.CraftMaterialItemDropDownList.Size = new System.Drawing.Size(317, 23);
+            this.CraftMaterialItemDropDownList.TabIndex = 14;
+            // 
             // ItemDataPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -202,6 +346,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemDataGroupBox.ResumeLayout(false);
             this.ItemDataGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaxItemStackNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CraftMaterialNumeric)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -221,5 +366,16 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.Label IconDataLabel;
         private System.Windows.Forms.TextBox NameTextBox;
         private System.Windows.Forms.Label ModelDataLabel;
+        private System.Windows.Forms.ListView craftItemListView;
+        private System.Windows.Forms.ColumnHeader CraftMaterials;
+        private System.Windows.Forms.ColumnHeader ItemID;
+        private System.Windows.Forms.ColumnHeader ItemName;
+        private System.Windows.Forms.ColumnHeader ItemNum;
+        private System.Windows.Forms.Button CraftMaterialItemDelButton;
+        private System.Windows.Forms.Button CraftMaterialItemAddButton;
+        private System.Windows.Forms.NumericUpDown CraftMaterialNumeric;
+        private System.Windows.Forms.Label labelCraftMaterialNum;
+        private System.Windows.Forms.Label labelCraftMaterialItem;
+        private System.Windows.Forms.ComboBox CraftMaterialItemDropDownList;
     }
 }
