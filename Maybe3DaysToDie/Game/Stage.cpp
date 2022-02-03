@@ -13,6 +13,7 @@ Stage::Stage()
 
 bool Stage::Start()
 {
+	m_enemyGenerator.SetStage(this);
 	return true;
 }
 

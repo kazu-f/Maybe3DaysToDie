@@ -2,6 +2,7 @@
 
 #include "IEnemyState.h"
 #include "Navigation/NavigationAgent.h"
+#include "IK/FootIK.h"
 
 class EnemyGenerator;
 
@@ -106,9 +107,9 @@ public://setter
 	/// NVMジェネレーターを設定。
 	/// </summary>
 	/// <param name="generator"></param>
-	void SetNVMGenerator(NVMGenerator* generator)
+	void SetNVMGenerator(Stage* stage)
 	{
-		m_agent.SetGenerator(generator);
+		m_agent.SetGenerator(stage);
 	}
 	/// <summary>
 	/// 位置を設定。
@@ -159,6 +160,11 @@ public://getter
 	{
 		return m_rot;
 	}
+
+	FootIK& GetIK()
+	{
+		return m_footIK;
+	}
 private:
 	prefab::ModelRender*	m_modelRender = nullptr;	//レンダー。
 	EnemyGenerator*			m_generatorPtr;				//ジェネレーターのポインタ。
@@ -166,5 +172,6 @@ private:
 	Vector3					m_pos = g_vec3Zero;			//座標。
 	Quaternion				m_rot = g_quatIdentity;		//回転。
 	NavigationAgent			m_agent;					//エージェント。
+	FootIK					m_footIK;
 };
 

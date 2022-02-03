@@ -18,7 +18,7 @@ public:
 		float footCapsuleColliderHeight_1 = 0.0f;		//カプセルコライダーの高さ２
 	};
 
-private:
+public:
 	FootIK() {}
 	~FootIK() {}
 public:
@@ -28,7 +28,7 @@ public:
 	/// </summary>
 	/// <param name="skeleton">IKをかけるスケルトン</param>
 	/// <param name="param">IKに必要なパラメータ</param>
-	void Enable(Skeleton* skeleton,const FootIKParam& param);
+	void Enable(Skeleton* skeleton, FootIKParam& param);
 
 	/// <summary>
 	/// IKを無効にする

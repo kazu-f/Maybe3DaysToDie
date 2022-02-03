@@ -159,5 +159,9 @@ namespace Maybe3DaysToDieToolEditor
 
         #endregion  //食料等のデータ変更処理。
 
+        private void activeControlNull(object sender, EventArgs e)
+        {
+            this.ParentForm.ActiveControl = null;
+        }
     }
 }

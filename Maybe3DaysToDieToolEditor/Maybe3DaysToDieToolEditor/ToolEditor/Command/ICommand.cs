@@ -131,5 +131,63 @@ namespace Maybe3DaysToDieToolEditor
                 return beforeStr != afterStr;
             }
         }
+
+        //素材アイテム追加のコマンド。
+        class AddCraftMaterialItem : ICommand
+        {
+            Item m_item;
+            ItemCraftMaterial m_addCraftMaterial = null;
+
+            public AddCraftMaterialItem(Item place, ItemCraftMaterial addItem)
+            {
+                m_addCraftMaterial = addItem;
+                m_item = place;
+            }
+            public override void UnDo()
+            {
+                //リストから削除。
+                m_item.itemCraftMaterials.Remove(m_addCraftMaterial);
+            }
+            public override void ReDo()
+            {
+                //リストに追加。
+                m_item.itemCraftMaterials.Add(m_addCraftMaterial);
+            }
+            public override bool IsChanged()
+            {
+                //リストに登録されているか。
+                return !m_item.itemCraftMaterials.Contains(m_addCraftMaterial);
+            }
+        }
+
+        //素材アイテム削除のコマンド。
+        class RemoveCraftMaterialItem : ICommand
+        {
+            Item m_item;
+            ItemCraftMaterial m_removeCraftMaterial = null;
+            int m_index = int.MaxValue;
+
+            public RemoveCraftMaterialItem(Item item, int index)
+            {
+                m_item = item;
+                m_removeCraftMaterial = item.itemCraftMaterials[index];
+                m_index = index;
+            }
+            public override void UnDo()
+            {
+                //リストに戻す。
+                m_item.itemCraftMaterials.Insert(m_index, m_removeCraftMaterial);
+            }
+            public override void ReDo()
+            {
+                //リストから削除。
+                m_item.itemCraftMaterials.Remove(m_removeCraftMaterial);
+            }
+            public override bool IsChanged()
+            {
+                //リストに登録されているか。
+                return m_item.itemCraftMaterials.Contains(m_removeCraftMaterial);
+            }
+        }
     }
 }

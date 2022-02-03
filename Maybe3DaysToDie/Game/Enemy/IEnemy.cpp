@@ -26,6 +26,16 @@ void IEnemy::InitActor(ModelInitData& initData, const char* tag, AnimClipInitDat
 {
 	m_modelRender = NewGO<prefab::ModelRender>(0, tag);
 	m_modelRender->Init(initData, animClipDatas, animSize);
+
+	FootIK::FootIKParam param;
+	param.footBoneName_0 = L"mixamorig:LeftToeBase";
+	param.footBoneName_1 = L"mixamorig:RightToeBase";
+	param.rootBoneName = L"mixamorig:Hips";
+	param.footCapsuleColliderRadius_0 = 1.0f;
+	param.footCapsuleColliderRadius_1 = 1.0f;
+	param.footCapsuleColliderHeight_0 = 1.0f;
+	param.footCapsuleColliderHeight_1 = 1.0f;
+	m_footIK.Enable(&m_modelRender->GetSkeleton(), param);
 }
 
 

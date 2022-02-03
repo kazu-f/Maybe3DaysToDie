@@ -60,8 +60,6 @@ namespace nsTerrain {
 
 	void TerrainWorld::CreateNVM()
 	{
-		m_cellList.clear();
-
 		//重点の数はメッシュの数。
 		int meshCount = m_terrainRender->GetCenterArray().size();
 
@@ -103,19 +101,23 @@ namespace nsTerrain {
 		//	}
 		//}
 
-		//隣接セル形成。
-		for (int i = 0; i < m_cellList.size() - 1; i++) {
-			//メッシュ全体に検索を掛けて、リンクセルを検索していく
-			//ソートアルゴリズムで無駄なセルとの判定は行わない。
+	//隣接セル形成。
+		for (auto& baseCell : m_cellList) {
+			//メッシュ全体に検索を掛けて、隣接セルを検索。
 			int linkCellIndex = 0;	//隣接セル用インデックス。
+			for (auto& serchCell : m_cellList) {
 
-			for (int j = i + 1; j < m_cellList.size(); j++) {
-				//リンクセルの検索。
-				int linkVertex = 0;
+				//リンクセルを検索していく。
+				if (&baseCell == &serchCell) {
+					//ベースセルとリンクセルのアドレスが同一なのでスキップ。
+					continue;
+				}
+
+				int linkVertex = 0;	//隣接頂点の数。
 
 				//頂点比較。
-				for (auto& baseVertex : m_cellList[i].pos) {
-					for (auto& serchVertex : m_cellList[j].pos) {
+				for (auto& baseVertex : baseCell.pos) {
+					for (auto& serchVertex : serchCell.pos) {
 						if (baseVertex == serchVertex) {
 							//頂点が一緒
 							linkVertex++;
@@ -125,7 +127,7 @@ namespace nsTerrain {
 
 				if (linkVertex >= 2) {
 					//隣接ラインが2つあるためこいつは隣接頂点である。
-					m_cellList[i].m_linkCell[linkCellIndex] = &m_cellList[j];
+					baseCell.m_linkCell[linkCellIndex] = &serchCell;
 					linkCellIndex++;
 					if (linkCellIndex == 3) {
 						//リンクセル３つ目到達検索を終了。

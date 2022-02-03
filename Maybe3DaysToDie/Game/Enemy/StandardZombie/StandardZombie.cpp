@@ -51,6 +51,11 @@ void StandardZombie::Update()
 	GetCurrentState()->Update();
 }
 
+void StandardZombie::PostUpdate()
+{
+	GetIK().ApplyIK();
+}
+
 IEnemy::EnemyParams& StandardZombie::GetEnemyParameters()
 {
 	return m_parameters;

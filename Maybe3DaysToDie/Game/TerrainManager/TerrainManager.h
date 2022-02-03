@@ -1,9 +1,8 @@
 #pragma once
+
 #include "MarchingCubeTable.h"
 #include "TerrainChunkData.h"
 #include "TerrainWorld.h"
-#include "Navigation/NVMGenerator.h"
-#include "Enemy/EnemyGenerator.h"
 
 namespace nsTerrain {
 
@@ -49,8 +48,6 @@ namespace nsTerrain {
 		Terrain m_terrains[MAX_CHUNK_SIDE * ChunkWidth + 1][ChunkHeight][MAX_CHUNK_SIDE * ChunkWidth + 1];
 		TerrainChunkData m_terrainChunkData[MAX_CHUNK_SIDE][MAX_CHUNK_SIDE];
 		TerrainWorld* m_terrainWorlds[TERRAIN_WORLD_CHUNKSIZE][TERRAIN_WORLD_CHUNKSIZE] = { nullptr };
-		//NVMGenerator m_NVMGenerator;					//NVM生成。
-		EnemyGenerator m_enemyGenerator;				//enemyGenerator.
 		bool m_isInitNVM = false;						//ナビメッシュ生成済みか？
 	};
 

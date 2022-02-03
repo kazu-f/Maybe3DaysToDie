@@ -30,19 +30,19 @@ namespace Maybe3DaysToDieToolEditor
         private void InitializeComponent()
         {
             this.FoodAndCureGroupBox = new System.Windows.Forms.GroupBox();
+            this.StaminaNumeric = new System.Windows.Forms.NumericUpDown();
+            this.StaminaLabel = new System.Windows.Forms.Label();
             this.FoodNumeric = new System.Windows.Forms.NumericUpDown();
             this.FoodLabel = new System.Windows.Forms.Label();
             this.WaterNumeric = new System.Windows.Forms.NumericUpDown();
             this.WaterLabel = new System.Windows.Forms.Label();
             this.HPNumeric = new System.Windows.Forms.NumericUpDown();
             this.HPLabel = new System.Windows.Forms.Label();
-            this.StaminaNumeric = new System.Windows.Forms.NumericUpDown();
-            this.StaminaLabel = new System.Windows.Forms.Label();
             this.FoodAndCureGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StaminaNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FoodNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WaterNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HPNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StaminaNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // FoodAndCureGroupBox
@@ -57,14 +57,38 @@ namespace Maybe3DaysToDieToolEditor
             this.FoodAndCureGroupBox.Controls.Add(this.HPLabel);
             this.FoodAndCureGroupBox.Location = new System.Drawing.Point(0, 0);
             this.FoodAndCureGroupBox.Name = "FoodAndCureGroupBox";
-            this.FoodAndCureGroupBox.Size = new System.Drawing.Size(1272, 520);
+            this.FoodAndCureGroupBox.Size = new System.Drawing.Size(820, 520);
             this.FoodAndCureGroupBox.TabIndex = 90;
             this.FoodAndCureGroupBox.TabStop = false;
             this.FoodAndCureGroupBox.Text = "EatAndCure";
+            this.FoodAndCureGroupBox.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
+            // 
+            // StaminaNumeric
+            // 
+            this.StaminaNumeric.Location = new System.Drawing.Point(390, 105);
+            this.StaminaNumeric.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.StaminaNumeric.Name = "StaminaNumeric";
+            this.StaminaNumeric.Size = new System.Drawing.Size(120, 22);
+            this.StaminaNumeric.TabIndex = 98;
+            this.StaminaNumeric.ThousandsSeparator = true;
+            this.StaminaNumeric.Leave += new System.EventHandler(this.StaminaNumericLeave);
+            // 
+            // StaminaLabel
+            // 
+            this.StaminaLabel.AutoSize = true;
+            this.StaminaLabel.Location = new System.Drawing.Point(330, 105);
+            this.StaminaLabel.Name = "StaminaLabel";
+            this.StaminaLabel.Size = new System.Drawing.Size(49, 15);
+            this.StaminaLabel.TabIndex = 97;
+            this.StaminaLabel.Text = "スタミナ";
             // 
             // FoodNumeric
             // 
-            this.FoodNumeric.Location = new System.Drawing.Point(660, 50);
+            this.FoodNumeric.Location = new System.Drawing.Point(120, 105);
             this.FoodNumeric.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -79,7 +103,7 @@ namespace Maybe3DaysToDieToolEditor
             // FoodLabel
             // 
             this.FoodLabel.AutoSize = true;
-            this.FoodLabel.Location = new System.Drawing.Point(600, 50);
+            this.FoodLabel.Location = new System.Drawing.Point(60, 105);
             this.FoodLabel.Name = "FoodLabel";
             this.FoodLabel.Size = new System.Drawing.Size(52, 15);
             this.FoodLabel.TabIndex = 95;
@@ -131,42 +155,19 @@ namespace Maybe3DaysToDieToolEditor
             this.HPLabel.TabIndex = 91;
             this.HPLabel.Text = "HP";
             // 
-            // StaminaNumeric
-            // 
-            this.StaminaNumeric.Location = new System.Drawing.Point(930, 50);
-            this.StaminaNumeric.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.StaminaNumeric.Name = "StaminaNumeric";
-            this.StaminaNumeric.Size = new System.Drawing.Size(120, 22);
-            this.StaminaNumeric.TabIndex = 98;
-            this.StaminaNumeric.ThousandsSeparator = true;
-            this.StaminaNumeric.Leave += new System.EventHandler(this.StaminaNumericLeave);
-            // 
-            // StaminaLabel
-            // 
-            this.StaminaLabel.AutoSize = true;
-            this.StaminaLabel.Location = new System.Drawing.Point(870, 50);
-            this.StaminaLabel.Name = "StaminaLabel";
-            this.StaminaLabel.Size = new System.Drawing.Size(49, 15);
-            this.StaminaLabel.TabIndex = 97;
-            this.StaminaLabel.Text = "スタミナ";
-            // 
             // FoodAndCurePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.FoodAndCureGroupBox);
             this.Name = "FoodAndCurePanel";
-            this.Size = new System.Drawing.Size(1272, 520);
+            this.Size = new System.Drawing.Size(820, 520);
             this.FoodAndCureGroupBox.ResumeLayout(false);
             this.FoodAndCureGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StaminaNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FoodNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WaterNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HPNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StaminaNumeric)).EndInit();
             this.ResumeLayout(false);
 
         }

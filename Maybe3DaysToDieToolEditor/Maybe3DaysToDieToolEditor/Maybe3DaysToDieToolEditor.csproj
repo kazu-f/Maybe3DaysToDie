@@ -89,6 +89,12 @@
     <Compile Include="ToolEditor\ItemData.cs" />
     <Compile Include="ToolEditor\Command\ToolDataCommand.cs" />
     <Compile Include="ToolEditor\ToolKindsComboBox.cs" />
+    <Compile Include="MyUserControl\ItemDataPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyUserControl\ItemDataPanel.Designer.cs">
+      <DependentUpon>ItemDataPanel.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -112,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MyUserControl\ToolDataPanel.resx">
       <DependentUpon>ToolDataPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyUserControl\ItemDataPanel.resx">
+      <DependentUpon>ItemDataPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\Item.datasource" />
     <None Include="Properties\DataSources\ToolData.datasource" />
