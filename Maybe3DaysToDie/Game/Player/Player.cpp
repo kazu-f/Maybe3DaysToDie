@@ -46,7 +46,6 @@ bool Player::Start()
 	//m_Model->SetRotation(m_Rot);
 	//m_Model->SetScale(m_Scale);
 	m_Characon.Init(50.0f, 90.0f, m_Pos);
-	PlayerDead* Dead = NewGO< PlayerDead>(0);
 	return true;
 }
 
@@ -61,10 +60,25 @@ void Player::Update()
 		m_Camera->SetMovingMouse(true);
 		break;
 	case State::Dead:
+		if (m_Dead == nullptr) {
+			m_Dead = NewGO< PlayerDead>(0);
+		}
+		m_Camera->SetMovingMouse(true);
+		break;
 	case State::Run:
 		m_mulSpeed = 1.0f;
+		//à⁄ìÆèàóù
+		Move();
+		SwichDebugMode();
+		m_Camera->SetMovingMouse(false);
+		break;
 	case Debug:
 		m_mulSpeed = 2.0f;
+		//à⁄ìÆèàóù
+		Move();
+		SwichDebugMode();
+		m_Camera->SetMovingMouse(false);
+		break;
 	default:
 		//à⁄ìÆèàóù
 		Move();
@@ -198,7 +212,7 @@ void Player::Move()
 			NowTime += GameTime().GetFrameDeltaTime();
 			const float JumpTime = 0.3f;
 			float f = NowTime - JumpTime;
-			const float JumpPower = 0.5f;
+			const float JumpPower = 0.8f;
 			MoveSpeed.y = ((gravity)*pow(f, 2.0f)) + JumpPower;
 			if (IsJumping && m_Characon.IsOnGround())
 			{
