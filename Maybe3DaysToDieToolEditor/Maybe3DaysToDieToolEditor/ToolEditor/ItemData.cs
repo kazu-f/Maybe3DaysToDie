@@ -22,15 +22,61 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "stackNum")] public int itemStackNum { get; set; } = 1;
         [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
         [DataMember(Name = "iconData")] public string iconData { get; set; } = "";
+        [DataMember(Name = "itemMaterialData")] public List<ItemCraftMaterial> itemCraftMaterials = new List<ItemCraftMaterial>();
         public bool isRegist = true;               //リスト登録フラグ。
     }
 
     /// <summary>
-    /// アイテムをクラフトするための素材一覧。
+    /// アイテムをクラフトするための素材データ。
     /// </summary>
+    [DataContract]
     public class ItemCraftMaterial
     {
+        public ItemCraftMaterial(Item _item, int _materialNum)
+        {
+            craftMaterialData = _item;
+            this.craftItemNum = _materialNum;
+            craftMaterialItemID = _item.itemID;
+        }
+        /// <summary>
+        /// アイテムIDから素材アイテムデータを構築し直す。
+        /// </summary>
+        /// <param name="itemList">アイテムリスト。</param>
+        public void BuildCollectItemData(List<Item> itemList)
+        {
+            if (craftMaterialItemID != -1 && itemList.Count > craftMaterialItemID)
+            {
+                craftMaterialData = itemList[craftMaterialItemID];
+            }
+        }
 
+        public Item craftMaterialData = null;
+        private int craftMaterialItemID = -1;                                 //素材アイテムのID。
+        public string ItemName
+        {
+            get
+            {
+                if (craftMaterialData == null
+                    || craftMaterialData.isRegist == false) return "NoData";
+                else return craftMaterialData.itemName;
+            }
+        }
+
+        [DataMember(Name = "craftMaterialID")]
+        public int ItemID
+        {
+            get
+            {
+                if (craftMaterialData == null
+                    || craftMaterialData.isRegist == false) return -1;
+                else return craftMaterialData.itemID;
+            }
+            set
+            {
+                craftMaterialItemID = value;
+            }
+        }
+        [DataMember(Name = "craftItemNum")] public int craftItemNum;       //必要量。
     }
 
     public enum ToolKinds : uint

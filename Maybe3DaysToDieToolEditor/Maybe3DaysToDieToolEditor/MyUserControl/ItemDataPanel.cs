@@ -33,13 +33,14 @@ namespace Maybe3DaysToDieToolEditor
         SelectDataFile selectModelData;         //モデルデータを選ぶ処理。
         SelectDataFile selectIconData;          //アイコンデータを選ぶ処理。
 
+
         public BindingSource ItemDataBS
         {
             set
             {
                 _itemDataBS = value;
-                //ColectItemDropDownList.DataSource = _itemDataBS;
-                //ColectItemDropDownList.DisplayMember = "itemName";
+                CraftMaterialItemDropDownList.DataSource = _itemDataBS;
+                CraftMaterialItemDropDownList.DisplayMember = "itemName";
             }
         }            //アイテムデータのバインディングソース。
 
@@ -76,6 +77,30 @@ namespace Maybe3DaysToDieToolEditor
             IconDataTextBox.Text = item.iconData;
             ItemIDDispLabel.Text = item.itemID.ToString();
             MaxItemStackNumeric.Value = item.itemStackNum;
+            DispListView(item);
+        }
+        private void DispListView(Item item)
+        {
+            //リストを一旦空にする。
+            for (int i = 0; i < craftItemListView.Items.Count; i++)
+            {
+                var listData = craftItemListView.Items[i];
+                listData.SubItems[0].Text = (i + 1) + ":";
+                for (int j = 1; j < craftItemListView.Columns.Count; j++)
+                {
+                    listData.SubItems[j].Text = "";
+                }
+            }
+
+            //リストにデータを表示する。
+            for (int i = 0; i < item.itemCraftMaterials.Count; i++)
+            {
+                var listData = craftItemListView.Items[i];
+                var craftMaterial = item.itemCraftMaterials[i];
+                listData.SubItems[1].Text = craftMaterial.ItemID.ToString();
+                listData.SubItems[2].Text = craftMaterial.ItemName;
+                listData.SubItems[3].Text = craftMaterial.craftItemNum.ToString();
+            }
         }
 
         #region  アイテムのデータ変更のコマンド。
@@ -146,12 +171,87 @@ namespace Maybe3DaysToDieToolEditor
                 commandList.AddCommand(command);
             }
         }
+        /// <summary>
+        /// クラフト素材を追加する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CraftMaterialItemAddButton_Click(object sender, EventArgs e)
+        {
+            var select = listBox.SelectedItem;
+            if (select == null) return;
+            if (!(select is Item)) return;
 
-        #endregion
+            if (CraftMaterialItemDropDownList.SelectedItem is Item)
+            {
+                var item = (Item)select;
+                //登録できるアイテムの上限に来ているかどうか。
+                if (craftItemListView.Items.Count > item.itemCraftMaterials.Count)
+                {
+                    ItemCraftMaterial craftMat = new ItemCraftMaterial((Item)CraftMaterialItemDropDownList.SelectedItem, (int)CraftMaterialNumeric.Value);
+                    //place.collectItemList.Add(collect);
+                    Command.AddCraftMaterialItem command = new Command.AddCraftMaterialItem(item, craftMat);
+                    //変更があればコマンドリストに追加。
+                    if (command.IsChanged())
+                    {
+                        commandList.AddCommand(command);
+                    }
+
+                    DispItemData(item);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "登録できるアイテムの種類の上限です。",
+                        "エラー",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                        );
+                }
+            }
+        }
+        /// <summary>
+        /// クラフト素材を削除する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CraftMaterialItemDelButton_Click(object sender, EventArgs e)
+        {
+            var craftMat = craftItemListView.SelectedItems;
+            string No = craftMat[0].Text;
+            No = No.Remove(No.LastIndexOf(":"));
+            int index = int.MaxValue;
+            if (int.TryParse(No, out index))
+            {
+                index--;        //配列アクセスだから表示上の数値 - 1
+                var select = listBox.SelectedItem;
+                if (!(select is Item))
+                {
+                    var item = (Item)select;
+
+                    //インデックスがリストよりも小さい。
+                    if (item.itemCraftMaterials.Count > index)
+                    {
+                        //リストから削除するコマンド。
+                        Command.RemoveCraftMaterialItem command = new Command.RemoveCraftMaterialItem(item, index);
+
+                        if (command.IsChanged())
+                        {
+                            commandList.AddCommand(command);
+                        }
+                    }
+
+                    DispItemData(item);
+                }
+            }
+
+        }
+        #endregion  //アイテムのデータを変更する処理。
 
         private void activeControlNull(object sender, EventArgs e)
         {
             this.ParentForm.ActiveControl = null;
         }
+
     }
 }

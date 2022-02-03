@@ -29,27 +29,27 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {
             "1:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
             "2:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem(new string[] {
             "3:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem(new string[] {
             "4:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem(new string[] {
             "5:",
             "",
             "",
@@ -246,11 +246,11 @@ namespace Maybe3DaysToDieToolEditor
             this.craftItemListView.FullRowSelect = true;
             this.craftItemListView.HideSelection = false;
             this.craftItemListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5});
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14,
+            listViewItem15});
             this.craftItemListView.Location = new System.Drawing.Point(639, 134);
             this.craftItemListView.MultiSelect = false;
             this.craftItemListView.Name = "craftItemListView";
@@ -286,6 +286,7 @@ namespace Maybe3DaysToDieToolEditor
             this.CraftMaterialItemDelButton.TabIndex = 18;
             this.CraftMaterialItemDelButton.Text = "削除";
             this.CraftMaterialItemDelButton.UseVisualStyleBackColor = true;
+            this.CraftMaterialItemDelButton.Click += new System.EventHandler(this.CraftMaterialItemDelButton_Click);
             // 
             // CraftMaterialItemAddButton
             // 
@@ -295,6 +296,7 @@ namespace Maybe3DaysToDieToolEditor
             this.CraftMaterialItemAddButton.TabIndex = 17;
             this.CraftMaterialItemAddButton.Text = "追加";
             this.CraftMaterialItemAddButton.UseVisualStyleBackColor = true;
+            this.CraftMaterialItemAddButton.Click += new System.EventHandler(this.CraftMaterialItemAddButton_Click);
             // 
             // CraftMaterialNumeric
             // 
