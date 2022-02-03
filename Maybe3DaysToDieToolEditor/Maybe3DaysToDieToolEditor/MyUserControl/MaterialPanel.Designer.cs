@@ -36,7 +36,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             this.MaterialPanelGroupBox.Location = new System.Drawing.Point(0, 0);
             this.MaterialPanelGroupBox.Name = "MaterialPanelGroupBox";
-            this.MaterialPanelGroupBox.Size = new System.Drawing.Size(1270, 520);
+            this.MaterialPanelGroupBox.Size = new System.Drawing.Size(820, 520);
             this.MaterialPanelGroupBox.TabIndex = 0;
             this.MaterialPanelGroupBox.TabStop = false;
             this.MaterialPanelGroupBox.Text = "Material";
@@ -47,7 +47,7 @@ namespace Maybe3DaysToDieToolEditor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.MaterialPanelGroupBox);
             this.Name = "MaterialPanel";
-            this.Size = new System.Drawing.Size(1270, 520);
+            this.Size = new System.Drawing.Size(820, 520);
             this.ResumeLayout(false);
 
         }

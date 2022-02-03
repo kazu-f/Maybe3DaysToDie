@@ -69,7 +69,7 @@ namespace Maybe3DaysToDieToolEditor
             this.EditorEToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1482, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1482, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -82,7 +82,7 @@ namespace Maybe3DaysToDieToolEditor
             this.SaveToolStripMenuItem,
             this.SaveAsToolStripMenuItem});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            this.FileToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(82, 26);
             this.FileToolStripMenuItem.Text = "ファイル(&F)";
             // 
             // CreateNewToolStripMenuItem
@@ -132,7 +132,7 @@ namespace Maybe3DaysToDieToolEditor
             this.AddToolStripMenuItem1,
             this.DeleteToolStripMenuItem});
             this.EditorEToolStripMenuItem.Name = "EditorEToolStripMenuItem";
-            this.EditorEToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.EditorEToolStripMenuItem.Size = new System.Drawing.Size(71, 26);
             this.EditorEToolStripMenuItem.Text = "編集(&E)";
             // 
             // UnDoToolStripMenuItem
@@ -242,14 +242,14 @@ namespace Maybe3DaysToDieToolEditor
             this.itemDataPanel1.Location = new System.Drawing.Point(200, 32);
             this.itemDataPanel1.Name = "itemDataPanel1";
             this.itemDataPanel1.Size = new System.Drawing.Size(1270, 270);
-            this.itemDataPanel1.TabIndex = 7;
+            this.itemDataPanel1.TabIndex = 2;
             this.itemDataPanel1.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
             // foodAndCurePanel1
             // 
             this.foodAndCurePanel1.Location = new System.Drawing.Point(200, 320);
             this.foodAndCurePanel1.Name = "foodAndCurePanel1";
-            this.foodAndCurePanel1.Size = new System.Drawing.Size(1270, 520);
+            this.foodAndCurePanel1.Size = new System.Drawing.Size(820, 520);
             this.foodAndCurePanel1.TabIndex = 6;
             this.foodAndCurePanel1.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
@@ -257,14 +257,14 @@ namespace Maybe3DaysToDieToolEditor
             // 
             this.placementObjectPanel1.Location = new System.Drawing.Point(200, 320);
             this.placementObjectPanel1.Name = "placementObjectPanel1";
-            this.placementObjectPanel1.Size = new System.Drawing.Size(1270, 520);
+            this.placementObjectPanel1.Size = new System.Drawing.Size(820, 520);
             this.placementObjectPanel1.TabIndex = 5;
             // 
             // toolDataPanel1
             // 
             this.toolDataPanel1.Location = new System.Drawing.Point(200, 320);
             this.toolDataPanel1.Name = "toolDataPanel1";
-            this.toolDataPanel1.Size = new System.Drawing.Size(1270, 520);
+            this.toolDataPanel1.Size = new System.Drawing.Size(820, 520);
             this.toolDataPanel1.TabIndex = 4;
             this.toolDataPanel1.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 

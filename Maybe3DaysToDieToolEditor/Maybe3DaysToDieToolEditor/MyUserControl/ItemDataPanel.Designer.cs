@@ -83,7 +83,7 @@ namespace Maybe3DaysToDieToolEditor
             0});
             this.MaxItemStackNumeric.Name = "MaxItemStackNumeric";
             this.MaxItemStackNumeric.Size = new System.Drawing.Size(120, 22);
-            this.MaxItemStackNumeric.TabIndex = 26;
+            this.MaxItemStackNumeric.TabIndex = 12;
             this.MaxItemStackNumeric.Value = new decimal(new int[] {
             1,
             0,
@@ -97,7 +97,7 @@ namespace Maybe3DaysToDieToolEditor
             this.label1.Location = new System.Drawing.Point(976, 66);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 15);
-            this.label1.TabIndex = 25;
+            this.label1.TabIndex = 11;
             this.label1.Text = "ItemStackNum";
             // 
             // ItemIDDispLabel
@@ -106,7 +106,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemIDDispLabel.Name = "ItemIDDispLabel";
             this.ItemIDDispLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ItemIDDispLabel.Size = new System.Drawing.Size(100, 23);
-            this.ItemIDDispLabel.TabIndex = 24;
+            this.ItemIDDispLabel.TabIndex = 10;
             this.ItemIDDispLabel.Text = "0";
             this.ItemIDDispLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -116,7 +116,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemIDLabel.Location = new System.Drawing.Point(1055, 38);
             this.ItemIDLabel.Name = "ItemIDLabel";
             this.ItemIDLabel.Size = new System.Drawing.Size(21, 15);
-            this.ItemIDLabel.TabIndex = 23;
+            this.ItemIDLabel.TabIndex = 9;
             this.ItemIDLabel.Text = "ID";
             // 
             // IconFileSelectButton
@@ -124,7 +124,7 @@ namespace Maybe3DaysToDieToolEditor
             this.IconFileSelectButton.Location = new System.Drawing.Point(847, 91);
             this.IconFileSelectButton.Name = "IconFileSelectButton";
             this.IconFileSelectButton.Size = new System.Drawing.Size(102, 23);
-            this.IconFileSelectButton.TabIndex = 22;
+            this.IconFileSelectButton.TabIndex = 8;
             this.IconFileSelectButton.Text = "ファイル選択";
             this.IconFileSelectButton.UseVisualStyleBackColor = true;
             // 
@@ -133,7 +133,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ModelFileSelectButton.Location = new System.Drawing.Point(847, 63);
             this.ModelFileSelectButton.Name = "ModelFileSelectButton";
             this.ModelFileSelectButton.Size = new System.Drawing.Size(102, 23);
-            this.ModelFileSelectButton.TabIndex = 19;
+            this.ModelFileSelectButton.TabIndex = 5;
             this.ModelFileSelectButton.Text = "ファイル選択";
             this.ModelFileSelectButton.UseVisualStyleBackColor = true;
             // 
@@ -144,7 +144,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemNameLabel.Location = new System.Drawing.Point(33, 38);
             this.ItemNameLabel.Name = "ItemNameLabel";
             this.ItemNameLabel.Size = new System.Drawing.Size(71, 15);
-            this.ItemNameLabel.TabIndex = 15;
+            this.ItemNameLabel.TabIndex = 1;
             this.ItemNameLabel.Text = "ItemName";
             // 
             // IconDataTextBox
@@ -154,7 +154,7 @@ namespace Maybe3DaysToDieToolEditor
             this.IconDataTextBox.Name = "IconDataTextBox";
             this.IconDataTextBox.ReadOnly = true;
             this.IconDataTextBox.Size = new System.Drawing.Size(703, 22);
-            this.IconDataTextBox.TabIndex = 21;
+            this.IconDataTextBox.TabIndex = 7;
             // 
             // ModelFilePathTextBox
             // 
@@ -163,7 +163,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ModelFilePathTextBox.Name = "ModelFilePathTextBox";
             this.ModelFilePathTextBox.ReadOnly = true;
             this.ModelFilePathTextBox.Size = new System.Drawing.Size(703, 22);
-            this.ModelFilePathTextBox.TabIndex = 18;
+            this.ModelFilePathTextBox.TabIndex = 4;
             // 
             // IconDataLabel
             // 
@@ -171,7 +171,7 @@ namespace Maybe3DaysToDieToolEditor
             this.IconDataLabel.Location = new System.Drawing.Point(32, 95);
             this.IconDataLabel.Name = "IconDataLabel";
             this.IconDataLabel.Size = new System.Drawing.Size(64, 15);
-            this.IconDataLabel.TabIndex = 20;
+            this.IconDataLabel.TabIndex = 6;
             this.IconDataLabel.Text = "IconData";
             // 
             // NameTextBox
@@ -180,7 +180,7 @@ namespace Maybe3DaysToDieToolEditor
             this.NameTextBox.Location = new System.Drawing.Point(127, 35);
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.Size = new System.Drawing.Size(412, 22);
-            this.NameTextBox.TabIndex = 16;
+            this.NameTextBox.TabIndex = 2;
             this.NameTextBox.Leave += new System.EventHandler(this.NameTextBox_Leave);
             // 
             // ModelDataLabel
@@ -189,7 +189,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ModelDataLabel.Location = new System.Drawing.Point(32, 67);
             this.ModelDataLabel.Name = "ModelDataLabel";
             this.ModelDataLabel.Size = new System.Drawing.Size(73, 15);
-            this.ModelDataLabel.TabIndex = 17;
+            this.ModelDataLabel.TabIndex = 3;
             this.ModelDataLabel.Text = "ModelData";
             // 
             // ItemDataPanel

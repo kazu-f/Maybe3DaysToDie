@@ -57,7 +57,7 @@ namespace Maybe3DaysToDieToolEditor
             this.FoodAndCureGroupBox.Controls.Add(this.HPLabel);
             this.FoodAndCureGroupBox.Location = new System.Drawing.Point(0, 0);
             this.FoodAndCureGroupBox.Name = "FoodAndCureGroupBox";
-            this.FoodAndCureGroupBox.Size = new System.Drawing.Size(1270, 520);
+            this.FoodAndCureGroupBox.Size = new System.Drawing.Size(820, 520);
             this.FoodAndCureGroupBox.TabIndex = 90;
             this.FoodAndCureGroupBox.TabStop = false;
             this.FoodAndCureGroupBox.Text = "EatAndCure";
@@ -65,7 +65,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // StaminaNumeric
             // 
-            this.StaminaNumeric.Location = new System.Drawing.Point(930, 50);
+            this.StaminaNumeric.Location = new System.Drawing.Point(390, 105);
             this.StaminaNumeric.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -80,7 +80,7 @@ namespace Maybe3DaysToDieToolEditor
             // StaminaLabel
             // 
             this.StaminaLabel.AutoSize = true;
-            this.StaminaLabel.Location = new System.Drawing.Point(870, 50);
+            this.StaminaLabel.Location = new System.Drawing.Point(330, 105);
             this.StaminaLabel.Name = "StaminaLabel";
             this.StaminaLabel.Size = new System.Drawing.Size(49, 15);
             this.StaminaLabel.TabIndex = 97;
@@ -88,7 +88,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // FoodNumeric
             // 
-            this.FoodNumeric.Location = new System.Drawing.Point(660, 50);
+            this.FoodNumeric.Location = new System.Drawing.Point(120, 105);
             this.FoodNumeric.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -103,7 +103,7 @@ namespace Maybe3DaysToDieToolEditor
             // FoodLabel
             // 
             this.FoodLabel.AutoSize = true;
-            this.FoodLabel.Location = new System.Drawing.Point(600, 50);
+            this.FoodLabel.Location = new System.Drawing.Point(60, 105);
             this.FoodLabel.Name = "FoodLabel";
             this.FoodLabel.Size = new System.Drawing.Size(52, 15);
             this.FoodLabel.TabIndex = 95;
@@ -161,7 +161,7 @@ namespace Maybe3DaysToDieToolEditor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.FoodAndCureGroupBox);
             this.Name = "FoodAndCurePanel";
-            this.Size = new System.Drawing.Size(1270, 520);
+            this.Size = new System.Drawing.Size(820, 520);
             this.FoodAndCureGroupBox.ResumeLayout(false);
             this.FoodAndCureGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StaminaNumeric)).EndInit();
