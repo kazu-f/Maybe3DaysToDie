@@ -215,7 +215,24 @@ namespace Maybe3DaysToDieToolEditor
             //再表記。
             DispPlacementObject(place);
         }
+        /// <summary>
+        /// ツールが変更されたとき。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ToolComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (listBox == null) return;
+            var item = listBox.SelectedItem;
+            if (item == null) return;
+            if (item.GetType() != typeof(PlacementObject)) return;
+            Command.ChangePlacementObjKinds command = new Command.ChangePlacementObjKinds((PlacementObject)item, toolKinds.SelectedValue);
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
 
+        }
         #endregion
 
         private void activeControlNull(object sender, EventArgs e)

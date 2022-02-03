@@ -34,6 +34,34 @@ namespace Maybe3DaysToDieToolEditor
                 return beforeVal != afterVal;
             }
         }
+        //最適ツール変更のコマンド。
+        class ChangePlacementObjKinds : ICommand
+        {
+            PlacementObject m_place;
+            int beforeVal;
+            int afterVal;
+
+            public ChangePlacementObjKinds(PlacementObject place, int toolKind)
+            {
+                beforeVal = place.tool;
+                afterVal = toolKind;
+                m_place = place;
+            }
+            public override void UnDo()
+            {
+                m_place.tool = beforeVal;        //適性ツール変更。
+            }
+            public override void ReDo()
+            {
+                m_place.tool = afterVal;        //適性ツール変更。
+            }
+            public override bool IsChanged()
+            {
+                return beforeVal != afterVal;
+            }
+        }
+
+
         //採取アイテム追加のコマンド。
         class AddPlacementObjCollectItem : ICommand
         {
