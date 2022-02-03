@@ -46,7 +46,7 @@ public:
 		m_Hp -= damage;
 		m_Hp = max(m_Hp, 0);
 		if (m_Hp == 0) {
-			m_IsRegene=false;
+			m_IsRegene = false;
 		}
 		return m_Hp;
 	}

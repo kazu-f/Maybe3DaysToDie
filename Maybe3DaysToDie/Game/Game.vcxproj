@@ -181,8 +181,8 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Enemy\IEnemyState.cpp" />
     <ClCompile Include="Navigation\NVMDebugDraw.cpp" />
-    <ClCompile Include="PlayerDead.cpp" />
     <ClCompile Include="Player\Inventory.cpp" />
+    <ClCompile Include="Player\PlayerDead.cpp" />
     <ClCompile Include="Stage\Hill\Hill.cpp" />
     <ClCompile Include="Navigation\NVMGenerator.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
@@ -282,8 +282,8 @@
     <ClInclude Include="nlohmann\ordered_map.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp" />
-    <ClInclude Include="PlayerDead.h" />
     <ClInclude Include="Player\Inventory.h" />
+    <ClInclude Include="Player\PlayerDead.h" />
     <ClInclude Include="RayTest.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SaveDataFile.h" />
@@ -336,6 +336,11 @@
     <ImageContentTask Include="Assets\sprite\ItemUI\HotBar.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\inbentori.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\SelectBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\BackColor.png" />
+    <ImageContentTask Include="Assets\sprite\respownBotton.png" />
+    <ImageContentTask Include="Assets\sprite\SelectBotton.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
