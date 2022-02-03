@@ -8,6 +8,15 @@ using System.Runtime.Serialization.Json;
 
 namespace Maybe3DaysToDieToolEditor
 {
+    public enum EnItemType
+    {
+        enItem_None = -1,
+        enItem_Tool,
+        enItem_Place,
+        enItem_Food,
+        ItemTypeNum
+    }
+
     /// <summary>
     /// アイテムの基本的な情報。
     /// </summary>
@@ -17,6 +26,29 @@ namespace Maybe3DaysToDieToolEditor
     [DataContract]
     public abstract class Item 
     {
+        [DataMember(Name = "itemType")] public EnItemType ItemType {
+            get
+            {
+                if (this.GetType() == typeof(ToolData))
+                {
+                    return EnItemType.enItem_Tool;
+                }
+                else if (this.GetType() == typeof(PlacementObject))
+                {
+                    return EnItemType.enItem_Place;
+                }
+                else if (this.GetType() == typeof(FoodAndCure))
+                {
+                    return EnItemType.enItem_Food;
+                }
+                else return EnItemType.enItem_None;
+            }
+            set
+            {
+
+            }
+        }
+
         [DataMember(Name = "itemID")] public int itemID { get; set; } = 0;
         [DataMember(Name = "name")] public string itemName { get; set; } = "";
         [DataMember(Name = "stackNum")] public int itemStackNum { get; set; } = 1;
