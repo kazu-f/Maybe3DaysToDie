@@ -55,6 +55,7 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
         [DataMember(Name = "iconData")] public string iconData { get; set; } = "";
         [DataMember(Name = "itemMaterialData")] public List<ItemCraftMaterial> itemCraftMaterials = new List<ItemCraftMaterial>();
+        [DataMember(Name = "craftableItemIDs")] public CraftableItems craftableItems = new CraftableItems();
         public bool isRegist = true;               //リスト登録フラグ。
     }
 
@@ -109,6 +110,51 @@ namespace Maybe3DaysToDieToolEditor
             }
         }
         [DataMember(Name = "craftItemNum")] public int craftItemNum;       //必要量。
+    }
+
+    /// <summary>
+    /// クラフト可能アイテム。
+    /// </summary>
+    [DataContract]
+    public class CraftableItems
+    {
+        public List<Item> craftableItemList = new List<Item>();
+        private List<int> _craftableItemIDs = new List<int>();
+        /// <summary>
+        /// アイテムIDからクラフト先のアイテムデータを構築。
+        /// </summary>
+        /// <param name="itemList">アイテムリスト。</param>
+        public void BuildCraftableData(List<Item> itemList)
+        {
+            craftableItemList = new List<Item>();
+            foreach (int id in _craftableItemIDs)
+            {
+                craftableItemList.Add(itemList[id]);
+            }
+        }
+
+        [DataMember(Name = "craftableIDs")]
+        public List<int> CraftableIDs
+        {
+            get
+            {
+                _craftableItemIDs.Clear();
+
+                foreach(var item in craftableItemList)
+                {
+                    if (item.isRegist)
+                    {
+                        _craftableItemIDs.Add(item.itemID);
+                    }
+                }
+
+                return _craftableItemIDs;
+            }
+            set
+            {
+                _craftableItemIDs = value;
+            }
+        }
     }
 
     public enum ToolKinds : uint

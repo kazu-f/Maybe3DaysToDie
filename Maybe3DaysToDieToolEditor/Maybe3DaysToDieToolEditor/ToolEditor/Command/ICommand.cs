@@ -208,26 +208,33 @@ namespace Maybe3DaysToDieToolEditor
         {
             Item m_item;
             ItemCraftMaterial m_addCraftMaterial = null;
+            CraftableItems craftableItems = null;
+            int m_craftableIndex = -1;
 
-            public AddCraftMaterialItem(Item place, ItemCraftMaterial addItem)
+            public AddCraftMaterialItem(Item _item, ItemCraftMaterial addItem)
             {
                 m_addCraftMaterial = addItem;
-                m_item = place;
+                m_item = _item;
+                craftableItems = m_addCraftMaterial.craftMaterialData.craftableItems;       //素材アイテムのクラフト可能先リスト。
+                m_craftableIndex = craftableItems.craftableItemList.Count;                  //クラフト可能先リストのインデックス。
             }
             public override void UnDo()
             {
                 //リストから削除。
                 m_item.itemCraftMaterials.Remove(m_addCraftMaterial);
+                craftableItems.craftableItemList.RemoveAt(m_craftableIndex);    //クラフト可能先から削除しておく。
             }
             public override void ReDo()
             {
                 //リストに追加。
                 m_item.itemCraftMaterials.Add(m_addCraftMaterial);
+                craftableItems.craftableItemList.Insert(m_craftableIndex, m_item);
             }
             public override bool IsChanged()
             {
                 //リストに登録されているか。
-                return !m_item.itemCraftMaterials.Contains(m_addCraftMaterial);
+                return !m_item.itemCraftMaterials.Contains(m_addCraftMaterial)
+                    && !craftableItems.craftableItemList.Contains(m_item);
             }
         }
 
@@ -237,27 +244,34 @@ namespace Maybe3DaysToDieToolEditor
             Item m_item;
             ItemCraftMaterial m_removeCraftMaterial = null;
             int m_index = int.MaxValue;
+            CraftableItems craftableItems = null;
+            int m_craftableIndex = -1;
 
             public RemoveCraftMaterialItem(Item item, int index)
             {
                 m_item = item;
                 m_removeCraftMaterial = item.itemCraftMaterials[index];
                 m_index = index;
+                craftableItems = m_removeCraftMaterial.craftMaterialData.craftableItems;       //素材アイテムのクラフト可能先リスト。
+                m_craftableIndex = craftableItems.craftableItemList.IndexOf(m_item);                  //クラフト可能先リストのインデックス。
             }
             public override void UnDo()
             {
                 //リストに戻す。
                 m_item.itemCraftMaterials.Insert(m_index, m_removeCraftMaterial);
+                craftableItems.craftableItemList.Insert(m_craftableIndex, m_item);
             }
             public override void ReDo()
             {
                 //リストから削除。
                 m_item.itemCraftMaterials.Remove(m_removeCraftMaterial);
+                craftableItems.craftableItemList.RemoveAt(m_craftableIndex);    //クラフト可能先から削除しておく。
             }
             public override bool IsChanged()
             {
                 //リストに登録されているか。
-                return m_item.itemCraftMaterials.Contains(m_removeCraftMaterial);
+                return m_item.itemCraftMaterials.Contains(m_removeCraftMaterial)
+                    && craftableItems.craftableItemList.Contains(m_item);
             }
         }
     }

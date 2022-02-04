@@ -225,7 +225,7 @@ namespace Maybe3DaysToDieToolEditor
             {
                 index--;        //配列アクセスだから表示上の数値 - 1
                 var select = listBox.SelectedItem;
-                if (!(select is Item))
+                if ((select is Item))
                 {
                     var item = (Item)select;
 

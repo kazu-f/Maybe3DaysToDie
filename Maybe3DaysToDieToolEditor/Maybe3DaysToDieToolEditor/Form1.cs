@@ -319,6 +319,8 @@ namespace Maybe3DaysToDieToolEditor
             foreach (var item in list)
             {
                 item.isRegist = true;
+                //クラフト可能先アイテムを登録し直す。
+                item.craftableItems.BuildCraftableData(list);
                 //素材アイテムを登録し直す。
                 foreach (var material in item.itemCraftMaterials)
                 {
