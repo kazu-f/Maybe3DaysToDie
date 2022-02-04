@@ -8,6 +8,8 @@ namespace Maybe3DaysToDieToolEditor
 {
     namespace Command
     {
+        public delegate void UpdateItemListMethod();
+
         public abstract class ICommand
         {
             public abstract void UnDo();
@@ -15,6 +17,75 @@ namespace Maybe3DaysToDieToolEditor
             public abstract bool IsChanged();
         }
 
+        /// <summary>
+        /// アイテムを追加するコマンド。
+        /// </summary>
+        public class AddNewItem : ICommand
+        {
+            Item m_item;
+            List<Item> m_list;
+            UpdateItemListMethod m_method;
+            int m_index = -1;
+
+            public AddNewItem(Item _item,List<Item> list, UpdateItemListMethod _method)
+            {
+                m_item = _item;
+                m_list = list;
+                m_index = list.Count;
+                m_method = _method;
+            }
+
+            public override void UnDo()
+            {
+                m_index = m_list.IndexOf(m_item);   //要素の番号を記録しておく。
+                m_list.RemoveAt(m_index);           //要素を取り除く。
+                m_method();
+            }
+            public override void ReDo()
+            {
+                m_list.Insert(m_index, m_item);
+                m_method();
+            }
+            public override bool IsChanged()
+            {
+                return !m_list.Contains(m_item);
+            }
+        }
+        /// <summary>
+        /// アイテムをリストから削除するコマンド。
+        /// </summary>
+        public class DeleteItem : ICommand
+        {
+            Item m_item;
+            List<Item> m_list;
+            UpdateItemListMethod m_method;
+            int m_index = -1;
+
+            public DeleteItem(Item _item,List<Item> list, UpdateItemListMethod _method)
+            {
+                m_item = _item;
+                m_list = list;
+                m_method = _method;
+            }
+
+            public override void UnDo()
+            {
+                m_list.Insert(m_index, m_item);
+                m_item.isRegist = true;
+                m_method();
+            }
+            public override void ReDo()
+            {
+                m_index = m_list.IndexOf(m_item);   //要素の番号を記録しておく。
+                m_list.RemoveAt(m_index);           //要素を取り除く。
+                m_item.isRegist = false;            //登録フラグ削除。
+                m_method();
+            }
+            public override bool IsChanged()
+            {
+                return m_list.Contains(m_item);
+            }
+        }
         /// <summary>
         /// アイテムの名前を変更するコマンド。
         /// </summary>

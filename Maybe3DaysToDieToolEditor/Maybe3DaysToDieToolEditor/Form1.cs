@@ -64,6 +64,18 @@ namespace Maybe3DaysToDieToolEditor
             itemDataBS.ResetBindings(false);
         }
         /// <summary>
+        /// アイテムリストに更新が入ったら呼ぶ処理。
+        /// </summary>
+        private void UpdateItemList()
+        {
+            for (int i = 0; i < m_itemList.Count; i++)
+            {
+                m_itemList[i].itemID = i;
+            }
+
+            UpdateBS();
+        }
+        /// <summary>
         /// ユーザコントロールをすべて非表示にする。
         /// </summary>
         private void GroupBoxPanelDisable()
@@ -81,23 +93,23 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="e"></param>
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = ItemList.SelectedItem;
-            if (item == null) return;       //選択がなければ処理しない。
+            var select = ItemList.SelectedItem;
+            if (select == null) return;       //選択がなければ処理しない。
             //アイテムデータならばリストから削除。
-            if (item is Item)
+            if (select is Item)
             {
-                if (m_itemList.Remove((Item)item))
+                var item = (Item)select;
+                Command.DeleteItem command = new Command.DeleteItem(item, m_itemList, UpdateItemList);
+
+                if (command.IsChanged())
                 {
-                    ((Item)item).isRegist = false;      //登録から外れる。
-                    var reDisp = ItemList.SelectedItem;
-                    if (item is Item) DispItemData((Item)reDisp);
-
-                    for(int i = 0;i< m_itemList.Count; i++)
+                    commandList.AddCommand(command);
+                    //登録が外れたら。
+                    if (!item.isRegist)
                     {
-                        m_itemList[i].itemID = i;
+                        var reDisp = ItemList.SelectedItem;
+                        if (reDisp is Item) DispItemData((Item)reDisp);
                     }
-
-                    UpdateBS();
                 }
             }
         }
@@ -109,14 +121,13 @@ namespace Maybe3DaysToDieToolEditor
         private void ToolDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var newTool = new ToolData { itemName = "ToolData" };
-            m_itemList.Add(newTool);
 
-            for (int i = 0; i < m_itemList.Count; i++)
+            Command.AddNewItem command = new Command.AddNewItem(newTool, m_itemList, UpdateItemList);
+
+            if (command.IsChanged())
             {
-                m_itemList[i].itemID = i;
+                commandList.AddCommand(command);
             }
-
-            UpdateBS();
         }
 
         /// <summary>
@@ -126,15 +137,14 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="e"></param>
         private void PlaceObjDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var newTool = new PlacementObject { itemName = "PlacementObject" };
-            m_itemList.Add(newTool);
+            var newPlace = new PlacementObject { itemName = "PlacementObject" };
 
-            for (int i = 0; i < m_itemList.Count; i++)
+            Command.AddNewItem command = new Command.AddNewItem(newPlace, m_itemList, UpdateItemList);
+
+            if (command.IsChanged())
             {
-                m_itemList[i].itemID = i;
+                commandList.AddCommand(command);
             }
-
-            UpdateBS();
         }
         /// <summary>
         /// リストに食料等のアイテムを追加する。
@@ -144,14 +154,13 @@ namespace Maybe3DaysToDieToolEditor
         private void FoodAndCureToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var newFood = new FoodAndCure { itemName = "FoodAndCure" };
-            m_itemList.Add(newFood);
 
-            for (int i = 0; i < m_itemList.Count; i++)
+            Command.AddNewItem command = new Command.AddNewItem(newFood, m_itemList, UpdateItemList);
+
+            if (command.IsChanged())
             {
-                m_itemList[i].itemID = i;
+                commandList.AddCommand(command);
             }
-
-            UpdateBS();
 
         }
         #endregion
