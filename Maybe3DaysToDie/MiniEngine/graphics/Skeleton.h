@@ -331,6 +331,10 @@ namespace Engine {
 		{
 			return m_world;
 		}
+		void SetWorld(const Matrix&mat)
+		{
+			m_world = mat;
+		}
 	private:
 		TksFile m_tksFile;								//TKSファイル。
 		static const int BONE_MAX = 512;				//ボーンの最大数。

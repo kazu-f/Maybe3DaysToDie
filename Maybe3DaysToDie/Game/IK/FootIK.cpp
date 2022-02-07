@@ -35,7 +35,7 @@ bool FootIK::CalcIKTargetPos(const SFoot& foot, Vector3& target)
 	}
 	//ワールド行列を取得
 	Matrix mat = foot.m_bone->GetWorldMatrix();
-	Matrix lastMat = foot.m_bone->GetLastMatrix();
+	Matrix lastMat = m_skeleton->GetBone(m_RootBoneID)->GetWorldMatrix();
 	//行列から位置を取得
 	Vector3 pos = { mat.m[3][0],mat.m[3][1],mat.m[3][2] };
 	Vector3 lastPos = { lastMat.m[3][0],lastMat.m[3][1],lastMat.m[3][2] };
@@ -56,9 +56,9 @@ bool FootIK::CalcIKTargetPos(const SFoot& foot, Vector3& target)
 	//始点はコライダーの中心
 	start.setOrigin(
 	{
-		lastPos.x,
-		lastPos.y + 100.0f,
-		lastPos.z
+		pos.x,
+		pos.y+100.0f,
+		pos.z
 	});
 	////10cm下に向けてレイを飛ばす
 	end.setOrigin(
@@ -238,26 +238,24 @@ void FootIK::CCD_IK(const SFoot& foot, Vector3 target)
 		//親のボーンを取得
 		int parentID = foot.m_bone->GetParentBoneNo();
 		//行列を取得
-		Matrix mat = foot.m_bone->GetWorldMatrix();
-		//行列から位置を取得
-		Vector3 pos = { mat.m[3][0],mat.m[3][1],mat.m[3][2] };
+		const Matrix& mat = foot.m_bone->GetWorldMatrix();
 		while (parentID != m_RootBoneID)
 		{
+			//行列から位置を取得
+			Vector3 pos = { mat.m[3][0],mat.m[3][1],mat.m[3][2] };
+			Vector3 diff = target - pos;
+			if (diff.Length() < 0.001f)
+			{
+				return;
+			}
 			//ルートボーンまで計算を繰り返す
 			Bone* currentBone = nullptr;
 			//計算するボーンを取得
 			currentBone = m_skeleton->GetBone(parentID);
 			//ワールド行列を取得
 			Matrix currentMat = currentBone->GetWorldMatrix();
-			//親のワールド行列を取得
-			Matrix parentMat = m_skeleton->GetBone(parentID)->GetWorldMatrix();
 			//行列を取得
 			Vector3 currentBonePos = { currentMat.m[3][0],currentMat.m[3][1],currentMat.m[3][2] };
-			Vector3 parentBonePos = { parentMat.m[3][0],parentMat.m[3][1],parentMat.m[3][2] };
-			Vector3 currentScale = Vector3::One;
-			currentScale.x = currentMat.v[0].Length();
-			currentScale.y = currentMat.v[1].Length();
-			currentScale.z = currentMat.v[2].Length();
 
 			Matrix currentInvMat = currentMat;
 			currentInvMat.Inverse();
@@ -298,16 +296,16 @@ void FootIK::CCD_IK(const SFoot& foot, Vector3 target)
 			qRot.SetRotation(rotateAxis, angle);
 			Matrix mAddRot;
 			mAddRot.MakeRotationFromQuaternion(qRot);
-			//ワールド行列に反映
-			currentMat.m[3][0] = 0.0f;
-			currentMat.m[3][1] = 0.0f;
-			currentMat.m[3][2] = 0.0f;
-			//追加の回転を加える
-			currentMat = mAddRot * currentMat;
-			//ポジションをセット
-			currentMat.m[3][0] = currentBonePos.x;
-			currentMat.m[3][1] = currentBonePos.y;
-			currentMat.m[3][2] = currentBonePos.z;
+			////ワールド行列に反映
+			//currentMat.m[3][0] = 0.0f;
+			//currentMat.m[3][1] = 0.0f;
+			//currentMat.m[3][2] = 0.0f;
+			////追加の回転を加える
+			//currentMat = mAddRot * currentMat;
+			////ポジションをセット
+			//currentMat.m[3][0] = currentBonePos.x;
+			//currentMat.m[3][1] = currentBonePos.y;
+			//currentMat.m[3][2] = currentBonePos.z;
 
 			//ローカル行列を求める
 			Matrix localMat;
@@ -319,7 +317,11 @@ void FootIK::CCD_IK(const SFoot& foot, Vector3 target)
 				Matrix ToParentSpaceMat = m_skeleton->GetBone(parentID)->GetWorldMatrix();
 				//逆行列
 				ToParentSpaceMat.Inverse();
+				//ローカル行列にする
 				localMat = currentMat * ToParentSpaceMat;
+				//追加の回転を加える
+				localMat = mAddRot * localMat;
+
 				currentBone->SetLocalMatrix(localMat);
 			}
 			//ルートボーンから下の骨のワールド行列を再計算する
