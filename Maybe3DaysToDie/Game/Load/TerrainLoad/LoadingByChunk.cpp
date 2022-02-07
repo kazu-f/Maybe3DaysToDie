@@ -110,6 +110,7 @@ void LoadingByChunk::InitModels()
 		ModelInitData InitData;
 		InitData.m_tkmFilePath = m_SaveDataFile->ObjectFilePath[ObjectID];
 		prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
+		//model->SetActiveFlag(false);
 		//チャンクのサイズ分インスタンシング描画する
 		model->Init(InitData, nullptr, 0, MaxInstanceNum);
 		BlockModel[m_modelNum] = model;

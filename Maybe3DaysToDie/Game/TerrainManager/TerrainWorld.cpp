@@ -3,6 +3,7 @@
 #include "TerrainChunkData.h"
 #include "TerrainRender\TerrainRender.h"
 #include "Navigation/NVMDebugDraw.h"
+#include "RayTest.h"
 
 
 namespace nsTerrain {
@@ -54,7 +55,7 @@ namespace nsTerrain {
 	{
 		if (m_isNVMDebug)
 		{
-			m_nvmDebugDraw->Render(m_terrainRender->GetVertexCount());
+			m_nvmDebugDraw->Render(m_indexCount);
 		}
 	}
 
@@ -69,14 +70,35 @@ namespace nsTerrain {
 		for (int mesh = 0; mesh < meshCount; mesh++) {
 			if (m_terrainRender->GetVertexList().at(vertCount).m_normal.y > 0.000001f) {
 				//法線が下向きの場合は歩くことができない傾斜のため除外。
+
 				//セルを作成する。
 				NVMGenerator::Cell cell;
-				//メッシュ全ての３頂点を計算する。
-				cell.pos[0] = m_terrainRender->GetVertexList().at(vertCount).m_pos + m_position;
-				cell.pos[1] = m_terrainRender->GetVertexList().at(vertCount + 1).m_pos + m_position;
-				cell.pos[2] = m_terrainRender->GetVertexList().at(vertCount + 2).m_pos + m_position;
+
 				//重点。
 				cell.m_CenterPos = m_terrainRender->GetCenterArray().at(mesh) + m_position;
+
+				//メッシュ全ての３頂点を計算する。
+				cell.pos[0] = m_terrainRender->GetVertexList().at(vertCount).m_pos + m_position;
+				m_indices.push_back(m_indexCount);
+				cell.pos[1] = m_terrainRender->GetVertexList().at(vertCount + 1).m_pos + m_position;
+				m_indices.push_back(++m_indexCount);
+				cell.pos[2] = m_terrainRender->GetVertexList().at(vertCount + 2).m_pos + m_position;
+				m_indices.push_back(++m_indexCount);
+				m_indexCount++;
+
+				//作成したセルの上にコリジョンがないか調べる。あった場合はこのセルは除外。
+				RayResult callback;
+				btVector3 start = { cell.m_CenterPos.x, cell.m_CenterPos.y - 1.0f, cell.m_CenterPos.z };
+				btVector3 end = { cell.m_CenterPos.x, cell.m_CenterPos.y + 200.0f, cell.m_CenterPos.z };
+
+				PhysicsWorld().RayTest(start, end, callback);
+
+				if (callback.isHit)
+				{
+					vertCount += 3;
+					continue;
+				}
+
 				//管理をリストに移す。
 				m_cellList.push_back(cell);
 			}
@@ -84,24 +106,7 @@ namespace nsTerrain {
 			vertCount += 3;
 		}
 
-		////メッシュの上にメッシュが存在していないか確認していく。
-		//for (int cellIndex = 0; cellIndex < m_cellList.size(); cellIndex++) {
-		//	//中心点から真上方向にレイを飛ばす。
-		//	btVector3 start;
-		//	start.setValue(m_cellList[cellIndex].m_CenterPos.x, m_cellList[cellIndex].m_CenterPos.y, m_cellList[cellIndex].m_CenterPos.z);
-		//	btVector3 end;
-		//	end.setValue(m_cellList[cellIndex].m_CenterPos.x, m_cellList[cellIndex].m_CenterPos.y + 200, m_cellList[cellIndex].m_CenterPos.z);
-		//	//コールバック。別に特別な処理いらないしこれでいけるか！？
-		//	btCollisionWorld::ClosestRayResultCallback cb(start, end);
-		//	//レイテスト。
-		//	PhysicsWorld().RayTest(start, end, cb);
-		//	if (cb.hasHit()) {
-		//		//なんかに衝突したから、このメッシュは消す。itr::cast
-		//		m_cellList.erase(m_cellList.begin() + cellIndex);
-		//	}
-		//}
-
-	//隣接セル形成。
+		//隣接セル形成。
 		for (auto& baseCell : m_cellList) {
 			//メッシュ全体に検索を掛けて、隣接セルを検索。
 			int linkCellIndex = 0;	//隣接セル用インデックス。
@@ -163,7 +168,7 @@ namespace nsTerrain {
 				}
 			}
 				
-			m_nvmDebugDraw->Init(m_terrainRender->GetIndexList());
+			m_nvmDebugDraw->Init(m_indices);
 		}
 	}
 

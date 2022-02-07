@@ -31,6 +31,8 @@ namespace nsTerrain {
 		/// </summary>
 		void ResetNvm()
 		{
+			m_indexCount = 0;
+			m_indices.clear();
 			m_cellList.clear();
 		}
 
@@ -40,6 +42,10 @@ namespace nsTerrain {
 		/// <param name="cell"></param>
 		void AddCell(NVMGenerator::Cell* cell)
 		{
+			m_indices.push_back(m_indexCount);
+			m_indices.push_back(++m_indexCount);
+			m_indices.push_back(++m_indexCount);
+			m_indexCount++;
 			m_cellList.push_back(*cell);
 		}
 
@@ -162,6 +168,8 @@ namespace nsTerrain {
 		bool m_isNVMDebug = true;						//デバッグ描画する？
 		bool m_isUpdateNvm = false;						//nvmを初期化する？
 		NVMDebugDraw* m_nvmDebugDraw = nullptr;			//デバッグ描画。
+		std::vector<int> m_indices;						//デバッグ用インデックスリスト。
+		int m_indexCount = 0;							//デバッグ用
 
 		bool m_isInited = false;						//初期化済みフラグ。
 	};
