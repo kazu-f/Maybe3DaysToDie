@@ -22,7 +22,7 @@ namespace nsTerrain {
 		//物理オブジェクト作成。
 		CreateCollider();
 
-		PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
+		//PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
 
 		m_isInited = true;
 
