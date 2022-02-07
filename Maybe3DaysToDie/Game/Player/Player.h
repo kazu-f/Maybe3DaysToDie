@@ -100,6 +100,7 @@ public:
 	void SetAccessObject(AccessObject* AOp) {
 		m_AccessObject = AOp;
 	}
+
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
