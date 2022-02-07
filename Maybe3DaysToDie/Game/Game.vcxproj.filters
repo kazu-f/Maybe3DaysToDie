@@ -526,4 +526,10 @@
       <UniqueIdentifier>{366bc28c-681a-43b1-9009-3f8cc62ed50e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Assets\3DaysIcon.ico" />
+  </ItemGroup>
 </Project>
