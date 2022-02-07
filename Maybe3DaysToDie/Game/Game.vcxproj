@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="AccessObject\AccessObject.cpp" />
     <ClCompile Include="IK\FootIK.cpp" />
+    <ClCompile Include="IPlayerState.cpp" />
     <ClCompile Include="Item\BlockItem.cpp" />
     <ClCompile Include="ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
@@ -221,6 +222,7 @@
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
     <ClInclude Include="IK\FootIK.h" />
+    <ClInclude Include="IPlayerState.h" />
     <ClInclude Include="Item\BlockItem.h" />
     <ClInclude Include="ItemBar.h" />
     <ClInclude Include="Item\GameItemTool.h" />
