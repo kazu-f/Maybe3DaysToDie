@@ -4,6 +4,8 @@
 #include "TerrainChunkData.h"
 #include "TerrainWorld.h"
 
+class NaviMeshManager;
+
 namespace nsTerrain {
 
 	class TerrainManager : public IGameObject
@@ -48,6 +50,7 @@ namespace nsTerrain {
 		Terrain m_terrains[MAX_CHUNK_SIDE * ChunkWidth + 1][ChunkHeight][MAX_CHUNK_SIDE * ChunkWidth + 1];
 		TerrainChunkData m_terrainChunkData[MAX_CHUNK_SIDE][MAX_CHUNK_SIDE];
 		TerrainWorld* m_terrainWorlds[TERRAIN_WORLD_CHUNKSIZE][TERRAIN_WORLD_CHUNKSIZE] = { nullptr };
+		NaviMeshManager* m_naviMeshManager = nullptr;
 		bool m_isInitNVM = false;						//ナビメッシュ生成済みか？
 	};
 

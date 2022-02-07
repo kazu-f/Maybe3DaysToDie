@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "GameItemTool.h"
 
-GameItemTool::GameItemTool(std::string& itemName, std::string& tkmPath, std::string& tkmIcon, const ToolInfo& toolInfo)
-	:GameItemBase(itemName,tkmPath, tkmIcon)
+GameItemTool::GameItemTool(SItemDataPtr & itemData, const ToolInfo& toolInfo)
+	:GameItemBase(itemData)
 {
 	m_tool.SetTool(toolInfo);
 }

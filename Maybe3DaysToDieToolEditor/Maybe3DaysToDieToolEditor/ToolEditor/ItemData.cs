@@ -14,6 +14,7 @@ namespace Maybe3DaysToDieToolEditor
         enItem_Tool,
         enItem_Place,
         enItem_Food,
+        enItem_Material,
         ItemTypeNum
     }
 
@@ -23,6 +24,7 @@ namespace Maybe3DaysToDieToolEditor
     [KnownType(typeof(ToolData))]
     [KnownType(typeof(PlacementObject))]
     [KnownType(typeof(FoodAndCure))]
+    [KnownType(typeof(Material))]
     [DataContract]
     public abstract class Item 
     {
@@ -41,6 +43,10 @@ namespace Maybe3DaysToDieToolEditor
                 {
                     return EnItemType.enItem_Food;
                 }
+                else if (this.GetType() == typeof(Material))
+                {
+                    return EnItemType.enItem_Material;
+                }
                 else return EnItemType.enItem_None;
             }
             set
@@ -55,6 +61,18 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
         [DataMember(Name = "iconData")] public string iconData { get; set; } = "";
         [DataMember(Name = "itemMaterialData")] public List<ItemCraftMaterial> itemCraftMaterials = new List<ItemCraftMaterial>();
+        //クラフトに必要なアイテムのデータの数。
+        [DataMember(Name = "itemMaterialDataNum")] public int itemCraftMaterialNum {
+            get
+            {
+                if (itemCraftMaterials != null) return itemCraftMaterials.Count;
+                else return 0;
+            }
+            set
+            {
+
+            }
+        }
         [DataMember(Name = "craftableItemIDs")] public CraftableItems craftableItems = new CraftableItems();
         public bool isRegist = true;               //リスト登録フラグ。
     }
@@ -153,6 +171,18 @@ namespace Maybe3DaysToDieToolEditor
             set
             {
                 _craftableItemIDs = value;
+            }
+        }
+        [DataMember(Name = "craftableItemNum")] public int craftableItemNum
+        {
+            get
+            {
+                if (_craftableItemIDs != null) return CraftableIDs.Count;
+                else return 0;
+            }
+            set
+            {
+
             }
         }
     }
@@ -256,5 +286,12 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "food")] public int food { get; set; } = 0;
         [DataMember(Name = "stamina")] public int stamina { get; set; } = 0;
     }
+
+    [DataContract]
+    public class Material : Item
+    {
+        [DataMember(Name = "MaterialType")] public int type = 0;
+    }
+
 
 }

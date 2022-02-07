@@ -5,26 +5,41 @@ namespace {
 	const float ItemOneBoxSize = 75.0f;
 }
 
-GameItemBase::GameItemBase(std::string& itemName, std::string& tkmPath, std::string& iconPath)
+GameItemBase::GameItemBase(SItemDataPtr& itemData)
 {
-	m_itemName = itemName;
+	//ユニークポインタを受け渡す。
+	m_itemData = std::move(itemData);
 
-	if (tkmPath.size() > 0) {
+	if (m_itemData->tkmPath.size() > 0) {
 		m_itemModel = NewGO<prefab::ModelRender>(10);
 		//モデル読み込み。
 		ModelInitData modelData;
-		modelData.m_tkmFilePath = tkmPath.c_str();
+		modelData.m_tkmFilePath = m_itemData->tkmPath.c_str();
 		m_itemModel->Init(modelData);
+		m_itemModel->SetActiveFlag(false);
 	}
 
-	if (iconPath.size() > 0) {
+	if (m_itemData->iconPath.size() > 0) {
 		m_itemIcon = NewGO<prefab::CSpriteRender>(10);
 		//ファイルパスをpngからddsに変換。
-		std::string ddsFilePath = iconPath;
+		std::string ddsFilePath = m_itemData->iconPath;
 		int pos = static_cast<int>(ddsFilePath.find(".png"));
 		ddsFilePath.replace(pos, 4, ".dds");
 
 		//アイテム用のアイコンを読み込む。
 		m_itemIcon->Init(ddsFilePath.c_str(), ItemOneBoxSize, ItemOneBoxSize);
+		m_itemIcon->SetActiveFlag(false);
+	}
+}
+
+GameItemBase::~GameItemBase()
+{
+	if (m_itemModel != nullptr && !m_itemModel->IsDead())
+	{
+		DeleteGO(m_itemModel);
+	}
+	if (m_itemIcon != nullptr && !m_itemIcon->IsDead())
+	{
+		DeleteGO(m_itemIcon);
 	}
 }

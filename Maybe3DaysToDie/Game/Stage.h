@@ -48,7 +48,7 @@ private:
 	//Hill m_stage;
 	EnemyGenerator m_enemyGenerator;				//エネミージェネレーター。
 	nsTerrain::TerrainManager* m_Terrain;
-	NaviMeshManager* m_naviMeshManager = nullptr;	//prefab::ModelRender* m_Model = nullptr;		//地面
+	//prefab::ModelRender* m_Model = nullptr;		//地面
 	prefab::CSky* m_SkyCube = nullptr;
 	//CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
 	//Vector3 m_pos = Vector3::Zero;		//ポジション
