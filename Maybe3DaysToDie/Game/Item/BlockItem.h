@@ -4,9 +4,9 @@
 class BlockItem :public GameItemBase
 {
 public:
-	BlockItem() : GameItemBase(a, a,a) {}
+	BlockItem(SItemDataPtr& itemData);
 	~BlockItem() {}
 
 private:
-	std::string a = nullptr;
+
 };

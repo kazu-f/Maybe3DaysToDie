@@ -6,6 +6,7 @@
 #include "PlayerStatus/PlayerWater.h"
 #include "GameCamera.h"
 #include "AccessObject/AccessObject.h"
+#include "PlayerDead.h"
 namespace {
 	const float MoveDistance = 1000.0f;			//1フレームに動く距離
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
@@ -59,10 +60,25 @@ void Player::Update()
 		m_Camera->SetMovingMouse(true);
 		break;
 	case State::Dead:
+		if (m_Dead == nullptr) {
+			m_Dead = NewGO< PlayerDead>(0);
+		}
+		m_Camera->SetMovingMouse(true);
+		break;
 	case State::Run:
 		m_mulSpeed = 1.0f;
+		//移動処理
+		Move();
+		SwichDebugMode();
+		m_Camera->SetMovingMouse(false);
+		break;
 	case Debug:
 		m_mulSpeed = 2.0f;
+		//移動処理
+		Move();
+		SwichDebugMode();
+		m_Camera->SetMovingMouse(false);
+		break;
 	default:
 		//移動処理
 		Move();
@@ -122,28 +138,41 @@ void Player::Move()
 	//Wキーが押されたら
 	if (GetAsyncKeyState('W')) {
 		if (IsDubug()) {
-			MoveSpeed += Forward;
+			MoveSpeed += MainCamera().GetForward();
 		}
 		else {
-			MoveSpeed += MainCamera().GetForward();
+			MoveSpeed += Forward;
 		}
 	}
 	//Sキーが押されたら
 	if (GetAsyncKeyState('S')) {
 		if (IsDubug()) {
-			MoveSpeed -= Forward;
-		}
-		else {
 			MoveSpeed -= MainCamera().GetForward();
 		}
+		else {
+			MoveSpeed -= Forward;
+		}
 	}
+
+	Vector3 RightMoveSpeed= MainCamera().GetRight();
+	RightMoveSpeed.y = 0.0f;
 	//Aキーが押されたら
 	if (GetAsyncKeyState('A')) {
-		MoveSpeed -= MainCamera().GetRight();
+		if (IsDubug()) {
+			MoveSpeed -= MainCamera().GetRight();
+		}
+		else {
+			MoveSpeed -= RightMoveSpeed;
+		}
 	}
 	//Dキーが押されたら
 	if (GetAsyncKeyState('D')) {
-		MoveSpeed += MainCamera().GetRight();
+		if (IsDubug()) {
+			MoveSpeed += MainCamera().GetRight();
+		}
+		else {
+			MoveSpeed += RightMoveSpeed;
+		}
 	}
 	
 	//////移動速度//////////////////////////
@@ -170,11 +199,13 @@ void Player::Move()
 		/////////ジャンプ処理/////////////////////////////////////////////
 		{
 			if (GetAsyncKeyState(VK_SPACE)) {
-				//神視点の時はジャンプし続ける
+				//地面に設置しているときだけ
+				//ジャンプする
 				if (m_Characon.IsOnGround())
 				{
 					IsJump = true;
 				}
+				//神視点の時はジャンプし続ける
 				if (IsDubug()) {
 					IsJump = false;
 					MoveSpeed.y += 1.0f;
@@ -194,8 +225,8 @@ void Player::Move()
 			NowTime += GameTime().GetFrameDeltaTime();
 			const float JumpTime = 0.3f;
 			float f = NowTime - JumpTime;
-			const float JumpPower = 0.5f;
-			MoveSpeed.y = ((gravity)*pow(f, 2)) + JumpPower;
+			const float JumpPower = 0.8f;
+			MoveSpeed.y = ((gravity)*pow(f, 2.0f)) + JumpPower;
 			if (IsJumping && m_Characon.IsOnGround())
 			{
 				//ジャンプ中に地面についたのでジャンプ終了
@@ -270,6 +301,7 @@ void Player::HitDamage(float damage) {
 	if (PlayerHp < 0) {
 		m_NextState = State::Dead;
 	}
+	m_Hp->HitDamage(PlayerHp);
 }
 
 void Player::OpenInventory()

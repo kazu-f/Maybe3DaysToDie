@@ -56,7 +56,7 @@ namespace Maybe3DaysToDieToolEditor
             this.groupBoxToolData.Controls.Add(this.DamageLabel);
             this.groupBoxToolData.Location = new System.Drawing.Point(0, 0);
             this.groupBoxToolData.Name = "groupBoxToolData";
-            this.groupBoxToolData.Size = new System.Drawing.Size(1272, 520);
+            this.groupBoxToolData.Size = new System.Drawing.Size(820, 520);
             this.groupBoxToolData.TabIndex = 30;
             this.groupBoxToolData.TabStop = false;
             this.groupBoxToolData.Text = "ToolData";
@@ -65,7 +65,7 @@ namespace Maybe3DaysToDieToolEditor
             // ToolKindsLabel
             // 
             this.ToolKindsLabel.AutoSize = true;
-            this.ToolKindsLabel.Location = new System.Drawing.Point(40, 99);
+            this.ToolKindsLabel.Location = new System.Drawing.Point(40, 150);
             this.ToolKindsLabel.Name = "ToolKindsLabel";
             this.ToolKindsLabel.Size = new System.Drawing.Size(72, 15);
             this.ToolKindsLabel.TabIndex = 37;
@@ -75,7 +75,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             this.ToolComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ToolComboBox.FormattingEnabled = true;
-            this.ToolComboBox.Location = new System.Drawing.Point(118, 96);
+            this.ToolComboBox.Location = new System.Drawing.Point(118, 147);
             this.ToolComboBox.Name = "ToolComboBox";
             this.ToolComboBox.Size = new System.Drawing.Size(121, 23);
             this.ToolComboBox.TabIndex = 38;
@@ -83,7 +83,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // UseStaminaNumeric
             // 
-            this.UseStaminaNumeric.Location = new System.Drawing.Point(778, 47);
+            this.UseStaminaNumeric.Location = new System.Drawing.Point(118, 100);
             this.UseStaminaNumeric.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -98,7 +98,7 @@ namespace Maybe3DaysToDieToolEditor
             // UseStaminaLabel
             // 
             this.UseStaminaLabel.AutoSize = true;
-            this.UseStaminaLabel.Location = new System.Drawing.Point(720, 47);
+            this.UseStaminaLabel.Location = new System.Drawing.Point(60, 100);
             this.UseStaminaLabel.Name = "UseStaminaLabel";
             this.UseStaminaLabel.Size = new System.Drawing.Size(49, 15);
             this.UseStaminaLabel.TabIndex = 35;
@@ -106,7 +106,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // DurableNumeric
             // 
-            this.DurableNumeric.Location = new System.Drawing.Point(452, 45);
+            this.DurableNumeric.Location = new System.Drawing.Point(452, 50);
             this.DurableNumeric.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -121,7 +121,7 @@ namespace Maybe3DaysToDieToolEditor
             // DurableLabel
             // 
             this.DurableLabel.AutoSize = true;
-            this.DurableLabel.Location = new System.Drawing.Point(394, 47);
+            this.DurableLabel.Location = new System.Drawing.Point(394, 50);
             this.DurableLabel.Name = "DurableLabel";
             this.DurableLabel.Size = new System.Drawing.Size(52, 15);
             this.DurableLabel.TabIndex = 33;
@@ -129,7 +129,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // DamageNumeric
             // 
-            this.DamageNumeric.Location = new System.Drawing.Point(118, 47);
+            this.DamageNumeric.Location = new System.Drawing.Point(118, 50);
             this.DamageNumeric.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -144,7 +144,7 @@ namespace Maybe3DaysToDieToolEditor
             // DamageLabel
             // 
             this.DamageLabel.AutoSize = true;
-            this.DamageLabel.Location = new System.Drawing.Point(60, 47);
+            this.DamageLabel.Location = new System.Drawing.Point(60, 50);
             this.DamageLabel.Name = "DamageLabel";
             this.DamageLabel.Size = new System.Drawing.Size(52, 15);
             this.DamageLabel.TabIndex = 31;
@@ -156,7 +156,7 @@ namespace Maybe3DaysToDieToolEditor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBoxToolData);
             this.Name = "ToolDataPanel";
-            this.Size = new System.Drawing.Size(1272, 520);
+            this.Size = new System.Drawing.Size(820, 520);
             this.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
             this.groupBoxToolData.ResumeLayout(false);
             this.groupBoxToolData.PerformLayout();

@@ -66,6 +66,12 @@ namespace Maybe3DaysToDieToolEditor
                     }
                     catch
                     {
+                        MessageBox.Show(
+                            "ファイルを保存できませんでした。",
+                            "エラー",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                            );
                         ret = null;
                     }
                     finally
@@ -94,6 +100,12 @@ namespace Maybe3DaysToDieToolEditor
                 }
                 catch
                 {
+                    MessageBox.Show(
+                        "ファイルを保存できませんでした。",
+                        "エラー",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                        );
                     ret = null;
                 }
                 finally

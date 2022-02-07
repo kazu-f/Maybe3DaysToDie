@@ -12,16 +12,6 @@ namespace Maybe3DaysToDieToolEditor
 {
     public partial class Maybe3DaysToDie_ToolEditor : Form
     {
-        #region 定数類。
-        public enum EnMaxStackNum
-        {
-            enStack_Tool = 1,
-            enStack_Food = 30,
-            enStack_Place = 999,
-            enStack_Material = 999
-        }
-
-        #endregion
 
         #region フォーム関連の変数。
         string filePath = null;
@@ -32,8 +22,6 @@ namespace Maybe3DaysToDieToolEditor
         //ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
         LoadItemDataList loadData;
-        SelectDataFile selectModelData;         //モデルデータを選ぶ処理。
-        SelectDataFile selectIconData;          //アイコンデータを選ぶ処理。
         #endregion
 
         public Maybe3DaysToDie_ToolEditor()
@@ -45,6 +33,11 @@ namespace Maybe3DaysToDieToolEditor
             ItemList.DisplayMember = "itemName";
             ItemList.ValueMember = "itemName";
             ItemList.DataSource = listBoxBS;
+
+            itemDataPanel1.commandList = commandList;
+            itemDataPanel1.listBox = ItemList;
+            itemDataPanel1.ItemDataBS = itemDataBS;
+            itemDataPanel1.updateBSMethod = UpdateBS;
 
             toolDataPanel1.commandList = commandList;
             toolDataPanel1.listBox = ItemList;
@@ -63,15 +56,24 @@ namespace Maybe3DaysToDieToolEditor
             //toolKinds = new ToolKindsComboBox(ToolComboBox);
             saveData = new SaveItemDataList();
             loadData = new LoadItemDataList();
-            //ファイル選択用の処理を構成する。
-            selectModelData = new SelectDataFile(ModelFileSelectButton, ModelFilePathTextBox, "tkm", ItemTkmFileChangeCommand);
-            selectIconData = new SelectDataFile(IconFileSelectButton, IconDataTextBox, "png", ItemIconFileChangeCommand);
         }
 
         private void UpdateBS()
         {
             listBoxBS.ResetBindings(false);
             itemDataBS.ResetBindings(false);
+        }
+        /// <summary>
+        /// アイテムリストに更新が入ったら呼ぶ処理。
+        /// </summary>
+        private void UpdateItemList()
+        {
+            for (int i = 0; i < m_itemList.Count; i++)
+            {
+                m_itemList[i].itemID = i;
+            }
+
+            UpdateBS();
         }
         /// <summary>
         /// ユーザコントロールをすべて非表示にする。
@@ -81,6 +83,7 @@ namespace Maybe3DaysToDieToolEditor
             toolDataPanel1.Visible = false;
             placementObjectPanel1.Visible = false;
             foodAndCurePanel1.Visible = false;
+            materialPanel1.Visible = false;
         }
 
         #region リスト操作の処理。
@@ -91,23 +94,23 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="e"></param>
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = ItemList.SelectedItem;
-            if (item == null) return;       //選択がなければ処理しない。
+            var select = ItemList.SelectedItem;
+            if (select == null) return;       //選択がなければ処理しない。
             //アイテムデータならばリストから削除。
-            if (item is Item)
+            if (select is Item)
             {
-                if (m_itemList.Remove((Item)item))
+                var item = (Item)select;
+                Command.DeleteItem command = new Command.DeleteItem(item, m_itemList, UpdateItemList);
+
+                if (command.IsChanged())
                 {
-                    ((Item)item).isRegist = false;      //登録から外れる。
-                    var reDisp = ItemList.SelectedItem;
-                    if (item is Item) DispItemData((Item)reDisp);
-
-                    for(int i = 0;i< m_itemList.Count; i++)
+                    commandList.AddCommand(command);
+                    //登録が外れたら。
+                    if (!item.isRegist)
                     {
-                        m_itemList[i].itemID = i;
+                        var reDisp = ItemList.SelectedItem;
+                        if (reDisp is Item) DispItemData((Item)reDisp);
                     }
-
-                    UpdateBS();
                 }
             }
         }
@@ -119,14 +122,13 @@ namespace Maybe3DaysToDieToolEditor
         private void ToolDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var newTool = new ToolData { itemName = "ToolData" };
-            m_itemList.Add(newTool);
 
-            for (int i = 0; i < m_itemList.Count; i++)
+            Command.AddNewItem command = new Command.AddNewItem(newTool, m_itemList, UpdateItemList);
+
+            if (command.IsChanged())
             {
-                m_itemList[i].itemID = i;
+                commandList.AddCommand(command);
             }
-
-            UpdateBS();
         }
 
         /// <summary>
@@ -136,15 +138,14 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="e"></param>
         private void PlaceObjDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var newTool = new PlacementObject { itemName = "PlacementObject" };
-            m_itemList.Add(newTool);
+            var newPlace = new PlacementObject { itemName = "PlacementObject" };
 
-            for (int i = 0; i < m_itemList.Count; i++)
+            Command.AddNewItem command = new Command.AddNewItem(newPlace, m_itemList, UpdateItemList);
+
+            if (command.IsChanged())
             {
-                m_itemList[i].itemID = i;
+                commandList.AddCommand(command);
             }
-
-            UpdateBS();
         }
         /// <summary>
         /// リストに食料等のアイテムを追加する。
@@ -154,15 +155,30 @@ namespace Maybe3DaysToDieToolEditor
         private void FoodAndCureToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var newFood = new FoodAndCure { itemName = "FoodAndCure" };
-            m_itemList.Add(newFood);
 
-            for (int i = 0; i < m_itemList.Count; i++)
+            Command.AddNewItem command = new Command.AddNewItem(newFood, m_itemList, UpdateItemList);
+
+            if (command.IsChanged())
             {
-                m_itemList[i].itemID = i;
+                commandList.AddCommand(command);
             }
 
-            UpdateBS();
+        }
+        /// <summary>
+        /// リストに素材アイテムを追加する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MaterialDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var material = new Material { itemName = "Material" };
 
+            Command.AddNewItem command = new Command.AddNewItem(material, m_itemList, UpdateItemList);
+
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
         }
         #endregion
 
@@ -189,112 +205,39 @@ namespace Maybe3DaysToDieToolEditor
             {
                 return;
             }
-            //アイテムの情報を表示する。
-            NameTextBox.Text = item.itemName;
-            ModelFilePathTextBox.Text = item.tkmFile;
-            IconDataTextBox.Text = item.iconData;
-            ItemIDDispLabel.Text = item.itemID.ToString();
-
+            //アイテムデータを表示。
+            itemDataPanel1.DispItemData(item);
             //データタイプに応じて処理を分岐。
             if (typeof(ToolData) == item.GetType())
             {
                 GroupBoxPanelDisable();
                 toolDataPanel1.Visible = true;
                 toolDataPanel1.DispToolData((ToolData)item);
-                MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Tool;
             }
             else if (typeof(PlacementObject) == item.GetType())
             {
                 GroupBoxPanelDisable();
                 placementObjectPanel1.Visible = true;
                 placementObjectPanel1.DispPlacementObject((PlacementObject)item);
-                MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Place;
             }
             else if(typeof(FoodAndCure) == item.GetType())
             {
                 GroupBoxPanelDisable();
                 foodAndCurePanel1.Visible = true;
                 foodAndCurePanel1.DispFoodAndCureItem((FoodAndCure)item);
-                MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Food;
+            }
+            else if(typeof(Material) == item.GetType())
+            {
+                GroupBoxPanelDisable();
+                materialPanel1.Visible = true;
+                materialPanel1.DispMaterialItem((Material)item);
             }
             else
             {
                 GroupBoxPanelDisable();
 
             }
-            //最大値変更した後に表示する。
-            MaxItemStackNumeric.Value = item.itemStackNum;
         }
-        #endregion
-
-        #region アイテム共通の変更したときのコマンド。
-
-        /// <summary>
-        /// テキストボックスの中が変更されたとき。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void NameTextBox_Leave(object sender, EventArgs e)
-        {
-            var item = ((Item)ItemList.SelectedItem);
-            if (item == null) return;
-            Command.RenameItemCommand command = new Command.RenameItemCommand(item, NameTextBox.Text);
-            if (command.IsChanged())
-            {
-                commandList.AddCommand(command);
-                UpdateBS();
-            }
-        }
-        /// <summary>
-        /// アイテムのスタック数が変更されたとき。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ItemStackNumeric_Leave(object sender, EventArgs e)
-        {   
-            //テキストを戻す。
-            int value = 0;
-            if (!int.TryParse(MaxItemStackNumeric.Text, out value))
-            {
-                MaxItemStackNumeric.Text = MaxItemStackNumeric.Value.ToString();
-            }
-
-            var item = ((Item)ItemList.SelectedItem);
-            if (item == null) return;
-            Command.ItemStackChangeCommand command = new Command.ItemStackChangeCommand(item, (int)MaxItemStackNumeric.Value);
-            if (command.IsChanged())
-            {
-                commandList.AddCommand(command);
-                UpdateBS();
-            }
-        }
-        /// <summary>
-        /// アイテムのモデルファイルを選択したとき。
-        /// </summary>
-        private void ItemTkmFileChangeCommand()
-        {
-            var item = ItemList.SelectedItem;
-            if (item == null) return;
-            Command.ChangeItemModel command = new Command.ChangeItemModel((Item)item, ModelFilePathTextBox.Text);
-            if (command.IsChanged())
-            {
-                commandList.AddCommand(command);
-            }
-        }
-        /// <summary>
-        /// アイテムのアイコンのファイルを選択したとき。
-        /// </summary>
-        private void ItemIconFileChangeCommand()
-        {
-            var item = ItemList.SelectedItem;
-            if (item == null) return;
-            Command.ChangeItemIcon command = new Command.ChangeItemIcon((Item)item, IconDataTextBox.Text);
-            if (command.IsChanged())
-            {
-                commandList.AddCommand(command);
-            }
-        }
-
         #endregion
 
         #region UnDo、ReDo処理。
@@ -399,6 +342,13 @@ namespace Maybe3DaysToDieToolEditor
             foreach (var item in list)
             {
                 item.isRegist = true;
+                //クラフト可能先アイテムを登録し直す。
+                item.craftableItems.BuildCraftableData(list);
+                //素材アイテムを登録し直す。
+                foreach (var material in item.itemCraftMaterials)
+                {
+                    material.BuildCollectItemData(list);
+                }
                 //設置物。
                 if (item.GetType() == typeof(PlacementObject))
                 {

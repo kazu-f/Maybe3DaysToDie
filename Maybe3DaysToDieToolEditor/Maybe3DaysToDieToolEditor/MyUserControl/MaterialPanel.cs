@@ -17,6 +17,14 @@ namespace Maybe3DaysToDieToolEditor
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 素材アイテムのデータを表示する。
+        /// </summary>
+        /// <param name="material"></param>
+        public void DispMaterialItem(Material material)
+        {
+
+        }
 
     }
 }

@@ -110,9 +110,6 @@
       <Filter>Tool</Filter>
     </ClCompile>
     <ClCompile Include="Load\ChunkCollision\ChunkCollision.cpp" />
-    <ClCompile Include="Tool\ToolDataFile.cpp">
-      <Filter>Tool</Filter>
-    </ClCompile>
     <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp" />
     <ClCompile Include="ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
@@ -126,8 +123,11 @@
     <ClCompile Include="NaviMeshManager.cpp" />
     <ClCompile Include="IK\FootIK.cpp" />
     <ClCompile Include="Player\Inventory.cpp" />
-    <ClCompile Include="PlayerDead.cpp" />
     <ClCompile Include="Title\TitleScene.cpp" />
+    <ClCompile Include="Player\PlayerDead.cpp" />
+    <ClCompile Include="Item\ItemDataFile.cpp">
+      <Filter>Tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
@@ -242,9 +242,6 @@
       <Filter>Tool</Filter>
     </ClInclude>
     <ClInclude Include="Load\ChunkCollision\ChunkCollision.h" />
-    <ClInclude Include="Tool\ToolDataFile.h">
-      <Filter>Tool</Filter>
-    </ClInclude>
     <ClInclude Include="nlohmann\ordered_map.hpp">
       <Filter>nlohmann</Filter>
     </ClInclude>
@@ -383,8 +380,11 @@
     <ClInclude Include="NaviMeshManager.h" />
     <ClInclude Include="IK\FootIK.h" />
     <ClInclude Include="Player\Inventory.h" />
-    <ClInclude Include="PlayerDead.h" />
     <ClInclude Include="Title\TitleScene.h" />
+    <ClInclude Include="Player\PlayerDead.h" />
+    <ClInclude Include="Item\ItemDataFile.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">
@@ -409,6 +409,9 @@
     <ImageContentTask Include="Assets\sprite\ItemUI\HotBar.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\inbentori.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\SelectBar.png" />
+    <ImageContentTask Include="Assets\sprite\BackColor.png" />
+    <ImageContentTask Include="Assets\sprite\respownBotton.png" />
+    <ImageContentTask Include="Assets\sprite\SelectBotton.png" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -522,5 +525,11 @@
     <Filter Include="nlohmann\thirdparty\hedley">
       <UniqueIdentifier>{366bc28c-681a-43b1-9009-3f8cc62ed50e}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Assets\3DaysIcon.ico" />
   </ItemGroup>
 </Project>

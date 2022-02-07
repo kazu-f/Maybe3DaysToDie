@@ -181,8 +181,8 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Enemy\IEnemyState.cpp" />
     <ClCompile Include="Navigation\NVMDebugDraw.cpp" />
-    <ClCompile Include="PlayerDead.cpp" />
     <ClCompile Include="Player\Inventory.cpp" />
+    <ClCompile Include="Player\PlayerDead.cpp" />
     <ClCompile Include="Stage\Hill\Hill.cpp" />
     <ClCompile Include="Navigation\NVMGenerator.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
@@ -215,7 +215,7 @@
     <ClCompile Include="MultiThread\Thread.cpp" />
     <ClCompile Include="Title\TitleScene.cpp" />
     <ClCompile Include="Tool\Tool.cpp" />
-    <ClCompile Include="Tool\ToolDataFile.cpp" />
+    <ClCompile Include="Item\ItemDataFile.cpp" />
     <ClCompile Include="NaviMeshManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -282,8 +282,8 @@
     <ClInclude Include="nlohmann\ordered_map.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp" />
-    <ClInclude Include="PlayerDead.h" />
     <ClInclude Include="Player\Inventory.h" />
+    <ClInclude Include="Player\PlayerDead.h" />
     <ClInclude Include="RayTest.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SaveDataFile.h" />
@@ -316,7 +316,7 @@
     <ClInclude Include="MultiThread\Thread.h" />
     <ClInclude Include="Title\TitleScene.h" />
     <ClInclude Include="Tool\Tool.h" />
-    <ClInclude Include="Tool\ToolDataFile.h" />
+    <ClInclude Include="Item\ItemDataFile.h" />
     <ClInclude Include="NaviMeshManager.h" />
   </ItemGroup>
   <ItemGroup>
@@ -336,6 +336,17 @@
     <ImageContentTask Include="Assets\sprite\ItemUI\HotBar.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\inbentori.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\SelectBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\BackColor.png" />
+    <ImageContentTask Include="Assets\sprite\respownBotton.png" />
+    <ImageContentTask Include="Assets\sprite\SelectBotton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Assets\3DaysIcon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
