@@ -228,6 +228,19 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
         [DataMember(Name = "Type")] public EnPlaceTypes placeType { get; set; } = EnPlaceTypes.enType_Terrain;
         [DataMember(Name = "collectItems")] public List<CollectItem> collectItemList = new List<CollectItem>();
+        [DataMember(Name = "collectItemDataNum")]
+        public int collectItemDataNum
+        {
+            get
+            {
+                if (collectItemList != null) return collectItemList.Count;
+                else return 0;
+            }
+            set
+            {
+
+            }
+        }
     }
 
     /// <summary>

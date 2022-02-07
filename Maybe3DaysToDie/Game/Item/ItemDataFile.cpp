@@ -2,6 +2,8 @@
 #include "ItemDataFile.h"
 #include "Item/GameItemBase.h"
 #include "Item/GameItemTool.h"
+#include "Item/BlockItem.h"
+#include "Item/GameItemFoods.h"
 
 namespace {
 	enum EnItemType
@@ -15,7 +17,7 @@ namespace {
 	};
 
 	//アイテムの基本データに関する名前空間。
-	namespace Items {
+	namespace nsItems {
 		const char* itemType = "itemType";		//アイテムの種類を分けるための変数。
 		const char* itemID = "itemID";			//アイテムのID。
 		const char* itemName = "name";			//アイテムの名前。
@@ -38,12 +40,43 @@ namespace {
 	}
 
 	//ツールデータに関する名前空間。
-	namespace Tools {
+	namespace nsTools {
 		const char* damage = "damage";					//ダメージ。
 		const char* durable = "durable";				//耐久値。
 		const char* useStamina = "useStamina";			//使用スタミナ。
 		const char* toolTypeTag = "tool";				//ツールタイプ。
 	}
+	
+	//設置物データに関する名前空間。
+	namespace nsPlaceObjs {
+
+		//設置物のタイプ。
+		enum EnPlaceTypes
+		{
+			enType_Terrain,
+			enType_Block,
+			enType_Object,
+			enPlaceTypeNum
+		};
+		const char* durable = "durable";				//耐久値。
+		const char* tool = "tool";						//特攻ツール。
+		const char* Type = "Type";						//設置物のタイプ。
+		const char* collectItems = "collectItems";		//設置物から採取できるアイテムデータリスト。
+		namespace Collect {
+			const char* collectItemDataNum = "collectItemDataNum";		//採取物データの数。
+			const char* corectItemID = "corectItemID";	//採取できるアイテムのID。
+			const char* corectionNum = "corectionNum";	//採取できる量。
+		}
+	}
+	
+	//食料等のデータに関する名前空間。
+	namespace nsFoods {
+		const char* hp = "HP";
+		const char* water = "water";
+		const char* food = "food";
+		const char* stamina = "stamina";
+	}
+
 }
 
 ItemDataFile::ItemDataFile()
@@ -76,25 +109,25 @@ void ItemDataFile::InitItemData(const char* filePath)
 	{
 		//アイテムの基本データの読み込み。
 		SItemDataPtr itemData = std::make_unique<SItemData>();
-		itemData->itemID = _item[Items::itemID];
-		itemData->itemType = _item[Items::itemType];
-		itemData->itemName = _item[Items::itemName];
-		itemData->tkmPath = _item[Items::itemTkm];
-		itemData->iconPath = _item[Items::itemIcon];
+		itemData->itemID = _item[nsItems::itemID];
+		itemData->itemType = _item[nsItems::itemType];
+		itemData->itemName = _item[nsItems::itemName];
+		itemData->tkmPath = _item[nsItems::itemTkm];
+		itemData->iconPath = _item[nsItems::itemIcon];
 
 		//クラフト素材データリストを構築。
-		int craftMaterialNum = _item[Items::CraftMaterials::itemMaterialDataNum];
+		int craftMaterialNum = _item[nsItems::CraftMaterials::itemMaterialDataNum];
 		itemData->craftMaterialDatas.resize(craftMaterialNum);
 		for (int i = 0; i < craftMaterialNum; i++)
 		{
-			itemData->craftMaterialDatas[i].itemID = _item[Items::itemMaterials][i][Items::CraftMaterials::materialID];
-			itemData->craftMaterialDatas[i].itemNum = _item[Items::itemMaterials][i][Items::CraftMaterials::materialNum];
+			itemData->craftMaterialDatas[i].itemID = _item[nsItems::itemMaterials][i][nsItems::CraftMaterials::materialID];
+			itemData->craftMaterialDatas[i].itemNum = _item[nsItems::itemMaterials][i][nsItems::CraftMaterials::materialNum];
 		}
 		//クラフト可能先データリストを構築。
-		int craftableNum = _item[Items::itemCraftables][Items::Craftable::craftableNum];
+		int craftableNum = _item[nsItems::itemCraftables][nsItems::Craftable::craftableNum];
 		itemData->craftableItemIDs.resize(craftableNum);
 		int No = 0;
-		for (auto id : _item[Items::itemCraftables][Items::Craftable::craftableIDs])
+		for (auto id : _item[nsItems::itemCraftables][nsItems::Craftable::craftableIDs])
 		{
 			itemData->craftableItemIDs[No] = id;
 			No++;
@@ -105,20 +138,48 @@ void ItemDataFile::InitItemData(const char* filePath)
 		{
 		case EnItemType::enItem_Tool: {
 			ToolInfo info;
-			info.AttackPower = _item[Tools::damage];
-			info.Durable = _item[Tools::durable];
-			info.UseStamina = _item[Tools::useStamina];
-			info.tool = _item[Tools::toolTypeTag];
+			info.AttackPower = _item[nsTools::damage];
+			info.Durable = _item[nsTools::durable];
+			info.UseStamina = _item[nsTools::useStamina];
+			info.tool = _item[nsTools::toolTypeTag];
 
 			GameItemTool* gameItemTool = new GameItemTool(itemData, info);
 			m_itemArray.push_back(gameItemTool);
 		}
 			break;
 			
-		case EnItemType::enItem_Place:
+		case EnItemType::enItem_Place: {
+			//設置物の耐久値と特攻ツール。
+			ObjectParams params;
+			params.Durable = _item[nsPlaceObjs::durable];
+			params.AptitudeTool = _item[nsPlaceObjs::tool];
+
+			int placeType = _item[nsPlaceObjs::Type];
+			//設置物から採取できるアイテムのデータ。
+			PlaceObjectCollectItemData collectItemData;
+			int num = _item[nsPlaceObjs::Collect::collectItemDataNum];
+			collectItemData.resize(num);
+			for (int i = 0; i < num; i++)
+			{
+				collectItemData[i].collectID = _item[nsPlaceObjs::collectItems][i][nsPlaceObjs::Collect::corectItemID];
+				collectItemData[i].collectNum = _item[nsPlaceObjs::collectItems][i][nsPlaceObjs::Collect::corectionNum];
+			}
+
+			BlockItem* blockItem = new BlockItem(itemData, params, collectItemData, placeType);
+			m_itemArray.push_back(blockItem);
+		}
 			break;
 			
-		case EnItemType::enItem_Food:
+		case EnItemType::enItem_Food: {
+			SFoodParams params;
+			params.hp = _item[nsFoods::hp];
+			params.water = _item[nsFoods::water];
+			params.food = _item[nsFoods::food];
+			params.stamina = _item[nsFoods::stamina];
+
+			GameItemFoods* foodItem = new GameItemFoods(itemData, params);
+			m_itemArray.push_back(foodItem);
+		}
 			break;
 			
 		case EnItemType::enItem_Material:
