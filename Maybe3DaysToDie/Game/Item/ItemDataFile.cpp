@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "ItemDataFile.h"
+#include "Item/GameItemBase.h"
+#include "Item/GameItemTool.h"
 
 namespace {
 	enum EnItemType

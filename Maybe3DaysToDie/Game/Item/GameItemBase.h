@@ -12,19 +12,20 @@ struct SCraftMaterialData
 /// <summary>
 /// アイテムの基本データ。
 /// </summary>
-struct SItemData
+class SItemData
 {
+public:
 	int itemID = -1;					//アイテムID。
 	int stuckNum = 1;					//アイテムのスタック可能数。
 	int itemType = -1;					//アイテムタイプ。
-	std::string itemName = nullptr;		//アイテムの名前。
-	std::string tkmPath = nullptr;		//アイテムのモデルデータ。
-	std::string iconPath = nullptr;		//アイテムのアイコンデータ。
+	std::string itemName = "";		//アイテムの名前。
+	std::string tkmPath = "";		//アイテムのモデルデータ。
+	std::string iconPath = "";		//アイテムのアイコンデータ。
 	std::vector<SCraftMaterialData> craftMaterialDatas;		//クラフトに必要なアイテムのデータ。
 	std::vector<int> craftableItemIDs;						//このアイテムからクラフト可能先のID。
 };
 
-typedef std::unique_ptr<SItemData> SItemDataPtr;		//アイテムの基本データ構造体のユニークポインタ。
+using SItemDataPtr = std::unique_ptr<SItemData>;		//アイテムの基本データ構造体のユニークポインタ。
 
 /// <summary>
 /// ゲームのアイテムの基底クラス。

@@ -16,6 +16,7 @@ GameItemBase::GameItemBase(SItemDataPtr& itemData)
 		ModelInitData modelData;
 		modelData.m_tkmFilePath = m_itemData->tkmPath.c_str();
 		m_itemModel->Init(modelData);
+		m_itemModel->SetActiveFlag(false);
 	}
 
 	if (m_itemData->iconPath.size() > 0) {
@@ -27,6 +28,7 @@ GameItemBase::GameItemBase(SItemDataPtr& itemData)
 
 		//アイテム用のアイコンを読み込む。
 		m_itemIcon->Init(ddsFilePath.c_str(), ItemOneBoxSize, ItemOneBoxSize);
+		m_itemIcon->SetActiveFlag(false);
 	}
 }
 

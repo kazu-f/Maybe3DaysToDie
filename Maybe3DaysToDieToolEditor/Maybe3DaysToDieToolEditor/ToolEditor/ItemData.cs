@@ -67,7 +67,11 @@ namespace Maybe3DaysToDieToolEditor
             {
                 if (itemCraftMaterials != null) return itemCraftMaterials.Count;
                 else return 0;
-            } 
+            }
+            set
+            {
+
+            }
         }
         [DataMember(Name = "craftableItemIDs")] public CraftableItems craftableItems = new CraftableItems();
         public bool isRegist = true;               //リスト登録フラグ。
@@ -176,6 +180,10 @@ namespace Maybe3DaysToDieToolEditor
                 if (_craftableItemIDs != null) return CraftableIDs.Count;
                 else return 0;
             }
+            set
+            {
+
+            }
         }
     }
 
@@ -282,7 +290,7 @@ namespace Maybe3DaysToDieToolEditor
     [DataContract]
     public class Material : Item
     {
-        
+        [DataMember(Name = "MaterialType")] public int type = 0;
     }
 
 

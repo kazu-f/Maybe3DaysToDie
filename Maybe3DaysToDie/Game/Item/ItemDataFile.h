@@ -1,5 +1,5 @@
 #pragma once
-#include "Item/GameItemTool.h"
+class GameItemBase;
 
 /// <summary>
 /// jsonファイルからツールデータを読み込むクラス。
@@ -14,8 +14,6 @@ public:
 	void InitItemData(const char* filePath);
 
 private:
-	typedef std::vector<GameItemTool*> ToolArray;
-	ToolArray m_toolArray;
 	typedef std::vector<GameItemBase*> ItemArray;
 	ItemArray m_itemArray;
 };
