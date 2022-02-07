@@ -9,6 +9,7 @@ class GameCamera;
 class ItemBar;
 class AccessObject;
 class PlayerDead;
+class IPlayerState;
 class Player : public IGameObject
 {
 	//”z—ñ—p‚Ì’è”
@@ -185,7 +186,6 @@ private:
 	bool m_IsUseItem = true;
 	AccessObject* m_AccessObject = nullptr;
 
-
-	PlayerDead* m_Dead = nullptr;
+	IPlayerState* PlayerState = nullptr;
 };
 
