@@ -26,6 +26,8 @@ namespace nsTerrain {
 			}
 		}
 
+		m_naviMeshManager = NewGO<NaviMeshManager>(0);
+
 		return true;
 	}
 	void TerrainManager::Update()

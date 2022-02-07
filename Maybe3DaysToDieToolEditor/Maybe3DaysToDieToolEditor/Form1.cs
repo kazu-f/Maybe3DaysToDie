@@ -83,6 +83,7 @@ namespace Maybe3DaysToDieToolEditor
             toolDataPanel1.Visible = false;
             placementObjectPanel1.Visible = false;
             foodAndCurePanel1.Visible = false;
+            materialPanel1.Visible = false;
         }
 
         #region リスト操作の処理。
@@ -163,6 +164,22 @@ namespace Maybe3DaysToDieToolEditor
             }
 
         }
+        /// <summary>
+        /// リストに素材アイテムを追加する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MaterialDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var material = new Material { itemName = "Material" };
+
+            Command.AddNewItem command = new Command.AddNewItem(material, m_itemList, UpdateItemList);
+
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
+        }
         #endregion
 
         #region データを表示する処理。
@@ -208,6 +225,12 @@ namespace Maybe3DaysToDieToolEditor
                 GroupBoxPanelDisable();
                 foodAndCurePanel1.Visible = true;
                 foodAndCurePanel1.DispFoodAndCureItem((FoodAndCure)item);
+            }
+            else if(typeof(Material) == item.GetType())
+            {
+                GroupBoxPanelDisable();
+                materialPanel1.Visible = true;
+                materialPanel1.DispMaterialItem((Material)item);
             }
             else
             {
