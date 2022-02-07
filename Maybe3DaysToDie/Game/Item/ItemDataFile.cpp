@@ -4,6 +4,7 @@
 #include "Item/GameItemTool.h"
 #include "Item/BlockItem.h"
 #include "Item/GameItemFoods.h"
+#include "Item/GameItemMaterial.h"
 
 namespace {
 	enum EnItemType
@@ -77,6 +78,11 @@ namespace {
 		const char* stamina = "stamina";
 	}
 
+	//素材アイテムに関する名前空間。
+	namespace nsMaterials
+	{
+		const char* MaterialType = "MaterialType";		//素材タイプ？
+	}
 }
 
 ItemDataFile::ItemDataFile()
@@ -171,6 +177,7 @@ void ItemDataFile::InitItemData(const char* filePath)
 			break;
 			
 		case EnItemType::enItem_Food: {
+			//食料等のパラメータ。
 			SFoodParams params;
 			params.hp = _item[nsFoods::hp];
 			params.water = _item[nsFoods::water];
@@ -182,7 +189,13 @@ void ItemDataFile::InitItemData(const char* filePath)
 		}
 			break;
 			
-		case EnItemType::enItem_Material:
+		case EnItemType::enItem_Material: {
+			//素材タイプ？
+			int type = _item[nsMaterials::MaterialType];
+
+			GameItemMaterial* materialItem = new GameItemMaterial(itemData, type);
+			m_itemArray.push_back(materialItem);
+		}
 			break;
 
 		default:
