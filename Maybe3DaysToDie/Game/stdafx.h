@@ -36,3 +36,8 @@ static const int LoadingChunkCols = 3;
 static const int LoadingChunks = 3;
 
 using namespace Engine;
+
+static enum MauseState {
+	None,
+	LBotunClick,
+};

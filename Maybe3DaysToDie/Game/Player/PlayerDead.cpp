@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "PlayerDead.h"
+#include <windows.h>
 
 namespace
 {
@@ -28,13 +29,10 @@ bool PlayerDead::Start()
 
 void PlayerDead::Update()
 {
-	POINT MausePoint;
-	GetCursorPos(&MausePoint);
-	if (fabsf(MausePoint.x) > FRAME_BUFFER_W/2 &&
-		fabsf(MausePoint.y) > FRAME_BUFFER_H / 2 )
-	{
-		DeleteGO(this);
-	}
+	ReSpownTime -= GameTime().GetFrameDeltaTime();
+    if (ReSpownTime < 0.0) {
+
+    }
 }
 
 void PlayerDead::OnDestroy()
@@ -52,4 +50,39 @@ prefab::CSpriteRender* PlayerDead::InitSprite(const char* fileName)
 	render->Init(fileName, 500.0f, 200.0f);
 	render->SetPosition(BottonPos);
 	return render;
+}
+
+LRESULT  CALLBACK  PlayerDead::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+    HDC         hdc;
+    PAINTSTRUCT ps;
+	float x = 0.0f;
+	float y = 0.0f;
+    //渡された message から、イベントの種類を解析する
+    switch (msg) {
+    case WM_CREATE:
+        x = 50;
+        y = 50;
+        break;
+    case WM_LBUTTONDOWN:
+        x = LOWORD(lParam);
+        y = HIWORD(lParam);
+        InvalidateRect(hWnd, NULL, TRUE);  //領域無効化
+        UpdateWindow(hWnd);                //再描画命令
+        break;
+    case WM_RBUTTONDOWN:
+        x = LOWORD(lParam);
+        y = HIWORD(lParam);
+        InvalidateRect(hWnd, NULL, TRUE);  //領域無効化
+        UpdateWindow(hWnd);                //再描画命令
+        break;
+        //----ペイント----
+    case WM_PAINT:
+        break;
+        //----終了処理----
+    case WM_DESTROY:
+        PostQuitMessage(0);
+        return 0L;
+    }
+    //デフォルトの処理
+    return  DefWindowProc(hWnd, msg, wParam, lParam);
 }

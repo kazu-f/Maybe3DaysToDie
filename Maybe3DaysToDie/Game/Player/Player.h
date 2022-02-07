@@ -169,8 +169,8 @@ private:
 	/////ホットバー//////////////////////////////////////////////
 	ItemBar* m_ItemBar = nullptr;
 	/// ////////////////////////////////////////////////////////
-	State m_CurrentState = State::Idle;				//現在のステート
-	State m_NextState = State::Idle;				//次に変わるステート
+	State m_CurrentState = State::Dead;				//現在のステート
+	State m_NextState = State::Dead;				//次に変わるステート
 	float m_DeltaTime = 0.0f;
 
 	GameCamera* m_Camera = nullptr;
