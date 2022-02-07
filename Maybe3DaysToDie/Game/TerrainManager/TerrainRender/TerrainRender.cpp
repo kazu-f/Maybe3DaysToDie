@@ -10,7 +10,7 @@ namespace nsTerrain {
 	void TerrainRender::Update()
 	{
 		if (InputKeyCode().IsTriggerKey(VK_F3)) {
-			m_isRenderTerrain = m_isRenderTerrain ? false : true;
+			m_isRenderTerrain = !m_isRenderTerrain;
 		}
 
 		//ワールド行列を更新。

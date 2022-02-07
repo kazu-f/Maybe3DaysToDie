@@ -53,6 +53,7 @@ void StandardZombie::Update()
 
 void StandardZombie::PostUpdate()
 {
+	//IKXVB
 	GetIK().ApplyIK();
 }
 
