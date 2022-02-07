@@ -530,6 +530,6 @@
     <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Assets\3DaysIcon.ico" />
+    <Image Include="3DaysIcon.ico" />
   </ItemGroup>
 </Project>
