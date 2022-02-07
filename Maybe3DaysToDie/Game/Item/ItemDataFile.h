@@ -4,19 +4,19 @@
 /// <summary>
 /// jsonファイルからツールデータを読み込むクラス。
 /// </summary>
-class ToolDataFile
+class ItemDataFile
 {
 	using json = nlohmann::json;
 public:
-	ToolDataFile();
-	~ToolDataFile();
+	ItemDataFile();
+	~ItemDataFile();
 
-	void InitToolFile(const char* filePath);
+	void InitItemData(const char* filePath);
 
 private:
-	//typedef std::vector<ToolInfo> ToolInfoArray;
-	//ToolInfoArray m_toolInfoArray;
 	typedef std::vector<GameItemTool*> ToolArray;
 	ToolArray m_toolArray;
+	typedef std::vector<GameItemBase*> ItemArray;
+	ItemArray m_itemArray;
 };
 

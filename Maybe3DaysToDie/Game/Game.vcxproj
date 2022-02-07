@@ -215,7 +215,7 @@
     <ClCompile Include="MultiThread\Thread.cpp" />
     <ClCompile Include="Title\TitleScene.cpp" />
     <ClCompile Include="Tool\Tool.cpp" />
-    <ClCompile Include="Tool\ToolDataFile.cpp" />
+    <ClCompile Include="Item\ItemDataFile.cpp" />
     <ClCompile Include="NaviMeshManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -316,7 +316,7 @@
     <ClInclude Include="MultiThread\Thread.h" />
     <ClInclude Include="Title\TitleScene.h" />
     <ClInclude Include="Tool\Tool.h" />
-    <ClInclude Include="Tool\ToolDataFile.h" />
+    <ClInclude Include="Item\ItemDataFile.h" />
     <ClInclude Include="NaviMeshManager.h" />
   </ItemGroup>
   <ItemGroup>

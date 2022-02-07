@@ -61,6 +61,14 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
         [DataMember(Name = "iconData")] public string iconData { get; set; } = "";
         [DataMember(Name = "itemMaterialData")] public List<ItemCraftMaterial> itemCraftMaterials = new List<ItemCraftMaterial>();
+        //クラフトに必要なアイテムのデータの数。
+        [DataMember(Name = "itemMaterialDataNum")] public int itemCraftMaterialNum {
+            get
+            {
+                if (itemCraftMaterials != null) return itemCraftMaterials.Count;
+                else return 0;
+            } 
+        }
         [DataMember(Name = "craftableItemIDs")] public CraftableItems craftableItems = new CraftableItems();
         public bool isRegist = true;               //リスト登録フラグ。
     }
@@ -159,6 +167,14 @@ namespace Maybe3DaysToDieToolEditor
             set
             {
                 _craftableItemIDs = value;
+            }
+        }
+        [DataMember(Name = "craftableItemNum")] public int craftableItemNum
+        {
+            get
+            {
+                if (_craftableItemIDs != null) return CraftableIDs.Count;
+                else return 0;
             }
         }
     }
