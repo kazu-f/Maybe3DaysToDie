@@ -25,6 +25,9 @@ namespace nsTerrain {
 
 		//PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
 
+		m_nvmDebugDraw = NewGO<NVMDebugDraw>(1);
+		m_nvmDebugDraw->Init();
+
 		m_isInited = true;
 
 		return true;
@@ -51,13 +54,6 @@ namespace nsTerrain {
 	{
 		DeleteGO(m_terrainRender);
 	}
-	//void TerrainWorld::ForwardRender(RenderContext& rc)
-	//{
-	//	if (m_isNVMDebug)
-	//	{
-	//		m_nvmDebugDraw->Render(m_indexCount);
-	//	}
-	//}
 
 	void TerrainWorld::CreateNVM()
 	{
@@ -143,14 +139,7 @@ namespace nsTerrain {
 		}
 
 		if (m_isNVMDebug) {
-
-			if (m_nvmDebugDraw != nullptr)
-			{
-				//前回のデバッグドローは削除。
-				delete m_nvmDebugDraw;
-			}
-			//デバッグ。
-			m_nvmDebugDraw = new NVMDebugDraw;
+			m_nvmDebugDraw->ClearCellData();
 
 			for (auto& cell : m_cellList) {
 				m_nvmDebugDraw->PushVertex(cell.pos[0]);
@@ -168,7 +157,7 @@ namespace nsTerrain {
 				}
 			}
 				
-			m_nvmDebugDraw->Init(m_indices);
+			m_nvmDebugDraw->CreateBuffers(m_indices, m_indexCount);
 		}
 	}
 
