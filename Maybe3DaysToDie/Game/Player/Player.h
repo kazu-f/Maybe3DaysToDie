@@ -8,10 +8,13 @@ class PlayerWater;
 class GameCamera;
 class ItemBar;
 class AccessObject;
-class PlayerDead;
+#include "state/PlayerDead.h"
 class IPlayerState;
 class Player : public IGameObject
 {
+public :
+	Player(){}
+private:
 	//配列用の定数
 	//なんとなくマジックナンバーが嫌だったので定数化
 	enum Vector {
@@ -102,6 +105,7 @@ public:
 		m_AccessObject = AOp;
 	}
 
+	void ReStart();
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
@@ -171,8 +175,8 @@ private:
 	/////ホットバー//////////////////////////////////////////////
 	ItemBar* m_ItemBar = nullptr;
 	/// ////////////////////////////////////////////////////////
-	State m_CurrentState = State::Dead;				//現在のステート
-	State m_NextState = State::Dead;				//次に変わるステート
+	State m_CurrentState = State::Idle;				//現在のステート
+	State m_NextState = State::Idle;				//次に変わるステート
 	float m_DeltaTime = 0.0f;
 
 	GameCamera* m_Camera = nullptr;
@@ -187,5 +191,6 @@ private:
 	AccessObject* m_AccessObject = nullptr;
 
 	IPlayerState* PlayerState = nullptr;
+	PlayerDead m_Dead;
 };
 
