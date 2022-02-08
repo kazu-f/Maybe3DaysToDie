@@ -160,6 +160,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AccessObject\AccessObject.cpp" />
+    <ClCompile Include="Item\GameItemMaterial.cpp" />
+    <ClCompile Include="Item\GameItemFoods.cpp" />
     <ClCompile Include="IK\FootIK.cpp" />
     <ClCompile Include="MauseInfo.cpp" />
     <ClCompile Include="Player\state\IPlayerState.cpp" />
@@ -222,6 +224,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
+    <ClInclude Include="Item\GameItemMaterial.h" />
+    <ClInclude Include="Item\GameItemFoods.h" />
     <ClInclude Include="IK\FootIK.h" />
     <ClInclude Include="MauseInfo.h" />
     <ClInclude Include="Player\state\IPlayerState.h" />

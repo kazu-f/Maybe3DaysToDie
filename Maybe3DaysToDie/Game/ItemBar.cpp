@@ -49,11 +49,7 @@ void ItemBar::Update()
 		if (GetAsyncKeyState(MK_LBUTTON)) {
 			m_InstallTime += GameTime().GetFrameDeltaTime();
 			if (m_InstallTime > 0.2f) {
-				//パラメータ
-				ObjectParams param;
-				param.BlockID = 3;
-				param.Durable = 500;
-				m_PlacementObject->PlaceObject(param);
+				m_PlacementObject->PlaceObject();
 				m_InstallTime = 0.0f;
 			}
 		}
@@ -106,5 +102,20 @@ void ItemBar::ItemSlotKey(int vKey, int slot)
 {
 	if (GetAsyncKeyState(vKey)) {
 		m_SelectNum = slot;
+
+		//パラメータ
+		ObjectParams param;
+		if (m_SelectNum == 0)
+		{
+			param.BlockID = 255;
+			param.Durable = 500;
+			m_PlacementObject->SetParams(param);
+		}
+		else
+		{
+			param.BlockID = m_SelectNum;
+			param.Durable = 500;
+			m_PlacementObject->SetParams(param);
+		}
 	}
 }

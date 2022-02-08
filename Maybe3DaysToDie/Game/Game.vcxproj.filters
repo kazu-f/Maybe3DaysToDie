@@ -129,8 +129,10 @@
       <Filter>Tool</Filter>
     </ClCompile>
     <ClCompile Include="Player\state\IPlayerState.cpp" />
-    <ClCompile Include="MauseInfo.cpp" />
-  </ItemGroup>
+
+    <ClCompile Include="Item\GameItemFoods.cpp" />
+    <ClCompile Include="Item\GameItemMaterial.cpp" />
+    <ClCompile Include="MauseInfo.cpp" />  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stage.h" />
     <ClInclude Include="GameCamera.h" />
@@ -388,8 +390,11 @@
       <Filter>Tool</Filter>
     </ClInclude>
     <ClInclude Include="Player\state\IPlayerState.h" />
+.h" />
+
     <ClInclude Include="MauseInfo.h" />
-  </ItemGroup>
+    <ClInclude Include="Item\GameItemFoods.h" />
+    <ClInclude Include="Item\GameItemMaterial.h" />  </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\shoesIcon.png">
       <Filter>Assets\sprite</Filter>
