@@ -77,7 +77,7 @@ namespace nsTerrain {
 			{
 				for (int z = 0; z < ChunkWidth + 1; z++)
 				{
-					auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY];
+					const auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY].get();
 					float noise = m_perlinNoise.CalculationNoise(
 						(static_cast<double>(x + (ChunkWidth * chunkX)) / static_cast<double>(ChunkWidth) * 1.5 + 0.001),
 						(static_cast<double>(z + (ChunkWidth * chunkY)) / static_cast<double>(ChunkWidth) * 1.5 + 0.001)
@@ -118,15 +118,15 @@ namespace nsTerrain {
 						point = 1.0f;
 					}
 
-					terrain.SetVoxel(point);
+					terrain->SetVoxel(point);
 
 					Vector3 pos;
 					pos.x = static_cast<float>((x + ChunkWidth * chunkX)) * OBJECT_UNIT;
 					pos.y = static_cast<float>(y) * OBJECT_UNIT;
 					pos.z = static_cast<float>((z + ChunkWidth * chunkY)) * OBJECT_UNIT;
-					terrain.SetPosition(pos);
+					terrain->SetPosition(pos);
 
-					m_terrainChunkData[chunkX][chunkY].SetTerrainData(&terrain, x, y, z);
+					m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
 				}
 			}
 		}
