@@ -27,6 +27,11 @@ public:
 	/// <param name="params">パラメータ</param>
 	void SetParams(const ObjectParams& params)
 	{
+		if (ObjID == params.BlockID)
+		{
+			//変更なし
+			return;
+		}
 		objParam = params;
 		if (SetModelParams())
 		{
@@ -79,5 +84,6 @@ private:
 	ObjectParams objParam;
 	ModelInitData m_modelInitData;
 	bool Enable = false;
+	int ObjID = -1;
 };
 

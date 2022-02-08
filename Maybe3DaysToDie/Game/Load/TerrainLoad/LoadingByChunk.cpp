@@ -108,12 +108,7 @@ void LoadingByChunk::InitModels()
 		//モデルを初期化
 		//ブロックの名前がかぶっていないのでまだ、そのモデルがない
 		ModelInitData InitData;
-		const char* tkmPath = m_SaveDataFile->ObjectFilePath[ObjectID];
-		if (tkmPath == nullptr)
-		{
-			return;
-		}
-		InitData.m_tkmFilePath = tkmPath;
+		InitData.m_tkmFilePath = m_SaveDataFile->ObjectFilePath[ObjectID];
 		prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
 		//model->SetActiveFlag(false);
 		//チャンクのサイズ分インスタンシング描画する
