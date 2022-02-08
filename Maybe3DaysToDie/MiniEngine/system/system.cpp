@@ -12,6 +12,10 @@ namespace Engine {
 	///////////////////////////////////////////////////////////////////
 	LRESULT CALLBACK MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
+		if (wParam > 0) {
+		}
+		if (wParam < 0) {
+		}
 		//送られてきたメッセージで処理を分岐させる。
 		switch (msg)
 		{
@@ -29,13 +33,17 @@ namespace Engine {
 			default:
 				break;
 			}
-
+			//渡された message から、イベントの種類を解析する
+		case WM_LBUTTONDOWN:
+			break;
+		case WM_RBUTTONDOWN:
+			break;
 		default:
 			return DefWindowProc(hWnd, msg, wParam, lParam);
 		}
-
 		return 0;
 	}
+
 
 	///////////////////////////////////////////////////////////////////
 	// ウィンドウの初期化。
