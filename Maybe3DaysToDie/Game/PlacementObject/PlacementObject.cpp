@@ -29,22 +29,28 @@ void PlacementObject::OnDestroy()
 bool PlacementObject::Start()
 {
 	m_ObjectModel = NewGO<prefab::ModelRender>(0);
-
-	ModelInitData m_modelInitData;
-	m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
 	m_modelInitData.m_shaderData.vsFxFilePath = L"Assets/shader/model.fx";
 	m_modelInitData.m_shaderData.vsEntryPointFunc = "VSMain";
 	m_modelInitData.m_shaderData.psFxFilePath = L"Assets/shader/ObjectPreview.fx";
 	m_modelInitData.m_shaderData.psEntryPointFunc = "PSMain";
-	m_ObjectModel->Init(m_modelInitData);
 	m_ObjectModel->SetForwardRenderFlag(true);
 	m_ObjectModel->SetShadowCasterFlag(true);
+	//アクティブを切る
+	m_ObjectModel->SetActiveFlag(false);
+
 	return true;
 }
 
 void PlacementObject::Update()
 {
 	//オブジェクトを設置する位置を計算
+	int ObjID = static_cast<int>(objParam.BlockID);
+	const char* tkmPath = m_SaveData->ObjectFilePath[ObjID];
+	if (tkmPath == nullptr)
+	{
+		CanPlace = false;
+		return;
+	}
 	CalcObjectPos();
 	//各種セット
 	m_ObjectModel->SetPosition(m_pos);
@@ -96,8 +102,20 @@ void PlacementObject::CalcObjectPos()
 	}
 }
 
+bool PlacementObject::SetModelParams()
+{
+	int ObjID = static_cast<int>(objParam.BlockID);
+	const char* tkmPath = m_SaveData->ObjectFilePath[ObjID];
+	if (tkmPath != nullptr)
+	{
+		m_modelInitData.m_tkmFilePath = tkmPath;
+		return true;
+	}
+	return false;
+}
+
 //todo [最適化]後で処理見直せ
-void PlacementObject::PlaceObject(ObjectParams& params)
+void PlacementObject::PlaceObject()
 {
 	if (CanPlace)
 	{
@@ -137,10 +155,10 @@ void PlacementObject::PlaceObject(ObjectParams& params)
 			id_z = static_cast<int>(id_z % ChunkWidth);
 			
 			//セーブデータに直接書き込み
-			chunkData.ObjData[id_x][id_y][id_z].ObjId = params.BlockID;
-			chunkData.ObjData[id_x][id_y][id_z].ObjDurable = params.Durable;
+			chunkData.ObjData[id_x][id_y][id_z].ObjId = objParam.BlockID;
+			chunkData.ObjData[id_x][id_y][id_z].ObjDurable = objParam.Durable;
 			auto& block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
-			block.AddBlock(params, m_pos, rot, scale);
+			block.AddBlock(objParam, m_pos, rot, scale);
 		}
 	}
 }

@@ -4,6 +4,7 @@
 
 class LoadingByChunk;
 class SaveDataFile;
+
 //todo プレイヤー側から呼ぶようになったらIGameObjectを継承しないように
 class PlacementObject:public IGameObject
 {
@@ -18,12 +19,25 @@ public:
 	/// <summary>
 	/// オブジェクトを設置
 	/// </summary>
-	void PlaceObject(ObjectParams& params);
+	void PlaceObject();
 
 	/// <summary>
-	/// 設置するオブジェクトの位置を計算
+	/// 設置するオブジェクトの情報
 	/// </summary>
-	void CalcObjectPos();
+	/// <param name="params">パラメータ</param>
+	void SetParams(const ObjectParams& params)
+	{
+		objParam = params;
+		if (SetModelParams())
+		{
+			m_ObjectModel->SetActiveFlag(true);
+			m_ObjectModel->Init(m_modelInitData);
+		}
+		else
+		{
+			m_ObjectModel->SetActiveFlag(false);
+		}
+	}
 
 	/// <summary>
 	/// チャンク読み込み処理をセット
@@ -42,6 +56,17 @@ public:
 	}
 
 private:
+	/// <summary>
+	/// 設置するオブジェクトの位置を計算
+	/// </summary>
+	void CalcObjectPos();
+
+	/// <summary>
+	/// モデルを現在の情報で初期化する
+	/// </summary>
+	bool SetModelParams();
+
+private:
 	prefab::ModelRender* m_ObjectModel = nullptr;		//オブジェクトモデル
 	Vector3 m_pos = Vector3::Zero;		//モデルのポジション
 	Vector3 m_scale = Vector3::One;		//モデルのスケール
@@ -51,5 +76,8 @@ private:
 	DestructibleObject* m_hitObj = nullptr;
 	LoadingByChunk* m_LoadingChunk = nullptr;
 	SaveDataFile* m_SaveData = nullptr;
+	ObjectParams objParam;
+	ModelInitData m_modelInitData;
+	bool Enable = false;
 };
 

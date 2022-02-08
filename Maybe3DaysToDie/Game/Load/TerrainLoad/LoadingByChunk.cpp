@@ -108,7 +108,12 @@ void LoadingByChunk::InitModels()
 		//モデルを初期化
 		//ブロックの名前がかぶっていないのでまだ、そのモデルがない
 		ModelInitData InitData;
-		InitData.m_tkmFilePath = m_SaveDataFile->ObjectFilePath[ObjectID];
+		const char* tkmPath = m_SaveDataFile->ObjectFilePath[ObjectID];
+		if (tkmPath == nullptr)
+		{
+			return;
+		}
+		InitData.m_tkmFilePath = tkmPath;
 		prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
 		//model->SetActiveFlag(false);
 		//チャンクのサイズ分インスタンシング描画する
@@ -346,6 +351,10 @@ void LoadingByChunk::UpdateModels()
 
 	for (int BlockID = 0; BlockID < BlockKinds; BlockID++)
 	{
+		if (m_SaveDataFile->ObjectFilePath[BlockID] == nullptr)
+		{
+			return;
+		}
 		//インスタンシングデータをリセット
 		BlockModel[BlockID]->ResetInstancingDatas();
 		for (int x = 0; x < LoadingChunks; x++)
