@@ -192,6 +192,9 @@ namespace Engine {
 		m_camera3D.SetTarget({ 0.0f, 50.0f, 0.0f });
 
 
+		//レンダラーマネージャーの作成。
+		m_rendererManager = std::make_unique<CRendererManager>();
+		m_rendererManager->InitRendererManager(initParam.gameObjectPrioMax);
 		//ライトマネージャーの作成。
 		m_lightManager = std::make_unique<CLightManager>();
 		m_lightManager->Init();
@@ -503,6 +506,8 @@ namespace Engine {
 
 		PostRender(goMgr);
 
+		//Render2D();
+
 		m_fade->Update();
 		m_fade->FadeRender(m_renderContext);
 
@@ -543,6 +548,12 @@ namespace Engine {
 		//フォワードレンダリングパス。
 		goMgr->ForwardRender(m_renderContext);
 
+		//auto rendererArray = GraphicsEngine()->GetRendererManager()->GetRendererArray();
+		//for (auto* renderer : rendererArray)
+		//{
+		//	renderer->OnForwardRender(m_renderContext);
+		//}
+
 		m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 
 		PhysicsWorld().DebugDrawWorld(m_renderContext);
@@ -557,7 +568,22 @@ namespace Engine {
 
 
 		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
+
 		goMgr->PostRender(m_renderContext);
+
+
+		m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
+	}
+	void CGraphicsEngine::Render2D()
+	{
+		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
+
+		//auto rendererArray = GraphicsEngine()->GetRendererManager()->GetRendererArray();
+		//for (auto* renderer : rendererArray)
+		//{
+		//	renderer->OnRender2D(m_renderContext);
+		//}
+
 		m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 	}
 	void CGraphicsEngine::BeginRender()
