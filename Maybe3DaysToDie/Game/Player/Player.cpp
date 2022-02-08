@@ -6,7 +6,9 @@
 #include "PlayerStatus/PlayerWater.h"
 #include "GameCamera.h"
 #include "AccessObject/AccessObject.h"
-#include "PlayerDead.h"
+#include "Player/State/PlayerDead.h"
+#include "Player/State/IPlayerState.h"
+
 namespace {
 	const float MoveDistance = 1000.0f;			//1フレームに動く距離
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
@@ -60,9 +62,7 @@ void Player::Update()
 		m_Camera->SetMovingMouse(true);
 		break;
 	case State::Dead:
-		if (m_Dead == nullptr) {
-			m_Dead = NewGO< PlayerDead>(0);
-		}
+		PlayerState = NewGO<PlayerDead>(0);
 		m_Camera->SetMovingMouse(true);
 		break;
 	case State::Run:

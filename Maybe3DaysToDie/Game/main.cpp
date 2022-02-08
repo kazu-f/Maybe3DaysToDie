@@ -5,6 +5,43 @@
 //1フレームの経過時間を出力する。
 #define CALC_TIME
 
+LRESULT  CALLBACK   WndProc(HWND, UINT, WPARAM, LPARAM);
+
+ MauseState g_MauseState= MauseState::None;
+
+LRESULT  CALLBACK  WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	HDC         hdc;
+	PAINTSTRUCT ps;
+	float x = 0.0f;
+	float y = 0.0f;
+	//渡された message から、イベントの種類を解析する
+	switch (msg) {
+	case WM_CREATE:
+		x = 50;
+		y = 50;
+		break;
+	case WM_LBUTTONDOWN:
+		g_MauseState = MauseState::LBotunClick;
+		x = LOWORD(lParam);
+		y = HIWORD(lParam);
+		InvalidateRect(hWnd, NULL, TRUE);  //領域無効化
+		break;
+	case WM_RBUTTONDOWN:
+		x = LOWORD(lParam);
+		y = HIWORD(lParam);
+		InvalidateRect(hWnd, NULL, TRUE);  //領域無効化
+		break;
+		//----ペイント----
+	case WM_PAINT:
+		break;
+		//----終了処理----
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0L;
+	}
+	//デフォルトの処理
+	return  DefWindowProc(hWnd, msg, wParam, lParam);
+}
 void SetInitParam(SInitParam& initParam)
 {
 	initParam.frameBuffer_W = FRAME_BUFFER_W;	//フレームバッファのサイズ(幅)
@@ -34,11 +71,23 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 {
 	SInitParam initParam;
 	SetInitParam(initParam);
+	WNDCLASS wc = { CS_CLASSDC,
+				   WndProc,                               //イベントcallback関数
+				   0L,
+				   0L,
+				   hInstance,
+				   NULL,                                  //アイコン
+				   LoadCursor(NULL,IDC_ARROW),            //マウスカーソル
+				   (HBRUSH)GetStockObject(WHITE_BRUSH),
+				   NULL,
+				   TEXT("Game")
+	};
+	if (RegisterClass(&wc) == 0) return FALSE;
 
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, TEXT("Game"), initParam);
 	//デバッグモードオン
-	PhysicsWorld().SetDebugMode(1);
+	//PhysicsWorld().SetDebugMode(1);
 	//フェードイン
 	CFade::GetInstance()->StartFadeIn();
 	//マウスカーソルの表示を消す

@@ -26,6 +26,30 @@ namespace Engine {
 		rot.SetRotation(mWorld);
 		m_rotation = rot;
 	}
+	void Bone::SetWorldTRS()
+	{
+		Matrix mWorld = m_worldMatrix;
+		//行列から拡大率を取得する。
+		Vector3 scale = Vector3::One;
+		scale.x = mWorld.v[0].Length();
+		scale.y = mWorld.v[1].Length();
+		scale.z = mWorld.v[2].Length();
+		m_scale = scale;
+		//行列から平行移動量を取得する。
+		Vector3 trans = Vector3::Zero;
+		trans.Set(mWorld.v[3]);
+		m_positoin = trans;
+		//行列から拡大率と平行移動量を除去して回転量を取得する。
+		mWorld.v[0].Normalize();
+		mWorld.v[1].Normalize();
+		mWorld.v[2].Normalize();
+		mWorld.v[3].Set(0.0f, 0.0f, 0.0f, 1.0f);
+		Quaternion rot = Quaternion::Identity;
+		rot.SetRotation(mWorld);
+		m_rotation = rot;
+
+	}
+
 	Skeleton::Skeleton()
 	{
 		//リザーブ。
@@ -39,10 +63,19 @@ namespace Engine {
 		Matrix mBoneWorld;
 		Matrix localMatrix = bone.GetLocalMatrix();
 		mBoneWorld = localMatrix * parentMatrix;
-
 		bone.SetWorldMatrix(mBoneWorld);
 		for (auto childBone : bone.GetChildren()) {
 			UpdateBoneWorldMatrix(*childBone, mBoneWorld);
+		}
+	}
+
+	void Skeleton::UpdateBoneWorldMatrixForIK(Bone& bone, const Matrix& mat)
+	{
+		bone.SetWorldMatrix(mat);
+		for (auto childBone : bone.GetChildren())
+		{
+			//子供も更新する
+			UpdateBoneWorldMatrix(*childBone, mat);
 		}
 	}
 	bool Skeleton::Init(const char* tksFilePath)
@@ -129,6 +162,7 @@ namespace Engine {
 
 	void Skeleton::Update(const Matrix& mWorld)
 	{
+		m_world = mWorld;
 		if (m_isPlayAnimation) {
 			//ボーン行列をルートボーンの空間からワールド空間を構築していく。
 			for (auto& bone : m_bones) {

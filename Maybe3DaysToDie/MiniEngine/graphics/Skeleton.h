@@ -122,7 +122,51 @@ namespace Engine {
 		*@param[out]	scale		拡大率の格納先。
 		*/
 		void CalcWorldTRS(Vector3& trans, Quaternion& rot, Vector3& scale);
+		void SetWorldTRS();
+		void SetLastMatrix()
+		{
+			m_LastMatrix = m_worldMatrix;
+		}
 
+		const Matrix& GetLastMatrix()
+		{
+			return m_LastMatrix;
+		}
+
+		void SetTRS(Vector3& trans, Quaternion& rot, Vector3& scale)
+		{
+			m_positoin = trans;
+			m_rotation = rot;
+			m_scale = scale;
+		}
+
+		void SetRotation(Quaternion& rot)
+		{
+			m_rotation = rot;
+		}
+
+		Quaternion& GetRotation()
+		{
+			return m_rotation;
+		}
+		void RsetLocalMatrix()
+		{
+			//スケール
+			Matrix scaleMatrix;
+			scaleMatrix.MakeScaling(m_scale);
+			//回転行列を作成。
+			Matrix rotMatrix;
+			rotMatrix.MakeRotationFromQuaternion(m_rotation);
+			//平行移動行列を作成。
+			Matrix transMatrix;
+			transMatrix.MakeTranslation(m_positoin);
+			//全部を合成して、ボーン行列を作成。
+			Matrix boneMatrix;
+			boneMatrix = scaleMatrix * rotMatrix;
+			boneMatrix = boneMatrix * transMatrix;
+
+			SetLocalMatrix(boneMatrix);
+		}
 	private:
 
 		std::wstring	m_boneName;
@@ -131,12 +175,13 @@ namespace Engine {
 		Matrix			m_bindPose;				//バインドポーズ。
 		Matrix			m_invBindPose;			//バインドポーズの逆行列。
 		Matrix			m_localMatrix;			//ローカル行列。
-		Matrix			m_worldMatrix;			//ワールド行列。
+		Matrix			m_worldMatrix = Matrix::Identity;			//ワールド行列。
 		Matrix			m_offsetLocalMatrix;
 		Vector3			m_positoin;				//このボーンのワールド空間での位置。最後にCalcWorldTRSを実行したときの結果が格納されている。
 		Vector3			m_scale;				//このボーンの拡大率。最後にCalcWorldTRSを実行したときの結果が格納されている。
 		Quaternion		m_rotation;				//このボーンの回転。最後にCalcWorldTRSを実行したときの結果が格納されている。
 		std::list<Bone*>	m_children;			//子供のリスト。
+		Matrix m_LastMatrix = Matrix::Identity;
 	};
 
 	/// <summary>
@@ -257,6 +302,39 @@ namespace Engine {
 		/// <param name="parentMatrix">親のボーンのワールド行列。</param>
 		static 	void UpdateBoneWorldMatrix(Bone& bone, const Matrix& parentMatrix);
 
+		/// <summary>
+		/// IK用のワールド行列更新関数
+		/// 自分のワールド行列更新後子供のワールド行列も更新
+		/// </summary>
+		/// <param name="bone">更新するボーン</param>
+		/// <param name="mat">ワールド行列</param>
+		static void UpdateBoneWorldMatrixForIK(Bone& bone, const Matrix& mat);
+		
+		void SetLastMat()
+		{
+			for (auto& bonePtr : m_bones)
+			{
+				bonePtr->SetLastMatrix();
+			}
+		}
+		void PostSet()
+		{
+			int boneNo = 0;
+			for (auto& bonePtr : m_bones) {
+				Matrix mBone;
+				mBone = bonePtr->GetInvBindPoseMatrix() * bonePtr->GetWorldMatrix();
+				m_boneMatrixs[boneNo] = mBone;
+				boneNo++;
+			}
+		}
+		Matrix& GetWorldMatrix()
+		{
+			return m_world;
+		}
+		void SetWorld(const Matrix&mat)
+		{
+			m_world = mat;
+		}
 	private:
 		TksFile m_tksFile;								//TKSファイル。
 		static const int BONE_MAX = 512;				//ボーンの最大数。
@@ -265,5 +343,6 @@ namespace Engine {
 		std::unique_ptr<Matrix[]>	m_boneMatrixs;		//ボーン行列。
 		bool m_isInited = false;						//初期化済み？
 		bool m_isPlayAnimation = false;					//アニメーションが流し込まれている？
+		Matrix m_world = Matrix::Identity;
 	};
 }
