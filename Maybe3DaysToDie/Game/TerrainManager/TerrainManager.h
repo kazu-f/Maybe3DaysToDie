@@ -14,7 +14,16 @@ namespace nsTerrain {
 		TerrainManager()
 			:m_perlinNoise(2)
 		{
-
+			for (auto& terrainX : m_terrains)
+			{
+				for (auto& terrainY : terrainX)
+				{
+					for (auto& terrain : terrainY)
+					{
+						terrain = std::make_unique<Terrain>();
+					}
+				}
+			}
 		}
 
 		bool Start()override final;
@@ -47,7 +56,7 @@ namespace nsTerrain {
 		static const int TERRAIN_WORLD_CHUNKSIZE = LoadingChunks;		//地形の表示範囲。
 	private:
 		CNoise m_perlinNoise;
-		Terrain m_terrains[MAX_CHUNK_SIDE * ChunkWidth + 1][ChunkHeight][MAX_CHUNK_SIDE * ChunkWidth + 1];
+		std::unique_ptr<Terrain> m_terrains[MAX_CHUNK_SIDE * ChunkWidth + 1][ChunkHeight][MAX_CHUNK_SIDE * ChunkWidth + 1];
 		TerrainChunkData m_terrainChunkData[MAX_CHUNK_SIDE][MAX_CHUNK_SIDE];
 		TerrainWorld* m_terrainWorlds[TERRAIN_WORLD_CHUNKSIZE][TERRAIN_WORLD_CHUNKSIZE] = { nullptr };
 		NaviMeshManager* m_naviMeshManager = nullptr;
