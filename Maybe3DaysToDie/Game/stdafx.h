@@ -29,7 +29,7 @@ const int MAX_CHUNK_SIDE = 64;		//ワールド全体の一辺にいくつチャンクがあるか
 
 const float SetRange = 500.0f;		//プレイヤーが届く範囲
 
-static const int BlockKinds = 4;		//ブロックの種類
+static const int BlockKinds = 255;		//ブロックの種類
 
 //ゲーム中にロードしているチャンクの範囲
 static const int LoadingChunkCols = 3;

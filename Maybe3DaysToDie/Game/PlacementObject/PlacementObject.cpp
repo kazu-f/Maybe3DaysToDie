@@ -44,6 +44,13 @@ bool PlacementObject::Start()
 void PlacementObject::Update()
 {
 	//オブジェクトを設置する位置を計算
+	int ObjID = static_cast<int>(objParam.BlockID);
+	const char* tkmPath = m_SaveData->ObjectFilePath[ObjID];
+	if (tkmPath == nullptr)
+	{
+		CanPlace = false;
+		return;
+	}
 	CalcObjectPos();
 	//各種セット
 	m_ObjectModel->SetPosition(m_pos);
@@ -97,7 +104,8 @@ void PlacementObject::CalcObjectPos()
 
 bool PlacementObject::SetModelParams()
 {
-	auto& tkmPath = m_SaveData->ObjectFilePath[objParam.BlockID];
+	int ObjID = static_cast<int>(objParam.BlockID);
+	const char* tkmPath = m_SaveData->ObjectFilePath[ObjID];
 	if (tkmPath != nullptr)
 	{
 		m_modelInitData.m_tkmFilePath = tkmPath;
