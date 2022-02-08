@@ -9,7 +9,7 @@ namespace Engine {
 		{
 			for (auto* renderer : list)
 			{
-				renderer->OnRenderShadowMap(rc, i, LVP);
+				renderer->RenderShadowMapWrapper(rc, i, LVP);
 			}
 		}
 	}
@@ -21,7 +21,7 @@ namespace Engine {
 		{
 			for (auto* renderer : list)
 			{
-				renderer->OnRenderToGBuffer(rc);
+				renderer->RenderToGBufferWrapper(rc);
 			}
 		}
 	}
@@ -33,7 +33,7 @@ namespace Engine {
 		{
 			for (auto* renderer : list)
 			{
-				renderer->OnForwardRender(rc);
+				renderer->ForwardRenderWrapper(rc);
 			}
 		}
 	}
@@ -45,7 +45,7 @@ namespace Engine {
 		{
 			for (auto* renderer : list)
 			{
-				renderer->OnRender2D(rc);
+				renderer->Render2DWrapper(rc);
 			}
 		}
 	}

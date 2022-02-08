@@ -494,29 +494,27 @@ namespace Engine {
 		//シャドウマップの更新処理。
 		m_shadowMap->Update();
 	}
-	void CGraphicsEngine::Render(CGameObjectManager* goMgr)
+	void CGraphicsEngine::Render()
 	{
 		BeginRender();
 
-		PreRender(goMgr);
+		PreRender();
 		
-		DefferdShading(goMgr);
+		DefferdShading();
 
-		ForwardRender(goMgr);
+		ForwardRender();
 
-		PostRender(goMgr);
+		PostRender();
 
-		//Render2D();
+		Render2D();
 
 		m_fade->Update();
 		m_fade->FadeRender(m_renderContext);
 
 		EndRender();
  	}
-	void CGraphicsEngine::PreRender(CGameObjectManager* goMgr)
+	void CGraphicsEngine::PreRender()
 	{
-		//シャドウマップより前に行う処理。
-		goMgr->PreRender(m_renderContext);
 
 		//指向性シャドウ回りの処理。
 		m_shadowMap->RenderToShadowMap(m_renderContext);
@@ -527,14 +525,14 @@ namespace Engine {
 		//Gbufferに書き込みを行う。
 		m_gBuffer->Render(m_renderContext);
 	}
-	void CGraphicsEngine::DefferdShading(CGameObjectManager* goMgr)
+	void CGraphicsEngine::DefferdShading()
 	{
 		//ライト情報の更新。
 		m_lightManager->Render(m_renderContext);
 		//ディファードレンダリングを行う。
 		m_defferd->Render(m_renderContext);
 	}
-	void CGraphicsEngine::ForwardRender(CGameObjectManager* goMgr)
+	void CGraphicsEngine::ForwardRender()
 	{
 		//レンダリングステップをフォワードレンダリングにする。
 		m_renderContext.SetRenderStep(EnRenderStep::enRenderStep_ForwardRender);
@@ -545,20 +543,15 @@ namespace Engine {
 		);
 		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
 		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_gBuffer->GetRenderTarget(EnGBuffer::enGBufferAlbed));
+	
 		//フォワードレンダリングパス。
-		goMgr->ForwardRender(m_renderContext);
-
-		//auto rendererArray = GraphicsEngine()->GetRendererManager()->GetRendererArray();
-		//for (auto* renderer : rendererArray)
-		//{
-		//	renderer->OnForwardRender(m_renderContext);
-		//}
+		GraphicsEngine()->GetRendererManager()->ForwardRender(m_renderContext);
 
 		m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 
 		PhysicsWorld().DebugDrawWorld(m_renderContext);
 	}
-	void CGraphicsEngine::PostRender(CGameObjectManager* goMgr)
+	void CGraphicsEngine::PostRender()
 	{
 		//レンダリングステップをポストレンダリングにする。
 		m_renderContext.SetRenderStep(EnRenderStep::enRenderStep_PostRender);
@@ -566,23 +559,12 @@ namespace Engine {
 		//ポストエフェクトを掛ける。
 		m_postEffect->Render(m_renderContext);
 
-
-		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
-
-		goMgr->PostRender(m_renderContext);
-
-
-		m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 	}
 	void CGraphicsEngine::Render2D()
 	{
 		m_renderContext.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
 
-		//auto rendererArray = GraphicsEngine()->GetRendererManager()->GetRendererArray();
-		//for (auto* renderer : rendererArray)
-		//{
-		//	renderer->OnRender2D(m_renderContext);
-		//}
+		GraphicsEngine()->GetRendererManager()->Render2D(m_renderContext);
 
 		m_renderContext.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
 	}

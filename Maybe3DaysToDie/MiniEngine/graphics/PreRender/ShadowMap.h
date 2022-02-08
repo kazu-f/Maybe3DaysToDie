@@ -52,31 +52,6 @@ namespace Engine {
 		}
 	public:
 		/// <summary>
-		/// キャスターへ登録する。
-		/// </summary>
-		void RegistShadowCaster(prefab::ModelRender* caster) {
-			m_shadowCasters.push_back(caster);
-		}
-		/// <summary>
-		/// キャスター登録を解除する。
-		/// </summary>
-		void RemoveShadowCaster(prefab::ModelRender* caster)
-		{
-			auto it = std::find(m_shadowCasters.begin(), m_shadowCasters.end(), caster);
-			if (it != m_shadowCasters.end()){
-				m_shadowCasters.erase(it);
-			}
-		}
-
-		/// <summary>
-		/// キャスター登録をクリア。
-		/// </summary>
-		/// <remarks>エンジン内で呼び出す。</remarks>
-		void ClearShadowCaster()
-		{
-			m_shadowCasters.clear();
-		}
-		/// <summary>
 		/// 定数バッファを取得。
 		/// </summary>
 		ConstantBuffer& GetShadowMapConstantBuffer()
@@ -113,7 +88,6 @@ namespace Engine {
 			float shadowAreaDepthInViewSpace[NUM_SHADOW_MAP];	//カメラ空間での影を落とすエリアの深度テーブル。
 		};
 
-		std::vector <prefab::ModelRender*> m_shadowCasters;					//シャドウキャスターの配列。
 		Matrix m_LVPMatrix[NUM_SHADOW_MAP];							//ライトビュープロジェクション行列。
 		SShadowCb m_shadowCbEntity;
 	private:

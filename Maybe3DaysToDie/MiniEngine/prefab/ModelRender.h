@@ -11,18 +11,18 @@ namespace Engine {
 		/// <summary>
 		/// 3Dモデルを表示する機能。
 		/// </summary>
-		class ModelRender : public IGameObject
+		class ModelRender : public IRenderer
 		{
 		public:
 			/// <summary>
 			/// 開始処理
 			/// </summary>
 			/// <returns></returns>
-			bool Start() override;
+			bool SubStart() override;
 			/// <summary>
 			/// 死亡時の処理。
 			/// </summary>
-			void OnDestroy()override;
+			void SubOnDestroy()override;
 			/// <summary>
 			/// 更新処理。
 			/// </summary>
@@ -30,38 +30,35 @@ namespace Engine {
 			/// <summary>
 			/// ポスト更新処理。
 			/// </summary>
-			void PostUpdate() override
+			void PostUpdate()
 			{
+				//インスタンシング描画のデータを更新。
+				if (m_instancingDataSB.IsInited())
+				{
+					SendGPUInstancingDatas();
+				}
 			}
+
 			/// <summary>
-			/// 事前レンダリング。
+			/// シャドウマップへの描画パスから呼ばれる処理。
 			/// </summary>
-			void PreRender(RenderContext& rc)override;
+			/// <param name="rc">レンダリングコンテキスト</param>
+			/// <param name="lvpMatrix">ライトビュープロジェクション行列</param>
+			void OnRenderShadowMap(
+				RenderContext& rc,
+				int shadowMapNo,
+				const Matrix& lvpMatrix
+			);
+			/// <summary>
+			/// GBufferに描画。
+			/// </summary>
+			void OnRenderToGBuffer(RenderContext& rc)override;
 			/// <summary>
 			/// フォワードレンダリングのパスで呼ばれる処理。
 			/// </summary>
 			/// <param name="renderContext"></param>
-			void ForwardRender(RenderContext& rc) override;
-			/// <summary>
-			/// GBuffer書き込みで呼ばれる関数。
-			/// </summary>
-			/// <param name="rc">レンダリングコンテキスト。</param>
-			void RenderToGBuffer(RenderContext& rc)
-			{
-				//GBufferへ書き込む。
-				m_model.Draw(rc, m_numInstance);
-			}
-			/// <summary>
-			/// シャドウマップへの描画で呼ばれる関数。
-			/// </summary>
-			/// <param name="rc">レンダリングコンテキスト。</param>
-			/// <param name="mLVP">ライトビュープロジェクション行列。</param>
-			/// <param name="shadowMapNo">シャドウマップ番号。</param>
-			void RenderToShadowMap(RenderContext& rc, Matrix mLVP, int shadowMapNo)
-			{
-				//シャドウマップに書き込む。
-				m_shadowModel[shadowMapNo].Draw(rc, mLVP, m_numInstance);
-			}
+			void OnForwardRender(RenderContext& rc) override;
+
 		public:
 			/// <summary>
 			/// モデルの初期化処理。

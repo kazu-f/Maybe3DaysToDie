@@ -65,6 +65,34 @@ namespace Engine {
 
 			}
 
+		public:		//ラッパー関数。
+			void RenderShadowMapWrapper(
+				RenderContext& rc,
+				int shadowMapNo,
+				const Matrix& lvpMatrix)
+			{
+				if (m_isActive && m_isStart && !m_isDead && !m_isRegistDeadList && m_isRegistRenderer) {
+					OnRenderShadowMap(rc, shadowMapNo, lvpMatrix);
+				}
+			}
+			void RenderToGBufferWrapper(RenderContext& rc)
+			{
+				if (m_isActive && m_isStart && !m_isDead && !m_isRegistDeadList && m_isRegistRenderer) {
+					OnRenderToGBuffer(rc);
+				}
+			}
+			void ForwardRenderWrapper(RenderContext& rc)
+			{
+				if (m_isActive && m_isStart && !m_isDead && !m_isRegistDeadList && m_isRegistRenderer) {
+					OnForwardRender(rc);
+				}
+			}
+			void Render2DWrapper(RenderContext& rc)
+			{
+				if (m_isActive && m_isRegistRenderer && !m_isDead && !m_isRegistDeadList && m_isRegistRenderer) {
+					OnRender2D(rc);
+				}
+			}
 		private:
 			bool m_isRegistRenderer = false;		//レンダラーが登録されているか。
 		};

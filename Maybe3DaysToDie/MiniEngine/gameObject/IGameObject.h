@@ -78,34 +78,34 @@ namespace Engine {
 		/// </summary>
 		virtual void PostUpdate() {}
 	public:		//描画関係の処理。
-		/// <summary>
-		/// シャドウマップへのレンダリングパスから呼ばれる描画処理。
-		/// </summary>
-		virtual void PreRender(RenderContext& rc)
-		{
-			(void)rc;
-		}
-		/// <summary>
-		/// フォワードレンダリング。
-		/// </summary>
-		/// <remarks>
-		/// 特殊なシェーディングを行うものをレンダリングする。
-		/// 通常のレンダリングには物理ベースシェーダーが使用されている？
-		/// </remarks>
-		virtual void ForwardRender(RenderContext& rc)
-		{
-			(void)rc;
-		}
-		/// <summary>
-		/// ポストレンダリング。
-		/// </summary>
-		/// <remarks>
-		/// ポストエフェクトの後で実行される。ポストエフェクトの影響を受けたくない描画物をレンダリングする。
-		/// </remarks>
-		virtual void PostRender(RenderContext& rc)
-		{
-			(void)rc;
-		}
+		///// <summary>
+		///// シャドウマップへのレンダリングパスから呼ばれる描画処理。
+		///// </summary>
+		//virtual void PreRender(RenderContext& rc)
+		//{
+		//	(void)rc;
+		//}
+		///// <summary>
+		///// フォワードレンダリング。
+		///// </summary>
+		///// <remarks>
+		///// 特殊なシェーディングを行うものをレンダリングする。
+		///// 通常のレンダリングには物理ベースシェーダーが使用されている？
+		///// </remarks>
+		//virtual void ForwardRender(RenderContext& rc)
+		//{
+		//	(void)rc;
+		//}
+		///// <summary>
+		///// ポストレンダリング。
+		///// </summary>
+		///// <remarks>
+		///// ポストエフェクトの後で実行される。ポストエフェクトの影響を受けたくない描画物をレンダリングする。
+		///// </remarks>
+		//virtual void PostRender(RenderContext& rc)
+		//{
+		//	(void)rc;
+		//}
 
 		/// <summary>
 		/// 削除されるときに呼ばれる。
@@ -252,24 +252,6 @@ namespace Engine {
 			}
 
 			OnDestroy();
-		}
-		void PreRenderWrapper(RenderContext& rc)
-		{
-			if (m_isActive && m_isStart && !m_isDead && !m_isRegistDeadList) {
-				PreRender(rc);
-			}
-		}
-		void ForwardRenderWrapper(RenderContext& rc)
-		{
-			if (m_isActive && m_isStart && !m_isDead && !m_isRegistDeadList) {
-				ForwardRender(rc);
-			}
-		}
-		void PostRenderWrapper(RenderContext& rc)
-		{
-			if (m_isActive && m_isStart && !m_isDead && !m_isRegistDeadList) {
-				PostRender(rc);
-			}
 		}
 
 		friend class CGameObjectManager;

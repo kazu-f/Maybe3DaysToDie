@@ -23,7 +23,7 @@ namespace nsTerrain {
 		bool Start()override final;
 		void Update()override final;
 		void OnDestroy()override final;
-		void ForwardRender(RenderContext& rc) override final;
+		//void ForwardRender(RenderContext& rc) override final;
 	
 	public:
 		/// <summary>

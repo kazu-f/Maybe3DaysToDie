@@ -131,8 +131,4 @@ namespace nsTerrain {
 			}
 		}
 	}
-	void TerrainManager::ForwardRender(RenderContext& rc)
-	{
-		//m_NVMGenerator.DebugDraw(m_terrainWorlds[0][0]->GetTerrainRender());
-	}
 }

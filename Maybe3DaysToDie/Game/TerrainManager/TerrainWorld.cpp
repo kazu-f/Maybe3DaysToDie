@@ -51,13 +51,13 @@ namespace nsTerrain {
 	{
 		DeleteGO(m_terrainRender);
 	}
-	void TerrainWorld::ForwardRender(RenderContext& rc)
-	{
-		if (m_isNVMDebug)
-		{
-			m_nvmDebugDraw->Render(m_indexCount);
-		}
-	}
+	//void TerrainWorld::ForwardRender(RenderContext& rc)
+	//{
+	//	if (m_isNVMDebug)
+	//	{
+	//		m_nvmDebugDraw->Render(m_indexCount);
+	//	}
+	//}
 
 	void TerrainWorld::CreateNVM()
 	{

@@ -20,7 +20,6 @@
 #include "camera/Camera.h"
 
 namespace Engine {
-	class CGameObjectManager;
 	class CLightManager;
 	class CShadowMap;
 	class CGBufferRender;
@@ -60,25 +59,25 @@ namespace Engine {
 		/// <summary>
 		/// 描画を行う。
 		/// </summary>
-		void Render(CGameObjectManager* goMgr);
+		void Render();
 	private:
 		/// <summary>
 		/// プレレンダリング。
 		/// </summary>
-		void PreRender(CGameObjectManager* goMgr);
+		void PreRender();
 		/// <summary>
 		/// ディファード。
 		/// </summary>
 		/// <param name="goMgr"></param>
-		void DefferdShading(CGameObjectManager* goMgr);
+		void DefferdShading();
 		/// <summary>
 		/// フォワードレンダリング。
 		/// </summary>
-		void ForwardRender(CGameObjectManager* goMgr);
+		void ForwardRender();
 		/// <summary>
 		/// ポストレンダリング。
 		/// </summary>
-		void PostRender(CGameObjectManager* goMgr);
+		void PostRender();
 		/// <summary>
 		/// 2D描画。
 		/// </summary>
