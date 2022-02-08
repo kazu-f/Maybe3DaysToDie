@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameScene.h"
 #include "Scene\TerrainDebugScene.h"
+#include "Item/ItemDataFile.h"
 
 //1フレームの経過時間を出力する。
 #define CALC_TIME
@@ -43,6 +44,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//マウスカーソルの表示を消す
 	ShowCursor(false);
 
+	//アイテムデータファイルのインスタンスを作成
+	ItemDataFile::CreateInstance();
 	NewGO<CGameScene>(0);
 	//NewGO<TerrainDebugScene>(0);
 #ifdef CALC_TIME

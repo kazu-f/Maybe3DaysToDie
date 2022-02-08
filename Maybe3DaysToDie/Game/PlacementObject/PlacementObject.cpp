@@ -3,6 +3,7 @@
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "SaveDataFile.h"
 #include "RayTest.h"
+#include "Item/ItemDataFile.h"
 
 PlacementObject::PlacementObject()
 {
@@ -105,6 +106,7 @@ void PlacementObject::CalcObjectPos()
 bool PlacementObject::SetModelParams()
 {
 	ObjID = static_cast<int>(objParam.BlockID);
+	const auto& dataFile = ItemDataFile::GetInstance();
 	if (ObjID < 0 || ObjID > BlockKinds)
 	{
 		//ブロックIDがマイナスか最大値より大きいときreturn
