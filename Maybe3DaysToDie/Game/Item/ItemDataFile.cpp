@@ -6,6 +6,8 @@
 #include "Item/GameItemFoods.h"
 #include "Item/GameItemMaterial.h"
 
+ItemDataFile* ItemDataFile::m_instance = nullptr;
+
 namespace {
 	enum EnItemType
 	{
@@ -87,10 +89,13 @@ namespace {
 
 ItemDataFile::ItemDataFile()
 {
+	//シングルトン。
+	assert(m_instance == nullptr);	
 }
 
 ItemDataFile::~ItemDataFile()
 {
+	m_instance = nullptr;
 }
 
 void ItemDataFile::InitItemData(const char* filePath)
@@ -205,5 +210,5 @@ void ItemDataFile::InitItemData(const char* filePath)
 
 	}
 
-
+	m_arraySize = m_itemArray.size();
 }
