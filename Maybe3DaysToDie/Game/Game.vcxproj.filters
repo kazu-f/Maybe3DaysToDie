@@ -124,10 +124,11 @@
     <ClCompile Include="IK\FootIK.cpp" />
     <ClCompile Include="Player\Inventory.cpp" />
     <ClCompile Include="Title\TitleScene.cpp" />
-    <ClCompile Include="Player\PlayerDead.cpp" />
+    <ClCompile Include="Player\state\PlayerDead.cpp" />
     <ClCompile Include="Item\ItemDataFile.cpp">
       <Filter>Tool</Filter>
     </ClCompile>
+    <ClCompile Include="Player\state\IPlayerState.cpp" />
     <ClCompile Include="Item\GameItemFoods.cpp" />
     <ClCompile Include="Item\GameItemMaterial.cpp" />
   </ItemGroup>
@@ -383,10 +384,11 @@
     <ClInclude Include="IK\FootIK.h" />
     <ClInclude Include="Player\Inventory.h" />
     <ClInclude Include="Title\TitleScene.h" />
-    <ClInclude Include="Player\PlayerDead.h" />
+    <ClInclude Include="Player\state\PlayerDead.h" />
     <ClInclude Include="Item\ItemDataFile.h">
       <Filter>Tool</Filter>
     </ClInclude>
+    <ClInclude Include="Player\state\IPlayerState.h" />
     <ClInclude Include="Item\GameItemFoods.h" />
     <ClInclude Include="Item\GameItemMaterial.h" />
   </ItemGroup>
