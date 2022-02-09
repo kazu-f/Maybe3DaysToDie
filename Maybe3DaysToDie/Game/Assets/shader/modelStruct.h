@@ -1,3 +1,4 @@
+#include "GBufferStruct.h"
 
 //スキニング用の頂点データをひとまとめ。
 struct SSkinVSIn {
@@ -25,22 +26,13 @@ struct SPSIn {
 	float3 worldPos : TEXCOORD1;	//ワールド空間でのピクセルの座標。
 };
 
-//GBufferに書き込むための構造体。
-struct PSOut_GBuffer {
-	float4 albedo : SV_Target0;		//アルベドカラー。
-	float4 normal : SV_Target1;		//法線。
-	float4 worldPos : SV_Target2;	//ワールド座標。
-	float4 specMap : SV_Target3;		//スペキュラ。
-	float shadow : SV_Target4;		//シャドウ。
-	float2 reflection : SV_Target5;	//反射率。
-};
-
 //シャドウマップ用の頂点シェーダーへの入力。
 struct SShadowMapVSIn {
 	float4 pos : POSITION;
 	float2 uv : TEXCOORD0;	//uv座標。
 	SSkinVSIn skinVert;
 };
+
 //シャドウマップ用のピクセルシェーダーへの入力。
 struct SShadowMapPSIn {
 	float4 pos : SV_POSITION;

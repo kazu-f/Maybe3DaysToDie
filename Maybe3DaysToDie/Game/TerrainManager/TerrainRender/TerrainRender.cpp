@@ -51,8 +51,8 @@ namespace nsTerrain {
 	}
 	void TerrainRender::InitShader()
 	{
-		m_vsTerrain.LoadVS(L"Assets/shader/Terrain.fx", "VSMain");
-		m_psTerrain.LoadPS(L"Assets/shader/Terrain.fx", "PSMain");
+		m_vsTerrain.LoadVS(L"Assets/shader/Terrain.fx", "VSTerrainMain");
+		m_psTerrain.LoadPS(L"Assets/shader/Terrain.fx", "PSTerrainMain");
 	}
 	void TerrainRender::InitPipelineState()
 	{
@@ -105,26 +105,21 @@ namespace nsTerrain {
 			m_terrainTex = new Texture;
 			//m_terrainTex->InitFromDDSFile(L"Assets/modelData/Terrain/DirtTexture.dds");
 			m_terrainTex->InitFromDDSFile(L"Assets/modelData/CubeBlock/T_GroundDirt_01_D.DDS");
+			ResourceEngine().RegistTextureToBank("Assets/modelData/CubeBlock/T_GroundDirt_01_D.DDS", m_terrainTex);
 		}
-
-		//if (m_terrainTex == nullptr)
-		//{
-		//	filePath = nullTexMaps.GetAlbedoMapFilePath();
-		//	map = nullTexMaps.GetAlbedoMap().get();
-		//	mapSize = nullTexMaps.GetAlbedoMapSize();
-		//	//取得できなければ新しく作成し登録。
-		//	m_terrainTex = new Texture;
-		//	m_terrainTex->InitFromMemory(map, mapSize);
-		//	ResourceEngine().RegistTextureToBank(filePath, m_terrainTex);
-		//}
 	}
 	void TerrainRender::InitDescriptorHeap()
 	{
 		m_descriptorHeap.RegistConstantBuffer(0, m_cbTerrain);
 		m_descriptorHeap.RegistConstantBuffer(1, GraphicsEngine()->GetLightManager()->GetLightParamConstantBuffer());		//ライトの設定(1番)。
+		m_descriptorHeap.RegistConstantBuffer(3, GraphicsEngine()->GetShadowMap()->GetShadowMapConstantBuffer());		//シャドウマップの設定(3番)。
 
 		m_descriptorHeap.RegistShaderResource(0, *m_terrainTex);
 		m_descriptorHeap.RegistShaderResource(1, GraphicsEngine()->GetLightManager()->GetDirectionLightStructuredBuffer());	//ライトの設定(1番)。
+
+		m_descriptorHeap.RegistShaderResource(6, *GraphicsEngine()->GetShadowMap()->GetShadowMapTexture(0));
+		m_descriptorHeap.RegistShaderResource(7, *GraphicsEngine()->GetShadowMap()->GetShadowMapTexture(1));
+		m_descriptorHeap.RegistShaderResource(8, *GraphicsEngine()->GetShadowMap()->GetShadowMapTexture(2));
 
 		m_descriptorHeap.Commit();
 	}
@@ -136,6 +131,7 @@ namespace nsTerrain {
 		cbTerrain.mWorld = m_world;
 		cbTerrain.mView = MainCamera().GetViewMatrix();
 		cbTerrain.mProj = MainCamera().GetProjectionMatrix();
+		cbTerrain.isShadowReceiver = 1;
 		//定数バッファにコピー。
 		m_cbTerrain.CopyToVRAM(&cbTerrain);
 

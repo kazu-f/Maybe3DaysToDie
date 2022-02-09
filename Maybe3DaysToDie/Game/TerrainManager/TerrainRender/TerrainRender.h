@@ -125,6 +125,7 @@ namespace nsTerrain {
 			Matrix mWorld;  //ワールド行列。
 			Matrix mView;	//ビュー行列。
 			Matrix mProj;	//プロジェクション行列。
+			int isShadowReceiver = 0;		//シャドウレシーバーフラグ。
 		};
 
 	private:
