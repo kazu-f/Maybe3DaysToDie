@@ -39,6 +39,8 @@ bool PlacementObject::Start()
 	//アクティブを切る
 	m_ObjectModel->SetActiveFlag(false);
 
+	m_TerrainManager = FindGO<nsTerrain::TerrainManager>("Terrain");
+
 	return true;
 }
 
@@ -172,7 +174,8 @@ void PlacementObject::PlaceObject()
 				break;
 
 			case ObjectType::Terrain:
-				int i = 0;
+				auto* terrain = m_TerrainManager->GetTerrainChunkData(ID[0], ID[1]).GetTerrainData(id_x, id_y, id_z);
+				terrain->AddBlock(objParam, m_pos, rot, scale);
 				break;
 			}
 		}

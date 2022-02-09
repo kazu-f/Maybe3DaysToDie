@@ -55,12 +55,14 @@ namespace nsTerrain {
 		/// <param name="scale">Šg‘å—¦</param>
 		void AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)override final
 		{
-			m_params = params;
+			SetParams(params);
+			CalcVoxel();
 		}
 
 	private:
 		void CalcVoxel();
 
+		void UpdateChunkData();
 	private:
 
 
