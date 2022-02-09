@@ -17,12 +17,12 @@ namespace nsTerrain {
 
 	};
 
-	class TerrainRender : public IGameObject
+	class TerrainRender : public prefab::IRenderer
 	{
 	public:
-		bool Start()override final;
+		bool SubStart()override final;
 		void Update()override final;
-		void ForwardRender(RenderContext& rc)override final;
+		void OnForwardRender(RenderContext& rc)override final;
 		/// <summary>
 		/// ‰Šú‰»B
 		/// </summary>

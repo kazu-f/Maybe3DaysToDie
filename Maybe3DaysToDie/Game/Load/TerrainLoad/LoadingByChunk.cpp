@@ -346,6 +346,10 @@ void LoadingByChunk::UpdateModels()
 
 	for (int BlockID = 0; BlockID < BlockKinds; BlockID++)
 	{
+		if (m_SaveDataFile->ObjectFilePath[BlockID] == nullptr)
+		{
+			return;
+		}
 		//インスタンシングデータをリセット
 		BlockModel[BlockID]->ResetInstancingDatas();
 		for (int x = 0; x < LoadingChunks; x++)

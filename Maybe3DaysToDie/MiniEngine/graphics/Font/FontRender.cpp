@@ -2,7 +2,7 @@
 #include "FontRender.h"
 
 namespace Engine {
-	void CFontRender::PostRender(RenderContext& rc)
+	void CFontRender::OnRender2D(RenderContext& rc)
 	{
 		//フォントの描画設定。
 		m_font.Begin();

@@ -2,7 +2,7 @@
 #include "TerrainRender.h"
 
 namespace nsTerrain {
-	bool TerrainRender::Start()
+	bool TerrainRender::SubStart()
 	{
 
 		return true;
@@ -129,7 +129,7 @@ namespace nsTerrain {
 		m_descriptorHeap.Commit();
 	}
 
-	void TerrainRender::ForwardRender(RenderContext& rc)
+	void TerrainRender::OnForwardRender(RenderContext& rc)
 	{
 		//カメラを定数バッファで送る。
 		SCBTerrin cbTerrain;

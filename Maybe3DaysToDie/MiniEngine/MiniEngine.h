@@ -65,6 +65,7 @@ const int MAX_RENDERING_TARGET = D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT;	//ƒŒƒ“ƒ
 #include "gameObject/GameObjectManager.h"
 
 
+#include "graphics/IRenderer.h"
 #include "graphics/2D/Sprite.h"
 #include "graphics/Font/FontRender.h"
 
@@ -98,6 +99,7 @@ const int MAX_RENDERING_TARGET = D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT;	//ƒŒƒ“ƒ
 #include "Sound/SoundSource.h"
 #include "prefab/nature/Sky.h"
 
+#include "graphics/RendererManager.h"
 #include "graphics/PreRender/ShadowMap.h"
 #include "graphics/PreRender/GBufferRender.h"
 #include "graphics/defferd/DefferdShading.h"

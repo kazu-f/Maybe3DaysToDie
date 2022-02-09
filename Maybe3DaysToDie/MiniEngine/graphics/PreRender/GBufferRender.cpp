@@ -111,10 +111,7 @@ namespace Engine {
 	{
 		BeginRender(rc);
 
-		for (auto* model : m_defferdModelArray)
-		{
-			model->RenderToGBuffer(rc);
-		}
+		GraphicsEngine()->GetRendererManager()->RenderToGBuffer(rc);
 
 		EndRender(rc);
 	}

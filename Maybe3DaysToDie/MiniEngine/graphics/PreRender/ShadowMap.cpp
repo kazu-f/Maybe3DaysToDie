@@ -67,14 +67,10 @@ namespace Engine {
 			rc.ClearDepthStencilView(m_shadowMaps[i].GetDSVCpuDescriptorHandle(), clearColor);
 
 			//影をドロー
-			for (auto& caster : m_shadowCasters) {
-				caster->RenderToShadowMap(rc,m_LVPMatrix[i],i);
-			}
+			GraphicsEngine()->GetRendererManager()->RenderToShadowMap(rc, m_LVPMatrix[i], i);
+
 			rc.WaitUntilFinishDrawingToRenderTarget(m_shadowMaps[i]);
 		}
-
-		//シャドウキャスター登録をクリア。
-		ClearShadowCaster();
 	}
 	void CShadowMap::WaitEndRenderToShadowMap(RenderContext& rc)
 	{

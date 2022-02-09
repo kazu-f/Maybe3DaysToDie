@@ -3,6 +3,7 @@
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "SaveDataFile.h"
 #include "RayTest.h"
+#include "Item/ItemDataFile.h"
 
 PlacementObject::PlacementObject()
 {
@@ -44,6 +45,13 @@ bool PlacementObject::Start()
 void PlacementObject::Update()
 {
 	//オブジェクトを設置する位置を計算
+	ObjID = static_cast<int>(objParam.BlockID);
+	if (ObjID < 0 || ObjID > BlockKinds)
+	{
+		//ブロックIDがマイナスか最大値より大きいときreturn
+		CanPlace = false;
+		return;
+	}
 	CalcObjectPos();
 	//各種セット
 	m_ObjectModel->SetPosition(m_pos);
@@ -97,13 +105,20 @@ void PlacementObject::CalcObjectPos()
 
 bool PlacementObject::SetModelParams()
 {
-	auto& tkmPath = m_SaveData->ObjectFilePath[objParam.BlockID];
-	if (tkmPath != nullptr)
+	ObjID = static_cast<int>(objParam.BlockID);
+	const auto& dataFile = ItemDataFile::GetInstance();
+	//todo ItemDataFileから取得してくる
+	if (ObjID < 0 || ObjID > BlockKinds)
 	{
+		//ブロックIDがマイナスか最大値より大きいときreturn
+		return false;
+	}
+	else
+	{
+		const char* tkmPath = m_SaveData->ObjectFilePath[ObjID];
 		m_modelInitData.m_tkmFilePath = tkmPath;
 		return true;
 	}
-	return false;
 }
 
 //todo [最適化]後で処理見直せ

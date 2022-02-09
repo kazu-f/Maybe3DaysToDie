@@ -11,7 +11,7 @@
 #include "Font.h"
 
 namespace Engine {
-	class CFontRender : public IGameObject
+	class CFontRender : public prefab::IRenderer
 	{
 	public:
 		/// <summary>
@@ -99,7 +99,7 @@ namespace Engine {
 			m_font.SetShadowParam(isDrawShadow, shadowOffset, shadowColor);
 		}
 	private:
-		void PostRender(RenderContext& rc) override;
+		void OnRender2D(RenderContext& rc) override;
 	private:
 		CFont			m_font;								//フォント。
 		std::wstring	m_text;								//テキスト。

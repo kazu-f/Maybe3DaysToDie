@@ -19,6 +19,11 @@ public:		//シングルトン。
 		if(m_instance != nullptr) delete m_instance;
 	}
 
+	static ItemDataFile* GetInstance()
+	{
+		return m_instance;
+	}
+
 private:
 	static ItemDataFile* m_instance;
 

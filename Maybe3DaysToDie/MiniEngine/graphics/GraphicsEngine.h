@@ -20,13 +20,13 @@
 #include "camera/Camera.h"
 
 namespace Engine {
-	class CGameObjectManager;
 	class CLightManager;
 	class CShadowMap;
 	class CGBufferRender;
 	class CDefferdShading;
 	class CPostEffect;
 	class CFade;
+	class CRendererManager;
 
 	/// <summary>
 	/// DirectX12に依存するグラフィックスエンジン
@@ -59,25 +59,29 @@ namespace Engine {
 		/// <summary>
 		/// 描画を行う。
 		/// </summary>
-		void Render(CGameObjectManager* goMgr);
+		void Render();
 	private:
 		/// <summary>
 		/// プレレンダリング。
 		/// </summary>
-		void PreRender(CGameObjectManager* goMgr);
+		void PreRender();
 		/// <summary>
 		/// ディファード。
 		/// </summary>
 		/// <param name="goMgr"></param>
-		void DefferdShading(CGameObjectManager* goMgr);
+		void DefferdShading();
 		/// <summary>
 		/// フォワードレンダリング。
 		/// </summary>
-		void ForwardRender(CGameObjectManager* goMgr);
+		void ForwardRender();
 		/// <summary>
 		/// ポストレンダリング。
 		/// </summary>
-		void PostRender(CGameObjectManager* goMgr);
+		void PostRender();
+		/// <summary>
+		/// 2D描画。
+		/// </summary>
+		void Render2D();
 		/// <summary>
 		/// レンダリング開始。
 		/// </summary>
@@ -185,6 +189,13 @@ namespace Engine {
 		FontEngine& GetFontEngine()
 		{
 			return m_fontEngine;
+		}
+		/// <summary>
+		/// レンダラーマネージャーの取得。
+		/// </summary>
+		std::unique_ptr<CRendererManager>& GetRendererManager()
+		{
+			return m_rendererManager;
 		}
 		/// <summary>
 		/// ライトマネージャーの取得。
@@ -353,6 +364,7 @@ namespace Engine {
 		Camera m_camera3D;					//3Dカメラ。
 		Camera m_cameraPostEffect;			//ポストエフェクト用カメラ。
 		NullTextureMaps m_nullTexMaps;						//NULLテクスチャ管理オブジェクト。
+		std::unique_ptr<CRendererManager> m_rendererManager;//レンダラーマネージャー。
 		std::unique_ptr<CLightManager> m_lightManager;		//ライトマネージャー。
 		std::unique_ptr<CShadowMap> m_shadowMap;			//指向性シャドウマップ。
 		std::unique_ptr<CGBufferRender> m_gBuffer;			//GBuffer。

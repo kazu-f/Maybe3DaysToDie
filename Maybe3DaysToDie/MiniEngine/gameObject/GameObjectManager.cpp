@@ -43,7 +43,7 @@ namespace Engine {
 			}
 		}
 	}
-
+	/*
 	void CGameObjectManager::ForwardRender(RenderContext& rc)
 	{
 		for (auto objList : m_gameObjectListArray) {
@@ -70,7 +70,7 @@ namespace Engine {
 			}
 		}
 	}
-
+	*/
 	void CGameObjectManager::ExecuteDeleteGameObjects()
 	{
 		int preBufferNo = m_currentDeleteObjectBufferNo;
@@ -106,7 +106,7 @@ namespace Engine {
 		//•`‰æŒn‚Ìˆ—B
 		{
 			GraphicsEngine()->PreRenderUpdate();
-			GraphicsEngine()->Render(this);
+			GraphicsEngine()->Render();
 		}
 
 		ExecuteDeleteGameObjects();		//íœˆ—B
