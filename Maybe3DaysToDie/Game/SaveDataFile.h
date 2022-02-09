@@ -16,5 +16,6 @@ public:
 	ChunkData m_ChunkData[MAX_CHUNK_SIDE][MAX_CHUNK_SIDE];
 	//ツールが使えないので仮置き
 	const char* ObjectFilePath[BlockKinds] = { nullptr };
+	ObjectType ObjectType[BlockKinds] = { ObjectType::Terrain };
 	AccessTag ObjectAccessTag[BlockKinds] = { AccessTag::NonAccess};
 };

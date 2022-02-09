@@ -12,6 +12,11 @@ enum ToolKinds {
 	DebugTool = 0xffffffff,		//デバッグ用ツール
 };
 
+enum ObjectType {
+	Terrain = 0,		//地形
+	Block = 1<<0,		//ブロック
+};
+
 //アクセスできるオブジェクトの種類
 enum AccessTag {
 	NonAccess = 0,		//アクセスできない
