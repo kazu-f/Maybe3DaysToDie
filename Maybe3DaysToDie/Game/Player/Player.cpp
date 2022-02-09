@@ -88,7 +88,10 @@ void Player::Update()
 		m_Camera->SetMovingMouse(false);
 		break;
 	}
+	if (PlayerState != nullptr) {
 	PlayerState->Update();
+
+	}
 	if (GetAsyncKeyState('e')) {
 		m_AccessObject->Access();
 	}

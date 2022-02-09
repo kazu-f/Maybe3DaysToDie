@@ -13,7 +13,7 @@ class IPlayerState;
 class Player : public IGameObject
 {
 public :
-	Player(){}
+	Player():m_Dead(this){}
 private:
 	//配列用の定数
 	//なんとなくマジックナンバーが嫌だったので定数化
