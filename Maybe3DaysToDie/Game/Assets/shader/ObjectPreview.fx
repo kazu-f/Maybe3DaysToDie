@@ -1,3 +1,4 @@
+#include "ShaderSampler.h"
 #include "modelStruct.h"
 #include "modelCB.h"
 #include "CalcShadow.h"
