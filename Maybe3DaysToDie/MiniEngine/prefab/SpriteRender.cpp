@@ -3,7 +3,7 @@
 
 namespace Engine {
 	namespace prefab {
-		bool CSpriteRender::Start()
+		bool CSpriteRender::SubStart()
 		{
 			//初期化済み？
 			return m_isInited;
@@ -29,7 +29,7 @@ namespace Engine {
 			m_isInited = true;				//初期化済み。
 		}
 
-		void CSpriteRender::ForwardRender(RenderContext& rc)
+		void CSpriteRender::OnForwardRender(RenderContext& rc)
 		{
 			//3D空間で描画する。
 			if (m_isDraw3D) {
@@ -37,7 +37,7 @@ namespace Engine {
 			}
 		}
 
-		void CSpriteRender::PostRender(RenderContext& rc)
+		void CSpriteRender::OnRender2D(RenderContext& rc)
 		{
 			//2D描画をする。
 			if (!m_isDraw3D)

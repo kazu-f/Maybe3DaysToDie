@@ -253,13 +253,15 @@ namespace Engine {
 		}
 
 	public:
+		/*
+			//サポート終了。
 		/// <summary>
 		/// 描画関係の更新処理はグラフィックエンジンから呼び出す。
 		/// </summary>
 		void ForwardRender(RenderContext& rc);
 		void PreRender(RenderContext& rc);
 		void PostRender(RenderContext& rc);
-
+		*/
 	private:
 		typedef std::list<IGameObject*> GameObjectList;			//!<ゲームオブジェクト*のリスト。
 		std::vector<GameObjectList> m_gameObjectListArray;		//!<優先度付きのゲームオブジェクトリスト。
