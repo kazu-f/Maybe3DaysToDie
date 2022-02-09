@@ -107,6 +107,7 @@ bool PlacementObject::SetModelParams()
 {
 	ObjID = static_cast<int>(objParam.BlockID);
 	const auto& dataFile = ItemDataFile::GetInstance();
+	//todo ItemDataFileから取得してくる
 	if (ObjID < 0 || ObjID > BlockKinds)
 	{
 		//ブロックIDがマイナスか最大値より大きいときreturn
