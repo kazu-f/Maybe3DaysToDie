@@ -131,7 +131,7 @@ void ChunkBlock::RemoveBlock(Block* blockptr)
 	ChunkBlockDirty = true;
 	m_IsModelUpdated = true;
 	int BlockID = static_cast<int>(blockptr->GetParam().BlockID);
-	if (BlockID < 0 || BlockID > BlockKinds)
+	if (BlockID < 0 || BlockID >= BlockKinds)
 	{
 		//ブロックIDがマイナスか最大値より大きいときreturn
 		return;

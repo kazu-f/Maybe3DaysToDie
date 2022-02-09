@@ -46,7 +46,7 @@ void PlacementObject::Update()
 {
 	//オブジェクトを設置する位置を計算
 	ObjID = static_cast<int>(objParam.BlockID);
-	if (ObjID < 0 || ObjID > BlockKinds)
+	if (ObjID < 0 || ObjID >= BlockKinds)
 	{
 		//ブロックIDがマイナスか最大値より大きいときreturn
 		CanPlace = false;
@@ -107,7 +107,8 @@ bool PlacementObject::SetModelParams()
 {
 	ObjID = static_cast<int>(objParam.BlockID);
 	const auto& dataFile = ItemDataFile::GetInstance();
-	if (ObjID < 0 || ObjID > BlockKinds)
+	//todo ItemDataFileから取得してくる
+	if (ObjID < 0 || ObjID >= BlockKinds)
 	{
 		//ブロックIDがマイナスか最大値より大きいときreturn
 		return false;
@@ -164,7 +165,16 @@ void PlacementObject::PlaceObject()
 			chunkData.ObjData[id_x][id_y][id_z].ObjId = objParam.BlockID;
 			chunkData.ObjData[id_x][id_y][id_z].ObjDurable = objParam.Durable;
 			auto& block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
-			block.AddBlock(objParam, m_pos, rot, scale);
+			switch (m_SaveData->ObjectType[objParam.BlockID])
+			{
+			case ObjectType::Block:
+				block.AddBlock(objParam, m_pos, rot, scale);
+				break;
+
+			case ObjectType::Terrain:
+				int i = 0;
+				break;
+			}
 		}
 	}
 }

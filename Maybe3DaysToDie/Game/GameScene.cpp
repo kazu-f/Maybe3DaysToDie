@@ -95,14 +95,23 @@ bool CGameScene::Start()
 	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
 	m_PlacementObject->SetSaveData(&m_SaveDataFile);
 	m_DestroyObject->SetSaveData(&m_SaveDataFile);
-	m_SaveDataFile.ObjectFilePath[0] = "Assets/modelData/CubeBlock/woodBlock.tkm";
-	m_SaveDataFile.ObjectFilePath[1] = "Assets/modelData/CubeBlock/BookBlock.tkm";
-	m_SaveDataFile.ObjectFilePath[2] = "Assets/modelData/CubeBlock/ShelfBlock.tkm";
-	m_SaveDataFile.ObjectFilePath[3] = "Assets/modelData/CubeBlock/CardBoard.tkm";
+	m_SaveDataFile.ObjectFilePath[0] = "Assets/modelData/DiamondBlock/DirtModel.tkm";
+	m_SaveDataFile.ObjectFilePath[1] = "Assets/modelData/CubeBlock/woodBlock.tkm";
+	m_SaveDataFile.ObjectFilePath[2] = "Assets/modelData/CubeBlock/BookBlock.tkm";
+	m_SaveDataFile.ObjectFilePath[3] = "Assets/modelData/CubeBlock/ShelfBlock.tkm";
+	m_SaveDataFile.ObjectFilePath[4] = "Assets/modelData/CubeBlock/CardBoard.tkm";
 	m_SaveDataFile.ObjectAccessTag[0] = AccessTag::NonAccess;
 	m_SaveDataFile.ObjectAccessTag[1] = AccessTag::NonAccess;
 	m_SaveDataFile.ObjectAccessTag[2] = AccessTag::NonAccess;
-	m_SaveDataFile.ObjectAccessTag[3] = AccessTag::Root;
+	m_SaveDataFile.ObjectAccessTag[3] = AccessTag::NonAccess;
+	m_SaveDataFile.ObjectAccessTag[4] = AccessTag::Root;
+	m_SaveDataFile.ObjectType[0] = ObjectType::Terrain;
+	m_SaveDataFile.ObjectType[1] = ObjectType::Block;
+	m_SaveDataFile.ObjectType[2] = ObjectType::Block;
+	m_SaveDataFile.ObjectType[3] = ObjectType::Block;
+	m_SaveDataFile.ObjectType[4] = ObjectType::Block;
+
+
 	//ワールドデータ関係を記録する
 	m_ItemBar->SetWorldData(
 		m_PlacementObject,
@@ -116,6 +125,7 @@ bool CGameScene::Start()
 	);
 	m_AccessObject.SetSaveData(&m_SaveDataFile);
 	m_Player->SetAccessObject(&m_AccessObject);
+	MauseInfo::Create();
 	return true;
 }
 
@@ -127,13 +137,6 @@ void CGameScene::Update()
 		m_TerrainSave.SetTerrainWorld(nullptr);
 		m_TerrainSave.Save();
 	}
-	//if (GetAsyncKeyState('F'))
-	//{
-	//	m_AccessObject.Access();
-	//}
-	//if (GetAsyncKeyState(VK_END))
-	//{
-	//	m_AccessObject.EndAccess();
-	//}
+	
 
 }

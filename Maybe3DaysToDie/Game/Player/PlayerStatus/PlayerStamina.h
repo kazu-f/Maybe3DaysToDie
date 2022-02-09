@@ -55,6 +55,9 @@ public:
 		}
 		return false;
 	}
+	void Reset() {
+		m_Stamina = m_MaxStamina;
+	}
 private:
 	float m_RegeneTime = 1.0f;				//リジェネできる一定時間
 	float m_nowRegeneTimer = 0.0f;			//一定時間以上になるとリジェネできる

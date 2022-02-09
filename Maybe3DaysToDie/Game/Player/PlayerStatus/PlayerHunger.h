@@ -31,6 +31,10 @@ public:
 	void SetPlayer(Player* pp) {
 		m_Player = pp;
 	}
+
+	void Reset() {
+		m_Hunder = m_MaxHunger;
+	}
 private:
 	/// <summary>
 	/// Œ»İ‚Ì‹ó• ƒQ[ƒW‚ğ‰Šú‰»‚·‚é

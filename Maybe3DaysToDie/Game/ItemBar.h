@@ -48,7 +48,6 @@ public:
 		m_Player = pl;
 	}
 private:
-	LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 	void ItemSlotKey(int vKey,int slot);
 private:
 	prefab::CSpriteRender* m_ItemIcon = nullptr;

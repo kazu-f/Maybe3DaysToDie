@@ -50,6 +50,10 @@ public:
 		}
 		return m_Hp;
 	}
+
+	void Reset() {
+		m_Hp = m_MaxHp;
+	}
 private:
 	/// <summary>
 	/// 現在のHPスプライトを初期化
