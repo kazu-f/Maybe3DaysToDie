@@ -79,7 +79,8 @@ namespace nsTerrain {
 		{
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 			{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXTYPE", 0 , DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 32, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
 		};
 
 		//パイプラインステートを作成。
@@ -119,18 +120,18 @@ namespace nsTerrain {
 	{
 		const auto& nullTexMaps = GraphicsEngine()->GetNullTextureMaps();
 
-		const char* filePath = nullptr;
-		char* map = nullptr;
-		unsigned int mapSize;
-		//m_terrainTex = ResourceEngine().GetTextureFromBank("Assets/modelData/Terrain/DirtTexture.dds");
-		m_terrainTex = ResourceEngine().GetTextureFromBank("Assets/modelData/CubeBlock/T_GroundDirt_01_D.DDS");
-		if (m_terrainTex == nullptr)
+		const char* filePath = nullTexMaps.GetAlbedoMapFilePath();
+		m_nullTex = ResourceEngine().GetTextureFromBank(filePath);
+		if (m_nullTex == nullptr)
 		{
-			m_terrainTex = new Texture;
-			//m_terrainTex->InitFromDDSFile(L"Assets/modelData/Terrain/DirtTexture.dds");
-			m_terrainTex->InitFromDDSFile(L"Assets/modelData/CubeBlock/T_GroundDirt_01_D.DDS");
-			ResourceEngine().RegistTextureToBank("Assets/modelData/CubeBlock/T_GroundDirt_01_D.DDS", m_terrainTex);
+			m_nullTex = new Texture;
+			//文字列変換。
+			wchar_t wddsFilePath[1024];
+			mbstowcs(wddsFilePath, filePath, 1023);
+			m_nullTex->InitFromDDSFile(wddsFilePath);
+			ResourceEngine().RegistTextureToBank(filePath, m_nullTex);
 		}
+		m_material.InitTexture();
 	}
 	void TerrainRender::InitDescriptorHeap()
 	{
@@ -138,12 +139,17 @@ namespace nsTerrain {
 		m_descriptorHeap.RegistConstantBuffer(1, GraphicsEngine()->GetLightManager()->GetLightParamConstantBuffer());		//ライトの設定(1番)。
 		m_descriptorHeap.RegistConstantBuffer(3, GraphicsEngine()->GetShadowMap()->GetShadowMapConstantBuffer());		//シャドウマップの設定(3番)。
 
-		m_descriptorHeap.RegistShaderResource(0, *m_terrainTex);
+		m_descriptorHeap.RegistShaderResource(0, *m_nullTex);
 		m_descriptorHeap.RegistShaderResource(1, GraphicsEngine()->GetLightManager()->GetDirectionLightStructuredBuffer());	//ライトの設定(1番)。
 
 		m_descriptorHeap.RegistShaderResource(6, *GraphicsEngine()->GetShadowMap()->GetShadowMapTexture(0));
 		m_descriptorHeap.RegistShaderResource(7, *GraphicsEngine()->GetShadowMap()->GetShadowMapTexture(1));
 		m_descriptorHeap.RegistShaderResource(8, *GraphicsEngine()->GetShadowMap()->GetShadowMapTexture(2));
+
+		for (int i = 0; i < TerrainMaterial::MAX_TERRAIN_TEX; i++)
+		{
+			m_descriptorHeap.RegistShaderResource(10 + i, *m_material.GetTexture(i));
+		}
 
 		m_descriptorHeap.Commit();
 

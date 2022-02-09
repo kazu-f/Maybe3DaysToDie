@@ -89,6 +89,7 @@ namespace nsTerrain {
 					float thisHeight = (static_cast<float>(ChunkHeight) * noise);
 
 					float point = 0;
+					int terrainID = 0;
 
 					////この場所の高さに対してブロックが届いていない。
 					//if (y <= thisHeight - nsMarching::TERRAIN_SURFACE)
@@ -105,20 +106,34 @@ namespace nsTerrain {
 
 					//この場所の高さに対してブロックが届いていない。
 					if (y >= thisHeight - nsMarching::TERRAIN_SURFACE)
+					{
 						point = 0.0f;
+						terrainID = 0;
+					}
 					//この場所の上にもブロックがある。
 					else if (y < thisHeight + nsMarching::TERRAIN_SURFACE)
+					{
 						point = 1.0f;
+						terrainID = 0;
+					}
 					//この場所のブロックの影響値。
 					else
+					{
 						point = 0.5f;
-
+						terrainID = 0;
+					}
 					if (y == 0)
 					{
 						point = 1.0f;
+						terrainID = 2;
+					}
+					if (y == 1)
+					{
+						terrainID = 2;
 					}
 
 					terrain->SetVoxel(point);
+					terrain->SetTerrainID(terrainID);
 
 					Vector3 pos;
 					pos.x = static_cast<float>((x + ChunkWidth * chunkX)) * OBJECT_UNIT;

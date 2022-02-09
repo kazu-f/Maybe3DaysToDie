@@ -12,8 +12,18 @@ namespace nsTerrain {
 		TerrainMaterial();
 		~TerrainMaterial();
 
+		void InitTexture();
+
+		Texture* GetTexture(int no)
+		{
+			return m_terrainTextures[no];
+		}
+
+	public:
+		static const int MAX_TERRAIN_TEX = 4;
+
 	private:
-		std::vector<TexturePtr> m_terrainTextures;
+		std::vector<Texture*> m_terrainTextures;
 
 	};
 

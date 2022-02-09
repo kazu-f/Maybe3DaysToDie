@@ -1,4 +1,5 @@
 #pragma once
+#include "TerrainMaterial.h"
 
 namespace nsTerrain {
 
@@ -9,6 +10,7 @@ namespace nsTerrain {
 		Vector3 m_pos;		//座標。
 		Vector3 m_normal;	//法線。
 		Vector2 m_uv;		//UV。
+		Vector4 m_texType;	//テクスチャタイプ。
 	};
 
 	//地形描画クラスの初期化データ。
@@ -137,7 +139,7 @@ namespace nsTerrain {
 		};
 	private:
 		TerrainInitData m_initData;
-		Texture* m_terrainTex = nullptr;				//地形のテクスチャ。
+		Texture* m_nullTex = nullptr;				//存在しない場合のテクスチャ。
 		Shader m_vsTerrain;					//地形用の頂点シェーダー。
 		Shader m_psTerrain;					//地形用のピクセルシェーダー。
 		PipelineState m_terrainPS;			//地形用のパイプラインステート。
@@ -150,6 +152,7 @@ namespace nsTerrain {
 		std::vector<DescriptorHeap> m_dhTerrainShadow;	//シャドウマップに書き込むために使うディスクリプタヒープ。
 		VertexBuffer m_vertexBuffer;		//地形の頂点バッファ。
 		IndexBuffer m_indexBuffer;			//地形のインデックスバッファ。
+		TerrainMaterial m_material;
 		Vector3 m_position = Vector3::Zero;				//地形の座標。
 		Quaternion m_rotation = Quaternion::Identity;	//地形の回転。
 		Vector3 m_scale = Vector3::One;				//地形のスケール。
