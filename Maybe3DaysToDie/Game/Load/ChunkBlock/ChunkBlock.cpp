@@ -68,6 +68,15 @@ void ChunkBlock::MoveChunk()
 				param.BlockID = chunkData.ObjData[x][y][z].ObjId;
 				param.Durable = chunkData.ObjData[x][y][z].ObjDurable;
 				int BlockID = static_cast<int>(param.BlockID);
+				if (m_SaveDataFile->ObjectType[BlockID] != ObjectType::Block)
+				{
+					continue;
+				}
+				if (BlockID < 0 || BlockID >= BlockKinds)
+				{
+					//ブロックIDがマイナスか最大値より大きいときreturn
+					continue;
+				}
 				param.BlockName = m_SaveDataFile->ObjectFilePath[BlockID];
 				//パラメータをセット
 				m_Block[x][y][z].SetParams(param);
@@ -110,9 +119,18 @@ Block& ChunkBlock::GetBlock(Vector3 pos)
 
 void ChunkBlock::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)
 {
+	int BlockID = static_cast<int>(params.BlockID);
+	if (m_SaveDataFile->ObjectType[BlockID] != ObjectType::Block)
+	{
+		return;
+	}
+	if (BlockID < 0 || BlockID >= BlockKinds)
+	{
+		//ブロックIDがマイナスか最大値より大きいときreturn
+		return;
+	}
 	ChunkBlockDirty = true;
 	m_IsModelUpdated = true;
-	int BlockID = static_cast<int>(params.BlockID);
 	//ブロックに名前をセット
 	params.BlockName = m_SaveDataFile->ObjectFilePath[BlockID];
 	//データを作成
@@ -128,14 +146,18 @@ void ChunkBlock::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, V
 
 void ChunkBlock::RemoveBlock(Block* blockptr)
 {
-	ChunkBlockDirty = true;
-	m_IsModelUpdated = true;
 	int BlockID = static_cast<int>(blockptr->GetParam().BlockID);
-	if (BlockID < 0 || BlockID > BlockKinds)
+	if (m_SaveDataFile->ObjectType[BlockID] != ObjectType::Block)
+	{
+		return;
+	}
+	if (BlockID < 0 || BlockID >= BlockKinds)
 	{
 		//ブロックIDがマイナスか最大値より大きいときreturn
 		return;
 	}
+	ChunkBlockDirty = true;
+	m_IsModelUpdated = true;
 
 	//削除するブロックの値をリセット
 	blockptr->ResetParams();

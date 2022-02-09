@@ -14,6 +14,8 @@ public:
 		Vector3 end;		//終点。
 	};
 public:
+	bool SubStart()override final;
+	void Update()override final;
 	/// <summary>
 	/// 描画用の初期化。
 	/// </summary>
@@ -102,5 +104,7 @@ private:
 	PipelineState m_lineDrawPipelineState;	//線分描画パイプラインステート。
 	std::vector<Line> m_linkCellLine;		//隣接セルを表すラインの配列。
 	int m_indexCount = 0;
+	bool m_isCellDraw = false;				//セルのデバッグ表示をするか。
+	bool m_isLinkDraw = false;				//リンクの線を表示するか。
 };
 

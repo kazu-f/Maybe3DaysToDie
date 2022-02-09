@@ -93,17 +93,8 @@ void ItemBar::ItemSlotKey(int vKey, int slot)
 
 		//ƒpƒ‰ƒ[ƒ^
 		ObjectParams param;
-		if (m_SelectNum == 0)
-		{
-			param.BlockID = 255;
-			param.Durable = 500;
-			m_PlacementObject->SetParams(param);
-		}
-		else
-		{
-			param.BlockID = m_SelectNum;
-			param.Durable = 500;
-			m_PlacementObject->SetParams(param);
-		}
+		param.BlockID = m_SelectNum;
+		param.Durable = 500;
+		m_PlacementObject->SetParams(param);
 	}
 }

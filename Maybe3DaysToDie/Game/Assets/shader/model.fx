@@ -2,6 +2,7 @@
 *		モデルシェーダー。
 */
 
+#include "ShaderSampler.h"
 #include "modelCB.h"
 #include "LightStruct.h"
 #include "modelStruct.h"
@@ -162,7 +163,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
 	float roughness = 1.0f - spec;			//拡散反射の面の粗さ。
 	//シャドウ。
 	float4 posInView = mul(mView, float4(psIn.worldPos, 1.0f));
-	float shadow = CalcShadow(psIn.worldPos, posInView.z);
+	float shadow = CalcShadow(psIn.worldPos, posInView.z, isShadowReceiver);
 
 	for (int ligNo = 0; ligNo < numDirectionLight; ligNo++)
 	{
@@ -226,7 +227,7 @@ PSOut_GBuffer PSMain_RenderGBuffer (SPSIn psIn){
 
 	//シャドウ。
 	float4 posInView = mul(mView, float4(psIn.worldPos, 1.0f));
-	Out.shadow = CalcShadow(psIn.worldPos, posInView.z);
+	Out.shadow = CalcShadow(psIn.worldPos, posInView.z, isShadowReceiver);
 
 	//反射率。
 	Out.reflection = g_reflectionMap.Sample(g_sampler, psIn.uv).xy;

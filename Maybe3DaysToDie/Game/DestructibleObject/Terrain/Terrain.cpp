@@ -61,6 +61,10 @@ namespace nsTerrain {
 			m_voxel = 0.0f;
 		}
 
+		UpdateChunkData();
+	}
+	void Terrain::UpdateChunkData()
+	{
 		//地形が更新された。
 		for (int i = 0; i < m_terrainChunkDataSize; i++)
 		{

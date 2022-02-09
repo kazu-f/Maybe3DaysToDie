@@ -4,6 +4,9 @@
 
 class LoadingByChunk;
 class SaveDataFile;
+namespace nsTerrain {
+	class TerrainManager;
+}
 
 //todo プレイヤー側から呼ぶようになったらIGameObjectを継承しないように
 class PlacementObject:public IGameObject
@@ -80,6 +83,7 @@ private:
 	bool CanPlace = false;
 	DestructibleObject* m_hitObj = nullptr;
 	LoadingByChunk* m_LoadingChunk = nullptr;
+	nsTerrain::TerrainManager* m_TerrainManager = nullptr;		//テラインマネージャー
 	SaveDataFile* m_SaveData = nullptr;
 	ObjectParams objParam;
 	ModelInitData m_modelInitData;

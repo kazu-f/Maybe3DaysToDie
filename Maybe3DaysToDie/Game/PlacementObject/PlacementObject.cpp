@@ -39,6 +39,8 @@ bool PlacementObject::Start()
 	//アクティブを切る
 	m_ObjectModel->SetActiveFlag(false);
 
+	m_TerrainManager = FindGO<nsTerrain::TerrainManager>("Terrain");
+
 	return true;
 }
 
@@ -46,7 +48,7 @@ void PlacementObject::Update()
 {
 	//オブジェクトを設置する位置を計算
 	ObjID = static_cast<int>(objParam.BlockID);
-	if (ObjID < 0 || ObjID > BlockKinds)
+	if (ObjID < 0 || ObjID >= BlockKinds)
 	{
 		//ブロックIDがマイナスか最大値より大きいときreturn
 		CanPlace = false;
@@ -108,7 +110,7 @@ bool PlacementObject::SetModelParams()
 	ObjID = static_cast<int>(objParam.BlockID);
 	const auto& dataFile = ItemDataFile::GetInstance();
 	//todo ItemDataFileから取得してくる
-	if (ObjID < 0 || ObjID > BlockKinds)
+	if (ObjID < 0 || ObjID >= BlockKinds)
 	{
 		//ブロックIDがマイナスか最大値より大きいときreturn
 		return false;
@@ -165,7 +167,17 @@ void PlacementObject::PlaceObject()
 			chunkData.ObjData[id_x][id_y][id_z].ObjId = objParam.BlockID;
 			chunkData.ObjData[id_x][id_y][id_z].ObjDurable = objParam.Durable;
 			auto& block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
-			block.AddBlock(objParam, m_pos, rot, scale);
+			switch (m_SaveData->ObjectType[objParam.BlockID])
+			{
+			case ObjectType::Block:
+				block.AddBlock(objParam, m_pos, rot, scale);
+				break;
+
+			case ObjectType::Terrain:
+				auto* terrain = m_TerrainManager->GetTerrainChunkData(ID[0], ID[1]).GetTerrainData(id_x, id_y, id_z);
+				terrain->AddBlock(objParam, m_pos, rot, scale);
+				break;
+			}
 		}
 	}
 }
