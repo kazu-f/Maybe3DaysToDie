@@ -22,6 +22,7 @@ namespace nsTerrain {
 	public:
 		bool SubStart()override final;
 		void Update()override final;
+		void OnRenderToGBuffer(RenderContext& rc)override final;
 		void OnForwardRender(RenderContext& rc)override final;
 		/// <summary>
 		/// 初期化。
@@ -148,6 +149,7 @@ namespace nsTerrain {
 		int m_vertexCount = 0;
 		bool m_isRenderTerrain = false;		//地形描画する？
 		bool m_isUpdateTerrain = false;		//地形変更があったか？
+		bool m_isForward = false;
 	};
 
 }

@@ -52,7 +52,12 @@ namespace nsTerrain {
 	void TerrainRender::InitShader()
 	{
 		m_vsTerrain.LoadVS(L"Assets/shader/Terrain.fx", "VSTerrainMain");
-		m_psTerrain.LoadPS(L"Assets/shader/Terrain.fx", "PSTerrainMain");
+		if (m_isForward) {
+			m_psTerrain.LoadPS(L"Assets/shader/Terrain.fx", "PSTerrainMain");
+		}
+		else {
+			m_psTerrain.LoadPS(L"Assets/shader/Terrain.fx", "PSMain_TerrainRenderGBuffer");
+		}
 	}
 	void TerrainRender::InitPipelineState()
 	{
@@ -124,8 +129,46 @@ namespace nsTerrain {
 		m_descriptorHeap.Commit();
 	}
 
+	void TerrainRender::OnRenderToGBuffer(RenderContext& rc)
+	{
+		if (m_isForward) return;
+		//カメラを定数バッファで送る。
+		SCBTerrin cbTerrain;
+		cbTerrain.mWorld = m_world;
+		cbTerrain.mView = MainCamera().GetViewMatrix();
+		cbTerrain.mProj = MainCamera().GetProjectionMatrix();
+		cbTerrain.isShadowReceiver = 1;
+		//定数バッファにコピー。
+		m_cbTerrain.CopyToVRAM(&cbTerrain);
+
+		//地形更新があったらGPUのデータ更新。
+		if (m_isUpdateTerrain) {
+			//頂点バッファに頂点データをコピー。
+			m_vertexBuffer.Copy(&m_vertices[0]);
+			//インデックスバッファにインデックスデータをコピー。
+			m_indexBuffer.Copy(&m_indices[0]);
+			m_isUpdateTerrain = false;
+		}
+
+		//頂点バッファの設定。
+		rc.SetVertexBuffer(m_vertexBuffer);
+		//インデックスバッファの設定。
+		rc.SetIndexBuffer(m_indexBuffer);
+		//パイプラインステートの設定。
+		rc.SetPipelineState(m_terrainPS);
+		//ディスクリプタヒープの設定。
+		rc.SetDescriptorHeap(m_descriptorHeap);
+		//描画にはトライアングルリストを使え！
+		rc.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		//描画。
+		if (m_isRenderTerrain) {
+			rc.DrawIndexed(m_vertexCount);
+		}
+	}
 	void TerrainRender::OnForwardRender(RenderContext& rc)
 	{
+		if (!m_isForward) return;
 		//カメラを定数バッファで送る。
 		SCBTerrin cbTerrain;
 		cbTerrain.mWorld = m_world;

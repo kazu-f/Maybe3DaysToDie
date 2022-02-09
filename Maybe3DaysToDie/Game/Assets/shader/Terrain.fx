@@ -111,3 +111,26 @@ float4 PSTerrainMain(SPSInTerrain psIn) : SV_Target0
 	return finalColor;
 }
 
+//GBufferに書き込むピクセルシェーダーのエントリ関数。
+PSOut_GBuffer PSMain_TerrainRenderGBuffer(SPSInTerrain psIn) {
+	PSOut_GBuffer Out = (PSOut_GBuffer)0;
+
+	Out.albedo = g_albedoMap.Sample(g_sampler, psIn.uv);		//アルベド。
+	//法線マップ。
+	Out.normal.xyz = (psIn.normal / 2.0f) + 0.5f;
+
+	//ワールド座標。
+	Out.worldPos = float4(psIn.worldPos, 0.0f);
+
+	//スペキュラマップ。
+	Out.specMap = 0.0f;
+
+	//シャドウ。
+	float4 posInView = mul(mView, float4(psIn.worldPos, 1.0f));
+	Out.shadow = CalcShadow(psIn.worldPos, posInView.z, isShadowReceiver);
+
+	//反射率。
+	Out.reflection = 0.0f;
+
+	return Out;
+}

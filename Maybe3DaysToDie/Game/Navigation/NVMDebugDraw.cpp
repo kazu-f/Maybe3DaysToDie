@@ -92,6 +92,23 @@ void NVMDebugDraw::InitPipelineState(PipelineState& pipelineState, RootSignature
 	pipelineState.Init(psoDesc);
 }
 
+bool NVMDebugDraw::SubStart()
+{
+	m_isCellDraw = true;
+	m_isLinkDraw = true;
+	return true;
+}
+
+void NVMDebugDraw::Update()
+{
+	if (InputKeyCode().IsTriggerKey(VK_F1)) {
+		m_isCellDraw = !m_isCellDraw;
+	}
+	if (InputKeyCode().IsTriggerKey(VK_F2)) {
+		m_isLinkDraw = !m_isLinkDraw;
+	}
+}
+
 void NVMDebugDraw::Init()
 {
 	//定数バッファ初期化。
@@ -141,22 +158,25 @@ void NVMDebugDraw::OnForwardRender(RenderContext& rc)
 
 	//描画。
 	rc.SetRootSignature(m_rootSignature);
-	rc.SetPipelineState(m_pipelineState);
 	rc.SetDescriptorHeap(m_heap);
 
-	rc.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	rc.SetVertexBuffer(*m_vertexBuffer);
-	rc.SetIndexBuffer(*m_indexBuffer);
-	rc.DrawIndexed(m_indexCount);
+	if (m_isCellDraw) {
+		rc.SetPipelineState(m_pipelineState);
+		rc.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		rc.SetVertexBuffer(*m_vertexBuffer);
+		rc.SetIndexBuffer(*m_indexBuffer);
+		rc.DrawIndexed(m_indexCount);
 
-	////パラメーターをパイプライン描画ように変更。
-	rc.SetPipelineState(m_pipelineStateBuck);
-	rc.DrawIndexed(m_indexCount);
-
-	////パラメーターを線分用描画に変更して、描画。
-	rc.SetPipelineState(m_lineDrawPipelineState);
-	rc.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_LINELIST);
-	rc.SetVertexBuffer(*m_lineVertexBuffer);
-	rc.SetIndexBuffer(*m_lineIndexBuffer);
-	rc.DrawIndexed(m_lineIndexs.size());
+		////パラメーターをパイプライン描画ように変更。
+		rc.SetPipelineState(m_pipelineStateBuck);
+		rc.DrawIndexed(m_indexCount);
+	}
+	if (m_isLinkDraw) {
+		////パラメーターを線分用描画に変更して、描画。
+		rc.SetPipelineState(m_lineDrawPipelineState);
+		rc.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_LINELIST);
+		rc.SetVertexBuffer(*m_lineVertexBuffer);
+		rc.SetIndexBuffer(*m_lineIndexBuffer);
+		rc.DrawIndexed(m_lineIndexs.size());
+	}
 }
