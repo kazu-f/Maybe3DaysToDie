@@ -22,6 +22,8 @@ namespace nsTerrain {
 	public:
 		bool SubStart()override final;
 		void Update()override final;
+		void PostUpdate()override final;
+		void OnRenderShadowMap(RenderContext& rc, int shadowMapNo, const Matrix& LVP)override final;
 		void OnRenderToGBuffer(RenderContext& rc)override final;
 		void OnForwardRender(RenderContext& rc)override final;
 		/// <summary>
@@ -129,6 +131,10 @@ namespace nsTerrain {
 			int isShadowReceiver = 0;		//シャドウレシーバーフラグ。
 		};
 
+		struct SCBTerrainShadow {
+			Matrix mWorld;	//ワールド行列。
+			Matrix mLVP;	//ライトビュープロジェクション行列。
+		};
 	private:
 		TerrainInitData m_initData;
 		Texture* m_terrainTex = nullptr;				//地形のテクスチャ。
@@ -137,6 +143,11 @@ namespace nsTerrain {
 		PipelineState m_terrainPS;			//地形用のパイプラインステート。
 		ConstantBuffer m_cbTerrain;			//地形用の定数バッファ。
 		DescriptorHeap m_descriptorHeap;	//地形用ディスクリプタヒープ。
+		Shader m_vsTerrainShadow;			//シャドウマップに書き込むための頂点シェーダー。
+		Shader m_psTerrainShadow;			//シャドウマップに書き込むためのピクセルシェーダー。
+		PipelineState m_terrainShadowPS;	//シャドウマップに書き込むためのパイプラインステート。
+		ConstantBuffer m_cbTerrainShadow[NUM_SHADOW_MAP];	//シャドウマップに書き込むために使う定数バッファ。
+		std::vector<DescriptorHeap> m_dhTerrainShadow;	//シャドウマップに書き込むために使うディスクリプタヒープ。
 		VertexBuffer m_vertexBuffer;		//地形の頂点バッファ。
 		IndexBuffer m_indexBuffer;			//地形のインデックスバッファ。
 		Vector3 m_position = Vector3::Zero;				//地形の座標。
@@ -150,6 +161,7 @@ namespace nsTerrain {
 		bool m_isRenderTerrain = false;		//地形描画する？
 		bool m_isUpdateTerrain = false;		//地形変更があったか？
 		bool m_isForward = false;
+		bool m_isShadowCaster = false;		//影を落とすかどうか。
 	};
 
 }

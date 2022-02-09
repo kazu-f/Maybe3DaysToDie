@@ -12,6 +12,12 @@ cbuffer TerrainCb : register(b0) {
 	int isShadowReceiver	: packoffset(c12.x);		//シャドウレシーバー。
 };
 
+//地形用の定数バッファ
+cbuffer TerrainShadowCb : register(b0) {
+	float4x4 mWorldShadow			: packoffset(c0);
+	float4x4 mTerrainLVP			: packoffset(c4);
+};
+
 /*
 *	ライト用の定数バッファ
 *	tkLightManager.hのSLightParamと対応する。
@@ -133,4 +139,33 @@ PSOut_GBuffer PSMain_TerrainRenderGBuffer(SPSInTerrain psIn) {
 	Out.reflection = 0.0f;
 
 	return Out;
+}
+
+//シャドウマップ描画用の頂点シェーダーの引数構造体。
+struct SVSTerrainShadowIn {
+	float4 pos : POSITION;
+};
+//シャドウマップ描画用のピクセルシェーダーの引数構造体。
+struct SPSTerrainShadowIn {
+	float4 pos : SV_POSITION;
+};
+/*
+*	シャドウマップ書き込み用の頂点シェーダー。
+*/
+SPSTerrainShadowIn VSTerrainMainShadowMap(SVSTerrainShadowIn vsIn)
+{
+	SPSTerrainShadowIn psIn;
+
+	psIn.pos = mul(mWorldShadow, vsIn.pos);
+	psIn.pos = mul(mTerrainLVP, psIn.pos);
+
+	return psIn;
+}
+
+/*
+*	シャドウマップ書き込み用のピクセルシェーダー。
+*/
+float4 PSTerrainMainShadowMap(SPSTerrainShadowIn psIn) :SV_Target0
+{
+	return psIn.pos.z / psIn.pos.w;
 }

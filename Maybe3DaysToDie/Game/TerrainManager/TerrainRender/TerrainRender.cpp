@@ -4,7 +4,7 @@
 namespace nsTerrain {
 	bool TerrainRender::SubStart()
 	{
-
+		m_isShadowCaster = true;
 		return true;
 	}
 	void TerrainRender::Update()
@@ -19,6 +19,17 @@ namespace nsTerrain {
 		mRot.MakeRotationFromQuaternion(m_rotation);
 		mScale.MakeScaling(m_scale);
 		m_world = mScale * mRot * mTrans;
+	}
+	void TerrainRender::PostUpdate()
+	{
+		//地形更新があったらGPUのデータ更新。
+		if (m_isUpdateTerrain) {
+			//頂点バッファに頂点データをコピー。
+			m_vertexBuffer.Copy(&m_vertices[0]);
+			//インデックスバッファにインデックスデータをコピー。
+			m_indexBuffer.Copy(&m_indices[0]);
+			m_isUpdateTerrain = false;
+		}
 	}
 	void TerrainRender::Init(TerrainInitData& initData)
 	{
@@ -58,6 +69,8 @@ namespace nsTerrain {
 		else {
 			m_psTerrain.LoadPS(L"Assets/shader/Terrain.fx", "PSMain_TerrainRenderGBuffer");
 		}
+		m_vsTerrainShadow.LoadVS(L"Assets/shader/Terrain.fx", "VSTerrainMainShadowMap");
+		m_psTerrainShadow.LoadPS(L"Assets/shader/Terrain.fx", "PSTerrainMainShadowMap");
 	}
 	void TerrainRender::InitPipelineState()
 	{
@@ -89,6 +102,12 @@ namespace nsTerrain {
 		psoDesc.SampleDesc.Count = 1;
 
 		m_terrainPS.Init(psoDesc);
+
+		psoDesc.VS = CD3DX12_SHADER_BYTECODE(m_vsTerrainShadow.GetCompiledBlob());
+		psoDesc.PS = CD3DX12_SHADER_BYTECODE(m_psTerrainShadow.GetCompiledBlob());
+		psoDesc.RTVFormats[0] = DXGI_FORMAT_R32_FLOAT;
+		psoDesc.NumRenderTargets = 1;
+		m_terrainShadowPS.Init(psoDesc);
 	}
 	void TerrainRender::InitConstantBuffer()
 	{
@@ -127,6 +146,43 @@ namespace nsTerrain {
 		m_descriptorHeap.RegistShaderResource(8, *GraphicsEngine()->GetShadowMap()->GetShadowMapTexture(2));
 
 		m_descriptorHeap.Commit();
+
+		m_dhTerrainShadow.resize(NUM_SHADOW_MAP);
+		for (int i = 0; i < NUM_SHADOW_MAP; i++)
+		{
+			m_cbTerrainShadow[i].Init(sizeof(SCBTerrainShadow));
+			m_dhTerrainShadow[i].RegistConstantBuffer(0, m_cbTerrainShadow[i]);
+
+			m_dhTerrainShadow[i].Commit();
+		}
+
+	}
+
+	void TerrainRender::OnRenderShadowMap(RenderContext& rc, int shadowMapNo, const Matrix& LVP)
+	{
+		if (!m_isShadowCaster) return;
+		if (!m_isRenderTerrain) return;
+
+		SCBTerrainShadow cbTerrain;
+		cbTerrain.mWorld = m_world;
+		cbTerrain.mLVP = LVP;
+
+		m_cbTerrainShadow[shadowMapNo].CopyToVRAM(&cbTerrain);
+
+		//頂点バッファの設定。
+		rc.SetVertexBuffer(m_vertexBuffer);
+		//インデックスバッファの設定。
+		rc.SetIndexBuffer(m_indexBuffer);
+		//ルートシグネチャを設定。
+		rc.SetRootSignature(CPipelineStatesDefault::m_modelDrawRootSignature);
+		//パイプラインステートの設定。
+		rc.SetPipelineState(m_terrainShadowPS);
+		//ディスクリプタヒープの設定。
+		rc.SetDescriptorHeap(m_dhTerrainShadow.at(shadowMapNo));
+		//描画にはトライアングルリストを使え！
+		rc.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		rc.DrawIndexed(m_vertexCount);
 	}
 
 	void TerrainRender::OnRenderToGBuffer(RenderContext& rc)
@@ -141,19 +197,12 @@ namespace nsTerrain {
 		//定数バッファにコピー。
 		m_cbTerrain.CopyToVRAM(&cbTerrain);
 
-		//地形更新があったらGPUのデータ更新。
-		if (m_isUpdateTerrain) {
-			//頂点バッファに頂点データをコピー。
-			m_vertexBuffer.Copy(&m_vertices[0]);
-			//インデックスバッファにインデックスデータをコピー。
-			m_indexBuffer.Copy(&m_indices[0]);
-			m_isUpdateTerrain = false;
-		}
-
 		//頂点バッファの設定。
 		rc.SetVertexBuffer(m_vertexBuffer);
 		//インデックスバッファの設定。
 		rc.SetIndexBuffer(m_indexBuffer);
+		//ルートシグネチャを設定。
+		rc.SetRootSignature(CPipelineStatesDefault::m_modelDrawRootSignature);
 		//パイプラインステートの設定。
 		rc.SetPipelineState(m_terrainPS);
 		//ディスクリプタヒープの設定。
@@ -178,19 +227,12 @@ namespace nsTerrain {
 		//定数バッファにコピー。
 		m_cbTerrain.CopyToVRAM(&cbTerrain);
 
-		//地形更新があったらGPUのデータ更新。
-		if (m_isUpdateTerrain) {
-			//頂点バッファに頂点データをコピー。
-			m_vertexBuffer.Copy(&m_vertices[0]);
-			//インデックスバッファにインデックスデータをコピー。
-			m_indexBuffer.Copy(&m_indices[0]);
-			m_isUpdateTerrain = false;
-		}
-
 		//頂点バッファの設定。
 		rc.SetVertexBuffer(m_vertexBuffer);
 		//インデックスバッファの設定。
 		rc.SetIndexBuffer(m_indexBuffer);
+		//ルートシグネチャを設定。
+		rc.SetRootSignature(CPipelineStatesDefault::m_modelDrawRootSignature);
 		//パイプラインステートの設定。
 		rc.SetPipelineState(m_terrainPS);
 		//ディスクリプタヒープの設定。
