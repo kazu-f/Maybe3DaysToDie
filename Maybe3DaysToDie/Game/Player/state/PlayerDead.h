@@ -4,6 +4,7 @@ class PlayerDead : public IPlayerState
 {
 public:
 	PlayerDead(Player* pl); 
+	~PlayerDead();
 	void Enter()override final;
 	void Update()override final;
 	void Leave()override final;
@@ -15,5 +16,5 @@ private:
 	prefab::CSpriteRender* m_SelectSprite = nullptr;
 	prefab::CSpriteRender* m_BackSprite = nullptr;
 
-	int ReSpownTime = 1.0f;
+	float ReSpownTime = 1.0f;
 };

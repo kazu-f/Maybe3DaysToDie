@@ -22,7 +22,7 @@ public:
 	/// 最大Hpを変更できる
 	/// </summary>
 	/// <param name="maxhp">設定したいHp</param>
-	void SetMaxHp(const int maxhp) {
+	void SetMax(const int maxhp) {
 		m_MaxHp = maxhp;
 	}
 
@@ -53,6 +53,7 @@ public:
 
 	void Reset() {
 		m_Hp = m_MaxHp;
+		m_IsRegene = true;
 	}
 private:
 	/// <summary>
@@ -82,9 +83,9 @@ private:
 	prefab::CSpriteRender* m_CurrentSprite = nullptr;	//現在のHpスプライト
 	prefab::CSpriteRender* m_FlameSprite = nullptr;	//HPの枠
 	prefab::CSpriteRender* m_ICon = nullptr;			//Hpのアイコン
-	int m_Hp = 100;										//現在のHp
-	int m_MaxHp = 100;									//最大Hp
-	float m_RegeneTime = 1.0f;							//自然回復時間
+	int m_Hp = 3;										//現在のHp
+	int m_MaxHp = 3;									//最大Hp
+	float m_RegeneTime = 5.0f;							//自然回復時間
 	float m_nowHpRegeneTime = 0.0f;						//自然回復してからの経過時間
 	CFontRender* m_HpFont = nullptr;					//Hpを表すフォント
 	bool m_IsRegene = true;

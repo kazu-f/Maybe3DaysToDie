@@ -24,7 +24,7 @@ private:
 	void OnDestroy()override final;
 
 public:
-	const void SetMaxHunger(const int maxHun) {
+	const void SetMax(const int maxHun) {
 		m_MaxHunger = maxHun;
 	}
 
@@ -51,8 +51,8 @@ private:
 
 	float m_HungeryTime = 1.0f;							//お腹が空く時間
 	float m_HungeryCountTime = 0.0f;					//経過時間
-	int m_Hunder = 100;									//空腹度
-	int m_MaxHunger = 100;								//満腹量
+	int m_Hunder = 1;									//空腹度
+	int m_MaxHunger = 1;								//満腹量
 	
 	Player* m_Player = nullptr;							//プレイヤーのポインタ
 };

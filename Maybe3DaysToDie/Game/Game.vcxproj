@@ -348,13 +348,13 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\BackColor.png" />
     <ImageContentTask Include="Assets\sprite\respownBotton.png" />
-    <ImageContentTask Include="Assets\sprite\SelectBotton.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="3DaysIcon.ico" />
+    <ImageContentTask Include="Assets\sprite\SelectBotton.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

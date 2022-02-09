@@ -89,7 +89,7 @@ void Player::Update()
 		break;
 	}
 	if (PlayerState != nullptr) {
-	PlayerState->Update();
+		PlayerState->Update();
 
 	}
 	if (GetAsyncKeyState('e')) {
@@ -120,11 +120,20 @@ void Player::OnDestroy()
 
 void Player::ReStart()
 {
-	m_Pos = Vector3::Zero;
+	m_Characon.SetPosition(m_RespownPoint);
 	m_Hp->Reset();
 	m_Stamina->Reset();
 	m_Hunger->Reset();
 	m_Water->Reset();
+	PlayerState->Leave();
+	PlayerState = nullptr;
+	m_NextState = State::Idle;
+	while (true) {
+		int returnNo = ShowCursor(false);
+		if (returnNo <= 0) {
+			break;
+		}
+	}
 }
 
 void Player::PeriodicUpdate()
@@ -168,7 +177,7 @@ void Player::Move()
 		}
 	}
 
-	Vector3 RightMoveSpeed= MainCamera().GetRight();
+	Vector3 RightMoveSpeed = MainCamera().GetRight();
 	RightMoveSpeed.y = 0.0f;
 	//Aキーが押されたら
 	if (GetAsyncKeyState('A')) {
@@ -188,10 +197,9 @@ void Player::Move()
 			MoveSpeed += RightMoveSpeed;
 		}
 	}
-	
+
 	//////移動速度//////////////////////////
 	{
-		m_mulSpeed = 0.5f;
 		///ダッシュ機能////////////////////////
 		if (GetAsyncKeyState(VK_LSHIFT) &&
 			MoveSpeed.Length() > 0.5f &&
@@ -201,7 +209,7 @@ void Player::Move()
 		}
 	}
 	///////////////////////////////////////////////
-	
+
 	/////重力処理////////////////////////
 	{
 		static float gravity = 0.0f;
@@ -263,8 +271,12 @@ void Player::Move()
 	}
 	////////////////////////////////////////
 
-
-	MoveSpeed *= MoveDistance * m_mulSpeed;
+	if (PlayerState == nullptr) {
+		MoveSpeed *= MoveDistance * m_mulSpeed;
+	}
+	else {
+		MoveSpeed *= MoveDistance * PlayerState->GetMulSpeed();
+	}
 	m_Pos = m_Characon.Execute(MoveSpeed);
 
 	//m_Model->SetPosition(Vector3::Zero);
@@ -286,7 +298,7 @@ void Player::SwichDebugMode()
 	static bool IsPush = false;
 	if (GetAsyncKeyState('G')) {
 		if (!IsPush) {
-			static State BuckUpState=State::Idle;
+			static State BuckUpState = State::Idle;
 			if (m_CurrentState == State::Debug) {
 				m_NextState = BuckUpState;
 			}
@@ -312,17 +324,19 @@ const bool Player::IsDubug() const
 
 void Player::HitDamage(float damage) {
 	float PlayerHp = m_Hp->GetHp() - damage;
-	if (PlayerHp < 0) {
+	if (PlayerHp <= 0) {
 		m_NextState = State::Dead;
 	}
-	m_Hp->HitDamage(PlayerHp);
+	m_Hp->HitDamage(damage);
 }
 
-void Player::OpenInventory()
+bool Player::OpenInventory()
 {
 	if (State::Dead != m_CurrentState) {
 		m_NextState = State::Menu;
+		return true;
 	}
+	return false;
 }
 
 void Player::CloseInventory()
