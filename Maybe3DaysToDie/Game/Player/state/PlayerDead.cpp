@@ -1,13 +1,17 @@
 #include "stdafx.h"
 #include "PlayerDead.h"
 #include <windows.h>
+#include"Player/Player.h"
 
 namespace
 {
 	const Vector2 BottonPos = { 0.0f,0.0f };
 }
-
-void PlayerDead::Init()
+PlayerDead::PlayerDead(Player* pl):
+	IPlayerState::IPlayerState(pl)
+{
+}
+void PlayerDead::Enter()
 {
 	while (true) {
 		int returnNo = ShowCursor(true);
@@ -23,18 +27,18 @@ void PlayerDead::Init()
 	m_BackSprite = InitSprite("Assets/sprite/BackColor.dds");
 	m_SelectSprite = InitSprite("Assets/sprite/SelectBotton.dds");
 	m_BottonSprite = InitSprite("Assets/sprite/respownBotton.dds");
-
+	m_mulSpeed = 0.0f;
 }
 
 void PlayerDead::Update()
 {
 	ReSpownTime -= GameTime().GetFrameDeltaTime();
     if (ReSpownTime < 0.0) {
-
+		m_Player->ReStart();
     }
 }
 
-void PlayerDead::Delete()
+void PlayerDead::Leave()
 {
 	DeleteGO(m_Font);
 	DeleteGO(m_BottonSprite);

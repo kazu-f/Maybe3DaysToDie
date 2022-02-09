@@ -86,18 +86,6 @@ void ItemBar::OnDestroy()
 	DeleteGO(m_SelectItemIcon);
 }
 
-LRESULT ItemBar::WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
-{
-	int zDelta = GET_WHEEL_DELTA_WPARAM(wp);
-	if (zDelta > 0) {
-		m_SelectNum++;
-	}
-	else if (zDelta < -0) {
-		m_SelectNum--;
-	}
-	return 0;
-}
-
 void ItemBar::ItemSlotKey(int vKey, int slot)
 {
 	if (GetAsyncKeyState(vKey)) {

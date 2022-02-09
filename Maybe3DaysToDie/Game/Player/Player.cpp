@@ -48,6 +48,7 @@ bool Player::Start()
 	//m_Model->SetRotation(m_Rot);
 	//m_Model->SetScale(m_Scale);
 	m_Characon.Init(50.0f, 90.0f, m_Pos);
+
 	return true;
 }
 
@@ -62,7 +63,8 @@ void Player::Update()
 		m_Camera->SetMovingMouse(true);
 		break;
 	case State::Dead:
-		PlayerState = NewGO<PlayerDead>(0);
+		PlayerState = &m_Dead;
+		PlayerState->Enter();
 		m_Camera->SetMovingMouse(true);
 		break;
 	case State::Run:
@@ -86,7 +88,10 @@ void Player::Update()
 		m_Camera->SetMovingMouse(false);
 		break;
 	}
+	if (PlayerState != nullptr) {
+	PlayerState->Update();
 
+	}
 	if (GetAsyncKeyState('e')) {
 		m_AccessObject->Access();
 	}
@@ -111,6 +116,15 @@ void Player::OnDestroy()
 	DeleteGO(m_Hp);
 	//スタミナを削除
 	DeleteGO(m_Stamina);
+}
+
+void Player::ReStart()
+{
+	m_Pos = Vector3::Zero;
+	m_Hp->Reset();
+	m_Stamina->Reset();
+	m_Hunger->Reset();
+	m_Water->Reset();
 }
 
 void Player::PeriodicUpdate()

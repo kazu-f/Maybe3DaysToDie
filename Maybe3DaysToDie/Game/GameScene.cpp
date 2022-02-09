@@ -116,6 +116,7 @@ bool CGameScene::Start()
 	);
 	m_AccessObject.SetSaveData(&m_SaveDataFile);
 	m_Player->SetAccessObject(&m_AccessObject);
+	MauseInfo::Create();
 	return true;
 }
 
@@ -127,13 +128,6 @@ void CGameScene::Update()
 		m_TerrainSave.SetTerrainWorld(nullptr);
 		m_TerrainSave.Save();
 	}
-	//if (GetAsyncKeyState('F'))
-	//{
-	//	m_AccessObject.Access();
-	//}
-	//if (GetAsyncKeyState(VK_END))
-	//{
-	//	m_AccessObject.EndAccess();
-	//}
+	
 
 }

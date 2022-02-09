@@ -35,6 +35,9 @@ public:
 	void SetPlayer(Player* pp){
 		m_Player = pp;
 	}
+	void Reset() {
+		m_Water = m_MaxWater;
+	}
 private:
 	prefab::CSpriteRender* m_CurrentWaterSprite = nullptr;	//現在の水分のスプライト
 	prefab::CSpriteRender* m_FlameWaterSprite = nullptr;	//水分の枠のスプライト

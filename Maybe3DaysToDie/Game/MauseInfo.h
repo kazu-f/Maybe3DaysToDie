@@ -12,6 +12,7 @@ class MauseInfo
 public:
 
 	static void Create();
+	static void Delete();
 	static MauseInfo* GetInstance() {
 		return m_MauseInfo;
 	}
