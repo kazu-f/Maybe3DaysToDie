@@ -31,6 +31,9 @@ public:
 		unsigned int EXP = 500;			//収得経験値。	
 		float MoveSpeed = 3.0f;			//移動速度。	
 
+		int Hp = 100;					//体力。
+
+		//体格
 		//move(cm)
 		float AttackRange = 150.0f;		//攻撃範囲。	
 		float SearchRange = 20000.0f;	//索敵範囲。	
@@ -173,5 +176,6 @@ private:
 	Quaternion				m_rot = g_quatIdentity;		//回転。
 	NavigationAgent			m_agent;					//エージェント。
 	FootIK					m_footIK;
+	CCharacterController	m_CharaCon;
 };
 

@@ -13,7 +13,12 @@ void PlayerIdle::Enter()
 
 void PlayerIdle::Update()
 {
+	if (GetAsyncKeyState('A') ||
+		GetAsyncKeyState('W') ||
+		GetAsyncKeyState('S') ||
+		GetAsyncKeyState('D') ) {
 
+	}
 }
 
 void PlayerIdle::Leave()

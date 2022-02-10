@@ -75,9 +75,9 @@
     <ClCompile Include="Tool\Tool.cpp" />
     <ClCompile Include="Item\ItemDataFile.cpp" />
     <ClCompile Include="NaviMeshManager.cpp" />
-
     <ClCompile Include="MapLoad\MapLoad.cpp" />
-    <ClCompile Include="PlayerIdle.cpp" />  </ItemGroup>
+    <ClCompile Include="Player\state\PlayerIdle.cpp" />
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
     <ClInclude Include="Item\GameItemMaterial.h" />
@@ -182,9 +182,8 @@
     <ClInclude Include="Tool\Tool.h" />
     <ClInclude Include="Item\ItemDataFile.h" />
     <ClInclude Include="NaviMeshManager.h" />
-
     <ClInclude Include="MapLoad\MapLoad.h" />
-    <ClInclude Include="PlayerIdle.h" />
+    <ClInclude Include="Player\state\PlayerIdle.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />

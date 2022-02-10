@@ -8,6 +8,8 @@
 #include "AccessObject/AccessObject.h"
 #include "Player/State/PlayerDead.h"
 #include "Player/State/IPlayerState.h"
+#include "RayTest.h"
+#include "Enemy/IEnemy.h"
 
 namespace {
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
@@ -65,7 +67,26 @@ void Player::Update()
 	if (GetAsyncKeyState('r')) {
 		m_AccessObject->EndAccess();
 	}
+	//レイテストで使用するベクトルを作成
+	btVector3 start, end;
+	Vector3 PlayerPos = m_Pos;
+	PlayerPos.y += 90.0f;
+	start.setValue(PlayerPos.x, PlayerPos.y + 90.0f, PlayerPos.z);
+	float Range = 50.0f;
+	Vector3 RayEnd = PlayerPos;
+	RayEnd += MainCamera().GetForward()* Range;
+	end.setValue(RayEnd.x, RayEnd.y + 90.0f, RayEnd.z);
 
+	//レイテスト
+	CharactorRayResult callback;
+	PhysicsWorld().RayTest(start, end, callback);
+	//レイが衝突しているとき
+	if (callback.isHit)
+	{
+		m_Enemy = ((IEnemy*)callback.ColObj->getUserPointer());
+		//オブジェクトのIDから適切なアクションを起こす
+		auto& param = m_Enemy->();
+	}
 	//走る？
 	Dash();
 

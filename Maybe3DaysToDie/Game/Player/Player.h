@@ -10,6 +10,7 @@ class ItemBar;
 class AccessObject;
 #include "state/PlayerDead.h"
 class IPlayerState;
+class IEnemy;
 class Player : public IGameObject
 {
 public :
@@ -195,5 +196,6 @@ private:
 	IPlayerState* PlayerState = nullptr;
 	PlayerDead m_Dead;
 	Vector3 m_RespownPoint = { 100.0f,100.0f,100.0f };
+	IEnemy* m_Enemy = nullptr;
 };
 

@@ -21,6 +21,7 @@ public:
 	float GetMulSpeed()const {
 		return m_mulSpeed;
 	}
+	
 protected:
 	float m_mulSpeed = 0.0f;
 	Player* m_Player = nullptr;
