@@ -164,6 +164,7 @@
     <ClCompile Include="Item\GameItemFoods.cpp" />
     <ClCompile Include="IK\FootIK.cpp" />
     <ClCompile Include="MauseInfo.cpp" />
+    <ClCompile Include="PlayerIdle.cpp" />
     <ClCompile Include="Player\state\IPlayerState.cpp" />
     <ClCompile Include="Item\BlockItem.cpp" />
     <ClCompile Include="ItemBar.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Item\GameItemFoods.h" />
     <ClInclude Include="IK\FootIK.h" />
     <ClInclude Include="MauseInfo.h" />
+    <ClInclude Include="PlayerIdle.h" />
     <ClInclude Include="Player\state\IPlayerState.h" />
     <ClInclude Include="Item\BlockItem.h" />
     <ClInclude Include="ItemBar.h" />

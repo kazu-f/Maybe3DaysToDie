@@ -106,16 +106,17 @@ public:
 	}
 
 	void ReStart();
+
+	/// <summary>
+	/// デバッグモード化を判定する
+	/// </summary>
+	/// <returns>デバッグモードならtrue</returns>
+	const bool IsDubug()const;
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
 	/// </summary>
 	void PeriodicUpdate();
-
-	/// <summary>
-	/// IPlayerStateのUpdateを呼ぶ
-	/// </summary>
-	void StateUpdate();
 
 	/// <summary>
 	/// IPlayerStateを更新
@@ -143,13 +144,16 @@ private:
 	void SwichDebugMode();
 
 	/// <summary>
-	/// デバッグモード化を判定する
+	/// ダッシュ機能
 	/// </summary>
-	/// <returns>デバッグモードならtrue</returns>
-	const bool IsDubug()const ;
+	void Run();
+
+	/// <summary>
+	/// 重力処理
+	/// </summary>
+	void Jump();
 private:
 	////////////モデル/////////////////////////////////////////////
-	//prefab::ModelRender* m_Model = nullptr;		//プレイヤーモデル
 	Vector3 m_Pos = { 0.0f,500.0f,500.0f };
 	Quaternion m_Rot = Quaternion::Identity;
 	Vector3 m_Scale = Vector3::One;

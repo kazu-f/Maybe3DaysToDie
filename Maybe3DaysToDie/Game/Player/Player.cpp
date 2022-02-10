@@ -55,39 +55,8 @@ bool Player::Start()
 void Player::Update()
 {
 	//ステートを更新
-	StateUpdate();
+	ChangeState();
 
-	switch (m_CurrentState)
-	{
-	case State::Menu:
-		m_Camera->SetMovingMouse(true);
-		break;
-	case State::Dead:
-		PlayerState = &m_Dead;
-		PlayerState->Enter();
-		m_Camera->SetMovingMouse(true);
-		break;
-	case State::Run:
-		m_mulSpeed = 1.0f;
-		//移動処理
-		Move();
-		SwichDebugMode();
-		m_Camera->SetMovingMouse(false);
-		break;
-	case Debug:
-		m_mulSpeed = 2.0f;
-		//移動処理
-		Move();
-		SwichDebugMode();
-		m_Camera->SetMovingMouse(false);
-		break;
-	default:
-		//移動処理
-		Move();
-		SwichDebugMode();
-		m_Camera->SetMovingMouse(false);
-		break;
-	}
 	if (PlayerState != nullptr) {
 		PlayerState->Update();
 
@@ -98,6 +67,10 @@ void Player::Update()
 	if (GetAsyncKeyState('r')) {
 		m_AccessObject->EndAccess();
 	}
+
+	Run();
+
+
 	//時間経過による回復
 	PeriodicUpdate();
 	//カメラにポジションを渡す
@@ -142,75 +115,91 @@ void Player::PeriodicUpdate()
 	m_DeltaTime += GameTime().GetFrameDeltaTime();
 }
 
-void Player::StateUpdate()
-{
-	ChangeState();
-}
-
 void Player::ChangeState()
 {
-	m_CurrentState = m_NextState;
+	if (m_CurrentState != m_NextState) {
+		m_CurrentState = m_NextState;
+	}
+	switch (m_CurrentState)
+	{
+	case State::Menu:
+		m_Camera->SetMovingMouse(true);
+		break;
+	case State::Dead:
+		PlayerState = &m_Dead;
+		PlayerState->Enter();
+		m_Camera->SetMovingMouse(true);
+		break;
+	case State::Run:
+		m_mulSpeed = 1.0f;
+		//移動処理
+		Move();
+		SwichDebugMode();
+		m_Camera->SetMovingMouse(false);
+		break;
+	case Debug:
+		m_mulSpeed = 2.0f;
+		//移動処理
+		Move();
+		SwichDebugMode();
+		m_Camera->SetMovingMouse(false);
+		break;
+	default:
+		//移動処理
+		Move();
+		SwichDebugMode();
+		m_Camera->SetMovingMouse(false);
+		break;
+	}
 }
 
-void Player::Move()
+
+void Player::Rotation()
 {
-	Vector3 Forward = MainCamera().GetForward();
-	Forward.y = 0.0f;
+}
 
-	Vector3 MoveSpeed = Vector3::Zero;
-	//Wキーが押されたら
-	if (GetAsyncKeyState('W')) {
-		if (IsDubug()) {
-			MoveSpeed += MainCamera().GetForward();
-		}
-		else {
-			MoveSpeed += Forward;
-		}
-	}
-	//Sキーが押されたら
-	if (GetAsyncKeyState('S')) {
-		if (IsDubug()) {
-			MoveSpeed -= MainCamera().GetForward();
-		}
-		else {
-			MoveSpeed -= Forward;
-		}
-	}
+void Player::ModelUpdate()
+{
+	//回転
+	Rotation();
+	//m_Model->PlayAnimation(State::Idle,GameTime().GetFrameDeltaTime());
+}
 
-	Vector3 RightMoveSpeed = MainCamera().GetRight();
-	RightMoveSpeed.y = 0.0f;
-	//Aキーが押されたら
-	if (GetAsyncKeyState('A')) {
-		if (IsDubug()) {
-			MoveSpeed -= MainCamera().GetRight();
+void Player::SwichDebugMode()
+{
+	static bool IsPush = false;
+	if (GetAsyncKeyState('G')) {
+		if (!IsPush) {
+			static State BuckUpState = State::Idle;
+			if (m_CurrentState == State::Debug) {
+				m_NextState = BuckUpState;
+			}
+			else {
+				m_NextState = State::Debug;
+				BuckUpState = m_CurrentState;
+			}
 		}
-		else {
-			MoveSpeed -= RightMoveSpeed;
-		}
+		IsPush = true;
 	}
-	//Dキーが押されたら
-	if (GetAsyncKeyState('D')) {
-		if (IsDubug()) {
-			MoveSpeed += MainCamera().GetRight();
-		}
-		else {
-			MoveSpeed += RightMoveSpeed;
-		}
+	else {
+		IsPush = false;
 	}
+}
 
-	//////移動速度//////////////////////////
+void Player::Run()
+{
 	{
-		///ダッシュ機能////////////////////////
 		if (GetAsyncKeyState(VK_LSHIFT) &&
-			MoveSpeed.Length() > 0.5f &&
+			PlayerState->GetMoveSpeed().Length() > 0.5f &&
 			m_Stamina->IsUseStamina(1))
 		{
 			m_NextState = State::Run;
 		}
 	}
-	///////////////////////////////////////////////
+}
 
-	/////重力処理////////////////////////
+void Player::Jump()
+{
 	{
 		static float gravity = 0.0f;
 		gravity -= GameTime().GetFrameDeltaTime();
@@ -230,7 +219,11 @@ void Player::Move()
 				//神視点の時はジャンプし続ける
 				if (IsDubug()) {
 					IsJump = false;
-					MoveSpeed.y += 1.0f;
+					Vector3 MoveY = {
+						PlayerState->GetMoveSpeed().x,
+						PlayerState->GetMoveSpeed().y + 1.0f,
+						PlayerState->GetMoveSpeed().z };
+					PlayerState->SetMoveSpeed(MoveY);
 				}
 				//if (m_IsChasePlayer) {
 				//	if (m_Characon.IsOnGround()) {
@@ -268,49 +261,6 @@ void Player::Move()
 			gravity = 0.0f;
 		}
 		MoveSpeed.y += gravity;
-	}
-	////////////////////////////////////////
-
-	if (PlayerState == nullptr) {
-		MoveSpeed *= MoveDistance * m_mulSpeed;
-	}
-	else {
-		MoveSpeed *= MoveDistance * PlayerState->GetMulSpeed();
-	}
-	m_Pos = m_Characon.Execute(MoveSpeed);
-
-	//m_Model->SetPosition(Vector3::Zero);
-}
-
-void Player::Rotation()
-{
-}
-
-void Player::ModelUpdate()
-{
-	//回転
-	Rotation();
-	//m_Model->PlayAnimation(State::Idle,GameTime().GetFrameDeltaTime());
-}
-
-void Player::SwichDebugMode()
-{
-	static bool IsPush = false;
-	if (GetAsyncKeyState('G')) {
-		if (!IsPush) {
-			static State BuckUpState = State::Idle;
-			if (m_CurrentState == State::Debug) {
-				m_NextState = BuckUpState;
-			}
-			else {
-				m_NextState = State::Debug;
-				BuckUpState = m_CurrentState;
-			}
-		}
-		IsPush = true;
-	}
-	else {
-		IsPush = false;
 	}
 }
 
