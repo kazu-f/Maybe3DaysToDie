@@ -37,13 +37,13 @@ bool Player::Start()
 	ModelInitData PlayerModel;
 	PlayerModel.m_tkmFilePath = "Assets/modelData/Player.tkm";
 
-	AnimClipInitData AnInitData[State::Num];
-	AnInitData[State::Idle].tkaFilePath = "Assets/animData/PlayerIdle.tka";
-	AnInitData[State::Idle].isLoop = true;
-	AnInitData[State::Walk].tkaFilePath = "Assets/animData/PlayerWalk.tka";
-	AnInitData[State::Walk].isLoop = true;
-	AnInitData[State::Attack].tkaFilePath = "Assets/animData/PlayerIdle.tka";
-	AnInitData[State::Run].tkaFilePath = "Assets/animData/PlayerIdle.tka";
+	AnimClipInitData AnInitData[IPlayerState::State::Num];
+	AnInitData[IPlayerState::State::Idle].tkaFilePath = "Assets/animData/PlayerIdle.tka";
+	AnInitData[IPlayerState::State::Idle].isLoop = true;
+	AnInitData[IPlayerState::State::Walk].tkaFilePath = "Assets/animData/PlayerWalk.tka";
+	AnInitData[IPlayerState::State::Walk].isLoop = true;
+	AnInitData[IPlayerState::State::Attack].tkaFilePath = "Assets/animData/PlayerIdle.tka";
+	AnInitData[IPlayerState::State::Run].tkaFilePath = "Assets/animData/PlayerIdle.tka";
 	//m_Model = NewGO<prefab::ModelRender>(0);
 	//m_Model->Init(PlayerModel, AnInitData,State::Num);
 	//m_Model->SetPosition(m_Pos);
@@ -51,7 +51,7 @@ bool Player::Start()
 	//m_Model->SetScale(m_Scale);
 	m_Characon.Init(radius, hight, m_Pos);
 	m_Characon.GetBody()->GetBody()->setUserPointer(this);
-	m_NextState = State::Idle;
+	m_NextState = IPlayerState::State::Idle;
 	return true;
 }
 
@@ -72,16 +72,16 @@ void Player::Update()
 	if (GetAsyncKeyState(MK_RBUTTON)) {
 		//レイテストで使用するベクトルを作成
 		btVector3 start, end;
-			Vector3 PlayerPos = m_Pos;
-			PlayerPos.y = m_Pos.y + 90.0f;
-			start.setValue(PlayerPos.x, PlayerPos.y + 90.0f, PlayerPos.z);
-			float Range = 5000.0f;
-			Vector3 RayEnd = PlayerPos;
-			RayEnd += MainCamera().GetForward() * Range;
-			end.setValue(RayEnd.x, RayEnd.y + 90.0f, RayEnd.z);
+		Vector3 PlayerPos = m_Pos;
+		PlayerPos.y = m_Pos.y + 90.0f;
+		start.setValue(PlayerPos.x, PlayerPos.y + 90.0f, PlayerPos.z);
+		float Range = 5000.0f;
+		Vector3 RayEnd = PlayerPos;
+		RayEnd += MainCamera().GetForward() * Range;
+		end.setValue(RayEnd.x, RayEnd.y + 90.0f, RayEnd.z);
 
-			//レイテスト
-			CharactorRayResult callback;
+		//レイテスト
+		CharactorRayResult callback;
 		callback.ExclusionPointer = this;
 		PhysicsWorld().RayTest(start, end, callback);
 		//レイが衝突しているとき
@@ -126,7 +126,7 @@ void Player::ReStart()
 	m_Water->Reset();
 	PlayerState->Leave();
 	PlayerState = nullptr;
-	m_NextState = State::Idle;
+	m_NextState = IPlayerState::State::Idle;
 	while (true) {
 		int returnNo = ShowCursor(false);
 		if (returnNo <= 0) {
@@ -150,57 +150,35 @@ void Player::ChangeState()
 		}
 		switch (m_CurrentState)
 		{
-		case Idle:
+		case IPlayerState::State::Idle:
 			PlayerState = &m_Idle;
 			PlayerState->Enter();
 			m_Camera->SetMovingMouse(false);
 			break;
-		case State::Menu:
+		case IPlayerState::State::Menu:
 			m_Camera->SetMovingMouse(true);
 			break;
-		case State::Dead:
+		case IPlayerState::State::Dead:
 			PlayerState = &m_Dead;
 			PlayerState->Enter();
 			m_Camera->SetMovingMouse(true);
 			break;
-		case State::Run:
-			m_mulSpeed = 1.0f;
-			SwichDebugMode();
+		case IPlayerState::State::Run:
+			PlayerState = &m_Walk;
+			PlayerState->Leave();
 			m_Camera->SetMovingMouse(false);
 			break;
-		case Debug:
+		case IPlayerState::State::Debug:
 			m_mulSpeed = 2.0f;
-			SwichDebugMode();
+			IPlayerState::SwichDebugMode();
 			m_Camera->SetMovingMouse(false);
 			break;
 		default:
-			SwichDebugMode();
 			m_Camera->SetMovingMouse(false);
 			break;
 		}
 	}
 
-}
-
-void Player::SwichDebugMode()
-{
-	static bool IsPush = false;
-	if (GetAsyncKeyState('G')) {
-		if (!IsPush) {
-			static State BuckUpState = State::Idle;
-			if (m_CurrentState == State::Debug) {
-				m_NextState = BuckUpState;
-			}
-			else {
-				m_NextState = State::Debug;
-				BuckUpState = m_CurrentState;
-			}
-		}
-		IsPush = true;
-	}
-	else {
-		IsPush = false;
-	}
 }
 
 void Player::Dash()
@@ -210,7 +188,7 @@ void Player::Dash()
 			PlayerState->GetMoveSpeed().Length() > 0.5f &&
 			m_Stamina->IsUseStamina(1))
 		{
-			m_NextState = State::Run;
+			m_NextState = IPlayerState::State::Run;
 		}
 	}
 }
@@ -269,7 +247,7 @@ void Player::Jump()
 
 const bool Player::IsDubug() const
 {
-	if (m_CurrentState == State::Debug) {
+	if (m_CurrentState == IPlayerState::State::Debug) {
 		return true;
 	}
 	return false;
@@ -278,15 +256,15 @@ const bool Player::IsDubug() const
 void Player::HitDamage(float damage) {
 	float PlayerHp = m_Hp->GetHp() - damage;
 	if (PlayerHp <= 0) {
-		m_NextState = State::Dead;
+		m_NextState = IPlayerState::State::Dead;
 	}
 	m_Hp->HitDamage(damage);
 }
 
 bool Player::OpenInventory()
 {
-	if (State::Dead != m_CurrentState) {
-		m_NextState = State::Menu;
+	if (IPlayerState::State::Dead != m_CurrentState) {
+		m_NextState = IPlayerState::State::Menu;
 		return true;
 	}
 	return false;
@@ -294,5 +272,5 @@ bool Player::OpenInventory()
 
 void Player::CloseInventory()
 {
-	m_NextState = State::Idle;
+	m_NextState = IPlayerState::State::Idle;
 }

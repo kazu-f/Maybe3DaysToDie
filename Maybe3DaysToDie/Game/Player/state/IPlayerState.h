@@ -3,6 +3,18 @@ class Player;
 class IPlayerState
 {
 public:
+	//プレイヤーが持つステートの種類
+	enum State {
+		Idle,			//待機
+		Walk,			//歩く
+		Run,			//走る
+		Attack,			//攻撃
+		Menu,			//メニュー画面中
+		//Damage,			//攻撃に当たった
+		Dead,			//死にました
+		Debug,			//デバッグモード
+		Num				//ステート数
+	};
 	IPlayerState(Player* pl) :m_Player(pl) {}
 	virtual ~IPlayerState() {}
 	virtual void Enter() = 0;
@@ -21,7 +33,11 @@ public:
 	float GetMulSpeed()const {
 		return m_mulSpeed;
 	}
-	
+
+	/// <summary>
+	/// デバッグモードを切り替える関数
+	/// </summary>
+	void SwichDebugMode();
 protected:
 	float m_mulSpeed = 0.0f;
 	Player* m_Player = nullptr;

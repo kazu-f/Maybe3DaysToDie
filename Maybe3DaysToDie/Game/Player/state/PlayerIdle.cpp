@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "PlayerIdle.h"
-
+#include "Player/Player.h"
 PlayerIdle::PlayerIdle(Player* pl):
 	IPlayerState::IPlayerState(pl)
 {
@@ -17,7 +17,7 @@ void PlayerIdle::Update()
 		GetAsyncKeyState('W') ||
 		GetAsyncKeyState('S') ||
 		GetAsyncKeyState('D') ) {
-
+		m_Player->ChengeState(Player::State::Walk);
 	}
 }
 

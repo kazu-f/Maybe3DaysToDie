@@ -56,3 +56,24 @@ void IPlayerState::Move() {
 
 	m_Player->CharaMove(MoveSpeed);
 }
+
+void IPlayerState::SwichDebugMode()
+{
+	static bool IsPush = false;
+	if (GetAsyncKeyState('G')) {
+		if (!IsPush) {
+			static State BuckUpState = State::Idle;
+			if (m_Player->GetCurrentState() == State::Debug) {
+				m_Player->ChengeState(BuckUpState);
+			}
+			else {
+				m_Player->ChengeState(State::Debug);
+				BuckUpState = m_Player->GetCurrentState();
+			}
+		}
+		IsPush = true;
+	}
+	else {
+		IsPush = false;
+	}
+}

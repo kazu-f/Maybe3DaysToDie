@@ -77,6 +77,7 @@
     <ClCompile Include="NaviMeshManager.cpp" />
     <ClCompile Include="MapLoad\MapLoad.cpp" />
     <ClCompile Include="Player\state\PlayerIdle.cpp" />
+    <ClCompile Include="Player\state\PlayerWalk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="NaviMeshManager.h" />
     <ClInclude Include="MapLoad\MapLoad.h" />
     <ClInclude Include="Player\state\PlayerIdle.h" />
+    <ClInclude Include="Player\state\PlayerWalk.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />

@@ -10,6 +10,7 @@ class ItemBar;
 class AccessObject;
 #include "state/PlayerDead.h"
 #include "state/PlayerIdle.h"
+#include "state/PlayerWalk.h"
 class IPlayerState;
 class IEnemy;
 class Player : public IGameObject
@@ -44,18 +45,6 @@ private:
 	void OnDestroy()override final;
 
 public:
-	//プレイヤーが持つステートの種類
-	enum State {
-		Idle,			//待機
-		Walk,			//歩く
-		Run,			//走る
-		Attack,			//攻撃
-		Menu,			//メニュー画面中
-		//Damage,			//攻撃に当たった
-		Dead,			//死にました
-		Debug,			//デバッグモード
-		Num				//ステート数
-	};
 	const Vector3 GetPosition() const {
 		return m_Pos;
 	}
@@ -101,7 +90,7 @@ public:
 	/// 現在のステートを取得
 	/// </summary>
 	/// <returns>現在のステート</returns>
-	State GetState() const {
+	IPlayerState::State GetState() const {
 		return m_CurrentState;
 	}
 
@@ -120,6 +109,14 @@ public:
 	void CharaMove(Vector3& move) {
 		m_Characon.Execute(move);
 	}
+
+	void ChengeState(IPlayerState::State nextState) {
+		m_NextState = nextState;
+	}
+
+	IPlayerState::State GetCurrentState() const {
+		return m_CurrentState;
+	}
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
@@ -131,10 +128,6 @@ private:
 	/// </summary>
 	void ChangeState();
 
-	/// <summary>
-	/// デバッグモードを切り替える関数
-	/// </summary>
-	void SwichDebugMode();
 
 	/// <summary>
 	/// ダッシュ機能
@@ -172,8 +165,8 @@ private:
 	/////ホットバー//////////////////////////////////////////////
 	ItemBar* m_ItemBar = nullptr;
 	/// ////////////////////////////////////////////////////////
-	State m_CurrentState = State::Num;				//現在のステート
-	State m_NextState = State::Num;				//次に変わるステート
+	IPlayerState::State m_CurrentState = IPlayerState::State::Num;				//現在のステート
+	IPlayerState::State m_NextState = IPlayerState::State::Num;				//次に変わるステート
 	float m_DeltaTime = 0.0f;
 
 	GameCamera* m_Camera = nullptr;
@@ -190,6 +183,7 @@ private:
 	IPlayerState* PlayerState = nullptr;
 	PlayerIdle m_Idle;
 	PlayerDead m_Dead;
+	PlayerWalk m_Walk;
 	Vector3 m_RespownPoint = { 100.0f,100.0f,100.0f };
 	IEnemy* m_Enemy = nullptr;
 };
