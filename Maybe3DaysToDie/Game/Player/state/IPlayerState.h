@@ -8,20 +8,19 @@ public:
 	virtual void Enter() = 0;
 	virtual	void Update() = 0;
 	virtual void Leave() = 0;
-	Vector3 Move();
+	void Move();
 	
 	Vector3 GetMoveSpeed()const {
 		return m_MoveSpeed;
 	}
 	
-	void SetMoveSpeed(Vector3& MoveSpeed) {
-		m_MoveSpeed = MoveSpeed;
+	void SetMoveSpeedY(float MoveSpeed) {
+		m_MoveSpeed.y = MoveSpeed;
 	}
 
 	float GetMulSpeed()const {
 		return m_mulSpeed;
 	}
-
 protected:
 	float m_mulSpeed = 0.0f;
 	Player* m_Player = nullptr;

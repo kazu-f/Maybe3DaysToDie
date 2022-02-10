@@ -10,7 +10,6 @@
 #include "Player/State/IPlayerState.h"
 
 namespace {
-	const float MoveDistance = 1000.0f;			//1フレームに動く距離
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
 	const float NeckLimitY = 10.0f;				//上や下を向ける限界
 }
@@ -40,7 +39,6 @@ bool Player::Start()
 	AnInitData[State::Walk].tkaFilePath = "Assets/animData/PlayerWalk.tka";
 	AnInitData[State::Walk].isLoop = true;
 	AnInitData[State::Attack].tkaFilePath = "Assets/animData/PlayerIdle.tka";
-	AnInitData[State::Jump].tkaFilePath = "Assets/animData/PlayerIdle.tka";
 	AnInitData[State::Run].tkaFilePath = "Assets/animData/PlayerIdle.tka";
 	//m_Model = NewGO<prefab::ModelRender>(0);
 	//m_Model->Init(PlayerModel, AnInitData,State::Num);
@@ -68,8 +66,11 @@ void Player::Update()
 		m_AccessObject->EndAccess();
 	}
 
-	Run();
+	//走る？
+	Dash();
 
+	//ジャンプ
+	Jump();
 
 	//時間経過による回復
 	PeriodicUpdate();
@@ -120,6 +121,7 @@ void Player::ChangeState()
 	if (m_CurrentState != m_NextState) {
 		m_CurrentState = m_NextState;
 	}
+	
 	switch (m_CurrentState)
 	{
 	case State::Menu:
@@ -132,21 +134,15 @@ void Player::ChangeState()
 		break;
 	case State::Run:
 		m_mulSpeed = 1.0f;
-		//移動処理
-		Move();
 		SwichDebugMode();
 		m_Camera->SetMovingMouse(false);
 		break;
 	case Debug:
 		m_mulSpeed = 2.0f;
-		//移動処理
-		Move();
 		SwichDebugMode();
 		m_Camera->SetMovingMouse(false);
 		break;
 	default:
-		//移動処理
-		Move();
 		SwichDebugMode();
 		m_Camera->SetMovingMouse(false);
 		break;
@@ -186,7 +182,7 @@ void Player::SwichDebugMode()
 	}
 }
 
-void Player::Run()
+void Player::Dash()
 {
 	{
 		if (GetAsyncKeyState(VK_LSHIFT) &&
@@ -200,68 +196,54 @@ void Player::Run()
 
 void Player::Jump()
 {
-	{
-		static float gravity = 0.0f;
-		gravity -= GameTime().GetFrameDeltaTime();
-		if (IsDubug()) {
-			gravity = 0.0f;
-		}
-
-		/////////ジャンプ処理/////////////////////////////////////////////
-		{
-			if (GetAsyncKeyState(VK_SPACE)) {
-				//地面に設置しているときだけ
-				//ジャンプする
-				if (m_Characon.IsOnGround())
-				{
-					IsJump = true;
-				}
-				//神視点の時はジャンプし続ける
-				if (IsDubug()) {
-					IsJump = false;
-					Vector3 MoveY = {
-						PlayerState->GetMoveSpeed().x,
-						PlayerState->GetMoveSpeed().y + 1.0f,
-						PlayerState->GetMoveSpeed().z };
-					PlayerState->SetMoveSpeed(MoveY);
-				}
-				//if (m_IsChasePlayer) {
-				//	if (m_Characon.IsOnGround()) {
-				//		MoveSpeed.y = 10.0f;
-				//	}
-				//}
-				//else {
-				//	MoveSpeed.y = 10.0f;
-				//}
-			}
-		}
-		if (IsJump)
-		{
-			NowTime += GameTime().GetFrameDeltaTime();
-			const float JumpTime = 0.3f;
-			float f = NowTime - JumpTime;
-			const float JumpPower = 0.8f;
-			MoveSpeed.y = ((gravity)*pow(f, 2.0f)) + JumpPower;
-			if (IsJumping && m_Characon.IsOnGround())
-			{
-				//ジャンプ中に地面についたのでジャンプ終了
-				IsJump = false;
-				IsJumping = false;
-				NowTime = 0.0f;
-				MoveSpeed.y = 0.0f;
-			}
-			else
-			{
-				IsJumping = true;
-			}
-		}
-
-		/////////////////////
-		if (m_Characon.IsOnGround()) {
-			gravity = 0.0f;
-		}
-		MoveSpeed.y += gravity;
+	static float gravity = 0.0f;
+	gravity -= GameTime().GetFrameDeltaTime();
+	if (IsDubug()) {
+		gravity = 0.0f;
 	}
+
+	/////////ジャンプ処理/////////////////////////////////////////////
+	{
+		if (GetAsyncKeyState(VK_SPACE)) {
+			//地面に設置しているときだけ
+			//ジャンプする
+			if (m_Characon.IsOnGround())
+			{
+				IsJump = true;
+			}
+			//神視点の時はジャンプし続ける
+			if (IsDubug()) {
+				IsJump = false;
+				PlayerState->SetMoveSpeedY(PlayerState->GetMoveSpeed().y + 1.0f);
+			}
+		}
+	}
+	if (IsJump)
+	{
+		NowTime += GameTime().GetFrameDeltaTime();
+		const float JumpTime = 0.3f;
+		float f = NowTime - JumpTime;
+		const float JumpPower = 0.8f;
+		PlayerState->SetMoveSpeedY(gravity * pow(f, 2.0f) + JumpPower);
+		if (IsJumping && m_Characon.IsOnGround())
+		{
+			//ジャンプ中に地面についたのでジャンプ終了
+			IsJump = false;
+			IsJumping = false;
+			NowTime = 0.0f;
+			PlayerState->SetMoveSpeedY(0.0f);
+		}
+		else
+		{
+			IsJumping = true;
+		}
+	}
+
+	/////////////////////
+	if (m_Characon.IsOnGround()) {
+		gravity = 0.0f;
+	}
+	PlayerState->SetMoveSpeedY(PlayerState->GetMoveSpeed().y + gravity);
 }
 
 const bool Player::IsDubug() const

@@ -2,7 +2,11 @@
 #include "IPlayerState.h"
 #include "Player/Player.h"
 
-Vector3 IPlayerState::Move() {
+namespace {
+	const float MoveDistance = 1000.0f;			//1ƒtƒŒ[ƒ€‚É“®‚­‹——£
+}
+
+void IPlayerState::Move() {
 
 	Vector3 Forward = MainCamera().GetForward();
 	Forward.y = 0.0f;
@@ -48,14 +52,7 @@ Vector3 IPlayerState::Move() {
 		}
 	}
 
-	if (PlayerState == nullptr) {
-		MoveSpeed *= MoveDistance * m_mulSpeed;
-	}
-	else {
-		MoveSpeed *= MoveDistance * PlayerState->GetMulSpeed();
-	}
-	m_Pos = m_Characon.Execute(MoveSpeed);
+	MoveSpeed *= MoveDistance * m_mulSpeed;
 
-	//m_Model->SetPosition(Vector3::Zero);
-	return Vector3();
+	m_Player->CharaMove(MoveSpeed);
 }

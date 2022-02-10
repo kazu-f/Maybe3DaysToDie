@@ -44,7 +44,6 @@ public:
 		Idle,			//待機
 		Walk,			//歩く
 		Run,			//走る
-		Jump,			//ジャンプ
 		Attack,			//攻撃
 		Menu,			//メニュー画面中
 		//Damage,			//攻撃に当たった
@@ -112,6 +111,10 @@ public:
 	/// </summary>
 	/// <returns>デバッグモードならtrue</returns>
 	const bool IsDubug()const;
+
+	void CharaMove(Vector3& move) {
+		m_Characon.Execute(move);
+	}
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
@@ -122,11 +125,6 @@ private:
 	/// IPlayerStateを更新
 	/// </summary>
 	void ChangeState();
-
-	/// <summary>
-	/// モデルの移動処理
-	/// </summary>
-	void Move();
 
 	/// <summary>
 	/// モデルの回転処理
@@ -146,7 +144,7 @@ private:
 	/// <summary>
 	/// ダッシュ機能
 	/// </summary>
-	void Run();
+	void Dash();
 
 	/// <summary>
 	/// 重力処理
