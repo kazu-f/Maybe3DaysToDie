@@ -163,6 +163,7 @@
     <ClCompile Include="Item\GameItemMaterial.cpp" />
     <ClCompile Include="Item\GameItemFoods.cpp" />
     <ClCompile Include="IK\FootIK.cpp" />
+    <ClCompile Include="MapLoad\MapLoad.cpp" />
     <ClCompile Include="MauseInfo.cpp" />
     <ClCompile Include="Player\state\IPlayerState.cpp" />
     <ClCompile Include="Item\BlockItem.cpp" />
@@ -209,7 +210,7 @@
     <ClCompile Include="Enemy\StandardZombie\STDZombieAttack.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieTracking.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp" />
-    <ClCompile Include="Load\TerrainLoad\TerrainLoad.cpp" />
+    <ClCompile Include="Save\TerrainSave\TerrainLoad.cpp" />
     <ClCompile Include="TerrainManager\TerrainChunkData.cpp" />
     <ClCompile Include="TerrainManager\TerrainManager.cpp" />
     <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="Item\GameItemMaterial.h" />
     <ClInclude Include="Item\GameItemFoods.h" />
     <ClInclude Include="IK\FootIK.h" />
+    <ClInclude Include="MapLoad\MapLoad.h" />
     <ClInclude Include="MauseInfo.h" />
     <ClInclude Include="Player\state\IPlayerState.h" />
     <ClInclude Include="Item\BlockItem.h" />
@@ -313,7 +315,7 @@
     <ClInclude Include="Enemy\StandardZombie\STDZombieAttack.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieTracking.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h" />
-    <ClInclude Include="Load\TerrainLoad\TerrainLoad.h" />
+    <ClInclude Include="Save\TerrainSave\TerrainLoad.h" />
     <ClInclude Include="TerrainManager\TerrainChunkData.h" />
     <ClInclude Include="TerrainManager\MarchingCubeTable.h" />
     <ClInclude Include="TerrainManager\TerrainManager.h" />
