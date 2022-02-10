@@ -74,8 +74,8 @@ namespace nsTerrain {
 			CalcVoxel();
 		}
 
-	private:
 		void CalcVoxel();
+	private:
 
 		void UpdateChunkData();
 	private:
