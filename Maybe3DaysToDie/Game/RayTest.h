@@ -90,6 +90,7 @@ struct CharactorRayResult :public btCollisionWorld::RayResultCallback
 	bool isHit = false;		//衝突フラグ
 	Vector3 hitColPos = Vector3::Zero;
 	const btCollisionObject* ColObj = nullptr;
+	void* ExclusionPointer = nullptr;	//除外したいポインタ
 	//衝突したときに呼ばれる関数
 	virtual btScalar addSingleResult(
 		btCollisionWorld::LocalRayResult& convexResult,
@@ -98,6 +99,9 @@ struct CharactorRayResult :public btCollisionWorld::RayResultCallback
 	{
 		if (convexResult.m_collisionObject->getUserIndex() & ColliderUserIndex::enCollisionAttr_Character)
 		{
+			if (ExclusionPointer == convexResult.m_collisionObject->getUserPointer()) {
+				return 0.0f;
+			}
 			btVector3 hitpos = convexResult.m_collisionObject->getWorldTransform().getOrigin();
 			isHit = true;
 			hitColPos.Set(hitpos);

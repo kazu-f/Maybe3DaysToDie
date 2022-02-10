@@ -9,12 +9,16 @@ class GameCamera;
 class ItemBar;
 class AccessObject;
 #include "state/PlayerDead.h"
+#include "state/PlayerIdle.h"
 class IPlayerState;
 class IEnemy;
 class Player : public IGameObject
 {
 public :
-	Player():m_Dead(this){}
+	Player():
+		m_Dead(this),
+		m_Idle(this)
+	{}
 private:
 	//配列用の定数
 	//なんとなくマジックナンバーが嫌だったので定数化
@@ -128,16 +132,6 @@ private:
 	void ChangeState();
 
 	/// <summary>
-	/// モデルの回転処理
-	/// </summary>
-	void Rotation();
-
-	/// <summary>
-	/// モデルを更新
-	/// </summary>
-	void ModelUpdate();
-
-	/// <summary>
 	/// デバッグモードを切り替える関数
 	/// </summary>
 	void SwichDebugMode();
@@ -178,8 +172,8 @@ private:
 	/////ホットバー//////////////////////////////////////////////
 	ItemBar* m_ItemBar = nullptr;
 	/// ////////////////////////////////////////////////////////
-	State m_CurrentState = State::Idle;				//現在のステート
-	State m_NextState = State::Idle;				//次に変わるステート
+	State m_CurrentState = State::Num;				//現在のステート
+	State m_NextState = State::Num;				//次に変わるステート
 	float m_DeltaTime = 0.0f;
 
 	GameCamera* m_Camera = nullptr;
@@ -194,6 +188,7 @@ private:
 	AccessObject* m_AccessObject = nullptr;
 
 	IPlayerState* PlayerState = nullptr;
+	PlayerIdle m_Idle;
 	PlayerDead m_Dead;
 	Vector3 m_RespownPoint = { 100.0f,100.0f,100.0f };
 	IEnemy* m_Enemy = nullptr;

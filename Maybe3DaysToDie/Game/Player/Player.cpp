@@ -14,6 +14,8 @@
 namespace {
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
 	const float NeckLimitY = 10.0f;				//上や下を向ける限界
+	const float radius = 50.0f;
+	const float hight = 90.0f;
 }
 
 bool Player::Start()
@@ -47,8 +49,9 @@ bool Player::Start()
 	//m_Model->SetPosition(m_Pos);
 	//m_Model->SetRotation(m_Rot);
 	//m_Model->SetScale(m_Scale);
-	m_Characon.Init(50.0f, 90.0f, m_Pos);
-
+	m_Characon.Init(radius, hight, m_Pos);
+	m_Characon.GetBody()->GetBody()->setUserPointer(this);
+	m_NextState = State::Idle;
 	return true;
 }
 
@@ -59,7 +62,6 @@ void Player::Update()
 
 	if (PlayerState != nullptr) {
 		PlayerState->Update();
-
 	}
 	if (GetAsyncKeyState('e')) {
 		m_AccessObject->Access();
@@ -67,25 +69,29 @@ void Player::Update()
 	if (GetAsyncKeyState('r')) {
 		m_AccessObject->EndAccess();
 	}
-	//レイテストで使用するベクトルを作成
-	btVector3 start, end;
-	Vector3 PlayerPos = m_Pos;
-	PlayerPos.y += 90.0f;
-	start.setValue(PlayerPos.x, PlayerPos.y + 90.0f, PlayerPos.z);
-	float Range = 50.0f;
-	Vector3 RayEnd = PlayerPos;
-	RayEnd += MainCamera().GetForward()* Range;
-	end.setValue(RayEnd.x, RayEnd.y + 90.0f, RayEnd.z);
+	if (GetAsyncKeyState(MK_RBUTTON)) {
+		//レイテストで使用するベクトルを作成
+		btVector3 start, end;
+			Vector3 PlayerPos = m_Pos;
+			PlayerPos.y = m_Pos.y + 90.0f;
+			start.setValue(PlayerPos.x, PlayerPos.y + 90.0f, PlayerPos.z);
+			float Range = 5000.0f;
+			Vector3 RayEnd = PlayerPos;
+			RayEnd += MainCamera().GetForward() * Range;
+			end.setValue(RayEnd.x, RayEnd.y + 90.0f, RayEnd.z);
 
-	//レイテスト
-	CharactorRayResult callback;
-	PhysicsWorld().RayTest(start, end, callback);
-	//レイが衝突しているとき
-	if (callback.isHit)
-	{
-		m_Enemy = ((IEnemy*)callback.ColObj->getUserPointer());
-		//オブジェクトのIDから適切なアクションを起こす
-		auto& param = m_Enemy->();
+			//レイテスト
+			CharactorRayResult callback;
+		callback.ExclusionPointer = this;
+		PhysicsWorld().RayTest(start, end, callback);
+		//レイが衝突しているとき
+		if (callback.isHit)
+		{
+			m_Enemy = ((IEnemy*)callback.ColObj->getUserPointer());
+			//オブジェクトのIDから適切なアクションを起こす
+			int Attck = 105;
+			m_Enemy->HitDamage(Attck);
+		}
 	}
 	//走る？
 	Dash();
@@ -97,8 +103,6 @@ void Player::Update()
 	PeriodicUpdate();
 	//カメラにポジションを渡す
 	m_Camera->SetPosition(m_Pos);
-	//モデル情報を更新
-	ModelUpdate();
 
 	m_LoadingByChunk->SetPlayerPos(m_Pos);
 }
@@ -141,45 +145,41 @@ void Player::ChangeState()
 {
 	if (m_CurrentState != m_NextState) {
 		m_CurrentState = m_NextState;
+		if (PlayerState != nullptr) {
+			PlayerState->Leave();
+		}
+		switch (m_CurrentState)
+		{
+		case Idle:
+			PlayerState = &m_Idle;
+			PlayerState->Enter();
+			m_Camera->SetMovingMouse(false);
+			break;
+		case State::Menu:
+			m_Camera->SetMovingMouse(true);
+			break;
+		case State::Dead:
+			PlayerState = &m_Dead;
+			PlayerState->Enter();
+			m_Camera->SetMovingMouse(true);
+			break;
+		case State::Run:
+			m_mulSpeed = 1.0f;
+			SwichDebugMode();
+			m_Camera->SetMovingMouse(false);
+			break;
+		case Debug:
+			m_mulSpeed = 2.0f;
+			SwichDebugMode();
+			m_Camera->SetMovingMouse(false);
+			break;
+		default:
+			SwichDebugMode();
+			m_Camera->SetMovingMouse(false);
+			break;
+		}
 	}
-	
-	switch (m_CurrentState)
-	{
-	case State::Menu:
-		m_Camera->SetMovingMouse(true);
-		break;
-	case State::Dead:
-		PlayerState = &m_Dead;
-		PlayerState->Enter();
-		m_Camera->SetMovingMouse(true);
-		break;
-	case State::Run:
-		m_mulSpeed = 1.0f;
-		SwichDebugMode();
-		m_Camera->SetMovingMouse(false);
-		break;
-	case Debug:
-		m_mulSpeed = 2.0f;
-		SwichDebugMode();
-		m_Camera->SetMovingMouse(false);
-		break;
-	default:
-		SwichDebugMode();
-		m_Camera->SetMovingMouse(false);
-		break;
-	}
-}
 
-
-void Player::Rotation()
-{
-}
-
-void Player::ModelUpdate()
-{
-	//回転
-	Rotation();
-	//m_Model->PlayAnimation(State::Idle,GameTime().GetFrameDeltaTime());
 }
 
 void Player::SwichDebugMode()

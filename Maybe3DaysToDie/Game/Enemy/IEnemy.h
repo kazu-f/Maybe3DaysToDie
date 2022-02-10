@@ -34,6 +34,9 @@ public:
 		int Hp = 100;					//体力。
 
 		//体格
+		float Hight  = 90.0f;
+		float radius = 50.0f;
+
 		//move(cm)
 		float AttackRange = 150.0f;		//攻撃範囲。	
 		float SearchRange = 20000.0f;	//索敵範囲。	
@@ -168,6 +171,8 @@ public://getter
 	{
 		return m_footIK;
 	}
+public:	//Hp関係
+	virtual void HitDamage(int attack) = 0;
 private:
 	prefab::ModelRender*	m_modelRender = nullptr;	//レンダー。
 	EnemyGenerator*			m_generatorPtr;				//ジェネレーターのポインタ。
@@ -176,6 +181,7 @@ private:
 	Quaternion				m_rot = g_quatIdentity;		//回転。
 	NavigationAgent			m_agent;					//エージェント。
 	FootIK					m_footIK;
+protected:
 	CCharacterController	m_CharaCon;
 };
 
