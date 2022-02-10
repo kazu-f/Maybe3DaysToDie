@@ -156,6 +156,7 @@ void ItemDataFile::InitItemData(const char* filePath)
 
 			GameItemTool* gameItemTool = new GameItemTool(itemData, info);
 			m_itemArray.push_back(gameItemTool);
+			m_toolMap.insert(std::make_pair(gameItemTool->GetIdemData()->itemID, gameItemTool));
 		}
 			break;
 			
@@ -178,6 +179,7 @@ void ItemDataFile::InitItemData(const char* filePath)
 
 			BlockItem* blockItem = new BlockItem(itemData, params, collectItemData, placeType);
 			m_itemArray.push_back(blockItem);
+			m_blockMap.insert(std::make_pair(blockItem->GetIdemData()->itemID, blockItem));
 		}
 			break;
 			
@@ -191,6 +193,7 @@ void ItemDataFile::InitItemData(const char* filePath)
 
 			GameItemFoods* foodItem = new GameItemFoods(itemData, params);
 			m_itemArray.push_back(foodItem);
+			m_foodMap.insert(std::make_pair(foodItem->GetIdemData()->itemID, foodItem));
 		}
 			break;
 			
@@ -200,6 +203,7 @@ void ItemDataFile::InitItemData(const char* filePath)
 
 			GameItemMaterial* materialItem = new GameItemMaterial(itemData, type);
 			m_itemArray.push_back(materialItem);
+			m_materialMap.insert(std::make_pair(materialItem->GetIdemData()->itemID, materialItem));
 		}
 			break;
 

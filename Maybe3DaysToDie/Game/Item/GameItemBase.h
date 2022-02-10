@@ -60,6 +60,15 @@ public:
 		m_itemIcon->SetActiveFlag(isEnable);
 	}
 
+	/// <summary>
+	/// アイテムデータを取得。
+	/// </summary>
+	/// <returns></returns>
+	SItemData* GetIdemData()
+	{
+		return m_itemData.get();
+	}
+
 private:
 	SItemDataPtr m_itemData;
 	prefab::ModelRender* m_itemModel = nullptr;		//アイテムのモデル。
