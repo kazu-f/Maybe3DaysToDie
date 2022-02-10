@@ -12,6 +12,12 @@ cbuffer TerrainCb : register(b0) {
 	int isShadowReceiver	: packoffset(c12.x);		//シャドウレシーバー。
 };
 
+//地形用の定数バッファ
+cbuffer TerrainShadowCb : register(b0) {
+	float4x4 mWorldShadow			: packoffset(c0);
+	float4x4 mTerrainLVP			: packoffset(c4);
+};
+
 /*
 *	ライト用の定数バッファ
 *	tkLightManager.hのSLightParamと対応する。
@@ -30,6 +36,7 @@ struct SVSInTerrain {
 	float4 pos : POSITION;		//地形の頂点座標。
 	float3 normal : NORMAL;		//地形の法線。
 	float2 uv : TEXCOORD0;		//UV座標。
+	float4 texType : TEXTYPE;		//テクスチャを切り替えるための変数。
 };
 
 struct SPSInTerrain {
@@ -37,13 +44,30 @@ struct SPSInTerrain {
 	float3 normal : NORMAL;		//法線。
 	float2 uv : TEXCOORD0;		//UV座標。
 	float3 worldPos : TEXCOORD1;	//ワールド空間でのピクセルの座標。
+	float4 texType : TEXCOORD2;		//テクスチャを切り替えるための変数。
 };
 
 Texture2D<float4> g_albedoMap : register(t0);	//アルベド
 StructuredBuffer<SDirectionalLight> directionalLight : register(t1);	//ライト。
 
+Texture2D<float4> g_terrainMap1 : register(t10);	//地形用のテクスチャ
+Texture2D<float4> g_terrainMap2 : register(t11);	//地形用のテクスチャ
+Texture2D<float4> g_terrainMap3 : register(t12);	//地形用のテクスチャ
+Texture2D<float4> g_terrainMap4 : register(t13);	//地形用のテクスチャ
+
 //サンプラステート。
 //sampler g_sampler : register(s0);
+
+float4 CalcTerrainTexture(float2 uv,float4 type)
+{
+	float4 finalCol = 0.0f;
+	finalCol += g_terrainMap1.Sample(g_sampler, uv) * type.x;		//アルベド。
+	finalCol += g_terrainMap2.Sample(g_sampler, uv) * type.y;		//アルベド。
+	finalCol += g_terrainMap3.Sample(g_sampler, uv) * type.z;		//アルベド。
+	finalCol += g_terrainMap4.Sample(g_sampler, uv) * type.w;		//アルベド。
+
+	return finalCol;
+}
 
 /// <summary>
 /// 地形用の頂点シェーダーのエントリーポイント。
@@ -58,6 +82,7 @@ SPSInTerrain VSTerrainMain(SVSInTerrain vsIn)
 	psIn.pos = mul(mProj, psIn.pos);						//カメラ座標系からスクリーン座標系に変換。
 	psIn.normal = vsIn.normal;
 	psIn.uv = vsIn.uv;
+	psIn.texType = vsIn.texType;
 
 	return psIn;
 }
@@ -111,3 +136,55 @@ float4 PSTerrainMain(SPSInTerrain psIn) : SV_Target0
 	return finalColor;
 }
 
+//GBufferに書き込むピクセルシェーダーのエントリ関数。
+PSOut_GBuffer PSMain_TerrainRenderGBuffer(SPSInTerrain psIn) {
+	PSOut_GBuffer Out = (PSOut_GBuffer)0;
+
+	Out.albedo = CalcTerrainTexture(psIn.uv, psIn.texType);		//アルベド。
+	//法線マップ。
+	Out.normal.xyz = (psIn.normal / 2.0f) + 0.5f;
+
+	//ワールド座標。
+	Out.worldPos = float4(psIn.worldPos, 0.0f);
+
+	//スペキュラマップ。
+	Out.specMap = 0.0f;
+
+	//シャドウ。
+	float4 posInView = mul(mView, float4(psIn.worldPos, 1.0f));
+	Out.shadow = CalcShadow(psIn.worldPos, posInView.z, isShadowReceiver);
+
+	//反射率。
+	Out.reflection = 0.0f;
+
+	return Out;
+}
+
+//シャドウマップ描画用の頂点シェーダーの引数構造体。
+struct SVSTerrainShadowIn {
+	float4 pos : POSITION;
+};
+//シャドウマップ描画用のピクセルシェーダーの引数構造体。
+struct SPSTerrainShadowIn {
+	float4 pos : SV_POSITION;
+};
+/*
+*	シャドウマップ書き込み用の頂点シェーダー。
+*/
+SPSTerrainShadowIn VSTerrainMainShadowMap(SVSTerrainShadowIn vsIn)
+{
+	SPSTerrainShadowIn psIn;
+
+	psIn.pos = mul(mWorldShadow, vsIn.pos);
+	psIn.pos = mul(mTerrainLVP, psIn.pos);
+
+	return psIn;
+}
+
+/*
+*	シャドウマップ書き込み用のピクセルシェーダー。
+*/
+float4 PSTerrainMainShadowMap(SPSTerrainShadowIn psIn) :SV_Target0
+{
+	return psIn.pos.z / psIn.pos.w;
+}

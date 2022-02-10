@@ -89,7 +89,7 @@ public:
 	/// <summary>
 	/// インベントリを表示する
 	/// </summary>
-	void OpenInventory();
+	bool OpenInventory();
 
 	void CloseInventory();
 
@@ -192,5 +192,6 @@ private:
 
 	IPlayerState* PlayerState = nullptr;
 	PlayerDead m_Dead;
+	Vector3 m_RespownPoint = { 100.0f,100.0f,100.0f };
 };
 

@@ -24,7 +24,7 @@ private:
 	void OnDestroy()override final;
 
 public:
-	const void SetMaxHunger(const int maxHun) {
+	const void SetMax(const int maxHun) {
 		m_MaxHunger = maxHun;
 	}
 

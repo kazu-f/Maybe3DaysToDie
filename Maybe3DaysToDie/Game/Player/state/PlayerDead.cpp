@@ -10,6 +10,26 @@ namespace
 PlayerDead::PlayerDead(Player* pl):
 	IPlayerState::IPlayerState(pl)
 {
+	m_Font = NewGO<CFontRender>(0);
+	m_Font->SetText(L"Ž€‚ñ‚¾");
+	m_Font->SetColor(Vector4::Red);
+	m_Font->SetShadowParam(true, 0.5f, Vector4::White);
+	m_Font->SetActiveFlag(false);
+
+	m_BackSprite = InitSprite("Assets/sprite/BackColor.dds");
+	m_BackSprite->SetActiveFlag(false);
+	m_SelectSprite = InitSprite("Assets/sprite/SelectBotton.dds");
+	m_SelectSprite->SetActiveFlag(false);
+	m_BottonSprite = InitSprite("Assets/sprite/respownBotton.dds");
+	m_BottonSprite->SetActiveFlag(false);
+	m_mulSpeed = 0.0f;
+}
+PlayerDead::~PlayerDead()
+{
+	DeleteGO(m_Font);
+	DeleteGO(m_BottonSprite);
+	DeleteGO(m_BackSprite);
+	DeleteGO(m_SelectSprite);
 }
 void PlayerDead::Enter()
 {
@@ -19,15 +39,10 @@ void PlayerDead::Enter()
 			break;
 		}
 	}
-	m_Font = NewGO<CFontRender>(0);
-	m_Font->SetText(L"Ž€‚ñ‚¾");
-	m_Font->SetColor(Vector4::Red);
-	m_Font->SetShadowParam(true, 0.5f, Vector4::White);
-
-	m_BackSprite = InitSprite("Assets/sprite/BackColor.dds");
-	m_SelectSprite = InitSprite("Assets/sprite/SelectBotton.dds");
-	m_BottonSprite = InitSprite("Assets/sprite/respownBotton.dds");
-	m_mulSpeed = 0.0f;
+	m_Font->SetActiveFlag(true);
+	m_BackSprite->SetActiveFlag(true);
+	m_SelectSprite->SetActiveFlag(true);
+	m_BottonSprite->SetActiveFlag(true);
 }
 
 void PlayerDead::Update()
@@ -35,15 +50,16 @@ void PlayerDead::Update()
 	ReSpownTime -= GameTime().GetFrameDeltaTime();
     if (ReSpownTime < 0.0) {
 		m_Player->ReStart();
+		ReSpownTime = 2.0f;
     }
 }
 
 void PlayerDead::Leave()
 {
-	DeleteGO(m_Font);
-	DeleteGO(m_BottonSprite);
-	DeleteGO(m_BackSprite);
-	DeleteGO(m_SelectSprite);
+	m_Font->SetActiveFlag(false);
+	m_BackSprite->SetActiveFlag(false);
+	m_SelectSprite->SetActiveFlag(false);
+	m_BottonSprite->SetActiveFlag(false);
 }
 
 prefab::CSpriteRender* PlayerDead::InitSprite(const char* fileName)

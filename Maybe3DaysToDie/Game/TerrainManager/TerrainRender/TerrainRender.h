@@ -1,4 +1,5 @@
 #pragma once
+#include "TerrainMaterial.h"
 
 namespace nsTerrain {
 
@@ -9,6 +10,7 @@ namespace nsTerrain {
 		Vector3 m_pos;		//座標。
 		Vector3 m_normal;	//法線。
 		Vector2 m_uv;		//UV。
+		Vector4 m_texType;	//テクスチャタイプ。
 	};
 
 	//地形描画クラスの初期化データ。
@@ -22,6 +24,9 @@ namespace nsTerrain {
 	public:
 		bool SubStart()override final;
 		void Update()override final;
+		void PostUpdate()override final;
+		void OnRenderShadowMap(RenderContext& rc, int shadowMapNo, const Matrix& LVP)override final;
+		void OnRenderToGBuffer(RenderContext& rc)override final;
 		void OnForwardRender(RenderContext& rc)override final;
 		/// <summary>
 		/// 初期化。
@@ -128,16 +133,26 @@ namespace nsTerrain {
 			int isShadowReceiver = 0;		//シャドウレシーバーフラグ。
 		};
 
+		struct SCBTerrainShadow {
+			Matrix mWorld;	//ワールド行列。
+			Matrix mLVP;	//ライトビュープロジェクション行列。
+		};
 	private:
 		TerrainInitData m_initData;
-		Texture* m_terrainTex = nullptr;				//地形のテクスチャ。
+		Texture* m_nullTex = nullptr;				//存在しない場合のテクスチャ。
 		Shader m_vsTerrain;					//地形用の頂点シェーダー。
 		Shader m_psTerrain;					//地形用のピクセルシェーダー。
 		PipelineState m_terrainPS;			//地形用のパイプラインステート。
 		ConstantBuffer m_cbTerrain;			//地形用の定数バッファ。
 		DescriptorHeap m_descriptorHeap;	//地形用ディスクリプタヒープ。
+		Shader m_vsTerrainShadow;			//シャドウマップに書き込むための頂点シェーダー。
+		Shader m_psTerrainShadow;			//シャドウマップに書き込むためのピクセルシェーダー。
+		PipelineState m_terrainShadowPS;	//シャドウマップに書き込むためのパイプラインステート。
+		ConstantBuffer m_cbTerrainShadow[NUM_SHADOW_MAP];	//シャドウマップに書き込むために使う定数バッファ。
+		std::vector<DescriptorHeap> m_dhTerrainShadow;	//シャドウマップに書き込むために使うディスクリプタヒープ。
 		VertexBuffer m_vertexBuffer;		//地形の頂点バッファ。
 		IndexBuffer m_indexBuffer;			//地形のインデックスバッファ。
+		TerrainMaterial m_material;
 		Vector3 m_position = Vector3::Zero;				//地形の座標。
 		Quaternion m_rotation = Quaternion::Identity;	//地形の回転。
 		Vector3 m_scale = Vector3::One;				//地形のスケール。
@@ -148,6 +163,8 @@ namespace nsTerrain {
 		int m_vertexCount = 0;
 		bool m_isRenderTerrain = false;		//地形描画する？
 		bool m_isUpdateTerrain = false;		//地形変更があったか？
+		bool m_isForward = false;
+		bool m_isShadowCaster = false;		//影を落とすかどうか。
 	};
 
 }

@@ -31,13 +31,14 @@ void Inventory::OnDestroy()
 void Inventory::SwhichInventoryState()
 {
 	if (!m_IsShow) {
-		m_player->OpenInventory();
-		m_Inbentory->SetActiveFlag(true);
-		m_IsShow = true;
-		while (true) {
-			int returnNo = ShowCursor(true);
-			if (returnNo >= 0) {
-				break;
+		if (m_player->OpenInventory()) {
+			m_Inbentory->SetActiveFlag(true);
+			m_IsShow = true;
+			while (true) {
+				int returnNo = ShowCursor(true);
+				if (returnNo >= 0) {
+					break;
+				}
 			}
 		}
 	}

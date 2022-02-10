@@ -11,8 +11,9 @@ namespace nsTerrain {
 	class TerrainRender;
 	class TerrainChunkData;
 
-	union Cube {
+	struct Cube {
 		float cube[8];
+		int terrainID[8] = { 0 };
 	};
 
 	class TerrainWorld : public IGameObject
