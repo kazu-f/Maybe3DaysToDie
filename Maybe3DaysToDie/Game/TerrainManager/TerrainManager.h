@@ -5,6 +5,7 @@
 #include "TerrainWorld.h"
 
 class NaviMeshManager;
+class SaveDataFile;
 
 namespace nsTerrain {
 
@@ -31,6 +32,22 @@ namespace nsTerrain {
 		void OnDestroy() override final;
 
 	public:
+		/// <summary>
+		/// 地形生成を行う。
+		/// </summary>
+		void PopurerTerrainMap();
+		/// <summary>
+		/// セーブデータから読み込んで地形を生成する。
+		/// </summary>
+		/// <param name="saveDataFile"></param>
+		void LoadTerrainData(SaveDataFile* saveDataFile);
+		/// <summary>
+		/// 地形をセーブする。
+		/// </summary>
+		/// <param name="saveDataFile"></param>
+		void SaveTerrainData(SaveDataFile* saveDataFile);
+
+	public:
 		TerrainChunkData& GetTerrainChunkData(int chunkX, int chunkY)
 		{
 			return m_terrainChunkData[chunkX][chunkY];
@@ -42,15 +59,20 @@ namespace nsTerrain {
 
 	private:
 		/// <summary>
-		/// 地形生成を行う。
-		/// </summary>
-		void PopurerTerrainMap();
-		/// <summary>
 		/// チャンク毎の地形を生成する。
 		/// </summary>
 		/// <param name="chunkX">チャンクのx位置</param>
 		/// <param name="chunkY">チャンクのy位置</param>
 		void ChunkTerrainGenerate(int chunkX, int chunkY);
+		/// <summary>
+		/// チャンク毎で地形データを読み込む。
+		/// </summary>
+		void LoadTerrainInChunk(int chunkX, int chunkY, SaveDataFile* saveDataFile);
+		/// <summary>
+		/// チャンク毎で地形データをセーブ。
+		/// </summary>
+		void SaveTerrainInChunk(int chunkX, int chunkY, SaveDataFile* saveDataFile);
+
 	private:
 		static const int TERRAIN_WORLD_CHUNKSIZE = LoadingChunks;		//地形の表示範囲。
 	private:

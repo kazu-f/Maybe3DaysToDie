@@ -7,7 +7,7 @@
 #include "Tool/Tool.h"
 #include "SaveDataFile.h"
 #include "Save/TerrainSave/TerrainSave.h"
-#include "Load/TerrainLoad/TerrainLoad.h"
+#include "Save/TerrainSave/TerrainLoad.h"
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "Stage.h"
 #include "Player/Player.h"

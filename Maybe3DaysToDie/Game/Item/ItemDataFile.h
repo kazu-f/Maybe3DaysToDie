@@ -1,5 +1,9 @@
 #pragma once
 class GameItemBase;
+class GameItemTool;
+class BlockItem;
+class GameItemFoods;
+class GameItemMaterial;
 
 /// <summary>
 /// jsonファイルからツールデータを読み込むクラス。
@@ -39,7 +43,6 @@ public:
 	{
 		return m_itemArray[id];
 	}
-
 	/// <summary>
 	/// アイテムのデータを取得する。
 	/// </summary>
@@ -55,10 +58,84 @@ public:
 		}
 		return p;
 	}
+	/// <summary>
+	/// ツールデータを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	GameItemTool* GetToolData(int id)
+	{
+		GameItemTool* tool = nullptr;
+
+		auto it = m_toolMap.find(id);
+		if (it != m_toolMap.end())
+		{
+			tool = it->second;
+		}
+
+		return tool;
+	}
+	/// <summary>
+	/// ブロックデータを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	BlockItem* GetBlockData(int id)
+	{
+		BlockItem* block = nullptr;
+
+		auto it = m_blockMap.find(id);
+		if (it != m_blockMap.end())
+		{
+			block = it->second;
+		}
+
+		return block;
+
+	}
+	/// <summary>
+	/// 食料等のデータを取得できるようにした。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	GameItemFoods* GetFoodData(int id)
+	{
+		GameItemFoods* food = nullptr;
+
+		auto it = m_foodMap.find(id);
+		if (it != m_foodMap.end())
+		{
+			food = it->second;
+		}
+
+		return food;
+	}
+	/// <summary>
+	/// 素材データを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	GameItemMaterial* GetMaterialData(int id)
+	{
+		GameItemMaterial* material = nullptr;
+
+		auto it = m_materialMap.find(id);
+		if (it != m_materialMap.end())
+		{
+			material = it->second;
+		}
+
+		return material;
+	}
 
 private:
 	typedef std::vector<GameItemBase*> ItemArray;
 	ItemArray m_itemArray;
+	std::map<int, GameItemTool*> m_toolMap;
+	std::map<int, BlockItem*> m_blockMap;
+	std::map<int, GameItemFoods*> m_foodMap;
+	std::map<int, GameItemMaterial*> m_materialMap;
+
 	int m_arraySize = 0;
 };
 
