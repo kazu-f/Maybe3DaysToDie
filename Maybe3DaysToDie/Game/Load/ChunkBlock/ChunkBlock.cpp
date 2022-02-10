@@ -104,7 +104,7 @@ void ChunkBlock::MoveChunk()
 	IsMove = false;
 }
 
-Block& ChunkBlock::GetBlock(Vector3 pos)
+Block* ChunkBlock::GetBlock(Vector3 pos)
 {
 	//ポジションに対応するブロックを取得
 	int x = pos.x / OBJECT_UNIT;
@@ -114,7 +114,7 @@ Block& ChunkBlock::GetBlock(Vector3 pos)
 	int z = pos.z / OBJECT_UNIT;
 	z = static_cast<int>(z % ChunkWidth);
 
-	return m_Block[x][y][z];
+	return &m_Block[x][y][z];
 }
 
 void ChunkBlock::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)

@@ -66,7 +66,7 @@ public:
 	/// </summary>
 	void RemoveBlock(Block* blockptr);
 
-	Block& GetBlock(Vector3 pos);
+	Block* GetBlock(Vector3 pos);
 
 	bool IsBlockDirty()
 	{

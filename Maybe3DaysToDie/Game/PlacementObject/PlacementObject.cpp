@@ -163,20 +163,23 @@ void PlacementObject::PlaceObject()
 			int id_z = Pos.z / OBJECT_UNIT;
 			id_z = static_cast<int>(id_z % ChunkWidth);
 			
-			//セーブデータに直接書き込み
-			chunkData.ObjData[id_x][id_y][id_z].ObjId = objParam.BlockID;
-			chunkData.ObjData[id_x][id_y][id_z].ObjDurable = objParam.Durable;
-			auto& block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
 			switch (m_SaveData->ObjectType[objParam.BlockID])
 			{
 			case ObjectType::Block:
-				block.AddBlock(objParam, m_pos, rot, scale);
+			{
+				auto* block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
+				//セーブデータに直接書き込み
+				chunkData.ObjData[id_x][id_y][id_z].ObjId = objParam.BlockID;
+				chunkData.ObjData[id_x][id_y][id_z].ObjDurable = objParam.Durable;
+				block->AddBlock(objParam, m_pos, rot, scale);
 				break;
-
+			}
 			case ObjectType::Terrain:
+			{
 				auto* terrain = m_TerrainManager->GetTerrainChunkData(ID[0], ID[1]).GetTerrainData(id_x, id_y, id_z);
 				terrain->AddBlock(objParam, m_pos, rot, scale);
 				break;
+			}
 			}
 		}
 	}
