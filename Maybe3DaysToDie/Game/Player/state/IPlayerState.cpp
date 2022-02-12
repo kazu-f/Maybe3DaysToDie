@@ -53,10 +53,6 @@ void IPlayerState::Move() {
 	}
 
 	MoveSpeed *= MoveDistance * m_mulSpeed;
-	if (MoveSpeed.Length() > 1.0f) {
-		int a;
-		a = 1;
-	}
 	m_Player->CharaMove(MoveSpeed);
 }
 
