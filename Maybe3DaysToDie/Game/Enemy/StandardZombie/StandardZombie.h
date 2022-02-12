@@ -53,6 +53,12 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	EnemyParams& GetEnemyParameters() override;
+public://HP関係
+	void HitDamage(int attack)
+	{
+		int Damage = attack - m_parameters.Deffence;
+		m_parameters.Hp = max(m_parameters.Hp - Damage, 0);
+	}
 private:
 	Vector3 m_scale = { 6.0f, 6.0f, 6.0f };		//拡大。
 	IEnemy::EnemyParams m_parameters;			//パラメーター。

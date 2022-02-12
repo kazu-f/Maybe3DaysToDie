@@ -40,8 +40,8 @@ bool StandardZombie::Start()
 	//DefaultAnimPlay.
 	this->GetModelRender()->PlayAnimation(EnAnimationState_Run, 0.0f);
 
-
-
+	m_CharaCon.Init(m_parameters.Radius, m_parameters.Hight, GetPos());
+	m_CharaCon.GetBody()->GetBody()->setUserPointer(this); 
 	return true;
 }
 
