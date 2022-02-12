@@ -120,7 +120,7 @@ SaveDataFile::ObjectData& MapLoad::GetObjectArrange(Vector3& pos)
 	ID[1] = static_cast<int>(z / ChunkWidth);
 
 	//セーブデータファイルからチャンクの情報を取得
-	auto& chunkData = m_SaveDataFile->m_ChunkData[ID[0]][ID[1]];
+	auto& chunkData = m_SaveDataFile->m_ChunkData[ChunkID[0]+ ID[0]][ChunkID[0]+ ID[1]];
 	//ポジションに対応するブロックを取得
 	int id_x = pos.x / OBJECT_UNIT;
 	id_x = static_cast<int>(id_x % ChunkWidth);
