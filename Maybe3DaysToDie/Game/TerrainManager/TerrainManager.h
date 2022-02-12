@@ -33,8 +33,12 @@ namespace nsTerrain {
 
 	public:
 		/// <summary>
-		/// 地形生成を行う。
+		/// パーリンノイズを使った地形生成を行う。
 		/// </summary>
+		/// <remarks>
+		/// <para>Start関数が走る前に地形を生成しておく必要があります。</para>
+		/// <para>この関数かLoadTerrainData関数を使ってTerrainデータを構築してください。</para>
+		/// </remarks>
 		void PopurerTerrainMap();
 		/// <summary>
 		/// セーブデータから読み込んで地形を生成する。

@@ -43,10 +43,6 @@ namespace nsTerrain {
 
 			m_isInitNVM = true;
 		}
-
-		//if (InputKeyCode().IsTriggerKey(VK_F4)) {
-		//	m_NVMGenerator.ChangeDrawFlag();
-		//}
 	}
 	void TerrainManager::OnDestroy()
 	{
@@ -114,19 +110,6 @@ namespace nsTerrain {
 
 					float point = 0;
 					int terrainID = 0;
-
-					////この場所の高さに対してブロックが届いていない。
-					//if (y <= thisHeight - nsMarching::TERRAIN_SURFACE)
-					//	point = 0.0f;
-					////この場所の上にもブロックがある。
-					//else if (y > thisHeight + nsMarching::TERRAIN_SURFACE)
-					//	point = 1.0f;
-					////この場所のブロックの影響値計算。(上方向。)
-					//else if (y > thisHeight)
-					//	point = (float)y - thisHeight;
-					////この場所のブロックの影響値計算。(下方向。)
-					//else
-					//	point = thisHeight - (float)y;
 
 					//この場所の高さに対してブロックが届いていない。
 					if (y >= thisHeight - nsMarching::TERRAIN_SURFACE)
@@ -208,8 +191,11 @@ namespace nsTerrain {
 					const auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY].get();
 					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
 
-					objData.ObjDurable = terrain->GetParam().Durable;
-					objData.ObjId = 0;
+					if (terrain->IsTerrainEnabled())
+					{
+						objData.ObjDurable = terrain->GetParam().Durable;
+						objData.ObjId = 0;
+					}
 				}
 			}
 		}
