@@ -6,6 +6,11 @@
 
 Stage::Stage()
 {
+	if (m_Load.Load())
+	{
+		//セーブデータを読み込めた
+		return;
+	}
 	//ここで地面を作る
 	NewGround();
 }

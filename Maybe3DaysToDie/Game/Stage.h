@@ -1,9 +1,8 @@
 #pragma once
-#include "Stage/SuperFlat/SuperFlat.h"
-#include "Stage/Hill/Hill.h"
 #include "Enemy/EnemyGenerator.h"
 #include "TerrainManager/TerrainManager.h"
 #include "SaveDataFile.h"
+#include "Save/TerrainSave/TerrainLoad.h"
 
 class NaviMeshManager;
 
@@ -45,14 +44,9 @@ public:
 	}
 
 private:
-	//Hill m_stage;
 	EnemyGenerator m_enemyGenerator;				//エネミージェネレーター。
 	nsTerrain::TerrainManager* m_Terrain;
-	//prefab::ModelRender* m_Model = nullptr;		//地面
 	prefab::CSky* m_SkyCube = nullptr;
-	//CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
-	//Vector3 m_pos = Vector3::Zero;		//ポジション
-	//Quaternion m_qrot = Quaternion::Identity;		//回転
-	//Vector3 m_scale = Vector3::One;		//スケール
+	TerrainLoad m_Load;
 };
 

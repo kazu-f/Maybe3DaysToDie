@@ -7,7 +7,7 @@ public:
 	TerrainLoad();
 	~TerrainLoad();
 
-	void Load();
+	bool Load();
 
 	/// <summary>
 	/// セーブデータファイルをセット
