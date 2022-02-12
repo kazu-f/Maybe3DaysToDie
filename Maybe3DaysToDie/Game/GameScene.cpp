@@ -61,7 +61,8 @@ bool CGameScene::Start()
 	//セーブデータファイルをセット
 	m_TerrainSave.SetSaveDataFile(&m_SaveDataFile);
 	m_TerrainLoad.SetSaveDataFile(&m_SaveDataFile);
-	
+	m_Stage->SetSaveDataFile(&m_SaveDataFile);
+
 	//todo プレイヤーの処理等に置くようにしてください
 	m_PlacementObject = NewGO<PlacementObject>(0);
 	
@@ -85,9 +86,7 @@ bool CGameScene::Start()
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
 	m_fontRender->SetScale(0.5f);
 
-	//動的にワールドを読み込むLoadingByChunkをNewGO
-	m_LoadingByChunk = NewGO<LoadingByChunk>(0, "LoadingByChunk");
-	m_LoadingByChunk->SetTerrainManager(m_Stage->GetTerrainWorld());
+	m_LoadingByChunk = m_Stage->GetLoadingByChunk();
 	//セーブデータファイルをセット
 	m_LoadingByChunk->SetSaveDataFile(&m_SaveDataFile);
 	//ワールドテーブルデータをセット

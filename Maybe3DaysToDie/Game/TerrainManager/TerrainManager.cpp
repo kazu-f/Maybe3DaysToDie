@@ -8,7 +8,7 @@
 namespace nsTerrain {
 	bool TerrainManager::Start()
 	{
-		PopurerTerrainMap();		//地形データを生成。
+		//PopurerTerrainMap();		//地形データを生成。
 
 		for (int chunkX = 0; chunkX < TERRAIN_WORLD_CHUNKSIZE; chunkX++)
 		{
