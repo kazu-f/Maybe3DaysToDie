@@ -22,7 +22,7 @@ PlayerDead::PlayerDead(Player* pl):
 	m_SelectSprite->SetActiveFlag(false);
 	m_BottonSprite = InitSprite("Assets/sprite/respownBotton.dds");
 	m_BottonSprite->SetActiveFlag(false);
-	m_mulSpeed = 0.0f;
+	SetMulSpeed( 0.0f);
 }
 PlayerDead::~PlayerDead()
 {
@@ -49,7 +49,7 @@ void PlayerDead::Update()
 {
 	ReSpownTime -= GameTime().GetFrameDeltaTime();
     if (ReSpownTime < 0.0) {
-		m_Player->ReStart();
+		GetPlayer()->ReStart();
 		ReSpownTime = 2.0f;
     }
 }

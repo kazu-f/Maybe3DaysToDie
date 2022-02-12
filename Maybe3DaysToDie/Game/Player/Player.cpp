@@ -37,13 +37,12 @@ bool Player::Start()
 	ModelInitData PlayerModel;
 	PlayerModel.m_tkmFilePath = "Assets/modelData/Player.tkm";
 
-	AnimClipInitData AnInitData[IPlayerState::State::Num];
-	AnInitData[IPlayerState::State::Idle].tkaFilePath = "Assets/animData/PlayerIdle.tka";
-	AnInitData[IPlayerState::State::Idle].isLoop = true;
-	AnInitData[IPlayerState::State::Walk].tkaFilePath = "Assets/animData/PlayerWalk.tka";
-	AnInitData[IPlayerState::State::Walk].isLoop = true;
-	AnInitData[IPlayerState::State::Attack].tkaFilePath = "Assets/animData/PlayerIdle.tka";
-	AnInitData[IPlayerState::State::Run].tkaFilePath = "Assets/animData/PlayerIdle.tka";
+	AnimClipInitData AnInitData[State::Num];
+	AnInitData[State::Idle].tkaFilePath = "Assets/animData/PlayerIdle.tka";
+	AnInitData[State::Idle].isLoop = true;
+	AnInitData[State::Walk].tkaFilePath = "Assets/animData/PlayerWalk.tka";
+	AnInitData[State::Walk].isLoop = true;
+	AnInitData[State::Attack].tkaFilePath = "Assets/animData/PlayerIdle.tka";
 	//m_Model = NewGO<prefab::ModelRender>(0);
 	//m_Model->Init(PlayerModel, AnInitData,State::Num);
 	//m_Model->SetPosition(m_Pos);
@@ -51,7 +50,7 @@ bool Player::Start()
 	//m_Model->SetScale(m_Scale);
 	m_Characon.Init(radius, hight, m_Pos);
 	m_Characon.GetBody()->GetBody()->setUserPointer(this);
-	m_NextState = IPlayerState::State::Idle;
+	m_NextState = State::Idle;
 	return true;
 }
 
@@ -126,13 +125,18 @@ void Player::ReStart()
 	m_Water->Reset();
 	PlayerState->Leave();
 	PlayerState = nullptr;
-	m_NextState = IPlayerState::State::Idle;
+	m_NextState = State::Idle;
 	while (true) {
 		int returnNo = ShowCursor(false);
 		if (returnNo <= 0) {
 			break;
 		}
 	}
+}
+
+bool Player::UseStamina(int useCost)
+{
+	return m_Stamina->IsUseStamina(useCost);
 }
 
 void Player::PeriodicUpdate()
@@ -150,27 +154,27 @@ void Player::ChangeState()
 		}
 		switch (m_CurrentState)
 		{
-		case IPlayerState::State::Idle:
+		case State::Idle:
 			PlayerState = &m_Idle;
 			PlayerState->Enter();
 			m_Camera->SetMovingMouse(false);
 			break;
-		case IPlayerState::State::Menu:
+		case State::Menu:
 			m_Camera->SetMovingMouse(true);
 			break;
-		case IPlayerState::State::Dead:
+		case State::Dead:
 			PlayerState = &m_Dead;
 			PlayerState->Enter();
 			m_Camera->SetMovingMouse(true);
 			break;
-		case IPlayerState::State::Run:
+		case State::Walk:
 			PlayerState = &m_Walk;
 			PlayerState->Leave();
 			m_Camera->SetMovingMouse(false);
 			break;
-		case IPlayerState::State::Debug:
+		case State::Debug:
 			m_mulSpeed = 2.0f;
-			IPlayerState::SwichDebugMode();
+			//IPlayerState::SwichDebugMode();
 			m_Camera->SetMovingMouse(false);
 			break;
 		default:
@@ -184,12 +188,6 @@ void Player::ChangeState()
 void Player::Dash()
 {
 	{
-		if (GetAsyncKeyState(VK_LSHIFT) &&
-			PlayerState->GetMoveSpeed().Length() > 0.5f &&
-			m_Stamina->IsUseStamina(1))
-		{
-			m_NextState = IPlayerState::State::Run;
-		}
 	}
 }
 
@@ -247,7 +245,7 @@ void Player::Jump()
 
 const bool Player::IsDubug() const
 {
-	if (m_CurrentState == IPlayerState::State::Debug) {
+	if (m_CurrentState == State::Debug) {
 		return true;
 	}
 	return false;
@@ -256,15 +254,15 @@ const bool Player::IsDubug() const
 void Player::HitDamage(float damage) {
 	float PlayerHp = m_Hp->GetHp() - damage;
 	if (PlayerHp <= 0) {
-		m_NextState = IPlayerState::State::Dead;
+		m_NextState = State::Dead;
 	}
 	m_Hp->HitDamage(damage);
 }
 
 bool Player::OpenInventory()
 {
-	if (IPlayerState::State::Dead != m_CurrentState) {
-		m_NextState = IPlayerState::State::Menu;
+	if (State::Dead != m_CurrentState) {
+		m_NextState = State::Menu;
 		return true;
 	}
 	return false;
@@ -272,5 +270,5 @@ bool Player::OpenInventory()
 
 void Player::CloseInventory()
 {
-	m_NextState = IPlayerState::State::Idle;
+	m_NextState = State::Idle;
 }

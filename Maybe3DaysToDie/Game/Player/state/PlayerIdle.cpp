@@ -8,7 +8,7 @@ PlayerIdle::PlayerIdle(Player* pl):
 
 void PlayerIdle::Enter()
 {
-	m_mulSpeed = 0.0f;
+	SetMulSpeed(0.0f);
 }
 
 void PlayerIdle::Update()
@@ -17,7 +17,7 @@ void PlayerIdle::Update()
 		GetAsyncKeyState('W') ||
 		GetAsyncKeyState('S') ||
 		GetAsyncKeyState('D') ) {
-		m_Player->ChengeState(Player::State::Walk);
+		GetPlayer()->ChengeState(Player::State::Walk);
 	}
 }
 

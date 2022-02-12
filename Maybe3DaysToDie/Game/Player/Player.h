@@ -16,9 +16,21 @@ class IEnemy;
 class Player : public IGameObject
 {
 public :
+	//プレイヤーが持つステートの種類
+	enum State {
+		Idle,			//待機
+		Walk,			//歩く
+		Attack,			//攻撃
+		Menu,			//メニュー画面中
+		//Damage,			//攻撃に当たった
+		Dead,			//死にました
+		Debug,			//デバッグモード
+		Num				//ステート数
+	};
 	Player():
 		m_Dead(this),
-		m_Idle(this)
+		m_Idle(this),
+		m_Walk(this)
 	{}
 private:
 	//配列用の定数
@@ -90,7 +102,7 @@ public:
 	/// 現在のステートを取得
 	/// </summary>
 	/// <returns>現在のステート</returns>
-	IPlayerState::State GetState() const {
+	State GetState() const {
 		return m_CurrentState;
 	}
 
@@ -107,16 +119,22 @@ public:
 	const bool IsDubug()const;
 
 	void CharaMove(Vector3& move) {
-		m_Characon.Execute(move);
+		m_Pos = m_Characon.Execute(move);
 	}
 
-	void ChengeState(IPlayerState::State nextState) {
+	void ChengeState(State nextState) {
 		m_NextState = nextState;
 	}
 
-	IPlayerState::State GetCurrentState() const {
+	State GetCurrentState() const {
 		return m_CurrentState;
 	}
+
+	/// <summary>
+	/// プレイヤーがスタミナを使うときに呼ぶ関数
+	/// </summary>
+	/// <param name="usenum">使用消費量</param>
+	bool UseStamina(int useCost);
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
@@ -165,8 +183,8 @@ private:
 	/////ホットバー//////////////////////////////////////////////
 	ItemBar* m_ItemBar = nullptr;
 	/// ////////////////////////////////////////////////////////
-	IPlayerState::State m_CurrentState = IPlayerState::State::Num;				//現在のステート
-	IPlayerState::State m_NextState = IPlayerState::State::Num;				//次に変わるステート
+	State m_CurrentState = State::Num;				//現在のステート
+	State m_NextState = State::Num;				//次に変わるステート
 	float m_DeltaTime = 0.0f;
 
 	GameCamera* m_Camera = nullptr;

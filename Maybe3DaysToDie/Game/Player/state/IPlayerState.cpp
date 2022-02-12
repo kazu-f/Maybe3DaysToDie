@@ -53,7 +53,10 @@ void IPlayerState::Move() {
 	}
 
 	MoveSpeed *= MoveDistance * m_mulSpeed;
-
+	if (MoveSpeed.Length() > 1.0f) {
+		int a;
+		a = 1;
+	}
 	m_Player->CharaMove(MoveSpeed);
 }
 
@@ -62,12 +65,12 @@ void IPlayerState::SwichDebugMode()
 	static bool IsPush = false;
 	if (GetAsyncKeyState('G')) {
 		if (!IsPush) {
-			static State BuckUpState = State::Idle;
-			if (m_Player->GetCurrentState() == State::Debug) {
+			static Player::State BuckUpState = Player::State::Idle;
+			if (m_Player->GetCurrentState() == Player::State::Debug) {
 				m_Player->ChengeState(BuckUpState);
 			}
 			else {
-				m_Player->ChengeState(State::Debug);
+				m_Player->ChengeState(Player::State::Debug);
 				BuckUpState = m_Player->GetCurrentState();
 			}
 		}
