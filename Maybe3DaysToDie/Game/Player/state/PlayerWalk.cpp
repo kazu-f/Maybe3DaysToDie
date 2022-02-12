@@ -10,11 +10,13 @@ PlayerWalk::PlayerWalk(Player* pl):
 void PlayerWalk::Enter()
 {
 	SetMulSpeed(1.0f);
+	GetPlayer()->SetMoveMause(false);
 }
 
 void PlayerWalk::Update()
 {
 	Move();
+	GetPlayer()->Jump();
 	SwichDebugMode();
 	if (GetAsyncKeyState(VK_LSHIFT) &&
 		GetMoveSpeed().Length() > 0.5f &&
@@ -24,6 +26,9 @@ void PlayerWalk::Update()
 	}
 	else {
 		SetMulSpeed(1.0f);
+	}
+	if (GetPlayer()->IsDebugMode()) {
+		SetMulSpeed(2.0f);
 	}
 }
 

@@ -11,6 +11,7 @@ class AccessObject;
 #include "state/PlayerDead.h"
 #include "state/PlayerIdle.h"
 #include "state/PlayerWalk.h"
+#include "state/PlayerMenu.h"
 class IPlayerState;
 class IEnemy;
 class Player : public IGameObject
@@ -24,13 +25,17 @@ public :
 		Menu,			//メニュー画面中
 		//Damage,			//攻撃に当たった
 		Dead,			//死にました
-		Debug,			//デバッグモード
 		Num				//ステート数
 	};
+	/// <summary>
+	/// コンストラクタ
+	/// ステートパターンで使用する変数のコンストラクタの為にある
+	/// </summary>
 	Player():
 		m_Dead(this),
 		m_Idle(this),
-		m_Walk(this)
+		m_Walk(this),
+		m_Menu(this)
 	{}
 private:
 	//配列用の定数
@@ -57,10 +62,18 @@ private:
 	void OnDestroy()override final;
 
 public:
+	/// <summary>
+	/// プレイヤーの位置を取得
+	/// </summary>
+	/// <returns></returns>
 	const Vector3 GetPosition() const {
 		return m_Pos;
 	}
 
+	/// <summary>
+	/// カメラのポインタを設定する
+	/// </summary>
+	/// <param name="ptr">カメラのポインタ</param>
 	void SetCameraPtr(GameCamera* ptr)
 	{
 		m_Camera = ptr;
@@ -71,15 +84,17 @@ public:
 	/// ダッシュとかデバフとかに使う
 	/// </summary>
 	/// <param name="mulSp">速度に掛けたい値</param>
-	void SetMulSpeed(const float mulSp) {
-		m_mulSpeed = mulSp;
-	}
+	void SetMulSpeed(const float mulSp);
 
 	void SetLoadingByChunk(LoadingByChunk* lbc)
 	{
 		m_LoadingByChunk = lbc;
 	}
 
+	/// <summary>
+	/// アイテムバーのポインタを設定する
+	/// </summary>
+	/// <param name="itemBar"></param>
 	void SetItemBar(ItemBar* itemBar) {
 		m_ItemBar = itemBar;
 	}
@@ -96,6 +111,9 @@ public:
 	/// </summary>
 	bool OpenInventory();
 
+	/// <summary>
+	/// インベントリを閉じる
+	/// </summary>
 	void CloseInventory();
 
 	/// <summary>
@@ -110,6 +128,10 @@ public:
 		m_AccessObject = AOp;
 	}
 
+	/// <summary>
+	/// 死んだ時に呼ばれる関数
+	///	ステータスを現在の最大値に設定しなおす
+	/// </summary>
 	void ReStart();
 
 	/// <summary>
@@ -118,14 +140,26 @@ public:
 	/// <returns>デバッグモードならtrue</returns>
 	const bool IsDubug()const;
 
+	/// <summary>
+	/// プレイヤーが動く関数
+	/// </summary>
+	/// <param name="move">移動量</param>
 	void CharaMove(Vector3& move) {
 		m_Pos = m_Characon.Execute(move);
 	}
 
+	/// <summary>
+	/// ステートを変更するときに呼ぶ関数
+	/// </summary>
+	/// <param name="nextState">次のステート</param>
 	void ChengeState(State nextState) {
 		m_NextState = nextState;
 	}
 
+	/// <summary>
+	/// 現在のステートを取得
+	/// </summary>
+	/// <returns>現在のステート</returns>
 	State GetCurrentState() const {
 		return m_CurrentState;
 	}
@@ -135,6 +169,33 @@ public:
 	/// </summary>
 	/// <param name="usenum">使用消費量</param>
 	bool UseStamina(int useCost);
+
+	/// <summary>
+	/// 視点を動かすかどうかを決める関数
+	/// </summary>
+	/// <param name="isMove">動かすならfalse</param>
+	void SetMoveMause(bool isMove);
+
+	/// <summary>
+	/// デバッグモードかどうかを取得する関数
+	/// </summary>
+	/// <returns></returns>
+	bool IsDebugMode()const {
+		return m_IsDebugMode;
+	}
+
+	/// <summary>
+	/// デバッグモードを設定する関数
+	/// </summary>
+	/// <param name="mode"></param>
+	void SetDebugMode(bool mode) {
+		m_IsDebugMode = mode;
+	}
+
+	/// <summary>
+	/// 重力処理
+	/// </summary>
+	void Jump();
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
@@ -146,63 +207,49 @@ private:
 	/// </summary>
 	void ChangeState();
 
-
-	/// <summary>
-	/// ダッシュ機能
-	/// </summary>
-	void Dash();
-
-	/// <summary>
-	/// 重力処理
-	/// </summary>
-	void Jump();
 private:
 	////////////モデル/////////////////////////////////////////////
-	Vector3 m_Pos = { 0.0f,500.0f,500.0f };
+	Vector3 m_Pos = { 500.0f,500.0f,500.0f };
 	Quaternion m_Rot = Quaternion::Identity;
 	Vector3 m_Scale = Vector3::One;
 	CCharacterController m_Characon;
 	///////////////////////////////////////////////////////////////
 
-	/////体力//////////////////////////////////////////////////////
+	/////ステータス//////////////////////////////////////////////////////
 	PlayerHp* m_Hp = nullptr;
-	///////////////////////////////////////////////////////////////
-
-	/////スタミナ/////////////////////////////////////////////////
 	PlayerStamina* m_Stamina = nullptr;
-	///////////////////////////////////////////////////////////////
-
-	/////空腹//////////////////////////////////////////////////////
 	PlayerHunger* m_Hunger = nullptr;
-	///////////////////////////////////////////////////////////////
-
-	/////水分//////////////////////////////////////////////////////
 	PlayerWater* m_Water = nullptr;
 	///////////////////////////////////////////////////////////////
 
-	/////ホットバー//////////////////////////////////////////////
+	/////UI//////////////////////////////////////////////
 	ItemBar* m_ItemBar = nullptr;
 	/// ////////////////////////////////////////////////////////
-	State m_CurrentState = State::Num;				//現在のステート
-	State m_NextState = State::Num;				//次に変わるステート
 	float m_DeltaTime = 0.0f;
 
-	GameCamera* m_Camera = nullptr;
+	GameCamera* m_Camera = nullptr;			//カメラのポインタ
 	bool IsJump = false;
 	bool IsJumping = false;
-	float NowTime = 0.0f;
-	float m_mulSpeed = 1.0f;			//移動速度(バフ、デバフ用）
 
+	float NowTime = 0.0f;
 	LoadingByChunk* m_LoadingByChunk = nullptr; 
 
 	bool m_IsUseItem = true;
 	AccessObject* m_AccessObject = nullptr;
 
-	IPlayerState* PlayerState = nullptr;
+	/////ステート//////////////////////////////////
+	State m_CurrentState = State::Num;				//現在のステート
+	State m_NextState = State::Num;				//次に変わるステート
+	IPlayerState* m_PlayerState = nullptr;
 	PlayerIdle m_Idle;
 	PlayerDead m_Dead;
 	PlayerWalk m_Walk;
+	PlayerMenu m_Menu;
+	////////////////////////////////////////////////
+
 	Vector3 m_RespownPoint = { 100.0f,100.0f,100.0f };
 	IEnemy* m_Enemy = nullptr;
+
+	bool m_IsDebugMode = false;
 };
 

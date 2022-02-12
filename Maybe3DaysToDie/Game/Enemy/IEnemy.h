@@ -35,7 +35,7 @@ public:
 
 		//‘ÌŠi
 		float Hight  = 90.0f;
-		float radius = 50.0f;
+		float Radius = 50.0f;
 
 		//move(cm)
 		float AttackRange = 150.0f;		//UŒ‚”ÍˆÍB	

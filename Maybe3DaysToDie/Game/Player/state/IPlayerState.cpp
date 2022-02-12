@@ -3,7 +3,7 @@
 #include "Player/Player.h"
 
 namespace {
-	const float MoveDistance = 1000.0f;			//1フレームに動く距離
+	const float MoveDistance = 500.0f;			//1フレームに動く距離
 }
 
 void IPlayerState::Move() {
@@ -11,23 +11,22 @@ void IPlayerState::Move() {
 	Vector3 Forward = MainCamera().GetForward();
 	Forward.y = 0.0f;
 
-	Vector3 MoveSpeed = Vector3::Zero;
 	//Wキーが押されたら
 	if (GetAsyncKeyState('W')) {
 		if (m_Player->IsDubug()) {
-			MoveSpeed += MainCamera().GetForward();
+			m_MoveSpeed += MainCamera().GetForward();
 		}
 		else {
-			MoveSpeed += Forward;
+			m_MoveSpeed += Forward;
 		}
 	}
 	//Sキーが押されたら
 	if (GetAsyncKeyState('S')) {
 		if (m_Player->IsDubug()) {
-			MoveSpeed -= MainCamera().GetForward();
+			m_MoveSpeed -= MainCamera().GetForward();
 		}
 		else {
-			MoveSpeed -= Forward;
+			m_MoveSpeed -= Forward;
 		}
 	}
 
@@ -36,24 +35,36 @@ void IPlayerState::Move() {
 	//Aキーが押されたら
 	if (GetAsyncKeyState('A')) {
 		if (m_Player->IsDubug()) {
-			MoveSpeed -= MainCamera().GetRight();
+			m_MoveSpeed -= MainCamera().GetRight();
 		}
 		else {
-			MoveSpeed -= RightMoveSpeed;
+			m_MoveSpeed -= RightMoveSpeed;
 		}
 	}
 	//Dキーが押されたら
 	if (GetAsyncKeyState('D')) {
 		if (m_Player->IsDubug()) {
-			MoveSpeed += MainCamera().GetRight();
+			m_MoveSpeed += MainCamera().GetRight();
 		}
 		else {
-			MoveSpeed += RightMoveSpeed;
+			m_MoveSpeed += RightMoveSpeed;
 		}
 	}
 
-	MoveSpeed *= MoveDistance * m_mulSpeed;
-	m_Player->CharaMove(MoveSpeed);
+}
+
+void IPlayerState::ExcuteMove()
+{
+	if (m_Player->IsDebugMode()) {
+	m_MoveSpeed *= MoveDistance * m_mulSpeed;
+	}
+	else {
+		m_MoveSpeed.x = m_MoveSpeed.x * MoveDistance * m_mulSpeed;
+		m_MoveSpeed.y = m_MoveSpeed.y * MoveDistance;
+		m_MoveSpeed.z = m_MoveSpeed.z * MoveDistance * m_mulSpeed;
+	}
+	m_Player->CharaMove(m_MoveSpeed);
+	m_MoveSpeed = Vector3::Zero;
 }
 
 void IPlayerState::SwichDebugMode()
@@ -61,14 +72,7 @@ void IPlayerState::SwichDebugMode()
 	static bool IsPush = false;
 	if (GetAsyncKeyState('G')) {
 		if (!IsPush) {
-			static Player::State BuckUpState = Player::State::Idle;
-			if (m_Player->GetCurrentState() == Player::State::Debug) {
-				m_Player->ChengeState(BuckUpState);
-			}
-			else {
-				m_Player->ChengeState(Player::State::Debug);
-				BuckUpState = m_Player->GetCurrentState();
-			}
+			m_Player->SetDebugMode(!m_Player->IsDebugMode());
 		}
 		IsPush = true;
 	}

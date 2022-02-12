@@ -9,7 +9,7 @@ public:
 	virtual	void Update() = 0;
 	virtual void Leave() = 0;
 	void Move();
-	
+	void ExcuteMove();
 	/// <summary>
 	/// デバッグモードを切り替える関数
 	/// </summary>

@@ -8,7 +8,8 @@ PlayerIdle::PlayerIdle(Player* pl):
 
 void PlayerIdle::Enter()
 {
-	SetMulSpeed(0.0f);
+	SetMulSpeed(1.0f);
+	GetPlayer()->SetMoveMause(false);
 }
 
 void PlayerIdle::Update()
@@ -19,6 +20,7 @@ void PlayerIdle::Update()
 		GetAsyncKeyState('D') ) {
 		GetPlayer()->ChengeState(Player::State::Walk);
 	}
+	GetPlayer()->Jump();
 }
 
 void PlayerIdle::Leave()

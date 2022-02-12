@@ -59,8 +59,8 @@ void Player::Update()
 	//ステートを更新
 	ChangeState();
 
-	if (PlayerState != nullptr) {
-		PlayerState->Update();
+	if (m_PlayerState != nullptr) {
+		m_PlayerState->Update();
 	}
 	if (GetAsyncKeyState('e')) {
 		m_AccessObject->Access();
@@ -92,12 +92,6 @@ void Player::Update()
 			m_Enemy->HitDamage(Attck);
 		}
 	}
-	//走る？
-	Dash();
-
-	//ジャンプ
-	Jump();
-
 	//時間経過による回復
 	PeriodicUpdate();
 	//カメラにポジションを渡す
@@ -123,8 +117,8 @@ void Player::ReStart()
 	m_Stamina->Reset();
 	m_Hunger->Reset();
 	m_Water->Reset();
-	PlayerState->Leave();
-	PlayerState = nullptr;
+	m_PlayerState->Leave();
+	m_PlayerState = nullptr;
 	m_NextState = State::Idle;
 	while (true) {
 		int returnNo = ShowCursor(false);
@@ -139,6 +133,11 @@ bool Player::UseStamina(int useCost)
 	return m_Stamina->IsUseStamina(useCost);
 }
 
+void Player::SetMoveMause(bool isMove)
+{
+	m_Camera->SetMovingMouse(isMove);
+}
+
 void Player::PeriodicUpdate()
 {
 	//ステータス減少時間を数える
@@ -149,70 +148,50 @@ void Player::ChangeState()
 {
 	if (m_CurrentState != m_NextState) {
 		m_CurrentState = m_NextState;
-		if (PlayerState != nullptr) {
-			PlayerState->Leave();
+		if (m_PlayerState != nullptr) {
+			m_PlayerState->Leave();
 		}
 		switch (m_CurrentState)
 		{
 		case State::Idle:
-			PlayerState = &m_Idle;
-			PlayerState->Enter();
-			m_Camera->SetMovingMouse(false);
+			m_PlayerState = &m_Idle;
+			m_PlayerState->Enter();
 			break;
 		case State::Menu:
-			m_Camera->SetMovingMouse(true);
+			m_PlayerState = &m_Menu;
+			m_PlayerState->Enter();
 			break;
 		case State::Dead:
-			PlayerState = &m_Dead;
-			PlayerState->Enter();
-			m_Camera->SetMovingMouse(true);
+			m_PlayerState = &m_Dead;
+			m_PlayerState->Enter();
 			break;
 		case State::Walk:
-			PlayerState = &m_Walk;
-			PlayerState->Leave();
-			m_Camera->SetMovingMouse(false);
-			break;
-		case State::Debug:
-			m_mulSpeed = 2.0f;
-			//IPlayerState::SwichDebugMode();
-			m_Camera->SetMovingMouse(false);
+			m_PlayerState = &m_Walk;
+			m_PlayerState->Enter();
 			break;
 		default:
-			m_Camera->SetMovingMouse(false);
 			break;
 		}
 	}
 
-}
-
-void Player::Dash()
-{
-	{
-	}
 }
 
 void Player::Jump()
 {
 	static float gravity = 0.0f;
 	gravity -= GameTime().GetFrameDeltaTime();
-	if (IsDubug()) {
-		gravity = 0.0f;
-	}
 
-	/////////ジャンプ処理/////////////////////////////////////////////
-	{
-		if (GetAsyncKeyState(VK_SPACE)) {
-			//地面に設置しているときだけ
-			//ジャンプする
-			if (m_Characon.IsOnGround())
-			{
-				IsJump = true;
-			}
-			//神視点の時はジャンプし続ける
-			if (IsDubug()) {
-				IsJump = false;
-				PlayerState->SetMoveSpeedY(PlayerState->GetMoveSpeed().y + 1.0f);
-			}
+	if (GetAsyncKeyState(VK_SPACE)) {
+		//地面に設置しているときだけ
+		//ジャンプする
+		if (m_Characon.IsOnGround())
+		{
+			IsJump = true;
+		}
+		//神視点の時はジャンプし続ける
+		if (IsDubug()) {
+			IsJump = false;
+			m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + 1.0f);
 		}
 	}
 	if (IsJump)
@@ -220,35 +199,38 @@ void Player::Jump()
 		NowTime += GameTime().GetFrameDeltaTime();
 		const float JumpTime = 0.3f;
 		float f = NowTime - JumpTime;
-		const float JumpPower = 0.8f;
-		PlayerState->SetMoveSpeedY(gravity * pow(f, 2.0f) + JumpPower);
+		const float JumpPower = 0.5f;
+		float Jump = gravity * pow(f, 2.0f) + JumpPower;
+		m_PlayerState->SetMoveSpeedY(Jump);
 		if (IsJumping && m_Characon.IsOnGround())
 		{
 			//ジャンプ中に地面についたのでジャンプ終了
 			IsJump = false;
 			IsJumping = false;
 			NowTime = 0.0f;
-			PlayerState->SetMoveSpeedY(0.0f);
+			m_PlayerState->SetMoveSpeedY(0.0f);
 		}
 		else
 		{
 			IsJumping = true;
 		}
 	}
-
-	/////////////////////
-	if (m_Characon.IsOnGround()) {
+	if (m_Characon.IsOnGround()||
+		m_IsDebugMode) {
 		gravity = 0.0f;
 	}
-	PlayerState->SetMoveSpeedY(PlayerState->GetMoveSpeed().y + gravity);
+	m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + gravity);
+	m_PlayerState->ExcuteMove();
 }
 
 const bool Player::IsDubug() const
 {
-	if (m_CurrentState == State::Debug) {
-		return true;
-	}
-	return false;
+	return m_IsDebugMode;
+}
+
+void Player::SetMulSpeed(const float mulSp)
+{
+	m_PlayerState->SetMulSpeed(mulSp);
 }
 
 void Player::HitDamage(float damage) {

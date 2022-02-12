@@ -78,6 +78,7 @@
     <ClCompile Include="MapLoad\MapLoad.cpp" />
     <ClCompile Include="Player\state\PlayerIdle.cpp" />
     <ClCompile Include="Player\state\PlayerWalk.cpp" />
+    <ClCompile Include="Player\state\PlayerMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="MapLoad\MapLoad.h" />
     <ClInclude Include="Player\state\PlayerIdle.h" />
     <ClInclude Include="Player\state\PlayerWalk.h" />
+    <ClInclude Include="Player\state\PlayerMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />

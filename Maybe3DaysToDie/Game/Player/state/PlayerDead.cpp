@@ -43,6 +43,7 @@ void PlayerDead::Enter()
 	m_BackSprite->SetActiveFlag(true);
 	m_SelectSprite->SetActiveFlag(true);
 	m_BottonSprite->SetActiveFlag(true);
+	GetPlayer()->SetMoveMause(true);
 }
 
 void PlayerDead::Update()
