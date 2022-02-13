@@ -28,5 +28,6 @@ bool TerrainLoad::Load()
 
 	fread(m_SaveDataFile->m_ChunkData, sizeof(SaveDataFile::ChunkData), MAX_CHUNK_SIDE * MAX_CHUNK_SIDE, fp);
 	//Žæ“¾‚Å‚«‚½
+	fclose(fp);
 	return true;
 }

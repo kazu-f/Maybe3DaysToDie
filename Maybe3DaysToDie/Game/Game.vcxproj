@@ -160,11 +160,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AccessObject\AccessObject.cpp" />
+    <ClCompile Include="Inventory\RootBlock.cpp" />
     <ClCompile Include="Item\GameItemMaterial.cpp" />
     <ClCompile Include="Item\GameItemFoods.cpp" />
     <ClCompile Include="IK\FootIK.cpp" />
     <ClCompile Include="MapLoad\MapLoad.cpp" />
     <ClCompile Include="MauseInfo.cpp" />
+    <ClCompile Include="Player\state\PlayerMenu.cpp" />
+    <ClCompile Include="Player\state\PlayerWalk.cpp" />
     <ClCompile Include="Player\state\IPlayerState.cpp" />
     <ClCompile Include="Item\BlockItem.cpp" />
     <ClCompile Include="ItemBar.cpp" />
@@ -188,6 +191,7 @@
     <ClCompile Include="Navigation\NVMDebugDraw.cpp" />
     <ClCompile Include="Player\Inventory.cpp" />
     <ClCompile Include="Player\state\PlayerDead.cpp" />
+    <ClCompile Include="Player\state\PlayerIdle.cpp" />
     <ClCompile Include="Stage\Hill\Hill.cpp" />
     <ClCompile Include="Navigation\NVMGenerator.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
@@ -225,11 +229,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
+    <ClInclude Include="Inventory\RootBlock.h" />
     <ClInclude Include="Item\GameItemMaterial.h" />
     <ClInclude Include="Item\GameItemFoods.h" />
     <ClInclude Include="IK\FootIK.h" />
     <ClInclude Include="MapLoad\MapLoad.h" />
     <ClInclude Include="MauseInfo.h" />
+    <ClInclude Include="Player\state\PlayerMenu.h" />
+    <ClInclude Include="Player\state\PlayerWalk.h" />
     <ClInclude Include="Player\state\IPlayerState.h" />
     <ClInclude Include="Item\BlockItem.h" />
     <ClInclude Include="ItemBar.h" />
@@ -294,6 +301,7 @@
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp" />
     <ClInclude Include="Player\Inventory.h" />
     <ClInclude Include="Player\state\PlayerDead.h" />
+    <ClInclude Include="Player\state\PlayerIdle.h" />
     <ClInclude Include="RayTest.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SaveDataFile.h" />

@@ -117,8 +117,20 @@ bool PlacementObject::SetModelParams()
 	}
 	else
 	{
-		const char* tkmPath = m_SaveData->ObjectFilePath[ObjID];
-		m_modelInitData.m_tkmFilePath = tkmPath;
+		//ファイルパス作成。
+		wchar_t filePath[256];
+		swprintf_s(filePath, L"Assets/modelData/CubeBlock/%s.tkm", m_SaveData->ObjectFilePath[ObjID].c_str());
+
+		size_t oriSize = wcslen(filePath) + 1;
+		size_t convertedChars = 0;
+		char strConcat[] = "";
+		size_t strConcatSize = (strlen(strConcat) + 1) * 2;
+		const size_t newSize = oriSize * 2;
+		char* nString = new char[newSize + strConcatSize];
+		wcstombs_s(&convertedChars, nString, newSize, filePath, _TRUNCATE);
+		_mbscat_s((unsigned char*)nString, newSize + strConcatSize, (unsigned char*)strConcat);
+
+		m_modelInitData.m_tkmFilePath = nString;
 		return true;
 	}
 }

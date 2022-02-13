@@ -77,7 +77,20 @@ void ChunkBlock::MoveChunk()
 					//ブロックIDがマイナスか最大値より大きいときreturn
 					continue;
 				}
-				param.BlockName = m_SaveDataFile->ObjectFilePath[BlockID];
+
+				//ファイルパス作成。
+				wchar_t filePath[256];
+				swprintf_s(filePath, L"Assets/modelData/CubeBlock/%s.tkm", m_SaveDataFile->ObjectFilePath[BlockID].c_str());
+
+				size_t oriSize = wcslen(filePath) + 1;
+				size_t convertedChars = 0;
+				char strConcat[] = "";
+				size_t strConcatSize = (strlen(strConcat) + 1) * 2;
+				const size_t newSize = oriSize * 2;
+				char* nString = new char[newSize + strConcatSize];
+				wcstombs_s(&convertedChars, nString, newSize, filePath, _TRUNCATE);
+				_mbscat_s((unsigned char*)nString, newSize + strConcatSize, (unsigned char*)strConcat);
+				param.BlockName = nString;
 				//パラメータをセット
 				m_Block[x][y][z].SetParams(param);
 
@@ -132,7 +145,20 @@ void ChunkBlock::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, V
 	ChunkBlockDirty = true;
 	m_IsModelUpdated = true;
 	//ブロックに名前をセット
-	params.BlockName = m_SaveDataFile->ObjectFilePath[BlockID];
+	//ファイルパス作成。
+	wchar_t filePath[256];
+	swprintf_s(filePath, L"Assets/modelData/CubeBlock/%s.tkm", m_SaveDataFile->ObjectFilePath[BlockID].c_str());
+
+	size_t oriSize = wcslen(filePath) + 1;
+	size_t convertedChars = 0;
+	char strConcat[] = "";
+	size_t strConcatSize = (strlen(strConcat) + 1) * 2;
+	const size_t newSize = oriSize * 2;
+	char* nString = new char[newSize + strConcatSize];
+	wcstombs_s(&convertedChars, nString, newSize, filePath, _TRUNCATE);
+	_mbscat_s((unsigned char*)nString, newSize + strConcatSize, (unsigned char*)strConcat);
+
+	params.BlockName = nString;
 	//データを作成
 	InstancingData data;
 	data.pos = pos;
@@ -172,7 +198,11 @@ void ChunkBlock::RemoveBlock(Block* blockptr)
 			for (int z = 0; z < ChunkWidth; z++)
 			{
 				auto& block = m_Block[x][y][z];
-				if (block.GetParam().Durable > 0)
+				if (block.GetParam().BlockID != blockptr->GetParam().BlockID)
+				{
+					continue;
+				}
+				if (static_cast<int>(block.GetParam().Durable) > 0)
 				{
 					//データを作成
 					InstancingData data;

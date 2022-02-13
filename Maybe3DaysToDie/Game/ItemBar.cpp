@@ -11,6 +11,7 @@
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "Stage.h"
 #include "Player/Player.h"
+#include "Player/state/IPlayerState.h"
 
 namespace {
 	const Vector2 ItemBarPos = { -300.0f,-285.0f };

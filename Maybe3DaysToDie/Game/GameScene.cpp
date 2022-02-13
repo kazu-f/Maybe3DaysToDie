@@ -18,6 +18,9 @@
 
 CGameScene::~CGameScene()
 {
+	//ゲーム終了時にセーブ
+	m_TerrainSave.Save();
+
 	DeleteGO(m_Player);
 	DeleteGO(m_Camera);
 	DeleteGO(m_Stage);
@@ -61,7 +64,8 @@ bool CGameScene::Start()
 	//セーブデータファイルをセット
 	m_TerrainSave.SetSaveDataFile(&m_SaveDataFile);
 	m_TerrainLoad.SetSaveDataFile(&m_SaveDataFile);
-	
+	m_Stage->SetSaveDataFile(&m_SaveDataFile);
+
 	//todo プレイヤーの処理等に置くようにしてください
 	m_PlacementObject = NewGO<PlacementObject>(0);
 	
@@ -85,9 +89,7 @@ bool CGameScene::Start()
 	m_fontRender->SetPosition({ -630.0f, 350.0f });
 	m_fontRender->SetScale(0.5f);
 
-	//動的にワールドを読み込むLoadingByChunkをNewGO
-	m_LoadingByChunk = NewGO<LoadingByChunk>(0, "LoadingByChunk");
-	m_LoadingByChunk->SetTerrainManager(m_Stage->GetTerrainWorld());
+	m_LoadingByChunk = m_Stage->GetLoadingByChunk();
 	//セーブデータファイルをセット
 	m_LoadingByChunk->SetSaveDataFile(&m_SaveDataFile);
 	//ワールドテーブルデータをセット
@@ -95,11 +97,11 @@ bool CGameScene::Start()
 	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
 	m_PlacementObject->SetSaveData(&m_SaveDataFile);
 	m_DestroyObject->SetSaveData(&m_SaveDataFile);
-	m_SaveDataFile.ObjectFilePath[0] = "Assets/modelData/DiamondBlock/DirtModel.tkm";
-	m_SaveDataFile.ObjectFilePath[1] = "Assets/modelData/CubeBlock/woodBlock.tkm";
-	m_SaveDataFile.ObjectFilePath[2] = "Assets/modelData/CubeBlock/BookBlock.tkm";
-	m_SaveDataFile.ObjectFilePath[3] = "Assets/modelData/CubeBlock/ShelfBlock.tkm";
-	m_SaveDataFile.ObjectFilePath[4] = "Assets/modelData/CubeBlock/CardBoard.tkm";
+	m_SaveDataFile.ObjectFilePath[0] = L"DirtModel";
+	m_SaveDataFile.ObjectFilePath[1] = L"WoodBlock";
+	m_SaveDataFile.ObjectFilePath[2] = L"BookBlock";
+	m_SaveDataFile.ObjectFilePath[3] = L"ShelfBlock";
+	m_SaveDataFile.ObjectFilePath[4] = L"CardBoard";
 	m_SaveDataFile.ObjectAccessTag[0] = AccessTag::NonAccess;
 	m_SaveDataFile.ObjectAccessTag[1] = AccessTag::NonAccess;
 	m_SaveDataFile.ObjectAccessTag[2] = AccessTag::NonAccess;
@@ -131,12 +133,6 @@ bool CGameScene::Start()
 
 void CGameScene::Update()
 {
-	if (GetAsyncKeyState(VK_SPACE))
-	{
-		//テラインをセットしているけど、ここでセットしているのはテラインが作られるのが遅いため。
-		m_TerrainSave.SetTerrainWorld(nullptr);
-		m_TerrainSave.Save();
-	}
-	
+
 
 }
