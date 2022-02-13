@@ -48,6 +48,10 @@ namespace Maybe3DaysToDieToolEditor
             placementObjectPanel1.listBox = ItemList;
             placementObjectPanel1.ItemDataBS = itemDataBS;
 
+            terrainPanel1.commandList = commandList;
+            terrainPanel1.listBox = ItemList;
+            terrainPanel1.ItemDataBS = itemDataBS;
+
             foodAndCurePanel1.commandList = commandList;
             foodAndCurePanel1.listBox = ItemList;
 
@@ -55,7 +59,6 @@ namespace Maybe3DaysToDieToolEditor
             toolDataPanel1.Visible = true;
 
             //設定を行う。
-            //toolKinds = new ToolKindsComboBox(ToolComboBox);
             saveData = new SaveItemDataList();
             loadData = new LoadItemDataList();
         }
@@ -81,6 +84,7 @@ namespace Maybe3DaysToDieToolEditor
         {
             toolDataPanel1.Visible = false;
             placementObjectPanel1.Visible = false;
+            terrainPanel1.Visible = false;
             foodAndCurePanel1.Visible = false;
             materialPanel1.Visible = false;
         }
@@ -140,6 +144,18 @@ namespace Maybe3DaysToDieToolEditor
             var newPlace = new PlacementObject { itemName = "PlacementObject" };
 
             Command.AddNewItem command = new Command.AddNewItem(newPlace, m_itemList, UpdateItemList);
+
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
+        }
+
+        private void TerrainToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var newTerrain = new Terrain { itemName = "Terrain" };
+
+            Command.AddNewItem command = new Command.AddNewItem(newTerrain, m_itemList, UpdateItemList);
 
             if (command.IsChanged())
             {
@@ -218,6 +234,12 @@ namespace Maybe3DaysToDieToolEditor
                 GroupBoxPanelDisable();
                 placementObjectPanel1.Visible = true;
                 placementObjectPanel1.DispPlacementObject((PlacementObject)item);
+            }
+            else if (typeof(Terrain) == item.GetType())
+            {
+                GroupBoxPanelDisable();
+                terrainPanel1.Visible = true;
+                terrainPanel1.DispTerrain((Terrain)item);
             }
             else if(typeof(FoodAndCure) == item.GetType())
             {
@@ -363,6 +385,5 @@ namespace Maybe3DaysToDieToolEditor
             }
         }
         #endregion ファイル保存関係。
-
     }
 }

@@ -13,6 +13,7 @@ namespace Maybe3DaysToDieToolEditor
         enItem_None = -1,
         enItem_Tool,
         enItem_Place,
+        enItem_Terrain,
         enItem_Food,
         enItem_Material,
         ItemTypeNum
@@ -38,6 +39,10 @@ namespace Maybe3DaysToDieToolEditor
                 else if (this.GetType() == typeof(PlacementObject))
                 {
                     return EnItemType.enItem_Place;
+                }
+                else if (this.GetType() == typeof(Terrain))
+                {
+                    return EnItemType.enItem_Terrain;
                 }
                 else if (this.GetType() == typeof(FoodAndCure))
                 {
@@ -228,6 +233,31 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "durable")] public int durable { get; set; } = 0;
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
         [DataMember(Name = "Type")] public EnPlaceTypes placeType { get; set; } = EnPlaceTypes.enType_Terrain;
+        [DataMember(Name = "collectItems")] public List<CollectItem> collectItemList = new List<CollectItem>();
+        [DataMember(Name = "collectItemDataNum")]
+        public int collectItemDataNum
+        {
+            get
+            {
+                if (collectItemList != null) return collectItemList.Count;
+                else return 0;
+            }
+            set
+            {
+
+            }
+        }
+    }
+
+    /// <summary>
+    /// 設置物の情報。
+    /// </summary>
+    [DataContract]
+    public class Terrain : Item
+    {
+        [DataMember(Name = "durable")] public int durable { get; set; } = 0;
+        [DataMember(Name = "tool")] public int tool { get; set; } = 0;
+        [DataMember(Name = "texture")] public string texFilePath { get; set; } = "";
         [DataMember(Name = "collectItems")] public List<CollectItem> collectItemList = new List<CollectItem>();
         [DataMember(Name = "collectItemDataNum")]
         public int collectItemDataNum

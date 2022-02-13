@@ -47,6 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyUserControl\TerrainPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyUserControl\TerrainPanel.Designer.cs">
+      <DependentUpon>TerrainPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolEditor\Command\TerrainCommand.cs" />
     <Compile Include="ToolEditor\ItemDataList.cs" />
     <Compile Include="MyUserControl\FoodAndCurePanel.cs">
       <SubType>UserControl</SubType>
@@ -104,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MyUserControl\MaterialPanel.resx">
       <DependentUpon>MaterialPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyUserControl\TerrainPanel.resx">
+      <DependentUpon>TerrainPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
