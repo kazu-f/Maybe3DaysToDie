@@ -34,6 +34,8 @@ void NaviMeshManager::Update()
 
 			//地形に更新がある。
 			m_terrainManager->GetTerrainWorld(x, y)->ResetNvm();
+			m_edgeCellList[x][y].clear();
+
 			//追加セル。
 			std::vector<NVMGenerator::Cell> AddCellList;
 
@@ -77,9 +79,28 @@ void NaviMeshManager::Update()
 				m_terrainManager->GetTerrainWorld(x, y)->AddCell(&baseCell);
 			}
 
-			m_terrainManager->GetTerrainWorld(x, y)->CreateNVM();
+			m_terrainManager->GetTerrainWorld(x, y)->CreateNVM(x, y);
+		}
+	}
+
+	for (int x = 0; x < LoadingChunkCols; x++)
+	{
+		for (int y = 0; y < LoadingChunkCols; y++)
+		{
+
+			bool LoadingChunkUpdateFlag = m_loadingByChunk->IsNvmDirty(x, y);
+
+			if (!LoadingChunkUpdateFlag && !m_terrainManager->GetTerrainWorld(x, y)->IsUpdateNvm())
+			{
+				continue;
+			}
+
+			m_terrainManager->GetTerrainWorld(x, y)->SerchLinkCell(x,y);
+			m_terrainManager->GetTerrainWorld(x, y)->PreRenderNVM();
+
 			m_terrainManager->GetTerrainWorld(x, y)->ResetUpdateNvmFlag();
 			m_loadingByChunk->NvmDirtyFlagDown(x, y);
+
 		}
 	}
 

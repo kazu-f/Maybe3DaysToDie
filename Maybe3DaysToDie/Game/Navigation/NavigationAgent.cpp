@@ -10,18 +10,34 @@ void NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start
 		return;
 	}
 
-	//float EnemyGrid[2] = { 0 };
-	////プレイヤーの位置をグリッド化。
-	//EnemyGrid[0] = static_cast<int>(std::floor((m_AgentPos.x / OBJECT_UNIT) / ChunkWidth));// +MAX_CHUNK_SIDE / 2;
-	//EnemyGrid[1] = static_cast<int>(std::floor((m_AgentPos.z / OBJECT_UNIT) / ChunkWidth));// +MAX_CHUNK_SIDE / 2;
-	//EnemyGrid[0] = max(min(MAX_CHUNK_SIDE - 1, EnemyGrid[0]), 1);
-	//EnemyGrid[1] = max(min(MAX_CHUNK_SIDE - 1, EnemyGrid[1]), 1);
-
-	nsTerrain::TerrainWorld* currentChunk =  m_stage->GetTerrainWorld()->GetTerrainWorld(0, 0);
-
 	//経路を計算する。
 	if (m_isArrive || m_serchTime > serchTime) {
-		m_nodeList = m_astar.Search(start, goal, currentChunk->GetCellList());
+		
+		//全部のセルを統合。
+		std::vector<NVMGenerator::Cell*> cellList;
+
+		for (int chunkX = 0; chunkX < LoadingChunkCols; chunkX++)
+		{
+			for (int chunkY = 0; chunkY < LoadingChunkCols; chunkY++)
+			{
+				nsTerrain::TerrainWorld* currentChunk = m_stage->GetTerrainWorld()->GetTerrainWorld(chunkX, chunkY);
+
+				for (auto& cell : currentChunk->GetCellList())
+				{
+					cellList.push_back(&cell);
+				}
+
+				for (auto& cell : m_stage->GetTerrainWorld()->GetNaviMeshManager()->GetEdgeCellList(chunkX, chunkY))
+				{
+					cellList.push_back(&cell);
+				}
+			}
+		}
+
+
+
+		//検索。
+		m_nodeList = m_astar.Search(start, goal, cellList);
 		m_serchTime = 0.0f;
 
 	}
@@ -49,7 +65,7 @@ void NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start
 	Vector3 footStep = model->GetFootstepMove();
 	m_AgentPos = start + m_toWayPoint * footStep.Length();;
 
-	if (dist < 5) {
+	if (dist < 5.0f) {
 		//waypointに到着。
 		m_nodeList.erase(m_nodeList.begin());
 	}

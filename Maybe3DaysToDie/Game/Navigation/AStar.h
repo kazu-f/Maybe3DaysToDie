@@ -86,7 +86,7 @@ private:
 	/// <param name="start">スタート位置。</param>
 	/// <param name="goal">ゴール位置。</param>
 	/// <param name="cell">セル。</param>
-	void CreateCellList(Vector3& start, Vector3& goal, std::vector<Cell>& cells);
+	void CreateCellList(Vector3& start, Vector3& goal, std::vector<Cell*>& cells);
 	/// <summary>
 	/// 目的地までのノードを作成して返却する。
 	/// </summary>
@@ -100,7 +100,7 @@ public:
 	/// <param name="start">スタート位置。</param>
 	/// <param name="goal">ゴール位置。</param>
 	/// <param name="cells">セル。</param>
-	std::vector<Cell*> Search(Vector3& start, Vector3& goal, std::vector<Cell>& cells);
+	std::vector<Cell*> Search(Vector3& start, Vector3& goal, std::vector<Cell*>& cells);
 private:
 	std::vector<Cell*> m_openCellList;		//経路探査中のセルリスト。
 	std::vector<Cell*> m_closeCellList;		//経路探査済みセルリスト。

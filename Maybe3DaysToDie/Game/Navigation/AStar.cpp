@@ -2,7 +2,7 @@
 #include "AStar.h"
 #include "NVMGenerator.h"
 
-void AStar::CreateCellList(Vector3& start, Vector3& goal, std::vector<Cell>& cells)
+void AStar::CreateCellList(Vector3& start, Vector3& goal, std::vector<Cell*>& cells)
 {
 #if 0
 	//交差ラインテスト。
@@ -26,12 +26,12 @@ void AStar::CreateCellList(Vector3& start, Vector3& goal, std::vector<Cell>& cel
 	//セルをリストに積んでいく。
 	for (int cellCount = 0; cellCount < cells.size(); cellCount++) {
 		//セルのパラメーターを初期化。
-		cells[cellCount].costFromStart = 0.0f;
-		cells[cellCount].costToEnd = 0.0f;
-		cells[cellCount].m_parent = nullptr;
-		cells[cellCount].totalCost = 0.0f;
+		cells[cellCount]->costFromStart = 0.0f;
+		cells[cellCount]->costToEnd = 0.0f;
+		cells[cellCount]->m_parent = nullptr;
+		cells[cellCount]->totalCost = 0.0f;
 		//なにもされてないセルリストに積む。
-		m_noneCellList.push_back(&cells[cellCount]);
+		m_noneCellList.push_back(cells[cellCount]);
 	}
 	//最小距離。
 	float startMin, goalMin;
@@ -44,22 +44,22 @@ void AStar::CreateCellList(Vector3& start, Vector3& goal, std::vector<Cell>& cel
 	//開くセルを求める。
 	for (int cellCount = 0; cellCount < cells.size(); cellCount++) {
 		//ゴール地点から、１番距離が近いセルを求める。
-		Vector3 goalToCenter = cells[cellCount].m_CenterPos - goal;
+		Vector3 goalToCenter = cells[cellCount]->m_CenterPos - goal;
 		float dist = goalToCenter.Length();
 		if (dist < goalMin) {
 			//更新。
 			goalMin = dist;
 			goalCellNo = cellCount;
-			m_goalCell = &cells[cellCount];
+			m_goalCell = cells[cellCount];
 		}
 		//スタート地点から、一番距離が近いセルを求める。
-		Vector3 startToCenter = cells[cellCount].m_CenterPos - start;
+		Vector3 startToCenter = cells[cellCount]->m_CenterPos - start;
 		dist = startToCenter.Length();
 		if (dist < startMin) {
 			//更新。
 			startMin = dist;
 			startCellNo = cellCount;
-			m_startCell = &cells[cellCount];
+			m_startCell = cells[cellCount];
 		}
 	}
 
@@ -143,7 +143,7 @@ float AStar::ClacTraverseCost(Cell* node, Cell* reserchNode)
 	return cost = dist.Length();
 }
 
-std::vector<NVMGenerator::Cell*> AStar::Search(Vector3& start, Vector3& goal, std::vector<Cell>& cells)
+std::vector<NVMGenerator::Cell*> AStar::Search(Vector3& start, Vector3& goal, std::vector<Cell*>& cells)
 {
 	//セルリストの初期化。
 	CreateCellList(start, goal, cells);
