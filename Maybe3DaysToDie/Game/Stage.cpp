@@ -7,27 +7,31 @@
 
 Stage::Stage()
 {
+	//ここで地面を作る
+	NewGround();
+
+}
+
+Stage::~Stage()
+{
+}
+bool Stage::Start()
+{
+	m_enemyGenerator.SetStage(this);
+	//地形生成
+	//todo　もしもSaveDataFileから計算するようになったらif文の下に置く
+	m_Terrain->PopurerTerrainMap();
+	m_LoadingByChunk->UpdateMoveChunk();
+	m_Load.SetSaveDataFile(m_SaveDataFile);
 	if (m_Load.Load())
 	{
 		//セーブデータを読み込めた
-		return;
+		return true;
 	}
-	//ここで地面を作る
-	NewGround();
-}
-
-
-bool Stage::Start()
-{
-	m_Terrain->PopurerTerrainMap();
 	//建物読み込み
 	m_Map.SetSaveDataFile(m_SaveDataFile);
 	m_Map.SetChunkID(1, 1);
 	m_Map.Init("Assets/level/Building_0.tkl");
-
-	m_enemyGenerator.SetStage(this);
-
-	m_LoadingByChunk->SetTerrainManager(m_Terrain);
 
 	return true;
 }
@@ -60,4 +64,5 @@ void Stage::NewGround()
 	m_Terrain = NewGO<nsTerrain::TerrainManager>(0,"Terrain");
 	m_SkyCube = NewGO<prefab::CSky>(0);
 	m_LoadingByChunk = NewGO<LoadingByChunk>(0, "LoadingByChunk");
+	m_LoadingByChunk->SetTerrainManager(m_Terrain);
 }

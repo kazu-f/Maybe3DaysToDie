@@ -18,6 +18,9 @@
 
 CGameScene::~CGameScene()
 {
+	//ゲーム終了時にセーブ
+	m_TerrainSave.Save();
+
 	DeleteGO(m_Player);
 	DeleteGO(m_Camera);
 	DeleteGO(m_Stage);
@@ -130,12 +133,6 @@ bool CGameScene::Start()
 
 void CGameScene::Update()
 {
-	if (GetAsyncKeyState(VK_SPACE))
-	{
-		//テラインをセットしているけど、ここでセットしているのはテラインが作られるのが遅いため。
-		m_TerrainSave.SetTerrainWorld(nullptr);
-		m_TerrainSave.Save();
-	}
-	
+
 
 }

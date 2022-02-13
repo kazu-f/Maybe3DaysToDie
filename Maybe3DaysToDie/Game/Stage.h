@@ -3,6 +3,7 @@
 #include "TerrainManager/TerrainManager.h"
 #include "SaveDataFile.h"
 #include "Save/TerrainSave/TerrainLoad.h"
+#include "Save/TerrainSave/TerrainSave.h"
 #include "MapLoad/MapLoad.h"
 #include "SaveDataFile.h"
 
@@ -12,6 +13,7 @@ class Stage : public IGameObject
 {
 public:
 	Stage();
+	~Stage();
 private:
 	/// <summary>
 	/// ‰Šú‰»
