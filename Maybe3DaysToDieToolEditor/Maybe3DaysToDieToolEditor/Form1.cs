@@ -16,8 +16,10 @@ namespace Maybe3DaysToDieToolEditor
         #region フォーム関連の変数。
         string filePath = null;
         List<Item> m_itemList = new List<Item>();
+        ItemDataList m_itemDataList = new ItemDataList();
         BindingSource listBoxBS = new BindingSource();
-        BindingSource itemDataBS = new BindingSource();
+        BindingSource craftItemDataBS = new BindingSource();
+        BindingSource collectItemDataBS = new BindingSource();
         EditorCommandList commandList = new EditorCommandList();
         //ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
@@ -28,7 +30,9 @@ namespace Maybe3DaysToDieToolEditor
         {
             InitializeComponent();
             listBoxBS.DataSource = m_itemList;
-            itemDataBS.DataSource = m_itemList;
+            craftItemDataBS.DataSource = m_itemList;
+            collectItemDataBS.DataSource = m_itemList;
+            m_itemDataList.ItemList = m_itemList;
 
             ItemList.DisplayMember = "itemName";
             ItemList.ValueMember = "itemName";
@@ -36,7 +40,7 @@ namespace Maybe3DaysToDieToolEditor
 
             itemDataPanel1.commandList = commandList;
             itemDataPanel1.listBox = ItemList;
-            itemDataPanel1.ItemDataBS = itemDataBS;
+            itemDataPanel1.ItemDataBS = craftItemDataBS;
             itemDataPanel1.updateBSMethod = UpdateBS;
 
             toolDataPanel1.commandList = commandList;
@@ -44,7 +48,11 @@ namespace Maybe3DaysToDieToolEditor
 
             placementObjectPanel1.commandList = commandList;
             placementObjectPanel1.listBox = ItemList;
-            placementObjectPanel1.ItemDataBS = itemDataBS;
+            placementObjectPanel1.ItemDataBS = collectItemDataBS;
+
+            terrainPanel1.commandList = commandList;
+            terrainPanel1.listBox = ItemList;
+            terrainPanel1.ItemDataBS = collectItemDataBS;
 
             foodAndCurePanel1.commandList = commandList;
             foodAndCurePanel1.listBox = ItemList;
@@ -53,7 +61,6 @@ namespace Maybe3DaysToDieToolEditor
             toolDataPanel1.Visible = true;
 
             //設定を行う。
-            //toolKinds = new ToolKindsComboBox(ToolComboBox);
             saveData = new SaveItemDataList();
             loadData = new LoadItemDataList();
         }
@@ -61,17 +68,15 @@ namespace Maybe3DaysToDieToolEditor
         private void UpdateBS()
         {
             listBoxBS.ResetBindings(false);
-            itemDataBS.ResetBindings(false);
+            craftItemDataBS.ResetBindings(false);
+            collectItemDataBS.ResetBindings(false);
         }
         /// <summary>
         /// アイテムリストに更新が入ったら呼ぶ処理。
         /// </summary>
         private void UpdateItemList()
         {
-            for (int i = 0; i < m_itemList.Count; i++)
-            {
-                m_itemList[i].itemID = i;
-            }
+            m_itemDataList.UpdateItemListID();
 
             UpdateBS();
         }
@@ -82,6 +87,7 @@ namespace Maybe3DaysToDieToolEditor
         {
             toolDataPanel1.Visible = false;
             placementObjectPanel1.Visible = false;
+            terrainPanel1.Visible = false;
             foodAndCurePanel1.Visible = false;
             materialPanel1.Visible = false;
         }
@@ -141,6 +147,18 @@ namespace Maybe3DaysToDieToolEditor
             var newPlace = new PlacementObject { itemName = "PlacementObject" };
 
             Command.AddNewItem command = new Command.AddNewItem(newPlace, m_itemList, UpdateItemList);
+
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
+        }
+
+        private void TerrainToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var newTerrain = new Terrain { itemName = "Terrain" };
+
+            Command.AddNewItem command = new Command.AddNewItem(newTerrain, m_itemList, UpdateItemList);
 
             if (command.IsChanged())
             {
@@ -219,6 +237,12 @@ namespace Maybe3DaysToDieToolEditor
                 GroupBoxPanelDisable();
                 placementObjectPanel1.Visible = true;
                 placementObjectPanel1.DispPlacementObject((PlacementObject)item);
+            }
+            else if (typeof(Terrain) == item.GetType())
+            {
+                GroupBoxPanelDisable();
+                terrainPanel1.Visible = true;
+                terrainPanel1.DispTerrain((Terrain)item);
             }
             else if(typeof(FoodAndCure) == item.GetType())
             {
@@ -317,14 +341,17 @@ namespace Maybe3DaysToDieToolEditor
             filePath = loadData.LoadJsonFile(out list);
             if(list != null)
             {
+                m_itemList = list;
+                m_itemDataList.ItemList = m_itemList;
+                m_itemDataList.UpdateItemListID();
                 //データの構築を行う。
                 BuildOpenFileItemData(list);
                 //コマンドリストをリセット。
                 commandList.ResetCommandList();
                 //アイテムのリストを読み込んだものに変更。
-                m_itemList = list;
                 listBoxBS.DataSource = m_itemList;
-                itemDataBS.DataSource = m_itemList;
+                craftItemDataBS.DataSource = m_itemList;
+                collectItemDataBS.DataSource = m_itemList;
                 //表記を変更。
                 ItemList.SelectedItem = m_itemList[0];
                 DispItemData(m_itemList[0]);
@@ -362,6 +389,5 @@ namespace Maybe3DaysToDieToolEditor
             }
         }
         #endregion ファイル保存関係。
-
     }
 }

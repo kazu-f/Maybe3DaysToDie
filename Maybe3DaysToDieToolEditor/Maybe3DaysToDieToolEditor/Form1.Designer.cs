@@ -47,17 +47,19 @@ namespace Maybe3DaysToDieToolEditor
             this.EditortoolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.AddToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MaterialDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PlaceObjDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FoodAndCureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MaterialDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ItemList = new System.Windows.Forms.ListBox();
             this.toolDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.materialPanel1 = new Maybe3DaysToDieToolEditor.MaterialPanel();
             this.itemDataPanel1 = new Maybe3DaysToDieToolEditor.ItemDataPanel();
             this.foodAndCurePanel1 = new Maybe3DaysToDieToolEditor.FoodAndCurePanel();
             this.placementObjectPanel1 = new Maybe3DaysToDieToolEditor.PlacementObjectPanel();
             this.toolDataPanel1 = new Maybe3DaysToDieToolEditor.ToolDataPanel();
-            this.materialPanel1 = new Maybe3DaysToDieToolEditor.MaterialPanel();
+            this.terrainPanel1 = new Maybe3DaysToDieToolEditor.TerrainPanel();
+            this.TerrainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -188,6 +190,7 @@ namespace Maybe3DaysToDieToolEditor
             this.AddToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolDataToolStripMenuItem,
             this.PlaceObjDataToolStripMenuItem,
+            this.TerrainToolStripMenuItem,
             this.FoodAndCureToolStripMenuItem,
             this.MaterialDataToolStripMenuItem});
             this.AddToolStripMenuItem1.Name = "AddToolStripMenuItem1";
@@ -200,13 +203,6 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.ToolDataToolStripMenuItem.Text = "ツール";
             this.ToolDataToolStripMenuItem.Click += new System.EventHandler(this.ToolDataToolStripMenuItem_Click);
-            // 
-            // MaterialDataToolStripMenuItem
-            // 
-            this.MaterialDataToolStripMenuItem.Name = "MaterialDataToolStripMenuItem";
-            this.MaterialDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.MaterialDataToolStripMenuItem.Text = "素材";
-            this.MaterialDataToolStripMenuItem.Click += new System.EventHandler(this.MaterialDataToolStripMenuItem_Click);
             // 
             // PlaceObjDataToolStripMenuItem
             // 
@@ -221,6 +217,13 @@ namespace Maybe3DaysToDieToolEditor
             this.FoodAndCureToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.FoodAndCureToolStripMenuItem.Text = "食料等";
             this.FoodAndCureToolStripMenuItem.Click += new System.EventHandler(this.FoodAndCureToolStripMenuItem_Click);
+            // 
+            // MaterialDataToolStripMenuItem
+            // 
+            this.MaterialDataToolStripMenuItem.Name = "MaterialDataToolStripMenuItem";
+            this.MaterialDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.MaterialDataToolStripMenuItem.Text = "素材";
+            this.MaterialDataToolStripMenuItem.Click += new System.EventHandler(this.MaterialDataToolStripMenuItem_Click);
             // 
             // DeleteToolStripMenuItem
             // 
@@ -238,6 +241,13 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemList.Size = new System.Drawing.Size(180, 799);
             this.ItemList.TabIndex = 1;
             this.ItemList.SelectedIndexChanged += new System.EventHandler(this.ItemList_SelectedIndexChanged);
+            // 
+            // materialPanel1
+            // 
+            this.materialPanel1.Location = new System.Drawing.Point(199, 320);
+            this.materialPanel1.Name = "materialPanel1";
+            this.materialPanel1.Size = new System.Drawing.Size(820, 520);
+            this.materialPanel1.TabIndex = 7;
             // 
             // itemDataPanel1
             // 
@@ -270,18 +280,26 @@ namespace Maybe3DaysToDieToolEditor
             this.toolDataPanel1.TabIndex = 4;
             this.toolDataPanel1.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
-            // materialPanel1
+            // terrainPanel1
             // 
-            this.materialPanel1.Location = new System.Drawing.Point(199, 320);
-            this.materialPanel1.Name = "materialPanel1";
-            this.materialPanel1.Size = new System.Drawing.Size(820, 520);
-            this.materialPanel1.TabIndex = 7;
+            this.terrainPanel1.Location = new System.Drawing.Point(200, 320);
+            this.terrainPanel1.Name = "terrainPanel1";
+            this.terrainPanel1.Size = new System.Drawing.Size(820, 520);
+            this.terrainPanel1.TabIndex = 8;
+            // 
+            // TerrainToolStripMenuItem
+            // 
+            this.TerrainToolStripMenuItem.Name = "TerrainToolStripMenuItem";
+            this.TerrainToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.TerrainToolStripMenuItem.Text = "地形";
+            this.TerrainToolStripMenuItem.Click += new System.EventHandler(this.TerrainToolStripMenuItem_Click);
             // 
             // Maybe3DaysToDie_ToolEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1482, 853);
+            this.Controls.Add(this.terrainPanel1);
             this.Controls.Add(this.materialPanel1);
             this.Controls.Add(this.itemDataPanel1);
             this.Controls.Add(this.foodAndCurePanel1);
@@ -332,6 +350,8 @@ namespace Maybe3DaysToDieToolEditor
         private FoodAndCurePanel foodAndCurePanel1;
         private ItemDataPanel itemDataPanel1;
         private MaterialPanel materialPanel1;
+        private TerrainPanel terrainPanel1;
+        private System.Windows.Forms.ToolStripMenuItem TerrainToolStripMenuItem;
     }
 }
 

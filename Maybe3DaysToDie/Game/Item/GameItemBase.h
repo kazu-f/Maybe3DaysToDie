@@ -16,6 +16,7 @@ class SItemData
 {
 public:
 	int itemID = -1;					//アイテムID。
+	int itemTypeID = -1;				//アイテムの種類ごとに割り振られたID。
 	int stuckNum = 1;					//アイテムのスタック可能数。
 	int itemType = -1;					//アイテムタイプ。
 	std::string itemName = "";		//アイテムの名前。
