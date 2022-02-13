@@ -1,8 +1,10 @@
 #pragma once
-#include "Stage/SuperFlat/SuperFlat.h"
-#include "Stage/Hill/Hill.h"
 #include "Enemy/EnemyGenerator.h"
 #include "TerrainManager/TerrainManager.h"
+#include "SaveDataFile.h"
+#include "Save/TerrainSave/TerrainLoad.h"
+#include "Save/TerrainSave/TerrainSave.h"
+#include "MapLoad/MapLoad.h"
 #include "SaveDataFile.h"
 
 class NaviMeshManager;
@@ -11,6 +13,7 @@ class Stage : public IGameObject
 {
 public:
 	Stage();
+	~Stage();
 private:
 	/// <summary>
 	/// 初期化
@@ -29,6 +32,7 @@ private:
 	/// 地面を表示する
 	/// </summary>
 	void NewGround();
+
 public:
 	/// <summary>
 	/// エネミージェネレーターを取得。
@@ -44,15 +48,23 @@ public:
 		return m_Terrain;
 	}
 
+	void SetSaveDataFile(SaveDataFile* ptr)
+	{
+		m_SaveDataFile = ptr;
+	}
+
+	LoadingByChunk* GetLoadingByChunk()
+	{
+		return m_LoadingByChunk;
+	}
+
 private:
-	//Hill m_stage;
 	EnemyGenerator m_enemyGenerator;				//エネミージェネレーター。
-	nsTerrain::TerrainManager* m_Terrain;
-	//prefab::ModelRender* m_Model = nullptr;		//地面
+	nsTerrain::TerrainManager* m_Terrain = nullptr;
 	prefab::CSky* m_SkyCube = nullptr;
-	//CPhysicsStaticObject m_StaticCol;		//静的物理オブジェクト
-	//Vector3 m_pos = Vector3::Zero;		//ポジション
-	//Quaternion m_qrot = Quaternion::Identity;		//回転
-	//Vector3 m_scale = Vector3::One;		//スケール
+	TerrainLoad m_Load;
+	MapLoad m_Map;
+	SaveDataFile* m_SaveDataFile = nullptr;
+	LoadingByChunk* m_LoadingByChunk = nullptr;
 };
 

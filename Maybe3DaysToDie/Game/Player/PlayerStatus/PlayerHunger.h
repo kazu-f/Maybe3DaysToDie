@@ -24,12 +24,16 @@ private:
 	void OnDestroy()override final;
 
 public:
-	const void SetMaxHunger(const int maxHun) {
+	const void SetMax(const int maxHun) {
 		m_MaxHunger = maxHun;
 	}
 
 	void SetPlayer(Player* pp) {
 		m_Player = pp;
+	}
+
+	void Reset() {
+		m_Hunder = m_MaxHunger;
 	}
 private:
 	/// <summary>

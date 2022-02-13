@@ -23,7 +23,10 @@ namespace nsTerrain {
 		//物理オブジェクト作成。
 		CreateCollider();
 
-		PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
+		//PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
+
+		m_nvmDebugDraw = NewGO<NVMDebugDraw>(1);
+		m_nvmDebugDraw->Init();
 
 		m_isInited = true;
 
@@ -50,13 +53,6 @@ namespace nsTerrain {
 	void TerrainWorld::OnDestroy()
 	{
 		DeleteGO(m_terrainRender);
-	}
-	void TerrainWorld::ForwardRender(RenderContext& rc)
-	{
-		if (m_isNVMDebug)
-		{
-			m_nvmDebugDraw->Render(m_indexCount);
-		}
 	}
 
 	void TerrainWorld::CreateNVM(int x, int y)
@@ -292,14 +288,7 @@ namespace nsTerrain {
 	void TerrainWorld::PreRenderNVM()
 	{
 		if (m_isNVMDebug) {
-
-			if (m_nvmDebugDraw != nullptr)
-			{
-				//前回のデバッグドローは削除。
-				delete m_nvmDebugDraw;
-			}
-			//デバッグ。
-			m_nvmDebugDraw = new NVMDebugDraw;
+			m_nvmDebugDraw->ClearCellData();
 
 			for (auto& cell : m_cellList) {
 				m_nvmDebugDraw->PushVertex(cell.pos[0]);
@@ -317,7 +306,7 @@ namespace nsTerrain {
 				}
 			}
 
-			m_nvmDebugDraw->Init(m_indices);
+			m_nvmDebugDraw->CreateBuffers(m_indices, m_indexCount);
 		}
 	}
 
@@ -398,9 +387,11 @@ namespace nsTerrain {
 						auto* terrain = m_terrainChunkData->GetTerrainData(corner);
 						if (terrain != nullptr) {
 							cube.cube[i] = terrain->GetVoxel();
+							cube.terrainID[i] = terrain->GetTerrainID();
 						}
 						else {
 							cube.cube[i] = 0.0f;
+							cube.terrainID[i] = 0;
 						}
 					}
 
@@ -432,6 +423,7 @@ namespace nsTerrain {
 
 		//エッジ上の頂点初期化。
 		Vector3 EdgeVertex[12] = { {0.0f,0.0f,0.0f} };
+		Vector4 EdgeTexture[12] = { {0.0f,0.0f,0.0f,0.0f} };
 
 		//Find the point of intersection of the surface with each edge
 		for (int i = 0; i < 12; i++)
@@ -441,6 +433,13 @@ namespace nsTerrain {
 			{
 				//オフセットを計算する。
 				float offset = GetOffset(cube.cube[nsMarching::EdgeConnection[i][0]], cube.cube[nsMarching::EdgeConnection[i][1]]);
+
+				Vector4 tex1 = { 0.0f,0.0f,0.0f,0.0f };
+				tex1.v[cube.terrainID[nsMarching::EdgeConnection[i][0]]] = 1.0f;
+				Vector4 tex2 = { 0.0f,0.0f,0.0f,0.0f };
+				tex2.v[cube.terrainID[nsMarching::EdgeConnection[i][1]]] = 1.0f;
+
+				EdgeTexture[i] = tex1 * (1.0f - offset) + tex2 * offset;
 
 				//エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
 				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset) 
@@ -481,6 +480,8 @@ namespace nsTerrain {
 		{
 			//三角ポリゴンの頂点座標。
 			Vector3 vertPos[3];
+
+			Vector4 vertTexType[3];
 			//エッジ座標。
 			Vector3 edgePos[3];
 			//三角ポリゴンの中心座標。
@@ -504,6 +505,8 @@ namespace nsTerrain {
 				m_vertices.push_back(vertPos[p]);	//頂点を積む。
 				//中心座標を計算する。
 				center += vertPos[p];
+
+				vertTexType[p] = EdgeTexture[indice];
 
 				edgeIndex++;
 			}
@@ -545,6 +548,7 @@ namespace nsTerrain {
 			{
 				TerrainVertex vert;
 				vert.m_pos = vertPos[j];
+				vert.m_texType = vertTexType[j];
 				vert.m_normal = normal;
 
 				//TODO:いつか直す。

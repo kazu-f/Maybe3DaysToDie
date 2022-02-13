@@ -136,5 +136,5 @@ void NVMGenerator::DebugDraw(nsTerrain::TerrainRender* terrain)
 		return;
 	}
 
-	m_nvmDebugDraw->Render(terrain->GetVertexCount());
+	//m_nvmDebugDraw->Render(terrain->GetVertexCount());
 }

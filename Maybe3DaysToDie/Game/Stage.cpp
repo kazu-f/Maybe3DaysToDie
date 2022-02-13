@@ -3,17 +3,36 @@
 #include "Enemy/EnemyGenerator.h"
 #include "Enemy/StandardZombie/StandardZombie.h"
 #include "NaviMeshManager.h"
+#include "Load/TerrainLoad/LoadingByChunk.h"
 
 Stage::Stage()
 {
 	//ここで地面を作る
 	NewGround();
+
 }
 
-
+Stage::~Stage()
+{
+}
 bool Stage::Start()
 {
 	m_enemyGenerator.SetStage(this);
+	//地形生成
+	//todo　もしもSaveDataFileから計算するようになったらif文の下に置く
+	m_Terrain->PopurerTerrainMap();
+	m_LoadingByChunk->UpdateMoveChunk();
+	m_Load.SetSaveDataFile(m_SaveDataFile);
+	if (m_Load.Load())
+	{
+		//セーブデータを読み込めた
+		return true;
+	}
+	//建物読み込み
+	m_Map.SetSaveDataFile(m_SaveDataFile);
+	m_Map.SetChunkID(1, 1);
+	m_Map.Init("Assets/level/Building_0.tkl");
+
 	return true;
 }
 
@@ -45,13 +64,6 @@ void Stage::NewGround()
 {
 	m_Terrain = NewGO<nsTerrain::TerrainManager>(0,"Terrain");
 	m_SkyCube = NewGO<prefab::CSky>(0);
-	//m_stage.CreateStage();
-	//m_Model = NewGO<prefab::ModelRender>(0);
-	//ModelInitData InitModelUnity;
-	//InitModelUnity.m_tkmFilePath = "Assets/modelData/testbg/bg.tkm";
-	//m_Model->Init(InitModelUnity);
-	//m_pos.x += 50.0f;
-	//m_pos.z += 50.0f;
-	//m_Model->SetPosition(m_pos);
-	//m_Model->SetShadowReceiverFlag(true);
+	m_LoadingByChunk = NewGO<LoadingByChunk>(0, "LoadingByChunk");
+	m_LoadingByChunk->SetTerrainManager(m_Terrain);
 }

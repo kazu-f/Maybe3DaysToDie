@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "GameScene.h"
 #include "Scene\TerrainDebugScene.h"
+#include "Item/ItemDataFile.h"
 
 //1フレームの経過時間を出力する。
 #define CALC_TIME
-
 void SetInitParam(SInitParam& initParam)
 {
 	initParam.frameBuffer_W = FRAME_BUFFER_W;	//フレームバッファのサイズ(幅)
@@ -38,12 +38,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, TEXT("Game"), initParam);
 	//デバッグモードオン
-	PhysicsWorld().SetDebugMode(1);
+	//PhysicsWorld().SetDebugMode(1);
 	//フェードイン
 	CFade::GetInstance()->StartFadeIn();
 	//マウスカーソルの表示を消す
 	ShowCursor(false);
 
+	//アイテムデータファイルのインスタンスを作成
+	ItemDataFile::CreateInstance();
 	NewGO<CGameScene>(0);
 	//NewGO<TerrainDebugScene>(0);
 #ifdef CALC_TIME

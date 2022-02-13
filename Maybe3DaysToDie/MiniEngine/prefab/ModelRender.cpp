@@ -13,19 +13,16 @@ namespace Engine {
 			InitShadowModel();						//シャドウマップモデル初期化。
 		}
 
-		bool ModelRender::Start()
+		bool ModelRender::SubStart()
 		{
 			return m_model.IsInited();
 		}
 
-		void ModelRender::OnDestroy()
+		void ModelRender::SubOnDestroy()
 		{
-			//シャドウキャスター登録を解除する。
-			auto& shadowMap = GraphicsEngine()->GetShadowMap();
-			shadowMap->RemoveShadowCaster(this);
-			auto& gBuffer = GraphicsEngine()->GetGBuffer();
-			gBuffer->RemoveDefferdModel(this);
+
 		}
+
 		void ModelRender::Update()
 		{
 			if (m_animation.IsInited()) {
@@ -84,29 +81,26 @@ namespace Engine {
 			}
 		}
 
-		void ModelRender::PreRender(RenderContext& rc)
+		void ModelRender::OnRenderShadowMap(RenderContext& rc, int shadowMapNo, const Matrix& lvpMatrix)
 		{
-			//インスタンシング描画のデータを更新。
-			if (m_instancingDataSB.IsInited())
-			{
-				SendGPUInstancingDatas();
-			}
-			if (m_isShadowCaster)
-			{
-				//シャドウキャスターに登録する。
-				auto& shadowMap = GraphicsEngine()->GetShadowMap();
-				shadowMap->RegistShadowCaster(this);
-			}
-			//ディファードレンダリングを行うか？。
-			if (!m_isForwardRender) {
-				GraphicsEngine()->GetGBuffer()->RegistDefferdModel(this);
+			if (m_isShadowCaster) {
+				m_shadowModel[shadowMapNo].Draw(rc, lvpMatrix, m_numInstance);
 			}
 		}
-		void ModelRender::ForwardRender(RenderContext& renderContext)
+
+		void ModelRender::OnRenderToGBuffer(RenderContext& rc)
+		{
+			//ディファードレンダリングを行うか？。
+			if (!m_isForwardRender) {
+				m_model.Draw(rc, m_numInstance);
+			}
+		}
+
+		void ModelRender::OnForwardRender(RenderContext& renderContext)
 		{
 			//フォワードレンダリングを行う。
 			if (m_isForwardRender) {
-				m_model.Draw(renderContext);
+				m_model.Draw(renderContext, m_numInstance);
 			}
 		}
 
@@ -122,6 +116,7 @@ namespace Engine {
 				m_isEnableInstancing = true;
 			}
 		}
+
 		void ModelRender::InitSkelton(const char* filePath)
 		{
 			std::string skeletonFilePath = filePath;
@@ -130,6 +125,7 @@ namespace Engine {
 			//スケルトンを読み込む。
 			m_skeleton.Init(skeletonFilePath.c_str());
 		}
+
 		void ModelRender::InitAnimation(AnimClipInitData* animClipDatas, int animClipsNum)
 		{
 			//アニメーションの初期化データをコピー。

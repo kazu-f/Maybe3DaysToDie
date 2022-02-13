@@ -1,410 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="GameCamera.cpp" />
-    <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="DateTime.cpp" />
-    <ClCompile Include="DestroyObject\DestroyObject.cpp">
-      <Filter>DestroyObject</Filter>
-    </ClCompile>
-    <ClCompile Include="DestructibleObject\DestructibleObject.cpp">
-      <Filter>DestructibleObject</Filter>
-    </ClCompile>
-    <ClCompile Include="DestructibleObject\Block\Block.cpp">
-      <Filter>DestructibleObject\Block</Filter>
-    </ClCompile>
-    <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp">
-      <Filter>DestructibleObject\Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy\EnemyGenerator.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy\IEnemyState.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy\IEnemy.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy\StandardZombie\StandardZombie.cpp">
-      <Filter>Enemy\StandardZombie</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy\StandardZombie\STDZombieAttack.cpp">
-      <Filter>Enemy\StandardZombie</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy\StandardZombie\STDZombieTracking.cpp">
-      <Filter>Enemy\StandardZombie</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp">
-      <Filter>Enemy\StandardZombie</Filter>
-    </ClCompile>
-    <ClCompile Include="Load\TerrainLoad\TerrainLoad.cpp">
-      <Filter>Load\TerrainLoad</Filter>
-    </ClCompile>
-    <ClCompile Include="Load\TerrainLoad\LoadingByChunk.cpp">
-      <Filter>Load\TerrainLoad</Filter>
-    </ClCompile>
-    <ClCompile Include="Navigation\AStar.cpp">
-      <Filter>Navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="Navigation\NavigationAgent.cpp">
-      <Filter>Navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="Navigation\NVMDebugDraw.cpp">
-      <Filter>Navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="Navigation\NVMGenerator.cpp">
-      <Filter>Navigation</Filter>
-    </ClCompile>
-    <ClCompile Include="PlacementObject\PlacementObject.cpp">
-      <Filter>PlacementObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Player\Player.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp">
-      <Filter>Player\PlayerStatus</Filter>
-    </ClCompile>
-    <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp">
-      <Filter>Player\PlayerStatus</Filter>
-    </ClCompile>
-    <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp">
-      <Filter>Player\PlayerStatus</Filter>
-    </ClCompile>
-    <ClCompile Include="Player\PlayerStatus\PlayerWater.cpp">
-      <Filter>Player\PlayerStatus</Filter>
-    </ClCompile>
-    <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp">
-      <Filter>Player\PlayerStatus</Filter>
-    </ClCompile>
-    <ClCompile Include="Save\TerrainSave\TerrainSave.cpp">
-      <Filter>Save\TerrainSave</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\TerrainDebugScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Stage\IStage.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="Stage\Hill\Hill.cpp">
-      <Filter>Stage\Hill</Filter>
-    </ClCompile>
-    <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp">
-      <Filter>Stage\SuperFlat</Filter>
-    </ClCompile>
-    <ClCompile Include="TerrainManager\TerrainWorld.cpp">
-      <Filter>TerrainManager</Filter>
-    </ClCompile>
-    <ClCompile Include="TerrainManager\TerrainManager.cpp">
-      <Filter>TerrainManager</Filter>
-    </ClCompile>
-    <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp">
-      <Filter>TerrainManager\TerrainRender</Filter>
-    </ClCompile>
-    <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp">
-      <Filter>TerrainManager\TerrainRender</Filter>
-    </ClCompile>
-    <ClCompile Include="Tool\Tool.cpp">
-      <Filter>Tool</Filter>
-    </ClCompile>
-    <ClCompile Include="Load\ChunkCollision\ChunkCollision.cpp" />
-    <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp" />
-    <ClCompile Include="ItemBar.cpp" />
-    <ClCompile Include="Item\GameItemTool.cpp" />
-    <ClCompile Include="Item\GameItemBase.cpp" />
-    <ClCompile Include="TerrainManager\TerrainChunkData.cpp">
-      <Filter>TerrainManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Item\BlockItem.cpp" />
-    <ClCompile Include="MultiThread\Thread.cpp" />
-    <ClCompile Include="AccessObject\AccessObject.cpp" />
-    <ClCompile Include="NaviMeshManager.cpp" />
-    <ClCompile Include="IK\FootIK.cpp" />
-    <ClCompile Include="Player\Inventory.cpp" />
-    <ClCompile Include="Title\TitleScene.cpp" />
-    <ClCompile Include="Player\PlayerDead.cpp" />
-    <ClCompile Include="Item\ItemDataFile.cpp">
-      <Filter>Tool</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Stage.h" />
-    <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="DateTime.h" />
-    <ClInclude Include="GameScene.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="SaveDataFile.h" />
-    <ClInclude Include="DestroyObject\DestroyObject.h">
-      <Filter>DestroyObject</Filter>
-    </ClInclude>
-    <ClInclude Include="DestructibleObject\DestructibleObject.h">
-      <Filter>DestructibleObject</Filter>
-    </ClInclude>
-    <ClInclude Include="DestructibleObject\Block\Block.h">
-      <Filter>DestructibleObject\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="DestructibleObject\Terrain\Terrain.h">
-      <Filter>DestructibleObject\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy\EnemyGenerator.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy\IEnemyState.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy\IEnemy.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy\StandardZombie\StandardZombie.h">
-      <Filter>Enemy\StandardZombie</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy\StandardZombie\STDZombieAttack.h">
-      <Filter>Enemy\StandardZombie</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy\StandardZombie\STDZombieTracking.h">
-      <Filter>Enemy\StandardZombie</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h">
-      <Filter>Enemy\StandardZombie</Filter>
-    </ClInclude>
-    <ClInclude Include="Load\TerrainLoad\TerrainLoad.h">
-      <Filter>Load\TerrainLoad</Filter>
-    </ClInclude>
-    <ClInclude Include="Load\TerrainLoad\LoadingByChunk.h">
-      <Filter>Load\TerrainLoad</Filter>
-    </ClInclude>
-    <ClInclude Include="Navigation\AStar.h">
-      <Filter>Navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="Navigation\NavigationAgent.h">
-      <Filter>Navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="Navigation\NVMDebugDraw.h">
-      <Filter>Navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="Navigation\NVMGenerator.h">
-      <Filter>Navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="PlacementObject\PlacementObject.h">
-      <Filter>PlacementObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Player\Player.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Player\PlayerStatus\PlayerHp.h">
-      <Filter>Player\PlayerStatus</Filter>
-    </ClInclude>
-    <ClInclude Include="Player\PlayerStatus\PlayerHunger.h">
-      <Filter>Player\PlayerStatus</Filter>
-    </ClInclude>
-    <ClInclude Include="Player\PlayerStatus\PlayerStamina.h">
-      <Filter>Player\PlayerStatus</Filter>
-    </ClInclude>
-    <ClInclude Include="Player\PlayerStatus\PlayerWater.h">
-      <Filter>Player\PlayerStatus</Filter>
-    </ClInclude>
-    <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h">
-      <Filter>Player\PlayerStatus</Filter>
-    </ClInclude>
-    <ClInclude Include="Save\TerrainSave\TerrainSave.h">
-      <Filter>Save\TerrainSave</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\TerrainDebugScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage\IStage.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage\Hill\Hill.h">
-      <Filter>Stage\Hill</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage\SuperFlat\SuperFlat.h">
-      <Filter>Stage\SuperFlat</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainManager\TerrainWorld.h">
-      <Filter>TerrainManager</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainManager\TerrainManager.h">
-      <Filter>TerrainManager</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h">
-      <Filter>TerrainManager\TerrainRender</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h">
-      <Filter>TerrainManager\TerrainRender</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainManager\MarchingCubeTable.h">
-      <Filter>TerrainManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Tool\Tool.h">
-      <Filter>Tool</Filter>
-    </ClInclude>
-    <ClInclude Include="Load\ChunkCollision\ChunkCollision.h" />
-    <ClInclude Include="nlohmann\ordered_map.hpp">
-      <Filter>nlohmann</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\json.hpp">
-      <Filter>nlohmann</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\json_fwd.hpp">
-      <Filter>nlohmann</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\byte_container_with_subtype.hpp">
-      <Filter>nlohmann</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\adl_serializer.hpp">
-      <Filter>nlohmann</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\exceptions.hpp">
-      <Filter>nlohmann\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\hash.hpp">
-      <Filter>nlohmann\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\json_pointer.hpp">
-      <Filter>nlohmann\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\json_ref.hpp">
-      <Filter>nlohmann\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\macro_scope.hpp">
-      <Filter>nlohmann\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\macro_unscope.hpp">
-      <Filter>nlohmann\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\string_escape.hpp">
-      <Filter>nlohmann\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\value_t.hpp">
-      <Filter>nlohmann\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\conversions\from_json.hpp">
-      <Filter>nlohmann\detail\conversions</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\conversions\to_chars.hpp">
-      <Filter>nlohmann\detail\conversions</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\conversions\to_json.hpp">
-      <Filter>nlohmann\detail\conversions</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\input\binary_reader.hpp">
-      <Filter>nlohmann\detail\input</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\input\input_adapters.hpp">
-      <Filter>nlohmann\detail\input</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\input\json_sax.hpp">
-      <Filter>nlohmann\detail\input</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\input\lexer.hpp">
-      <Filter>nlohmann\detail\input</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\input\parser.hpp">
-      <Filter>nlohmann\detail\input</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\input\position_t.hpp">
-      <Filter>nlohmann\detail\input</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\iterators\internal_iterator.hpp">
-      <Filter>nlohmann\detail\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\iterators\iter_impl.hpp">
-      <Filter>nlohmann\detail\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\iterators\iterator_traits.hpp">
-      <Filter>nlohmann\detail\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\iterators\iteration_proxy.hpp">
-      <Filter>nlohmann\detail\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\iterators\json_reverse_iterator.hpp">
-      <Filter>nlohmann\detail\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\iterators\primitive_iterator.hpp">
-      <Filter>nlohmann\detail\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\meta\cpp_future.hpp">
-      <Filter>nlohmann\detail\meta</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\meta\detected.hpp">
-      <Filter>nlohmann\detail\meta</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\meta\identity_tag.hpp">
-      <Filter>nlohmann\detail\meta</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\meta\is_sax.hpp">
-      <Filter>nlohmann\detail\meta</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\meta\type_traits.hpp">
-      <Filter>nlohmann\detail\meta</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\meta\void_t.hpp">
-      <Filter>nlohmann\detail\meta</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\meta\call_std\end.hpp">
-      <Filter>nlohmann\detail\meta\call_std</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\meta\call_std\begin.hpp">
-      <Filter>nlohmann\detail\meta\call_std</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\output\binary_writer.hpp">
-      <Filter>nlohmann\detail\output</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\output\output_adapters.hpp">
-      <Filter>nlohmann\detail\output</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\detail\output\serializer.hpp">
-      <Filter>nlohmann\detail\output</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp">
-      <Filter>nlohmann\thirdparty\hedley</Filter>
-    </ClInclude>
-    <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp">
-      <Filter>nlohmann\thirdparty\hedley</Filter>
-    </ClInclude>
-    <ClInclude Include="Load\ChunkBlock\ChunkBlock.h" />
-    <ClInclude Include="ItemBar.h" />
-    <ClInclude Include="Item\GameItemTool.h" />
-    <ClInclude Include="Item\GameItemBase.h" />
-    <ClInclude Include="TerrainManager\TerrainChunkData.h">
-      <Filter>TerrainManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Item\BlockItem.h" />
-    <ClInclude Include="MultiThread\Thread.h" />
-    <ClInclude Include="AccessObject\AccessObject.h" />
-    <ClInclude Include="RayTest.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="NaviMeshManager.h" />
-    <ClInclude Include="IK\FootIK.h" />
-    <ClInclude Include="Player\Inventory.h" />
-    <ClInclude Include="Title\TitleScene.h" />
-    <ClInclude Include="Player\PlayerDead.h" />
-    <ClInclude Include="Item\ItemDataFile.h">
-      <Filter>Tool</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\shoesIcon.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\staminaGauge.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\statusGauge.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\HPIcon.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\HPGauge.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\preset\fade.png">
-      <Filter>Assets\sprite\preset</Filter>
-    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\HPGauge.png" />
+    <ImageContentTask Include="Assets\sprite\HPIcon.png" />
+    <ImageContentTask Include="Assets\sprite\shoesIcon.png" />
+    <ImageContentTask Include="Assets\sprite\staminaGauge.png" />
+    <ImageContentTask Include="Assets\sprite\statusGauge.png" />
+    <ImageContentTask Include="Assets\sprite\preset\fade.png" />
     <ImageContentTask Include="Assets\sprite\ItemIcon\PickaxeIcon.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\HotBar.png" />
     <ImageContentTask Include="Assets\sprite\ItemUI\inbentori.png" />
@@ -414,117 +16,180 @@
     <ImageContentTask Include="Assets\sprite\SelectBotton.png" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Assets">
-      <UniqueIdentifier>{679b2094-8f38-44ed-b11f-2f3d538f6ef1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\sprite">
-      <UniqueIdentifier>{914966c0-db68-4d8c-8d7e-cb65f46befa4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\sprite\preset">
-      <UniqueIdentifier>{06d2a67d-92f7-4b08-827a-432c2eed31e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="BlockManager">
-      <UniqueIdentifier>{72e7b84c-03e0-4811-a0bc-1bb8c69cc7dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DestroyObject">
-      <UniqueIdentifier>{5d88fa7e-0f77-4379-afa3-319c70212ab9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DestructibleObject">
-      <UniqueIdentifier>{fdcca65c-7aa5-4c02-ba9d-fe48ac510ade}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DestructibleObject\Block">
-      <UniqueIdentifier>{b057200a-198d-4449-a940-1fbd0814cb26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DestructibleObject\Terrain">
-      <UniqueIdentifier>{60297234-866d-4afb-a602-7bf986e40d0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Enemy">
-      <UniqueIdentifier>{cc09563f-0465-4d7a-9cc4-d598b6df28e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Enemy\StandardZombie">
-      <UniqueIdentifier>{0dcda043-090e-4934-b333-9516470ccf8b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameConfig">
-      <UniqueIdentifier>{c643aefa-1f22-4e8e-8a80-765c89cec2ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameConfig\WorldConfig">
-      <UniqueIdentifier>{5aef1331-e727-4474-9918-6130ef3ad0dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Load">
-      <UniqueIdentifier>{e15ba642-283c-425c-a073-8817cdbedd8c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Load\TerrainLoad">
-      <UniqueIdentifier>{8f94a1c0-fc78-4027-97ed-b7ed5dc65bda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Navigation">
-      <UniqueIdentifier>{1b5059de-c4cf-48da-98ac-e9fdc57eda2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PlacementObject">
-      <UniqueIdentifier>{e8cc2496-458a-4a60-9941-878c21b228f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player">
-      <UniqueIdentifier>{3ea08672-82e3-4b22-ab06-80897e956890}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player\PlayerStatus">
-      <UniqueIdentifier>{78263db8-7c5d-498e-8381-e86b1aa11fd7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Save">
-      <UniqueIdentifier>{da7afdc0-b4f5-4886-b6db-69dfb8c1ba73}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Save\TerrainSave">
-      <UniqueIdentifier>{0bf04305-8c95-4d7e-aa21-4dcfd25d99bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{b4d778ca-94d4-4fd9-ae14-786927d8ce4f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Stage">
-      <UniqueIdentifier>{29bc9b81-a532-4159-8b1b-4902282a103a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Stage\Hill">
-      <UniqueIdentifier>{e67533ec-33c3-49a1-b31b-cda5fb8a7d59}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Stage\SuperFlat">
-      <UniqueIdentifier>{4937acf3-9fe1-455d-9375-5f6da25c886b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TerrainManager">
-      <UniqueIdentifier>{01649466-ef51-4f85-82cb-0f3293d240ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TerrainManager\TerrainRender">
-      <UniqueIdentifier>{9b7cb174-399a-4e1d-82c4-02153ea5672c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tool">
-      <UniqueIdentifier>{744cd739-ee3f-4b2f-bf21-029cbfa75127}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="nlohmann">
-      <UniqueIdentifier>{b6d69c4b-6bd7-4b46-afeb-5031384b264d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="nlohmann\detail">
-      <UniqueIdentifier>{2c7f876a-7706-4e81-b7dc-b80ca297e130}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="nlohmann\detail\conversions">
-      <UniqueIdentifier>{ee7e5427-e818-4ec7-b8d1-06e2a3ebb004}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="nlohmann\detail\input">
-      <UniqueIdentifier>{a485fedd-866b-4a2b-8d5c-82d2d9c2b00a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="nlohmann\detail\iterators">
-      <UniqueIdentifier>{497f461f-fe68-4cfe-b513-2e24deb2e79f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="nlohmann\detail\meta">
-      <UniqueIdentifier>{4dcf8a29-a808-42a8-97a6-051215a9d536}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="nlohmann\detail\meta\call_std">
-      <UniqueIdentifier>{d44c949d-f53d-439d-bc87-3b0cb5b16f10}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="nlohmann\detail\output">
-      <UniqueIdentifier>{6e302520-49e5-4bd3-9704-0b3aa1e765dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="nlohmann\thirdparty">
-      <UniqueIdentifier>{558a2a4f-5763-4249-8ac5-98f14cad56d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="nlohmann\thirdparty\hedley">
-      <UniqueIdentifier>{366bc28c-681a-43b1-9009-3f8cc62ed50e}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="AccessObject\AccessObject.cpp" />
+    <ClCompile Include="Item\GameItemMaterial.cpp" />
+    <ClCompile Include="Item\GameItemFoods.cpp" />
+    <ClCompile Include="IK\FootIK.cpp" />
+    <ClCompile Include="MauseInfo.cpp" />
+    <ClCompile Include="Player\state\IPlayerState.cpp" />
+    <ClCompile Include="Item\BlockItem.cpp" />
+    <ClCompile Include="ItemBar.cpp" />
+    <ClCompile Include="Item\GameItemTool.cpp" />
+    <ClCompile Include="Item\GameItemBase.cpp" />
+    <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp" />
+    <ClCompile Include="Load\ChunkCollision\ChunkCollision.cpp" />
+    <ClCompile Include="DestroyObject\DestroyObject.cpp" />
+    <ClCompile Include="Load\TerrainLoad\LoadingByChunk.cpp" />
+    <ClCompile Include="Navigation\NavigationAgent.cpp" />
+    <ClCompile Include="Navigation\AStar.cpp" />
+    <ClCompile Include="DestructibleObject\DestructibleObject.cpp" />
+    <ClCompile Include="DestructibleObject\Block\Block.cpp" />
+    <ClCompile Include="DateTime.cpp" />
+    <ClCompile Include="Enemy\EnemyGenerator.cpp" />
+    <ClCompile Include="Enemy\IEnemy.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\StandardZombie.cpp" />
+    <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Enemy\IEnemyState.cpp" />
+    <ClCompile Include="Navigation\NVMDebugDraw.cpp" />
+    <ClCompile Include="Player\Inventory.cpp" />
+    <ClCompile Include="Player\state\PlayerDead.cpp" />
+    <ClCompile Include="Stage\Hill\Hill.cpp" />
+    <ClCompile Include="Navigation\NVMGenerator.cpp" />
+    <ClCompile Include="PlacementObject\PlacementObject.cpp" />
+    <ClCompile Include="Stage\IStage.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerWater.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerHunger.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerStamina.cpp" />
+    <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="Player\PlayerStatus\PlayerHp.cpp" />
+    <ClCompile Include="Player\PlayerStatus\SpriteInitFunction.cpp" />
+    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="DestructibleObject\Terrain\Terrain.cpp" />
+    <ClCompile Include="Stage\SuperFlat\SuperFlat.cpp" />
+    <ClCompile Include="Scene\TerrainDebugScene.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\STDZombieAttack.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\STDZombieTracking.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\STDZombieWandering.cpp" />
+    <ClCompile Include="Save\TerrainSave\TerrainLoad.cpp" />
+    <ClCompile Include="TerrainManager\TerrainChunkData.cpp" />
+    <ClCompile Include="TerrainManager\TerrainManager.cpp" />
+    <ClCompile Include="TerrainManager\TerrainRender\TerrainRender.cpp" />
+    <ClCompile Include="TerrainManager\TerrainRender\TerrainMaterial.cpp" />
+    <ClCompile Include="TerrainManager\TerrainWorld.cpp" />
+    <ClCompile Include="Save\TerrainSave\TerrainSave.cpp" />
+    <ClCompile Include="MultiThread\Thread.cpp" />
+    <ClCompile Include="Title\TitleScene.cpp" />
+    <ClCompile Include="Tool\Tool.cpp" />
+    <ClCompile Include="Item\ItemDataFile.cpp" />
+    <ClCompile Include="NaviMeshManager.cpp" />
+    <ClCompile Include="MapLoad\MapLoad.cpp" />
+    <ClCompile Include="Player\state\PlayerIdle.cpp" />
+    <ClCompile Include="Player\state\PlayerWalk.cpp" />
+    <ClCompile Include="Player\state\PlayerMenu.cpp" />
+    <ClCompile Include="Inventory\RootBlock.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AccessObject\AccessObject.h" />
+    <ClInclude Include="Item\GameItemMaterial.h" />
+    <ClInclude Include="Item\GameItemFoods.h" />
+    <ClInclude Include="IK\FootIK.h" />
+    <ClInclude Include="MauseInfo.h" />
+    <ClInclude Include="Player\state\IPlayerState.h" />
+    <ClInclude Include="Item\BlockItem.h" />
+    <ClInclude Include="ItemBar.h" />
+    <ClInclude Include="Item\GameItemTool.h" />
+    <ClInclude Include="Item\GameItemBase.h" />
+    <ClInclude Include="Load\ChunkBlock\ChunkBlock.h" />
+    <ClInclude Include="Load\ChunkCollision\ChunkCollision.h" />
+    <ClInclude Include="DestroyObject\DestroyObject.h" />
+    <ClInclude Include="Load\TerrainLoad\LoadingByChunk.h" />
+    <ClInclude Include="Navigation\NavigationAgent.h" />
+    <ClInclude Include="Navigation\AStar.h" />
+    <ClInclude Include="DestructibleObject\DestructibleObject.h" />
+    <ClInclude Include="DestructibleObject\Block\Block.h" />
+    <ClInclude Include="DateTime.h" />
+    <ClInclude Include="Enemy\EnemyGenerator.h" />
+    <ClInclude Include="Enemy\IEnemy.h" />
+    <ClInclude Include="Enemy\StandardZombie\StandardZombie.h" />
+    <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Enemy\IEnemyState.h" />
+    <ClInclude Include="Navigation\NVMDebugDraw.h" />
+    <ClInclude Include="nlohmann\adl_serializer.hpp" />
+    <ClInclude Include="nlohmann\byte_container_with_subtype.hpp" />
+    <ClInclude Include="nlohmann\detail\conversions\from_json.hpp" />
+    <ClInclude Include="nlohmann\detail\conversions\to_chars.hpp" />
+    <ClInclude Include="nlohmann\detail\conversions\to_json.hpp" />
+    <ClInclude Include="nlohmann\detail\exceptions.hpp" />
+    <ClInclude Include="nlohmann\detail\hash.hpp" />
+    <ClInclude Include="nlohmann\detail\input\binary_reader.hpp" />
+    <ClInclude Include="nlohmann\detail\input\input_adapters.hpp" />
+    <ClInclude Include="nlohmann\detail\input\json_sax.hpp" />
+    <ClInclude Include="nlohmann\detail\input\lexer.hpp" />
+    <ClInclude Include="nlohmann\detail\input\parser.hpp" />
+    <ClInclude Include="nlohmann\detail\input\position_t.hpp" />
+    <ClInclude Include="nlohmann\detail\iterators\internal_iterator.hpp" />
+    <ClInclude Include="nlohmann\detail\iterators\iteration_proxy.hpp" />
+    <ClInclude Include="nlohmann\detail\iterators\iterator_traits.hpp" />
+    <ClInclude Include="nlohmann\detail\iterators\iter_impl.hpp" />
+    <ClInclude Include="nlohmann\detail\iterators\json_reverse_iterator.hpp" />
+    <ClInclude Include="nlohmann\detail\iterators\primitive_iterator.hpp" />
+    <ClInclude Include="nlohmann\detail\json_pointer.hpp" />
+    <ClInclude Include="nlohmann\detail\json_ref.hpp" />
+    <ClInclude Include="nlohmann\detail\macro_scope.hpp" />
+    <ClInclude Include="nlohmann\detail\macro_unscope.hpp" />
+    <ClInclude Include="nlohmann\detail\meta\call_std\begin.hpp" />
+    <ClInclude Include="nlohmann\detail\meta\call_std\end.hpp" />
+    <ClInclude Include="nlohmann\detail\meta\cpp_future.hpp" />
+    <ClInclude Include="nlohmann\detail\meta\detected.hpp" />
+    <ClInclude Include="nlohmann\detail\meta\identity_tag.hpp" />
+    <ClInclude Include="nlohmann\detail\meta\is_sax.hpp" />
+    <ClInclude Include="nlohmann\detail\meta\type_traits.hpp" />
+    <ClInclude Include="nlohmann\detail\meta\void_t.hpp" />
+    <ClInclude Include="nlohmann\detail\output\binary_writer.hpp" />
+    <ClInclude Include="nlohmann\detail\output\output_adapters.hpp" />
+    <ClInclude Include="nlohmann\detail\output\serializer.hpp" />
+    <ClInclude Include="nlohmann\detail\string_escape.hpp" />
+    <ClInclude Include="nlohmann\detail\value_t.hpp" />
+    <ClInclude Include="nlohmann\json.hpp" />
+    <ClInclude Include="nlohmann\json_fwd.hpp" />
+    <ClInclude Include="nlohmann\ordered_map.hpp" />
+    <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp" />
+    <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp" />
+    <ClInclude Include="Player\Inventory.h" />
+    <ClInclude Include="Player\state\PlayerDead.h" />
+    <ClInclude Include="RayTest.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SaveDataFile.h" />
+    <ClInclude Include="Stage\Hill\Hill.h" />
+    <ClInclude Include="Navigation\NVMGenerator.h" />
+    <ClInclude Include="PlacementObject\PlacementObject.h" />
+    <ClInclude Include="Stage\IStage.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerWater.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerHunger.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerStamina.h" />
+    <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="Player\PlayerStatus\PlayerHp.h" />
+    <ClInclude Include="Player\PlayerStatus\SpriteInitFunction.h" />
+    <ClInclude Include="Stage.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="DestructibleObject\Terrain\Terrain.h" />
+    <ClInclude Include="Stage\SuperFlat\SuperFlat.h" />
+    <ClInclude Include="Scene\TerrainDebugScene.h" />
+    <ClInclude Include="Enemy\StandardZombie\STDZombieAttack.h" />
+    <ClInclude Include="Enemy\StandardZombie\STDZombieTracking.h" />
+    <ClInclude Include="Enemy\StandardZombie\STDZombieWandering.h" />
+    <ClInclude Include="Save\TerrainSave\TerrainLoad.h" />
+    <ClInclude Include="TerrainManager\TerrainChunkData.h" />
+    <ClInclude Include="TerrainManager\MarchingCubeTable.h" />
+    <ClInclude Include="TerrainManager\TerrainManager.h" />
+    <ClInclude Include="TerrainManager\TerrainRender\TerrainRender.h" />
+    <ClInclude Include="TerrainManager\TerrainRender\TerrainMaterial.h" />
+    <ClInclude Include="TerrainManager\TerrainWorld.h" />
+    <ClInclude Include="Save\TerrainSave\TerrainSave.h" />
+    <ClInclude Include="MultiThread\Thread.h" />
+    <ClInclude Include="Title\TitleScene.h" />
+    <ClInclude Include="Tool\Tool.h" />
+    <ClInclude Include="Item\ItemDataFile.h" />
+    <ClInclude Include="NaviMeshManager.h" />
+    <ClInclude Include="MapLoad\MapLoad.h" />
+    <ClInclude Include="Player\state\PlayerIdle.h" />
+    <ClInclude Include="Player\state\PlayerWalk.h" />
+    <ClInclude Include="Player\state\PlayerMenu.h" />
+    <ClInclude Include="Inventory\RootBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />

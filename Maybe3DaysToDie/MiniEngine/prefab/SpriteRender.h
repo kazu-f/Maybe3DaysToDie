@@ -2,7 +2,7 @@
 
 namespace Engine {
 	namespace prefab {
-		class CSpriteRender : public IGameObject
+		class CSpriteRender : public IRenderer
 		{
 		public:
 			CSpriteRender() {};
@@ -30,10 +30,11 @@ namespace Engine {
 			void Init(const char* FilePath, float w, float h, bool isDraw3D = false);
 
 		public:
-			bool Start()override final;
+			bool SubStart()override final;
 			void Update()override final;
-			void ForwardRender(RenderContext& rc)override final;
-			void PostRender(RenderContext& rc)override final;
+			void OnForwardRender(RenderContext& rc)override final;
+			void OnRender2D(RenderContext& rc)override final;
+
 		public:		//SetŠÖ”B
 			/// <summary>
 			/// À•W‚ğİ’èB

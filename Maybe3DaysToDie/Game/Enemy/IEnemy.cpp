@@ -28,8 +28,8 @@ void IEnemy::InitActor(ModelInitData& initData, const char* tag, AnimClipInitDat
 	m_modelRender->Init(initData, animClipDatas, animSize);
 
 	FootIK::FootIKParam param;
-	param.footBoneName_0 = L"mixamorig:LeftToeBase";
-	param.footBoneName_1 = L"mixamorig:RightToeBase";
+	param.footBoneName_0 = L"mixamorig:LeftToe_End";
+	param.footBoneName_1 = L"mixamorig:RightToe_End";
 	param.rootBoneName = L"mixamorig:Hips";
 	param.footCapsuleColliderRadius_0 = 1.0f;
 	param.footCapsuleColliderRadius_1 = 1.0f;

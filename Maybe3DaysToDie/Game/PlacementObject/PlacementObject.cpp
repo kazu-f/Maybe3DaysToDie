@@ -3,6 +3,7 @@
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "SaveDataFile.h"
 #include "RayTest.h"
+#include "Item/ItemDataFile.h"
 
 PlacementObject::PlacementObject()
 {
@@ -29,22 +30,30 @@ void PlacementObject::OnDestroy()
 bool PlacementObject::Start()
 {
 	m_ObjectModel = NewGO<prefab::ModelRender>(0);
-
-	ModelInitData m_modelInitData;
-	m_modelInitData.m_tkmFilePath = "Assets/modelData/CubeBlock/woodBlock.tkm";
 	m_modelInitData.m_shaderData.vsFxFilePath = L"Assets/shader/model.fx";
 	m_modelInitData.m_shaderData.vsEntryPointFunc = "VSMain";
 	m_modelInitData.m_shaderData.psFxFilePath = L"Assets/shader/ObjectPreview.fx";
 	m_modelInitData.m_shaderData.psEntryPointFunc = "PSMain";
-	m_ObjectModel->Init(m_modelInitData);
 	m_ObjectModel->SetForwardRenderFlag(true);
 	m_ObjectModel->SetShadowCasterFlag(true);
+	//アクティブを切る
+	m_ObjectModel->SetActiveFlag(false);
+
+	m_TerrainManager = FindGO<nsTerrain::TerrainManager>("Terrain");
+
 	return true;
 }
 
 void PlacementObject::Update()
 {
 	//オブジェクトを設置する位置を計算
+	ObjID = static_cast<int>(objParam.BlockID);
+	if (ObjID < 0 || ObjID >= BlockKinds)
+	{
+		//ブロックIDがマイナスか最大値より大きいときreturn
+		CanPlace = false;
+		return;
+	}
 	CalcObjectPos();
 	//各種セット
 	m_ObjectModel->SetPosition(m_pos);
@@ -96,8 +105,38 @@ void PlacementObject::CalcObjectPos()
 	}
 }
 
+bool PlacementObject::SetModelParams()
+{
+	ObjID = static_cast<int>(objParam.BlockID);
+	const auto& dataFile = ItemDataFile::GetInstance();
+	//todo ItemDataFileから取得してくる
+	if (ObjID < 0 || ObjID >= BlockKinds)
+	{
+		//ブロックIDがマイナスか最大値より大きいときreturn
+		return false;
+	}
+	else
+	{
+		//ファイルパス作成。
+		wchar_t filePath[256];
+		swprintf_s(filePath, L"Assets/modelData/CubeBlock/%s.tkm", m_SaveData->ObjectFilePath[ObjID].c_str());
+
+		size_t oriSize = wcslen(filePath) + 1;
+		size_t convertedChars = 0;
+		char strConcat[] = "";
+		size_t strConcatSize = (strlen(strConcat) + 1) * 2;
+		const size_t newSize = oriSize * 2;
+		char* nString = new char[newSize + strConcatSize];
+		wcstombs_s(&convertedChars, nString, newSize, filePath, _TRUNCATE);
+		_mbscat_s((unsigned char*)nString, newSize + strConcatSize, (unsigned char*)strConcat);
+
+		m_modelInitData.m_tkmFilePath = nString;
+		return true;
+	}
+}
+
 //todo [最適化]後で処理見直せ
-void PlacementObject::PlaceObject(ObjectParams& params)
+void PlacementObject::PlaceObject()
 {
 	if (CanPlace)
 	{
@@ -136,11 +175,24 @@ void PlacementObject::PlaceObject(ObjectParams& params)
 			int id_z = Pos.z / OBJECT_UNIT;
 			id_z = static_cast<int>(id_z % ChunkWidth);
 			
-			//セーブデータに直接書き込み
-			chunkData.ObjData[id_x][id_y][id_z].ObjId = params.BlockID;
-			chunkData.ObjData[id_x][id_y][id_z].ObjDurable = params.Durable;
-			auto& block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
-			block.AddBlock(params, m_pos, rot, scale);
+			switch (m_SaveData->ObjectType[objParam.BlockID])
+			{
+			case ObjectType::Block:
+			{
+				auto* block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
+				//セーブデータに直接書き込み
+				chunkData.ObjData[id_x][id_y][id_z].ObjId = objParam.BlockID;
+				chunkData.ObjData[id_x][id_y][id_z].ObjDurable = objParam.Durable;
+				block->AddBlock(objParam, m_pos, rot, scale);
+				break;
+			}
+			case ObjectType::Terrain:
+			{
+				auto* terrain = m_TerrainManager->GetTerrainChunkData(ID[0], ID[1]).GetTerrainData(id_x, id_y, id_z);
+				terrain->AddBlock(objParam, m_pos, rot, scale);
+				break;
+			}
+			}
 		}
 	}
 }

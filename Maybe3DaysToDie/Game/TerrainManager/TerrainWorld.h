@@ -13,8 +13,9 @@ namespace nsTerrain {
 	class TerrainRender;
 	class TerrainChunkData;
 
-	union Cube {
+	struct Cube {
 		float cube[8];
+		int terrainID[8] = { 0 };
 	};
 
 	class TerrainWorld : public IGameObject
@@ -25,7 +26,6 @@ namespace nsTerrain {
 		bool Start()override final;
 		void Update()override final;
 		void OnDestroy()override final;
-		void ForwardRender(RenderContext& rc) override final;
 	
 	public:
 		/// <summary>

@@ -1,10 +1,22 @@
-//サンプラステート。
-sampler g_sampler : register(s0);
 
 Texture2D<float4> shadowMap_0 : register(t6);		//シャドウマップ。
 Texture2D<float4> shadowMap_1 : register(t7);		//シャドウマップ。
 Texture2D<float4> shadowMap_2 : register(t8);		//シャドウマップ。
 
+//シャドウマップの数
+static const int NUM_SHADOW_MAP = 3;
+/*
+*	シャドウマップ用の定数バッファ。
+*	ShadowMap.hのSShadowCbに対応する。
+*/
+cbuffer ShadowCb : register(b3) {
+	float4x4 mLVP[NUM_SHADOW_MAP];		//ライトビュープロジェクション行列。
+	float4 texOffset[NUM_SHADOW_MAP];	//シャドウマップのサイズ。
+	float4 depthOffset;	//深度オフセット。シャドウアクネ(チラつき)回避のためのバイアス。
+										//値が大きいほど影が落ちにくくなる。
+	float4 shadowAreaDepthInViewSpace;	//カメラ空間での影を落とすエリアの深度テーブル。
+																		//なんか配列だと送れないんですが...
+}
 /*
 *	影が落ちているかを計算する。
 */
@@ -34,10 +46,10 @@ int GetCascadeIndex(float zInView)
 /*
 *	カスケードシャドウの処理。
 */
-float CalcShadow(float3 worldPos, float zInView)
+float CalcShadow(float3 worldPos, float zInView, int shadowReceiverFrag)
 {
 	float shadow = 0.0f;
-	if (isShadowReceiver) {
+	if (shadowReceiverFrag) {
 		//影を落とす。
 		//使用するシャドウマップ番号の取得。
 		int cascadeIndex = GetCascadeIndex(zInView);

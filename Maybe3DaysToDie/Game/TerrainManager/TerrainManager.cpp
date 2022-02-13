@@ -3,6 +3,7 @@
 #include "DestructibleObject/Terrain/Terrain.h"
 #include "Enemy/StandardZombie/StandardZombie.h"
 #include "Enemy/EnemyGenerator.h"
+#include "SaveDataFile.h"
 
 namespace nsTerrain {
 	bool TerrainManager::Start()
@@ -45,10 +46,6 @@ namespace nsTerrain {
 
 			m_isInitNVM = true;
 		}
-
-		//if (InputKeyCode().IsTriggerKey(VK_F4)) {
-		//	m_NVMGenerator.ChangeDrawFlag();
-		//}
 	}
 	void TerrainManager::OnDestroy()
 	{
@@ -72,6 +69,28 @@ namespace nsTerrain {
 			}
 		}
 	}
+	void nsTerrain::TerrainManager::LoadTerrainData(SaveDataFile* saveDataFile)
+	{
+		//地形を生成する。
+		for (int chunkX = 0; chunkX < MAX_CHUNK_SIDE; chunkX++)
+		{
+			for (int chunkY = 0; chunkY < MAX_CHUNK_SIDE; chunkY++)
+			{
+				LoadTerrainInChunk(chunkX, chunkY, saveDataFile);
+			}
+		}
+	}
+	void nsTerrain::TerrainManager::SaveTerrainData(SaveDataFile* saveDataFile)
+	{
+		//地形を生成する。
+		for (int chunkX = 0; chunkX < MAX_CHUNK_SIDE; chunkX++)
+		{
+			for (int chunkY = 0; chunkY < MAX_CHUNK_SIDE; chunkY++)
+			{
+				SaveTerrainInChunk(chunkX, chunkY, saveDataFile);
+			}
+		}
+	}
 	void TerrainManager::ChunkTerrainGenerate(int chunkX, int chunkY)
 	{
 		for (int x = 0; x < ChunkWidth + 1; x++)
@@ -80,7 +99,7 @@ namespace nsTerrain {
 			{
 				for (int z = 0; z < ChunkWidth + 1; z++)
 				{
-					auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY];
+					const auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY].get();
 					float noise = m_perlinNoise.CalculationNoise(
 						(static_cast<double>(x + (ChunkWidth * chunkX)) / static_cast<double>(ChunkWidth) * 1.5 + 0.001),
 						(static_cast<double>(z + (ChunkWidth * chunkY)) / static_cast<double>(ChunkWidth) * 1.5 + 0.001)
@@ -89,53 +108,99 @@ namespace nsTerrain {
 
 					noise = max(0.0f, min(1.0f, noise));
 
-					float thisHeight = (static_cast<float>(ChunkHeight) * noise);
+					float thisHeight = (static_cast<float>(ChunkHeight - GroundSurface) * noise);
+					thisHeight += static_cast<float>(GroundSurface);
 
 					float point = 0;
-
-					////この場所の高さに対してブロックが届いていない。
-					//if (y <= thisHeight - nsMarching::TERRAIN_SURFACE)
-					//	point = 0.0f;
-					////この場所の上にもブロックがある。
-					//else if (y > thisHeight + nsMarching::TERRAIN_SURFACE)
-					//	point = 1.0f;
-					////この場所のブロックの影響値計算。(上方向。)
-					//else if (y > thisHeight)
-					//	point = (float)y - thisHeight;
-					////この場所のブロックの影響値計算。(下方向。)
-					//else
-					//	point = thisHeight - (float)y;
+					int terrainID = 0;
 
 					//この場所の高さに対してブロックが届いていない。
 					if (y >= thisHeight - nsMarching::TERRAIN_SURFACE)
+					{
 						point = 0.0f;
+						terrainID = 2;
+					}
 					//この場所の上にもブロックがある。
 					else if (y < thisHeight + nsMarching::TERRAIN_SURFACE)
-						point = 1.0f;
-					//この場所のブロックの影響値。
-					else
-						point = 0.5f;
-
-					if (y == 0)
 					{
 						point = 1.0f;
+						terrainID = 0;
+					}
+					//この場所のブロックの影響値。
+					else
+					{
+						point = 0.5f;
+						terrainID = 2;
 					}
 
-					terrain.SetVoxel(point);
+					terrain->SetVoxel(point);
+					terrain->SetTerrainID(terrainID);
 
 					Vector3 pos;
 					pos.x = static_cast<float>((x + ChunkWidth * chunkX)) * OBJECT_UNIT;
 					pos.y = static_cast<float>(y) * OBJECT_UNIT;
 					pos.z = static_cast<float>((z + ChunkWidth * chunkY)) * OBJECT_UNIT;
-					terrain.SetPosition(pos);
+					terrain->SetPosition(pos);
 
-					m_terrainChunkData[chunkX][chunkY].SetTerrainData(&terrain, x, y, z);
+					m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
 				}
 			}
 		}
 	}
-	void TerrainManager::ForwardRender(RenderContext& rc)
+
+	void nsTerrain::TerrainManager::LoadTerrainInChunk(int chunkX, int chunkY, SaveDataFile* saveDataFile)
 	{
-		//m_NVMGenerator.DebugDraw(m_terrainWorlds[0][0]->GetTerrainRender());
+		for (int x = 0; x < ChunkWidth + 1; x++)
+		{
+			for (int y = 0; y < ChunkHeight; y++)
+			{
+				for (int z = 0; z < ChunkWidth + 1; z++)
+				{
+					const auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY].get();
+
+					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
+					ObjectParams params;
+					params.BlockID = objData.ObjId;
+
+					if (params.BlockID != 0) continue;
+
+					params.Durable = objData.ObjDurable;
+
+					terrain->SetParams(params);
+
+					terrain->SetTerrainID(0);
+
+					terrain->CalcVoxel();
+
+					Vector3 pos;
+					pos.x = static_cast<float>((x + ChunkWidth * chunkX)) * OBJECT_UNIT;
+					pos.y = static_cast<float>(y) * OBJECT_UNIT;
+					pos.z = static_cast<float>((z + ChunkWidth * chunkY)) * OBJECT_UNIT;
+					terrain->SetPosition(pos);
+
+					m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
+				}
+			}
+		}
+	}
+	void nsTerrain::TerrainManager::SaveTerrainInChunk(int chunkX, int chunkY, SaveDataFile* saveDataFile)
+	{
+		for (int x = 0; x < ChunkWidth + 1; x++)
+		{
+			for (int y = 0; y < ChunkHeight; y++)
+			{
+				for (int z = 0; z < ChunkWidth + 1; z++)
+				{
+					const auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY].get();
+					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
+
+					if (terrain->IsTerrainEnabled())
+					{
+						objData.ObjDurable = terrain->GetParam().Durable;
+						objData.ObjId = 0;
+					}
+				}
+			}
+		}
 	}
 }

@@ -1,5 +1,9 @@
 #pragma once
 class GameItemBase;
+class GameItemTool;
+class BlockItem;
+class GameItemFoods;
+class GameItemMaterial;
 
 /// <summary>
 /// jsonファイルからツールデータを読み込むクラス。
@@ -7,14 +11,131 @@ class GameItemBase;
 class ItemDataFile
 {
 	using json = nlohmann::json;
-public:
+
+public:		//シングルトン。
+	static void CreateInstance()
+	{
+		m_instance = new ItemDataFile();
+	}
+
+	static void Release()
+	{
+		if(m_instance != nullptr) delete m_instance;
+	}
+
+	static ItemDataFile* GetInstance()
+	{
+		return m_instance;
+	}
+
+private:
+	static ItemDataFile* m_instance;
+
+private:
 	ItemDataFile();
 	~ItemDataFile();
 
+public:
+	//アイテムのデータを読み込む処理。
 	void InitItemData(const char* filePath);
+	//アイテムデータを基底クラスで取得する。
+	GameItemBase* GetItemDataBase(int id)
+	{
+		return m_itemArray[id];
+	}
+	/// <summary>
+	/// アイテムのデータを取得する。
+	/// </summary>
+	/// <param name="id">アイテムのID</param>
+	/// <returns>型変換が上手くいけば取得できる。</returns>
+	template<class T>T* GetItemData(int id)
+	{
+		T* p = dynamic_cast<T*>(m_itemArray[id]);
+		if (p == nullptr) {
+			ENGINE_MESSAGE_BOX(
+				"アイテムデータの型変換に失敗しました。",
+				"\n型の情報を基底クラスの変数から確認してください。")
+		}
+		return p;
+	}
+	/// <summary>
+	/// ツールデータを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	GameItemTool* GetToolData(int id)
+	{
+		GameItemTool* tool = nullptr;
+
+		auto it = m_toolMap.find(id);
+		if (it != m_toolMap.end())
+		{
+			tool = it->second;
+		}
+
+		return tool;
+	}
+	/// <summary>
+	/// ブロックデータを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	BlockItem* GetBlockData(int id)
+	{
+		BlockItem* block = nullptr;
+
+		auto it = m_blockMap.find(id);
+		if (it != m_blockMap.end())
+		{
+			block = it->second;
+		}
+
+		return block;
+
+	}
+	/// <summary>
+	/// 食料等のデータを取得できるようにした。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	GameItemFoods* GetFoodData(int id)
+	{
+		GameItemFoods* food = nullptr;
+
+		auto it = m_foodMap.find(id);
+		if (it != m_foodMap.end())
+		{
+			food = it->second;
+		}
+
+		return food;
+	}
+	/// <summary>
+	/// 素材データを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	GameItemMaterial* GetMaterialData(int id)
+	{
+		GameItemMaterial* material = nullptr;
+
+		auto it = m_materialMap.find(id);
+		if (it != m_materialMap.end())
+		{
+			material = it->second;
+		}
+
+		return material;
+	}
 
 private:
 	typedef std::vector<GameItemBase*> ItemArray;
 	ItemArray m_itemArray;
+	std::map<int, GameItemTool*> m_toolMap;
+	std::map<int, BlockItem*> m_blockMap;
+	std::map<int, GameItemFoods*> m_foodMap;
+	std::map<int, GameItemMaterial*> m_materialMap;
+
+	int m_arraySize = 0;
 };
 

@@ -7,10 +7,11 @@
 #include "Tool/Tool.h"
 #include "SaveDataFile.h"
 #include "Save/TerrainSave/TerrainSave.h"
-#include "Load/TerrainLoad/TerrainLoad.h"
+#include "Save/TerrainSave/TerrainLoad.h"
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "Stage.h"
 #include "Player/Player.h"
+#include "Player/state/IPlayerState.h"
 
 namespace {
 	const Vector2 ItemBarPos = { -300.0f,-285.0f };
@@ -49,11 +50,7 @@ void ItemBar::Update()
 		if (GetAsyncKeyState(MK_LBUTTON)) {
 			m_InstallTime += GameTime().GetFrameDeltaTime();
 			if (m_InstallTime > 0.2f) {
-				//パラメータ
-				ObjectParams param;
-				param.BlockID = 3;
-				param.Durable = 500;
-				m_PlacementObject->PlaceObject(param);
+				m_PlacementObject->PlaceObject();
 				m_InstallTime = 0.0f;
 			}
 		}
@@ -90,21 +87,15 @@ void ItemBar::OnDestroy()
 	DeleteGO(m_SelectItemIcon);
 }
 
-LRESULT ItemBar::WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
-{
-	int zDelta = GET_WHEEL_DELTA_WPARAM(wp);
-	if (zDelta > 0) {
-		m_SelectNum++;
-	}
-	else if (zDelta < -0) {
-		m_SelectNum--;
-	}
-	return 0;
-}
-
 void ItemBar::ItemSlotKey(int vKey, int slot)
 {
 	if (GetAsyncKeyState(vKey)) {
 		m_SelectNum = slot;
+
+		//パラメータ
+		ObjectParams param;
+		param.BlockID = m_SelectNum;
+		param.Durable = 500;
+		m_PlacementObject->SetParams(param);
 	}
 }

@@ -157,6 +157,7 @@ namespace Engine {
 			boneMatrix = scaleMatrix * rotMatrix;
 			boneMatrix = boneMatrix * transMatrix;
 
+			m_skeleton->GetBone(boneNo)->SetTRS(vGlobalPose[boneNo], qGlobalPose[boneNo], vGlobalScale[boneNo]);
 			m_skeleton->SetBoneLocalMatrix(
 				boneNo,
 				boneMatrix
@@ -202,6 +203,8 @@ namespace Engine {
 		if (m_numAnimationPlayController == 0) {
 			return;
 		}
+		//前フレームのワールド行列をセット
+		m_skeleton->SetLastMat();
 		//経過時間を記録。
 		m_deltaTimeOnUpdate = deltaTime;
 
