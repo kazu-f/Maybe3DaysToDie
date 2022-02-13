@@ -18,6 +18,7 @@ namespace Maybe3DaysToDieToolEditor
             enStack_Tool = 1,
             enStack_Food = 30,
             enStack_Place = 999,
+            enStack_Terrain = 999,
             enStack_Material = 999
         }
 
@@ -66,6 +67,10 @@ namespace Maybe3DaysToDieToolEditor
             else if (typeof(PlacementObject) == item.GetType())
             {
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Place;
+            }
+            else if (typeof(Terrain) == item.GetType())
+            {
+                MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Terrain;
             }
             else if (typeof(FoodAndCure) == item.GetType())
             {
