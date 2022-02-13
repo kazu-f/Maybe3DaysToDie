@@ -18,7 +18,8 @@ namespace Maybe3DaysToDieToolEditor
         List<Item> m_itemList = new List<Item>();
         ItemDataList m_itemDataList = new ItemDataList();
         BindingSource listBoxBS = new BindingSource();
-        BindingSource itemDataBS = new BindingSource();
+        BindingSource craftItemDataBS = new BindingSource();
+        BindingSource collectItemDataBS = new BindingSource();
         EditorCommandList commandList = new EditorCommandList();
         //ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
@@ -29,7 +30,8 @@ namespace Maybe3DaysToDieToolEditor
         {
             InitializeComponent();
             listBoxBS.DataSource = m_itemList;
-            itemDataBS.DataSource = m_itemList;
+            craftItemDataBS.DataSource = m_itemList;
+            collectItemDataBS.DataSource = m_itemList;
             m_itemDataList.ItemList = m_itemList;
 
             ItemList.DisplayMember = "itemName";
@@ -38,7 +40,7 @@ namespace Maybe3DaysToDieToolEditor
 
             itemDataPanel1.commandList = commandList;
             itemDataPanel1.listBox = ItemList;
-            itemDataPanel1.ItemDataBS = itemDataBS;
+            itemDataPanel1.ItemDataBS = craftItemDataBS;
             itemDataPanel1.updateBSMethod = UpdateBS;
 
             toolDataPanel1.commandList = commandList;
@@ -46,11 +48,11 @@ namespace Maybe3DaysToDieToolEditor
 
             placementObjectPanel1.commandList = commandList;
             placementObjectPanel1.listBox = ItemList;
-            placementObjectPanel1.ItemDataBS = itemDataBS;
+            placementObjectPanel1.ItemDataBS = collectItemDataBS;
 
             terrainPanel1.commandList = commandList;
             terrainPanel1.listBox = ItemList;
-            terrainPanel1.ItemDataBS = itemDataBS;
+            terrainPanel1.ItemDataBS = collectItemDataBS;
 
             foodAndCurePanel1.commandList = commandList;
             foodAndCurePanel1.listBox = ItemList;
@@ -66,7 +68,8 @@ namespace Maybe3DaysToDieToolEditor
         private void UpdateBS()
         {
             listBoxBS.ResetBindings(false);
-            itemDataBS.ResetBindings(false);
+            craftItemDataBS.ResetBindings(false);
+            collectItemDataBS.ResetBindings(false);
         }
         /// <summary>
         /// アイテムリストに更新が入ったら呼ぶ処理。
@@ -347,7 +350,8 @@ namespace Maybe3DaysToDieToolEditor
                 commandList.ResetCommandList();
                 //アイテムのリストを読み込んだものに変更。
                 listBoxBS.DataSource = m_itemList;
-                itemDataBS.DataSource = m_itemList;
+                craftItemDataBS.DataSource = m_itemList;
+                collectItemDataBS.DataSource = m_itemList;
                 //表記を変更。
                 ItemList.SelectedItem = m_itemList[0];
                 DispItemData(m_itemList[0]);

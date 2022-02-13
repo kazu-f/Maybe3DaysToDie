@@ -24,6 +24,7 @@ namespace Maybe3DaysToDieToolEditor
     /// </summary>
     [KnownType(typeof(ToolData))]
     [KnownType(typeof(PlacementObject))]
+    [KnownType(typeof(Terrain))]
     [KnownType(typeof(FoodAndCure))]
     [KnownType(typeof(Material))]
     [DataContract]

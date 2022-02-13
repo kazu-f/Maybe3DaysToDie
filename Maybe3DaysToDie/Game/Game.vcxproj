@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AccessObject\AccessObject.cpp" />
+    <ClCompile Include="Item\GameItemTerrain.cpp" />
     <ClCompile Include="Inventory\RootBlock.cpp" />
     <ClCompile Include="Item\GameItemMaterial.cpp" />
     <ClCompile Include="Item\GameItemFoods.cpp" />
@@ -229,6 +230,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
+    <ClInclude Include="Item\CollectData.h" />
+    <ClInclude Include="Item\GameItemTerrain.h" />
     <ClInclude Include="Inventory\RootBlock.h" />
     <ClInclude Include="Item\GameItemMaterial.h" />
     <ClInclude Include="Item\GameItemFoods.h" />

@@ -80,6 +80,7 @@
     <ClCompile Include="Player\state\PlayerWalk.cpp" />
     <ClCompile Include="Player\state\PlayerMenu.cpp" />
     <ClCompile Include="Inventory\RootBlock.cpp" />
+    <ClCompile Include="Item\GameItemTerrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
@@ -190,6 +191,8 @@
     <ClInclude Include="Player\state\PlayerWalk.h" />
     <ClInclude Include="Player\state\PlayerMenu.h" />
     <ClInclude Include="Inventory\RootBlock.h" />
+    <ClInclude Include="Item\GameItemTerrain.h" />
+    <ClInclude Include="Item\CollectData.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />

@@ -2,6 +2,7 @@
 class GameItemBase;
 class GameItemTool;
 class BlockItem;
+class GameItemTerrain;
 class GameItemFoods;
 class GameItemMaterial;
 
@@ -94,6 +95,41 @@ public:
 
 	}
 	/// <summary>
+	/// 地形データを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	GameItemTerrain* GetTerrainData(int id)
+	{
+		GameItemTerrain* terrain = nullptr;
+
+		auto it = m_terrainMap.find(id);
+		if (it != m_terrainMap.end())
+		{
+			terrain = it->second;
+		}
+
+		return terrain;
+
+	}
+	/// <summary>
+	/// 地形データを取得する。
+	/// </summary>
+	/// <param name="id">地形ID</param>
+	/// <returns></returns>
+	GameItemTerrain* GetTerrainDataTypeID(int id)
+	{
+		GameItemTerrain* terrain = nullptr;
+
+		auto it = m_terrainMap.begin();
+		std::advance(it, id);
+
+		terrain = it->second;
+
+		return terrain;
+
+	}
+	/// <summary>
 	/// 食料等のデータを取得できるようにした。
 	/// </summary>
 	/// <param name="id">ID</param>
@@ -133,6 +169,7 @@ private:
 	ItemArray m_itemArray;
 	std::map<int, GameItemTool*> m_toolMap;
 	std::map<int, BlockItem*> m_blockMap;
+	std::map<int, GameItemTerrain*> m_terrainMap;
 	std::map<int, GameItemFoods*> m_foodMap;
 	std::map<int, GameItemMaterial*> m_materialMap;
 

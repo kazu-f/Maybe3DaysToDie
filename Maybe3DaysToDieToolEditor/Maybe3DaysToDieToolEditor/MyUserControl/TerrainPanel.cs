@@ -43,6 +43,7 @@ namespace Maybe3DaysToDieToolEditor
         public void DispTerrain(Terrain obj)
         {
             DurableNumeric.Value = obj.durable;
+            TextureFilePathTextBox.Text = obj.texFilePath;
             toolKinds.SelectValue(obj.tool);
             DispListView(obj);
         }
@@ -203,7 +204,10 @@ namespace Maybe3DaysToDieToolEditor
         {
             var item = listBox.SelectedItem;
             if (item == null) return;
-            Command.ChangeItemModel command = new Command.ChangeItemModel((Item)item, TextureFilePathTextBox.Text);
+            if (item.GetType() != typeof(Terrain)) return;
+            var terrain = (Terrain)item;
+
+            Command.ChangeTerrainTexture command = new Command.ChangeTerrainTexture(terrain, TextureFilePathTextBox.Text);
             if (command.IsChanged())
             {
                 commandList.AddCommand(command);

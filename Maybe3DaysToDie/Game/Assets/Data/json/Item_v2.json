@@ -1,0 +1,193 @@
+[
+  {
+    "__type": "ToolData:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "Assets\\sprite\\ItemIcon\\PickaxeIcon.png",
+    "itemID": 0,
+    "itemMaterialData": [
+      {
+        "craftItemNum": 1,
+        "craftMaterialID": 3
+      }
+    ],
+    "itemMaterialDataNum": 1,
+    "itemType": 0,
+    "itemTypeID": 0,
+    "name": "ToolData1",
+    "stackNum": 1,
+    "tkmFile": "Assets\\modelData\\ItemModel\\Tools\\Pickaxe\\Pickaxe.tkm",
+    "damage": 11,
+    "durable": 1111,
+    "tool": 2,
+    "useStamina": 11
+  },
+  {
+    "__type": "ToolData:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "Assets\\sprite\\ItemIcon\\PickaxeIcon.png",
+    "itemID": 1,
+    "itemMaterialData": [
+      {
+        "craftItemNum": 2,
+        "craftMaterialID": 3
+      }
+    ],
+    "itemMaterialDataNum": 1,
+    "itemType": 0,
+    "itemTypeID": 1,
+    "name": "ToolData2",
+    "stackNum": 1,
+    "tkmFile": "Assets\\modelData\\ItemModel\\Tools\\Pickaxe\\Pickaxe.tkm",
+    "damage": 22,
+    "durable": 222,
+    "tool": 2,
+    "useStamina": 22
+  },
+  {
+    "__type": "ToolData:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "Assets\\sprite\\ItemIcon\\PickaxeIcon.png",
+    "itemID": 2,
+    "itemMaterialData": [
+      {
+        "craftItemNum": 3,
+        "craftMaterialID": 3
+      }
+    ],
+    "itemMaterialDataNum": 1,
+    "itemType": 0,
+    "itemTypeID": 2,
+    "name": "ToolData3",
+    "stackNum": 1,
+    "tkmFile": "Assets\\modelData\\ItemModel\\Tools\\Pickaxe\\Pickaxe.tkm",
+    "damage": 33,
+    "durable": 333,
+    "tool": 2,
+    "useStamina": 3
+  },
+  {
+    "__type": "Material:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [
+        0,
+        1,
+        2
+      ],
+      "craftableItemNum": 3
+    },
+    "iconData": "",
+    "itemID": 3,
+    "itemMaterialData": [ ],
+    "itemMaterialDataNum": 0,
+    "itemType": 4,
+    "itemTypeID": 0,
+    "name": "MaterialDirt",
+    "stackNum": 1,
+    "tkmFile": "",
+    "MaterialType": 0
+  },
+  {
+    "__type": "Terrain:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "",
+    "itemID": 4,
+    "itemMaterialData": [ ],
+    "itemMaterialDataNum": 0,
+    "itemType": 2,
+    "itemTypeID": 0,
+    "name": "TerrainDirt",
+    "stackNum": 1,
+    "tkmFile": "",
+    "collectItemDataNum": 1,
+    "collectItems": [
+      {
+        "corectItemID": 3,
+        "corectionNum": 10
+      }
+    ],
+    "durable": 0,
+    "texture": "Assets\\modelData\\CubeBlock\\T_GroundDirt_01_D.DDS",
+    "tool": 4
+  },
+  {
+    "__type": "Terrain:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "",
+    "itemID": 5,
+    "itemMaterialData": [ ],
+    "itemMaterialDataNum": 0,
+    "itemType": 2,
+    "itemTypeID": 0,
+    "name": "TerrainStone",
+    "stackNum": 1,
+    "tkmFile": "",
+    "collectItemDataNum": 1,
+    "collectItems": [
+      {
+        "corectItemID": 5,
+        "corectionNum": 10
+      }
+    ],
+    "durable": 0,
+    "texture": "Assets\\modelData\\Terrain\\T_MacroVariation.dds",
+    "tool": 2
+  },
+  {
+    "__type": "Material:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "",
+    "itemID": 6,
+    "itemMaterialData": [ ],
+    "itemMaterialDataNum": 0,
+    "itemType": 4,
+    "itemTypeID": 1,
+    "name": "MaterialRock",
+    "stackNum": 1,
+    "tkmFile": "",
+    "MaterialType": 0
+  },
+  {
+    "__type": "Terrain:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "",
+    "itemID": 7,
+    "itemMaterialData": [ ],
+    "itemMaterialDataNum": 0,
+    "itemType": 2,
+    "itemTypeID": 0,
+    "name": "TerrainGrass",
+    "stackNum": 1,
+    "tkmFile": "",
+    "collectItemDataNum": 1,
+    "collectItems": [
+      {
+        "corectItemID": 3,
+        "corectionNum": 10
+      }
+    ],
+    "durable": 0,
+    "texture": "Assets\\modelData\\Terrain\\T_Ground_Grass_D.dds",
+    "tool": 4
+  }
+]
