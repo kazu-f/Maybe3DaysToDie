@@ -34,6 +34,7 @@ void Block::Damage(const ToolInfo& tool)
 	}
 	if (durable == 0)
 	{
+		m_params.Durable = durable;
 		m_ChunkBlock->RemoveBlock(this);
 	}
 }

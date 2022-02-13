@@ -363,7 +363,7 @@ void LoadingByChunk::UpdateModels()
 	{
 		if (m_SaveDataFile->ObjectFilePath[BlockID].c_str() == nullptr)
 		{
-			return;
+			continue;
 		}
 		//インスタンシングデータをリセット
 		BlockModel[BlockID]->ResetInstancingDatas();
@@ -375,7 +375,7 @@ void LoadingByChunk::UpdateModels()
 				for (auto& data : Datas)
 				{
 					//インスタンシングデータを追加
-					BlockModel[BlockID]->UpdateInstancingData(data.pos,data.rot,data.scale);
+ 					BlockModel[BlockID]->UpdateInstancingData(data.pos,data.rot,data.scale);
 				}
 				m_ChunkBlock[x][z].ResetModelUpdated();
 			}

@@ -198,7 +198,11 @@ void ChunkBlock::RemoveBlock(Block* blockptr)
 			for (int z = 0; z < ChunkWidth; z++)
 			{
 				auto& block = m_Block[x][y][z];
-				if (block.GetParam().Durable > 0)
+				if (block.GetParam().BlockID != blockptr->GetParam().BlockID)
+				{
+					continue;
+				}
+				if (static_cast<int>(block.GetParam().Durable) > 0)
 				{
 					//ƒf[ƒ^‚ğì¬
 					InstancingData data;

@@ -79,6 +79,7 @@
     <ClCompile Include="Player\state\PlayerIdle.cpp" />
     <ClCompile Include="Player\state\PlayerWalk.cpp" />
     <ClCompile Include="Player\state\PlayerMenu.cpp" />
+    <ClCompile Include="Inventory\RootBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Player\state\PlayerIdle.h" />
     <ClInclude Include="Player\state\PlayerWalk.h" />
     <ClInclude Include="Player\state\PlayerMenu.h" />
+    <ClInclude Include="Inventory\RootBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />
