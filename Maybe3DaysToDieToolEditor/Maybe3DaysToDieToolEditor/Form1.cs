@@ -16,6 +16,7 @@ namespace Maybe3DaysToDieToolEditor
         #region フォーム関連の変数。
         string filePath = null;
         List<Item> m_itemList = new List<Item>();
+        ItemDataList m_itemDataList = new ItemDataList();
         BindingSource listBoxBS = new BindingSource();
         BindingSource itemDataBS = new BindingSource();
         EditorCommandList commandList = new EditorCommandList();
@@ -29,6 +30,7 @@ namespace Maybe3DaysToDieToolEditor
             InitializeComponent();
             listBoxBS.DataSource = m_itemList;
             itemDataBS.DataSource = m_itemList;
+            m_itemDataList.ItemList = m_itemList;
 
             ItemList.DisplayMember = "itemName";
             ItemList.ValueMember = "itemName";
@@ -68,10 +70,7 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         private void UpdateItemList()
         {
-            for (int i = 0; i < m_itemList.Count; i++)
-            {
-                m_itemList[i].itemID = i;
-            }
+            m_itemDataList.UpdateItemListID();
 
             UpdateBS();
         }
@@ -317,12 +316,14 @@ namespace Maybe3DaysToDieToolEditor
             filePath = loadData.LoadJsonFile(out list);
             if(list != null)
             {
+                m_itemList = list;
+                m_itemDataList.ItemList = m_itemList;
+                m_itemDataList.UpdateItemListID();
                 //データの構築を行う。
                 BuildOpenFileItemData(list);
                 //コマンドリストをリセット。
                 commandList.ResetCommandList();
                 //アイテムのリストを読み込んだものに変更。
-                m_itemList = list;
                 listBoxBS.DataSource = m_itemList;
                 itemDataBS.DataSource = m_itemList;
                 //表記を変更。

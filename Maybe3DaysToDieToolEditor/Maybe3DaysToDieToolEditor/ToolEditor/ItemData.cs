@@ -56,6 +56,7 @@ namespace Maybe3DaysToDieToolEditor
         }
 
         [DataMember(Name = "itemID")] public int itemID { get; set; } = 0;
+        [DataMember(Name = "itemTypeID")] public int itemTypeID { get; set; } = 0;
         [DataMember(Name = "name")] public string itemName { get; set; } = "";
         [DataMember(Name = "stackNum")] public int itemStackNum { get; set; } = 1;
         [DataMember(Name = "tkmFile")] public string tkmFile { get; set; } = "";
