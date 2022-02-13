@@ -1,5 +1,6 @@
 #pragma once
 
+#include "NVMDebugDraw.h"
 #include "NVMGenerator.h"
 
 /// <summary>
@@ -8,6 +9,7 @@
 class AStar
 {
 	using Cell = NVMGenerator::Cell;
+	using Line = NVMDebugDraw::Line;
 private:
 	/// <summary>
 	/// 該当リストに積む。積んだ際にリスト番号も更新する。
@@ -23,6 +25,104 @@ private:
 		addCell->listNum = listNo;
 	}
 	float ClacTraverseCost(Cell* node, Cell* reserchNode);
+
+	/// <summary>
+	/// ラインとラインのXZ平面での当たり判定。
+	/// </summary>
+	/// <param name="line0">ライン０</param>
+	/// <param name="line1">ライン１</param>
+	/// <returns>trueが返ってくると当たっている</returns>
+	bool IntersectLineToLineXZ(Line& line0, Line& line1)
+	{
+		//ライン0にXZ平面で直交する単位ベクトルを求める。
+		//XZ平面での判定。
+		line0.start.y = 0;
+		line0.end.y = 0;
+		line1.start.y = 0;
+		line1.end.y = 0;
+		//ライン0の始点から終点。
+		Vector3 nom = line0.end - line0.start;
+		//ラインの法線を求める。
+		nom.Cross({ 0,1,0 });
+		nom.Normalize();
+
+		//ライン0を含む無限線分との交差判定。
+		//ライン0の始点からライン1の終点。
+		Vector3 L0StoL1EN = line1.end - line0.start;
+		//ライン0の始点からライン1の始点。
+		Vector3 L0StoL1SN = line1.start - line0.start;
+		//L1の終点と法線の内積。
+		float startDot = L0StoL1EN.Dot(nom);
+		//L1の始点と法線の内積。
+		float endDot = L0StoL1SN.Dot(nom);
+		//交差しているなら違う方向。
+		float dot = startDot * endDot;
+		if (dot < 0.0f) {
+			//交差しているので交点を求めていく。
+			//辺の絶対値求める。
+			float EndLen = fabsf(endDot);
+			float StartLen = fabsf(startDot);
+			if ((StartLen + EndLen) > 0.0f) {
+				//交点の位置を求める。
+				//辺の割合を求める。
+				float t = EndLen / (StartLen + EndLen);
+				//終点から始点。
+				Vector3 EtoS = line1.end - line1.start;
+				//終点から交点。
+				Vector3 EtoHit = EtoS * t;
+				//衝突点。
+				Vector3 hitPoint = line1.start + EtoHit;
+				//始点から衝突点。
+				Vector3 StoHit = hitPoint - line1.start;
+				EtoHit.Normalize();
+				StoHit.Normalize();
+				//line1の内積。
+				float LineDot = Dot(EtoHit, StoHit);
+				if (LineDot < 0) {
+					//向かい合っていないので、線分上にない。
+					return false;
+				}
+				//line0
+				EtoHit = hitPoint - line0.start;
+				StoHit = hitPoint - line0.end;
+				LineDot = Dot(EtoHit, StoHit);
+				if (LineDot > 0) {
+					//向かい合っていないので、線分上にない。
+					return false;
+				}
+				return true;
+
+				////交点。
+				//Vector3 hitPos = line1.end + EtoHit;
+
+				////始点、終点への交点。
+				//Vector3 StoHit = hitPos - StoHit;
+
+				//auto len = CalcLen(line1.end, line1.start);
+				//auto len1 = CalcLen(hitPos, line1.start);
+				//auto len2 = CalcLen(line1.end ,hitPos);
+				//
+				//if (len == len1 + len2) {
+				//	return true;
+				//}
+
+				//if ((VSL < hitL && hitL < VEL) || (VEL < hitL && hitL < VSL)) {
+				//	//片方が小さくて、片方が大きい。
+				//}
+			}
+			//StartLenとEndLenが0よりも小さくなったおかしい。
+			return false;
+		}
+		//交点なし。
+		return false;
+	}
+
+	/// <summary>
+	/// スムージング。
+	/// </summary>
+	/// <param name="nodeCellList"></param>
+	void Smoothing(std::vector<Cell*>& nodeCellList);
+
 	/// <summary>
 	/// 指定セル1(startCell)から指定セル2(targetCell)までの距離を求める。
 	/// <para>AStarとのスタートセルとの関連性はないので勘違いしないように。</para>

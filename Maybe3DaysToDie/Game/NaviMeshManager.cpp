@@ -96,7 +96,7 @@ void NaviMeshManager::Update()
 			}
 
 			m_terrainManager->GetTerrainWorld(x, y)->SerchLinkCell(x,y);
-			m_terrainManager->GetTerrainWorld(x, y)->PreRenderNVM();
+			m_terrainManager->GetTerrainWorld(x, y)->PreRenderNVM(x,y);
 
 			m_terrainManager->GetTerrainWorld(x, y)->ResetUpdateNvmFlag();
 			m_loadingByChunk->NvmDirtyFlagDown(x, y);

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "AStar.h"
 #include "NVMGenerator.h"
+#include "NVMDebugDraw.h"
 
 void AStar::CreateCellList(Vector3& start, Vector3& goal, std::vector<Cell*>& cells)
 {
@@ -143,6 +144,112 @@ float AStar::ClacTraverseCost(Cell* node, Cell* reserchNode)
 	return cost = dist.Length();
 }
 
+void AStar::Smoothing(std::vector<Cell*>& nodeCellList)
+{
+	//最初のセル。
+	Cell* baseCell = nodeCellList.back();
+	//スムーズ可能かどうか調べるための目的地セル。
+	Cell* targetCell = baseCell->m_parent->m_parent;
+	//リサーチセルはベースセルの親。
+	Cell* reserchCell = baseCell->m_parent;
+	//削除予定リスト。
+	std::vector<Cell*> deleteCellList;
+	//ベースセルの親ノードは確定でスムージング可能なのでスムージングする。
+	deleteCellList.push_back(baseCell->m_parent);
+	//前の当たり判定調査で消されたセル（復帰可能性のあるセル。）
+	Cell* deleteCell = baseCell->m_parent;
+
+
+	while (baseCell->m_parent->m_parent != nullptr) {
+		//ノードがなくなるまでスムージングチェック。
+
+		//ベースセルとターゲットセルの間に存在するセルと、ベースセルからターゲットセルに向かう線分と
+		//あたり判定調査を行い間に存在するセルすべてと衝突しているならセルをスムージング可能。
+
+		//ベースのセルの中心から、調査セルの中心に向かう線分を求める。
+		Line BaseLine;
+		BaseLine.start = baseCell->m_CenterPos;
+		BaseLine.end = targetCell->m_CenterPos;
+
+		//セルを構成する3本の線分を求める。
+		const int MAXLINE = 3;
+		Line line[MAXLINE];
+		line[0].start = reserchCell->pos[0];
+		line[0].end = reserchCell->pos[1];
+		line[1].start = reserchCell->pos[1];
+		line[1].end = reserchCell->pos[2];
+		line[2].start = reserchCell->pos[2];
+		line[2].end = reserchCell->pos[0];
+
+		//衝突したかフラグ。
+		bool isHit = false;
+		for (int lineCount = 0; lineCount < MAXLINE; lineCount++) {
+			//当たり判定調査。
+			isHit = IntersectLineToLineXZ(BaseLine, line[lineCount]);
+			if (isHit) {
+				//このセルの当たり判定調査は終了。
+				reserchCell = reserchCell->m_parent;
+				break;
+			}
+		}
+
+		if (!isHit) {
+			//間に存在するセルと衝突していない、スムージング不可能。
+			//セルを更新。
+			baseCell = targetCell;
+			if (baseCell->m_parent != nullptr) {
+				targetCell = baseCell->m_parent->m_parent;
+				reserchCell = baseCell->m_parent;
+				if (deleteCell != nullptr) {
+					//スムージング不可能なので前セルを削除予定リストから復帰させる。
+					deleteCellList.erase(std::find(deleteCellList.begin(), deleteCellList.end(), deleteCell));
+				}
+				//ベースセルの親ノードは確定でスムージング可能なのでスムージングする。
+				deleteCellList.push_back(baseCell->m_parent);
+				//消す予定セルを更新。
+				deleteCell = baseCell->m_parent;
+			}
+			else {
+				//親親が存在しない。
+				break;
+			}
+		}
+
+		if (reserchCell == targetCell) {
+			//セルを更新。
+			if (targetCell->m_parent == nullptr) {
+				//ターゲットせるの親切れ。
+				break;
+			}
+			//ターゲットセルまで到着、スムージング可能なので削除予定リストに積む。
+			deleteCellList.push_back(targetCell);
+			//このセルは、次のセルの当たり判定で復帰する可能性があるのでバックアップをとっておく。
+			deleteCell = targetCell;
+			targetCell = targetCell->m_parent;
+			reserchCell = baseCell->m_parent;
+		}
+	}//ノードがなくなった調査終了。
+
+	for (auto deleteC : deleteCellList) {
+		//削除予定リストに乗ってたセルは全部消す。
+		auto it = std::find(nodeCellList.begin(), nodeCellList.end(), deleteC);
+		if (it != nodeCellList.end()) {
+			nodeCellList.erase(it);
+		}
+	}
+
+
+	//ゴールまでのノードを再構成する。
+	for (int nodeNo = 0; nodeNo < nodeCellList.size(); nodeNo++) {
+		if (nodeCellList[nodeNo]->costToEnd != 0.0f) {
+			//ゴールじゃないなら。親ノードをつなぎなおす。
+			//printf("%f, %f\n", nodeCellList[nodeNo]->m_CenterPos.x, nodeCellList[nodeNo]->m_CenterPos.z);
+			nodeCellList[nodeNo]->m_parent = nodeCellList[nodeNo + 1];
+		}
+	}
+
+}
+
 std::vector<NVMGenerator::Cell*> AStar::Search(Vector3& start, Vector3& goal, std::vector<Cell*>& cells)
 {
 	//セルリストの初期化。
@@ -166,9 +273,9 @@ std::vector<NVMGenerator::Cell*> AStar::Search(Vector3& start, Vector3& goal, st
 	}
 
 	//スムージングできる？
-	//if (m_nodeCellList.size() > 2) {
-	//	//スムージング。
-	//	Smoothing(m_nodeCellList);
-	//}
+	if (m_nodeCellList.size() > 10) {
+		//スムージング。
+		Smoothing(m_nodeCellList);
+	}
 	return m_nodeCellList;
 }

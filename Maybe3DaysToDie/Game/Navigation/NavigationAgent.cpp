@@ -34,8 +34,6 @@ void NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start
 			}
 		}
 
-
-
 		//åüçıÅB
 		m_nodeList = m_astar.Search(start, goal, cellList);
 		m_serchTime = 0.0f;

@@ -65,7 +65,7 @@ namespace nsTerrain {
 		/// <summary>
 		/// NVM描画の準備。
 		/// </summary>
-		void PreRenderNVM();
+		void PreRenderNVM(int x, int y);
 
 		/// <summary>
 		/// 地形情報データを登録。
