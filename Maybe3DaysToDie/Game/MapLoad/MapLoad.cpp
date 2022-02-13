@@ -54,9 +54,17 @@ void MapLoad::Init(const char* filePath)
 		objData.rotation.z = -t;
 
 		auto& Obj = GetObjectArrange(objData.position);
-		Obj.ObjDurable = 500;
-		Obj.ObjId = 1;
-		Obj.Rotate = objData.rotation;
+		for (int i = 0; i < BlockKinds; i++)
+		{
+			if (wcscmp(bone->GetName(), m_SaveDataFile->ObjectFilePath[i].c_str()) == 0)
+			{
+				//文字列等しいとき
+				Obj.ObjDurable = 500;
+				Obj.ObjId = i;
+				Obj.Rotate = objData.rotation;
+				break;
+			}
+		}
 	}
 }
 
@@ -130,6 +138,9 @@ SaveDataFile::ObjectData& MapLoad::GetObjectArrange(Vector3& pos)
 
 	//セーブデータファイルからチャンクの情報を取得
 	auto& chunkData = m_SaveDataFile->m_ChunkData[ChunkID[0]][ChunkID[1]];
+	ChunkID[0] = max(0, min(ChunkID[0], MAX_CHUNK_SIDE));
+	ChunkID[1] = max(0, min(ChunkID[1], MAX_CHUNK_SIDE));
+
 	//ポジションに対応するブロックを取得
 	int id_x = pos.x / OBJECT_UNIT;
 	id_x = static_cast<int>(id_x % ChunkWidth);
