@@ -1,6 +1,7 @@
 #include "MiniEngine.h"
 #include "system.h"
 #include "graphics/GraphicsEngine.h"
+#include "Mause/MauseInfo.h"
 namespace Engine {
 	HWND			g_hWnd = NULL;				//ウィンドウハンドル。
 
@@ -36,6 +37,7 @@ namespace Engine {
 			}
 			//渡された message から、イベントの種類を解析する
 		case WM_LBUTTONDOWN:
+			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseLClick);
 			break;
 		case WM_RBUTTONDOWN:
 			break;
