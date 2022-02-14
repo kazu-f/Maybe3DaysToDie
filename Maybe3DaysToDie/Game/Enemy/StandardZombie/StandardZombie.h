@@ -2,6 +2,7 @@
 
 class STDZombieMove;
 class STDZombieTracking;
+class STDZombieAttack;
 
 #include "Enemy/IEnemy.h"
 
@@ -18,11 +19,11 @@ public:
 	enum EnAnimationState {
 		EnAnimationState_Idle,		//idle
 		EnAnimationState_Run,		//走り。
+		EnAnimationState_Attack,	//攻撃。
 		/*-Count-*/
 		EnAnimationState_Num,
 		/*-Count-*/
 		EnAnimationState_Walk,		//歩き。
-		EnAnimationState_Attack,	//攻撃。
 		EnAnimationState_Damage,	//ダメージ。
 		EnAnimationState_Stun,		//スタン。
 		EnAnimationState_Death,		//死亡。
@@ -63,6 +64,7 @@ private:
 	Vector3 m_scale = { 6.0f, 6.0f, 6.0f };		//拡大。
 	IEnemy::EnemyParams m_parameters;			//パラメーター。
 
-	STDZombieTracking* m_trackingState = nullptr;	//追跡用ステート。
+	STDZombieTracking*	m_trackingState = nullptr;	//追跡用ステート。
+	STDZombieAttack* m_attackState = nullptr;		//攻撃用ステート。
 };
 

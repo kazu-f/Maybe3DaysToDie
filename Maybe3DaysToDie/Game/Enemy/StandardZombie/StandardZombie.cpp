@@ -3,10 +3,14 @@
 #include "Enemy/IEnemy.h"
 #include "Enemy/IEnemyState.h"
 #include "STDZombieTracking.h"
+#include "STDZombieAttack.h"
 #include "Enemy/EnemyGenerator.h"
+#include "Player/Player.h"
 
 bool StandardZombie::Start()
 {
+	__super::Start();
+
 	//StatusInit
 	m_parameters.Attack = 20;
 	m_parameters.AttackRange = 150.0f;
@@ -27,6 +31,8 @@ bool StandardZombie::Start()
 	animData[EnAnimationState_Idle].isLoop = true;
 	animData[EnAnimationState_Run].tkaFilePath = "Assets/modelData/Enemy/StandardZombie/Run.tka";
 	animData[EnAnimationState_Run].isLoop = true;
+	animData[EnAnimationState_Attack].tkaFilePath = "Assets/modelData/Enemy/StandardZombie/Attack.tka";
+	animData[EnAnimationState_Attack].isLoop = true;
 
 	//エージェントとアクター一緒に初期化。
 	InitActor(modelInitData, "StandardZombie", animData, sizeof(animData) / sizeof(animData[0]));
@@ -36,6 +42,7 @@ bool StandardZombie::Start()
 
 	//StateInit.
 	m_trackingState = new STDZombieTracking(this);
+	m_attackState = new STDZombieAttack(this);
 	
 	//DefaultAnimPlay.
 	this->GetModelRender()->PlayAnimation(EnAnimationState_Run, 0.0f);
@@ -47,14 +54,27 @@ bool StandardZombie::Start()
 
 void StandardZombie::Update()
 {
-	ChangeState(m_trackingState);
+	//攻撃or移動
+	Vector3 P2E = m_playerPtr->GetPosition() - m_pos;
+	float P2ELen = P2E.Length();
+	if (P2ELen < m_parameters.AttackRange)
+	{
+		//攻撃範囲内。
+		ChangeState(m_attackState);
+	}
+	else
+	{
+		//攻撃範囲外。
+		ChangeState(m_trackingState);
+	}
+
 	GetCurrentState()->Update();
 }
 
 void StandardZombie::PostUpdate()
 {
 	//IK更新。
-	GetIK().ApplyIK();
+	//GetIK().ApplyIK();
 }
 
 IEnemy::EnemyParams& StandardZombie::GetEnemyParameters()

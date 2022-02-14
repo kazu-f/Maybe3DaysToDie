@@ -3,6 +3,7 @@
 #include "IEnemyState.h"
 #include "EnemyGenerator.h"
 #include "GameScene.h"
+#include "Player/Player.h"
 
 IEnemy::IEnemy()
 {
@@ -12,6 +13,13 @@ void IEnemy::OnDestroy()
 {
 	m_generatorPtr->UnRegistEnemy(this);
 	DeleteGO(m_modelRender);
+}
+
+bool IEnemy::Start()
+{
+	m_playerPtr = FindGO<Player>("player");
+
+	return true;
 }
 
 //void IEnemy::InitNavActor(ModelInitData& initData, const char* tag, NaviMesh* mesh, AnimClipInitData animClipDatas[], int animSize, bool isRandMove)

@@ -53,7 +53,7 @@ public:
 	/// スタート。
 	/// </summary>
 	/// <returns></returns>
-	virtual bool Start() override = 0;
+	virtual bool Start() override;
 	/// <summary>
 	/// 更新。
 	/// </summary>
@@ -174,7 +174,7 @@ public://getter
 	}
 public:	//Hp関係
 	virtual void HitDamage(int attack) = 0;
-private:
+protected:
 	prefab::ModelRender*	m_modelRender = nullptr;	//レンダー。
 	EnemyGenerator*			m_generatorPtr;				//ジェネレーターのポインタ。
 	IEnemyState*			m_currentState = nullptr;	//現在のステート。
@@ -183,7 +183,6 @@ private:
 	NavigationAgent			m_agent;					//エージェント。
 	FootIK					m_footIK;
 	Player*					m_playerPtr;				//プレイヤー。
-protected:
 	CCharacterController	m_CharaCon;
 };
 

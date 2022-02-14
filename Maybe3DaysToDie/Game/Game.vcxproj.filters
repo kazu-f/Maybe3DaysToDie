@@ -22,7 +22,6 @@
     <ClCompile Include="IK\FootIK.cpp" />
     <ClCompile Include="Player\state\IPlayerState.cpp" />
     <ClCompile Include="Item\BlockItem.cpp" />
-    <ClCompile Include="ItemBar\ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
     <ClCompile Include="Item\GameItemBase.cpp" />
     <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp" />
@@ -89,7 +88,6 @@
     <ClInclude Include="IK\FootIK.h" />
     <ClInclude Include="Player\state\IPlayerState.h" />
     <ClInclude Include="Item\BlockItem.h" />
-    <ClInclude Include="ItemBar\ItemBar.h" />
     <ClInclude Include="Item\GameItemTool.h" />
     <ClInclude Include="Item\GameItemBase.h" />
     <ClInclude Include="Load\ChunkBlock\ChunkBlock.h" />
