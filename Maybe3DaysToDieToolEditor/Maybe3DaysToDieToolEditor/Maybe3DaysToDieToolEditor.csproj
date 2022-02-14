@@ -47,12 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyUserControl\BlockPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyUserControl\BlockPanel.Designer.cs">
+      <DependentUpon>BlockPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyUserControl\TerrainPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="MyUserControl\TerrainPanel.Designer.cs">
       <DependentUpon>TerrainPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToolEditor\Command\BlockCommand.cs" />
     <Compile Include="ToolEditor\Command\TerrainCommand.cs" />
     <Compile Include="ToolEditor\ItemDataList.cs" />
     <Compile Include="MyUserControl\FoodAndCurePanel.cs">
@@ -105,6 +112,9 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyUserControl\BlockPanel.resx">
+      <DependentUpon>BlockPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyUserControl\FoodAndCurePanel.resx">
       <DependentUpon>FoodAndCurePanel.cs</DependentUpon>

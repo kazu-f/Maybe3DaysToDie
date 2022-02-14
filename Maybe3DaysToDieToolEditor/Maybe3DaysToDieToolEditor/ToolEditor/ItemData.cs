@@ -24,6 +24,7 @@ namespace Maybe3DaysToDieToolEditor
     /// </summary>
     [KnownType(typeof(ToolData))]
     [KnownType(typeof(PlacementObject))]
+    [KnownType(typeof(Block))]
     [KnownType(typeof(Terrain))]
     [KnownType(typeof(FoodAndCure))]
     [KnownType(typeof(Material))]
@@ -207,9 +208,9 @@ namespace Maybe3DaysToDieToolEditor
     //設置物のタイプ。
     public enum EnPlaceTypes
     {
-        enType_Terrain,
-        enType_Block,
-        enType_Object,
+        enType_Chest,
+        enType_WorkBench,
+        enType_OthreObject,
         enPlaceTypeNum
     }
 
@@ -233,7 +234,31 @@ namespace Maybe3DaysToDieToolEditor
     {
         [DataMember(Name = "durable")] public int durable { get; set; } = 0;
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
-        [DataMember(Name = "Type")] public EnPlaceTypes placeType { get; set; } = EnPlaceTypes.enType_Terrain;
+        [DataMember(Name = "Type")] public EnPlaceTypes placeType { get; set; } = EnPlaceTypes.enType_Chest;
+        [DataMember(Name = "collectItems")] public List<CollectItem> collectItemList = new List<CollectItem>();
+        [DataMember(Name = "collectItemDataNum")]
+        public int collectItemDataNum
+        {
+            get
+            {
+                if (collectItemList != null) return collectItemList.Count;
+                else return 0;
+            }
+            set
+            {
+
+            }
+        }
+    }
+
+    /// <summary>
+    /// 設置物の情報。
+    /// </summary>
+    [DataContract]
+    public class Block : Item
+    {
+        [DataMember(Name = "durable")] public int durable { get; set; } = 0;
+        [DataMember(Name = "tool")] public int tool { get; set; } = 0;
         [DataMember(Name = "collectItems")] public List<CollectItem> collectItemList = new List<CollectItem>();
         [DataMember(Name = "collectItemDataNum")]
         public int collectItemDataNum

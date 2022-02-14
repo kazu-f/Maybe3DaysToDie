@@ -48,18 +48,20 @@ namespace Maybe3DaysToDieToolEditor
             this.AddToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PlaceObjDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TerrainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FoodAndCureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MaterialDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ItemList = new System.Windows.Forms.ListBox();
             this.toolDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.BlockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.terrainPanel1 = new Maybe3DaysToDieToolEditor.TerrainPanel();
             this.materialPanel1 = new Maybe3DaysToDieToolEditor.MaterialPanel();
             this.itemDataPanel1 = new Maybe3DaysToDieToolEditor.ItemDataPanel();
             this.foodAndCurePanel1 = new Maybe3DaysToDieToolEditor.FoodAndCurePanel();
             this.placementObjectPanel1 = new Maybe3DaysToDieToolEditor.PlacementObjectPanel();
             this.toolDataPanel1 = new Maybe3DaysToDieToolEditor.ToolDataPanel();
-            this.terrainPanel1 = new Maybe3DaysToDieToolEditor.TerrainPanel();
-            this.TerrainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blockPanel1 = new Maybe3DaysToDieToolEditor.BlockPanel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -142,7 +144,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             this.UnDoToolStripMenuItem.Name = "UnDoToolStripMenuItem";
             this.UnDoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.UnDoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.UnDoToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.UnDoToolStripMenuItem.Text = "元に戻す";
             this.UnDoToolStripMenuItem.Click += new System.EventHandler(this.UnDoToolStripMenuItem_Click);
             // 
@@ -150,85 +152,93 @@ namespace Maybe3DaysToDieToolEditor
             // 
             this.reDoToolStripMenuItem.Name = "reDoToolStripMenuItem";
             this.reDoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.reDoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.reDoToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.reDoToolStripMenuItem.Text = "やり直す";
             this.reDoToolStripMenuItem.Click += new System.EventHandler(this.reDoToolStripMenuItem_Click);
             // 
             // CommandStripSeparator1
             // 
             this.CommandStripSeparator1.Name = "CommandStripSeparator1";
-            this.CommandStripSeparator1.Size = new System.Drawing.Size(221, 6);
+            this.CommandStripSeparator1.Size = new System.Drawing.Size(210, 6);
             // 
             // CutOutXToolStripMenuItem
             // 
             this.CutOutXToolStripMenuItem.Name = "CutOutXToolStripMenuItem";
             this.CutOutXToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.CutOutXToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.CutOutXToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.CutOutXToolStripMenuItem.Text = "切り取り(&T)";
             // 
             // CopyCToolStripMenuItem
             // 
             this.CopyCToolStripMenuItem.Name = "CopyCToolStripMenuItem";
             this.CopyCToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.CopyCToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.CopyCToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.CopyCToolStripMenuItem.Text = "コピー(&Y)";
             // 
             // PastVToolStripMenuItem
             // 
             this.PastVToolStripMenuItem.Name = "PastVToolStripMenuItem";
             this.PastVToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.PastVToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.PastVToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.PastVToolStripMenuItem.Text = "貼り付け(&P)";
             // 
             // EditortoolStripSeparator1
             // 
             this.EditortoolStripSeparator1.Name = "EditortoolStripSeparator1";
-            this.EditortoolStripSeparator1.Size = new System.Drawing.Size(221, 6);
+            this.EditortoolStripSeparator1.Size = new System.Drawing.Size(210, 6);
             // 
             // AddToolStripMenuItem1
             // 
             this.AddToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolDataToolStripMenuItem,
             this.PlaceObjDataToolStripMenuItem,
+            this.BlockToolStripMenuItem,
             this.TerrainToolStripMenuItem,
             this.FoodAndCureToolStripMenuItem,
             this.MaterialDataToolStripMenuItem});
             this.AddToolStripMenuItem1.Name = "AddToolStripMenuItem1";
-            this.AddToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.AddToolStripMenuItem1.Size = new System.Drawing.Size(213, 26);
             this.AddToolStripMenuItem1.Text = "追加";
             // 
             // ToolDataToolStripMenuItem
             // 
             this.ToolDataToolStripMenuItem.Name = "ToolDataToolStripMenuItem";
-            this.ToolDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.ToolDataToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
             this.ToolDataToolStripMenuItem.Text = "ツール";
             this.ToolDataToolStripMenuItem.Click += new System.EventHandler(this.ToolDataToolStripMenuItem_Click);
             // 
             // PlaceObjDataToolStripMenuItem
             // 
             this.PlaceObjDataToolStripMenuItem.Name = "PlaceObjDataToolStripMenuItem";
-            this.PlaceObjDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.PlaceObjDataToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
             this.PlaceObjDataToolStripMenuItem.Text = "設置物";
             this.PlaceObjDataToolStripMenuItem.Click += new System.EventHandler(this.PlaceObjDataToolStripMenuItem_Click);
+            // 
+            // TerrainToolStripMenuItem
+            // 
+            this.TerrainToolStripMenuItem.Name = "TerrainToolStripMenuItem";
+            this.TerrainToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
+            this.TerrainToolStripMenuItem.Text = "地形";
+            this.TerrainToolStripMenuItem.Click += new System.EventHandler(this.TerrainToolStripMenuItem_Click);
             // 
             // FoodAndCureToolStripMenuItem
             // 
             this.FoodAndCureToolStripMenuItem.Name = "FoodAndCureToolStripMenuItem";
-            this.FoodAndCureToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.FoodAndCureToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
             this.FoodAndCureToolStripMenuItem.Text = "食料等";
             this.FoodAndCureToolStripMenuItem.Click += new System.EventHandler(this.FoodAndCureToolStripMenuItem_Click);
             // 
             // MaterialDataToolStripMenuItem
             // 
             this.MaterialDataToolStripMenuItem.Name = "MaterialDataToolStripMenuItem";
-            this.MaterialDataToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.MaterialDataToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
             this.MaterialDataToolStripMenuItem.Text = "素材";
             this.MaterialDataToolStripMenuItem.Click += new System.EventHandler(this.MaterialDataToolStripMenuItem_Click);
             // 
             // DeleteToolStripMenuItem
             // 
             this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.DeleteToolStripMenuItem.Text = "削除";
             this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
@@ -241,6 +251,20 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemList.Size = new System.Drawing.Size(180, 799);
             this.ItemList.TabIndex = 1;
             this.ItemList.SelectedIndexChanged += new System.EventHandler(this.ItemList_SelectedIndexChanged);
+            // 
+            // BlockToolStripMenuItem
+            // 
+            this.BlockToolStripMenuItem.Name = "BlockToolStripMenuItem";
+            this.BlockToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
+            this.BlockToolStripMenuItem.Text = "ブロック";
+            this.BlockToolStripMenuItem.Click += new System.EventHandler(this.BlockToolStripMenuItem_Click);
+            // 
+            // terrainPanel1
+            // 
+            this.terrainPanel1.Location = new System.Drawing.Point(200, 320);
+            this.terrainPanel1.Name = "terrainPanel1";
+            this.terrainPanel1.Size = new System.Drawing.Size(820, 520);
+            this.terrainPanel1.TabIndex = 8;
             // 
             // materialPanel1
             // 
@@ -280,25 +304,19 @@ namespace Maybe3DaysToDieToolEditor
             this.toolDataPanel1.TabIndex = 4;
             this.toolDataPanel1.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
-            // terrainPanel1
+            // blockPanel1
             // 
-            this.terrainPanel1.Location = new System.Drawing.Point(200, 320);
-            this.terrainPanel1.Name = "terrainPanel1";
-            this.terrainPanel1.Size = new System.Drawing.Size(820, 520);
-            this.terrainPanel1.TabIndex = 8;
-            // 
-            // TerrainToolStripMenuItem
-            // 
-            this.TerrainToolStripMenuItem.Name = "TerrainToolStripMenuItem";
-            this.TerrainToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.TerrainToolStripMenuItem.Text = "地形";
-            this.TerrainToolStripMenuItem.Click += new System.EventHandler(this.TerrainToolStripMenuItem_Click);
+            this.blockPanel1.Location = new System.Drawing.Point(199, 320);
+            this.blockPanel1.Name = "blockPanel1";
+            this.blockPanel1.Size = new System.Drawing.Size(820, 520);
+            this.blockPanel1.TabIndex = 9;
             // 
             // Maybe3DaysToDie_ToolEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1482, 853);
+            this.Controls.Add(this.blockPanel1);
             this.Controls.Add(this.terrainPanel1);
             this.Controls.Add(this.materialPanel1);
             this.Controls.Add(this.itemDataPanel1);
@@ -352,6 +370,8 @@ namespace Maybe3DaysToDieToolEditor
         private MaterialPanel materialPanel1;
         private TerrainPanel terrainPanel1;
         private System.Windows.Forms.ToolStripMenuItem TerrainToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem BlockToolStripMenuItem;
+        private BlockPanel blockPanel1;
     }
 }
 
