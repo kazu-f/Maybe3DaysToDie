@@ -23,7 +23,7 @@
     <ClCompile Include="MauseInfo.cpp" />
     <ClCompile Include="Player\state\IPlayerState.cpp" />
     <ClCompile Include="Item\BlockItem.cpp" />
-    <ClCompile Include="ItemBar.cpp" />
+    <ClCompile Include="Player\ItemBar.cpp" />
     <ClCompile Include="Item\GameItemTool.cpp" />
     <ClCompile Include="Item\GameItemBase.cpp" />
     <ClCompile Include="Load\ChunkBlock\ChunkBlock.cpp" />
@@ -90,7 +90,7 @@
     <ClInclude Include="MauseInfo.h" />
     <ClInclude Include="Player\state\IPlayerState.h" />
     <ClInclude Include="Item\BlockItem.h" />
-    <ClInclude Include="ItemBar.h" />
+    <ClInclude Include="Player\ItemBar.h" />
     <ClInclude Include="Item\GameItemTool.h" />
     <ClInclude Include="Item\GameItemBase.h" />
     <ClInclude Include="Load\ChunkBlock\ChunkBlock.h" />
