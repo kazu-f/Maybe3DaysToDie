@@ -4,6 +4,7 @@
 #include "Navigation/NavigationAgent.h"
 #include "IK/FootIK.h"
 
+class Player;
 class EnemyGenerator;
 
 /// <summary>
@@ -121,7 +122,7 @@ public://setter
 	/// 位置を設定。
 	/// </summary>
 	/// <param name="pos"></param>
-	void SetPos(Vector3& pos)
+	void SetPos(const Vector3& pos)
 	{
 		m_pos = pos;
 	}
@@ -181,6 +182,7 @@ private:
 	Quaternion				m_rot = g_quatIdentity;		//回転。
 	NavigationAgent			m_agent;					//エージェント。
 	FootIK					m_footIK;
+	Player*					m_playerPtr;				//プレイヤー。
 protected:
 	CCharacterController	m_CharaCon;
 };

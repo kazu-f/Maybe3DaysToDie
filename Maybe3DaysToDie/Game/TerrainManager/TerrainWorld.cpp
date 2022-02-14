@@ -4,7 +4,7 @@
 #include "TerrainRender\TerrainRender.h"
 #include "Navigation/NVMDebugDraw.h"
 #include "RayTest.h"
-
+#include "NaviMeshManager.h"
 
 namespace nsTerrain {
 	bool TerrainWorld::Start()
@@ -55,13 +55,14 @@ namespace nsTerrain {
 		DeleteGO(m_terrainRender);
 	}
 
-	void TerrainWorld::CreateNVM()
+	void TerrainWorld::CreateNVM(int x, int y)
 	{
 		//重点の数はメッシュの数。
 		int meshCount = m_terrainRender->GetCenterArray().size();
 
 		//頂点カウント。
 		int vertCount = 0;
+
 		//NVMの基本パラメーターを流し込んでいく。
 		for (int mesh = 0; mesh < meshCount; mesh++) {
 			if (m_terrainRender->GetVertexList().at(vertCount).m_normal.y > 0.000001f) {
@@ -95,21 +96,81 @@ namespace nsTerrain {
 					continue;
 				}
 
-				//管理をリストに移す。
-				m_cellList.push_back(cell);
+				//端セルを取る。
+				Vector3 centerPos = cell.m_CenterPos - m_position;
+				if (centerPos.x < 34.0f || centerPos.z < 34.0f
+					|| centerPos.x >(ChunkWidth * OBJECT_UNIT) - 34.0f
+					|| centerPos.z >(ChunkWidth * OBJECT_UNIT) - 34.0f
+					)
+				{
+					//端セルだった。
+					m_naviMeshManager->AddEdgeCellList(cell, x, y);
+				}
+				else
+				{
+					//管理をリストに移す。
+					m_cellList.push_back(cell);
+				}
+
+
+
 			}
 			//次メッシュの頂点へ。
 			vertCount += 3;
 		}
+	}
 
-		//隣接セル形成。
-		for (auto& baseCell : m_cellList) {
-			//メッシュ全体に検索を掛けて、隣接セルを検索。
-			int linkCellIndex = 0;	//隣接セル用インデックス。
-			for (auto& serchCell : m_cellList) {
+	void TerrainWorld::SerchLinkCell(int x, int y)
+	{
+		//色々頭悪いがこれで行こうｗ
 
+		//地形インデックス計算。
+		Vector2 linkChunkIndexList[4] = { Vector2::Zero };
+		linkChunkIndexList[0] = { -1 , 0 };
+		linkChunkIndexList[1] = { 1 , 0 };
+		linkChunkIndexList[2] = { 0 ,-1 };
+		linkChunkIndexList[3] = { 0 , 1 };
+
+		std::vector<NVMGenerator::Cell*> serchCellList;
+
+		//端セルと端セルの隣接を取る。
+		for (auto linkChunkIndex : linkChunkIndexList)
+		{
+			//調べるチャンクのインデックスを算出.
+			Vector2 reserchChunk = { x + linkChunkIndex.x , y + linkChunkIndex.y };
+
+			if (reserchChunk.x < 0 || reserchChunk.y < 0 || abs(reserchChunk.x) > 2 || abs(reserchChunk.y) > 2)
+			{
+				//不正な隣接インデックス。
+				continue;
+			}
+
+			for (auto& cell : m_naviMeshManager->GetEdgeCellList(reserchChunk.x, reserchChunk.y))
+			{
+				//周囲4チャンク分
+				serchCellList.push_back(&cell);
+			}
+		}
+
+		for (auto& cell : m_naviMeshManager->GetEdgeCellList(x, y))
+		{
+			//自チャンク分。
+			serchCellList.push_back(&cell);
+		}
+
+		for (auto& cell : m_cellList)
+		{
+			serchCellList.push_back(&cell);
+		}
+
+		//端セルと端セルとをつなぐ。
+		for (auto& baseCell : m_naviMeshManager->GetEdgeCellList(x, y))
+		{
+			int linkCellIndex = 0;
+			for (auto& serchCell : serchCellList)
+			{
 				//リンクセルを検索していく。
-				if (&baseCell == &serchCell) {
+				if (&baseCell == serchCell) {
 					//ベースセルとリンクセルのアドレスが同一なのでスキップ。
 					continue;
 				}
@@ -118,8 +179,8 @@ namespace nsTerrain {
 
 				//頂点比較。
 				for (auto& baseVertex : baseCell.pos) {
-					for (auto& serchVertex : serchCell.pos) {
-						if (baseVertex == serchVertex) {
+					for (auto& serchVertex : serchCell->pos) {
+						if (/*baseVertex.x == serchVertex.x && baseVertex.z == serchVertex.z*/baseVertex == serchVertex) {
 							//頂点が一緒
 							linkVertex++;
 						}
@@ -128,16 +189,66 @@ namespace nsTerrain {
 
 				if (linkVertex >= 2) {
 					//隣接ラインが2つあるためこいつは隣接頂点である。
-					baseCell.m_linkCell[linkCellIndex] = &serchCell;
+					baseCell.m_linkCell[linkCellIndex] = serchCell;
 					linkCellIndex++;
 					if (linkCellIndex == 3) {
 						//リンクセル３つ目到達検索を終了。
 						break;
 					}
 				}
-			}//linkCellSerch.
+			}
 		}
 
+		serchCellList.clear();
+
+		for (auto& cell : m_naviMeshManager->GetEdgeCellList(x, y))
+		{
+			serchCellList.push_back(&cell);
+		}
+
+		for (auto& cell : m_cellList)
+		{
+			serchCellList.push_back(&cell);
+		}
+
+		for (auto& baseCell : m_cellList)
+		{
+			int linkCellIndex = 0;
+			for (auto& serchCell : serchCellList)
+			{
+				//リンクセルを検索していく。
+				if (&baseCell == serchCell) {
+					//ベースセルとリンクセルのアドレスが同一なのでスキップ。
+					continue;
+				}
+
+				int linkVertex = 0;	//隣接頂点の数。
+
+				//頂点比較。
+				for (auto& baseVertex : baseCell.pos) {
+					for (auto& serchVertex : serchCell->pos) {
+						if (/*baseVertex.x == serchVertex.x && baseVertex.z == serchVertex.z*/baseVertex == serchVertex) {
+							//頂点が一緒
+							linkVertex++;
+						}
+					}
+				}//VertexSerch.
+
+				if (linkVertex >= 2) {
+					//隣接ラインが2つあるためこいつは隣接頂点である。
+					baseCell.m_linkCell[linkCellIndex] = serchCell;
+					linkCellIndex++;
+					if (linkCellIndex == 3) {
+						//リンクセル３つ目到達検索を終了。
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	void TerrainWorld::PreRenderNVM(int x, int y)
+	{
 		if (m_isNVMDebug) {
 			m_nvmDebugDraw->ClearCellData();
 
@@ -156,7 +267,24 @@ namespace nsTerrain {
 					m_nvmDebugDraw->PushToLinkCellLine(line);
 				}
 			}
-				
+
+			for (auto& cell : m_naviMeshManager->GetEdgeCellList(x, y))
+			{
+				m_nvmDebugDraw->PushVertex(cell.pos[0]);
+				m_nvmDebugDraw->PushVertex(cell.pos[1]);
+				m_nvmDebugDraw->PushVertex(cell.pos[2]);
+				for (auto* linkCell : cell.m_linkCell) {
+					if (linkCell == nullptr) {
+						break;
+					}
+					//隣接デバッグ用にラインを形成して、格納。
+					NVMDebugDraw::Line line;
+					line.start = cell.m_CenterPos;
+					line.end = linkCell->m_CenterPos;
+					m_nvmDebugDraw->PushToLinkCellLine(line);
+				}
+			}
+
 			m_nvmDebugDraw->CreateBuffers(m_indices, m_indexCount);
 		}
 	}
@@ -172,6 +300,27 @@ namespace nsTerrain {
 			return true;
 		}
 		return false;
+	}
+
+	void TerrainWorld::GetMinMaxCenterPos(Vector3& Min, Vector3& Max)
+	{
+		//初期化。
+		Min = { FLT_MAX, FLT_MAX, FLT_MAX };
+		Max = { -FLT_MAX, -FLT_MAX, -FLT_MAX };
+
+		for (int i = 0; i < m_terrainRender->GetCenterArray().size(); i++)
+		{
+			Vector3 centerPos = m_terrainRender->GetCenterArray().at(i) + m_position;
+
+			//ローカル座標系でのedge位置を求める。
+			Min.x = min(Min.x, centerPos.x);
+			//Min.y = min(Min.y, centerPos.y);
+			Min.z = min(Min.z, centerPos.z);
+
+			Max.x = max(Max.x, centerPos.x);
+			//Max.y = max(Max.y, centerPos.y);
+			Max.z = max(Max.z, centerPos.z);
+		}
 	}
 
 	Terrain& TerrainWorld::GetTerrain(const Vector3& pos)

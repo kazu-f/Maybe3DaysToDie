@@ -10,7 +10,9 @@
 namespace nsTerrain {
 	bool TerrainManager::Start()
 	{
-		//PopurerTerrainMap();		//地形データを生成。
+		PopurerTerrainMap();		//地形データを生成。
+		
+		m_naviMeshManager = NewGO<NaviMeshManager>(0);
 
 		for (int chunkX = 0; chunkX < TERRAIN_WORLD_CHUNKSIZE; chunkX++)
 		{
@@ -26,10 +28,11 @@ namespace nsTerrain {
 						static_cast<float>(chunkY * ChunkWidth * OBJECT_UNIT)
 					}
 				);
+				m_terrainWorlds[chunkX][chunkY]->SetNavimeshMnager(m_naviMeshManager);
 			}
 		}
 
-		m_naviMeshManager = NewGO<NaviMeshManager>(0);
+
 
 		return true;
 	}

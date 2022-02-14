@@ -33,7 +33,7 @@ public:
 	/// <param name="qRot">âÒì]ÅB</param>
 	void GetAgentPositionAndRotation(Vector3& pos, Quaternion& qRot)
 	{
-		pos = m_AgentPos;
+		pos += m_AgentPos - pos;
 		qRot = m_AgentQrot;
 	}
 private:

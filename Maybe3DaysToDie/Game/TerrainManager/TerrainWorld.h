@@ -5,6 +5,8 @@
 #include "Navigation/NVMGenerator.h"
 #include "TerrainChunkData.h"
 
+class NaviMeshManager;
+
 namespace nsTerrain {
 
 
@@ -34,6 +36,7 @@ namespace nsTerrain {
 			m_indexCount = 0;
 			m_indices.clear();
 			m_cellList.clear();
+			//m_edgeCellList.clear();
 		}
 
 		/// <summary>
@@ -52,7 +55,17 @@ namespace nsTerrain {
 		/// <summary>
 		/// ナビメッシュを生成する。
 		/// </summary>
-		void CreateNVM();
+		void CreateNVM(int x, int y);
+
+		/// <summary>
+		/// リンクセルをサーチ。
+		/// </summary>
+		void SerchLinkCell(int x, int y);
+
+		/// <summary>
+		/// NVM描画の準備。
+		/// </summary>
+		void PreRenderNVM(int x, int y);
 
 		/// <summary>
 		/// 地形情報データを登録。
@@ -66,13 +79,6 @@ namespace nsTerrain {
 		{
 			m_position = pos;
 		}
-		/// <summary>
-		/// 地形描画クラスを取得。
-		/// </summary>
-		TerrainRender* GetTerrainRender()
-		{
-			return m_terrainRender;
-		}
 
 		/// <summary>
 		/// セルリストを取得。
@@ -82,6 +88,23 @@ namespace nsTerrain {
 		{
 			return m_cellList;
 		}
+
+		/// <summary>
+		/// ナビメッシュマネージャーを設定。
+		/// </summary>
+		/// <param name="navimeshManager"></param>
+		void SetNavimeshMnager(NaviMeshManager* navimeshManager)
+		{
+			m_naviMeshManager = navimeshManager;
+		}
+
+		/// <summary>
+		/// 最小、最大の重心座標を返す。
+		/// <para>端チャンクを判定する用の関数。</para>
+		/// </summary>
+		/// <param name="min">最小格納用。</param>
+		/// <param name="max">最大格納用。</param>
+		void GetMinMaxCenterPos(Vector3& Min, Vector3& Max);
 
 		/// <summary>
 		/// 初期化済みかどうか。
@@ -164,6 +187,7 @@ namespace nsTerrain {
 		CPhysicsStaticObject m_staticObj;				//物理オブジェクト。
 		Vector3 m_position = Vector3::Zero;				//座標。
 
+		NaviMeshManager* m_naviMeshManager = nullptr;	//nvmマネージャー。
 		std::vector<NVMGenerator::Cell> m_cellList;		//セルリスト。
 		bool m_isNVMDebug = true;						//デバッグ描画する？
 		bool m_isUpdateNvm = false;						//nvmを初期化する？

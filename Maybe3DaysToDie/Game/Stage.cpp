@@ -40,7 +40,8 @@ void Stage::Update()
 {
 
 	if (GetAsyncKeyState('U')) {
-		m_enemyGenerator.Create<StandardZombie>();
+		StandardZombie* sz = dynamic_cast<StandardZombie*>(m_enemyGenerator.Create<StandardZombie>());
+		sz->SetPos({ 300.0f, 0.0f, 300.0f });
 	}
 	if (GetAsyncKeyState('K')) {
 		m_enemyGenerator.ReleaseEnemy();

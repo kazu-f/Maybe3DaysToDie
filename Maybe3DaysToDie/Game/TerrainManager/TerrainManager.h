@@ -60,6 +60,11 @@ namespace nsTerrain {
 		{
 			return m_terrainWorlds[chunkX][chunkY];
 		}
+		NaviMeshManager* GetNaviMeshManager()
+		{
+			return m_naviMeshManager;
+		}
+
 
 	private:
 		/// <summary>

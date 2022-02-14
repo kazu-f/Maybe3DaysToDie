@@ -32,12 +32,12 @@ public:
 	/// <param name="nvmGenerator">経路探査させる場合nvmGenerator。</param>
 	/// <param name="tag">IGameObject登録タグ。</param>
 	template<class T>
-	void Create(const char* tag = "Enemy")
+	IEnemy* Create(const char* tag = "Enemy")
 	{
 		if (m_currentEnemyCount >= MAX_ENEMY) {
 			//エネミーを設定以上に作成使用としている為、リクエストは許可しない。
 			MessageBoxA(NULL, "エネミーの許容量を超えました、このオブジェクトは削除されます。", "Warning!!", MB_OK);
-			return;
+			return nullptr;
 		}
 
 		//インスタンス化。
@@ -53,6 +53,8 @@ public:
 		if (m_isActiveBloodMoon) {
 			//ブラッドムーン時の処理を追加する。
 		}
+
+		return enemy;
 	}
 	/// <summary>
 	/// エネミーの登録を解除する。
