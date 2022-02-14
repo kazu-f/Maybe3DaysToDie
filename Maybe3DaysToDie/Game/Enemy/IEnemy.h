@@ -102,6 +102,7 @@ public://setter
 		m_currentState = state;
 		m_currentState->Enter();
 	}
+
 	/// <summary>
 	/// ジェネレーターを設定。
 	/// </summary>
@@ -110,14 +111,16 @@ public://setter
 	{
 		m_generatorPtr = generator;
 	}
+
 	/// <summary>
 	/// NVMジェネレーターを設定。
 	/// </summary>
 	/// <param name="generator"></param>
-	void SetNVMGenerator(Stage* stage)
+	void SetStage(Stage* stage)
 	{
-		m_agent.SetGenerator(stage);
+		m_stage = stage;
 	}
+
 	/// <summary>
 	/// 位置を設定。
 	/// </summary>
@@ -126,6 +129,7 @@ public://setter
 	{
 		m_pos = pos;
 	}
+
 public://getter
 	/// <summary>
 	/// エージェントを取得。
@@ -172,6 +176,24 @@ public://getter
 	{
 		return m_footIK;
 	}
+
+	/// <summary>
+	/// プレイヤーを取得。
+	/// </summary>
+	/// <returns></returns>
+	Player* GetPlayer()
+	{
+		return m_playerPtr;
+	}
+
+	/// <summary>
+	/// ステージを取得。
+	/// </summary>
+	/// <returns></returns>
+	Stage* GetStage()
+	{
+		return m_stage;
+	}
 public:	//Hp関係
 	virtual void HitDamage(int attack) = 0;
 protected:
@@ -184,5 +206,6 @@ protected:
 	FootIK					m_footIK;
 	Player*					m_playerPtr;				//プレイヤー。
 	CCharacterController	m_CharaCon;
+	Stage*					m_stage = nullptr;
 };
 

@@ -3,6 +3,7 @@
 class STDZombieMove;
 class STDZombieTracking;
 class STDZombieAttack;
+class STDZombieWandering;
 
 #include "Enemy/IEnemy.h"
 
@@ -64,7 +65,8 @@ private:
 	Vector3 m_scale = { 6.0f, 6.0f, 6.0f };		//拡大。
 	IEnemy::EnemyParams m_parameters;			//パラメーター。
 
-	STDZombieTracking*	m_trackingState = nullptr;	//追跡用ステート。
-	STDZombieAttack* m_attackState = nullptr;		//攻撃用ステート。
+	STDZombieWandering* m_wanderingState = nullptr;		//徘徊ステート。
+	STDZombieTracking*	m_trackingState = nullptr;		//追跡用ステート。
+	STDZombieAttack*	m_attackState = nullptr;		//攻撃用ステート。
 };
 

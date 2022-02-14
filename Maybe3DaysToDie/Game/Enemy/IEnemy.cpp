@@ -18,6 +18,7 @@ void IEnemy::OnDestroy()
 bool IEnemy::Start()
 {
 	m_playerPtr = FindGO<Player>("player");
+	m_agent.SetGenerator(m_stage);
 
 	return true;
 }

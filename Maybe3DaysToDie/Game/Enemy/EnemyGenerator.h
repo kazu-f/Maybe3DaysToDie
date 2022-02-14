@@ -45,7 +45,7 @@ public:
 		//エネミーと相対参照に。
 		enemy->SetEnemyGenerator(this);
 		//nvm.
-		enemy->SetNVMGenerator(m_stage);
+		enemy->SetStage(m_stage);
 		//リストに積み積み。
 		m_enemyList.push_back(enemy);
 		m_currentEnemyCount++;

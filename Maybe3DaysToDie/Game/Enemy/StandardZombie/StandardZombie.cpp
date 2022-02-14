@@ -4,6 +4,7 @@
 #include "Enemy/IEnemyState.h"
 #include "STDZombieTracking.h"
 #include "STDZombieAttack.h"
+#include "STDZombieWandering.h"
 #include "Enemy/EnemyGenerator.h"
 #include "Player/Player.h"
 
@@ -17,7 +18,7 @@ bool StandardZombie::Start()
 	m_parameters.Deffence = 5;
 	m_parameters.EXP = 500.0f;
 	m_parameters.MoveSpeed = 2.0f;
-	m_parameters.SearchRange = 20000.0f;
+	m_parameters.SearchRange = 600.0f;
 
 	//modelInitData.
 	ModelInitData modelInitData;
@@ -43,6 +44,7 @@ bool StandardZombie::Start()
 	//StateInit.
 	m_trackingState = new STDZombieTracking(this);
 	m_attackState = new STDZombieAttack(this);
+	m_wanderingState = new STDZombieWandering(this);
 	
 	//DefaultAnimPlay.
 	this->GetModelRender()->PlayAnimation(EnAnimationState_Run, 0.0f);
@@ -62,10 +64,14 @@ void StandardZombie::Update()
 		//UŒ‚”ÍˆÍ“àB
 		ChangeState(m_attackState);
 	}
-	else
+	else if (P2ELen < m_parameters.SearchRange)
 	{
 		//UŒ‚”ÍˆÍŠOB
 		ChangeState(m_trackingState);
+	}
+	else
+	{
+		ChangeState(m_wanderingState);
 	}
 
 	GetCurrentState()->Update();
