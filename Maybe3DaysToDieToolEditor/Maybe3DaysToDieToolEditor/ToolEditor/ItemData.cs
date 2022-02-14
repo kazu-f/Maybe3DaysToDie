@@ -13,6 +13,7 @@ namespace Maybe3DaysToDieToolEditor
         enItem_None = -1,
         enItem_Tool,
         enItem_Place,
+        enItem_Block,
         enItem_Terrain,
         enItem_Food,
         enItem_Material,

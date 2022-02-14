@@ -18,6 +18,7 @@ namespace {
 		enItem_None = -1,
 		enItem_Tool,
 		enItem_Place,
+		enItem_Block,
 		enItem_Terrain,
 		enItem_Food,
 		enItem_Material,
@@ -57,19 +58,6 @@ namespace {
 	}
 	
 	//設置物データに関する名前空間。
-	namespace nsTerrainData {
-
-		const char* durable = "durable";				//耐久値。
-		const char* tool = "tool";						//特攻ツール。
-		const char* texture = "texture";				//地形のテクスチャ。
-		const char* collectItems = "collectItems";		//設置物から採取できるアイテムデータリスト。
-		namespace Collect {
-			const char* collectItemDataNum = "collectItemDataNum";		//採取物データの数。
-			const char* corectItemID = "corectItemID";	//採取できるアイテムのID。
-			const char* corectionNum = "corectionNum";	//採取できる量。
-		}
-	}
-	//設置物データに関する名前空間。
 	namespace nsPlaceObjsData {
 
 		//設置物のタイプ。
@@ -90,7 +78,31 @@ namespace {
 			const char* corectionNum = "corectionNum";	//採取できる量。
 		}
 	}
-	
+	//ブロックデータに関する名前空間。
+	namespace nsBlockData {
+
+		const char* durable = "durable";				//耐久値。
+		const char* tool = "tool";						//特攻ツール。
+		const char* collectItems = "collectItems";		//設置物から採取できるアイテムデータリスト。
+		namespace Collect {
+			const char* collectItemDataNum = "collectItemDataNum";		//採取物データの数。
+			const char* corectItemID = "corectItemID";	//採取できるアイテムのID。
+			const char* corectionNum = "corectionNum";	//採取できる量。
+		}
+	}
+	//地形データに関する名前空間。
+	namespace nsTerrainData {
+
+		const char* durable = "durable";				//耐久値。
+		const char* tool = "tool";						//特攻ツール。
+		const char* texture = "texture";				//地形のテクスチャ。
+		const char* collectItems = "collectItems";		//設置物から採取できるアイテムデータリスト。
+		namespace Collect {
+			const char* collectItemDataNum = "collectItemDataNum";		//採取物データの数。
+			const char* corectItemID = "corectItemID";	//採取できるアイテムのID。
+			const char* corectionNum = "corectionNum";	//採取できる量。
+		}
+	}
 	//食料等のデータに関する名前空間。
 	namespace nsFoodsData {
 		const char* hp = "HP";
@@ -213,7 +225,27 @@ void ItemDataFile::InitItemData(const char* filePath)
 
 			BlockItem* blockItem = new BlockItem(itemData, params, collectItemData, placeType);
 			m_itemArray.push_back(blockItem);
-			m_blockMap.insert(std::make_pair(blockItem->GetIdemData()->itemID, blockItem));
+			m_placeMap.insert(std::make_pair(blockItem->GetIdemData()->itemID, blockItem));
+		}
+		case EnItemType::enItem_Block: {
+			//設置物の耐久値と特攻ツール。
+			ObjectParams params;
+			params.Durable = _item[nsBlockData::durable];
+			params.AptitudeTool = _item[nsBlockData::tool];
+
+			//設置物から採取できるアイテムのデータ。
+			ObjectCollectItemData collectItemData;
+			int num = _item[nsBlockData::Collect::collectItemDataNum];
+			collectItemData.resize(num);
+			for (int i = 0; i < num; i++)
+			{
+				collectItemData[i].collectID = _item[nsBlockData::collectItems][i][nsBlockData::Collect::corectItemID];
+				collectItemData[i].collectNum = _item[nsBlockData::collectItems][i][nsBlockData::Collect::corectionNum];
+			}
+
+			BlockItem* block = new BlockItem(itemData, params, collectItemData,0);
+			m_itemArray.push_back(block);
+			m_blockMap.insert(std::make_pair(block->GetIdemData()->itemID, block));
 		}
 		case EnItemType::enItem_Terrain: {
 			//設置物の耐久値と特攻ツール。

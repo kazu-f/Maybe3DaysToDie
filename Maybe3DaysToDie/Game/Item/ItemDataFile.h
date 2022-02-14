@@ -89,8 +89,8 @@ public:
 	{
 		BlockItem* block = nullptr;
 
-		auto it = m_blockMap.find(id);
-		if (it != m_blockMap.end())
+		auto it = m_placeMap.find(id);
+		if (it != m_placeMap.end())
 		{
 			block = it->second;
 		}
@@ -186,6 +186,7 @@ private:
 	typedef std::vector<GameItemBase*> ItemArray;
 	ItemArray m_itemArray;
 	std::map<int, GameItemTool*> m_toolMap;
+	std::map<int, BlockItem*> m_placeMap;
 	std::map<int, BlockItem*> m_blockMap;
 	std::map<int, GameItemTerrain*> m_terrainMap;
 	std::map<int, GameItemFoods*> m_foodMap;
