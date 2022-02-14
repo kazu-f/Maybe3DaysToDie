@@ -1,6 +1,7 @@
 #pragma once
 class GameItemBase;
 class GameItemTool;
+class GameItemPlaceObj;
 class BlockItem;
 class GameItemTerrain;
 class GameItemFoods;
@@ -85,12 +86,30 @@ public:
 	/// </summary>
 	/// <param name="id">ID</param>
 	/// <returns></returns>
+	GameItemPlaceObj* GetPlaceData(int id)
+	{
+		GameItemPlaceObj* place = nullptr;
+
+		auto it = m_placeMap.find(id);
+		if (it != m_placeMap.end())
+		{
+			place = it->second;
+		}
+
+		return place;
+
+	}
+	/// <summary>
+	/// ブロックデータを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
 	BlockItem* GetBlockData(int id)
 	{
 		BlockItem* block = nullptr;
 
-		auto it = m_placeMap.find(id);
-		if (it != m_placeMap.end())
+		auto it = m_blockMap.find(id);
+		if (it != m_blockMap.end())
 		{
 			block = it->second;
 		}
@@ -186,7 +205,7 @@ private:
 	typedef std::vector<GameItemBase*> ItemArray;
 	ItemArray m_itemArray;
 	std::map<int, GameItemTool*> m_toolMap;
-	std::map<int, BlockItem*> m_placeMap;
+	std::map<int, GameItemPlaceObj*> m_placeMap;
 	std::map<int, BlockItem*> m_blockMap;
 	std::map<int, GameItemTerrain*> m_terrainMap;
 	std::map<int, GameItemFoods*> m_foodMap;

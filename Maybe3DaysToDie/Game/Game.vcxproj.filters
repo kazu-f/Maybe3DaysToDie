@@ -81,6 +81,7 @@
     <ClCompile Include="Player\state\PlayerMenu.cpp" />
     <ClCompile Include="Inventory\RootBlock.cpp" />
     <ClCompile Include="Item\GameItemTerrain.cpp" />
+    <ClCompile Include="Item\GameItemPlaceObj.cpp" />
     <ClCompile Include="Load\LoadCollision\LoadCollision.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -193,7 +194,6 @@
     <ClInclude Include="Inventory\RootBlock.h" />
     <ClInclude Include="Item\GameItemTerrain.h" />
     <ClInclude Include="Item\CollectData.h" />
-    <ClInclude Include="Load\LoadCollision\LoadCollision.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />

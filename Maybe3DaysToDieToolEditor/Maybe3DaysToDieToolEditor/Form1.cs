@@ -351,6 +351,7 @@ namespace Maybe3DaysToDieToolEditor
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             filePath = saveData.SaveJsonFile(m_itemList);
+            if(filePath != null)commandList.isChanged = false;
         }
         /// <summary>
         /// 上書き保存。
@@ -360,6 +361,7 @@ namespace Maybe3DaysToDieToolEditor
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             filePath = saveData.SaveJsonFile(m_itemList, filePath);
+            if(filePath != null)commandList.isChanged = false;
         }
         /// <summary>
         /// 読み込み。

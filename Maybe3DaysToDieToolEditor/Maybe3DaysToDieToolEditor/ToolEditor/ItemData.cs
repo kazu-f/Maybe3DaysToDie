@@ -43,6 +43,10 @@ namespace Maybe3DaysToDieToolEditor
                 {
                     return EnItemType.enItem_Place;
                 }
+                else if (this.GetType() == typeof(Block))
+                {
+                    return EnItemType.enItem_Block;
+                }
                 else if (this.GetType() == typeof(Terrain))
                 {
                     return EnItemType.enItem_Terrain;
