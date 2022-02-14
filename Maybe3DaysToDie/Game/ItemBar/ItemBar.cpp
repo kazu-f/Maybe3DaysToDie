@@ -12,6 +12,8 @@
 #include "Stage.h"
 #include "Player/Player.h"
 #include "Player/state/IPlayerState.h"
+#include "Item/ItemDataFile.h"
+#include "Item/GameItemBase.h"
 
 namespace {
 	const Vector2 ItemBarPos = { -300.0f,-285.0f };
@@ -90,12 +92,14 @@ void ItemBar::OnDestroy()
 void ItemBar::ItemSlotKey(int vKey, int slot)
 {
 	if (GetAsyncKeyState(vKey)) {
-		m_SelectNum = slot;
+		if (m_SelectNum != slot) {
+			m_SelectNum = slot;
 
-		//パラメータ
-		ObjectParams param;
-		param.BlockID = m_SelectNum;
-		param.Durable = 500;
-		m_PlacementObject->SetParams(param);
+			//パラメータ
+			ObjectParams param;
+			param.BlockID = m_SelectNum;
+			param.Durable = 500;
+			m_PlacementObject->SetParams(param);
+		}
 	}
 }

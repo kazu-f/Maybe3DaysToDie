@@ -8,7 +8,6 @@ struct ObjectParams {
 	const char* BlockName = nullptr;		//名前
 	unsigned char BlockID = 0;
 	unsigned short Durable = 0;		//耐久値
-	unsigned char ObtainAmount = 0;		//入手量
 	ToolKinds AptitudeTool = ToolKinds::DebugTool;		//適性ツール
 };
 class DestructibleObject
@@ -32,7 +31,6 @@ public:
 		m_params.BlockID = param.BlockID;
 		m_params.Durable = param.Durable;
 		m_maxDurable = param.Durable;
-		m_params.ObtainAmount = param.ObtainAmount;
 		m_params.AptitudeTool = param.AptitudeTool;
 	}
 
@@ -124,7 +122,6 @@ public:
 	{
 		m_params.BlockName = nullptr;
 		m_params.Durable = 0;
-		m_params.ObtainAmount = 0;
 		m_params.AptitudeTool = ToolKinds::DebugTool;
 	}
 protected:

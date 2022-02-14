@@ -172,6 +172,16 @@ public:
 	{
 		return m_terrainMaterials.get();
 	}
+
+	Tool* GetHandTool()
+	{
+		return m_handTool.get();
+	}
+
+	GameItemBase* GetNullGameItem()
+	{
+		return m_nullGameItem;
+	}
 private:
 	typedef std::vector<GameItemBase*> ItemArray;
 	ItemArray m_itemArray;
@@ -182,6 +192,7 @@ private:
 	std::map<int, GameItemMaterial*> m_materialMap;
 	std::unique_ptr<nsTerrain::TerrainMaterial> m_terrainMaterials;
 	std::unique_ptr<Tool> m_handTool;
+	GameItemBase* m_nullGameItem;
 
 	int m_arraySize = 0;
 };

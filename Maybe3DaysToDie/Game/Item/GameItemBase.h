@@ -2,11 +2,6 @@
 
 class ItemBar;
 
-struct InventoryItemData {
-	GameItemBase* m_itemBase = nullptr;
-	int itemCount = 0;
-};
-
 /// <summary>
 /// クラフトに必要な素材データ。
 /// </summary>
@@ -44,6 +39,7 @@ public:
 	GameItemBase(SItemDataPtr & itemData);
 	virtual ~GameItemBase();
 
+	virtual void SelectItemAction(ItemBar* itemBar);	//このアイテムが選択されたときの処理。
 	virtual void UseItemAction1(ItemBar* itemBar);		//左クリックのアクション。
 	virtual void UseItemAction2(ItemBar* itemBar) {};	//右クリックのアクション。
 
@@ -80,6 +76,8 @@ public:
 	{
 		return m_itemData.get();
 	}
+protected:
+	void SetToolHand(ItemBar* itemBar);
 
 private:
 	SItemDataPtr m_itemData;

@@ -117,6 +117,11 @@ ItemDataFile::ItemDataFile()
 ItemDataFile::~ItemDataFile()
 {
 	m_instance = nullptr;
+	delete m_nullGameItem;
+	for (auto* item : m_itemArray)
+	{
+		delete item;
+	}
 }
 
 void ItemDataFile::InitItemData(const char* filePath)
@@ -183,8 +188,15 @@ void ItemDataFile::InitItemData(const char* filePath)
 			break;
 			
 		case EnItemType::enItem_Place: {
+
 			//設置物の耐久値と特攻ツール。
+			int indexSlash = itemData->tkmPath.find_last_of("/\\");
+			int pathSize = itemData->tkmPath.size();
+			std::string blockName = itemData->tkmPath.substr(indexSlash + 1, pathSize - indexSlash - 1);
+
 			ObjectParams params;
+			params.BlockID = itemData->itemID;
+			params.BlockName = std::move(blockName.c_str());
 			params.Durable = _item[nsPlaceObjsData::durable];
 			params.AptitudeTool = _item[nsPlaceObjsData::tool];
 
@@ -267,4 +279,6 @@ void ItemDataFile::InitItemData(const char* filePath)
 	handInfo.UseStamina = 5;
 	m_handTool = std::make_unique<Tool>();
 	m_handTool->SetTool(handInfo);
+	SItemDataPtr nullItemData = std::make_unique<SItemData>();
+	m_nullGameItem = new GameItemBase(nullItemData);
 }
