@@ -4,6 +4,8 @@
 #include "Enemy/StandardZombie/StandardZombie.h"
 #include "Enemy/EnemyGenerator.h"
 #include "SaveDataFile.h"
+#include "Item/ItemDataFile.h"
+#include "Item/GameItemTerrain.h"
 
 namespace nsTerrain {
 	bool TerrainManager::Start()
@@ -90,6 +92,13 @@ namespace nsTerrain {
 	}
 	void TerrainManager::ChunkTerrainGenerate(int chunkX, int chunkY)
 	{
+		auto* itemDataFile = ItemDataFile::GetInstance();
+		GameItemTerrain* geneTerrains[3] = { nullptr };
+		geneTerrains[0] = itemDataFile->GetTerrainDataTypeID(0);
+		geneTerrains[1] = itemDataFile->GetTerrainDataTypeID(1);
+		geneTerrains[2] = itemDataFile->GetTerrainDataTypeID(2);
+		float geneMap[3] = { 0.2f,0.4f,1.0f };
+
 		for (int x = 0; x < ChunkWidth + 1; x++)
 		{
 			for (int y = 0; y < ChunkHeight; y++)
@@ -110,24 +119,26 @@ namespace nsTerrain {
 
 					float point = 0;
 					int terrainID = 0;
+					for (terrainID = 0; terrainID < 3; terrainID++)
+					{
+						if (geneMap[terrainID] < noise) continue;
+						break;
+					}
 
 					//この場所の高さに対してブロックが届いていない。
 					if (y >= thisHeight - nsMarching::TERRAIN_SURFACE)
 					{
 						point = 0.0f;
-						terrainID = 2;
 					}
 					//この場所の上にもブロックがある。
 					else if (y < thisHeight + nsMarching::TERRAIN_SURFACE)
 					{
 						point = 1.0f;
-						terrainID = 0;
 					}
 					//この場所のブロックの影響値。
 					else
 					{
 						point = 0.5f;
-						terrainID = 2;
 					}
 
 					terrain->SetVoxel(point);

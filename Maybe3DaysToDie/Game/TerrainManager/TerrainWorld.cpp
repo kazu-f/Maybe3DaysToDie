@@ -253,7 +253,7 @@ namespace nsTerrain {
 
 		//エッジ上の頂点初期化。
 		Vector3 EdgeVertex[12] = { {0.0f,0.0f,0.0f} };
-		Vector4 EdgeTexture[12] = { {0.0f,0.0f,0.0f,0.0f} };
+		TerrainTexType EdgeTexture[12];
 
 		//Find the point of intersection of the surface with each edge
 		for (int i = 0; i < 12; i++)
@@ -264,10 +264,10 @@ namespace nsTerrain {
 				//オフセットを計算する。
 				float offset = GetOffset(cube.cube[nsMarching::EdgeConnection[i][0]], cube.cube[nsMarching::EdgeConnection[i][1]]);
 
-				Vector4 tex1 = { 0.0f,0.0f,0.0f,0.0f };
-				tex1.v[cube.terrainID[nsMarching::EdgeConnection[i][0]]] = 1.0f;
-				Vector4 tex2 = { 0.0f,0.0f,0.0f,0.0f };
-				tex2.v[cube.terrainID[nsMarching::EdgeConnection[i][1]]] = 1.0f;
+				TerrainTexType tex1;
+				tex1.tex[cube.terrainID[nsMarching::EdgeConnection[i][0]]] = 1.0f;
+				TerrainTexType tex2;
+				tex2.tex[cube.terrainID[nsMarching::EdgeConnection[i][1]]] = 1.0f;
 
 				EdgeTexture[i] = tex1 * (1.0f - offset) + tex2 * offset;
 
@@ -311,7 +311,7 @@ namespace nsTerrain {
 			//三角ポリゴンの頂点座標。
 			Vector3 vertPos[3];
 
-			Vector4 vertTexType[3];
+			TerrainTexType vertTexType[3];
 			//エッジ座標。
 			Vector3 edgePos[3];
 			//三角ポリゴンの中心座標。

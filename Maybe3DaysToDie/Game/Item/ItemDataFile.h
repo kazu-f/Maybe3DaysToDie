@@ -5,6 +5,9 @@ class BlockItem;
 class GameItemTerrain;
 class GameItemFoods;
 class GameItemMaterial;
+namespace nsTerrain {
+	class TerrainMaterial;
+}
 
 /// <summary>
 /// jsonファイルからツールデータを読み込むクラス。
@@ -164,6 +167,10 @@ public:
 		return material;
 	}
 
+	nsTerrain::TerrainMaterial* GetTerrainMaterials()
+	{
+		return m_terrainMaterials.get();
+	}
 private:
 	typedef std::vector<GameItemBase*> ItemArray;
 	ItemArray m_itemArray;
@@ -172,6 +179,7 @@ private:
 	std::map<int, GameItemTerrain*> m_terrainMap;
 	std::map<int, GameItemFoods*> m_foodMap;
 	std::map<int, GameItemMaterial*> m_materialMap;
+	std::unique_ptr<nsTerrain::TerrainMaterial> m_terrainMaterials;
 
 	int m_arraySize = 0;
 };

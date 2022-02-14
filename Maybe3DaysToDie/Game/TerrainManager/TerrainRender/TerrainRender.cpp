@@ -1,7 +1,12 @@
 #include "stdafx.h"
 #include "TerrainRender.h"
+#include "Item/ItemDataFile.h"
 
 namespace nsTerrain {
+	TerrainRender::TerrainRender()
+	{
+		m_material = ItemDataFile::GetInstance()->GetTerrainMaterials();
+	}
 	bool TerrainRender::SubStart()
 	{
 		m_isShadowCaster = true;
@@ -80,7 +85,14 @@ namespace nsTerrain {
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 			{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-			{ "TEXTYPE", 0 , DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 32, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+			{ "TEXTYPE", 0 , DXGI_FORMAT_R32_FLOAT, 0, 32, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXTYPE", 1 , DXGI_FORMAT_R32_FLOAT, 0, 36, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXTYPE", 2 , DXGI_FORMAT_R32_FLOAT, 0, 40, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXTYPE", 3 , DXGI_FORMAT_R32_FLOAT, 0, 44, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXTYPE", 4 , DXGI_FORMAT_R32_FLOAT, 0, 48, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXTYPE", 5 , DXGI_FORMAT_R32_FLOAT, 0, 52, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXTYPE", 6 , DXGI_FORMAT_R32_FLOAT, 0, 56, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXTYPE", 7 , DXGI_FORMAT_R32_FLOAT, 0, 60, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
 		};
 
 		//パイプラインステートを作成。
@@ -131,7 +143,7 @@ namespace nsTerrain {
 			m_nullTex->InitFromDDSFile(wddsFilePath);
 			ResourceEngine().RegistTextureToBank(filePath, m_nullTex);
 		}
-		m_material.InitTexture();
+		//m_material->InitTexture();
 	}
 	void TerrainRender::InitDescriptorHeap()
 	{
@@ -146,9 +158,9 @@ namespace nsTerrain {
 		m_descriptorHeap.RegistShaderResource(7, *GraphicsEngine()->GetShadowMap()->GetShadowMapTexture(1));
 		m_descriptorHeap.RegistShaderResource(8, *GraphicsEngine()->GetShadowMap()->GetShadowMapTexture(2));
 
-		for (int i = 0; i < TerrainMaterial::MAX_TERRAIN_TEX; i++)
+		for (int i = 0; i < m_material->INIT_TEX_NUM; i++)
 		{
-			m_descriptorHeap.RegistShaderResource(10 + i, *m_material.GetTexture(i));
+			m_descriptorHeap.RegistShaderResource(10 + i, *m_material->GetTexture(i));
 		}
 
 		m_descriptorHeap.Commit();
