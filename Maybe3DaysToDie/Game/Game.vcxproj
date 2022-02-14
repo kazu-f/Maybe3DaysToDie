@@ -166,6 +166,7 @@
     <ClCompile Include="Item\GameItemMaterial.cpp" />
     <ClCompile Include="Item\GameItemFoods.cpp" />
     <ClCompile Include="IK\FootIK.cpp" />
+    <ClCompile Include="Load\LoadCollision\LoadCollision.cpp" />
     <ClCompile Include="MapLoad\MapLoad.cpp" />
     <ClCompile Include="Player\state\PlayerMenu.cpp" />
     <ClCompile Include="Player\state\PlayerWalk.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="Item\GameItemMaterial.h" />
     <ClInclude Include="Item\GameItemFoods.h" />
     <ClInclude Include="IK\FootIK.h" />
+    <ClInclude Include="Load\LoadCollision\LoadCollision.h" />
     <ClInclude Include="MapLoad\MapLoad.h" />
     <ClInclude Include="Player\state\PlayerMenu.h" />
     <ClInclude Include="Player\state\PlayerWalk.h" />
@@ -367,6 +369,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="3DaysIcon.ico" />
+    <ImageContentTask Include="Assets\sprite\Root.png" />
     <ImageContentTask Include="Assets\sprite\SelectBotton.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

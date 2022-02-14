@@ -68,6 +68,7 @@ void ChunkBlock::MoveChunk()
 				param.BlockID = chunkData.ObjData[x][y][z].ObjId;
 				param.Durable = chunkData.ObjData[x][y][z].ObjDurable;
 				int BlockID = static_cast<int>(param.BlockID);
+				m_Block[x][y][z].SetParams(param);
 				if (m_SaveDataFile->ObjectType[BlockID] != ObjectType::Block)
 				{
 					continue;
@@ -96,7 +97,6 @@ void ChunkBlock::MoveChunk()
 
 				if (param.Durable > 0)
 				{
-					//ブロックの名前がかぶっているとき
 					//インスタンシングデータを更新
 					Quaternion rot = Quaternion::Identity;
 					Vector3 scale = Vector3::One;
@@ -111,8 +111,6 @@ void ChunkBlock::MoveChunk()
 			}
 		}
 	}
-
-
 	
 	IsMove = false;
 }

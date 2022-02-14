@@ -127,35 +127,24 @@ void MapLoad::BuildBoneMatrices()
 
 SaveDataFile::ObjectData& MapLoad::GetObjectArrange(Vector3& pos)
 {
-	////設置するオブジェクトのチャンクIDを計算
-	//int ID[2] = { 0 };
-	//int x = pos.x / OBJECT_UNIT;
-	//ID[0] = static_cast<int>(x / ChunkWidth);
-	//int z = pos.z / OBJECT_UNIT;
-	//ID[1] = static_cast<int>(z / ChunkWidth);
-	//ChunkID[0] = max(0, min(ChunkID[0] + ID[0], MAX_CHUNK_SIDE));
-	//ChunkID[1] = max(0, min(ChunkID[1] + ID[1], MAX_CHUNK_SIDE));
-
 	//セーブデータファイルからチャンクの情報を取得
 	auto& chunkData = m_SaveDataFile->m_ChunkData[ChunkID[0]][ChunkID[1]];
-	ChunkID[0] = max(0, min(ChunkID[0], MAX_CHUNK_SIDE));
-	ChunkID[1] = max(0, min(ChunkID[1], MAX_CHUNK_SIDE));
 
 	//ポジションに対応するブロックを取得
 	int id_x = pos.x / OBJECT_UNIT;
 	id_x = static_cast<int>(id_x % ChunkWidth);
 	id_x += ChunkWidth / 2;
-	id_x = max(0, min(id_x, ChunkWidth));
+	id_x = max(0, min(id_x, ChunkWidth - 1));
 
 	int id_y = pos.y / OBJECT_UNIT;
 	id_y = static_cast<int>(id_y % ChunkHeight);
 	id_y += GroundSurface;
-	id_y = min(id_y, ChunkHeight);
+	id_y = min(id_y, ChunkHeight - 1);
 
 	int id_z = pos.z / OBJECT_UNIT;
 	id_z = static_cast<int>(id_z % ChunkWidth);
 	id_z += ChunkWidth / 2;
-	id_z = max(0, min(id_z, ChunkWidth));
+	id_z = max(0, min(id_z, ChunkWidth - 1));
 
-	return m_SaveDataFile->m_ChunkData[ChunkID[0]][ChunkID[1]].ObjData[id_x][id_y][id_z];
+	return chunkData.ObjData[id_x][id_y][id_z];
 }
