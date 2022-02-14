@@ -18,6 +18,8 @@ namespace Maybe3DaysToDieToolEditor
         private int currentCommandStart = 0;        //現在のコマンドの開始位置。
         private int currentCommandEnd = 0;          //現在のコマンドの終点。
 
+        public bool isChanged = false;
+        
         public EditorCommandList()
         {
             ResetCommandList();
@@ -57,6 +59,7 @@ namespace Maybe3DaysToDieToolEditor
             //現在のコマンドを戻す。
             currentCommandNo--;
             currentCommandNo = (currentCommandNo + COMMAND_SIZE) % COMMAND_SIZE;
+            isChanged = true;
         }
         /// <summary>
         /// ReDoの処理を実行する。
@@ -72,6 +75,7 @@ namespace Maybe3DaysToDieToolEditor
             currentCommandNo = currentCommandNo % COMMAND_SIZE;
             //ReDoを行う。
             commandList[currentCommandNo].ReDo();
+            isChanged = true;
         }
 
         public void ResetCommandList()
@@ -84,6 +88,7 @@ namespace Maybe3DaysToDieToolEditor
             currentCommandNo = 0;      //コマンドの中身がない。
             currentCommandStart = 0;
             currentCommandEnd = 0;
+            isChanged = false;
         }
     }
 }
