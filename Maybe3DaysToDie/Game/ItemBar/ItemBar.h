@@ -11,6 +11,13 @@ class TerrainLoad;
 class Stage;
 class Player;
 class Mause;
+class GameItemBase;
+
+struct InventoryItemData {
+	GameItemBase* m_itemBase = nullptr;
+	int itemCount = 0;
+};
+
 
 namespace {
 	const int SelectNum = 8;	//アイテムバーの数
@@ -47,8 +54,24 @@ public:
 	void SetPlayer(Player* pl) {
 		m_Player = pl;
 	}
+
+	Player* GetPlayer()
+	{
+		return m_Player;
+	}
+
+	PlacementObject* GetPlacementObject()
+	{
+		return m_PlacementObject;
+	}
+
+	DestroyObject* GetDestroyObject()
+	{
+		return m_DestroyObject;
+	}
 private:
 	void ItemSlotKey(int vKey,int slot);
+	void SetItemDatas();
 private:
 	prefab::CSpriteRender* m_ItemIcon = nullptr;
 	prefab::CSpriteRender* m_SelectItemIcon = nullptr;
@@ -64,6 +87,8 @@ private:
 	TerrainLoad* m_TerrainLoad = nullptr;
 	Stage* m_Stage = nullptr;
 	Player* m_Player=nullptr;
+	InventoryItemData m_itemInventory[SelectNum];		//配列。
+	GameItemBase* m_nullItem = nullptr;
 
 	float m_InstallTime = 0.0f;		//設置できる時間
 	float m_DeleteTime = 0.0f;

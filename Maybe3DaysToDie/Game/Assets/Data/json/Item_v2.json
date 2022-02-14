@@ -88,7 +88,7 @@
     "itemID": 3,
     "itemMaterialData": [ ],
     "itemMaterialDataNum": 0,
-    "itemType": 4,
+    "itemType": 5,
     "itemTypeID": 0,
     "name": "MaterialDirt",
     "stackNum": 1,
@@ -105,7 +105,7 @@
     "itemID": 4,
     "itemMaterialData": [ ],
     "itemMaterialDataNum": 0,
-    "itemType": 2,
+    "itemType": 3,
     "itemTypeID": 0,
     "name": "TerrainDirt",
     "stackNum": 1,
@@ -131,8 +131,8 @@
     "itemID": 5,
     "itemMaterialData": [ ],
     "itemMaterialDataNum": 0,
-    "itemType": 2,
-    "itemTypeID": 0,
+    "itemType": 3,
+    "itemTypeID": 1,
     "name": "TerrainStone",
     "stackNum": 1,
     "tkmFile": "",
@@ -157,7 +157,7 @@
     "itemID": 6,
     "itemMaterialData": [ ],
     "itemMaterialDataNum": 0,
-    "itemType": 4,
+    "itemType": 5,
     "itemTypeID": 1,
     "name": "MaterialRock",
     "stackNum": 1,
@@ -174,8 +174,8 @@
     "itemID": 7,
     "itemMaterialData": [ ],
     "itemMaterialDataNum": 0,
-    "itemType": 2,
-    "itemTypeID": 0,
+    "itemType": 3,
+    "itemTypeID": 2,
     "name": "TerrainGrass",
     "stackNum": 1,
     "tkmFile": "",
@@ -189,5 +189,94 @@
     "durable": 0,
     "texture": "Assets\\modelData\\Terrain\\T_Ground_Grass_D.dds",
     "tool": 4
+  },
+  {
+    "__type": "Block:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "",
+    "itemID": 8,
+    "itemMaterialData": [
+      {
+        "craftItemNum": 10,
+        "craftMaterialID": 11
+      }
+    ],
+    "itemMaterialDataNum": 1,
+    "itemType": 2,
+    "itemTypeID": 0,
+    "name": "WoodBlock",
+    "stackNum": 1,
+    "tkmFile": "Assets\\modelData\\CubeBlock\\WoodBlock.tkm",
+    "collectItemDataNum": 1,
+    "collectItems": [
+      {
+        "corectItemID": 11,
+        "corectionNum": 10
+      }
+    ],
+    "durable": 300,
+    "tool": 1
+  },
+  {
+    "__type": "Block:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "",
+    "itemID": 9,
+    "itemMaterialData": [ ],
+    "itemMaterialDataNum": 0,
+    "itemType": 2,
+    "itemTypeID": 1,
+    "name": "CardBoard",
+    "stackNum": 1,
+    "tkmFile": "Assets\\modelData\\CubeBlock\\CardBoard.tkm",
+    "collectItemDataNum": 0,
+    "collectItems": [ ],
+    "durable": 400,
+    "tool": 1
+  },
+  {
+    "__type": "Block:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "",
+    "itemID": 10,
+    "itemMaterialData": [ ],
+    "itemMaterialDataNum": 0,
+    "itemType": 2,
+    "itemTypeID": 2,
+    "name": "BookBlock",
+    "stackNum": 1,
+    "tkmFile": "Assets\\modelData\\CubeBlock\\BookBlock.tkm",
+    "collectItemDataNum": 0,
+    "collectItems": [ ],
+    "durable": 300,
+    "tool": 1
+  },
+  {
+    "__type": "Material:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [
+        8
+      ],
+      "craftableItemNum": 1
+    },
+    "iconData": "",
+    "itemID": 11,
+    "itemMaterialData": [ ],
+    "itemMaterialDataNum": 0,
+    "itemType": 5,
+    "itemTypeID": 2,
+    "name": "MaterialWood",
+    "stackNum": 1,
+    "tkmFile": "",
+    "MaterialType": 0
   }
 ]

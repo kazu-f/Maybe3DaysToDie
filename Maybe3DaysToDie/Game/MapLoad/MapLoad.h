@@ -11,6 +11,8 @@ public:
 	{
 		ChunkID[0] = ChunkX;
 		ChunkID[1] = ChunkZ;
+		ChunkID[0] = max(0, min(ChunkID[0], MAX_CHUNK_SIDE - 1));
+		ChunkID[1] = max(0, min(ChunkID[1], MAX_CHUNK_SIDE - 1));
 	}
 	/// <summary>
 	/// ƒŒƒxƒ‹‚Ì‰Šú‰»

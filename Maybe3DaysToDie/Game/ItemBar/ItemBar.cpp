@@ -12,6 +12,14 @@
 #include "Stage.h"
 #include "Player/Player.h"
 #include "Player/state/IPlayerState.h"
+#include "Item/ItemDataFile.h"
+#include "Item/GameItemBase.h"
+#include "Item/GameItemTool.h"
+#include "Item/GameItemPlaceObj.h"
+#include "Item/BlockItem.h"
+#include "Item/GameItemTerrain.h"
+#include "Item/GameItemFoods.h"
+#include "Item/GameItemMaterial.h"
 
 namespace {
 	const Vector2 ItemBarPos = { -300.0f,-285.0f };
@@ -42,6 +50,7 @@ bool ItemBar::Start()
 	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
 	m_PlacementObject->SetSaveData(m_SaveDataFile);
 	m_DestroyObject->SetSaveData(m_SaveDataFile);
+	SetItemDatas();
 	return true;
 }
 void ItemBar::Update()
@@ -50,8 +59,11 @@ void ItemBar::Update()
 		if (GetAsyncKeyState(MK_LBUTTON)) {
 			m_InstallTime += GameTime().GetFrameDeltaTime();
 			if (m_InstallTime > 0.2f) {
-				m_PlacementObject->PlaceObject();
+
+				//m_PlacementObject->PlaceObject();
 				m_InstallTime = 0.0f;
+
+				m_itemInventory[m_SelectNum].m_itemBase->UseItemAction1(this);
 			}
 		}
 		else {
@@ -61,7 +73,9 @@ void ItemBar::Update()
 		if (GetAsyncKeyState(MK_RBUTTON)) {
 			m_DeleteTime += GameTime().GetFrameDeltaTime();
 			if (m_DeleteTime > 0.2f) {
-				m_DestroyObject->AddObjectDamage();
+				m_itemInventory[m_SelectNum].m_itemBase->UseItemAction2(this);
+
+				//m_DestroyObject->AddObjectDamage();
 				m_DeleteTime = 0.0f;
 			}
 		}
@@ -90,12 +104,37 @@ void ItemBar::OnDestroy()
 void ItemBar::ItemSlotKey(int vKey, int slot)
 {
 	if (GetAsyncKeyState(vKey)) {
-		m_SelectNum = slot;
+		if (m_SelectNum != slot) {
+			m_SelectNum = slot;
 
-		//パラメータ
-		ObjectParams param;
-		param.BlockID = m_SelectNum;
-		param.Durable = 500;
-		m_PlacementObject->SetParams(param);
+			m_itemInventory[m_SelectNum].m_itemBase->ResetUseItemSelect(this);
+			m_itemInventory[m_SelectNum].m_itemBase->SelectItemAction(this);
+
+			/// 			////パラメータ
+			//ObjectParams param;
+			//param.BlockID = m_SelectNum;
+			//param.Durable = 500;
+			//m_PlacementObject->SetParams(param);
+		}
+	}
+}
+
+void ItemBar::SetItemDatas()
+{
+	auto* datas = ItemDataFile::GetInstance();
+	int i = 0;
+	for (; i < 3; i++)
+	{
+		m_itemInventory[i].m_itemBase = datas->GetBlockDataTypeID(i);
+	}
+	for (int j = 0; i < 6; j++)
+	{
+		m_itemInventory[i].m_itemBase = datas->GetTerrainDataTypeID(j);
+		i++;
+	}
+	for (int j = 0; i < 8; j++)
+	{
+		m_itemInventory[i].m_itemBase = datas->GetNullGameItem();
+		i++;
 	}
 }

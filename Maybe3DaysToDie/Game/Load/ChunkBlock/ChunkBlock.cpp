@@ -1,9 +1,15 @@
 #include "stdafx.h"
 #include "ChunkBlock.h"
 #include "Load/TerrainLoad/LoadingByChunk.h"
+#include "Item/ItemDataFile.h"
+#include "Item/GameItemPlaceObj.h"
+#include "Item/BlockItem.h"
+#include "Item/GameItemTerrain.h"
 
 void ChunkBlock::Init()
 {
+	m_itemDataFile = ItemDataFile::GetInstance();
+	m_InstancingData.resize(m_itemDataFile->GetBlockArraySize());
 	for (int x = 0; x < ChunkWidth; x++)
 	{
 		for (int y = 0; y < ChunkHeight; y++)
@@ -68,35 +74,20 @@ void ChunkBlock::MoveChunk()
 				param.BlockID = chunkData.ObjData[x][y][z].ObjId;
 				param.Durable = chunkData.ObjData[x][y][z].ObjDurable;
 				int BlockID = static_cast<int>(param.BlockID);
-				if (m_SaveDataFile->ObjectType[BlockID] != ObjectType::Block)
-				{
-					continue;
-				}
-				if (BlockID < 0 || BlockID >= BlockKinds)
-				{
-					//ブロックIDがマイナスか最大値より大きいときreturn
-					continue;
-				}
 
-				//ファイルパス作成。
-				wchar_t filePath[256];
-				swprintf_s(filePath, L"Assets/modelData/CubeBlock/%s.tkm", m_SaveDataFile->ObjectFilePath[BlockID].c_str());
 
-				size_t oriSize = wcslen(filePath) + 1;
-				size_t convertedChars = 0;
-				char strConcat[] = "";
-				size_t strConcatSize = (strlen(strConcat) + 1) * 2;
-				const size_t newSize = oriSize * 2;
-				char* nString = new char[newSize + strConcatSize];
-				wcstombs_s(&convertedChars, nString, newSize, filePath, _TRUNCATE);
-				_mbscat_s((unsigned char*)nString, newSize + strConcatSize, (unsigned char*)strConcat);
-				param.BlockName = nString;
-				//パラメータをセット
+				auto* block = m_itemDataFile->GetBlockData(BlockID);
+				if (block == nullptr) continue;
+
+				const char* tkmPath = nullptr;
+				tkmPath = block->GetItemData()->tkmPath.c_str();
+
+				if (tkmPath == nullptr) continue;
+				param.BlockName = tkmPath;
 				m_Block[x][y][z].SetParams(param);
 
 				if (param.Durable > 0)
 				{
-					//ブロックの名前がかぶっているとき
 					//インスタンシングデータを更新
 					Quaternion rot = Quaternion::Identity;
 					Vector3 scale = Vector3::One;
@@ -106,13 +97,11 @@ void ChunkBlock::MoveChunk()
 					data.rot = rot;
 					data.scale = scale;
 					//配列に追加
-					m_InstancingData[BlockID].push_back(data);
+					m_InstancingData[block->GetItemData()->itemTypeID].push_back(data);
 				}
 			}
 		}
 	}
-
-
 	
 	IsMove = false;
 }
@@ -133,39 +122,27 @@ Block* ChunkBlock::GetBlock(Vector3 pos)
 void ChunkBlock::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)
 {
 	int BlockID = static_cast<int>(params.BlockID);
-	if (m_SaveDataFile->ObjectType[BlockID] != ObjectType::Block)
-	{
-		return;
-	}
-	if (BlockID < 0 || BlockID >= BlockKinds)
-	{
-		//ブロックIDがマイナスか最大値より大きいときreturn
-		return;
-	}
+
+	auto* block = m_itemDataFile->GetBlockData(BlockID);
+	if (block == nullptr) return;
+
+	const char* tkmPath = nullptr;
+	tkmPath = block->GetItemData()->tkmPath.c_str();
+
+	if (tkmPath == nullptr) return;
+
 	ChunkBlockDirty = true;
 	m_IsModelUpdated = true;
-	//ブロックに名前をセット
-	//ファイルパス作成。
-	wchar_t filePath[256];
-	swprintf_s(filePath, L"Assets/modelData/CubeBlock/%s.tkm", m_SaveDataFile->ObjectFilePath[BlockID].c_str());
 
-	size_t oriSize = wcslen(filePath) + 1;
-	size_t convertedChars = 0;
-	char strConcat[] = "";
-	size_t strConcatSize = (strlen(strConcat) + 1) * 2;
-	const size_t newSize = oriSize * 2;
-	char* nString = new char[newSize + strConcatSize];
-	wcstombs_s(&convertedChars, nString, newSize, filePath, _TRUNCATE);
-	_mbscat_s((unsigned char*)nString, newSize + strConcatSize, (unsigned char*)strConcat);
+	params.BlockName = tkmPath;
 
-	params.BlockName = nString;
 	//データを作成
 	InstancingData data;
 	data.pos = pos;
 	data.rot = rot;
 	data.scale = scale;
 	//配列に追加
-	m_InstancingData[BlockID].push_back(data);
+	m_InstancingData[block->GetItemData()->itemTypeID].push_back(data);
 	//ナビメッシュ更新のフラグを立てる。
 	m_LoadingByChunk->NvmDirtyFlagUp(m_LoadID[0], m_LoadID[1]);
 }
@@ -173,22 +150,35 @@ void ChunkBlock::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, V
 void ChunkBlock::RemoveBlock(Block* blockptr)
 {
 	int BlockID = static_cast<int>(blockptr->GetParam().BlockID);
-	if (m_SaveDataFile->ObjectType[BlockID] != ObjectType::Block)
-	{
-		return;
-	}
-	if (BlockID < 0 || BlockID >= BlockKinds)
-	{
-		//ブロックIDがマイナスか最大値より大きいときreturn
-		return;
-	}
+
+	auto* block = m_itemDataFile->GetBlockData(BlockID);
+	if (block == nullptr) return;
+
+	const char* tkmPath = nullptr;
+	tkmPath = block->GetItemData()->tkmPath.c_str();
+
+	if (tkmPath == nullptr) return;
+
+	int index = block->GetItemData()->itemTypeID;
+
+	//int BlockID = static_cast<int>(blockptr->GetParam().BlockID);
+	//if (m_SaveDataFile->ObjectType[BlockID] != ObjectType::Block)
+	//{
+	//	return;
+	//}
+	//if (BlockID < 0 || BlockID >= BlockKinds)
+	//{
+	//	//ブロックIDがマイナスか最大値より大きいときreturn
+	//	return;
+	//}
+
 	ChunkBlockDirty = true;
 	m_IsModelUpdated = true;
 
 	//削除するブロックの値をリセット
 	blockptr->ResetParams();
 	//インスタンシングデータをクリア
-	m_InstancingData[BlockID].clear();
+	m_InstancingData[index].clear();
 	//インスタンシングデータをリセット
 	//ここからセットしなおす
 	for (int x = 0; x < ChunkWidth; x++)
@@ -210,7 +200,7 @@ void ChunkBlock::RemoveBlock(Block* blockptr)
 					data.rot = block.GetRotation();
 					data.scale = block.GetScale();
 					//配列に追加
-					m_InstancingData[BlockID].push_back(data);
+					m_InstancingData[index].push_back(data);
 				}
 			}
 		}

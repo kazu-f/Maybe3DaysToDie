@@ -4,6 +4,7 @@
 
 class LoadingByChunk;
 class SaveDataFile;
+class ItemDataFile;
 namespace nsTerrain {
 	class TerrainManager;
 }
@@ -30,7 +31,8 @@ public:
 	/// <param name="params">パラメータ</param>
 	void SetParams(const ObjectParams& params)
 	{
-		if (ObjID == params.BlockID)
+		if (ObjID == params.BlockID
+			|| params.BlockID == -1)
 		{
 			//変更なし
 			return;
@@ -84,6 +86,7 @@ private:
 	DestructibleObject* m_hitObj = nullptr;
 	LoadingByChunk* m_LoadingChunk = nullptr;
 	nsTerrain::TerrainManager* m_TerrainManager = nullptr;		//テラインマネージャー
+	ItemDataFile* m_itemDataFile = nullptr;
 	SaveDataFile* m_SaveData = nullptr;
 	ObjectParams objParam;
 	ModelInitData m_modelInitData;

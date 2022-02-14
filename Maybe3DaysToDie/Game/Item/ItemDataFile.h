@@ -1,10 +1,29 @@
 #pragma once
 class GameItemBase;
 class GameItemTool;
+class GameItemPlaceObj;
 class BlockItem;
 class GameItemTerrain;
 class GameItemFoods;
 class GameItemMaterial;
+namespace nsTerrain {
+	class TerrainMaterial;
+}
+class Tool;
+
+namespace nsEnItemType {
+	enum EnItemType
+	{
+		enItem_None = -1,
+		enItem_Tool,
+		enItem_Place,
+		enItem_Block,
+		enItem_Terrain,
+		enItem_Food,
+		enItem_Material,
+		ItemTypeNum
+	};
+}
 
 /// <summary>
 /// jsonファイルからツールデータを読み込むクラス。
@@ -12,7 +31,6 @@ class GameItemMaterial;
 class ItemDataFile
 {
 	using json = nlohmann::json;
-
 public:		//シングルトン。
 	static void CreateInstance()
 	{
@@ -81,6 +99,24 @@ public:
 	/// </summary>
 	/// <param name="id">ID</param>
 	/// <returns></returns>
+	GameItemPlaceObj* GetPlaceData(int id)
+	{
+		GameItemPlaceObj* place = nullptr;
+
+		auto it = m_placeMap.find(id);
+		if (it != m_placeMap.end())
+		{
+			place = it->second;
+		}
+
+		return place;
+
+	}
+	/// <summary>
+	/// ブロックデータを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
 	BlockItem* GetBlockData(int id)
 	{
 		BlockItem* block = nullptr;
@@ -93,6 +129,48 @@ public:
 
 		return block;
 
+	}
+	/// <summary>
+	/// ブロックデータを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	BlockItem* GetBlockDataTypeID(int id)
+	{
+		BlockItem* block = nullptr;
+
+		auto it = m_blockMap.begin();
+		std::advance(it, id);
+
+		block = it->second;
+
+		return block;
+
+	}
+	/// <summary>
+	/// ブロックデータを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	BlockItem* GetBlockDataHash(int hash)
+	{
+		BlockItem* block = nullptr;
+
+		auto it = m_blockHashMap.find(hash);
+		if (it != m_blockHashMap.end())
+		{
+			block = it->second;
+		}
+
+		return block;
+	}
+	/// <summary>
+	/// ブロックの種類数。
+	/// </summary>
+	/// <returns></returns>
+	int GetBlockArraySize()
+	{
+		return m_blockArraySize;
 	}
 	/// <summary>
 	/// 地形データを取得する。
@@ -164,15 +242,35 @@ public:
 		return material;
 	}
 
+	nsTerrain::TerrainMaterial* GetTerrainMaterials()
+	{
+		return m_terrainMaterials.get();
+	}
+
+	Tool* GetHandTool()
+	{
+		return m_handTool.get();
+	}
+
+	GameItemBase* GetNullGameItem()
+	{
+		return m_nullGameItem;
+	}
 private:
 	typedef std::vector<GameItemBase*> ItemArray;
 	ItemArray m_itemArray;
 	std::map<int, GameItemTool*> m_toolMap;
+	std::map<int, GameItemPlaceObj*> m_placeMap;
 	std::map<int, BlockItem*> m_blockMap;
+	std::map<int, BlockItem*> m_blockHashMap;
 	std::map<int, GameItemTerrain*> m_terrainMap;
 	std::map<int, GameItemFoods*> m_foodMap;
 	std::map<int, GameItemMaterial*> m_materialMap;
+	std::unique_ptr<nsTerrain::TerrainMaterial> m_terrainMaterials;
+	std::unique_ptr<Tool> m_handTool;
+	GameItemBase* m_nullGameItem;
 
 	int m_arraySize = 0;
+	int m_blockArraySize = 0;
 };
 

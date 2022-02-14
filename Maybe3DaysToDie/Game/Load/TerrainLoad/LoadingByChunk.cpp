@@ -1,5 +1,15 @@
 #include "stdafx.h"
 #include "LoadingByChunk.h"
+#include "Item/ItemDataFile.h"
+#include "Item/GameItemPlaceObj.h"
+#include "Item/BlockItem.h"
+#include "Item/GameItemTerrain.h"
+
+LoadingByChunk::LoadingByChunk()
+{
+	//サイズの最大値セット
+	BlockModel.resize(ItemDataFile::GetInstance()->GetBlockArraySize());
+}
 
 LoadingByChunk::~LoadingByChunk()
 {
@@ -103,27 +113,16 @@ void LoadingByChunk::InitChunkBlocks()
 void LoadingByChunk::InitModels()
 {
 	int m_modelNum = 0;
-	for (int ObjectID = 0; ObjectID < BlockKinds; ObjectID++)
+	auto* itemDatas = ItemDataFile::GetInstance();
+	for (int ObjectID = 0; ObjectID < itemDatas->GetBlockArraySize(); ObjectID++)
 	{
 		//モデルを初期化
 		//ブロックの名前がかぶっていないのでまだ、そのモデルがない
 		ModelInitData InitData;
-		//ファイルパス作成。
-		wchar_t filePath[256] = L"Assets/modelData/CubeBlock/";
-		const wchar_t* addPath = m_SaveDataFile->ObjectFilePath[ObjectID].c_str();
-		wcscat(filePath, addPath);
-		addPath = L".tkm";
-		wcscat(filePath, addPath);
+		auto* block = itemDatas->GetBlockDataTypeID(ObjectID);
+		if (block == nullptr) continue;
+		InitData.m_tkmFilePath = block->GetItemData()->tkmPath.c_str();
 
-		size_t oriSize = wcslen(filePath) + 1;
-		size_t convertedChars = 0;
-		char strConcat[] = "";
-		size_t strConcatSize = (strlen(strConcat) + 1) * 2;
-		const size_t newSize = oriSize * 2;
-		char* nString = new char[newSize + strConcatSize];
-		wcstombs_s(&convertedChars, nString, newSize, filePath, _TRUNCATE);
-		_mbscat_s((unsigned char*)nString, newSize + strConcatSize, (unsigned char*)strConcat);
-		InitData.m_tkmFilePath = nString;
 		prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
 		//model->SetActiveFlag(false);
 		//チャンクのサイズ分インスタンシング描画する
@@ -358,13 +357,12 @@ void LoadingByChunk::UpdateModels()
 		//更新無いときreturn
 		return;
 	}
-
-	for (int BlockID = 0; BlockID < BlockKinds; BlockID++)
+	auto* itemDatas = ItemDataFile::GetInstance();
+	for (int BlockID = 0; BlockID < itemDatas->GetBlockArraySize(); BlockID++)
 	{
-		if (m_SaveDataFile->ObjectFilePath[BlockID].c_str() == nullptr)
-		{
-			continue;
-		}
+		auto* block = itemDatas->GetBlockDataTypeID(BlockID);
+		if (block == nullptr) continue;
+
 		//インスタンシングデータをリセット
 		BlockModel[BlockID]->ResetInstancingDatas();
 		for (int x = 0; x < LoadingChunks; x++)
