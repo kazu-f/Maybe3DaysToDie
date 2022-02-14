@@ -29,18 +29,8 @@ void GameCamera::OnDestroy()
 
 void GameCamera::Rotate()
 {
-	//マウスカーソルの位置を取得
-	POINT pt;
-	GetCursorPos(&pt);
-	//このフレームでの移動量
-	float lstx = pt.x - DefaultPoint[0];
-	float lsty = pt.y - DefaultPoint[1];
-
-	lstx *= SensiX;
-	lsty *= SensiY;
-
-	xrot += lstx;
-	yrot += lsty;
+	xrot += MauseInfo::GetInstance()->GetMauseMove().x * SensiX;
+	yrot += MauseInfo::GetInstance()->GetMauseMove().y * SensiY;
 
 	yrot = min(max(yrot, -yrotLimit), yrotLimit);
 	if (xrot > xrotLimit)
@@ -65,6 +55,10 @@ void GameCamera::Rotate()
 	rot.Multiply(yqrot);
 
 	m_qrot = rot;
-	//マウスカーソルの位置を固定
-	SetCursorPos(DefaultPoint[0], DefaultPoint[1]);
+	MauseInfo::GetInstance()->SetMauseCursor(
+		{
+		MauseInfo::IntialMausePos().x,
+		MauseInfo::IntialMausePos().y
+		}
+	);
 }

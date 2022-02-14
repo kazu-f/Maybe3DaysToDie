@@ -66,11 +66,7 @@ private:
 	Vector3 m_Target = { 0.0f,1000.0f,100.0f};			//ターゲット
 	Quaternion m_qrot = Quaternion::Identity;
 	const float m_CameraDist = 100.0f;
-	///マウス/////////////////////////////////////////////////////////
-	float MouseRotX = 0.0f;
-	float MouseRotY = 0.0f;
-	int DefaultPoint[2] = { 500,300 };
-	///////////////////////////////////////////////////////////////////
+
 	//センシ
 	float SensiX = 0.1f;
 	float SensiY = 0.1f;

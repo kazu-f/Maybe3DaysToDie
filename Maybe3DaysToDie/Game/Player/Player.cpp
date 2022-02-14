@@ -199,7 +199,7 @@ void Player::Jump()
 		NowTime += GameTime().GetFrameDeltaTime();
 		const float JumpTime = 0.3f;
 		float f = NowTime - JumpTime;
-		const float JumpPower = 0.5f;
+		const float JumpPower = 0.6f;
 		float Jump = gravity * pow(f, 2.0f) + JumpPower;
 		m_PlayerState->SetMoveSpeedY(Jump);
 		if (IsJumping && m_Characon.IsOnGround())
@@ -253,4 +253,5 @@ bool Player::OpenInventory()
 void Player::CloseInventory()
 {
 	m_NextState = State::Idle;
+	MauseInfo::GetInstance()->SetMauseCursor(MauseInfo::GetInstance()->IntialMausePos());
 }

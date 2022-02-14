@@ -7,7 +7,7 @@ namespace
 {
 	const Vector2 BottonPos = { 0.0f,0.0f };
 }
-PlayerDead::PlayerDead(Player* pl):
+PlayerDead::PlayerDead(Player* pl) :
 	IPlayerState::IPlayerState(pl)
 {
 	m_Font = NewGO<CFontRender>(0);
@@ -22,7 +22,7 @@ PlayerDead::PlayerDead(Player* pl):
 	m_SelectSprite->SetActiveFlag(false);
 	m_BottonSprite = InitSprite("Assets/sprite/respownBotton.dds");
 	m_BottonSprite->SetActiveFlag(false);
-	SetMulSpeed( 0.0f);
+	SetMulSpeed(0.0f);
 }
 PlayerDead::~PlayerDead()
 {
@@ -44,15 +44,29 @@ void PlayerDead::Enter()
 	m_SelectSprite->SetActiveFlag(true);
 	m_BottonSprite->SetActiveFlag(true);
 	GetPlayer()->SetMoveMause(true);
+	SystemParametersInfo(SPI_GETWORKAREA, 0, &m_DeskRt, 0);
 }
 
 void PlayerDead::Update()
 {
-	ReSpownTime -= GameTime().GetFrameDeltaTime();
-    if (ReSpownTime < 0.0) {
-		GetPlayer()->ReStart();
-		ReSpownTime = 2.0f;
-    }
+	// いろいろと計算
+	GetWindowRect(g_hWnd, &m_MainRt);
+	float sx = (m_MainRt.right - m_MainRt.left); // ウインドウの横幅
+	float sy = (m_MainRt.bottom - m_MainRt.top); // ウインドウの高さ
+	float cx = sx / 2 + m_MainRt.left;    // 横方向の中央座標軸
+	float cy = sy / 2 + m_MainRt.top;     // 縦方向の中央座標軸
+	float SpriteSizeX = ((sx) / FRAME_BUFFER_W) * 250.0f;
+	float SpriteSizeY = ((sy) / FRAME_BUFFER_H) * 100.0f;
+	if (MauseInfo::GetInstance()->GetMauseState() ==
+		MauseInfo::State::MauseLClick) {
+		int cyCaption = GetSystemMetrics(SM_CYCAPTION);     // タイトルバーの高さ
+		float diffX = fabsf(MauseInfo::GetInstance()->GetMausePos().x - cx);
+		float diffY = fabsf(MauseInfo::GetInstance()->GetMausePos().y - (cy + cyCaption));
+		if (diffX < SpriteSizeX &&
+			diffY < SpriteSizeY) {
+			GetPlayer()->ReStart();
+		}
+	}
 }
 
 void PlayerDead::Leave()

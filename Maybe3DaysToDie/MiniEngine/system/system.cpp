@@ -14,9 +14,10 @@ namespace Engine {
 	LRESULT CALLBACK MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		if (wParam > 0) {
-			
+			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseWheelUp);
 		}
 		if (wParam < 0) {
+			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseWheelDown);
 		}
 		//送られてきたメッセージで処理を分岐させる。
 		switch (msg)
@@ -40,8 +41,10 @@ namespace Engine {
 			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseLClick);
 			break;
 		case WM_RBUTTONDOWN:
+			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseRClick);
 			break;
 		default:
+			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::None);
 			return DefWindowProc(hWnd, msg, wParam, lParam);
 		}
 		return 0;
@@ -98,6 +101,7 @@ namespace Engine {
 	//ゲームの初期化。
 	void InitGame(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow, const TCHAR* appName, const SInitParam& initParam)
 	{
+		MauseInfo::Create();
 		//ウィンドウを初期化。
 		InitWindow(hInstance, hPrevInstance, lpCmdLine, nCmdShow, appName);
 		//エンジンのインスタンスを作成。
