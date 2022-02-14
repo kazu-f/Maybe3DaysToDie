@@ -196,6 +196,22 @@ public:
 	/// 重力処理
 	/// </summary>
 	void Jump();
+
+	PlayerHp* GetHp() const {
+		return m_Hp;
+	}
+
+	PlayerStamina* GetStamina() const {
+		return m_Stamina;
+	}
+
+	PlayerHunger* GetHunger()const {
+		return m_Hunger;
+	}
+
+	PlayerWater* GetWater()const {
+		return m_Water;
+	}
 private:
 	/// <summary>
 	/// 時間によるステータスの更新

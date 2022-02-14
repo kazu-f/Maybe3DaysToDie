@@ -1,5 +1,7 @@
 #pragma once
 
+class ItemBar;
+
 /// <summary>
 /// クラフトに必要な素材データ。
 /// </summary>
@@ -37,6 +39,11 @@ public:
 	GameItemBase(SItemDataPtr & itemData);
 	virtual ~GameItemBase();
 
+	virtual void SelectItemAction(ItemBar* itemBar);	//このアイテムが選択されたときの処理。
+	virtual void UseItemAction1(ItemBar* itemBar);		//左クリックのアクション。
+	virtual void UseItemAction2(ItemBar* itemBar) {};	//右クリックのアクション。
+
+
 public:
 	//モデルのワールド行列を作るためのデータをセット。
 	void SetModelWorldMatrix(const Vector3& pos,const Quaternion& rot,const Vector3& scale = Vector3::One)
@@ -69,6 +76,8 @@ public:
 	{
 		return m_itemData.get();
 	}
+protected:
+	void SetToolHand(ItemBar* itemBar);
 
 private:
 	SItemDataPtr m_itemData;

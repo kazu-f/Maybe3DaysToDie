@@ -3,7 +3,7 @@
 #include "GameCamera.h"
 #include "Player/Player.h"
 #include "Stage.h"
-#include "ItemBar.h"
+#include "ItemBar/ItemBar.h"
 #include "Player/Inventory.h"
 
 #include "PlacementObject/PlacementObject.h"

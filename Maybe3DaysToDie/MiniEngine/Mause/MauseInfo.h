@@ -1,6 +1,7 @@
 #pragma once
 class MauseInfo
 {
+public:
 	enum State {
 		MauseLClick,
 		MauseRClick,
@@ -9,23 +10,21 @@ class MauseInfo
 		MauseCenterClick,
 		None,
 	};
-public:
-
 	static void Create();
 	static void Delete();
 	static MauseInfo* GetInstance() {
 		return m_MauseInfo;
 	}
-	void SetMauseState(State st) {
+	void SetMauseState(const State& st) {
 		m_MauseState = st;
 	}
 	void SetMauseMove(float moveSpeed) {
 		m_MauseMove = moveSpeed;
 	}
-	State GetMauseState() {
+	State GetMauseState() const {
 		return m_MauseState;
 	}
-	float GetMauseMove() {
+	float GetMauseMove() const {
 		return m_MauseMove;
 	}
 private:

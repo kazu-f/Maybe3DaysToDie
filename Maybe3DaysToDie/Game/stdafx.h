@@ -1,5 +1,7 @@
 #pragma once
 
+#define DEBUG
+
 #include "MiniEngine/MiniEngine.h"
 
 //ƒc[ƒ‹‚Ìí—Ş
@@ -46,5 +48,3 @@ static const int LoadingChunkCols = 3;
 static const int LoadingChunks = 3;
 
 using namespace Engine;
-
-#include "MauseInfo.h"

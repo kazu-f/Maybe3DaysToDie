@@ -1,5 +1,9 @@
 #include "stdafx.h"
 #include "GameItemBase.h"
+#include "ItemDataFile.h"
+#include "ItemBar/ItemBar.h"
+#include "PlacementObject/PlacementObject.h"
+#include "DestroyObject/DestroyObject.h"
 
 namespace {
 	const float ItemOneBoxSize = 75.0f;
@@ -42,4 +46,22 @@ GameItemBase::~GameItemBase()
 	{
 		DeleteGO(m_itemIcon);
 	}
+}
+
+void GameItemBase::SelectItemAction(ItemBar* itemBar)
+{
+	SetToolHand(itemBar);
+}
+
+void GameItemBase::UseItemAction1(ItemBar* itemBar)
+{
+	auto* destroy = itemBar->GetDestroyObject();
+	destroy->AddObjectDamage();
+}
+
+void GameItemBase::SetToolHand(ItemBar* itemBar)
+{
+	auto* destroy = itemBar->GetDestroyObject();
+	auto* hand = ItemDataFile::GetInstance()->GetHandTool();
+	destroy->SetTool(hand);
 }

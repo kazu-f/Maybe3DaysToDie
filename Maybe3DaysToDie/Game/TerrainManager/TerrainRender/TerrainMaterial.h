@@ -1,7 +1,10 @@
 #pragma once
 
 namespace nsTerrain {
-
+	struct TerrainTexPath {
+		int hash = 0;
+		std::string path;
+	};
 	/// <summary>
 	/// 地形のマテリアル。
 	/// </summary>
@@ -11,6 +14,8 @@ namespace nsTerrain {
 	public:
 		TerrainMaterial();
 		~TerrainMaterial();
+		//ファイルパスを登録する。
+		void RegistTexturePath(std::string& texturePath);
 
 		void InitTexture();
 
@@ -22,9 +27,11 @@ namespace nsTerrain {
 	public:
 		static const int MAX_TERRAIN_TEX = 4;
 
+		int INIT_TEX_NUM = 0;		//テクスチャの数。
+
 	private:
 		std::vector<Texture*> m_terrainTextures;
-
+		std::vector<TerrainTexPath> m_terrainTexturePath;
 	};
 
 }

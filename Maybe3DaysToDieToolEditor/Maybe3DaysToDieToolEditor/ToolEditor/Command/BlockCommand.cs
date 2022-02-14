@@ -9,13 +9,13 @@ namespace Maybe3DaysToDieToolEditor
     namespace Command
     {
         //耐久値変更のコマンド。
-        class ChangeTerrainDurable : ICommand
+        class ChangeBlockDurable : ICommand
         {
-            Terrain m_terrain;
+            Block m_terrain;
             int beforeVal;
             int afterVal;
 
-            public ChangeTerrainDurable(Terrain terrain, int tDurable)
+            public ChangeBlockDurable(Block terrain, int tDurable)
             {
                 beforeVal = terrain.durable;
                 afterVal = tDurable;
@@ -35,13 +35,13 @@ namespace Maybe3DaysToDieToolEditor
             }
         }
         //最適ツール変更のコマンド。
-        class ChangeTerrainKinds : ICommand
+        class ChangeBlockKinds : ICommand
         {
-            Terrain m_terrain;
+            Block m_terrain;
             int beforeVal;
             int afterVal;
 
-            public ChangeTerrainKinds(Terrain terrain, int toolKind)
+            public ChangeBlockKinds(Block terrain, int toolKind)
             {
                 beforeVal = terrain.tool;
                 afterVal = toolKind;
@@ -60,40 +60,14 @@ namespace Maybe3DaysToDieToolEditor
                 return beforeVal != afterVal;
             }
         }
-        //テクスチャ変更のコマンド。
-        class ChangeTerrainTexture : ICommand
-        {
-            Terrain m_terrain;
-            string beforeVal;
-            string afterVal;
-
-            public ChangeTerrainTexture(Terrain terrain, string texFilePath)
-            {
-                beforeVal = terrain.texFilePath;
-                afterVal = texFilePath;
-                m_terrain = terrain;
-            }
-            public override void UnDo()
-            {
-                m_terrain.texFilePath = beforeVal;        //ファイルパス変更。
-            }
-            public override void ReDo()
-            {
-                m_terrain.texFilePath = afterVal;        //ファイルパス変更。
-            }
-            public override bool IsChanged()
-            {
-                return beforeVal != afterVal;
-            }
-        }
 
         //採取アイテム追加のコマンド。
-        class AddTerrainCollectItem : ICommand
+        class AddBlockCollectItem : ICommand
         {
-            Terrain m_terrain;
+            Block m_terrain;
             CollectItem m_addCollectItem = null;
 
-            public AddTerrainCollectItem(Terrain terrain, CollectItem addItem)
+            public AddBlockCollectItem(Block terrain, CollectItem addItem)
             {
                 m_addCollectItem = addItem;
                 m_terrain = terrain;
@@ -115,13 +89,13 @@ namespace Maybe3DaysToDieToolEditor
             }
         }
         //採取アイテム削除のコマンド。
-        class RemoveTerrainCollectItem : ICommand
+        class RemoveBlockCollectItem : ICommand
         {
-            Terrain m_terrain;
+            Block m_terrain;
             CollectItem m_removeCollectItem = null;
             int m_index = int.MaxValue;
 
-            public RemoveTerrainCollectItem(Terrain terrain, int index)
+            public RemoveBlockCollectItem(Block terrain, int index)
             {
                 m_terrain = terrain;
                 m_removeCollectItem = terrain.collectItemList[index];

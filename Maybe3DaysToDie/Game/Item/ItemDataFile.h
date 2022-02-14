@@ -5,6 +5,10 @@ class BlockItem;
 class GameItemTerrain;
 class GameItemFoods;
 class GameItemMaterial;
+namespace nsTerrain {
+	class TerrainMaterial;
+}
+class Tool;
 
 /// <summary>
 /// jsonファイルからツールデータを読み込むクラス。
@@ -85,8 +89,8 @@ public:
 	{
 		BlockItem* block = nullptr;
 
-		auto it = m_blockMap.find(id);
-		if (it != m_blockMap.end())
+		auto it = m_placeMap.find(id);
+		if (it != m_placeMap.end())
 		{
 			block = it->second;
 		}
@@ -164,14 +168,32 @@ public:
 		return material;
 	}
 
+	nsTerrain::TerrainMaterial* GetTerrainMaterials()
+	{
+		return m_terrainMaterials.get();
+	}
+
+	Tool* GetHandTool()
+	{
+		return m_handTool.get();
+	}
+
+	GameItemBase* GetNullGameItem()
+	{
+		return m_nullGameItem;
+	}
 private:
 	typedef std::vector<GameItemBase*> ItemArray;
 	ItemArray m_itemArray;
 	std::map<int, GameItemTool*> m_toolMap;
+	std::map<int, BlockItem*> m_placeMap;
 	std::map<int, BlockItem*> m_blockMap;
 	std::map<int, GameItemTerrain*> m_terrainMap;
 	std::map<int, GameItemFoods*> m_foodMap;
 	std::map<int, GameItemMaterial*> m_materialMap;
+	std::unique_ptr<nsTerrain::TerrainMaterial> m_terrainMaterials;
+	std::unique_ptr<Tool> m_handTool;
+	GameItemBase* m_nullGameItem;
 
 	int m_arraySize = 0;
 };

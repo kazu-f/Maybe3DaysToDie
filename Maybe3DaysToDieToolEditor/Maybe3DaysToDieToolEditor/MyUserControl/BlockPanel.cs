@@ -10,17 +10,16 @@ using System.Windows.Forms;
 
 namespace Maybe3DaysToDieToolEditor
 {
-    public partial class PlacementObjectPanel : UserControl
+    public partial class BlockPanel : UserControl
     {
         public EditorCommandList commandList { private get; set; } = null;
         public ListBox listBox { private get; set; } = null;
         ToolKindsComboBox toolKinds;
         private BindingSource _itemDataBS = null;   //アイテムデータのバインディングソース。
 
-        private RadioButton[] placeTypeRBs;         //設置物のタイプを決めるラジオボタン。
-
-        public BindingSource ItemDataBS{
-            set 
+        public BindingSource ItemDataBS
+        {
+            set
             {
                 _itemDataBS = value;
                 ColectItemDropDownList.DataSource = _itemDataBS;
@@ -28,7 +27,7 @@ namespace Maybe3DaysToDieToolEditor
             }
         }            //アイテムデータのバインディングソース。
 
-        public PlacementObjectPanel()
+        public BlockPanel()
         {
             InitializeComponent();
             //設定を行う。
@@ -39,28 +38,28 @@ namespace Maybe3DaysToDieToolEditor
         /// 設置物のデータを表示する。
         /// </summary>
         /// <param name="obj"></param>
-        public void DispPlacementObject(PlacementObject obj)
+        public void DispBlock(Block obj)
         {
             DurableNumeric.Value = obj.durable;
             toolKinds.SelectValue(obj.tool);
             DispListView(obj);
         }
 
-        private void DispListView(PlacementObject obj)
+        private void DispListView(Block obj)
         {
             //リストを一旦空にする。
-            for(int i = 0; i < collectItemListView.Items.Count; i++)
+            for (int i = 0; i < collectItemListView.Items.Count; i++)
             {
                 var listData = collectItemListView.Items[i];
                 listData.SubItems[0].Text = (i + 1) + ":";
-                for (int j = 1;j < collectItemListView.Columns.Count; j++)
+                for (int j = 1; j < collectItemListView.Columns.Count; j++)
                 {
                     listData.SubItems[j].Text = "";
                 }
             }
 
             //リストにデータを表示する。
-            for (int i = 0;i < obj.collectItemList.Count;i++)
+            for (int i = 0; i < obj.collectItemList.Count; i++)
             {
                 var listData = collectItemListView.Items[i];
                 var item = obj.collectItemList[i];
@@ -89,15 +88,15 @@ namespace Maybe3DaysToDieToolEditor
 
             var item = listBox.SelectedItem;
             if (item == null) return;
-            if (item.GetType() != typeof(PlacementObject)) return;
+            if (item.GetType() != typeof(Block)) return;
 
-            Command.ChangePlacementObjectDurable command = new Command.ChangePlacementObjectDurable((PlacementObject)item, (int)DurableNumeric.Value);
+            Command.ChangeBlockDurable command = new Command.ChangeBlockDurable((Block)item, (int)DurableNumeric.Value);
             //変更があればコマンドリストに追加。
             if (command.IsChanged())
             {
                 commandList.AddCommand(command);
             }
-            DispPlacementObject((PlacementObject)item);
+            DispBlock((Block)item);
         }
 
         /// <summary>
@@ -109,24 +108,24 @@ namespace Maybe3DaysToDieToolEditor
         {
             var item = listBox.SelectedItem;
             if (item == null) return;
-            if (item.GetType() != typeof(PlacementObject)) return;
+            if (item.GetType() != typeof(Block)) return;
 
             if (ColectItemDropDownList.SelectedItem is Item)
             {
-                var place = (PlacementObject)item;
+                var block = (Block)item;
                 //登録できるアイテムの上限に来ているかどうか。
-                if (collectItemListView.Items.Count > place.collectItemList.Count)
+                if (collectItemListView.Items.Count > block.collectItemList.Count)
                 {
                     CollectItem collect = new CollectItem((Item)ColectItemDropDownList.SelectedItem, (int)collectNumeric.Value);
                     //place.collectItemList.Add(collect);
-                    Command.AddPlacementObjCollectItem command = new Command.AddPlacementObjCollectItem(place, collect);
+                    Command.AddBlockCollectItem command = new Command.AddBlockCollectItem(block, collect);
                     //変更があればコマンドリストに追加。
                     if (command.IsChanged())
                     {
                         commandList.AddCommand(command);
                     }
 
-                    DispPlacementObject(place);
+                    DispBlock(block);
                 }
                 else
                 {
@@ -150,27 +149,27 @@ namespace Maybe3DaysToDieToolEditor
             string No = collectItem[0].Text;
             No = No.Remove(No.LastIndexOf(":"));
             int index = int.MaxValue;
-            if(int.TryParse(No,out index))
+            if (int.TryParse(No, out index))
             {
                 index--;        //配列アクセスだから表示上の数値 - 1
                 var item = listBox.SelectedItem;
-                if(item.GetType() == typeof(PlacementObject))
+                if (item.GetType() == typeof(Block))
                 {
-                    var place = (PlacementObject)item;
+                    var block = (Block)item;
 
                     //インデックスがリストよりも小さい。
-                    if(place.collectItemList.Count > index)
+                    if (block.collectItemList.Count > index)
                     {
                         //リストから削除するコマンド。
-                        Command.RemovePlacementObjCollectItem command = new Command.RemovePlacementObjCollectItem(place, index);
+                        Command.RemoveBlockCollectItem command = new Command.RemoveBlockCollectItem(block, index);
 
-                        if(command.IsChanged())
+                        if (command.IsChanged())
                         {
                             commandList.AddCommand(command);
                         }
                     }
 
-                    DispPlacementObject(place);
+                    DispBlock(block);
                 }
             }
 
@@ -186,20 +185,20 @@ namespace Maybe3DaysToDieToolEditor
             if (listBox == null) return;
             var item = listBox.SelectedItem;
             if (item == null) return;
-            if (item.GetType() != typeof(PlacementObject)) return;
-            Command.ChangePlacementObjKinds command = new Command.ChangePlacementObjKinds((PlacementObject)item, toolKinds.SelectedValue);
+            if (item.GetType() != typeof(Block)) return;
+            Command.ChangeBlockKinds command = new Command.ChangeBlockKinds((Block)item, toolKinds.SelectedValue);
             if (command.IsChanged())
             {
                 commandList.AddCommand(command);
             }
 
         }
+
         #endregion
 
         private void activeControlNull(object sender, EventArgs e)
         {
             this.ParentForm.ActiveControl = null;
         }
-
     }
 }
