@@ -417,6 +417,26 @@ namespace Maybe3DaysToDieToolEditor
                         collect.BuildCollectItemData(list);
                     }
                 }
+                //設置物。
+                else if (item.GetType() == typeof(Block))
+                {
+                    //採取アイテムを登録し直す。
+                    var block = (Block)item;
+                    foreach (var collect in block.collectItemList)
+                    {
+                        collect.BuildCollectItemData(list);
+                    }
+                }
+                //設置物。
+                else if (item.GetType() == typeof(Terrain))
+                {
+                    //採取アイテムを登録し直す。
+                    var terrain = (Terrain)item;
+                    foreach (var collect in terrain.collectItemList)
+                    {
+                        collect.BuildCollectItemData(list);
+                    }
+                }
             }
         }
         #endregion ファイル保存関係。

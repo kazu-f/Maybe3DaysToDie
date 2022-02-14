@@ -57,12 +57,12 @@ namespace Maybe3DaysToDieToolEditor
                 }
                 else if(_item.GetType() == typeof(Block))
                 {
-                    _item.itemTypeID = m_placements.Count;
+                    _item.itemTypeID = m_blocks.Count;
                     m_blocks.Add((Block)_item);
                 }
                 else if(_item.GetType() == typeof(Terrain))
                 {
-                    _item.itemTypeID = m_placements.Count;
+                    _item.itemTypeID = m_terrains.Count;
                     m_terrains.Add((Terrain)_item);
                 }
                 else if(_item.GetType() == typeof(FoodAndCure))
