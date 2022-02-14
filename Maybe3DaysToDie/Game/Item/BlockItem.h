@@ -7,6 +7,10 @@ class BlockItem :public GameItemBase
 public:
 	BlockItem(SItemDataPtr& itemData,const ObjectParams& params, ObjectCollectItemData& placeCollectData);
 	~BlockItem() {}
+	int GetBlockHash()
+	{
+		return m_blockHash;
+	}
 private:
 	void SelectItemAction(ItemBar* itemBar);	//このアイテムが選択されたときの処理。
 	void UseItemAction1(ItemBar* itemBar);		//左クリックのアクション。
@@ -16,4 +20,5 @@ private:
 	ObjectParams m_blockParams;
 	ObjectCollectItemData m_placeCollectData;
 	std::string m_blockName;
+	int m_blockHash = 0;
 };

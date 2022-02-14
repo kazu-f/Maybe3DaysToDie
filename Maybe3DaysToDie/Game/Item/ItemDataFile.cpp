@@ -244,6 +244,7 @@ void ItemDataFile::InitItemData(const char* filePath)
 			BlockItem* block = new BlockItem(itemData, params, collectItemData);
 			m_itemArray.push_back(block);
 			m_blockMap.insert(std::make_pair(block->GetItemData()->itemID, block));
+			m_blockHashMap.insert(std::make_pair(block->GetBlockHash(), block));
 		}
 			break;
 		case EnItemType::enItem_Terrain: {
@@ -306,11 +307,12 @@ void ItemDataFile::InitItemData(const char* filePath)
 	m_terrainMaterials->InitTexture();
 	ToolInfo handInfo;
 	handInfo.Durable = 0;
-	handInfo.AttackPower = 5;
+	handInfo.AttackPower = 500;
 	handInfo.tool = ToolKinds::hand;
 	handInfo.UseStamina = 5;
 	m_handTool = std::make_unique<Tool>();
 	m_handTool->SetTool(handInfo);
 	SItemDataPtr nullItemData = std::make_unique<SItemData>();
 	m_nullGameItem = new GameItemBase(nullItemData);
+	m_blockArraySize = m_blockMap.size();
 }

@@ -148,6 +148,31 @@ public:
 
 	}
 	/// <summary>
+	/// ブロックデータを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	BlockItem* GetBlockDataHash(int hash)
+	{
+		BlockItem* block = nullptr;
+
+		auto it = m_blockHashMap.find(hash);
+		if (it != m_blockHashMap.end())
+		{
+			block = it->second;
+		}
+
+		return block;
+	}
+	/// <summary>
+	/// ブロックの種類数。
+	/// </summary>
+	/// <returns></returns>
+	int GetBlockArraySize()
+	{
+		return m_blockArraySize;
+	}
+	/// <summary>
 	/// 地形データを取得する。
 	/// </summary>
 	/// <param name="id">ID</param>
@@ -237,6 +262,7 @@ private:
 	std::map<int, GameItemTool*> m_toolMap;
 	std::map<int, GameItemPlaceObj*> m_placeMap;
 	std::map<int, BlockItem*> m_blockMap;
+	std::map<int, BlockItem*> m_blockHashMap;
 	std::map<int, GameItemTerrain*> m_terrainMap;
 	std::map<int, GameItemFoods*> m_foodMap;
 	std::map<int, GameItemMaterial*> m_materialMap;
@@ -245,5 +271,6 @@ private:
 	GameItemBase* m_nullGameItem;
 
 	int m_arraySize = 0;
+	int m_blockArraySize = 0;
 };
 

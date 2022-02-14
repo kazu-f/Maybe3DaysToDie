@@ -59,9 +59,22 @@ void GameItemBase::UseItemAction1(ItemBar* itemBar)
 	destroy->AddObjectDamage();
 }
 
+void GameItemBase::ResetUseItemSelect(ItemBar* itemBar)
+{
+	SetToolHand(itemBar);
+	SetPlaceNone(itemBar);
+}
+
 void GameItemBase::SetToolHand(ItemBar* itemBar)
 {
 	auto* destroy = itemBar->GetDestroyObject();
 	auto* hand = ItemDataFile::GetInstance()->GetHandTool();
 	destroy->SetTool(hand);
+}
+
+void GameItemBase::SetPlaceNone(ItemBar* itemBar)
+{
+	auto* place = itemBar->GetPlacementObject();
+	ObjectParams param;
+	place->SetParams(param);
 }

@@ -8,11 +8,7 @@ class LoadingByChunk :public IGameObject
 private:
 
 public:
-	LoadingByChunk()
-	{
-		//サイズの最大値セット
-		BlockModel.resize(BlockKinds);
-	}
+	LoadingByChunk();
 	~LoadingByChunk();
 
 

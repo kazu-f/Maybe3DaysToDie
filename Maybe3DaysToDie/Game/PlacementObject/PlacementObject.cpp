@@ -208,9 +208,7 @@ void PlacementObject::PlaceObject()
 			int id_z = Pos.z / OBJECT_UNIT;
 			id_z = static_cast<int>(id_z % ChunkWidth);
 
-			auto* datas = ItemDataFile::GetInstance();
-
-			auto blockData = datas->GetBlockData(objParam.BlockID);
+			auto blockData = m_itemDataFile->GetBlockData(objParam.BlockID);
 			if (blockData != nullptr) {
 				auto* block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
 				//セーブデータに直接書き込み
@@ -218,7 +216,7 @@ void PlacementObject::PlaceObject()
 				chunkData.ObjData[id_x][id_y][id_z].ObjDurable = objParam.Durable;
 				block->AddBlock(objParam, m_pos, rot, scale);
 			}
-			auto terrainData = datas->GetTerrainData(objParam.BlockID);
+			auto terrainData = m_itemDataFile->GetTerrainData(objParam.BlockID);
 			if (terrainData != nullptr) {
 				auto* terrain = m_TerrainManager->GetTerrainChunkData(ID[0], ID[1]).GetTerrainData(id_x, id_y, id_z);
 				terrain->AddBlock(objParam, m_pos, rot, scale);

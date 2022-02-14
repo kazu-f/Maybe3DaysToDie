@@ -10,13 +10,12 @@ struct InstancingData {
 };
 
 class LoadingByChunk;
+class ItemDataFile;
 class ChunkBlock
 {
 public:
 	ChunkBlock() 
 	{		
-		//サイズの最大値セット
-		//BlockModel.resize(BlockKinds);
 	}
 	~ChunkBlock() 
 	{
@@ -118,10 +117,11 @@ public:
 private:
 	int m_ChunkID[2] = { 0 };
 	SaveDataFile* m_SaveDataFile = nullptr;
+	ItemDataFile* m_itemDataFile = nullptr;
 	bool IsMove = false;
 	bool ChunkBlockDirty = true;
 	//インスタンシングデータ
-	std::vector<InstancingData> m_InstancingData[BlockKinds];
+	std::vector<std::vector<InstancingData>> m_InstancingData;
 	bool m_IsModelUpdated = false;
 	LoadingByChunk* m_LoadingByChunk = nullptr;
 	int m_LoadID[2] = { 0 };

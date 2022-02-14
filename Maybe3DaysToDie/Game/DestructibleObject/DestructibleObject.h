@@ -6,7 +6,7 @@ static const float OBJECT_HALF_UNIT = 50.0f;
 
 struct ObjectParams {
 	const char* BlockName = nullptr;		//名前
-	unsigned char BlockID = 0;
+	unsigned char BlockID = -1;
 	unsigned short Durable = 0;		//耐久値
 	ToolKinds AptitudeTool = ToolKinds::DebugTool;		//適性ツール
 };

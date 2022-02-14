@@ -42,7 +42,7 @@ public:
 	virtual void SelectItemAction(ItemBar* itemBar);	//このアイテムが選択されたときの処理。
 	virtual void UseItemAction1(ItemBar* itemBar);		//左クリックのアクション。
 	virtual void UseItemAction2(ItemBar* itemBar) {};	//右クリックのアクション。
-
+	void ResetUseItemSelect(ItemBar* itemBar);
 
 public:
 	//モデルのワールド行列を作るためのデータをセット。
@@ -78,7 +78,7 @@ public:
 	}
 protected:
 	void SetToolHand(ItemBar* itemBar);
-
+	void SetPlaceNone(ItemBar* itemBar);
 private:
 	SItemDataPtr m_itemData;
 	prefab::ModelRender* m_itemModel = nullptr;		//アイテムのモデル。

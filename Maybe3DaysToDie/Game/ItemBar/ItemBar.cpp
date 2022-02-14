@@ -107,6 +107,7 @@ void ItemBar::ItemSlotKey(int vKey, int slot)
 		if (m_SelectNum != slot) {
 			m_SelectNum = slot;
 
+			m_itemInventory[m_SelectNum].m_itemBase->ResetUseItemSelect(this);
 			m_itemInventory[m_SelectNum].m_itemBase->SelectItemAction(this);
 
 			/// 			////ƒpƒ‰ƒ[ƒ^
