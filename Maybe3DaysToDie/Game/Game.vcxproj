@@ -367,6 +367,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="3DaysIcon.ico" />
+    <ImageContentTask Include="Assets\sprite\Root.png" />
     <ImageContentTask Include="Assets\sprite\SelectBotton.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
