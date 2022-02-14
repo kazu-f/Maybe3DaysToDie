@@ -2,6 +2,7 @@
 #include "ItemDataFile.h"
 #include "Item/GameItemBase.h"
 #include "Item/GameItemTool.h"
+#include "Item/GameItemPlaceObj.h"
 #include "Item/BlockItem.h"
 #include "Item/GameItemTerrain.h"
 #include "Item/GameItemFoods.h"
@@ -195,22 +196,24 @@ void ItemDataFile::InitItemData(const char* filePath)
 
 			GameItemTool* gameItemTool = new GameItemTool(itemData, info);
 			m_itemArray.push_back(gameItemTool);
-			m_toolMap.insert(std::make_pair(gameItemTool->GetIdemData()->itemID, gameItemTool));
+			m_toolMap.insert(std::make_pair(gameItemTool->GetItemData()->itemID, gameItemTool));
 		}
 			break;
 			
 		case EnItemType::enItem_Place: {
 
-			//設置物の耐久値と特攻ツール。
-			int indexSlash = itemData->tkmPath.find_last_of("/\\");
-			int pathSize = itemData->tkmPath.size();
-			std::string blockName = itemData->tkmPath.substr(indexSlash + 1, pathSize - indexSlash - 1);
 
+			//設置物の耐久値と特攻ツール。
 			ObjectParams params;
 			params.BlockID = itemData->itemID;
-			params.BlockName = std::move(blockName.c_str());
 			params.Durable = _item[nsPlaceObjsData::durable];
 			params.AptitudeTool = _item[nsPlaceObjsData::tool];
+
+			////ここでやっても上手くいかないわ。
+			//int indexSlash = itemData->tkmPath.find_last_of("/\\");
+			//int pathSize = itemData->tkmPath.size();
+			//std::string blockName = itemData->tkmPath.substr(indexSlash + 1, pathSize - indexSlash - 1);
+			//params.BlockName = std::move(blockName.c_str());
 
 			int placeType = _item[nsPlaceObjsData::Type];
 			//設置物から採取できるアイテムのデータ。
@@ -223,15 +226,19 @@ void ItemDataFile::InitItemData(const char* filePath)
 				collectItemData[i].collectNum = _item[nsPlaceObjsData::collectItems][i][nsPlaceObjsData::Collect::corectionNum];
 			}
 
-			BlockItem* blockItem = new BlockItem(itemData, params, collectItemData, placeType);
-			m_itemArray.push_back(blockItem);
-			m_placeMap.insert(std::make_pair(blockItem->GetIdemData()->itemID, blockItem));
+			GameItemPlaceObj* placeItem = new GameItemPlaceObj(itemData, params, collectItemData, placeType);
+			m_itemArray.push_back(placeItem);
+			m_placeMap.insert(std::make_pair(placeItem->GetItemData()->itemID, placeItem));
 		}
+			break;
+
 		case EnItemType::enItem_Block: {
+
 			//設置物の耐久値と特攻ツール。
 			ObjectParams params;
-			params.Durable = _item[nsBlockData::durable];
-			params.AptitudeTool = _item[nsBlockData::tool];
+			params.BlockID = itemData->itemID;
+			params.Durable = _item[nsPlaceObjsData::durable];
+			params.AptitudeTool = _item[nsPlaceObjsData::tool];
 
 			//設置物から採取できるアイテムのデータ。
 			ObjectCollectItemData collectItemData;
@@ -243,15 +250,17 @@ void ItemDataFile::InitItemData(const char* filePath)
 				collectItemData[i].collectNum = _item[nsBlockData::collectItems][i][nsBlockData::Collect::corectionNum];
 			}
 
-			BlockItem* block = new BlockItem(itemData, params, collectItemData,0);
+			BlockItem* block = new BlockItem(itemData, params, collectItemData);
 			m_itemArray.push_back(block);
-			m_blockMap.insert(std::make_pair(block->GetIdemData()->itemID, block));
+			m_blockMap.insert(std::make_pair(block->GetItemData()->itemID, block));
 		}
+			break;
 		case EnItemType::enItem_Terrain: {
 			//設置物の耐久値と特攻ツール。
 			ObjectParams params;
-			params.Durable = _item[nsTerrainData::durable];
-			params.AptitudeTool = _item[nsTerrainData::tool];
+			params.BlockID = itemData->itemID;
+			params.Durable = _item[nsPlaceObjsData::durable];
+			params.AptitudeTool = _item[nsPlaceObjsData::tool];
 			std::string texture = _item[nsTerrainData::texture];
 
 			//設置物から採取できるアイテムのデータ。
@@ -267,7 +276,7 @@ void ItemDataFile::InitItemData(const char* filePath)
 
 			GameItemTerrain* terrainItem = new GameItemTerrain(itemData, params, collectItemData, texture);
 			m_itemArray.push_back(terrainItem);
-			m_terrainMap.insert(std::make_pair(terrainItem->GetIdemData()->itemID, terrainItem));
+			m_terrainMap.insert(std::make_pair(terrainItem->GetItemData()->itemID, terrainItem));
 		}
 			break;
 			
@@ -281,7 +290,7 @@ void ItemDataFile::InitItemData(const char* filePath)
 
 			GameItemFoods* foodItem = new GameItemFoods(itemData, params);
 			m_itemArray.push_back(foodItem);
-			m_foodMap.insert(std::make_pair(foodItem->GetIdemData()->itemID, foodItem));
+			m_foodMap.insert(std::make_pair(foodItem->GetItemData()->itemID, foodItem));
 		}
 			break;
 			
@@ -291,7 +300,7 @@ void ItemDataFile::InitItemData(const char* filePath)
 
 			GameItemMaterial* materialItem = new GameItemMaterial(itemData, type);
 			m_itemArray.push_back(materialItem);
-			m_materialMap.insert(std::make_pair(materialItem->GetIdemData()->itemID, materialItem));
+			m_materialMap.insert(std::make_pair(materialItem->GetItemData()->itemID, materialItem));
 		}
 			break;
 

@@ -5,11 +5,11 @@
 class BlockItem :public GameItemBase
 {
 public:
-	BlockItem(SItemDataPtr& itemData,const ObjectParams& params, ObjectCollectItemData& placeCollectData,int type);
+	BlockItem(SItemDataPtr& itemData,const ObjectParams& params, ObjectCollectItemData& placeCollectData);
 	~BlockItem() {}
 
 private:
 	ObjectParams m_placeParams;
 	ObjectCollectItemData m_placeCollectData;
-	int m_placeType = -1;
+	std::string m_blockName;
 };

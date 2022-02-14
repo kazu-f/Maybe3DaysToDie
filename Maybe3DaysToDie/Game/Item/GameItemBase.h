@@ -72,7 +72,7 @@ public:
 	/// アイテムデータを取得。
 	/// </summary>
 	/// <returns></returns>
-	SItemData* GetIdemData()
+	SItemData* GetItemData()
 	{
 		return m_itemData.get();
 	}
