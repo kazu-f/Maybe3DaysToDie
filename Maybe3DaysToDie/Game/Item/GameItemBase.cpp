@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameItemBase.h"
+#include "ItemBar.h"
 
 namespace {
 	const float ItemOneBoxSize = 75.0f;
@@ -42,4 +43,9 @@ GameItemBase::~GameItemBase()
 	{
 		DeleteGO(m_itemIcon);
 	}
+}
+
+void GameItemBase::UseItemAction1(ItemBar* itemBar)
+{
+
 }

@@ -260,4 +260,11 @@ void ItemDataFile::InitItemData(const char* filePath)
 
 	m_arraySize = m_itemArray.size();
 	m_terrainMaterials->InitTexture();
+	ToolInfo handInfo;
+	handInfo.Durable = 0;
+	handInfo.AttackPower = 5;
+	handInfo.tool = ToolKinds::hand;
+	handInfo.UseStamina = 5;
+	m_handTool = std::make_unique<Tool>();
+	m_handTool->SetTool(handInfo);
 }

@@ -8,6 +8,7 @@ class GameItemMaterial;
 namespace nsTerrain {
 	class TerrainMaterial;
 }
+class Tool;
 
 /// <summary>
 /// jsonファイルからツールデータを読み込むクラス。
@@ -180,6 +181,7 @@ private:
 	std::map<int, GameItemFoods*> m_foodMap;
 	std::map<int, GameItemMaterial*> m_materialMap;
 	std::unique_ptr<nsTerrain::TerrainMaterial> m_terrainMaterials;
+	std::unique_ptr<Tool> m_handTool;
 
 	int m_arraySize = 0;
 };

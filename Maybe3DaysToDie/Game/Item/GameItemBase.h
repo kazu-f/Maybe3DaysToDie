@@ -1,5 +1,12 @@
 #pragma once
 
+class ItemBar;
+
+struct InventoryItemData {
+	GameItemBase* m_itemBase = nullptr;
+	int itemCount = 0;
+};
+
 /// <summary>
 /// クラフトに必要な素材データ。
 /// </summary>
@@ -36,6 +43,10 @@ class GameItemBase
 public:
 	GameItemBase(SItemDataPtr & itemData);
 	virtual ~GameItemBase();
+
+	virtual void UseItemAction1(ItemBar* itemBar);		//左クリックのアクション。
+	virtual void UseItemAction2(ItemBar* itemBar) {};	//右クリックのアクション。
+
 
 public:
 	//モデルのワールド行列を作るためのデータをセット。
