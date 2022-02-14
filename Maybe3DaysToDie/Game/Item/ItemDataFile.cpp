@@ -11,20 +11,11 @@
 
 ItemDataFile* ItemDataFile::m_instance = nullptr;
 
+using namespace nsEnItemType;
+
 namespace {
 
 	const char* InitFilePath = "Assets/Data/json/Item_v2.json";		//読み込むファイルのファイルパス。
-	enum EnItemType
-	{
-		enItem_None = -1,
-		enItem_Tool,
-		enItem_Place,
-		enItem_Block,
-		enItem_Terrain,
-		enItem_Food,
-		enItem_Material,
-		ItemTypeNum
-	};
 
 	//アイテムの基本データに関する名前空間。
 	namespace nsItemsData {

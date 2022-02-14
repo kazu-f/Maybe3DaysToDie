@@ -14,14 +14,14 @@ GameItemBase::GameItemBase(SItemDataPtr& itemData)
 	//ユニークポインタを受け渡す。
 	m_itemData = std::move(itemData);
 
-	if (m_itemData->tkmPath.size() > 0) {
-		m_itemModel = NewGO<prefab::ModelRender>(10);
-		//モデル読み込み。
-		ModelInitData modelData;
-		modelData.m_tkmFilePath = m_itemData->tkmPath.c_str();
-		m_itemModel->Init(modelData);
-		m_itemModel->SetActiveFlag(false);
-	}
+	//if (m_itemData->tkmPath.size() > 0) {
+	//	m_itemModel = NewGO<prefab::ModelRender>(10);
+	//	//モデル読み込み。
+	//	ModelInitData modelData;
+	//	modelData.m_tkmFilePath = m_itemData->tkmPath.c_str();
+	//	m_itemModel->Init(modelData);
+	//	m_itemModel->SetActiveFlag(false);
+	//}
 
 	if (m_itemData->iconPath.size() > 0) {
 		m_itemIcon = NewGO<prefab::CSpriteRender>(10);

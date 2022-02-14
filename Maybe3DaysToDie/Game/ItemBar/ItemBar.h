@@ -71,6 +71,7 @@ public:
 	}
 private:
 	void ItemSlotKey(int vKey,int slot);
+	void SetItemDatas();
 private:
 	prefab::CSpriteRender* m_ItemIcon = nullptr;
 	prefab::CSpriteRender* m_SelectItemIcon = nullptr;
@@ -86,7 +87,7 @@ private:
 	TerrainLoad* m_TerrainLoad = nullptr;
 	Stage* m_Stage = nullptr;
 	Player* m_Player=nullptr;
-	InventoryItemData m_itemBases[SelectNum];		//配列。
+	InventoryItemData m_itemInventory[SelectNum];		//配列。
 	GameItemBase* m_nullItem = nullptr;
 
 	float m_InstallTime = 0.0f;		//設置できる時間

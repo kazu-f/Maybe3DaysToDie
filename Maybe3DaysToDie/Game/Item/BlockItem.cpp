@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "BlockItem.h"
+#include "ItemBar/ItemBar.h"
+#include "PlacementObject/PlacementObject.h"
+#include "DestroyObject/DestroyObject.h"
 
 BlockItem::BlockItem(SItemDataPtr& itemData, const ObjectParams& params, ObjectCollectItemData& placeCollectData)
 	:GameItemBase(itemData)
@@ -11,7 +14,23 @@ BlockItem::BlockItem(SItemDataPtr& itemData, const ObjectParams& params, ObjectC
 	int pathSize = tkmPath.size();
 	m_blockName = tkmPath.substr(static_cast<int>(indexSlash + 1), static_cast<int>((pathSize - indexSlash) - (pathSize - indexTkm) - 1));
 
-	m_placeParams = params;
-	m_placeParams.BlockName = m_blockName.c_str();
+	m_blockParams = params;
+	m_blockParams.BlockName = m_blockName.c_str();
 	m_placeCollectData = std::move(placeCollectData);
+}
+
+void BlockItem::SelectItemAction(ItemBar* itemBar)
+{
+	auto* placeObj = itemBar->GetPlacementObject();
+	placeObj->SetParams(m_blockParams);
+}
+
+void BlockItem::UseItemAction1(ItemBar* itemBar)
+{
+}
+
+void BlockItem::UseItemAction2(ItemBar* itemBar)
+{
+	auto* placeObj = itemBar->GetPlacementObject();
+	placeObj->PlaceObject();
 }

@@ -11,13 +11,26 @@ namespace nsTerrain {
 }
 class Tool;
 
+namespace nsEnItemType {
+	enum EnItemType
+	{
+		enItem_None = -1,
+		enItem_Tool,
+		enItem_Place,
+		enItem_Block,
+		enItem_Terrain,
+		enItem_Food,
+		enItem_Material,
+		ItemTypeNum
+	};
+}
+
 /// <summary>
 /// jsonファイルからツールデータを読み込むクラス。
 /// </summary>
 class ItemDataFile
 {
 	using json = nlohmann::json;
-
 public:		//シングルトン。
 	static void CreateInstance()
 	{
@@ -113,6 +126,23 @@ public:
 		{
 			block = it->second;
 		}
+
+		return block;
+
+	}
+	/// <summary>
+	/// ブロックデータを取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	BlockItem* GetBlockDataTypeID(int id)
+	{
+		BlockItem* block = nullptr;
+
+		auto it = m_blockMap.begin();
+		std::advance(it, id);
+
+		block = it->second;
 
 		return block;
 

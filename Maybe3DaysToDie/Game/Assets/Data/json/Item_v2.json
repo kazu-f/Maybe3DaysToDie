@@ -217,8 +217,8 @@
         "corectionNum": 10
       }
     ],
-    "durable": 0,
-    "tool": 0
+    "durable": 300,
+    "tool": 1
   },
   {
     "__type": "Block:#Maybe3DaysToDieToolEditor",
@@ -237,8 +237,8 @@
     "tkmFile": "Assets\\modelData\\CubeBlock\\CardBoard.tkm",
     "collectItemDataNum": 0,
     "collectItems": [ ],
-    "durable": 0,
-    "tool": 0
+    "durable": 400,
+    "tool": 1
   },
   {
     "__type": "Block:#Maybe3DaysToDieToolEditor",
@@ -257,8 +257,8 @@
     "tkmFile": "Assets\\modelData\\CubeBlock\\BookBlock.tkm",
     "collectItemDataNum": 0,
     "collectItems": [ ],
-    "durable": 0,
-    "tool": 0
+    "durable": 300,
+    "tool": 1
   },
   {
     "__type": "Material:#Maybe3DaysToDieToolEditor",
@@ -279,5 +279,4 @@
     "tkmFile": "",
     "MaterialType": 0
   }
-]
 ]
