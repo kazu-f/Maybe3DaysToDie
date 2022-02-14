@@ -69,6 +69,7 @@
     <ClCompile Include="math\Math.cpp" />
     <ClCompile Include="math\Matrix.cpp" />
     <ClCompile Include="math\Vector.cpp" />
+    <ClCompile Include="Mause\MauseInfo.cpp" />
     <ClCompile Include="MiniEngine.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MiniEngine.h</PrecompiledHeaderFile>
@@ -139,6 +140,7 @@
     <ClInclude Include="level\MapChip.h" />
     <ClInclude Include="level\MapChipRender.h" />
     <ClInclude Include="level\TklFile.h" />
+    <ClInclude Include="Mause\MauseInfo.h" />
     <ClInclude Include="MiniEngine.h" />
     <ClInclude Include="graphics\NullTextureMaps.h" />
     <ClInclude Include="physics\BoxCollider.h" />

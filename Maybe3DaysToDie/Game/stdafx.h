@@ -48,5 +48,3 @@ static const int LoadingChunkCols = 3;
 static const int LoadingChunks = 3;
 
 using namespace Engine;
-
-#include "MauseInfo.h"

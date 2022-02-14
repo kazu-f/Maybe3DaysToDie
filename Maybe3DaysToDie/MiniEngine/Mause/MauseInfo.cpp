@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "MiniEngine.h"
 #include "MauseInfo.h"
 
 MauseInfo* MauseInfo::m_MauseInfo = nullptr;
