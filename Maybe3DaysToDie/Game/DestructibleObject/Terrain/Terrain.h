@@ -59,7 +59,7 @@ namespace nsTerrain {
 		/// <summary>
 		/// ダメージを与える。
 		/// </summary>
-		void Damage(const ToolInfo& tool)override final;
+		int Damage(const ToolInfo& tool)override final;
 
 		/// <summary>
 		/// ブロックを追加

@@ -21,6 +21,11 @@ public:
 	{
 		return m_placeType;
 	}
+
+	const ObjectCollectItemData& GetCollectItemData()
+	{
+		return m_placeCollectData;
+	}
 private:
 	ObjectParams m_placeParams;
 	ObjectCollectItemData m_placeCollectData;

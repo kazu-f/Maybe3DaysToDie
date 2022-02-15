@@ -73,15 +73,25 @@ public:
 	/// </summary>
 	/// <param name="enemy"></param>
 	void UnRegistEnemy(IEnemy* enemy);
-	/// <summary>
+	
+	/// /// <summary>
 	/// ブラッドムーンを有効化する。
 	/// <para>全ゾンビに索敵範囲に関わらず、Playerまで探査させる。</para>
 	/// </summary>
 	void ActivateBloodMoonHode();
-	/// <summary>
+	
+	/// /// <summary>
 	/// ブラッドムーンを無効化。
 	/// </summary>
 	void DisableBloodMoonHode();
+
+	/// <summary>
+	/// 死亡したエネミーの数をインクリメント。
+	/// </summary>
+	void AddDeadEnemyCount()
+	{
+		m_deadEnemyCount++;
+	}
 
 	/// <summary>
 	/// ステージを設定。
@@ -101,7 +111,7 @@ private:
 	/* EnemyManagement */
 	int m_currentEnemyCount = 0;					//現在、存在しているエネミーの数。
 	std::vector<IEnemy*> m_enemyList;				//エネミーのリスト。
-	const float SPAWN_ENEMY_TIME = 10.0f;			//エネミーが沸く周期。
+	const float SPAWN_ENEMY_TIME = 3.0f;			//エネミーが沸く周期。
 	float m_spawnEnemyTimer = SPAWN_ENEMY_TIME / 2;	//エネミーが沸くタイマー。
 	int m_deadEnemyCount = 0;
 

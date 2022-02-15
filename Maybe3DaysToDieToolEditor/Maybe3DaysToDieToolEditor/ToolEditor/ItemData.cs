@@ -229,6 +229,56 @@ namespace Maybe3DaysToDieToolEditor
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
     }
 
+    [DataContract]
+    public class InsideItem
+    {
+        public InsideItem(Item _item)
+        {
+            insideItem = _item;
+        }
+        private Item insideItem = null;
+        private int itemID = -1;                 //アイテムID。
+
+        /// <summary>
+        /// アイテムIDからアイテムデータを構築し直す。
+        /// </summary>
+        /// <param name="itemList">アイテムリスト。</param>
+        public void BuildCollectItemData(List<Item> itemList)
+        {
+            if (itemID != -1 && itemList.Count > itemID)
+            {
+                insideItem = itemList[itemID];
+            }
+        }
+        //アイテムの名前。
+        public string ItemName
+        {
+            get
+            {
+                if (insideItem == null
+                    || insideItem.isRegist == false) return "NoData";
+                else return insideItem.itemName;
+            }
+        }
+        [DataMember(Name = "ID")]
+        public int ItemID
+        {
+            get
+            {
+                if (insideItem == null
+                    || insideItem.isRegist == false) return -1;
+                else return insideItem.itemID;
+            }
+            set
+            {
+                itemID = value;
+            }
+        }
+        [DataMember(Name = "maxNum")] public int maxNum { get; set; } = 0;             //最大個数。
+        [DataMember(Name = "minNum")] public int minNum { get; set; } = 0;             //最小個数。
+        [DataMember(Name = "probability")] public int probability { get; set; } = 0;   //確率。
+    }
+
     /// <summary>
     /// 設置物の情報。
     /// </summary>
@@ -252,6 +302,8 @@ namespace Maybe3DaysToDieToolEditor
 
             }
         }
+
+        [DataMember(Name = "insideItems")] public List<InsideItem> insideItemData = new List<InsideItem>();
     }
 
     /// <summary>

@@ -15,6 +15,7 @@ public:
 	void Leave() override final;
 
 private:
-	float m_deathTimer = 0.0f;
+	const float DELETE_TIME = 5.0f;
+	float m_deleteTimer = 0.0f;
 };
 

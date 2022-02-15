@@ -12,6 +12,8 @@ namespace Maybe3DaysToDieToolEditor
 {
     public partial class FoodAndCurePanel : UserControl
     {
+        public DeFocusCommand deFocus = null;
+
         public EditorCommandList commandList { private get; set; } = null;
         public ListBox listBox { private get; set; } = null;
 
@@ -161,7 +163,7 @@ namespace Maybe3DaysToDieToolEditor
 
         private void activeControlNull(object sender, EventArgs e)
         {
-            this.ParentForm.ActiveControl = null;
+            deFocus();
         }
     }
 }

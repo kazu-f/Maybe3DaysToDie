@@ -62,6 +62,8 @@ public://HP関係
 private:
 	Vector3 m_scale = { 6.0f, 6.0f, 6.0f };		//拡大。
 	IEnemy::EnemyParams m_parameters;			//パラメーター。
+	Vector3 m_frontFramePos;
+	Vector3 m_move;
 
 	STDZombieWandering* m_wanderingState = nullptr;		//徘徊ステート。
 	STDZombieTracking*	m_trackingState = nullptr;		//追跡用ステート。

@@ -1,8 +1,14 @@
 #pragma once
 #include "MiniEngine/physics/CollisionAttr.h"
+#include "Item/GameItemBase.h"
 
 class Tool;
 class SaveDataFile;
+
+struct Item {
+	GameItemBase* item = nullptr;
+	int stack = 0;
+};
 //todo ÉvÉåÉCÉÑÅ[ë§Ç©ÇÁåƒÇ‘ÇÊÇ§Ç…Ç»Ç¡ÇΩÇÁIGameObjectÇåpè≥ÇµÇ»Ç¢ÇÊÇ§Ç…
 class DestroyObject:public IGameObject
 {
@@ -10,7 +16,7 @@ public:
 	DestroyObject();
 	~DestroyObject();
 
-	void AddObjectDamage();
+	std::vector<Item>& AddObjectDamage();
 
 	void Update();
 
@@ -30,5 +36,5 @@ public:
 private:
 	Tool* m_tool = nullptr;
 	SaveDataFile* m_SaveData = nullptr;
+	std::vector<Item> m_Item;
 };
-

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "RootBlock.h"
+#include <random>
 
 RootBlock::RootBlock()
 {
@@ -39,5 +40,9 @@ void RootBlock::Init()
 
 void RootBlock::Root()
 {
-
+	std::random_device rd;
+	std::default_random_engine eng(rd());
+	std::uniform_int_distribution<int> distr(MinRootItem, MaxRootItem);
+	//ƒ‰ƒ“ƒ_ƒ€¶¬
+	int ItemKinds = distr(eng);
 }

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Maybe3DaysToDieToolEditor
 {
+    public delegate void DeFocusCommand();
     public partial class Maybe3DaysToDie_ToolEditor : Form
     {
 
@@ -20,7 +21,9 @@ namespace Maybe3DaysToDieToolEditor
         BindingSource listBoxBS = new BindingSource();
         BindingSource craftItemDataBS = new BindingSource();
         BindingSource collectItemDataBS = new BindingSource();
+        BindingSource rootItemDataBS = new BindingSource();
         EditorCommandList commandList = new EditorCommandList();
+        RootItemList rootItemEditer = null;
         //ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
         LoadItemDataList loadData;
@@ -32,6 +35,7 @@ namespace Maybe3DaysToDieToolEditor
             listBoxBS.DataSource = m_itemList;
             craftItemDataBS.DataSource = m_itemList;
             collectItemDataBS.DataSource = m_itemList;
+            rootItemDataBS.DataSource = m_itemList;
             m_itemDataList.ItemList = m_itemList;
 
             ItemList.DisplayMember = "itemName";
@@ -42,24 +46,33 @@ namespace Maybe3DaysToDieToolEditor
             itemDataPanel1.listBox = ItemList;
             itemDataPanel1.ItemDataBS = craftItemDataBS;
             itemDataPanel1.updateBSMethod = UpdateBS;
+            itemDataPanel1.deFocus = DeFocus;
 
             toolDataPanel1.commandList = commandList;
             toolDataPanel1.listBox = ItemList;
+            toolDataPanel1.deFocus = DeFocus;
 
             placementObjectPanel1.commandList = commandList;
             placementObjectPanel1.listBox = ItemList;
             placementObjectPanel1.ItemDataBS = collectItemDataBS;
+            placementObjectPanel1.RootDataBS = rootItemDataBS;
+            placementObjectPanel1.deFocus = DeFocus;
+            rootItemEditer = placementObjectPanel1.CreateRootItemDataEditer();
+            rootItemEditer.parentForm = this;
 
             blockPanel1.commandList = commandList;
             blockPanel1.listBox = ItemList;
             blockPanel1.ItemDataBS = collectItemDataBS;
+            blockPanel1.deFocus = DeFocus;
 
             terrainPanel1.commandList = commandList;
             terrainPanel1.listBox = ItemList;
             terrainPanel1.ItemDataBS = collectItemDataBS;
+            terrainPanel1.deFocus = DeFocus;
 
             foodAndCurePanel1.commandList = commandList;
             foodAndCurePanel1.listBox = ItemList;
+            foodAndCurePanel1.deFocus = DeFocus;
 
             GroupBoxPanelDisable();
             toolDataPanel1.Visible = true;
@@ -74,6 +87,8 @@ namespace Maybe3DaysToDieToolEditor
             listBoxBS.ResetBindings(false);
             craftItemDataBS.ResetBindings(false);
             collectItemDataBS.ResetBindings(false);
+            rootItemDataBS.ResetBindings(false);
+            rootItemEditer.ResetBindingData();
         }
         /// <summary>
         /// アイテムリストに更新が入ったら呼ぶ処理。
@@ -301,7 +316,7 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void UnDoToolStripMenuItem_Click(object sender, EventArgs e)
+        public void UnDoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             commandList.CommandUnDo();
             var item = ItemList.SelectedItem;
@@ -318,7 +333,7 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void reDoToolStripMenuItem_Click(object sender, EventArgs e)
+        public void reDoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             commandList.CommandReDo();
             var item = ItemList.SelectedItem;
@@ -331,16 +346,6 @@ namespace Maybe3DaysToDieToolEditor
         }
         #endregion
 
-        //フォーカスを外す。
-        private void DeFocus()
-        {
-            this.ActiveControl = null;
-        }
-
-        private void MouseCapture(object sender, EventArgs e)
-        {
-            DeFocus();
-        }
 
         #region ファイル保存関係。
         /// <summary>
@@ -385,6 +390,7 @@ namespace Maybe3DaysToDieToolEditor
                 listBoxBS.DataSource = m_itemList;
                 craftItemDataBS.DataSource = m_itemList;
                 collectItemDataBS.DataSource = m_itemList;
+                rootItemDataBS.DataSource = m_itemList;
                 //表記を変更。
                 ItemList.SelectedItem = m_itemList[0];
                 DispItemData(m_itemList[0]);
@@ -418,6 +424,10 @@ namespace Maybe3DaysToDieToolEditor
                     {
                         collect.BuildCollectItemData(list);
                     }
+                    foreach(var inside in place.insideItemData)
+                    {
+                        inside.BuildCollectItemData(list);
+                    }
                 }
                 //設置物。
                 else if (item.GetType() == typeof(Block))
@@ -450,13 +460,13 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="e"></param>
         private void Maybe3DaysToDie_ToolEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(commandList.isChanged)
+            if (commandList.isChanged)
             {
                 DialogResult dr = MessageBox.Show(
                     "ファイルが保存されていません。" +
                     "\n保存しないで終了しますか？",
                     "終了",
-                    MessageBoxButtons.YesNo, 
+                    MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning,
                     MessageBoxDefaultButton.Button2
                     );
@@ -469,6 +479,18 @@ namespace Maybe3DaysToDieToolEditor
                     e.Cancel = true;
                 }
             }
+        }
+
+        //フォーカスを外す。
+        public void DeFocus()
+        {
+            this.ActiveControl = null;
+            rootItemEditer.Hide();
+        }
+
+        private void MouseCapture(object sender, EventArgs e)
+        {
+            DeFocus();
         }
     }
 }

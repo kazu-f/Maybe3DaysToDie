@@ -12,7 +12,7 @@ public:
 	/// ダメージを与える
 	/// </summary>
 	/// <param name="tool">ツールの情報</param>
-	void Damage(const ToolInfo& tool)override final;
+	int Damage(const ToolInfo& tool)override final;
 
 	/// <summary>
 	/// ブロックを追加

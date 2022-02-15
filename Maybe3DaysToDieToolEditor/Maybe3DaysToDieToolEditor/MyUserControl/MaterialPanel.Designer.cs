@@ -40,6 +40,7 @@ namespace Maybe3DaysToDieToolEditor
             this.MaterialPanelGroupBox.TabIndex = 0;
             this.MaterialPanelGroupBox.TabStop = false;
             this.MaterialPanelGroupBox.Text = "Material";
+            this.MaterialPanelGroupBox.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
             // 
             // MaterialPanel
             // 
