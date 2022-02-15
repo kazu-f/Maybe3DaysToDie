@@ -96,6 +96,11 @@ public:
 		return m_InstancingData[BlockID];
 	}
 
+	int GetInstancingDataSize()
+	{
+		return m_InstancingData.size();
+	}
+
 	/// <summary>
 	/// LoadingByChunkのポインタをセット
 	/// </summary>

@@ -113,6 +113,45 @@ public:
 
 	}
 	/// <summary>
+	/// 設置物データをタイプIDで取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	GameItemPlaceObj* GetPlaceObjTypeID(int id)
+	{
+		GameItemPlaceObj* place = nullptr;
+
+		auto it = m_placeMap.begin();
+		std::advance(it, id);
+
+		place = it->second;
+
+		return place;
+
+	}
+	/// <summary>
+	/// 設置物データをハッシュで取得する。
+	/// </summary>
+	/// <param name="id">ID</param>
+	/// <returns></returns>
+	GameItemPlaceObj* GetPlaceDataHash(int hash)
+	{
+		GameItemPlaceObj* place = nullptr;
+
+		auto it = m_placeHashMap.find(hash);
+		if (it != m_placeHashMap.end())
+		{
+			place = it->second;
+		}
+
+		return place;
+	}
+
+	int GetPlaceArraySize()
+	{
+		return m_placeMap.size();
+	}
+	/// <summary>
 	/// ブロックデータを取得する。
 	/// </summary>
 	/// <param name="id">ID</param>
@@ -170,7 +209,7 @@ public:
 	/// <returns></returns>
 	int GetBlockArraySize()
 	{
-		return m_blockArraySize;
+		return m_blockMap.size();
 	}
 	/// <summary>
 	/// 地形データを取得する。
@@ -261,6 +300,7 @@ private:
 	ItemArray m_itemArray;
 	std::map<int, GameItemTool*> m_toolMap;
 	std::map<int, GameItemPlaceObj*> m_placeMap;
+	std::map<int, GameItemPlaceObj*> m_placeHashMap;
 	std::map<int, BlockItem*> m_blockMap;
 	std::map<int, BlockItem*> m_blockHashMap;
 	std::map<int, GameItemTerrain*> m_terrainMap;
@@ -271,6 +311,5 @@ private:
 	GameItemBase* m_nullGameItem;
 
 	int m_arraySize = 0;
-	int m_blockArraySize = 0;
 };
 

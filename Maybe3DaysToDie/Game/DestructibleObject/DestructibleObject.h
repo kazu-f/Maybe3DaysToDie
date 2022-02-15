@@ -5,7 +5,6 @@ static const float OBJECT_UNIT = 100.0f;
 static const float OBJECT_HALF_UNIT = 50.0f;
 
 struct ObjectParams {
-	const char* BlockName = nullptr;		//名前
 	unsigned char BlockID = -1;
 	unsigned short Durable = 0;		//耐久値
 	ToolKinds AptitudeTool = ToolKinds::DebugTool;		//適性ツール
@@ -27,7 +26,6 @@ public:
 	/// <param name="param">パラメータ</param>
 	void SetParams(ObjectParams&param)
 	{
-		m_params.BlockName = param.BlockName;
 		m_params.BlockID = param.BlockID;
 		m_params.Durable = param.Durable;
 		m_maxDurable = param.Durable;
@@ -120,7 +118,6 @@ public:
 
 	void ResetParams()
 	{
-		m_params.BlockName = nullptr;
 		m_params.Durable = 0;
 		m_params.AptitudeTool = ToolKinds::DebugTool;
 	}

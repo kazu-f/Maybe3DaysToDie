@@ -3,6 +3,8 @@
 #include "Load/ChunkBlock/ChunkBlock.h"
 #include "TerrainManager/TerrainManager.h"
 
+class ItemDataFile;
+
 class LoadingByChunk :public IGameObject
 {
 private:
@@ -138,6 +140,7 @@ public:
 		return &m_ChunkBlock[x][z];
 	}
  private:
+	 ItemDataFile* m_itemDatas = nullptr;
 	SaveDataFile* m_SaveDataFile = nullptr;
 	int PlayerPosInGrid[2] = { 0 };
 	bool m_isDirty = true;		//çXêVÇ∑ÇÈÇ©Ç«Ç§Ç©
