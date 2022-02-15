@@ -73,7 +73,7 @@ void Player::Update()
 		btVector3 start, end;
 		Vector3 PlayerPos = m_Pos;
 		PlayerPos.y = m_Pos.y + 90.0f;
-		start.setValue(PlayerPos.x, PlayerPos.y + 90.0f, PlayerPos.z);
+		start.setValue(PlayerPos.x, PlayerPos.y, PlayerPos.z);
 		Vector3 RayEnd = PlayerPos;
 		RayEnd += MainCamera().GetForward() * PlayerRange * OBJECT_UNIT;
 		end.setValue(RayEnd.x, RayEnd.y, RayEnd.z);
