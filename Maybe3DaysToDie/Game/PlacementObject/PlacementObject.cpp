@@ -4,9 +4,13 @@
 #include "SaveDataFile.h"
 #include "RayTest.h"
 #include "Item/ItemDataFile.h"
+#include "Item/GameItemPlaceObj.h"
+#include "Item/BlockItem.h"
+#include "Item/GameItemTerrain.h"
 
 PlacementObject::PlacementObject()
 {
+	m_itemDataFile = ItemDataFile::GetInstance();
 }
 
 PlacementObject::~PlacementObject()
@@ -46,14 +50,16 @@ bool PlacementObject::Start()
 
 void PlacementObject::Update()
 {
-	//オブジェクトを設置する位置を計算
 	ObjID = static_cast<int>(objParam.BlockID);
-	if (ObjID < 0 || ObjID >= BlockKinds)
-	{
+	auto* block = m_itemDataFile->GetBlockData(ObjID);
+	auto* terrain = m_itemDataFile->GetTerrainData(ObjID);
+	auto* placeObj = m_itemDataFile->GetPlaceData(ObjID);
+	if (block == nullptr && terrain == nullptr && placeObj == nullptr) {
 		//ブロックIDがマイナスか最大値より大きいときreturn
 		CanPlace = false;
-		return;
+		return;	
 	}
+
 	CalcObjectPos();
 	//各種セット
 	m_ObjectModel->SetPosition(m_pos);
@@ -67,7 +73,7 @@ void PlacementObject::CalcObjectPos()
 	Vector3 m_Start = MainCamera().GetPosition();
 	//視線方向にポジションを加算
 	Vector3 m_End = m_Start;
-	m_End += MainCamera().GetForward() * SetRange;
+	m_End += MainCamera().GetForward() * PlayerRange * OBJECT_UNIT;
 	Vector3 cpos = MainCamera().GetPosition();
 	Vector3 ctgt = MainCamera().GetTarget();
 	Vector3 forward = cpos - ctgt;
@@ -108,31 +114,58 @@ void PlacementObject::CalcObjectPos()
 bool PlacementObject::SetModelParams()
 {
 	ObjID = static_cast<int>(objParam.BlockID);
-	const auto& dataFile = ItemDataFile::GetInstance();
-	//todo ItemDataFileから取得してくる
-	if (ObjID < 0 || ObjID >= BlockKinds)
-	{
-		//ブロックIDがマイナスか最大値より大きいときreturn
+	auto* block = m_itemDataFile->GetBlockData(ObjID);
+	auto* terrain = m_itemDataFile->GetTerrainData(ObjID);
+	auto* placeObj = m_itemDataFile->GetPlaceData(ObjID);
+	if (block == nullptr && terrain == nullptr && placeObj == nullptr) {
 		return false;
 	}
-	else
+
+	std::string* filePath = nullptr;
+	if (block != nullptr)
 	{
-		//ファイルパス作成。
-		wchar_t filePath[256];
-		swprintf_s(filePath, L"Assets/modelData/CubeBlock/%s.tkm", m_SaveData->ObjectFilePath[ObjID].c_str());
-
-		size_t oriSize = wcslen(filePath) + 1;
-		size_t convertedChars = 0;
-		char strConcat[] = "";
-		size_t strConcatSize = (strlen(strConcat) + 1) * 2;
-		const size_t newSize = oriSize * 2;
-		char* nString = new char[newSize + strConcatSize];
-		wcstombs_s(&convertedChars, nString, newSize, filePath, _TRUNCATE);
-		_mbscat_s((unsigned char*)nString, newSize + strConcatSize, (unsigned char*)strConcat);
-
-		m_modelInitData.m_tkmFilePath = nString;
-		return true;
+		filePath = &block->GetItemData()->tkmPath;
 	}
+	if (terrain != nullptr)
+	{
+		filePath = &terrain->GetItemData()->tkmPath;
+	}
+	if (placeObj != nullptr)
+	{
+		filePath = &placeObj->GetItemData()->tkmPath;
+	}
+
+	if (filePath->size() == 0) return false;
+
+	m_modelInitData.m_tkmFilePath = filePath->c_str();
+
+	return true;
+
+	//const auto& dataFile = ItemDataFile::GetInstance();
+	////todo ItemDataFileから取得してくる
+	//if (ObjID < 0 || ObjID >= BlockKinds)
+	//{
+	//	//ブロックIDがマイナスか最大値より大きいときreturn
+	//	return false;
+	//}
+	//else
+	//{
+	//	//ファイルパス作成。
+	//	wchar_t filePath[256];
+	//	swprintf_s(filePath, L"Assets/modelData/CubeBlock/%s.tkm", m_SaveData->ObjectFilePath[ObjID].c_str());
+
+	//	size_t oriSize = wcslen(filePath) + 1;
+	//	size_t convertedChars = 0;
+	//	char strConcat[] = "";
+	//	size_t strConcatSize = (strlen(strConcat) + 1) * 2;
+	//	const size_t newSize = oriSize * 2;
+	//	char* nString = new char[newSize + strConcatSize];
+	//	wcstombs_s(&convertedChars, nString, newSize, filePath, _TRUNCATE);
+	//	_mbscat_s((unsigned char*)nString, newSize + strConcatSize, (unsigned char*)strConcat);
+
+	//	m_modelInitData.m_tkmFilePath = nString;
+	//	return true;
+	//}
 }
 
 //todo [最適化]後で処理見直せ
@@ -174,25 +207,40 @@ void PlacementObject::PlaceObject()
 			id_y = static_cast<int>(id_y % ChunkHeight);
 			int id_z = Pos.z / OBJECT_UNIT;
 			id_z = static_cast<int>(id_z % ChunkWidth);
-			
-			switch (m_SaveData->ObjectType[objParam.BlockID])
-			{
-			case ObjectType::Block:
-			{
+
+			auto blockData = m_itemDataFile->GetBlockData(objParam.BlockID);
+			if (blockData != nullptr) {
 				auto* block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
 				//セーブデータに直接書き込み
 				chunkData.ObjData[id_x][id_y][id_z].ObjId = objParam.BlockID;
 				chunkData.ObjData[id_x][id_y][id_z].ObjDurable = objParam.Durable;
 				block->AddBlock(objParam, m_pos, rot, scale);
-				break;
 			}
-			case ObjectType::Terrain:
-			{
+			auto terrainData = m_itemDataFile->GetTerrainData(objParam.BlockID);
+			if (terrainData != nullptr) {
 				auto* terrain = m_TerrainManager->GetTerrainChunkData(ID[0], ID[1]).GetTerrainData(id_x, id_y, id_z);
 				terrain->AddBlock(objParam, m_pos, rot, scale);
-				break;
+				terrain->SetTerrainID(terrainData->GetItemData()->itemTypeID);
 			}
-			}
+
+			//switch (m_SaveData->ObjectType[objParam.BlockID])
+			//{
+			//case ObjectType::Block:
+			//{
+			//	auto* block = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
+			//	//セーブデータに直接書き込み
+			//	chunkData.ObjData[id_x][id_y][id_z].ObjId = objParam.BlockID;
+			//	chunkData.ObjData[id_x][id_y][id_z].ObjDurable = objParam.Durable;
+			//	block->AddBlock(objParam, m_pos, rot, scale);
+			//	break;
+			//}
+			//case ObjectType::Terrain:
+			//{
+			//	auto* terrain = m_TerrainManager->GetTerrainChunkData(ID[0], ID[1]).GetTerrainData(id_x, id_y, id_z);
+			//	terrain->AddBlock(objParam, m_pos, rot, scale);
+			//	break;
+			//}
+			//}
 		}
 	}
 }

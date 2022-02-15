@@ -17,6 +17,8 @@ namespace Maybe3DaysToDieToolEditor
         private List<Item> m_items;
         private List<ToolData> m_tools;
         private List<PlacementObject> m_placements;
+        private List<Block> m_blocks;
+        private List<Terrain> m_terrains;
         private List<FoodAndCure> m_foods;
         private List<Material> m_materials;
 
@@ -24,6 +26,8 @@ namespace Maybe3DaysToDieToolEditor
         {
             m_tools = new List<ToolData>();
             m_placements = new List<PlacementObject>();
+            m_blocks = new List<Block>();
+            m_terrains = new List<Terrain>();
             m_foods = new List<FoodAndCure>();
             m_materials = new List<Material>();
         }
@@ -32,6 +36,8 @@ namespace Maybe3DaysToDieToolEditor
         {
             m_tools.Clear();
             m_placements.Clear();
+            m_blocks.Clear();
+            m_terrains.Clear();
             m_foods.Clear();
             m_materials.Clear();
             for (int i = 0; i < m_items.Count; i++)
@@ -48,6 +54,16 @@ namespace Maybe3DaysToDieToolEditor
                 {
                     _item.itemTypeID = m_placements.Count;
                     m_placements.Add((PlacementObject)_item);
+                }
+                else if(_item.GetType() == typeof(Block))
+                {
+                    _item.itemTypeID = m_blocks.Count;
+                    m_blocks.Add((Block)_item);
+                }
+                else if(_item.GetType() == typeof(Terrain))
+                {
+                    _item.itemTypeID = m_terrains.Count;
+                    m_terrains.Add((Terrain)_item);
                 }
                 else if(_item.GetType() == typeof(FoodAndCure))
                 {

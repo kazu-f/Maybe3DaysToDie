@@ -14,6 +14,7 @@
     <ImageContentTask Include="Assets\sprite\BackColor.png" />
     <ImageContentTask Include="Assets\sprite\respownBotton.png" />
     <ImageContentTask Include="Assets\sprite\SelectBotton.png" />
+    <ImageContentTask Include="Assets\sprite\Root.png" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AccessObject\AccessObject.cpp" />
@@ -79,8 +80,6 @@
     <ClCompile Include="Player\state\PlayerMenu.cpp" />
     <ClCompile Include="Inventory\RootBlock.cpp" />
     <ClCompile Include="Item\GameItemTerrain.cpp" />
-    <ClCompile Include="ItemBar\ItemBar.cpp" />
-    <ClCompile Include="Enemy\StandardZombie\STDZombieDeath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />

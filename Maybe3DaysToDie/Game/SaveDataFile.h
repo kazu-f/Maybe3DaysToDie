@@ -4,7 +4,7 @@ class SaveDataFile
 {
 public:
 	struct ObjectData {
-		unsigned char ObjId = 0;		//使用しているブロックの種類
+		unsigned char ObjId = -1;		//使用しているブロックの種類
 		unsigned short ObjDurable = 0;		//ブロックの耐久値
 		Quaternion Rotate = Quaternion::Identity;
 	};

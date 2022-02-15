@@ -13,6 +13,7 @@ namespace Maybe3DaysToDieToolEditor
         enItem_None = -1,
         enItem_Tool,
         enItem_Place,
+        enItem_Block,
         enItem_Terrain,
         enItem_Food,
         enItem_Material,
@@ -24,6 +25,7 @@ namespace Maybe3DaysToDieToolEditor
     /// </summary>
     [KnownType(typeof(ToolData))]
     [KnownType(typeof(PlacementObject))]
+    [KnownType(typeof(Block))]
     [KnownType(typeof(Terrain))]
     [KnownType(typeof(FoodAndCure))]
     [KnownType(typeof(Material))]
@@ -40,6 +42,10 @@ namespace Maybe3DaysToDieToolEditor
                 else if (this.GetType() == typeof(PlacementObject))
                 {
                     return EnItemType.enItem_Place;
+                }
+                else if (this.GetType() == typeof(Block))
+                {
+                    return EnItemType.enItem_Block;
                 }
                 else if (this.GetType() == typeof(Terrain))
                 {
@@ -207,10 +213,8 @@ namespace Maybe3DaysToDieToolEditor
     //設置物のタイプ。
     public enum EnPlaceTypes
     {
-        enType_Terrain,
-        enType_Block,
-        enType_Object,
-        enPlaceTypeNum
+        NonAccess = 0,      //アクセスできない
+        Root = 1 << 0,		//ルート
     }
 
     /// <summary>
@@ -233,7 +237,31 @@ namespace Maybe3DaysToDieToolEditor
     {
         [DataMember(Name = "durable")] public int durable { get; set; } = 0;
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
-        [DataMember(Name = "Type")] public EnPlaceTypes placeType { get; set; } = EnPlaceTypes.enType_Terrain;
+        [DataMember(Name = "Type")] public EnPlaceTypes placeType { get; set; } = EnPlaceTypes.NonAccess;
+        [DataMember(Name = "collectItems")] public List<CollectItem> collectItemList = new List<CollectItem>();
+        [DataMember(Name = "collectItemDataNum")]
+        public int collectItemDataNum
+        {
+            get
+            {
+                if (collectItemList != null) return collectItemList.Count;
+                else return 0;
+            }
+            set
+            {
+
+            }
+        }
+    }
+
+    /// <summary>
+    /// 設置物の情報。
+    /// </summary>
+    [DataContract]
+    public class Block : Item
+    {
+        [DataMember(Name = "durable")] public int durable { get; set; } = 0;
+        [DataMember(Name = "tool")] public int tool { get; set; } = 0;
         [DataMember(Name = "collectItems")] public List<CollectItem> collectItemList = new List<CollectItem>();
         [DataMember(Name = "collectItemDataNum")]
         public int collectItemDataNum

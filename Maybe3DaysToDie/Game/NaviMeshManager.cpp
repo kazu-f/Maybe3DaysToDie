@@ -3,6 +3,7 @@
 #include "Player/Player.h"
 #include "Load/TerrainLoad/LoadingByChunk.h"
 #include "TerrainManager/TerrainManager.h"
+#include "Item/ItemDataFile.h"
 
 NaviMeshManager::~NaviMeshManager()
 {
@@ -41,8 +42,9 @@ void NaviMeshManager::Update()
 			//追加セル。
 			std::vector<NVMGenerator::Cell> AddCellList;
 
+			auto* itemDatas = ItemDataFile::GetInstance();
 			//設置されたブロックの座標を検索。
-			for (int i = 0; i < BlockKinds; i++)
+			for (int i = 0; i < itemDatas->GetBlockArraySize(); i++)
 			{
 				for (const auto& placementObject : m_loadingByChunk->GetChunkBlock(x, y)->GetInstancingData(i))
 				{

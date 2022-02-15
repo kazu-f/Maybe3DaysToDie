@@ -2,29 +2,23 @@
 #include "ItemDataFile.h"
 #include "Item/GameItemBase.h"
 #include "Item/GameItemTool.h"
+#include "Item/GameItemPlaceObj.h"
 #include "Item/BlockItem.h"
 #include "Item/GameItemTerrain.h"
 #include "Item/GameItemFoods.h"
 #include "Item/GameItemMaterial.h"
+#include "TerrainManager/TerrainRender/TerrainMaterial.h"
 
 ItemDataFile* ItemDataFile::m_instance = nullptr;
+
+using namespace nsEnItemType;
 
 namespace {
 
 	const char* InitFilePath = "Assets/Data/json/Item_v2.json";		//読み込むファイルのファイルパス。
-	enum EnItemType
-	{
-		enItem_None = -1,
-		enItem_Tool,
-		enItem_Place,
-		enItem_Terrain,
-		enItem_Food,
-		enItem_Material,
-		ItemTypeNum
-	};
 
 	//アイテムの基本データに関する名前空間。
-	namespace nsItems {
+	namespace nsItemsData {
 		const char* itemType = "itemType";		//アイテムの種類を分けるための変数。
 		const char* itemID = "itemID";			//アイテムのID。
 		const char* itemTypeID = "itemTypeID";			//アイテムのID。
@@ -48,7 +42,7 @@ namespace {
 	}
 
 	//ツールデータに関する名前空間。
-	namespace nsTools {
+	namespace nsToolsData {
 		const char* damage = "damage";					//ダメージ。
 		const char* durable = "durable";				//耐久値。
 		const char* useStamina = "useStamina";			//使用スタミナ。
@@ -56,20 +50,7 @@ namespace {
 	}
 	
 	//設置物データに関する名前空間。
-	namespace nsTerrain {
-
-		const char* durable = "durable";				//耐久値。
-		const char* tool = "tool";						//特攻ツール。
-		const char* texture = "texture";				//地形のテクスチャ。
-		const char* collectItems = "collectItems";		//設置物から採取できるアイテムデータリスト。
-		namespace Collect {
-			const char* collectItemDataNum = "collectItemDataNum";		//採取物データの数。
-			const char* corectItemID = "corectItemID";	//採取できるアイテムのID。
-			const char* corectionNum = "corectionNum";	//採取できる量。
-		}
-	}
-	//設置物データに関する名前空間。
-	namespace nsPlaceObjs {
+	namespace nsPlaceObjsData {
 
 		//設置物のタイプ。
 		enum EnPlaceTypes
@@ -89,9 +70,33 @@ namespace {
 			const char* corectionNum = "corectionNum";	//採取できる量。
 		}
 	}
-	
+	//ブロックデータに関する名前空間。
+	namespace nsBlockData {
+
+		const char* durable = "durable";				//耐久値。
+		const char* tool = "tool";						//特攻ツール。
+		const char* collectItems = "collectItems";		//設置物から採取できるアイテムデータリスト。
+		namespace Collect {
+			const char* collectItemDataNum = "collectItemDataNum";		//採取物データの数。
+			const char* corectItemID = "corectItemID";	//採取できるアイテムのID。
+			const char* corectionNum = "corectionNum";	//採取できる量。
+		}
+	}
+	//地形データに関する名前空間。
+	namespace nsTerrainData {
+
+		const char* durable = "durable";				//耐久値。
+		const char* tool = "tool";						//特攻ツール。
+		const char* texture = "texture";				//地形のテクスチャ。
+		const char* collectItems = "collectItems";		//設置物から採取できるアイテムデータリスト。
+		namespace Collect {
+			const char* collectItemDataNum = "collectItemDataNum";		//採取物データの数。
+			const char* corectItemID = "corectItemID";	//採取できるアイテムのID。
+			const char* corectionNum = "corectionNum";	//採取できる量。
+		}
+	}
 	//食料等のデータに関する名前空間。
-	namespace nsFoods {
+	namespace nsFoodsData {
 		const char* hp = "HP";
 		const char* water = "water";
 		const char* food = "food";
@@ -99,7 +104,7 @@ namespace {
 	}
 
 	//素材アイテムに関する名前空間。
-	namespace nsMaterials
+	namespace nsMaterialsData
 	{
 		const char* MaterialType = "MaterialType";		//素材タイプ？
 	}
@@ -108,13 +113,19 @@ namespace {
 ItemDataFile::ItemDataFile()
 {
 	//シングルトン。
-	assert(m_instance == nullptr);	
+	assert(m_instance == nullptr);
+	m_terrainMaterials = std::make_unique<nsTerrain::TerrainMaterial>();
 	InitItemData(InitFilePath);
 }
 
 ItemDataFile::~ItemDataFile()
 {
 	m_instance = nullptr;
+	delete m_nullGameItem;
+	for (auto* item : m_itemArray)
+	{
+		delete item;
+	}
 }
 
 void ItemDataFile::InitItemData(const char* filePath)
@@ -139,26 +150,26 @@ void ItemDataFile::InitItemData(const char* filePath)
 	{
 		//アイテムの基本データの読み込み。
 		SItemDataPtr itemData = std::make_unique<SItemData>();
-		itemData->itemID = _item[nsItems::itemID];
-		itemData->itemTypeID = _item[nsItems::itemTypeID];
-		itemData->itemType = _item[nsItems::itemType];
-		itemData->itemName = _item[nsItems::itemName];
-		itemData->tkmPath = _item[nsItems::itemTkm];
-		itemData->iconPath = _item[nsItems::itemIcon];
+		itemData->itemID = _item[nsItemsData::itemID];
+		itemData->itemTypeID = _item[nsItemsData::itemTypeID];
+		itemData->itemType = _item[nsItemsData::itemType];
+		itemData->itemName = _item[nsItemsData::itemName];
+		itemData->tkmPath = _item[nsItemsData::itemTkm];
+		itemData->iconPath = _item[nsItemsData::itemIcon];
 
 		//クラフト素材データリストを構築。
-		int craftMaterialNum = _item[nsItems::CraftMaterials::itemMaterialDataNum];
+		int craftMaterialNum = _item[nsItemsData::CraftMaterials::itemMaterialDataNum];
 		itemData->craftMaterialDatas.resize(craftMaterialNum);
 		for (int i = 0; i < craftMaterialNum; i++)
 		{
-			itemData->craftMaterialDatas[i].itemID = _item[nsItems::itemMaterials][i][nsItems::CraftMaterials::materialID];
-			itemData->craftMaterialDatas[i].itemNum = _item[nsItems::itemMaterials][i][nsItems::CraftMaterials::materialNum];
+			itemData->craftMaterialDatas[i].itemID = _item[nsItemsData::itemMaterials][i][nsItemsData::CraftMaterials::materialID];
+			itemData->craftMaterialDatas[i].itemNum = _item[nsItemsData::itemMaterials][i][nsItemsData::CraftMaterials::materialNum];
 		}
 		//クラフト可能先データリストを構築。
-		int craftableNum = _item[nsItems::itemCraftables][nsItems::Craftable::craftableNum];
+		int craftableNum = _item[nsItemsData::itemCraftables][nsItemsData::Craftable::craftableNum];
 		itemData->craftableItemIDs.resize(craftableNum);
 		int No = 0;
-		for (auto id : _item[nsItems::itemCraftables][nsItems::Craftable::craftableIDs])
+		for (auto id : _item[nsItemsData::itemCraftables][nsItemsData::Craftable::craftableIDs])
 		{
 			itemData->craftableItemIDs[No] = id;
 			No++;
@@ -169,82 +180,111 @@ void ItemDataFile::InitItemData(const char* filePath)
 		{
 		case EnItemType::enItem_Tool: {
 			ToolInfo info;
-			info.AttackPower = _item[nsTools::damage];
-			info.Durable = _item[nsTools::durable];
-			info.UseStamina = _item[nsTools::useStamina];
-			info.tool = _item[nsTools::toolTypeTag];
+			info.AttackPower = _item[nsToolsData::damage];
+			info.Durable = _item[nsToolsData::durable];
+			info.UseStamina = _item[nsToolsData::useStamina];
+			info.tool = _item[nsToolsData::toolTypeTag];
 
 			GameItemTool* gameItemTool = new GameItemTool(itemData, info);
 			m_itemArray.push_back(gameItemTool);
-			m_toolMap.insert(std::make_pair(gameItemTool->GetIdemData()->itemID, gameItemTool));
+			m_toolMap.insert(std::make_pair(gameItemTool->GetItemData()->itemID, gameItemTool));
 		}
 			break;
 			
 		case EnItemType::enItem_Place: {
 			//設置物の耐久値と特攻ツール。
 			ObjectParams params;
-			params.Durable = _item[nsPlaceObjs::durable];
-			params.AptitudeTool = _item[nsPlaceObjs::tool];
+			params.BlockID = itemData->itemID;
+			params.Durable = _item[nsPlaceObjsData::durable];
+			params.AptitudeTool = _item[nsPlaceObjsData::tool];
 
-			int placeType = _item[nsPlaceObjs::Type];
+			AccessTag placeType = static_cast<AccessTag>(_item[nsPlaceObjsData::Type]);
 			//設置物から採取できるアイテムのデータ。
 			ObjectCollectItemData collectItemData;
-			int num = _item[nsPlaceObjs::Collect::collectItemDataNum];
+			int num = _item[nsPlaceObjsData::Collect::collectItemDataNum];
 			collectItemData.resize(num);
 			for (int i = 0; i < num; i++)
 			{
-				collectItemData[i].collectID = _item[nsPlaceObjs::collectItems][i][nsPlaceObjs::Collect::corectItemID];
-				collectItemData[i].collectNum = _item[nsPlaceObjs::collectItems][i][nsPlaceObjs::Collect::corectionNum];
+				collectItemData[i].collectID = _item[nsPlaceObjsData::collectItems][i][nsPlaceObjsData::Collect::corectItemID];
+				collectItemData[i].collectNum = _item[nsPlaceObjsData::collectItems][i][nsPlaceObjsData::Collect::corectionNum];
 			}
 
-			BlockItem* blockItem = new BlockItem(itemData, params, collectItemData, placeType);
-			m_itemArray.push_back(blockItem);
-			m_blockMap.insert(std::make_pair(blockItem->GetIdemData()->itemID, blockItem));
+			GameItemPlaceObj* placeItem = new GameItemPlaceObj(itemData, params, collectItemData, placeType);
+			m_itemArray.push_back(placeItem);
+			m_placeMap.insert(std::make_pair(placeItem->GetItemData()->itemID, placeItem));
 		}
+			break;
+
+		case EnItemType::enItem_Block: {
+
+			//設置物の耐久値と特攻ツール。
+			ObjectParams params;
+			params.BlockID = itemData->itemID;
+			params.Durable = _item[nsPlaceObjsData::durable];
+			params.AptitudeTool = _item[nsPlaceObjsData::tool];
+
+			//設置物から採取できるアイテムのデータ。
+			ObjectCollectItemData collectItemData;
+			int num = _item[nsBlockData::Collect::collectItemDataNum];
+			collectItemData.resize(num);
+			for (int i = 0; i < num; i++)
+			{
+				collectItemData[i].collectID = _item[nsBlockData::collectItems][i][nsBlockData::Collect::corectItemID];
+				collectItemData[i].collectNum = _item[nsBlockData::collectItems][i][nsBlockData::Collect::corectionNum];
+			}
+
+			BlockItem* block = new BlockItem(itemData, params, collectItemData);
+			m_itemArray.push_back(block);
+			m_blockMap.insert(std::make_pair(block->GetItemData()->itemID, block));
+			m_blockHashMap.insert(std::make_pair(block->GetBlockHash(), block));
+		}
+			break;
 		case EnItemType::enItem_Terrain: {
 			//設置物の耐久値と特攻ツール。
 			ObjectParams params;
-			params.Durable = _item[nsTerrain::durable];
-			params.AptitudeTool = _item[nsTerrain::tool];
-			std::string texture = _item[nsTerrain::texture];
+			params.BlockID = itemData->itemID;
+			params.Durable = _item[nsPlaceObjsData::durable];
+			params.AptitudeTool = _item[nsPlaceObjsData::tool];
+			std::string texture = _item[nsTerrainData::texture];
 
 			//設置物から採取できるアイテムのデータ。
 			ObjectCollectItemData collectItemData;
-			int num = _item[nsTerrain::Collect::collectItemDataNum];
+			int num = _item[nsTerrainData::Collect::collectItemDataNum];
 			collectItemData.resize(num);
 			for (int i = 0; i < num; i++)
 			{
-				collectItemData[i].collectID = _item[nsTerrain::collectItems][i][nsTerrain::Collect::corectItemID];
-				collectItemData[i].collectNum = _item[nsTerrain::collectItems][i][nsTerrain::Collect::corectionNum];
+				collectItemData[i].collectID = _item[nsTerrainData::collectItems][i][nsTerrainData::Collect::corectItemID];
+				collectItemData[i].collectNum = _item[nsTerrainData::collectItems][i][nsTerrainData::Collect::corectionNum];
 			}
+			m_terrainMaterials->RegistTexturePath(texture);
 
 			GameItemTerrain* terrainItem = new GameItemTerrain(itemData, params, collectItemData, texture);
 			m_itemArray.push_back(terrainItem);
-			m_terrainMap.insert(std::make_pair(terrainItem->GetIdemData()->itemID, terrainItem));
+			m_terrainMap.insert(std::make_pair(terrainItem->GetItemData()->itemID, terrainItem));
 		}
 			break;
 			
 		case EnItemType::enItem_Food: {
 			//食料等のパラメータ。
 			SFoodParams params;
-			params.hp = _item[nsFoods::hp];
-			params.water = _item[nsFoods::water];
-			params.food = _item[nsFoods::food];
-			params.stamina = _item[nsFoods::stamina];
+			params.hp = _item[nsFoodsData::hp];
+			params.water = _item[nsFoodsData::water];
+			params.food = _item[nsFoodsData::food];
+			params.stamina = _item[nsFoodsData::stamina];
 
 			GameItemFoods* foodItem = new GameItemFoods(itemData, params);
 			m_itemArray.push_back(foodItem);
-			m_foodMap.insert(std::make_pair(foodItem->GetIdemData()->itemID, foodItem));
+			m_foodMap.insert(std::make_pair(foodItem->GetItemData()->itemID, foodItem));
 		}
 			break;
 			
 		case EnItemType::enItem_Material: {
 			//素材タイプ？
-			int type = _item[nsMaterials::MaterialType];
+			int type = _item[nsMaterialsData::MaterialType];
 
 			GameItemMaterial* materialItem = new GameItemMaterial(itemData, type);
 			m_itemArray.push_back(materialItem);
-			m_materialMap.insert(std::make_pair(materialItem->GetIdemData()->itemID, materialItem));
+			m_materialMap.insert(std::make_pair(materialItem->GetItemData()->itemID, materialItem));
 		}
 			break;
 
@@ -256,4 +296,15 @@ void ItemDataFile::InitItemData(const char* filePath)
 	}
 
 	m_arraySize = m_itemArray.size();
+	m_terrainMaterials->InitTexture();
+	ToolInfo handInfo;
+	handInfo.Durable = 0;
+	handInfo.AttackPower = 500;
+	handInfo.tool = ToolKinds::hand;
+	handInfo.UseStamina = 5;
+	m_handTool = std::make_unique<Tool>();
+	m_handTool->SetTool(handInfo);
+	SItemDataPtr nullItemData = std::make_unique<SItemData>();
+	m_nullGameItem = new GameItemBase(nullItemData);
+	m_blockArraySize = m_blockMap.size();
 }

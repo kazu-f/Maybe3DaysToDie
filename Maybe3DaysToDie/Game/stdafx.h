@@ -36,7 +36,7 @@ const int GroundSurface = 3;		//地表
 
 const int MAX_CHUNK_SIDE = 64;		//ワールド全体の一辺にいくつチャンクがあるか
 
-const float SetRange = 500.0f;		//プレイヤーが届く範囲
+const int PlayerRange = 5;		//プレイヤーが届く範囲
 
 static const int BlockKinds = 5;		//ブロックの種類
 

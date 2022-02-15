@@ -50,6 +50,10 @@ namespace Maybe3DaysToDieToolEditor
             placementObjectPanel1.listBox = ItemList;
             placementObjectPanel1.ItemDataBS = collectItemDataBS;
 
+            blockPanel1.commandList = commandList;
+            blockPanel1.listBox = ItemList;
+            blockPanel1.ItemDataBS = collectItemDataBS;
+
             terrainPanel1.commandList = commandList;
             terrainPanel1.listBox = ItemList;
             terrainPanel1.ItemDataBS = collectItemDataBS;
@@ -87,6 +91,7 @@ namespace Maybe3DaysToDieToolEditor
         {
             toolDataPanel1.Visible = false;
             placementObjectPanel1.Visible = false;
+            blockPanel1.Visible = false;
             terrainPanel1.Visible = false;
             foodAndCurePanel1.Visible = false;
             materialPanel1.Visible = false;
@@ -153,7 +158,27 @@ namespace Maybe3DaysToDieToolEditor
                 commandList.AddCommand(command);
             }
         }
+        /// <summary>
+        /// リストに新しいブロックデータを追加する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BlockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var newPlace = new Block { itemName = "Block" };
 
+            Command.AddNewItem command = new Command.AddNewItem(newPlace, m_itemList, UpdateItemList);
+
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
+        }
+        /// <summary>
+        /// リストに新しい地形データを追加する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TerrainToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var newTerrain = new Terrain { itemName = "Terrain" };
@@ -238,6 +263,12 @@ namespace Maybe3DaysToDieToolEditor
                 placementObjectPanel1.Visible = true;
                 placementObjectPanel1.DispPlacementObject((PlacementObject)item);
             }
+            else if (typeof(Block) == item.GetType())
+            {
+                GroupBoxPanelDisable();
+                blockPanel1.Visible = true;
+                blockPanel1.DispBlock((Block)item);
+            }
             else if (typeof(Terrain) == item.GetType())
             {
                 GroupBoxPanelDisable();
@@ -320,6 +351,7 @@ namespace Maybe3DaysToDieToolEditor
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             filePath = saveData.SaveJsonFile(m_itemList);
+            if(filePath != null)commandList.isChanged = false;
         }
         /// <summary>
         /// 上書き保存。
@@ -329,6 +361,7 @@ namespace Maybe3DaysToDieToolEditor
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             filePath = saveData.SaveJsonFile(m_itemList, filePath);
+            if(filePath != null)commandList.isChanged = false;
         }
         /// <summary>
         /// 読み込み。
@@ -386,8 +419,29 @@ namespace Maybe3DaysToDieToolEditor
                         collect.BuildCollectItemData(list);
                     }
                 }
+                //設置物。
+                else if (item.GetType() == typeof(Block))
+                {
+                    //採取アイテムを登録し直す。
+                    var block = (Block)item;
+                    foreach (var collect in block.collectItemList)
+                    {
+                        collect.BuildCollectItemData(list);
+                    }
+                }
+                //設置物。
+                else if (item.GetType() == typeof(Terrain))
+                {
+                    //採取アイテムを登録し直す。
+                    var terrain = (Terrain)item;
+                    foreach (var collect in terrain.collectItemList)
+                    {
+                        collect.BuildCollectItemData(list);
+                    }
+                }
             }
         }
         #endregion ファイル保存関係。
+
     }
 }

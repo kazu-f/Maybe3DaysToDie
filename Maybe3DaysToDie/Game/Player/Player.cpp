@@ -74,10 +74,9 @@ void Player::Update()
 		Vector3 PlayerPos = m_Pos;
 		PlayerPos.y = m_Pos.y + 90.0f;
 		start.setValue(PlayerPos.x, PlayerPos.y + 90.0f, PlayerPos.z);
-		float Range = 5000.0f;
 		Vector3 RayEnd = PlayerPos;
-		RayEnd += MainCamera().GetForward() * Range;
-		end.setValue(RayEnd.x, RayEnd.y + 90.0f, RayEnd.z);
+		RayEnd += MainCamera().GetForward() * PlayerRange * OBJECT_UNIT;
+		end.setValue(RayEnd.x, RayEnd.y, RayEnd.z);
 
 		//レイテスト
 		CharactorRayResult callback;
@@ -199,7 +198,7 @@ void Player::Jump()
 		NowTime += GameTime().GetFrameDeltaTime();
 		const float JumpTime = 0.3f;
 		float f = NowTime - JumpTime;
-		const float JumpPower = 0.5f;
+		const float JumpPower = 0.8f;
 		float Jump = gravity * pow(f, 2.0f) + JumpPower;
 		m_PlayerState->SetMoveSpeedY(Jump);
 		if (IsJumping && m_Characon.IsOnGround())
@@ -253,4 +252,5 @@ bool Player::OpenInventory()
 void Player::CloseInventory()
 {
 	m_NextState = State::Idle;
+	MauseInfo::GetInstance()->SetMauseCursor(MauseInfo::GetInstance()->IntialMausePos());
 }

@@ -127,7 +127,6 @@ bool CGameScene::Start()
 	);
 	m_AccessObject.SetSaveData(&m_SaveDataFile);
 	m_Player->SetAccessObject(&m_AccessObject);
-	MauseInfo::Create();
 	return true;
 }
 

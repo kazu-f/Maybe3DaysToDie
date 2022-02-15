@@ -3,6 +3,53 @@
 
 namespace nsTerrain {
 
+	struct TerrainTexType {
+		union {
+			Vector4 texVec[2];
+			float tex[8];
+		};
+
+		TerrainTexType()
+		{
+			texVec[0] = texVec[1] = { 0.0f,0.0f,0.0f,0.0f };
+		}
+
+		TerrainTexType& operator=(const TerrainTexType& tex)
+		{
+			this->texVec[0] = tex.texVec[0];
+			this->texVec[1] = tex.texVec[1];
+			return *this;
+		}
+
+		TerrainTexType operator+ (const TerrainTexType& tex)
+		{
+			TerrainTexType ret;
+			ret.texVec[0] = texVec[0] + tex.texVec[0];
+			ret.texVec[1] = texVec[1] + tex.texVec[1];
+			return ret;
+		}
+
+		TerrainTexType operator* (float _mul)
+		{
+			TerrainTexType ret;
+			ret.texVec[0] = texVec[0] * _mul;
+			ret.texVec[1] = texVec[1] * _mul;
+			return ret;
+		}
+
+		void Normalize()
+		{
+			float sum = 0.0f;
+			for (float texVal : tex) {
+				sum += texVal;
+			}
+			if (sum > 0.0f) {
+				for (float& texVal : tex) {
+					texVal /= sum;
+				}
+			}
+		}
+	};
 	/// <summary>
 	/// 地形の頂点データ。
 	/// </summary>
@@ -10,7 +57,7 @@ namespace nsTerrain {
 		Vector3 m_pos;		//座標。
 		Vector3 m_normal;	//法線。
 		Vector2 m_uv;		//UV。
-		Vector4 m_texType;	//テクスチャタイプ。
+		TerrainTexType m_texType;	//テクスチャタイプ。
 	};
 
 	//地形描画クラスの初期化データ。
@@ -22,6 +69,7 @@ namespace nsTerrain {
 	class TerrainRender : public prefab::IRenderer
 	{
 	public:
+		TerrainRender();
 		bool SubStart()override final;
 		void Update()override final;
 		void PostUpdate()override final;
@@ -152,7 +200,7 @@ namespace nsTerrain {
 		std::vector<DescriptorHeap> m_dhTerrainShadow;	//シャドウマップに書き込むために使うディスクリプタヒープ。
 		VertexBuffer m_vertexBuffer;		//地形の頂点バッファ。
 		IndexBuffer m_indexBuffer;			//地形のインデックスバッファ。
-		TerrainMaterial m_material;
+		TerrainMaterial* m_material;
 		Vector3 m_position = Vector3::Zero;				//地形の座標。
 		Quaternion m_rotation = Quaternion::Identity;	//地形の回転。
 		Vector3 m_scale = Vector3::One;				//地形のスケール。

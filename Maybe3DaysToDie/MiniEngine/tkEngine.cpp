@@ -40,6 +40,7 @@ namespace Engine {
 		m_inputKeyCode.Init();
 		//ゲームオブジェクトマネージャーの初期化。
 		CGameObjectManager::CreateInstance(initParam.gameObjectPrioMax);
+
 	}
 	void TkEngine::GameUpdate()
 	{
@@ -67,7 +68,7 @@ namespace Engine {
 			pad.BeginFrame();
 			pad.Update();
 		}
-
+		MauseInfo::GetInstance()->MauseMoveUpdate();
 	}
 	void TkEngine::EndFrame()
 	{

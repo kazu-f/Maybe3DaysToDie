@@ -1,7 +1,7 @@
 ﻿
 namespace Maybe3DaysToDieToolEditor
 {
-    partial class PlacementObjectPanel
+    partial class BlockPanel
     {
         /// <summary> 
         /// 必要なデザイナー変数です。
@@ -54,9 +54,7 @@ namespace Maybe3DaysToDieToolEditor
             "",
             "",
             ""}, -1);
-            this.groupBoxPlacementObject = new System.Windows.Forms.GroupBox();
-            this.ObjTypeLabel = new System.Windows.Forms.Label();
-            this.objTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.groupBoxBlock = new System.Windows.Forms.GroupBox();
             this.collectItemListView = new System.Windows.Forms.ListView();
             this.CollectItems = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ItemID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -72,52 +70,31 @@ namespace Maybe3DaysToDieToolEditor
             this.DurableLabel = new System.Windows.Forms.Label();
             this.ToolKindsLabel = new System.Windows.Forms.Label();
             this.ToolComboBox = new System.Windows.Forms.ComboBox();
-            this.groupBoxPlacementObject.SuspendLayout();
+            this.groupBoxBlock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collectNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBoxPlacementObject
+            // groupBoxBlock
             // 
-            this.groupBoxPlacementObject.Controls.Add(this.ObjTypeLabel);
-            this.groupBoxPlacementObject.Controls.Add(this.objTypeComboBox);
-            this.groupBoxPlacementObject.Controls.Add(this.collectItemListView);
-            this.groupBoxPlacementObject.Controls.Add(this.CollectItemDel);
-            this.groupBoxPlacementObject.Controls.Add(this.CollectItemAddButton);
-            this.groupBoxPlacementObject.Controls.Add(this.collectNumeric);
-            this.groupBoxPlacementObject.Controls.Add(this.labelCollect);
-            this.groupBoxPlacementObject.Controls.Add(this.ColectItemLabel);
-            this.groupBoxPlacementObject.Controls.Add(this.ColectItemDropDownList);
-            this.groupBoxPlacementObject.Controls.Add(this.DurableNumeric);
-            this.groupBoxPlacementObject.Controls.Add(this.DurableLabel);
-            this.groupBoxPlacementObject.Controls.Add(this.ToolKindsLabel);
-            this.groupBoxPlacementObject.Controls.Add(this.ToolComboBox);
-            this.groupBoxPlacementObject.Location = new System.Drawing.Point(0, 0);
-            this.groupBoxPlacementObject.Name = "groupBoxPlacementObject";
-            this.groupBoxPlacementObject.Size = new System.Drawing.Size(820, 520);
-            this.groupBoxPlacementObject.TabIndex = 60;
-            this.groupBoxPlacementObject.TabStop = false;
-            this.groupBoxPlacementObject.Text = "PlacementObject";
-            this.groupBoxPlacementObject.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
-            // 
-            // ObjTypeLabel
-            // 
-            this.ObjTypeLabel.AutoSize = true;
-            this.ObjTypeLabel.Location = new System.Drawing.Point(72, 104);
-            this.ObjTypeLabel.Name = "ObjTypeLabel";
-            this.ObjTypeLabel.Size = new System.Drawing.Size(39, 15);
-            this.ObjTypeLabel.TabIndex = 65;
-            this.ObjTypeLabel.Text = "タイプ";
-            // 
-            // objTypeComboBox
-            // 
-            this.objTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.objTypeComboBox.FormattingEnabled = true;
-            this.objTypeComboBox.Location = new System.Drawing.Point(117, 101);
-            this.objTypeComboBox.Name = "objTypeComboBox";
-            this.objTypeComboBox.Size = new System.Drawing.Size(121, 23);
-            this.objTypeComboBox.TabIndex = 66;
-            this.objTypeComboBox.SelectionChangeCommitted += new System.EventHandler(this.objTypeComboBox_SelectionChangeCommitted);
+            this.groupBoxBlock.Controls.Add(this.collectItemListView);
+            this.groupBoxBlock.Controls.Add(this.CollectItemDel);
+            this.groupBoxBlock.Controls.Add(this.CollectItemAddButton);
+            this.groupBoxBlock.Controls.Add(this.collectNumeric);
+            this.groupBoxBlock.Controls.Add(this.labelCollect);
+            this.groupBoxBlock.Controls.Add(this.ColectItemLabel);
+            this.groupBoxBlock.Controls.Add(this.ColectItemDropDownList);
+            this.groupBoxBlock.Controls.Add(this.DurableNumeric);
+            this.groupBoxBlock.Controls.Add(this.DurableLabel);
+            this.groupBoxBlock.Controls.Add(this.ToolKindsLabel);
+            this.groupBoxBlock.Controls.Add(this.ToolComboBox);
+            this.groupBoxBlock.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxBlock.Name = "groupBoxBlock";
+            this.groupBoxBlock.Size = new System.Drawing.Size(820, 520);
+            this.groupBoxBlock.TabIndex = 62;
+            this.groupBoxBlock.TabStop = false;
+            this.groupBoxBlock.Text = "Block";
+            this.groupBoxBlock.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
             // 
             // collectItemListView
             // 
@@ -138,7 +115,7 @@ namespace Maybe3DaysToDieToolEditor
             this.collectItemListView.MultiSelect = false;
             this.collectItemListView.Name = "collectItemListView";
             this.collectItemListView.Size = new System.Drawing.Size(625, 200);
-            this.collectItemListView.TabIndex = 71;
+            this.collectItemListView.TabIndex = 72;
             this.collectItemListView.UseCompatibleStateImageBehavior = false;
             this.collectItemListView.View = System.Windows.Forms.View.Details;
             // 
@@ -166,7 +143,7 @@ namespace Maybe3DaysToDieToolEditor
             this.CollectItemDel.Location = new System.Drawing.Point(691, 348);
             this.CollectItemDel.Name = "CollectItemDel";
             this.CollectItemDel.Size = new System.Drawing.Size(75, 38);
-            this.CollectItemDel.TabIndex = 73;
+            this.CollectItemDel.TabIndex = 74;
             this.CollectItemDel.Text = "削除";
             this.CollectItemDel.UseVisualStyleBackColor = true;
             this.CollectItemDel.Click += new System.EventHandler(this.CollectItemDel_Click);
@@ -176,7 +153,7 @@ namespace Maybe3DaysToDieToolEditor
             this.CollectItemAddButton.Location = new System.Drawing.Point(691, 303);
             this.CollectItemAddButton.Name = "CollectItemAddButton";
             this.CollectItemAddButton.Size = new System.Drawing.Size(75, 39);
-            this.CollectItemAddButton.TabIndex = 72;
+            this.CollectItemAddButton.TabIndex = 73;
             this.CollectItemAddButton.Text = "追加";
             this.CollectItemAddButton.UseVisualStyleBackColor = true;
             this.CollectItemAddButton.Click += new System.EventHandler(this.CollectItemAddButton_Click);
@@ -191,7 +168,7 @@ namespace Maybe3DaysToDieToolEditor
             0});
             this.collectNumeric.Name = "collectNumeric";
             this.collectNumeric.Size = new System.Drawing.Size(120, 22);
-            this.collectNumeric.TabIndex = 70;
+            this.collectNumeric.TabIndex = 7071;
             this.collectNumeric.ThousandsSeparator = true;
             // 
             // labelCollect
@@ -200,7 +177,7 @@ namespace Maybe3DaysToDieToolEditor
             this.labelCollect.Location = new System.Drawing.Point(470, 256);
             this.labelCollect.Name = "labelCollect";
             this.labelCollect.Size = new System.Drawing.Size(52, 15);
-            this.labelCollect.TabIndex = 69;
+            this.labelCollect.TabIndex = 70;
             this.labelCollect.Text = "採取量";
             // 
             // ColectItemLabel
@@ -209,7 +186,7 @@ namespace Maybe3DaysToDieToolEditor
             this.ColectItemLabel.Location = new System.Drawing.Point(29, 258);
             this.ColectItemLabel.Name = "ColectItemLabel";
             this.ColectItemLabel.Size = new System.Drawing.Size(82, 15);
-            this.ColectItemLabel.TabIndex = 67;
+            this.ColectItemLabel.TabIndex = 68;
             this.ColectItemLabel.Text = "採取アイテム";
             // 
             // ColectItemDropDownList
@@ -219,11 +196,11 @@ namespace Maybe3DaysToDieToolEditor
             this.ColectItemDropDownList.Location = new System.Drawing.Point(117, 255);
             this.ColectItemDropDownList.Name = "ColectItemDropDownList";
             this.ColectItemDropDownList.Size = new System.Drawing.Size(319, 23);
-            this.ColectItemDropDownList.TabIndex = 68;
+            this.ColectItemDropDownList.TabIndex = 69;
             // 
             // DurableNumeric
             // 
-            this.DurableNumeric.Location = new System.Drawing.Point(117, 48);
+            this.DurableNumeric.Location = new System.Drawing.Point(120, 50);
             this.DurableNumeric.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -263,15 +240,15 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolComboBox.TabIndex = 64;
             this.ToolComboBox.SelectionChangeCommitted += new System.EventHandler(this.ToolComboBox_SelectionChangeCommitted);
             // 
-            // PlacementObjectPanel
+            // BlockPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBoxPlacementObject);
-            this.Name = "PlacementObjectPanel";
+            this.Controls.Add(this.groupBoxBlock);
+            this.Name = "BlockPanel";
             this.Size = new System.Drawing.Size(820, 520);
-            this.groupBoxPlacementObject.ResumeLayout(false);
-            this.groupBoxPlacementObject.PerformLayout();
+            this.groupBoxBlock.ResumeLayout(false);
+            this.groupBoxBlock.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collectNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).EndInit();
             this.ResumeLayout(false);
@@ -280,23 +257,21 @@ namespace Maybe3DaysToDieToolEditor
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBoxPlacementObject;
-        private System.Windows.Forms.Label ToolKindsLabel;
-        private System.Windows.Forms.ComboBox ToolComboBox;
-        private System.Windows.Forms.NumericUpDown DurableNumeric;
-        private System.Windows.Forms.Label DurableLabel;
-        private System.Windows.Forms.ComboBox ColectItemDropDownList;
-        private System.Windows.Forms.Label ColectItemLabel;
-        private System.Windows.Forms.NumericUpDown collectNumeric;
-        private System.Windows.Forms.Label labelCollect;
-        private System.Windows.Forms.Button CollectItemDel;
-        private System.Windows.Forms.Button CollectItemAddButton;
+        private System.Windows.Forms.GroupBox groupBoxBlock;
         private System.Windows.Forms.ListView collectItemListView;
+        private System.Windows.Forms.ColumnHeader CollectItems;
         private System.Windows.Forms.ColumnHeader ItemID;
         private System.Windows.Forms.ColumnHeader ItemName;
         private System.Windows.Forms.ColumnHeader ItemNum;
-        private System.Windows.Forms.ColumnHeader CollectItems;
-        private System.Windows.Forms.ComboBox objTypeComboBox;
-        private System.Windows.Forms.Label ObjTypeLabel;
+        private System.Windows.Forms.Button CollectItemDel;
+        private System.Windows.Forms.Button CollectItemAddButton;
+        private System.Windows.Forms.NumericUpDown collectNumeric;
+        private System.Windows.Forms.Label labelCollect;
+        private System.Windows.Forms.Label ColectItemLabel;
+        private System.Windows.Forms.ComboBox ColectItemDropDownList;
+        private System.Windows.Forms.NumericUpDown DurableNumeric;
+        private System.Windows.Forms.Label DurableLabel;
+        private System.Windows.Forms.Label ToolKindsLabel;
+        private System.Windows.Forms.ComboBox ToolComboBox;
     }
 }
