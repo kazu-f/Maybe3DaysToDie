@@ -28,7 +28,7 @@ void MapLoad::Init(const char* filePath)
 			{
 				auto& obj = m_SaveDataFile->m_ChunkData[ChunkID[0]][ChunkID[1]].ObjData[x][y][z];
 				//そのチャンクリセット
-				obj.ObjId = 0;
+				obj.ObjId = -1;
 				obj.ObjDurable = 0;
 			}
 		}
