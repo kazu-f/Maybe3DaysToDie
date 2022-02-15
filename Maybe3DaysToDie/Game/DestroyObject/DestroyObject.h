@@ -36,5 +36,5 @@ public:
 private:
 	Tool* m_tool = nullptr;
 	SaveDataFile* m_SaveData = nullptr;
-	std::vector<Item>	m_Item;
+	std::vector<Item> m_Item;
 };

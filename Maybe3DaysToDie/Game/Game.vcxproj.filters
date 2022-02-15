@@ -78,11 +78,11 @@
     <ClCompile Include="Player\state\PlayerIdle.cpp" />
     <ClCompile Include="Player\state\PlayerWalk.cpp" />
     <ClCompile Include="Player\state\PlayerMenu.cpp" />
-    <ClCompile Include="Inventory\RootBlock.cpp" />
+    <ClCompile Include="Inventory\Root\RootBlock.cpp" />
     <ClCompile Include="Item\GameItemTerrain.cpp" />
     <ClCompile Include="Item\GameItemPlaceObj.cpp" />
     <ClCompile Include="Load\LoadCollision\LoadCollision.cpp" />
-    <ClCompile Include="Inventory\RootTable.cpp" />
+    <ClCompile Include="Inventory\Root\RootTable.cpp" />
     <ClCompile Include="ItemBar\ItemBar.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieDeath.cpp" />
   </ItemGroup>
@@ -192,14 +192,14 @@
     <ClInclude Include="Player\state\PlayerIdle.h" />
     <ClInclude Include="Player\state\PlayerWalk.h" />
     <ClInclude Include="Player\state\PlayerMenu.h" />
-    <ClInclude Include="Inventory\RootBlock.h" />
     <ClInclude Include="Item\GameItemTerrain.h" />
     <ClInclude Include="Item\CollectData.h" />
     <ClInclude Include="ItemBar\ItemBar.h" />
     <ClInclude Include="Enemy\StandardZombie\STDZombieDeath.h" />
     <ClInclude Include="Item\GameItemPlaceObj.h" />
     <ClInclude Include="Load\LoadCollision\LoadCollision.h" />
-    <ClInclude Include="Inventory\RootTable.h" />
+    <ClInclude Include="Inventory\Root\RootTable.h" />
+    <ClInclude Include="Inventory\Root\RootBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />
