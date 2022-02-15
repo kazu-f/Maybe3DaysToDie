@@ -292,6 +292,11 @@ namespace Engine {
 				return m_skeleton;
 			}
 
+			CAnimation& GetAnimation()
+			{
+				return m_animation;
+			}
+
 		private:	//初期化関数。
 			/// <summary>
 			/// インスタンシング描画用のSB構築。

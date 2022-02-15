@@ -144,6 +144,11 @@ public://setter
 		m_pos = pos;
 	}
 
+	void SetRot(const Quaternion rot)
+	{
+		m_rot = rot;
+	}
+
 public://getter
 	/// <summary>
 	/// エージェントを取得。

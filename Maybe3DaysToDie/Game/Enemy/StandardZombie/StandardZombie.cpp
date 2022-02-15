@@ -103,6 +103,9 @@ void StandardZombie::Update()
 	trans.setOrigin(btVector3(m_modelRender->GetPosition().x, m_modelRender->GetPosition().y + m_parameters.Hight / 2, m_modelRender->GetPosition().z));
 
 	m_currentState->Update();
+
+	m_modelRender->SetPosition(m_pos);
+	m_modelRender->SetRotation(m_rot);
 }
 
 void StandardZombie::PostUpdate()

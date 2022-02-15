@@ -10,6 +10,7 @@ namespace nsTerrain {
 	bool TerrainRender::SubStart()
 	{
 		m_isShadowCaster = true;
+		m_isRenderTerrain = true;
 		return true;
 	}
 	void TerrainRender::Update()

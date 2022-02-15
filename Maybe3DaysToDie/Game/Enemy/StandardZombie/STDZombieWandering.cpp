@@ -48,9 +48,11 @@ void STDZombieWandering::Update()
 		m_target = cellList[index].m_CenterPos;
 	}
 
-	m_enemy->GetAgent().GetAgentPositionAndRotation(m_enemy->GetPos(), m_enemy->GetRot());
-	m_enemy->GetModelRender()->SetPosition(m_enemy->GetPos());
-	m_enemy->GetModelRender()->SetRotation(m_enemy->GetRot());
+	Quaternion qRot;
+	qRot.SetRotation(Vector3::AxisY, atan2f(m_enemy->GetAgent().GetWayPoint().x, m_enemy->GetAgent().GetWayPoint().z));
+	m_enemy->GetRot().Slerp(0.01f, m_enemy->GetRot(), qRot);
+	m_enemy->SetPos(m_enemy->GetAgent().GetAgentPos());
+
 }
 
 void STDZombieWandering::Leave()
