@@ -25,7 +25,9 @@ public:
 	/// <param name="start">スタート位置。</param>
 	/// <param name="goal">到着位置。</param>
 	/// <param name="serchTime">AStarを走らせる頻度。</param>
-	void MoveForFootStep(prefab::ModelRender* model, Vector3& start, Vector3& goal, float serchTime = 0.5f);
+	/// <returns>経路探査が終了したか。</returns>
+	bool MoveForFootStep(prefab::ModelRender* model, Vector3& start, Vector3& goal, float serchTime = 3.0f);
+
 	/// <summary>
 	/// エージェントの位置、回転を取得。
 	/// </summary>

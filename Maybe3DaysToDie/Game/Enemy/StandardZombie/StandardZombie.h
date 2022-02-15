@@ -2,6 +2,9 @@
 
 class STDZombieMove;
 class STDZombieTracking;
+class STDZombieAttack;
+class STDZombieWandering;
+class STDZombieDeath;
 
 #include "Enemy/IEnemy.h"
 
@@ -17,15 +20,15 @@ public:
 	/// </summary>
 	enum EnAnimationState {
 		EnAnimationState_Idle,		//idle
+		EnAnimationState_Walk,		//歩き。
 		EnAnimationState_Run,		//走り。
+		EnAnimationState_Attack,	//攻撃。
+		EnAnimationState_Death,		//死亡。
 		/*-Count-*/
 		EnAnimationState_Num,
 		/*-Count-*/
-		EnAnimationState_Walk,		//歩き。
-		EnAnimationState_Attack,	//攻撃。
 		EnAnimationState_Damage,	//ダメージ。
 		EnAnimationState_Stun,		//スタン。
-		EnAnimationState_Death,		//死亡。
 
 	};
 public:
@@ -54,15 +57,15 @@ public:
 	/// <returns></returns>
 	EnemyParams& GetEnemyParameters() override;
 public://HP関係
-	void HitDamage(int attack)
-	{
-		int Damage = attack - m_parameters.Deffence;
-		m_parameters.Hp = max(m_parameters.Hp - Damage, 0);
-	}
+	void HitDamage(int attack);
+
 private:
 	Vector3 m_scale = { 6.0f, 6.0f, 6.0f };		//拡大。
 	IEnemy::EnemyParams m_parameters;			//パラメーター。
 
-	STDZombieTracking* m_trackingState = nullptr;	//追跡用ステート。
+	STDZombieWandering* m_wanderingState = nullptr;		//徘徊ステート。
+	STDZombieTracking*	m_trackingState = nullptr;		//追跡用ステート。
+	STDZombieAttack*	m_attackState = nullptr;		//攻撃用ステート。
+	STDZombieDeath*		m_deathState = nullptr;			//死亡ステート。
 };
 
