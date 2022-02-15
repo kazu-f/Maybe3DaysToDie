@@ -273,9 +273,10 @@ std::vector<NVMGenerator::Cell*> AStar::Search(Vector3& start, Vector3& goal, st
 	}
 
 	//スムージングできる？
-	if (m_nodeCellList.size() > 10) {
+	if (m_nodeCellList.size() > 2) {
 		//スムージング。
 		Smoothing(m_nodeCellList);
 	}
+
 	return m_nodeCellList;
 }

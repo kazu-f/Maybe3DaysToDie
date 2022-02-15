@@ -52,6 +52,15 @@ public:
 		return m_edgeCellList[x][y];
 	}
 
+	/// <summary>
+	/// 更新があったか。
+	/// </summary>
+	/// <returns></returns>
+	bool IsUpdateNVM()
+	{
+		return m_isUpdateNVM;
+	}
+
 private:
 	/// <summary>
 	/// 隣接セルを見つけ出す。

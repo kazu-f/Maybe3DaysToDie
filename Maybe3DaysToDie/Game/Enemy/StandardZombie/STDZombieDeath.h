@@ -2,10 +2,10 @@
 
 #include "Enemy/IEnemy.h"
 
-class STDZombieAttack : public IEnemyState
+class STDZombieDeath : public IEnemyState
 {
 public:
-	STDZombieAttack(IEnemy* enemy) :
+	STDZombieDeath(IEnemy* enemy) :
 		IEnemyState::IEnemyState(enemy)
 	{
 	}
@@ -13,7 +13,8 @@ public:
 	void Enter() override final;
 	void Update() override final;
 	void Leave() override final;
-private:
 
+private:
+	float m_deathTimer = 0.0f;
 };
 
