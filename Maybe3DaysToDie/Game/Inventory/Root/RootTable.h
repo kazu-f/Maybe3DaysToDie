@@ -1,11 +1,5 @@
 #pragma once
-
-struct RootItem
-{
-	int ItemID = -1;		//アイテムのID
-	int Priority = -1;		//アイテムの優先度
-	int AcquireNum = -1;		//獲得個数
-};
+#include "Item/GameItemPlaceObj.h"
 
 //struct Table {
 //	std::vector<RootItem> m_Table;
@@ -23,7 +17,7 @@ public:
 	RootTable();
 	~RootTable() {}
 
-	std::vector<RootItem>* GetRootTable(int i)
+	std::vector<SRootInsideItemData>* GetRootTable(int i)
 	{
 		const auto& it = m_table.find(i);
 		if (it != m_table.end())
@@ -40,5 +34,5 @@ private:
 	void Init();
 
 private:
-	std::map<char, std::vector<RootItem>> m_table;
+	std::map<int, std::vector<SRootInsideItemData>> m_table;
 };
