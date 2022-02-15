@@ -12,12 +12,8 @@ class Stage;
 class Player;
 class Mause;
 class GameItemBase;
-
-struct InventoryItemData {
-	GameItemBase* m_itemBase = nullptr;
-	int itemCount = 0;
-};
-
+struct Item;
+#include "inventory/inventory.h"
 
 namespace {
 	const int SelectNum = 8;	//アイテムバーの数
@@ -38,16 +34,12 @@ public:
 		SaveDataFile* Sf,
 		Tool* T,
 		LoadingByChunk* Lc,
-		TerrainSave* Ts,
-		TerrainLoad* Tl,
 		Stage* s) {
 		m_PlacementObject = Po;
 		m_DestroyObject = Do;
 		m_SaveDataFile = Sf;
 		m_Tool = T;
 		m_LoadingByChunk = Lc;
-		m_TerrainSave = Ts;
-		m_TerrainLoad = Tl;
 		m_Stage = s;
 	}
 
@@ -69,6 +61,8 @@ public:
 	{
 		return m_DestroyObject;
 	}
+
+	void SetInventory(std::vector<Item>& item);
 private:
 	void ItemSlotKey(int vKey,int slot);
 	void SetItemDatas();
@@ -83,8 +77,6 @@ private:
 	SaveDataFile* m_SaveDataFile = nullptr;
 	Tool* m_Tool = nullptr;
 	LoadingByChunk* m_LoadingByChunk = nullptr;
-	TerrainSave* m_TerrainSave = nullptr;		//地形セーブ用のクラス
-	TerrainLoad* m_TerrainLoad = nullptr;
 	Stage* m_Stage = nullptr;
 	Player* m_Player=nullptr;
 	InventoryItemData m_itemInventory[SelectNum];		//配列。

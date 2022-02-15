@@ -20,6 +20,8 @@
 #include "Item/GameItemTerrain.h"
 #include "Item/GameItemFoods.h"
 #include "Item/GameItemMaterial.h"
+#include "Inventory/Inventory.h"
+#include "DestroyObject/DestroyObject.h"
 
 namespace {
 	const Vector2 ItemBarPos = { -300.0f,-285.0f };
@@ -114,6 +116,14 @@ void ItemBar::OnDestroy()
 {
 	DeleteGO(m_ItemIcon);
 	DeleteGO(m_SelectItemIcon);
+}
+
+void ItemBar::SetInventory(std::vector<Item>& item)
+{
+	for (auto& i : item)
+	{
+		m_Player->GetInventory()->SetItemSlot(i.item, 1, 1);
+	}
 }
 
 void ItemBar::ItemSlotKey(int vKey, int slot)

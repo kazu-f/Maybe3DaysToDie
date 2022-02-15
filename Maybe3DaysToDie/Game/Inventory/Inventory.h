@@ -20,9 +20,7 @@ public:
 	/// <param name="Item">アイテム</param>
 	/// <param name="x">ｘ座標</param>
 	/// <param name="y">ｙ座標</param>
-	void SetItemSlot(GameItemBase* Item,const int x, const int y) {
-		m_ItemSlot[x][y]->m_itemBase = Item;
-	}
+	void SetItemSlot(GameItemBase* Item, const int x, const int y);
 private:
 	bool Start()override;
 	void Update()override;
@@ -35,6 +33,7 @@ private:
 	/// Tabのトリガー判定を取る
 	/// </summary>
 	void TriggerTab();
+
 	prefab::CSpriteRender* m_Inbentory = nullptr;
 	bool m_IsShow = false;
 	bool m_IsTriggerTab = false;

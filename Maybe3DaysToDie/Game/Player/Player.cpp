@@ -10,6 +10,8 @@
 #include "Player/State/IPlayerState.h"
 #include "RayTest.h"
 #include "Enemy/IEnemy.h"
+#include "ItemBar/ItemBar.h"
+#include "Inventory/Inventory.h"
 
 namespace {
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
@@ -33,6 +35,12 @@ bool Player::Start()
 	//水分を作る
 	m_Water = NewGO<PlayerWater>(0, "playerWater");
 	m_Water->SetPlayer(this);
+
+	m_ItemBar = NewGO<ItemBar>(0);
+	m_ItemBar->SetPlayer(this);
+
+	m_Inventory = NewGO<Inventory>(0);
+	m_Inventory->SetPlayer(this);
 
 	ModelInitData PlayerModel;
 	PlayerModel.m_tkmFilePath = "Assets/modelData/Player.tkm";

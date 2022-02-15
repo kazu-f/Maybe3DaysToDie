@@ -56,7 +56,7 @@ void GameItemBase::SelectItemAction(ItemBar* itemBar)
 void GameItemBase::UseItemAction1(ItemBar* itemBar)
 {
 	auto* destroy = itemBar->GetDestroyObject();
-	destroy->AddObjectDamage();
+	itemBar->SetInventory(destroy->AddObjectDamage());
 }
 
 void GameItemBase::ResetUseItemSelect(ItemBar* itemBar)

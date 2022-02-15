@@ -120,3 +120,7 @@ void Inventory::TriggerTab()
 		m_IsTriggerTab = false;
 	}
 }
+
+void Inventory::SetItemSlot(GameItemBase* GameItem, const int x, const int y) {
+	m_ItemSlot[x][y]->m_itemBase = GameItem;
+}
