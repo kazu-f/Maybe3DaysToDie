@@ -12,6 +12,8 @@ namespace Maybe3DaysToDieToolEditor
 {
     public partial class MaterialPanel : UserControl
     {
+        public DeFocusCommand deFocus = null;
+
         public MaterialPanel()
         {
             InitializeComponent();
@@ -26,5 +28,9 @@ namespace Maybe3DaysToDieToolEditor
 
         }
 
+        private void activeControlNull(object sender, EventArgs e)
+        {
+            deFocus();
+        }
     }
 }

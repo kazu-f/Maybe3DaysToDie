@@ -65,5 +65,103 @@ namespace Maybe3DaysToDieToolEditor
                 return m_place.insideItemData.Contains(m_removeInsideData);
             }
         }
+
+        /// <summary>
+        /// 確率を変更するコマンド。
+        /// </summary>
+        class ChangeInsideProbility : ICommand
+        {
+            InsideItem m_insideItem;
+            int beforeVal;
+            int afterVal;
+
+            public ChangeInsideProbility(InsideItem insideItem,int value)
+            {
+                beforeVal = m_insideItem.probability;
+                afterVal = value;
+                m_insideItem = insideItem;
+            }
+
+            public override void UnDo()
+            {
+                //確率を元に戻す。
+                m_insideItem.probability = beforeVal;
+            }
+            public override void ReDo()
+            {
+                //確率を変更する。
+                m_insideItem.probability = afterVal;
+            }
+            public override bool IsChanged()
+            {
+                //変更があるか。
+                return beforeVal != afterVal;
+            }
+        }
+        /// <summary>
+        /// 最大値を変更するコマンド。
+        /// </summary>
+        class ChangeInsideMaxNum : ICommand
+        {
+            InsideItem m_insideItem;
+            int beforeVal;
+            int afterVal;
+
+            public ChangeInsideMaxNum(InsideItem insideItem,int value)
+            {
+                beforeVal = m_insideItem.maxNum;
+                afterVal = value;
+                m_insideItem = insideItem;
+            }
+
+            public override void UnDo()
+            {
+                //最大値を元に戻す。
+                m_insideItem.maxNum = beforeVal;
+            }
+            public override void ReDo()
+            {
+                //最小値を変更する。
+                m_insideItem.maxNum = afterVal;
+            }
+            public override bool IsChanged()
+            {
+                //変更があるか。
+                return beforeVal != afterVal;
+            }
+        }
+        /// <summary>
+        /// 最小値を変更するコマンド。
+        /// </summary>
+        class ChangeInsideMinNum : ICommand
+        {
+            InsideItem m_insideItem;
+            int beforeVal;
+            int afterVal;
+
+            public ChangeInsideMinNum(InsideItem insideItem,int value)
+            {
+                beforeVal = m_insideItem.minNum;
+                afterVal = value;
+                m_insideItem = insideItem;
+            }
+
+            public override void UnDo()
+            {
+                //最小値を元に戻す。
+                m_insideItem.minNum = beforeVal;
+            }
+            public override void ReDo()
+            {
+                //最小値を変更する。
+                m_insideItem.minNum = afterVal;
+            }
+            public override bool IsChanged()
+            {
+                //変更があるか。
+                return beforeVal != afterVal;
+            }
+        }
+
     }
 }

@@ -65,6 +65,7 @@ namespace Maybe3DaysToDieToolEditor
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "RootInsideItem";
+            this.groupBox1.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
             // 
             // InsideItemDel
             // 
@@ -93,6 +94,7 @@ namespace Maybe3DaysToDieToolEditor
             this.probabilityNumeric.Size = new System.Drawing.Size(120, 22);
             this.probabilityNumeric.TabIndex = 77;
             this.probabilityNumeric.ThousandsSeparator = true;
+            this.probabilityNumeric.Leave += new System.EventHandler(this.probabilityNumeric_Leave);
             // 
             // labelProbability
             // 
@@ -147,6 +149,7 @@ namespace Maybe3DaysToDieToolEditor
             this.groupBox2.TabIndex = 82;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "InsideItemData";
+            this.groupBox2.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
             // 
             // maxNumeric
             // 
@@ -160,6 +163,7 @@ namespace Maybe3DaysToDieToolEditor
             this.maxNumeric.Size = new System.Drawing.Size(120, 22);
             this.maxNumeric.TabIndex = 79;
             this.maxNumeric.ThousandsSeparator = true;
+            this.maxNumeric.Leave += new System.EventHandler(this.maxNumeric_Leave);
             // 
             // itemMaxLabel
             // 
@@ -182,6 +186,7 @@ namespace Maybe3DaysToDieToolEditor
             this.minNumeric.Size = new System.Drawing.Size(120, 22);
             this.minNumeric.TabIndex = 81;
             this.minNumeric.ThousandsSeparator = true;
+            this.minNumeric.Leave += new System.EventHandler(this.minNumeric_Leave);
             // 
             // itemMinLabel
             // 

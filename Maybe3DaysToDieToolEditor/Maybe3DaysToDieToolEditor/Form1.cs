@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Maybe3DaysToDieToolEditor
 {
+    public delegate void DeFocusCommand();
     public partial class Maybe3DaysToDie_ToolEditor : Form
     {
 
@@ -45,26 +46,32 @@ namespace Maybe3DaysToDieToolEditor
             itemDataPanel1.listBox = ItemList;
             itemDataPanel1.ItemDataBS = craftItemDataBS;
             itemDataPanel1.updateBSMethod = UpdateBS;
+            itemDataPanel1.deFocus = DeFocus;
 
             toolDataPanel1.commandList = commandList;
             toolDataPanel1.listBox = ItemList;
+            toolDataPanel1.deFocus = DeFocus;
 
             placementObjectPanel1.commandList = commandList;
             placementObjectPanel1.listBox = ItemList;
             placementObjectPanel1.ItemDataBS = collectItemDataBS;
             placementObjectPanel1.RootDataBS = rootItemDataBS;
+            placementObjectPanel1.deFocus = DeFocus;
             rootItemEditer = placementObjectPanel1.CreateRootItemDataEditer();
 
             blockPanel1.commandList = commandList;
             blockPanel1.listBox = ItemList;
             blockPanel1.ItemDataBS = collectItemDataBS;
+            blockPanel1.deFocus = DeFocus;
 
             terrainPanel1.commandList = commandList;
             terrainPanel1.listBox = ItemList;
             terrainPanel1.ItemDataBS = collectItemDataBS;
+            terrainPanel1.deFocus = DeFocus;
 
             foodAndCurePanel1.commandList = commandList;
             foodAndCurePanel1.listBox = ItemList;
+            foodAndCurePanel1.deFocus = DeFocus;
 
             GroupBoxPanelDisable();
             toolDataPanel1.Visible = true;
@@ -102,7 +109,6 @@ namespace Maybe3DaysToDieToolEditor
             terrainPanel1.Visible = false;
             foodAndCurePanel1.Visible = false;
             materialPanel1.Visible = false;
-            rootItemEditer.Hide();
         }
 
         #region リスト操作の処理。
@@ -309,7 +315,7 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void UnDoToolStripMenuItem_Click(object sender, EventArgs e)
+        public void UnDoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             commandList.CommandUnDo();
             var item = ItemList.SelectedItem;
@@ -326,7 +332,7 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void reDoToolStripMenuItem_Click(object sender, EventArgs e)
+        public void reDoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             commandList.CommandReDo();
             var item = ItemList.SelectedItem;
@@ -339,16 +345,6 @@ namespace Maybe3DaysToDieToolEditor
         }
         #endregion
 
-        //フォーカスを外す。
-        private void DeFocus()
-        {
-            this.ActiveControl = null;
-        }
-
-        private void MouseCapture(object sender, EventArgs e)
-        {
-            DeFocus();
-        }
 
         #region ファイル保存関係。
         /// <summary>
@@ -478,6 +474,18 @@ namespace Maybe3DaysToDieToolEditor
                     e.Cancel = true;
                 }
             }
+        }
+
+        //フォーカスを外す。
+        public void DeFocus()
+        {
+            this.ActiveControl = null;
+            rootItemEditer.Hide();
+        }
+
+        private void MouseCapture(object sender, EventArgs e)
+        {
+            DeFocus();
         }
     }
 }

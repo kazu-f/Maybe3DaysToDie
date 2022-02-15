@@ -68,6 +68,11 @@ namespace Maybe3DaysToDieToolEditor
 
         #region //ルート内部のアイテムデータを変更する。
 
+        /// <summary>
+        /// ルート内部データを追加する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InsideItemAddButton_Click(object sender, EventArgs e)
         {
             var select = InsideItemDropDownList.SelectedItem;
@@ -84,7 +89,11 @@ namespace Maybe3DaysToDieToolEditor
             }
             m_insideBS.ResetBindings(false);
         }
-
+        /// <summary>
+        /// ルート内部データを消す処理。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InsideItemDel_Click(object sender, EventArgs e)
         {
             var select = insideItemListBox.SelectedItem;
@@ -100,6 +109,79 @@ namespace Maybe3DaysToDieToolEditor
             m_insideBS.ResetBindings(false);
         }
 
+        /// <summary>
+        /// 確率を操作する。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void probabilityNumeric_Leave(object sender, EventArgs e)
+        {
+            //テキストを戻す。
+            int value = 0;
+            if (!int.TryParse(probabilityNumeric.Text, out value))
+            {
+                probabilityNumeric.Text = probabilityNumeric.Value.ToString();
+            }
+
+            var select = insideItemListBox.SelectedItem;
+
+            if (!(select is InsideItem)) return;
+
+            var inside = (InsideItem)select;
+
+            Command.ChangeInsideProbility command = new Command.ChangeInsideProbility(inside, (int)probabilityNumeric.Value);
+
+            if (command.IsChanged())
+            {
+                m_commandList.AddCommand(command);
+            }
+        }
+
+        private void maxNumeric_Leave(object sender, EventArgs e)
+        {
+            //テキストを戻す。
+            int value = 0;
+            if (!int.TryParse(maxNumeric.Text, out value))
+            {
+                maxNumeric.Text = maxNumeric.Value.ToString();
+            }
+
+            var select = insideItemListBox.SelectedItem;
+
+            if (!(select is InsideItem)) return;
+
+            var inside = (InsideItem)select;
+
+            Command.ChangeInsideMaxNum command = new Command.ChangeInsideMaxNum(inside, (int)maxNumeric.Value);
+
+            if (command.IsChanged())
+            {
+                m_commandList.AddCommand(command);
+            }
+        }
+
+        private void minNumeric_Leave(object sender, EventArgs e)
+        {
+            //テキストを戻す。
+            int value = 0;
+            if (!int.TryParse(minNumeric.Text, out value))
+            {
+                minNumeric.Text = minNumeric.Value.ToString();
+            }
+
+            var select = insideItemListBox.SelectedItem;
+
+            if (!(select is InsideItem)) return;
+
+            var inside = (InsideItem)select;
+
+            Command.ChangeInsideMinNum command = new Command.ChangeInsideMinNum(inside, (int)minNumeric.Value);
+
+            if (command.IsChanged())
+            {
+                m_commandList.AddCommand(command);
+            }
+        }
         #endregion
 
         private void RootItemList_FormClosing(object sender, FormClosingEventArgs e)
@@ -108,5 +190,9 @@ namespace Maybe3DaysToDieToolEditor
             Hide();
         }
 
+        private void activeControlNull(object sender, EventArgs e)
+        {
+            this.ActiveControl = null;
+        }
     }
 }
