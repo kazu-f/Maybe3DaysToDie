@@ -298,11 +298,25 @@
     "collectItemDataNum": 1,
     "collectItems": [
       {
-        "corectItemID": 8,
-        "corectionNum": 5
+        "corectItemID": 11,
+        "corectionNum": 10
       }
     ],
     "durable": 500,
+    "insideItems": [
+      {
+        "ID": 0,
+        "maxNum": 1,
+        "minNum": 1,
+        "probability": 20
+      },
+      {
+        "ID": 1,
+        "maxNum": 1,
+        "minNum": 1,
+        "probability": 10
+      }
+    ],
     "tool": 1
   }
 ]

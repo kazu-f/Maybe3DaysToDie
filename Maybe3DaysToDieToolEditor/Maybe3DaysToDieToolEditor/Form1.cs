@@ -424,9 +424,12 @@ namespace Maybe3DaysToDieToolEditor
                     {
                         collect.BuildCollectItemData(list);
                     }
-                    foreach(var inside in place.insideItemData)
+                    if (place.insideItemData != null)
                     {
-                        inside.BuildCollectItemData(list);
+                        foreach (var inside in place.insideItemData)
+                        {
+                            inside.BuildCollectItemData(list);
+                        }
                     }
                 }
                 //設置物。

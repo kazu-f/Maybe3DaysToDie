@@ -1,7 +1,13 @@
 #include "stdafx.h"
 #include "GameItemPlaceObj.h"
 
-GameItemPlaceObj::GameItemPlaceObj(SItemDataPtr& itemData, const ObjectParams& params, ObjectCollectItemData& placeCollectData, AccessTag type)
+GameItemPlaceObj::GameItemPlaceObj(
+	SItemDataPtr& itemData, 
+	const ObjectParams& params, 
+	ObjectCollectItemData& placeCollectData,
+	RootInsideItemDataList& insideDataList,
+	AccessTag type
+)
 	:GameItemBase(itemData)
 {
 	//ブロックの名前を作成する。
@@ -13,6 +19,7 @@ GameItemPlaceObj::GameItemPlaceObj(SItemDataPtr& itemData, const ObjectParams& p
 
 	m_placeParams = params;
 	m_placeCollectData = std::move(placeCollectData);
+	m_rootItemDataList = std::move(insideDataList);
 	m_placeType = type;
 	m_objHash = Util::MakeHash(m_objName.c_str());
 }

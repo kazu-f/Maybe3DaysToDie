@@ -69,6 +69,13 @@ namespace {
 			const char* corectItemID = "corectItemID";	//採取できるアイテムのID。
 			const char* corectionNum = "corectionNum";	//採取できる量。
 		}
+		namespace Inside {
+			const char* insideItems = "insideItems";
+			const char* insideID = "ID";
+			const char* probability = "probability";
+			const char* maxNum = "maxNum";
+			const char* minNum = "minNum";
+		}
 	}
 	//ブロックデータに関する名前空間。
 	namespace nsBlockData {
@@ -208,8 +215,18 @@ void ItemDataFile::InitItemData(const char* filePath)
 				collectItemData[i].collectID = _item[nsPlaceObjsData::collectItems][i][nsPlaceObjsData::Collect::corectItemID];
 				collectItemData[i].collectNum = _item[nsPlaceObjsData::collectItems][i][nsPlaceObjsData::Collect::corectionNum];
 			}
+			RootInsideItemDataList insideDataList;
+			for (auto inside : _item[nsPlaceObjsData::Inside::insideItems])
+			{
+				SRootInsideItemData insideData;
+				insideData.insideID = inside[nsPlaceObjsData::Inside::insideID];
+				insideData.insideProbility = inside[nsPlaceObjsData::Inside::probability];
+				insideData.maxNum = inside[nsPlaceObjsData::Inside::maxNum];
+				insideData.minNum = inside[nsPlaceObjsData::Inside::minNum];
+				insideDataList.push_back(insideData);
+			}
 
-			GameItemPlaceObj* placeItem = new GameItemPlaceObj(itemData, params, collectItemData, placeType);
+			GameItemPlaceObj* placeItem = new GameItemPlaceObj(itemData, params, collectItemData, insideDataList, placeType);
 			m_itemArray.push_back(placeItem);
 			m_placeMap.insert(std::make_pair(placeItem->GetItemData()->itemID, placeItem));
 			m_placeHashMap.insert(std::make_pair(placeItem->GetBlockHash(), placeItem));
