@@ -59,6 +59,12 @@
     <Compile Include="MyUserControl\TerrainPanel.Designer.cs">
       <DependentUpon>TerrainPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="RootItemList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RootItemList.Designer.cs">
+      <DependentUpon>RootItemList.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolEditor\PlaceObjTypeComboBox.cs" />
     <Compile Include="ToolEditor\Command\BlockCommand.cs" />
     <Compile Include="ToolEditor\Command\TerrainCommand.cs" />
@@ -143,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MyUserControl\ItemDataPanel.resx">
       <DependentUpon>ItemDataPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RootItemList.resx">
+      <DependentUpon>RootItemList.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\Item.datasource" />
     <None Include="Properties\DataSources\ToolData.datasource" />

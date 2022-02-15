@@ -20,6 +20,7 @@ namespace Maybe3DaysToDieToolEditor
         BindingSource listBoxBS = new BindingSource();
         BindingSource craftItemDataBS = new BindingSource();
         BindingSource collectItemDataBS = new BindingSource();
+        BindingSource rootItemDataBS = new BindingSource();
         EditorCommandList commandList = new EditorCommandList();
         //ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
@@ -32,6 +33,7 @@ namespace Maybe3DaysToDieToolEditor
             listBoxBS.DataSource = m_itemList;
             craftItemDataBS.DataSource = m_itemList;
             collectItemDataBS.DataSource = m_itemList;
+            rootItemDataBS.DataSource = m_itemList;
             m_itemDataList.ItemList = m_itemList;
 
             ItemList.DisplayMember = "itemName";
@@ -49,6 +51,7 @@ namespace Maybe3DaysToDieToolEditor
             placementObjectPanel1.commandList = commandList;
             placementObjectPanel1.listBox = ItemList;
             placementObjectPanel1.ItemDataBS = collectItemDataBS;
+            placementObjectPanel1.RootDataBS = rootItemDataBS;
 
             blockPanel1.commandList = commandList;
             blockPanel1.listBox = ItemList;
@@ -74,6 +77,7 @@ namespace Maybe3DaysToDieToolEditor
             listBoxBS.ResetBindings(false);
             craftItemDataBS.ResetBindings(false);
             collectItemDataBS.ResetBindings(false);
+            rootItemDataBS.ResetBindings(false);
         }
         /// <summary>
         /// アイテムリストに更新が入ったら呼ぶ処理。
@@ -385,6 +389,7 @@ namespace Maybe3DaysToDieToolEditor
                 listBoxBS.DataSource = m_itemList;
                 craftItemDataBS.DataSource = m_itemList;
                 collectItemDataBS.DataSource = m_itemList;
+                rootItemDataBS.DataSource = m_itemList;
                 //表記を変更。
                 ItemList.SelectedItem = m_itemList[0];
                 DispItemData(m_itemList[0]);
