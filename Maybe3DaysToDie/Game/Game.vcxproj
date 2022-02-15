@@ -191,7 +191,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Enemy\IEnemyState.cpp" />
     <ClCompile Include="Navigation\NVMDebugDraw.cpp" />
-    <ClCompile Include="Player\Inventory.cpp" />
+    <ClCompile Include="Inventory\Inventory.cpp" />
     <ClCompile Include="Player\state\PlayerDead.cpp" />
     <ClCompile Include="Player\state\PlayerIdle.cpp" />
     <ClCompile Include="Inventory\RootTable.cpp" />
@@ -306,7 +306,7 @@
     <ClInclude Include="nlohmann\ordered_map.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp" />
-    <ClInclude Include="Player\Inventory.h" />
+    <ClInclude Include="Inventory\Inventory.h" />
     <ClInclude Include="Player\state\PlayerDead.h" />
     <ClInclude Include="Player\state\PlayerIdle.h" />
     <ClInclude Include="RayTest.h" />
