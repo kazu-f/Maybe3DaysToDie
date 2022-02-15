@@ -26,6 +26,7 @@
 namespace {
 	const Vector2 ItemBarPos = { -300.0f,-285.0f };
 	const float ItemBarWidthSize = 600.0f;
+	const float ItemBoxBetweenSize = 75.0f;
 }
 
 bool ItemBar::Start()
@@ -36,7 +37,7 @@ bool ItemBar::Start()
 	m_ItemIcon->SetPivot({ 0.0f,0.5f });
 
 	for (int i = 0; i < SelectNum; i++) {
-		m_SelectPos[i] = { -300.0f + (75.0f * i) ,ItemBarPos.y };
+		m_SelectPos[i] = { ItemBarPos.x + (ItemBoxBetweenSize * i) ,ItemBarPos.y };
 	}
 
 	m_SelectItemIcon = NewGO<prefab::CSpriteRender>(1);
