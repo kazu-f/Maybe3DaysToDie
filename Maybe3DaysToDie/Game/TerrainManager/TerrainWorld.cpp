@@ -358,35 +358,33 @@ namespace nsTerrain {
 			{
 				for (int z = 0; z < ChunkWidth; z++)
 				{
-					Cube cube;
-					for (int i = 0; i < 8; i++)
-					{
-						Vector3Int corner = { x, y, z };
-						corner += nsMarching::CornerTable[i];
-						auto* terrain = m_terrainChunkData->GetTerrainData(corner);
-						if (terrain != nullptr) {
-							cube.cube[i] = terrain->GetVoxel();
-							cube.terrainID[i] = terrain->GetTerrainID();
-						}
-						else {
-							cube.cube[i] = 0.0f;
-							cube.terrainID[i] = -1;
-						}
-					}
 
-					Vector3 pos;
-					pos.x = static_cast<float>(x);
-					pos.y = static_cast<float>(y);
-					pos.z = static_cast<float>(z);
+					Vector3Int pos = { x,y,z };
 
-					MarchCube(pos, cube);
+					MarchCube(pos);
 
 				}
 			}
 		}
 	}
-	void TerrainWorld::MarchCube(Vector3 position, const Cube& cube)
+	void TerrainWorld::MarchCube(Vector3Int& positionInt)
 	{
+		Cube cube;
+		for (int i = 0; i < 8; i++)
+		{
+			Vector3Int corner = positionInt;
+			corner += nsMarching::CornerTable[i];
+			auto* terrain = m_terrainChunkData->GetTerrainData(corner);
+			if (terrain != nullptr) {
+				cube.cube[i] = terrain->GetVoxel();
+				cube.terrainID[i] = terrain->GetTerrainID();
+			}
+			else {
+				cube.cube[i] = 0.0f;
+				cube.terrainID[i] = -1;
+			}
+		}
+
 		int configIndex = GetCubeConfihuration(cube);
 
 		//トライアングルテーブル上のこの番号に三角形はない。
@@ -430,31 +428,16 @@ namespace nsTerrain {
 
 				EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * (1.0f - offset) 
 					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].z));
-
-				////エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
-				//EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * offset 
-				//	+ (1.0f - offset) * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].x));
-
-				//EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * offset
-				//	+ (1.0f - offset)  * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].y));
-
-				//EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * offset
-				//	+ (1.0f - offset) * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].z));
-
-				////エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
-				//EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x)
-				//	+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].x));
-
-				//EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y)
-				//	+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].y));
-
-				//EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z)
-				//	+ offset * static_cast<float>(nsMarching::EdgeDirectionTable[i].z));
 			}
 		}
 
-		int edgeIndex = 0;
+		Vector3 position;
+		position.x = static_cast<float>(positionInt.x);
+		position.y = static_cast<float>(positionInt.y);
+		position.z = static_cast<float>(positionInt.z);
 
+
+		int edgeIndex = 0;
 		//キューブ上に存在する三角形は最大5個。
 		for (int i = 0; i < 5; i++)
 		{
