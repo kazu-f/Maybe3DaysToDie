@@ -274,7 +274,7 @@ void ItemDataFile::InitItemData(const char* filePath)
 				collectItemData[i].collectID = _item[nsTerrainData::collectItems][i][nsTerrainData::Collect::corectItemID];
 				collectItemData[i].collectNum = _item[nsTerrainData::collectItems][i][nsTerrainData::Collect::corectionNum];
 			}
-			m_terrainMaterials->RegistTexturePath(texture);
+			m_terrainMaterials->RegistTexturePath(texture, itemData->itemID);
 
 			GameItemTerrain* terrainItem = new GameItemTerrain(itemData, params, collectItemData, texture);
 			m_itemArray.push_back(terrainItem);
@@ -312,7 +312,6 @@ void ItemDataFile::InitItemData(const char* filePath)
 	}
 
 	m_arraySize = m_itemArray.size();
-	m_terrainMaterials->InitTexture();
 	ToolInfo handInfo;
 	handInfo.Durable = 0;
 	handInfo.AttackPower = 500;

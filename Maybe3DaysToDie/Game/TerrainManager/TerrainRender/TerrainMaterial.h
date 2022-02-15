@@ -1,10 +1,6 @@
 #pragma once
 
 namespace nsTerrain {
-	struct TerrainTexPath {
-		int hash = 0;
-		std::string path;
-	};
 	/// <summary>
 	/// 地形のマテリアル。
 	/// </summary>
@@ -15,23 +11,32 @@ namespace nsTerrain {
 		TerrainMaterial();
 		~TerrainMaterial();
 		//ファイルパスを登録する。
-		void RegistTexturePath(std::string& texturePath);
+		void RegistTexturePath(std::string& texturePath, int itemID);
 
-		void InitTexture();
-
-		Texture* GetTexture(int no)
+		Texture* GetTextureID(int id)
 		{
-			return m_terrainTextures[no];
+			return m_terrainTextureMap[id];
+		}
+
+		Texture* GetTextureTypeID(int id)
+		{
+			Texture* tex;
+			auto it = m_terrainTextureMap.begin();
+			std::advance(it, id);
+
+			tex = it->second;
+			return tex;
 		}
 
 	public:
 		static const int MAX_TERRAIN_TEX = 4;
 
-		int INIT_TEX_NUM = 0;		//テクスチャの数。
+		int GetTextureSize() {
+			return m_terrainTextureMap.size();
+		}
 
 	private:
-		std::vector<Texture*> m_terrainTextures;
-		std::vector<TerrainTexPath> m_terrainTexturePath;
+		std::map<int, Texture*> m_terrainTextureMap;
 	};
 
 }
