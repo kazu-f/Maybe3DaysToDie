@@ -109,7 +109,7 @@ std::vector<Item>& DestroyObject::AddObjectDamage()
 			}
 			else
 			{
-				chunkData.ObjData[id_x][id_y][id_z].ObjId = 0;
+				chunkData.ObjData[id_x][id_y][id_z].ObjId = -1;
 			}
 			chunkData.ObjData[id_x][id_y][id_z].ObjDurable = param.Durable;
 

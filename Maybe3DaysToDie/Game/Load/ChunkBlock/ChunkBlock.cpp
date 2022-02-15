@@ -75,6 +75,7 @@ void ChunkBlock::MoveChunk()
 				param.BlockID = chunkData.ObjData[x][y][z].ObjId;
 				param.Durable = chunkData.ObjData[x][y][z].ObjDurable;
 				int DataID = static_cast<int>(param.BlockID);
+				m_Block[x][y][z].SetParams(param);
 
 				auto* block = m_itemDataFile->GetBlockData(DataID);
 				auto* place = m_itemDataFile->GetPlaceData(DataID);
@@ -85,7 +86,6 @@ void ChunkBlock::MoveChunk()
 				if (block != nullptr)modelID = block->GetItemData()->itemTypeID;
 				if (place != nullptr)modelID = place->GetItemData()->itemTypeID + m_itemDataFile->GetBlockArraySize();
 
-				m_Block[x][y][z].SetParams(param);
 
 				if (param.Durable > 0)
 				{
