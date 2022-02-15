@@ -22,7 +22,7 @@ class ChestDataFile
 {
 public:
 	struct ItemData {
-		GameItemBase* item;		//アイテム
+		GameItemBase* item = nullptr;		//アイテム
 		int stack = 0;		//個数
 	};
 

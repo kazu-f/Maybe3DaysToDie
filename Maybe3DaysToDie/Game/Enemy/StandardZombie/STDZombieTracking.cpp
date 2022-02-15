@@ -6,15 +6,18 @@
 void STDZombieTracking::Enter()
 {
 	m_enemy->GetModelRender()->PlayAnimation(StandardZombie::EnAnimationState_Run, 0.5f);
+	m_enemy->GetAgent().ResetNodeList();
 }
 
 void STDZombieTracking::Update()
 {
 	Vector3 pPos = m_enemy->GetPlayer()->GetPosition();
 	m_enemy->GetAgent().MoveForFootStep(m_enemy->GetModelRender(), m_enemy->GetPos(), pPos);
-	m_enemy->GetAgent().GetAgentPositionAndRotation(m_enemy->GetPos(), m_enemy->GetRot());
-	m_enemy->GetModelRender()->SetPosition(m_enemy->GetPos());
-	m_enemy->GetModelRender()->SetRotation(m_enemy->GetRot());
+
+	Quaternion qRot;
+	qRot.SetRotation(Vector3::AxisY, atan2f(m_enemy->GetAgent().GetWayPoint().x, m_enemy->GetAgent().GetWayPoint().z));
+	m_enemy->GetRot().Slerp(0.1f, m_enemy->GetRot(), qRot);
+	m_enemy->SetPos(m_enemy->GetAgent().GetAgentPos());
 }
 
 void STDZombieTracking::Leave()

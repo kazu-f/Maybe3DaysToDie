@@ -70,6 +70,11 @@ namespace Engine {
 			int lastIndex = GetLastAnimationControllerIndex();
 			return m_animationPlayController[lastIndex].IsPlaying();
 		}
+
+		float GetCurrentAnimTime()const
+		{
+			return m_animationPlayController[GetLastAnimationControllerIndex()].GetCurrentAnimTime();
+		}
 		/// <summary>
 		/// アニメーションを進める。
 		/// </summary>
