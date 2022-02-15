@@ -12,9 +12,16 @@ void RootTable::Init()
 {
 	//データファイルをまずは取得する
 	const auto& DataFile = ItemDataFile::GetInstance();
-	for (int i = 0; i < static_cast<int>(RootType::Num); i++)
+	for (int id = 0; id < DataFile->GetPlaceArraySize(); id++)
 	{
-		//アイテムの情報を入れる
-		std::vector<RootItem> item;
+		auto* rootBlock = DataFile->GetPlaceObjTypeID(id);
+		if (rootBlock != nullptr)
+		{
+			//ルートブロックの時
+			//アイテムの情報を入れる
+			RootInsideItemDataList itemList;
+			itemList = rootBlock->GetRootInsideItemData();
+			m_table.insert(std::make_pair(id, itemList));
+		}
 	}
 }
