@@ -9,7 +9,7 @@
 namespace nsTerrain {
 	bool TerrainWorld::Start()
 	{
-		//?n?`?`??N???X???B
+		//地形描画クラス作成。
 		m_terrainRender = NewGO<TerrainRender>(10);
 		TerrainInitData initData;
 		initData.vertexNum = ChunkWidth * ChunkWidth * ChunkHeight * 15;
@@ -17,10 +17,10 @@ namespace nsTerrain {
 		m_terrainRender->Init(initData);
 		//m_terrainRender->SetPosition({ -TERRAIN_UNIT * width / 2,-TERRAIN_UNIT * height / 2 ,-TERRAIN_UNIT * width / 2 });
 
-		//???b?V???f?[?^????B
+		//メッシュデータを作成。
 		CreateMeshData();
 
-		//?????I?u?W?F?N?g???B
+		//物理オブジェクト作成。
 		CreateCollider();
 
 		//PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
@@ -34,16 +34,16 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::Update()
 	{
-		//?n?`??X?V??????????????_???`???B
+		//地形の更新があった場合に頂点を再形成。
 		if (m_terrainChunkData->IsUpdated()) {
-			//???_??N???A?B
+			//頂点をクリア。
 			m_terrainRender->ClearVertex();
 			m_vertices.clear();
-			//???b?V???f?[?^????B
+			//メッシュデータを作成。
 			CreateMeshData();
-			//?R???C?_?[???B
+			//コライダー作成。
 			CreateCollider();
-			//nvm?X?V?B
+			//nvm更新。
 			m_isUpdateNvm = true;
 			m_terrainChunkData->ResetUpdated();
 		}
@@ -57,24 +57,24 @@ namespace nsTerrain {
 
 	void TerrainWorld::CreateNVM(int x, int y)
 	{
-		//?d?_???????b?V??????B
+		//重点の数はメッシュの数。
 		int meshCount = m_terrainRender->GetCenterArray().size();
 
-		//???_?J?E???g?B
+		//頂点カウント。
 		int vertCount = 0;
 
-		//NVM???{?p?????[?^?[?????????????B
+		//NVMの基本パラメーターを流し込んでいく。
 		for (int mesh = 0; mesh < meshCount; mesh++) {
 			if (m_terrainRender->GetVertexList().at(vertCount).m_normal.y > 0.000001f) {
-				//?@?????????????????????????????X????????O?B
+				//法線が下向きの場合は歩くことができない傾斜のため除外。
 
-				//?Z?????????B
+				//セルを作成する。
 				NVMGenerator::Cell cell;
 
-				//?d?_?B
+				//重点。
 				cell.m_CenterPos = m_terrainRender->GetCenterArray().at(mesh) + m_position;
 
-				//???b?V???S???R???_??v?Z????B
+				//メッシュ全ての３頂点を計算する。
 				cell.pos[0] = m_terrainRender->GetVertexList().at(vertCount).m_pos + m_position;
 				m_indices.push_back(m_indexCount);
 				cell.pos[1] = m_terrainRender->GetVertexList().at(vertCount + 1).m_pos + m_position;
@@ -83,7 +83,7 @@ namespace nsTerrain {
 				m_indices.push_back(++m_indexCount);
 				m_indexCount++;
 
-				//???????Z??????R???W????????????????B?????????????Z??????O?B
+				//作成したセルの上にコリジョンがないか調べる。あった場合はこのセルは除外。
 				RayResult callback;
 				btVector3 start = { cell.m_CenterPos.x, cell.m_CenterPos.y - 1.0f, cell.m_CenterPos.z };
 				btVector3 end = { cell.m_CenterPos.x, cell.m_CenterPos.y + 200.0f, cell.m_CenterPos.z };
@@ -96,35 +96,35 @@ namespace nsTerrain {
 					continue;
 				}
 
-				//?[?Z??????B
+				//端セルを取る。
 				Vector3 centerPos = cell.m_CenterPos - m_position;
 				if (centerPos.x < 34.0f || centerPos.z < 34.0f
 					|| centerPos.x >(ChunkWidth * OBJECT_UNIT) - 34.0f
 					|| centerPos.z >(ChunkWidth * OBJECT_UNIT) - 34.0f
 					)
 				{
-					//?[?Z?????????B
+					//端セルだった。
 					m_naviMeshManager->AddEdgeCellList(cell, x, y);
 				}
 				else
 				{
-					//???????X?g?????B
+					//管理をリストに移す。
 					m_cellList.push_back(cell);
 				}
 
 
 
 			}
-			//?????b?V??????_??B
+			//次メッシュの頂点へ。
 			vertCount += 3;
 		}
 	}
 
 	void TerrainWorld::SerchLinkCell(int x, int y)
 	{
-		//?F?X?????????????s??????
+		//色々頭悪いがこれで行こうｗ
 
-		//?n?`?C???f?b?N?X?v?Z?B
+		//地形インデックス計算。
 		Vector2 linkChunkIndexList[4] = { Vector2::Zero };
 		linkChunkIndexList[0] = { -1 , 0 };
 		linkChunkIndexList[1] = { 1 , 0 };
@@ -133,28 +133,28 @@ namespace nsTerrain {
 
 		std::vector<NVMGenerator::Cell*> serchCellList;
 
-		//?[?Z????[?Z?????????B
+		//端セルと端セルの隣接を取る。
 		for (auto linkChunkIndex : linkChunkIndexList)
 		{
-			//?????`?????N??C???f?b?N?X??Z?o.
+			//調べるチャンクのインデックスを算出.
 			Vector2 reserchChunk = { x + linkChunkIndex.x , y + linkChunkIndex.y };
 
 			if (reserchChunk.x < 0 || reserchChunk.y < 0 || abs(reserchChunk.x) > 2 || abs(reserchChunk.y) > 2)
 			{
-				//?s??????C???f?b?N?X?B
+				//不正な隣接インデックス。
 				continue;
 			}
 
 			for (auto& cell : m_naviMeshManager->GetEdgeCellList(reserchChunk.x, reserchChunk.y))
 			{
-				//????4?`?????N??
+				//周囲4チャンク分
 				serchCellList.push_back(&cell);
 			}
 		}
 
 		for (auto& cell : m_naviMeshManager->GetEdgeCellList(x, y))
 		{
-			//???`?????N???B
+			//自チャンク分。
 			serchCellList.push_back(&cell);
 		}
 
@@ -163,36 +163,36 @@ namespace nsTerrain {
 			serchCellList.push_back(&cell);
 		}
 
-		//?[?Z????[?Z?????????B
+		//端セルと端セルとをつなぐ。
 		for (auto& baseCell : m_naviMeshManager->GetEdgeCellList(x, y))
 		{
 			int linkCellIndex = 0;
 			for (auto& serchCell : serchCellList)
 			{
-				//?????N?Z???????????????B
+				//リンクセルを検索していく。
 				if (&baseCell == serchCell) {
-					//?x?[?X?Z????????N?Z????A?h???X?????????X?L?b?v?B
+					//ベースセルとリンクセルのアドレスが同一なのでスキップ。
 					continue;
 				}
 
-				int linkVertex = 0;	//?????_????B
+				int linkVertex = 0;	//隣接頂点の数。
 
-				//???_??r?B
+				//頂点比較。
 				for (auto& baseVertex : baseCell.pos) {
 					for (auto& serchVertex : serchCell->pos) {
 						if (/*baseVertex.x == serchVertex.x && baseVertex.z == serchVertex.z*/baseVertex == serchVertex) {
-							//???_????
+							//頂点が一緒
 							linkVertex++;
 						}
 					}
 				}//VertexSerch.
 
 				if (linkVertex >= 2) {
-					//?????C????2?????????????????_?????B
+					//隣接ラインが2つあるためこいつは隣接頂点である。
 					baseCell.m_linkCell[linkCellIndex] = serchCell;
 					linkCellIndex++;
 					if (linkCellIndex == 3) {
-						//?????N?Z???R?????B??????I???B
+						//リンクセル３つ目到達検索を終了。
 						break;
 					}
 				}
@@ -216,30 +216,30 @@ namespace nsTerrain {
 			int linkCellIndex = 0;
 			for (auto& serchCell : serchCellList)
 			{
-				//?????N?Z???????????????B
+				//リンクセルを検索していく。
 				if (&baseCell == serchCell) {
-					//?x?[?X?Z????????N?Z????A?h???X?????????X?L?b?v?B
+					//ベースセルとリンクセルのアドレスが同一なのでスキップ。
 					continue;
 				}
 
-				int linkVertex = 0;	//?????_????B
+				int linkVertex = 0;	//隣接頂点の数。
 
-				//???_??r?B
+				//頂点比較。
 				for (auto& baseVertex : baseCell.pos) {
 					for (auto& serchVertex : serchCell->pos) {
 						if (/*baseVertex.x == serchVertex.x && baseVertex.z == serchVertex.z*/baseVertex == serchVertex) {
-							//???_????
+							//頂点が一緒
 							linkVertex++;
 						}
 					}
 				}//VertexSerch.
 
 				if (linkVertex >= 2) {
-					//?????C????2?????????????????_?????B
+					//隣接ラインが2つあるためこいつは隣接頂点である。
 					baseCell.m_linkCell[linkCellIndex] = serchCell;
 					linkCellIndex++;
 					if (linkCellIndex == 3) {
-						//?????N?Z???R?????B??????I???B
+						//リンクセル３つ目到達検索を終了。
 						break;
 					}
 				}
@@ -260,7 +260,7 @@ namespace nsTerrain {
 					if (linkCell == nullptr) {
 						break;
 					}
-					//???f?o?b?O?p????C????`??????A?i?[?B
+					//隣接デバッグ用にラインを形成して、格納。
 					NVMDebugDraw::Line line;
 					line.start = cell.m_CenterPos;
 					line.end = linkCell->m_CenterPos;
@@ -277,7 +277,7 @@ namespace nsTerrain {
 					if (linkCell == nullptr) {
 						break;
 					}
-					//???f?o?b?O?p????C????`??????A?i?[?B
+					//隣接デバッグ用にラインを形成して、格納。
 					NVMDebugDraw::Line line;
 					line.start = cell.m_CenterPos;
 					line.end = linkCell->m_CenterPos;
@@ -293,9 +293,9 @@ namespace nsTerrain {
 	{
 		if (m_terrainChunkData != terrainCD)
 		{
-			//??X??????
+			//変更がある
 			m_terrainChunkData = terrainCD;
-			//?}?[?`???L???[?u??X?V?t???O??????
+			//マーチンキューブの更新フラグも立てる
 			m_terrainChunkData->EnableUpdated();
 			return true;
 		}
@@ -304,7 +304,7 @@ namespace nsTerrain {
 
 	void TerrainWorld::GetMinMaxCenterPos(Vector3& Min, Vector3& Max)
 	{
-		//???????B
+		//初期化。
 		Min = { FLT_MAX, FLT_MAX, FLT_MAX };
 		Max = { -FLT_MAX, -FLT_MAX, -FLT_MAX };
 
@@ -312,7 +312,7 @@ namespace nsTerrain {
 		{
 			Vector3 centerPos = m_terrainRender->GetCenterArray().at(i) + m_position;
 
-			//???[?J?????W?n???edge??u??????B
+			//ローカル座標系でのedge位置を求める。
 			Min.x = min(Min.x, centerPos.x);
 			//Min.y = min(Min.y, centerPos.y);
 			Min.z = min(Min.z, centerPos.z);
@@ -342,8 +342,8 @@ namespace nsTerrain {
 
 		for (int i = 0; i < 8; i++)
 		{
-			//?e???_??e???x?H????
-			//?O?p?`?e?[?u????C???f?b?N?X???????B
+			//各頂点の影響度？から
+			//三角形テーブルのインデックスを作成する。
 			if (cube.cube[i] < nsMarching::TERRAIN_SURFACE)
 				configrationIndex |= 1 << i;
 		}
@@ -387,46 +387,46 @@ namespace nsTerrain {
 
 		int configIndex = GetCubeConfihuration(cube);
 
-		//?g???C?A???O???e?[?u????????????O?p?`?????B
+		//トライアングルテーブル上のこの番号に三角形はない。
 		if (configIndex == 0 || configIndex == 255)
 		{
 			return;
 		}
-		//?G?b?W?t???O??v?Z?B
+		//エッジフラグを計算。
 		int edgeFlags = nsMarching::CubeEdgeFlags[configIndex];
 
-		//?G?b?W???g??????B
+		//エッジが使われない。
 		if (edgeFlags == 0) return;
 
-		//?G?b?W?????_???????B
+		//エッジ上の頂点初期化。
 		Vector3 EdgeVertex[12] = { {0.0f,0.0f,0.0f} };
 		TerrainTexType EdgeTexture[12];
 
 		//Find the point of intersection of the surface with each edge
 		for (int i = 0; i < 12; i++)
 		{
-			//????G?b?W??g??????????B
+			//そのエッジを使うかどうか。
 			if ((edgeFlags & (1 << i)) != 0)
 			{
-				//?I?t?Z?b?g??v?Z????B
+				//オフセットを計算する。
 				float offset = GetOffset(cube.cube[nsMarching::EdgeConnection[i][0]], cube.cube[nsMarching::EdgeConnection[i][1]]);
 
 				int tex1ID = cube.terrainID[nsMarching::EdgeConnection[i][0]];
-				if(tex1ID >= 0)	EdgeTexture[i].tex[tex1ID] = (1.0f - offset);
+				if (tex1ID >= 0)	EdgeTexture[i].tex[tex1ID] = (1.0f - offset);
 
 				int tex2ID = cube.terrainID[nsMarching::EdgeConnection[i][1]];
 				if (tex2ID >= 0) EdgeTexture[i].tex[tex2ID] = offset;
 
 				EdgeTexture[i].Normalize();
 
-				//?G?b?W?????_???u??L???[?u????_??e???l????v?Z????B
-				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset) 
+				//エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
+				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset)
 					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].x));
 
-				EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * (1.0f - offset) 
+				EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * (1.0f - offset)
 					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].y));
 
-				EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * (1.0f - offset) 
+				EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * (1.0f - offset)
 					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].z));
 			}
 		}
@@ -438,23 +438,23 @@ namespace nsTerrain {
 
 
 		int edgeIndex = 0;
-		//?L???[?u?????????O?p?`????5??B
+		//キューブ上に存在する三角形は最大5個。
 		for (int i = 0; i < 5; i++)
 		{
-			//?O?p?|???S??????_???W?B
+			//三角ポリゴンの頂点座標。
 			Vector3 vertPos[3];
 
 			TerrainTexType vertTexType[3];
-			//?G?b?W???W?B
+			//エッジ座標。
 			Vector3 edgePos[3];
-			//?O?p?|???S??????S???W?B
+			//三角ポリゴンの中心座標。
 			Vector3 center = Vector3::Zero;
 			int p = 0;
 			for (; p < 3; p++)
 			{
 				int indice = nsMarching::TriangleConnectionTable[configIndex][edgeIndex];
 
-				//?O?p?`??????B
+				//三角形がない。
 				if (indice == -1)
 					return;
 
@@ -463,10 +463,10 @@ namespace nsTerrain {
 				edgePos[p].y -= 0.5f;
 				edgePos[p].z -= 0.5f;
 
-				//???_????W??v?Z?B
+				//頂点の座標を計算。
 				vertPos[p] = (position + EdgeVertex[indice]) * OBJECT_UNIT;
-				m_vertices.push_back(vertPos[p]);	//???_????B
-				//???S???W??v?Z????B
+				m_vertices.push_back(vertPos[p]);	//頂点を積む。
+				//中心座標を計算する。
 				center += vertPos[p];
 
 				vertTexType[p] = EdgeTexture[indice];
@@ -474,10 +474,10 @@ namespace nsTerrain {
 				edgeIndex++;
 			}
 
-			//???S???W??Z?o?B
+			//中心座標を算出。
 			center /= p;
 
-			//???S???W?????x?N?g???B
+			//中心座標からのベクトル。
 			Vector3 vDir[3];
 
 			for (int vNum = 0; vNum < p; vNum++)
@@ -486,14 +486,14 @@ namespace nsTerrain {
 				vDir[vNum].Normalize();
 			}
 
-			//?@????v?Z?B
+			//法線を計算。
 			Vector3 normal;
 			normal.Cross(vDir[0], vDir[1]);
 			normal.Normalize();
 
-			//?O?p?|???S????V????v?Z?B
+			//三角ポリゴンのV軸を計算。
 			Vector3 axisV;
-			//?@????Y??????????B
+			//法線がY方向ではない。
 			if (fabsf(normal.Dot(Vector3::AxisY)) < 0.998f)
 			{
 				axisV.Cross(normal, Vector3::AxisY);
@@ -502,7 +502,7 @@ namespace nsTerrain {
 				axisV.Cross(normal, Vector3::AxisX);
 			}
 			axisV.Normalize();
-			//?O?p?|???S????U????v?Z?B
+			//三角ポリゴンのU軸を計算。
 			Vector3 axisU;
 			axisU.Cross(normal, axisV);
 			axisU.Normalize();
@@ -514,8 +514,8 @@ namespace nsTerrain {
 				vert.m_texType = vertTexType[j];
 				vert.m_normal = normal;
 
-				//TODO:??????????B
-				//UV???W??v?Z????B
+				//TODO:いつか直す。
+				//UV座標を計算する。
 				Vector2 uv;
 				uv.x = edgePos[j].Dot(axisU) + 0.5f;
 				uv.y = edgePos[j].Dot(axisV) + 0.5f;
@@ -532,12 +532,12 @@ namespace nsTerrain {
 	}
 	void TerrainWorld::CreateCollider()
 	{
-		//?????I?u?W?F?N?g???B
+		//物理オブジェクト作成。
 		m_staticObj.CreateBuffer(
 			m_position,
 			Quaternion::Identity,
 			Vector3::One,
 			m_vertices
-		);		
+		);
 	}
 }
