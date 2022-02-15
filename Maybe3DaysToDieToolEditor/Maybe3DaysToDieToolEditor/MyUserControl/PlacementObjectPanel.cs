@@ -19,6 +19,14 @@ namespace Maybe3DaysToDieToolEditor
         private BindingSource _itemDataBS = null;   //アイテムデータのバインディングソース。
         private BindingSource _rootDataBS = null;   //アイテムデータのバインディングソース。
 
+        RootItemList rootItemDataForm = null;
+
+        public RootItemList CreateRootItemDataEditer()
+        {
+            rootItemDataForm = new RootItemList(commandList, _rootDataBS);
+            return rootItemDataForm;
+        }
+
         public BindingSource ItemDataBS{
             set 
             {
@@ -31,8 +39,6 @@ namespace Maybe3DaysToDieToolEditor
             set 
             {
                 _rootDataBS = value;
-                ColectItemDropDownList.DataSource = _itemDataBS;
-                ColectItemDropDownList.DisplayMember = "itemName";
             }
         }            //アイテムデータのバインディングソース。
 
@@ -52,6 +58,8 @@ namespace Maybe3DaysToDieToolEditor
         {
             DurableNumeric.Value = obj.durable;
             toolKinds.SelectValue(obj.tool);
+            objTypes.SelectValue((int)obj.placeType);
+            rootItemDataForm.currentPlaceObj = obj;
             DispListView(obj);
         }
 
@@ -228,5 +236,17 @@ namespace Maybe3DaysToDieToolEditor
             this.ParentForm.ActiveControl = null;
         }
 
+        private void OpenInsideDataButton_Click(object sender, EventArgs e)
+        {
+            var select = listBox.SelectedItem;
+            if (select.GetType() != typeof(PlacementObject)) return;
+            var place = (PlacementObject)select;
+
+            if (place.placeType == EnPlaceTypes.Root)
+            {
+                rootItemDataForm.placementObject = place;
+                rootItemDataForm.Show();
+            }
+        }
     }
 }

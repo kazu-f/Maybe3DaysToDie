@@ -55,13 +55,13 @@ namespace Maybe3DaysToDieToolEditor
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ItemList = new System.Windows.Forms.ListBox();
             this.toolDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.blockPanel1 = new Maybe3DaysToDieToolEditor.BlockPanel();
             this.terrainPanel1 = new Maybe3DaysToDieToolEditor.TerrainPanel();
             this.materialPanel1 = new Maybe3DaysToDieToolEditor.MaterialPanel();
             this.itemDataPanel1 = new Maybe3DaysToDieToolEditor.ItemDataPanel();
             this.foodAndCurePanel1 = new Maybe3DaysToDieToolEditor.FoodAndCurePanel();
             this.placementObjectPanel1 = new Maybe3DaysToDieToolEditor.PlacementObjectPanel();
             this.toolDataPanel1 = new Maybe3DaysToDieToolEditor.ToolDataPanel();
-            this.blockPanel1 = new Maybe3DaysToDieToolEditor.BlockPanel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolDataBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -259,6 +259,13 @@ namespace Maybe3DaysToDieToolEditor
             this.ItemList.TabIndex = 1;
             this.ItemList.SelectedIndexChanged += new System.EventHandler(this.ItemList_SelectedIndexChanged);
             // 
+            // blockPanel1
+            // 
+            this.blockPanel1.Location = new System.Drawing.Point(199, 320);
+            this.blockPanel1.Name = "blockPanel1";
+            this.blockPanel1.Size = new System.Drawing.Size(820, 520);
+            this.blockPanel1.TabIndex = 9;
+            // 
             // terrainPanel1
             // 
             this.terrainPanel1.Location = new System.Drawing.Point(200, 320);
@@ -304,13 +311,6 @@ namespace Maybe3DaysToDieToolEditor
             this.toolDataPanel1.TabIndex = 4;
             this.toolDataPanel1.MouseCaptureChanged += new System.EventHandler(this.MouseCapture);
             // 
-            // blockPanel1
-            // 
-            this.blockPanel1.Location = new System.Drawing.Point(199, 320);
-            this.blockPanel1.Name = "blockPanel1";
-            this.blockPanel1.Size = new System.Drawing.Size(820, 520);
-            this.blockPanel1.TabIndex = 9;
-            // 
             // Maybe3DaysToDie_ToolEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -325,6 +325,7 @@ namespace Maybe3DaysToDieToolEditor
             this.Controls.Add(this.toolDataPanel1);
             this.Controls.Add(this.ItemList);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Maybe3DaysToDie_ToolEditor";
             this.Text = "Maybe3DaysToDie_ToolEditor";

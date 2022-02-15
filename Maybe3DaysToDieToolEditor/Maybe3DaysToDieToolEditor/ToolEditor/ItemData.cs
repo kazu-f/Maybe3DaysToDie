@@ -232,6 +232,10 @@ namespace Maybe3DaysToDieToolEditor
     [DataContract]
     public class InsideItem
     {
+        public InsideItem(Item _item)
+        {
+            insideItem = _item;
+        }
         private Item insideItem = null;
         private int itemID = -1;                 //アイテムID。
 

@@ -22,6 +22,7 @@ namespace Maybe3DaysToDieToolEditor
         BindingSource collectItemDataBS = new BindingSource();
         BindingSource rootItemDataBS = new BindingSource();
         EditorCommandList commandList = new EditorCommandList();
+        RootItemList rootItemEditer = null;
         //ToolKindsComboBox toolKinds;
         SaveItemDataList saveData;
         LoadItemDataList loadData;
@@ -52,6 +53,7 @@ namespace Maybe3DaysToDieToolEditor
             placementObjectPanel1.listBox = ItemList;
             placementObjectPanel1.ItemDataBS = collectItemDataBS;
             placementObjectPanel1.RootDataBS = rootItemDataBS;
+            rootItemEditer = placementObjectPanel1.CreateRootItemDataEditer();
 
             blockPanel1.commandList = commandList;
             blockPanel1.listBox = ItemList;
@@ -99,6 +101,7 @@ namespace Maybe3DaysToDieToolEditor
             terrainPanel1.Visible = false;
             foodAndCurePanel1.Visible = false;
             materialPanel1.Visible = false;
+            rootItemEditer.Hide();
         }
 
         #region リスト操作の処理。
@@ -455,13 +458,13 @@ namespace Maybe3DaysToDieToolEditor
         /// <param name="e"></param>
         private void Maybe3DaysToDie_ToolEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(commandList.isChanged)
+            if (commandList.isChanged)
             {
                 DialogResult dr = MessageBox.Show(
                     "ファイルが保存されていません。" +
                     "\n保存しないで終了しますか？",
                     "終了",
-                    MessageBoxButtons.YesNo, 
+                    MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning,
                     MessageBoxDefaultButton.Button2
                     );
