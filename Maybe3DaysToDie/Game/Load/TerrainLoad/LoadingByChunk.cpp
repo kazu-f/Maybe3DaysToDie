@@ -393,7 +393,7 @@ void LoadingByChunk::UpdateModels()
 				for (auto& data : Datas)
 				{
 					//インスタンシングデータを追加
- 					BlockModel[BlockID]->UpdateInstancingData(data.pos,data.rot,data.scale);
+ 					BlockModel[modelID]->UpdateInstancingData(data.pos,data.rot,data.scale);
 				}
 				m_ChunkBlock[x][z].ResetModelUpdated();
 			}
@@ -418,7 +418,7 @@ void LoadingByChunk::UpdateModels()
 				for (auto& data : Datas)
 				{
 					//インスタンシングデータを追加
- 					BlockModel[ObjID]->UpdateInstancingData(data.pos,data.rot,data.scale);
+ 					BlockModel[modelID]->UpdateInstancingData(data.pos,data.rot,data.scale);
 				}
 				m_ChunkBlock[x][z].ResetModelUpdated();
 			}
