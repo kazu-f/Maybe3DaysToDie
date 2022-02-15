@@ -11,6 +11,16 @@
 PlacementObject::PlacementObject()
 {
 	m_itemDataFile = ItemDataFile::GetInstance();
+
+	m_ObjectModel = NewGO<prefab::ModelRender>(0);
+	m_modelInitData.m_shaderData.vsFxFilePath = L"Assets/shader/model.fx";
+	m_modelInitData.m_shaderData.vsEntryPointFunc = "VSMain";
+	m_modelInitData.m_shaderData.psFxFilePath = L"Assets/shader/ObjectPreview.fx";
+	m_modelInitData.m_shaderData.psEntryPointFunc = "PSMain";
+	m_ObjectModel->SetForwardRenderFlag(true);
+	m_ObjectModel->SetShadowCasterFlag(true);
+	//アクティブを切る
+	m_ObjectModel->SetActiveFlag(false);
 }
 
 PlacementObject::~PlacementObject()
@@ -33,15 +43,6 @@ void PlacementObject::OnDestroy()
 
 bool PlacementObject::Start()
 {
-	m_ObjectModel = NewGO<prefab::ModelRender>(0);
-	m_modelInitData.m_shaderData.vsFxFilePath = L"Assets/shader/model.fx";
-	m_modelInitData.m_shaderData.vsEntryPointFunc = "VSMain";
-	m_modelInitData.m_shaderData.psFxFilePath = L"Assets/shader/ObjectPreview.fx";
-	m_modelInitData.m_shaderData.psEntryPointFunc = "PSMain";
-	m_ObjectModel->SetForwardRenderFlag(true);
-	m_ObjectModel->SetShadowCasterFlag(true);
-	//アクティブを切る
-	m_ObjectModel->SetActiveFlag(false);
 
 	m_TerrainManager = FindGO<nsTerrain::TerrainManager>("Terrain");
 

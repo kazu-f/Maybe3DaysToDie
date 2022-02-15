@@ -12,6 +12,7 @@ namespace nsTerrain {
 //todo プレイヤー側から呼ぶようになったらIGameObjectを継承しないように
 class PlacementObject:public IGameObject
 {
+	const unsigned char DEFAULT_ID = -1;
 public:
 	PlacementObject();
 	~PlacementObject();
@@ -32,7 +33,7 @@ public:
 	void SetParams(const ObjectParams& params)
 	{
 		if (ObjID == params.BlockID
-			|| params.BlockID == -1)
+			|| params.BlockID == DEFAULT_ID)
 		{
 			//変更なし
 			return;
