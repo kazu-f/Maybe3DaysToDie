@@ -42,12 +42,6 @@ bool CGameScene::Start()
 	m_ChestLoad.SetDataFile(&m_ChestDataFile);
 	m_ChestLoad.Load();
 	m_Stage->SetSaveDataFile(&m_SaveDataFile);
-	//ChestDataFile::WorldChestData data;
-	//data.id = { 0,0,1,3,1 };
-	//m_ChestDataFile.AddChestData(data);
-
-	
-
 
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
 
