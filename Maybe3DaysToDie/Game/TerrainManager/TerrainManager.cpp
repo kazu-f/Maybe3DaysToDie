@@ -147,6 +147,12 @@ namespace nsTerrain {
 					terrain->SetVoxel(point);
 					if (point > 0.0f) {
 						terrain->SetTerrainID(terrainID);
+						ObjectParams params;
+						params.BlockID = geneTerrains[terrainID]->GetObjParams().BlockID;
+						params.Durable = geneTerrains[terrainID]->GetObjParams().Durable;
+						params.AptitudeTool = geneTerrains[terrainID]->GetObjParams().AptitudeTool;
+
+						terrain->SetParams(params);
 					}
 
 					Vector3 pos;

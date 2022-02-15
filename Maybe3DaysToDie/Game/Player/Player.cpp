@@ -10,6 +10,12 @@
 #include "Player/State/IPlayerState.h"
 #include "RayTest.h"
 #include "Enemy/IEnemy.h"
+#include "ItemBar/ItemBar.h"
+#include "Inventory/Inventory.h"
+
+#include "PlacementObject/PlacementObject.h"
+#include "DestroyObject/DestroyObject.h"
+#include "Tool/Tool.h"
 
 namespace {
 	const float CameraTargetDistance = 500.0f;	//プレイヤーからのターゲット距離
@@ -33,6 +39,24 @@ bool Player::Start()
 	//水分を作る
 	m_Water = NewGO<PlayerWater>(0, "playerWater");
 	m_Water->SetPlayer(this);
+
+	m_ItemBar = NewGO<ItemBar>(0);
+	m_ItemBar->SetPlayer(this);
+
+	m_Inventory = NewGO<Inventory>(0);
+	m_Inventory->SetPlayer(this);
+
+	//todo プレイヤーの処理等に置くようにしてください
+	m_PlacementObject = NewGO<PlacementObject>(0);
+	m_DestroyObject = NewGO<DestroyObject>(0);
+	tool = new Tool;
+	m_DestroyObject->SetTool(tool);
+	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
+	m_ItemBar->SetWorldData(
+		m_PlacementObject, m_DestroyObject
+		, m_SaveData, tool, m_LoadingByChunk, m_Stage);
+	m_PlacementObject->SetSaveData(m_SaveData);
+	m_DestroyObject->SetSaveData(m_SaveData);
 
 	ModelInitData PlayerModel;
 	PlayerModel.m_tkmFilePath = "Assets/modelData/Player.tkm";
@@ -108,6 +132,22 @@ void Player::OnDestroy()
 	DeleteGO(m_Hp);
 	//スタミナを削除
 	DeleteGO(m_Stamina);
+	if (m_PlacementObject != nullptr)
+	{
+		DeleteGO(m_PlacementObject);
+		m_PlacementObject = nullptr;
+	}
+	if (m_DestroyObject != nullptr)
+	{
+		DeleteGO(m_DestroyObject);
+		m_DestroyObject = nullptr;
+	}
+	if (tool != nullptr)
+	{
+		delete tool;
+		tool = nullptr;
+	}
+
 }
 
 void Player::ReStart()
@@ -119,6 +159,7 @@ void Player::ReStart()
 	m_Water->Reset();
 	m_PlayerState->Leave();
 	m_PlayerState = nullptr;
+	m_Gravity = 0.0f;
 	m_NextState = State::Idle;
 	while (true) {
 		int returnNo = ShowCursor(false);
@@ -136,6 +177,12 @@ bool Player::UseStamina(int useCost)
 void Player::SetMoveMause(bool isMove)
 {
 	m_Camera->SetMovingMouse(isMove);
+}
+
+void Player::ItemDetaInit(SaveDataFile* Sf, Stage* s)
+{
+	m_SaveData = Sf;
+	m_Stage = s;
 }
 
 void Player::PeriodicUpdate()
@@ -178,8 +225,7 @@ void Player::ChangeState()
 
 void Player::Jump()
 {
-	static float gravity = 0.0f;
-	gravity -= GameTime().GetFrameDeltaTime();
+	m_Gravity -= GameTime().GetFrameDeltaTime();
 
 	if (GetAsyncKeyState(VK_SPACE)) {
 		//地面に設置しているときだけ
@@ -200,7 +246,7 @@ void Player::Jump()
 		const float JumpTime = 0.3f;
 		float f = NowTime - JumpTime;
 		const float JumpPower = 0.8f;
-		float Jump = gravity * pow(f, 2.0f) + JumpPower;
+		float Jump = m_Gravity * pow(f, 2.0f) + JumpPower;
 		m_PlayerState->SetMoveSpeedY(Jump);
 		if (IsJumping && m_Characon.IsOnGround())
 		{
@@ -217,9 +263,9 @@ void Player::Jump()
 	}
 	if (m_Characon.IsOnGround()||
 		m_IsDebugMode) {
-		gravity = 0.0f;
+		m_Gravity = 0.0f;
 	}
-	m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + gravity);
+	m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity);
 	m_PlayerState->ExcuteMove();
 }
 

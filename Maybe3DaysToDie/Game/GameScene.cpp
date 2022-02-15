@@ -6,9 +6,6 @@
 #include "ItemBar/ItemBar.h"
 #include "Inventory/Inventory.h"
 
-#include "PlacementObject/PlacementObject.h"
-#include "DestroyObject/DestroyObject.h"
-#include "Tool/Tool.h"
 
 #include "DateTime.h"
 
@@ -25,22 +22,6 @@ CGameScene::~CGameScene()
 	DeleteGO(m_Player);
 	DeleteGO(m_Camera);
 	DeleteGO(m_Stage);
-
-	if (m_PlacementObject != nullptr)
-	{
-		DeleteGO(m_PlacementObject);
-		m_PlacementObject = nullptr;
-	}
-	if (m_DestroyObject != nullptr)
-	{
-		DeleteGO(m_DestroyObject);
-		m_DestroyObject = nullptr;
-	}
-	if (tool != nullptr)
-	{
-		delete tool;
-		tool = nullptr;
-	}
 
 	//sample//
 	DeleteGO(m_fontRender);
@@ -65,13 +46,8 @@ bool CGameScene::Start()
 	//data.id = { 0,0,1,3,1 };
 	//m_ChestDataFile.AddChestData(data);
 
-	//todo プレイヤーの処理等に置くようにしてください
-	m_PlacementObject = NewGO<PlacementObject>(0);
 	
 
-	m_DestroyObject = NewGO<DestroyObject>(0);
-	tool = new Tool;
-	m_DestroyObject->SetTool(tool);
 
 	DateTime* Data = NewGO<DateTime>(0, "dateTime");
 
@@ -93,12 +69,11 @@ bool CGameScene::Start()
 	m_LoadingByChunk->SetSaveDataFile(&m_SaveDataFile);
 	//ワールドテーブルデータをセット
 	m_Player->SetLoadingByChunk(m_LoadingByChunk);
-	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
-	m_PlacementObject->SetSaveData(&m_SaveDataFile);
-	m_DestroyObject->SetSaveData(&m_SaveDataFile);
-
 	m_AccessObject.SetSaveData(&m_SaveDataFile);
 	m_Player->SetAccessObject(&m_AccessObject);
+	m_Player->ItemDetaInit(
+		&m_SaveDataFile,
+		m_Stage);
 	return true;
 }
 

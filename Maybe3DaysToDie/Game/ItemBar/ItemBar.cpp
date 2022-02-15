@@ -20,10 +20,12 @@
 #include "Item/GameItemTerrain.h"
 #include "Item/GameItemFoods.h"
 #include "Item/GameItemMaterial.h"
+#include "Inventory/Inventory.h"
+#include "DestroyObject/DestroyObject.h"
 
 namespace {
-	const Vector2 ItemBarPos = { -300.0f,-285.0f };
-	const float ItemBarWidthSize = 600.0f;
+	const Vector2 ItemBarPos = { -262.5f,-285.0f };
+	const float ItemBarWidthSize = 525.0f;
 }
 
 bool ItemBar::Start()
@@ -34,7 +36,7 @@ bool ItemBar::Start()
 	m_ItemIcon->SetPivot({ 0.0f,0.5f });
 
 	for (int i = 0; i < SelectNum; i++) {
-		m_SelectPos[i] = { -300.0f + (75.0f * i) ,ItemBarPos.y };
+		m_SelectPos[i] = { ItemBarPos.x + (ItemOneBoxSize * i) ,ItemBarPos.y };
 	}
 
 	m_SelectItemIcon = NewGO<prefab::CSpriteRender>(1);
@@ -116,6 +118,14 @@ void ItemBar::OnDestroy()
 	DeleteGO(m_SelectItemIcon);
 }
 
+void ItemBar::SetInventory(std::vector<Item>& item)
+{
+	for (auto& i : item)
+	{
+		m_Player->GetInventory()->SetItemSlot(i.item, 1, 1);
+	}
+}
+
 void ItemBar::ItemSlotKey(int vKey, int slot)
 {
 	if (GetAsyncKeyState(vKey)) {
@@ -147,7 +157,7 @@ void ItemBar::SetItemDatas()
 		m_itemInventory[i].m_itemBase = datas->GetTerrainDataTypeID(j);
 		i++;
 	}
-	for (int j = 0; i < 8; j++)
+	for (int j = 0; i < SelectNum; j++)
 	{
 		m_itemInventory[i].m_itemBase = datas->GetNullGameItem();
 		i++;

@@ -2,6 +2,7 @@
 
 class ItemBar;
 
+struct Item;
 /// <summary>
 /// クラフトに必要な素材データ。
 /// </summary>

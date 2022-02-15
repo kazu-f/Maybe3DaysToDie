@@ -2,12 +2,34 @@
 #include "Inventory.h"
 #include "Player/Player.h"
 #include <windowsx.h>
+#include "Item/ItemDataFile.h"
+#include "Item/GameItemFoods.h"
+#include "Item/BlockItem.h"
 
 bool Inventory::Start()
 {
 	m_Inbentory = NewGO<prefab::CSpriteRender>(2);
 	m_Inbentory->Init("Assets/sprite/ItemUI/inbentori.dds", FRAME_BUFFER_H, FRAME_BUFFER_H);
 	m_Inbentory->SetActiveFlag(false);
+	
+
+	for (int i = 0; i < SlotMax.x; i++) {
+		for (int j = 0; j < SlotMax.y; j++) {
+			Vector2 SlotPos = { i * 260.0f + 202.0f, j * 241.0f + 577.0f };
+			m_ItemSlot[i][j].inventoryPos = SlotPos;
+		}
+	}
+	ItemDataFile* it = ItemDataFile::GetInstance();
+	auto& BlockDataOne = m_ItemSlot[0][0].m_itemBase;
+	BlockDataOne = it->GetBlockData(10);
+	BlockDataOne->SetItemIconEnable(true);
+	BlockDataOne->SetIconPosition(m_ItemSlot[0][0].inventoryPos);
+
+	auto& EatDataTwo = m_ItemSlot[1][0];
+	EatDataTwo.m_itemBase = it->GetFoodData(13);
+	EatDataTwo.m_itemBase->SetItemIconEnable(true);
+	EatDataTwo.m_itemBase->SetIconPosition(EatDataTwo.inventoryPos);
+
 	return true;
 }
 
@@ -18,6 +40,35 @@ void Inventory::Update()
 		//インベントリを開閉する
 		SwhichInventoryState();
 	}
+
+	Vector2 MausePos = MauseInfo::GetInstance()->GetMausePos();
+	MauseInfo::State MauseState = MauseInfo::GetInstance()->GetMauseState();
+	// いろいろと計算
+	GetWindowRect(g_hWnd, &m_MainRt);
+	float sx = (m_MainRt.right - m_MainRt.left); // ウインドウの横幅
+	float sy = (m_MainRt.bottom - m_MainRt.top); // ウインドウの高さ
+	float SpriteSizeX = ((sx) / FRAME_BUFFER_W);
+	float SpriteSizeY = ((sy) / FRAME_BUFFER_H);
+	int cyCaption = GetSystemMetrics(SM_CYCAPTION);     // タイトルバーの高さ
+	float diffX = fabsf(MausePos.x - ( m_ItemSlot[0][0].inventoryPos.x * SpriteSizeX + m_MainRt.left));
+	float diffY = fabsf(MausePos.y - ( m_ItemSlot[0][0].inventoryPos.y * SpriteSizeY + m_MainRt.top + cyCaption ));
+	if (MauseState ==
+		MauseInfo::State::MauseLClick) {
+		if (diffX < 116.0f &&
+			diffY < 109.0f) {
+			m_PickUpItem.m_itemBase = m_ItemSlot[0][0].m_itemBase;
+		}
+	}
+	if (m_PickUpItem.m_itemBase != nullptr) {
+		m_PickUpItem.inventoryPos = MausePos;
+		if (MauseState != MauseInfo::State::MauseLClick) {
+			if (diffX < 116.0f &&
+				diffY < 109.0f) {
+				m_ItemSlot[0][0] = m_PickUpItem;
+			}
+		}
+	}
+
 	//タブを押し続けていないか？
 	TriggerTab();
 }
@@ -67,4 +118,8 @@ void Inventory::TriggerTab()
 	else {
 		m_IsTriggerTab = false;
 	}
+}
+
+void Inventory::SetItemSlot(GameItemBase* GameItem, const int x, const int y) {
+	m_ItemSlot[x][y].m_itemBase = GameItem;
 }

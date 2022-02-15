@@ -14,6 +14,12 @@ class AccessObject;
 #include "state/PlayerMenu.h"
 class IPlayerState;
 class IEnemy;
+class Inventory;
+class Stage;
+class PlacementObject;
+class DestroyObject;
+class Tool;
+class SaveDataFile;
 class Player : public IGameObject
 {
 public :
@@ -89,14 +95,6 @@ public:
 	void SetLoadingByChunk(LoadingByChunk* lbc)
 	{
 		m_LoadingByChunk = lbc;
-	}
-
-	/// <summary>
-	/// アイテムバーのポインタを設定する
-	/// </summary>
-	/// <param name="itemBar"></param>
-	void SetItemBar(ItemBar* itemBar) {
-		m_ItemBar = itemBar;
 	}
 
 	/// <summary>
@@ -197,21 +195,45 @@ public:
 	/// </summary>
 	void Jump();
 
+	/// <summary>
+	/// Hpのポインタを取得
+	/// </summary>
+	/// <returns>Hpポインタ</returns>
 	PlayerHp* GetHp() const {
 		return m_Hp;
 	}
 
+	/// <summary>
+	/// スタミナのポインタを取得
+	/// </summary>
+	/// <returns>スタミナポインタ</returns>
 	PlayerStamina* GetStamina() const {
 		return m_Stamina;
 	}
 
+	/// <summary>
+	/// 空腹度のポインタを取得
+	/// </summary>
+	/// <returns>空腹度のぽいんた</returns>
 	PlayerHunger* GetHunger()const {
 		return m_Hunger;
 	}
 
+	/// <summary>
+	/// 水分のポインタを取得
+	/// </summary>
+	/// <returns>水分のポインタ</returns>
 	PlayerWater* GetWater()const {
 		return m_Water;
 	}
+
+	Inventory* GetInventory() {
+		return m_Inventory;
+	}
+
+	void ItemDetaInit(
+		SaveDataFile* Sf,
+		Stage* s);
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
@@ -240,6 +262,7 @@ private:
 
 	/////UI//////////////////////////////////////////////
 	ItemBar* m_ItemBar = nullptr;
+	Inventory* m_Inventory = nullptr;
 	/// ////////////////////////////////////////////////////////
 	float m_DeltaTime = 0.0f;
 
@@ -267,5 +290,14 @@ private:
 	IEnemy* m_Enemy = nullptr;
 
 	bool m_IsDebugMode = false;
+	float m_Gravity = 0.0f;
+
+	//todo 後ほどプレイヤー等においてください
+	PlacementObject* m_PlacementObject = nullptr;		//設置オブジェクト
+	DestroyObject* m_DestroyObject = nullptr;		//オブジェクト破壊
+	Tool* tool = nullptr;
+
+	SaveDataFile* m_SaveData;
+	Stage* m_Stage;
 };
 

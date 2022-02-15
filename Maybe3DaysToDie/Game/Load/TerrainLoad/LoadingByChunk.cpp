@@ -121,7 +121,11 @@ void LoadingByChunk::InitModels()
 		//ブロックの名前がかぶっていないのでまだ、そのモデルがない
 		ModelInitData InitData;
 		auto* block = m_itemDatas->GetBlockDataTypeID(blockID);
-		if (block == nullptr) continue;
+		if (block == nullptr)
+		{
+			m_modelNum++;
+			continue;
+		}
 		InitData.m_tkmFilePath = block->GetItemData()->tkmPath.c_str();
 
 		prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
@@ -137,7 +141,11 @@ void LoadingByChunk::InitModels()
 		//ブロックの名前がかぶっていないのでまだ、そのモデルがない
 		ModelInitData InitData;
 		auto* place = m_itemDatas->GetPlaceObjTypeID(ObjectID);
-		if (place == nullptr) continue;
+		if (place == nullptr)
+		{
+			m_modelNum++;
+			continue;
+		}
 		InitData.m_tkmFilePath = place->GetItemData()->tkmPath.c_str();
 
 		prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
@@ -378,7 +386,10 @@ void LoadingByChunk::UpdateModels()
 	for (int BlockID = 0; BlockID < m_itemDatas->GetBlockArraySize(); BlockID++)
 	{
 		auto* block = m_itemDatas->GetBlockDataTypeID(BlockID);
-		if (block == nullptr) continue;
+		if (block == nullptr) {
+			modelID++;
+			continue;
+		}
 
 		//インスタンシングデータをリセット
 		BlockModel[modelID]->ResetInstancingDatas();
@@ -390,7 +401,7 @@ void LoadingByChunk::UpdateModels()
 				for (auto& data : Datas)
 				{
 					//インスタンシングデータを追加
- 					BlockModel[BlockID]->UpdateInstancingData(data.pos,data.rot,data.scale);
+ 					BlockModel[modelID]->UpdateInstancingData(data.pos,data.rot,data.scale);
 				}
 				m_ChunkBlock[x][z].ResetModelUpdated();
 			}
@@ -400,7 +411,10 @@ void LoadingByChunk::UpdateModels()
 	for (int ObjID = 0; ObjID < m_itemDatas->GetPlaceArraySize(); ObjID++)
 	{
 		auto* block = m_itemDatas->GetPlaceObjTypeID(ObjID);
-		if (block == nullptr) continue;
+		if (block == nullptr) {
+			modelID++;
+			continue;
+		}
 
 		//インスタンシングデータをリセット
 		BlockModel[modelID]->ResetInstancingDatas();
@@ -412,7 +426,7 @@ void LoadingByChunk::UpdateModels()
 				for (auto& data : Datas)
 				{
 					//インスタンシングデータを追加
- 					BlockModel[ObjID]->UpdateInstancingData(data.pos,data.rot,data.scale);
+ 					BlockModel[modelID]->UpdateInstancingData(data.pos,data.rot,data.scale);
 				}
 				m_ChunkBlock[x][z].ResetModelUpdated();
 			}
