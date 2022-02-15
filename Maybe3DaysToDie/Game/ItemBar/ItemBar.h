@@ -16,7 +16,7 @@ struct Item;
 #include "inventory/inventory.h"
 
 namespace {
-	const int SelectNum = 8;	//アイテムバーの数
+	const int SelectNum = 7;	//アイテムバーの数
 }
 class ItemBar : public IGameObject
 {
