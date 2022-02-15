@@ -378,7 +378,10 @@ void LoadingByChunk::UpdateModels()
 	for (int BlockID = 0; BlockID < m_itemDatas->GetBlockArraySize(); BlockID++)
 	{
 		auto* block = m_itemDatas->GetBlockDataTypeID(BlockID);
-		if (block == nullptr) continue;
+		if (block == nullptr) {
+			modelID++;
+			continue;
+		}
 
 		//インスタンシングデータをリセット
 		BlockModel[modelID]->ResetInstancingDatas();
@@ -400,7 +403,10 @@ void LoadingByChunk::UpdateModels()
 	for (int ObjID = 0; ObjID < m_itemDatas->GetPlaceArraySize(); ObjID++)
 	{
 		auto* block = m_itemDatas->GetPlaceObjTypeID(ObjID);
-		if (block == nullptr) continue;
+		if (block == nullptr) {
+			modelID++;
+			continue;
+		}
 
 		//インスタンシングデータをリセット
 		BlockModel[modelID]->ResetInstancingDatas();
