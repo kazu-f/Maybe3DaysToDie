@@ -23,8 +23,11 @@ void DestroyObject::Update()
 	}
 }
 
-void DestroyObject::AddObjectDamage()
+std::vector<GameItemBase*>& DestroyObject::AddObjectDamage()
 {
+	//配列クリア
+	m_Item.clear();
+
 	//視点の位置
 	Vector3 m_Start = MainCamera().GetPosition();
 	//視線方向にポジションを加算
@@ -59,10 +62,12 @@ void DestroyObject::AddObjectDamage()
 			ObjectParams param = obj->GetParam();
 			if (param.Durable == 0)
 			{
-				return;
+				return m_Item;
 			}
 			obj->Damage(m_tool->GetInfo());
 			param = obj->GetParam();
+			//オブジェクトのID
+			int ObjectID = param.BlockID;
 			//設置するオブジェクトのチャンクIDを計算
 			int ID[2] = { 0 };
 			int x = lastPos.x / OBJECT_UNIT;
@@ -93,7 +98,7 @@ void DestroyObject::AddObjectDamage()
 			//セーブデータに直接書き込み
 			if (param.Durable > 0)
 			{
-				chunkData.ObjData[id_x][id_y][id_z].ObjId = param.BlockID;
+				chunkData.ObjData[id_x][id_y][id_z].ObjId = ObjectID;
 			}
 			else
 			{
@@ -103,4 +108,6 @@ void DestroyObject::AddObjectDamage()
 
 		}
 	}
+
+	return m_Item;
 }
