@@ -3,9 +3,9 @@
 #include <wchar.h>
 
 namespace {
-	const int OneMinute = 1;					//１分経つ時間
-	const int OneHune = 5;						//１時間経つ時間
-	const int OneDay = 2;						//１日経つ時間
+	const int OneMinute = 2;					//１分経つ時間
+	const int OneHune = 60;						//１時間経つ時間
+	const int OneDay = 12;						//１日経つ時間
 	const Vector2 FontPos = { -150.0f,330.0f };	//フォントの位置
 	const Vector2 FontPivot = { 0.5f,0.5f };	//フォントの基点
 	const float FontScale = 0.5f;				//フォントの大きさ

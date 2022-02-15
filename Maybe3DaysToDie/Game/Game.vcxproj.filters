@@ -15,6 +15,9 @@
     <ImageContentTask Include="Assets\sprite\respownBotton.png" />
     <ImageContentTask Include="Assets\sprite\SelectBotton.png" />
     <ImageContentTask Include="Assets\sprite\Root.png" />
+    <ImageContentTask Include="Assets\sprite\ItemObject3.png" />
+    <ImageContentTask Include="Assets\sprite\ItemObject2.png" />
+    <ImageContentTask Include="Assets\sprite\ItemObject1.png" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AccessObject\AccessObject.cpp" />

@@ -377,6 +377,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="3DaysIcon.ico" />
+    <ImageContentTask Include="Assets\sprite\ItemObject1.png" />
+    <ImageContentTask Include="Assets\sprite\ItemObject2.png" />
+    <ImageContentTask Include="Assets\sprite\ItemObject3.png" />
     <ImageContentTask Include="Assets\sprite\Root.png" />
     <ImageContentTask Include="Assets\sprite\SelectBotton.png" />
   </ItemGroup>

@@ -12,17 +12,24 @@ bool Inventory::Start()
 	m_Inbentory->Init("Assets/sprite/ItemUI/inbentori.dds", FRAME_BUFFER_H, FRAME_BUFFER_H);
 	m_Inbentory->SetActiveFlag(false);
 	
-	ItemDataFile* it = ItemDataFile::GetInstance();
-	for (int i = 0; i < 3; i++)
-	{
-		m_ItemSlot[i][0].m_itemBase = it->GetNullGameItem();
-	}
+
 	for (int i = 0; i < SlotMax.x; i++) {
 		for (int j = 0; j < SlotMax.y; j++) {
 			Vector2 SlotPos = { i * 260.0f + 202.0f, j * 241.0f + 577.0f };
 			m_ItemSlot[i][j].inventoryPos = SlotPos;
 		}
 	}
+	ItemDataFile* it = ItemDataFile::GetInstance();
+	auto& BlockDataOne = m_ItemSlot[0][0].m_itemBase;
+	BlockDataOne = it->GetBlockData(10);
+	BlockDataOne->SetItemIconEnable(true);
+	BlockDataOne->SetIconPosition(m_ItemSlot[0][0].inventoryPos);
+
+	auto& EatDataTwo = m_ItemSlot[1][0];
+	EatDataTwo.m_itemBase = it->GetFoodData(13);
+	EatDataTwo.m_itemBase->SetItemIconEnable(true);
+	EatDataTwo.m_itemBase->SetIconPosition(EatDataTwo.inventoryPos);
+
 	return true;
 }
 
