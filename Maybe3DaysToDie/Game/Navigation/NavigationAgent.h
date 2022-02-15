@@ -28,6 +28,11 @@ public:
 	/// <returns>Œo˜H’T¸‚ªI—¹‚µ‚½‚©B</returns>
 	bool MoveForFootStep(prefab::ModelRender* model, Vector3& start, Vector3& goal, float serchTime = 3.0f);
 
+	void ResetNodeList()
+	{
+		m_nodeList.clear();
+	}
+
 	Vector3 GetAgentPos()
 	{
 		return m_AgentPos;

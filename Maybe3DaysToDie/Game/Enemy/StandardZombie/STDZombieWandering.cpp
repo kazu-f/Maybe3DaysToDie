@@ -12,7 +12,9 @@ STDZombieWandering::STDZombieWandering(IEnemy* enemy) : IEnemyState::IEnemyState
 void STDZombieWandering::Enter()
 {
 	m_enemy->GetModelRender()->PlayAnimation(StandardZombie::EnAnimationState_Walk, 0.5f);
+	m_enemy->GetAgent().ResetNodeList();
 	m_target = m_enemy->GetPos();
+
 }
 
 void STDZombieWandering::Update()

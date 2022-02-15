@@ -15,13 +15,6 @@ void STDZombieAttack::Update()
 	Vector3 e2p = m_enemy->GetPlayer()->GetPosition() - m_enemy->GetPos();
 	e2p.Normalize();
 
-	Quaternion rot;
-	float angle = Math::RadToDeg(atan2f(e2p.x, e2p.z));
-	m_angle += 5.0f;
-	float fangle = min(angle, m_angle);
-	rot.SetRotationDeg(Vector3::AxisY, fangle);
-	m_enemy->SetRot(rot);
-
 	//攻撃が当たるタイミングを調節する。
 	if(ATTACK_HIT_TIME < m_enemy->GetModelRender()->GetAnimation().GetCurrentAnimTime() && m_isAttack)
 	{

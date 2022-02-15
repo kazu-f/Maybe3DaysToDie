@@ -6,6 +6,7 @@
 void STDZombieTracking::Enter()
 {
 	m_enemy->GetModelRender()->PlayAnimation(StandardZombie::EnAnimationState_Run, 0.5f);
+	m_enemy->GetAgent().ResetNodeList();
 }
 
 void STDZombieTracking::Update()
