@@ -5,6 +5,7 @@
 #include "Save/ChestSave/ChestSave.h"
 #include "Save/ChestSave/ChestLoad.h"
 #include "AccessObject/AccessObject.h"
+#include "Inventory/Root/RootBlock.h"
 
 class Player;
 class Stage;
@@ -47,4 +48,5 @@ private:
 	ChestDataFile m_ChestDataFile;
 	LoadingByChunk* m_LoadingByChunk = nullptr;
 	AccessObject m_AccessObject;		//設置物にアクセスするためのクラス
+	RootBlock m_root;
 };

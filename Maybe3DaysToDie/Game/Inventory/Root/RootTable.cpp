@@ -14,7 +14,7 @@ void RootTable::Init()
 	const auto& DataFile = ItemDataFile::GetInstance();
 	for (int id = 0; id < DataFile->GetPlaceArraySize(); id++)
 	{
-		auto* rootBlock = DataFile->GetPlaceData(id);
+		auto* rootBlock = DataFile->GetPlaceObjTypeID(id);
 		if (rootBlock != nullptr)
 		{
 			//ルートブロックの時

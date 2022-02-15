@@ -1,6 +1,13 @@
 #pragma once
 #include "Item/GameItemBase.h"
 #include "RootTable.h"
+#include "Inventory/Inventory.h"
+#include "Item/GameItemPlaceObj.h"
+
+struct Item {
+	GameItemBase* item = nullptr;
+	int stack = 0;
+};
 
 class RootBlock
 {
@@ -11,18 +18,7 @@ public:
 	/// <summary>
 	/// ルートする
 	/// </summary>
-	void Root();
-
-	/// <summary>
-	/// アイテムをインベントリから取得
-	/// </summary>
-	/// <param name="x">インベントリのX</param>
-	/// <param name="y">インベントリのY</param>
-	/// <returns>アイテム</returns>
-	GameItemBase* GetItem(int x, int y)
-	{
-		return m_item[x][y];
-	}
+	std::vector<Item>& Root(int id);
 
 private:
 	void OnDestroy();
@@ -31,7 +27,8 @@ private:
 	/// </summary>
 	void Init();
 
+	const RootInsideItemDataList& GetTable(int i);
+
 private:
-	GameItemBase* m_item[Inventory_X][Inventory_Y] = { nullptr };
-	RootTable m_rootTable;
+	std::vector<Item> m_item;
 };
