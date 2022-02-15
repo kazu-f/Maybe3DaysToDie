@@ -2,6 +2,9 @@
 #include "Inventory.h"
 #include "Player/Player.h"
 #include <windowsx.h>
+#include "Item/ItemDataFile.h"
+#include "Item/GameItemFoods.h"
+#include "Item/BlockItem.h"
 
 bool Inventory::Start()
 {
@@ -9,7 +12,18 @@ bool Inventory::Start()
 	m_Inbentory->Init("Assets/sprite/ItemUI/inbentori.dds", FRAME_BUFFER_H, FRAME_BUFFER_H);
 	m_Inbentory->SetActiveFlag(false);
 	
-	m_ItemSlot[0][0]=
+	ItemDataFile* it = ItemDataFile::GetInstance();
+	m_ItemSlot[0][0]->m_itemBase = it->GetFoodData(1);
+	for (int i = 0; i < 3; i++)
+	{
+		m_ItemSlot[i][0]->m_itemBase = it->GetBlockDataTypeID(i);
+	}
+	for (int i = 0; i < SlotMax.x; i++) {
+		for (int j = 0; j < SlotMax.y; j++) {
+			Vector2 SlotPos = { i * 260.0f + 202.0f, j * 241.0f + 577.0f };
+			m_ItemSlot[i][j]->inventoryPos = SlotPos;
+		}
+	}
 	return true;
 }
 
@@ -20,6 +34,42 @@ void Inventory::Update()
 		//インベントリを開閉する
 		SwhichInventoryState();
 	}
+
+	Vector2 MausePos = MauseInfo::GetInstance()->GetMausePos();
+	MauseInfo::State MauseState = MauseInfo::GetInstance()->GetMauseState();
+	// いろいろと計算
+	GetWindowRect(g_hWnd, &m_MainRt);
+	float sx = (m_MainRt.right - m_MainRt.left); // ウインドウの横幅
+	float sy = (m_MainRt.bottom - m_MainRt.top); // ウインドウの高さ
+	float SpriteSizeX = ((sx) / FRAME_BUFFER_W);
+	float SpriteSizeY = ((sy) / FRAME_BUFFER_H);
+	int cyCaption = GetSystemMetrics(SM_CYCAPTION);     // タイトルバーの高さ
+	float diffX = fabsf(MausePos.x - ( m_ItemSlot[0][0]->inventoryPos.x * SpriteSizeX + m_MainRt.left));
+	float diffY = fabsf(MausePos.y - ( m_ItemSlot[0][0]->inventoryPos.y * SpriteSizeY + m_MainRt.top + cyCaption ));
+	if (MauseState ==
+		MauseInfo::State::MauseLClick) {
+		if (diffX < 116.0f &&
+			diffY < 109.0f) {
+			m_PickUpItem = m_ItemSlot[0][0];
+		}
+	}
+	if (m_PickUpItem != nullptr) {
+		m_PickUpItem->inventoryPos = MausePos;
+		if (MauseState != MauseInfo::State::MauseLClick) {
+			if (diffX < 116.0f &&
+				diffY < 109.0f) {
+				m_ItemSlot[0][0] = m_PickUpItem;
+			}
+		}
+	}
+
+
+
+
+
+
+
+
 	//タブを押し続けていないか？
 	TriggerTab();
 }
