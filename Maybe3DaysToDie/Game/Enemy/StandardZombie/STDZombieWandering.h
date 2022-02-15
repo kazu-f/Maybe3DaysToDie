@@ -15,7 +15,6 @@ public:
 
 private:
 	std::vector<Vector3> m_movePathList;			//移動用のパスリスト。
-	static std::map<int, int> m_indexToSign;	//インデックスから符号。
 	Vector3 m_target = Vector3::Zero;
 };
 

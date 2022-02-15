@@ -80,6 +80,7 @@
     <ClCompile Include="Inventory\RootBlock.cpp" />
     <ClCompile Include="Item\GameItemTerrain.cpp" />
     <ClCompile Include="ItemBar\ItemBar.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\STDZombieDeath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Item\GameItemTerrain.h" />
     <ClInclude Include="Item\CollectData.h" />
     <ClInclude Include="ItemBar\ItemBar.h" />
+    <ClInclude Include="Enemy\StandardZombie\STDZombieDeath.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />

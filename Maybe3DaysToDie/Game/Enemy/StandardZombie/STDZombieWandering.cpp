@@ -5,19 +5,13 @@
 #include "Stage.h"
 #include "Player/Player.h"
 
-std::map<int, int> STDZombieWandering::m_indexToSign
-{
-	{ 0, 1},
-	{ 1, -1}
-};
-
 STDZombieWandering::STDZombieWandering(IEnemy* enemy) : IEnemyState::IEnemyState(enemy)
 {
 }
 
 void STDZombieWandering::Enter()
 {
-	m_enemy->GetModelRender()->PlayAnimation(StandardZombie::EnAnimationState_Run, 0.5f);
+	m_enemy->GetModelRender()->PlayAnimation(StandardZombie::EnAnimationState_Walk, 0.5f);
 	m_target = m_enemy->GetPos();
 }
 
@@ -43,7 +37,7 @@ void STDZombieWandering::Update()
 		E2PGrid[0] = (enemyGrid[0] - playerGrid[0]) / 2;
 		E2PGrid[1] = (enemyGrid[1] - playerGrid[1]) / 2;
 
-
+		//自チャンクのセルをランダムで抽選して、それを次のパスに。
 		auto& cellList = m_enemy->GetStage()->GetTerrainWorld()->GetTerrainWorld(E2PGrid[0], E2PGrid[1])->GetCellList();
 
 		int index = rand() % cellList.size();
