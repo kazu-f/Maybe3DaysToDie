@@ -86,7 +86,7 @@ void DateTime::Update()
 	//時間を文字列に変換
 	_itow_s(m_Hours, Time, 10);
 	//時をつける
-	wcscat_s(Time, L"時　");
+	wcscat_s(Time, L"時間　");
 	//フォント用文字列に足す
 	wcscat_s(TimerData, Time);
 
