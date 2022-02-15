@@ -121,7 +121,11 @@ void LoadingByChunk::InitModels()
 		//ブロックの名前がかぶっていないのでまだ、そのモデルがない
 		ModelInitData InitData;
 		auto* block = m_itemDatas->GetBlockDataTypeID(blockID);
-		if (block == nullptr) continue;
+		if (block == nullptr)
+		{
+			m_modelNum++;
+			continue;
+		}
 		InitData.m_tkmFilePath = block->GetItemData()->tkmPath.c_str();
 
 		prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
@@ -137,7 +141,11 @@ void LoadingByChunk::InitModels()
 		//ブロックの名前がかぶっていないのでまだ、そのモデルがない
 		ModelInitData InitData;
 		auto* place = m_itemDatas->GetPlaceObjTypeID(ObjectID);
-		if (place == nullptr) continue;
+		if (place == nullptr)
+		{
+			m_modelNum++;
+			continue;
+		}
 		InitData.m_tkmFilePath = place->GetItemData()->tkmPath.c_str();
 
 		prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
