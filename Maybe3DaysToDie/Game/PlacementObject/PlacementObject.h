@@ -32,8 +32,7 @@ public:
 	/// <param name="params">パラメータ</param>
 	void SetParams(const ObjectParams& params)
 	{
-		if (ObjID == params.BlockID
-			|| params.BlockID == DEFAULT_ID)
+		if (ObjID == params.BlockID)
 		{
 			//変更なし
 			return;
