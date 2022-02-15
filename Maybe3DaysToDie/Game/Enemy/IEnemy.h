@@ -149,11 +149,6 @@ public://setter
 		m_rot = rot;
 	}
 
-	void SetBloodMoon(bool flag)
-	{
-		m_bloodMoonHode = flag;
-	}
-
 public://getter
 	/// <summary>
 	/// エージェントを取得。
@@ -230,7 +225,6 @@ protected:
 	FootIK					m_footIK;
 	Player*					m_playerPtr;				//プレイヤー。
 	Stage*					m_stage = nullptr;
-	bool					m_bloodMoonHode = false;	
 
 	CCapsuleCollider		m_capsuleCollider;			//カプセルコライダー。
 	CRigidBody				m_rigidBody;				//剛体。

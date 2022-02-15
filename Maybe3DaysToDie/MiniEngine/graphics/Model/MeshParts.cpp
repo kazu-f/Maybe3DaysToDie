@@ -34,7 +34,6 @@ namespace Engine {
 		m_instancingDataPtr = instancingDataSB;
 		m_maxInstance = maxInstance;
 		
-		m_meshs.clear();
 		m_meshs.resize(tkmFile.GetNumMesh());
 		int meshNo = 0;
 		tkmFile.QueryMeshParts([&](const TkmFile::SMesh& mesh) {
@@ -58,7 +57,6 @@ namespace Engine {
 
 	void MeshParts::CreateDescriptorHeaps()
 	{
-		m_descriptorHeap.clear();
 		//ディスクリプタヒープはマテリアルの数分だけ作成される。
 		int numDescriptorHeap = 0;
 		for (auto& mesh : m_meshs) {

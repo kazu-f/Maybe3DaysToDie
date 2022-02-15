@@ -81,27 +81,20 @@ namespace Engine {
 	bool Skeleton::Init(const char* tksFilePath)
 	{
 		//TODO:tksファイル読み込みをフライウェイト化。
-		auto tksFile = ResourceEngine().GetTksFileFromBank(tksFilePath);
-		if (tksFile == nullptr) {
-			tksFile = new TksFile();
-			tksFile->Load(tksFilePath);
-
-			if (tksFile->IsLoaded() == false) {
-				ENGINE_LOG("tksファイルが見つかりませんでした。"
-					"\t:%s", tksFilePath);
-				return false;
-			}
-
-			ResourceEngine().RegistTksFileToBank(tksFilePath, tksFile);
+		m_tksFile.Load(tksFilePath);
+		if (m_tksFile.IsLoaded() == false) {
+			ENGINE_LOG("tksファイルが見つかりませんでした。"
+				"\t:%s", tksFilePath);
+			return false;
 		}
-		m_tksFile = tksFile;
+
 		BuildBoneMatrices();
 
 		return true;
 	}
 	void Skeleton::BuildBoneMatrices()
 	{
-		m_tksFile->QueryBone([&](TksFile::SBone& tksBone) {
+		m_tksFile.QueryBone([&](TksFile::SBone& tksBone) {
 			//バインドポーズ。
 			Matrix bindPoseMatrix;
 			memcpy(bindPoseMatrix.m[0], &tksBone.bindPose[0], sizeof(tksBone.bindPose[0]));

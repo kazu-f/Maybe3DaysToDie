@@ -230,7 +230,7 @@ namespace Engine {
 		/// </remarks>
 		bool IsLoaded()const
 		{
-			return m_tksFile == nullptr ? false : m_tksFile->IsLoaded();
+			return m_tksFile.IsLoaded();
 		}
 		/// <summary>
 		/// 初期化済みか判定。
@@ -336,7 +336,7 @@ namespace Engine {
 			m_world = mat;
 		}
 	private:
-		TksFile* m_tksFile = nullptr;								//TKSファイル。
+		TksFile m_tksFile;								//TKSファイル。
 		static const int BONE_MAX = 512;				//ボーンの最大数。
 		using BonePtr = std::unique_ptr<Bone>;
 		std::vector<BonePtr>	m_bones;				//ボーンの配列。

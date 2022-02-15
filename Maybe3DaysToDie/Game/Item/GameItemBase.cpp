@@ -23,11 +23,16 @@ GameItemBase::GameItemBase(SItemDataPtr& itemData)
 	//	m_itemModel->SetActiveFlag(false);
 	//}
 
-	std::string ddsFilePath = m_itemData->iconPath;
-	int pos = static_cast<int>(ddsFilePath.find(".png"));
-	if (pos != std::string::npos) {
+	if (m_itemData->iconPath.size() > 0) {
+		m_itemIcon = NewGO<prefab::CSpriteRender>(10);
+		//ファイルパスをpngからddsに変換。
+		std::string ddsFilePath = m_itemData->iconPath;
+		int pos = static_cast<int>(ddsFilePath.find(".png"));
 		ddsFilePath.replace(pos, 4, ".dds");
-		m_itemData->iconPath = ddsFilePath;
+
+		//アイテム用のアイコンを読み込む。
+		m_itemIcon->Init(ddsFilePath.c_str(), ItemOneBoxSize, ItemOneBoxSize);
+		m_itemIcon->SetActiveFlag(false);
 	}
 }
 
@@ -36,6 +41,10 @@ GameItemBase::~GameItemBase()
 	if (m_itemModel != nullptr && !m_itemModel->IsDead())
 	{
 		DeleteGO(m_itemModel);
+	}
+	if (m_itemIcon != nullptr && !m_itemIcon->IsDead())
+	{
+		DeleteGO(m_itemIcon);
 	}
 }
 

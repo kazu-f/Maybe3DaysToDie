@@ -58,6 +58,16 @@ public:
 	{
 		m_itemModel->SetActiveFlag(isEnable);
 	}
+	//アイテムのアイコンの位置を設定。
+	void SetIconPosition(const Vector2& pos)
+	{
+		m_itemIcon->SetPosition(pos);
+	}
+	//アイテムのアイコンを表示するか。
+	void SetItemIconEnable(bool isEnable)
+	{
+		m_itemIcon->SetActiveFlag(isEnable);
+	}
 
 	/// <summary>
 	/// アイテムデータを取得。
@@ -73,5 +83,6 @@ protected:
 private:
 	SItemDataPtr m_itemData;
 	prefab::ModelRender* m_itemModel = nullptr;		//アイテムのモデル。
+	prefab::CSpriteRender* m_itemIcon = nullptr;	//アイテムのアイコン。
 };
 

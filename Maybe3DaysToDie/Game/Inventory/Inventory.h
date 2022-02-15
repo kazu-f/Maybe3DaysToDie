@@ -6,7 +6,6 @@ struct InventoryItemData {
 	GameItemBase* m_itemBase = nullptr;
 	int itemCount = 0;
 	Vector2 inventoryPos = Vector2::Zero;
-	prefab::CSpriteRender* m_IconRender = nullptr;
 };
 class Player;
 class Inventory :public IGameObject

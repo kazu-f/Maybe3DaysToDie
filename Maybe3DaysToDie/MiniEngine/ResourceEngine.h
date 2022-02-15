@@ -15,15 +15,6 @@ namespace Engine {
 			return m_tkmBank.Get(filePath);
 		}
 		/// <summary>
-		/// tksファイルをバンクから取得。
-		/// </summary>
-		/// <param name="filePath">ファイルパス</param>
-		/// <returns>tksファイル。nullptrが返ってきたらバンクに登録されていない。</returns>
-		TksFile* GetTksFileFromBank(const char* filePath)
-		{
-			return m_tksBank.Get(filePath);
-		}
-		/// <summary>
 		/// tkmファイルをバンクに登録。
 		/// </summary>
 		/// <param name="filePath">tkmファイルパス</param>
@@ -31,15 +22,6 @@ namespace Engine {
 		void RegistTkmFileToBank(const char* filePath, TkmFile* tkmFile)
 		{
 			m_tkmBank.Regist(filePath, tkmFile);
-		}
-		/// <summary>
-		/// tksファイルをバンクに登録。
-		/// </summary>
-		/// <param name="filePath">tksファイルパス</param>
-		/// <param name="tkmFile"></param>
-		void RegistTksFileToBank(const char* filePath, TksFile* tksFile)
-		{
-			m_tksBank.Regist(filePath, tksFile);
 		}
 		/// <summary>
 		/// テクスチャをバンクに登録。
@@ -83,7 +65,6 @@ namespace Engine {
 		}
 	private:
 		TResourceBank<TkmFile> m_tkmBank;				//tkmファイルバンク。
-		TResourceBank<TksFile> m_tksBank;				//tksファイルバンク。
 		TResourceBank<Shader> m_shaderBank;				// シェーダーバンク
 		TResourceBank<Texture>	m_textureBank;			// テクスチャバンク。
 	};
