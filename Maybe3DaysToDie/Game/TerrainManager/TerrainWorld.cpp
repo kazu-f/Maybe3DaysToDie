@@ -408,26 +408,28 @@ namespace nsTerrain {
 			//そのエッジを使うかどうか。
 			if ((edgeFlags & (1 << i)) != 0)
 			{
+				int index1 = nsMarching::EdgeConnection[i][0];
+				int index2 = nsMarching::EdgeConnection[i][1];
 				//オフセットを計算する。
-				float offset = GetOffset(cube.cube[nsMarching::EdgeConnection[i][0]], cube.cube[nsMarching::EdgeConnection[i][1]]);
+				float offset = GetOffset(cube.cube[index1], cube.cube[index2]);
 
-				int tex1ID = cube.terrainID[nsMarching::EdgeConnection[i][0]];
+				int tex1ID = cube.terrainID[index1];
 				if (tex1ID >= 0)	EdgeTexture[i].tex[tex1ID] = (1.0f - offset);
 
-				int tex2ID = cube.terrainID[nsMarching::EdgeConnection[i][1]];
+				int tex2ID = cube.terrainID[index2];
 				if (tex2ID >= 0) EdgeTexture[i].tex[tex2ID] = offset;
 
 				EdgeTexture[i].Normalize();
 
 				//エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
-				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset)
-					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].x));
+				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[index1].x) * (1.0f - offset)
+					+ offset * static_cast<float>(nsMarching::CornerTable[index2].x));
 
-				EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].y) * (1.0f - offset)
-					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].y));
+				EdgeVertex[i].y = (static_cast<float>(nsMarching::CornerTable[index1].y) * (1.0f - offset)
+					+ offset * static_cast<float>(nsMarching::CornerTable[index2].y));
 
-				EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].z) * (1.0f - offset)
-					+ offset * static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][1]].z));
+				EdgeVertex[i].z = (static_cast<float>(nsMarching::CornerTable[index1].z) * (1.0f - offset)
+					+ offset * static_cast<float>(nsMarching::CornerTable[index2].z));
 			}
 		}
 
