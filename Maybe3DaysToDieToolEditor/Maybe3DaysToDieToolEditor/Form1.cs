@@ -424,6 +424,10 @@ namespace Maybe3DaysToDieToolEditor
                     {
                         collect.BuildCollectItemData(list);
                     }
+                    foreach(var inside in place.insideItemData)
+                    {
+                        inside.BuildCollectItemData(list);
+                    }
                 }
                 //設置物。
                 else if (item.GetType() == typeof(Block))
