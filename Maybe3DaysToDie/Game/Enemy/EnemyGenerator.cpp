@@ -4,11 +4,22 @@
 #include "Player/Player.h"
 #include "Stage.h"
 #include "StandardZombie/StandardZombie.h"
+#include "DateTime.h"
 
 std::map<int, int> EnemyGenerator::m_indexToSign
 {
 	{ 0, 1},
 	{ 1, -1}
+};
+
+std::map<float, int> EnemyGenerator::m_currentSpawnTimeToChangeSpawnTimeCount
+{
+	{ 10.0f, 1 },
+	{ 9.0f,  4 },
+	{ 8.0f,  10 },
+	{ 7.0f,  16 },
+	{ 6.0f,  24 },
+	{ 5.0f,  35 }
 };
 
 EnemyGenerator::EnemyGenerator()
@@ -23,6 +34,7 @@ EnemyGenerator::~EnemyGenerator()
 bool EnemyGenerator::Start()
 {
 	m_player = FindGO<Player>("player");
+	m_dateTime = FindGO<DateTime>("dateTime");
 	return true;
 }
 
@@ -65,7 +77,37 @@ void EnemyGenerator::Update()
 
 	m_spawnEnemyTimer += GameTime().GetFrameDeltaTime();
 
-	if (m_spawnEnemyTimer > SPAWN_ENEMY_TIME)
+	if (m_dateTime->GetHode())
+	{
+		//ホード開始。
+		for (auto& enemy : m_enemyList)
+		{
+			enemy->SetBloodMoon(true);
+		}
+
+		m_spawnEnemyTime = BLOOD_MOON_SPAWN_TIME;
+
+		if (m_bloodMoonDeadEnemyCount > max((m_deadEnemyCount + 1 ) / 2, 1) )
+		{
+			m_dateTime->FinishHode();
+			//ホード開始。
+			for (auto& enemy : m_enemyList)
+			{
+				enemy->SetBloodMoon(false);
+			}
+		}
+	}
+	else
+	{
+		m_bloodMoonDeadEnemyCount = 0;
+		//敵の撃破数に応じてスポーンタイムを変えてく。
+		if (m_currentSpawnTimeToChangeSpawnTimeCount[m_spawnEnemyTime] == m_deadEnemyCount)
+		{
+			m_spawnEnemyTime--;
+		}
+	}
+
+	if (m_spawnEnemyTimer > m_spawnEnemyTime)
 	{
 		SpawnEnemyAroundPlayer();
 		m_spawnEnemyTimer = 0.0f;
@@ -121,5 +163,14 @@ void EnemyGenerator::ActivateBloodMoonHode()
 
 void EnemyGenerator::DisableBloodMoonHode()
 {
+}
+
+void EnemyGenerator::AddDeadEnemyCount()
+{
+	m_deadEnemyCount++;
+	if (m_dateTime->GetHode())
+	{
+		m_bloodMoonDeadEnemyCount++;
+	}
 }
 

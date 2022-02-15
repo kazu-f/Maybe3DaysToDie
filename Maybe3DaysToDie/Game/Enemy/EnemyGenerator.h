@@ -5,6 +5,7 @@
 class IEnemy;
 class Stage;
 class Player;
+class DateTime;
 
 /// <summary>
 /// エネミーを生成するオブジェクト。
@@ -88,10 +89,7 @@ public:
 	/// <summary>
 	/// 死亡したエネミーの数をインクリメント。
 	/// </summary>
-	void AddDeadEnemyCount()
-	{
-		m_deadEnemyCount++;
-	}
+	void AddDeadEnemyCount();
 
 	/// <summary>
 	/// ステージを設定。
@@ -106,18 +104,27 @@ private:
 	static const int MAX_ENEMY = 16;				//管理できる最大エネミー数。
 	Stage* m_stage = nullptr;						//ステージp
 	Player* m_player = nullptr;						//プレイヤーp
+	DateTime* m_dateTime = nullptr;					//日時。
+
 	static std::map<int, int> m_indexToSign;		//インデックスから符号。
 
 	/* EnemyManagement */
-	int m_currentEnemyCount = 0;					//現在、存在しているエネミーの数。
-	std::vector<IEnemy*> m_enemyList;				//エネミーのリスト。
-	const float SPAWN_ENEMY_TIME = 3.0f;			//エネミーが沸く周期。
-	float m_spawnEnemyTimer = SPAWN_ENEMY_TIME / 2;	//エネミーが沸くタイマー。
+	int m_currentEnemyCount = 0;						//現在、存在しているエネミーの数。
+	std::vector<IEnemy*> m_enemyList;					//エネミーのリスト。
+	const float START_SPAWN_ENEMY_TIME = 10.0f;			//エネミーが沸く周期。
+	const float BLOOD_MOON_SPAWN_TIME = 3.0f;
+	float m_spawnEnemyTime = START_SPAWN_ENEMY_TIME;
+	float m_spawnEnemyTimer = START_SPAWN_ENEMY_TIME / 2;	//エネミーが沸くタイマー。
 	int m_deadEnemyCount = 0;
+
+	/* BloodMoon */
+	int m_bloodMoonDeadEnemyCount = 0;					
+
+	static std::map<float, int> m_currentSpawnTimeToChangeSpawnTimeCount;
 
 
 	/* bloodMoon */
-	bool m_isActiveBloodMoon = false;				//ブラッドムーンが有効？
+	bool m_isActiveBloodMoon = true;				//ブラッドムーンが有効？
 	
 };
 
