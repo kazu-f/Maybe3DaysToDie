@@ -212,6 +212,7 @@ void ItemDataFile::InitItemData(const char* filePath)
 			GameItemPlaceObj* placeItem = new GameItemPlaceObj(itemData, params, collectItemData, placeType);
 			m_itemArray.push_back(placeItem);
 			m_placeMap.insert(std::make_pair(placeItem->GetItemData()->itemID, placeItem));
+			m_placeHashMap.insert(std::make_pair(placeItem->GetBlockHash(), placeItem));
 		}
 			break;
 
@@ -291,8 +292,6 @@ void ItemDataFile::InitItemData(const char* filePath)
 		default:
 			break;
 		}
-
-
 	}
 
 	m_arraySize = m_itemArray.size();
@@ -306,5 +305,4 @@ void ItemDataFile::InitItemData(const char* filePath)
 	m_handTool->SetTool(handInfo);
 	SItemDataPtr nullItemData = std::make_unique<SItemData>();
 	m_nullGameItem = new GameItemBase(nullItemData);
-	m_blockArraySize = m_blockMap.size();
 }

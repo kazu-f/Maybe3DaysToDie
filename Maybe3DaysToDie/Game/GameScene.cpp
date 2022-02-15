@@ -4,7 +4,7 @@
 #include "Player/Player.h"
 #include "Stage.h"
 #include "ItemBar/ItemBar.h"
-#include "Player/Inventory.h"
+#include "Inventory/Inventory.h"
 
 #include "PlacementObject/PlacementObject.h"
 #include "DestroyObject/DestroyObject.h"
@@ -97,21 +97,6 @@ bool CGameScene::Start()
 	m_PlacementObject->SetLoadingChunk(m_LoadingByChunk);
 	m_PlacementObject->SetSaveData(&m_SaveDataFile);
 	m_DestroyObject->SetSaveData(&m_SaveDataFile);
-	m_SaveDataFile.ObjectFilePath[0] = L"DirtModel";
-	m_SaveDataFile.ObjectFilePath[1] = L"WoodBlock";
-	m_SaveDataFile.ObjectFilePath[2] = L"BookBlock";
-	m_SaveDataFile.ObjectFilePath[3] = L"ShelfBlock";
-	m_SaveDataFile.ObjectFilePath[4] = L"CardBoard";
-	m_SaveDataFile.ObjectAccessTag[0] = AccessTag::NonAccess;
-	m_SaveDataFile.ObjectAccessTag[1] = AccessTag::NonAccess;
-	m_SaveDataFile.ObjectAccessTag[2] = AccessTag::NonAccess;
-	m_SaveDataFile.ObjectAccessTag[3] = AccessTag::NonAccess;
-	m_SaveDataFile.ObjectAccessTag[4] = AccessTag::Root;
-	m_SaveDataFile.ObjectType[0] = ObjectType::Terrain;
-	m_SaveDataFile.ObjectType[1] = ObjectType::Block;
-	m_SaveDataFile.ObjectType[2] = ObjectType::Block;
-	m_SaveDataFile.ObjectType[3] = ObjectType::Block;
-	m_SaveDataFile.ObjectType[4] = ObjectType::Block;
 
 
 	//ワールドデータ関係を記録する

@@ -5,7 +5,6 @@
 
 Block::Block()
 {
-	param.BlockName = nullptr;
 	param.Durable = 0;
 	param.AptitudeTool = ToolKinds::DebugTool;
 	SetParams(param);
@@ -15,7 +14,7 @@ Block::~Block()
 }
 
 
-void Block::Damage(const ToolInfo& tool)
+int Block::Damage(const ToolInfo& tool)
 {
 	//ƒc[ƒ‹‚©‚çUŒ‚—Í‚ðŽ‚Á‚Ä‚­‚é
 	int damage = tool.AttackPower;
@@ -25,6 +24,7 @@ void Block::Damage(const ToolInfo& tool)
 		damage /= 3;
 	}
 	//‘Ï‹v’l‚ÌÅ’á’l‚ð0‚É‚·‚é
+	int durableForward = m_params.Durable;
 	int durable = max(0, (m_params.Durable - damage));
 	if (durable != m_params.Durable)
 	{
@@ -36,6 +36,7 @@ void Block::Damage(const ToolInfo& tool)
 		m_params.Durable = durable;
 		m_ChunkBlock->RemoveBlock(this);
 	}
+	return durableForward - durable;
 }
 
 void Block::AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)

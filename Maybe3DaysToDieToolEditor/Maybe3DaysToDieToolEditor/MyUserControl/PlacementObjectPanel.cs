@@ -17,11 +17,20 @@ namespace Maybe3DaysToDieToolEditor
         ToolKindsComboBox toolKinds;
         PlaceObjTypeComboBox objTypes;
         private BindingSource _itemDataBS = null;   //アイテムデータのバインディングソース。
+        private BindingSource _rootDataBS = null;   //アイテムデータのバインディングソース。
 
         public BindingSource ItemDataBS{
             set 
             {
                 _itemDataBS = value;
+                ColectItemDropDownList.DataSource = _itemDataBS;
+                ColectItemDropDownList.DisplayMember = "itemName";
+            }
+        }            //アイテムデータのバインディングソース。
+        public BindingSource RootDataBS{
+            set 
+            {
+                _rootDataBS = value;
                 ColectItemDropDownList.DataSource = _itemDataBS;
                 ColectItemDropDownList.DisplayMember = "itemName";
             }

@@ -36,19 +36,21 @@ namespace nsTerrain {
 		}
 	}
 
-	void Terrain::Damage(const ToolInfo& tool)
+	int Terrain::Damage(const ToolInfo& tool)
 	{
 		int damage = tool.AttackPower;
 		if (!(m_params.AptitudeTool & tool.tool))
 		{
 			damage /= 3;
 		}
+		int durableForward = m_params.Durable;
 		int durable = max(0, (m_params.Durable - damage));
 		if (durable != m_params.Durable)
 		{
 			m_params.Durable = durable;
 			CalcVoxel();
 		}
+		return durableForward - durable;
 	}
 	void Terrain::CalcVoxel()
 	{

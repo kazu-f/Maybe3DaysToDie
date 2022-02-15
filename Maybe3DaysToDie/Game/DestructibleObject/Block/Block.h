@@ -12,7 +12,7 @@ public:
 	/// ダメージを与える
 	/// </summary>
 	/// <param name="tool">ツールの情報</param>
-	void Damage(const ToolInfo& tool)override final;
+	int Damage(const ToolInfo& tool)override final;
 
 	/// <summary>
 	/// ブロックを追加
@@ -39,12 +39,6 @@ public:
 		m_ChunkBlock = CB;
 	}
 
-	//ブロックの名前をセット
-	void SetName(const char* name)
-	{
-		param.BlockName = name;
-		SetParams(param);
-	}
 private:
 	const Vector3 BLOCK_SIZE = { OBJECT_UNIT ,OBJECT_UNIT ,OBJECT_UNIT };
 	BlockManager* m_BlockManager = nullptr;

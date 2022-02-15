@@ -14,4 +14,5 @@ GameItemPlaceObj::GameItemPlaceObj(SItemDataPtr& itemData, const ObjectParams& p
 	m_placeParams = params;
 	m_placeCollectData = std::move(placeCollectData);
 	m_placeType = type;
+	m_objHash = Util::MakeHash(m_objName.c_str());
 }
