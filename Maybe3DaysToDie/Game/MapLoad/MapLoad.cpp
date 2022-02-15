@@ -70,13 +70,13 @@ void MapLoad::Init(const char* filePath)
 
 		if (block != nullptr)
 		{
-			Obj.ObjDurable = block->GetObjParams().Durable;
+			Obj.ObjId = block->GetObjParams().BlockID;
 			Obj.ObjDurable = block->GetObjParams().Durable;
 			Obj.Rotate = objData.rotation;
 		}
 		else if (placeObj != nullptr)
 		{
-			Obj.ObjDurable = placeObj->GetObjParams().Durable;
+			Obj.ObjId = placeObj->GetObjParams().BlockID;
 			Obj.ObjDurable = placeObj->GetObjParams().Durable;
 			Obj.Rotate = objData.rotation;
 		}
