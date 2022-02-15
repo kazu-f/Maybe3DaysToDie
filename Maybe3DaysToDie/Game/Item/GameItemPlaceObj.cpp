@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GameItemPlaceObj.h"
 
-GameItemPlaceObj::GameItemPlaceObj(SItemDataPtr& itemData, const ObjectParams& params, ObjectCollectItemData& placeCollectData, int type)
+GameItemPlaceObj::GameItemPlaceObj(SItemDataPtr& itemData, const ObjectParams& params, ObjectCollectItemData& placeCollectData, AccessTag type)
 	:GameItemBase(itemData)
 {
 	//ブロックの名前を作成する。

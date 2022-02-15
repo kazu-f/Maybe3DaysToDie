@@ -53,20 +53,13 @@ void PlacementObject::Update()
 	ObjID = static_cast<int>(objParam.BlockID);
 	auto* block = m_itemDataFile->GetBlockData(ObjID);
 	auto* terrain = m_itemDataFile->GetTerrainData(ObjID);
-	if (block == nullptr && terrain == nullptr) {
+	auto* placeObj = m_itemDataFile->GetPlaceData(ObjID);
+	if (block == nullptr && terrain == nullptr && placeObj == nullptr) {
 		//ブロックIDがマイナスか最大値より大きいときreturn
 		CanPlace = false;
 		return;	
 	}
 
-	////オブジェクトを設置する位置を計算
-	//ObjID = static_cast<int>(objParam.BlockID);
-	//if (ObjID < 0 || ObjID >= BlockKinds)
-	//{
-	//	//ブロックIDがマイナスか最大値より大きいときreturn
-	//	CanPlace = false;
-	//	return;
-	//}
 	CalcObjectPos();
 	//各種セット
 	m_ObjectModel->SetPosition(m_pos);
@@ -123,21 +116,28 @@ bool PlacementObject::SetModelParams()
 	ObjID = static_cast<int>(objParam.BlockID);
 	auto* block = m_itemDataFile->GetBlockData(ObjID);
 	auto* terrain = m_itemDataFile->GetTerrainData(ObjID);
-	if (block == nullptr && terrain == nullptr)return false;
+	auto* placeObj = m_itemDataFile->GetPlaceData(ObjID);
+	if (block == nullptr && terrain == nullptr && placeObj == nullptr) {
+		return false;
+	}
 
-	const char* filePath = nullptr;
+	std::string* filePath = nullptr;
 	if (block != nullptr)
 	{
-		filePath = block->GetItemData()->tkmPath.c_str();
+		filePath = &block->GetItemData()->tkmPath;
 	}
 	if (terrain != nullptr)
 	{
-		filePath = terrain->GetItemData()->tkmPath.c_str();
+		filePath = &terrain->GetItemData()->tkmPath;
+	}
+	if (placeObj != nullptr)
+	{
+		filePath = &placeObj->GetItemData()->tkmPath;
 	}
 
-	if (filePath == nullptr) return false;
+	if (filePath->size() == 0) return false;
 
-	m_modelInitData.m_tkmFilePath = filePath;
+	m_modelInitData.m_tkmFilePath = filePath->c_str();
 
 	return true;
 
@@ -220,6 +220,7 @@ void PlacementObject::PlaceObject()
 			if (terrainData != nullptr) {
 				auto* terrain = m_TerrainManager->GetTerrainChunkData(ID[0], ID[1]).GetTerrainData(id_x, id_y, id_z);
 				terrain->AddBlock(objParam, m_pos, rot, scale);
+				terrain->SetTerrainID(terrainData->GetItemData()->itemTypeID);
 			}
 
 			//switch (m_SaveData->ObjectType[objParam.BlockID])

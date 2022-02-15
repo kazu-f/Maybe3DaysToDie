@@ -213,10 +213,8 @@ namespace Maybe3DaysToDieToolEditor
     //設置物のタイプ。
     public enum EnPlaceTypes
     {
-        enType_Chest,
-        enType_WorkBench,
-        enType_OthreObject,
-        enPlaceTypeNum
+        NonAccess = 0,      //アクセスできない
+        Root = 1 << 0,		//ルート
     }
 
     /// <summary>
@@ -239,7 +237,7 @@ namespace Maybe3DaysToDieToolEditor
     {
         [DataMember(Name = "durable")] public int durable { get; set; } = 0;
         [DataMember(Name = "tool")] public int tool { get; set; } = 0;
-        [DataMember(Name = "Type")] public EnPlaceTypes placeType { get; set; } = EnPlaceTypes.enType_Chest;
+        [DataMember(Name = "Type")] public EnPlaceTypes placeType { get; set; } = EnPlaceTypes.NonAccess;
         [DataMember(Name = "collectItems")] public List<CollectItem> collectItemList = new List<CollectItem>();
         [DataMember(Name = "collectItemDataNum")]
         public int collectItemDataNum

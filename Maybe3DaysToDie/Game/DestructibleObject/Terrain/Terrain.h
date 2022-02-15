@@ -85,7 +85,7 @@ namespace nsTerrain {
 		TerrainChunkData* m_chunkData[NEAR_CHUNK_MAXCOUNT] = { nullptr };		//チャンク情報。
 		char m_terrainChunkDataSize = 0;											//チャンク情報の保持数。
 
-		int m_terrainId = 0;		//地形id番号。
+		int m_terrainId = -1;		//地形id番号。
 		float m_voxel = 1.0f;		//ボクセル値。
 
 		//bool m_registColider = false;

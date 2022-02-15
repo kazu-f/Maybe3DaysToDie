@@ -36,6 +36,19 @@ namespace nsTerrain {
 			ret.texVec[1] = texVec[1] * _mul;
 			return ret;
 		}
+
+		void Normalize()
+		{
+			float sum = 0.0f;
+			for (float texVal : tex) {
+				sum += texVal;
+			}
+			if (sum > 0.0f) {
+				for (float& texVal : tex) {
+					texVal /= sum;
+				}
+			}
+		}
 	};
 	/// <summary>
 	/// 地形の頂点データ。

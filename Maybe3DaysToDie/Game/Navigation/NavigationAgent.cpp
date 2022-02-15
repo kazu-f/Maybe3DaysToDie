@@ -4,14 +4,16 @@
 #include "NaviMeshManager.h"
 #include "Stage.h"
 
-void NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start, Vector3& goal, float serchTime)
+bool NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start, Vector3& goal, float serchTime)
 {
 	if (m_stage == nullptr) {
-		return;
+		return false;
 	}
 
+	
+
 	//経路を計算する。
-	if (m_isArrive || m_serchTime > serchTime) {
+	if (m_isArrive || m_serchTime > serchTime || m_stage->GetTerrainWorld()->GetNaviMeshManager()->IsUpdateNVM()) {
 		
 		//全部のセルを統合。
 		std::vector<NVMGenerator::Cell*> cellList;
@@ -43,10 +45,10 @@ void NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start
 	//タイマー更新。
 	m_serchTime += GameTime().GetFrameDeltaTime();
 
-	if (m_nodeList.size() <= 1) {
+	if (m_nodeList.size() == 0) {
 		m_isArrive = true;
-		//ノードが繋がってないため動かない。
-		return;
+		//ノードがない。
+		return true;
 	}
 
 	//到着していない。
@@ -63,8 +65,10 @@ void NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start
 	Vector3 footStep = model->GetFootstepMove();
 	m_AgentPos = start + m_toWayPoint * footStep.Length();;
 
-	if (dist < 5.0f) {
+	if (dist < 10.0f) {
 		//waypointに到着。
 		m_nodeList.erase(m_nodeList.begin());
 	}
+
+	return false;
 }

@@ -91,7 +91,7 @@
     "itemType": 5,
     "itemTypeID": 0,
     "name": "MaterialDirt",
-    "stackNum": 1,
+    "stackNum": 999,
     "tkmFile": "",
     "MaterialType": 0
   },
@@ -108,8 +108,8 @@
     "itemType": 3,
     "itemTypeID": 0,
     "name": "TerrainDirt",
-    "stackNum": 1,
-    "tkmFile": "",
+    "stackNum": 999,
+    "tkmFile": "Assets\\modelData\\CubeBlock\\DirtModel.tkm",
     "collectItemDataNum": 1,
     "collectItems": [
       {
@@ -117,7 +117,7 @@
         "corectionNum": 10
       }
     ],
-    "durable": 0,
+    "durable": 500,
     "texture": "Assets\\modelData\\CubeBlock\\T_GroundDirt_01_D.DDS",
     "tool": 4
   },
@@ -134,7 +134,7 @@
     "itemType": 3,
     "itemTypeID": 1,
     "name": "TerrainStone",
-    "stackNum": 1,
+    "stackNum": 999,
     "tkmFile": "",
     "collectItemDataNum": 1,
     "collectItems": [
@@ -143,7 +143,7 @@
         "corectionNum": 10
       }
     ],
-    "durable": 0,
+    "durable": 600,
     "texture": "Assets\\modelData\\Terrain\\T_MacroVariation.dds",
     "tool": 2
   },
@@ -160,7 +160,7 @@
     "itemType": 5,
     "itemTypeID": 1,
     "name": "MaterialRock",
-    "stackNum": 1,
+    "stackNum": 999,
     "tkmFile": "",
     "MaterialType": 0
   },
@@ -177,7 +177,7 @@
     "itemType": 3,
     "itemTypeID": 2,
     "name": "TerrainGrass",
-    "stackNum": 1,
+    "stackNum": 999,
     "tkmFile": "",
     "collectItemDataNum": 1,
     "collectItems": [
@@ -186,7 +186,7 @@
         "corectionNum": 10
       }
     ],
-    "durable": 0,
+    "durable": 500,
     "texture": "Assets\\modelData\\Terrain\\T_Ground_Grass_D.dds",
     "tool": 4
   },
@@ -208,7 +208,7 @@
     "itemType": 2,
     "itemTypeID": 0,
     "name": "WoodBlock",
-    "stackNum": 1,
+    "stackNum": 999,
     "tkmFile": "Assets\\modelData\\CubeBlock\\WoodBlock.tkm",
     "collectItemDataNum": 1,
     "collectItems": [
@@ -232,9 +232,9 @@
     "itemMaterialDataNum": 0,
     "itemType": 2,
     "itemTypeID": 1,
-    "name": "CardBoard",
-    "stackNum": 1,
-    "tkmFile": "Assets\\modelData\\CubeBlock\\CardBoard.tkm",
+    "name": "ShelfBlock",
+    "stackNum": 999,
+    "tkmFile": "Assets\\modelData\\CubeBlock\\ShelfBlock.tkm",
     "collectItemDataNum": 0,
     "collectItems": [ ],
     "durable": 400,
@@ -253,7 +253,7 @@
     "itemType": 2,
     "itemTypeID": 2,
     "name": "BookBlock",
-    "stackNum": 1,
+    "stackNum": 999,
     "tkmFile": "Assets\\modelData\\CubeBlock\\BookBlock.tkm",
     "collectItemDataNum": 0,
     "collectItems": [ ],
@@ -275,8 +275,34 @@
     "itemType": 5,
     "itemTypeID": 2,
     "name": "MaterialWood",
-    "stackNum": 1,
+    "stackNum": 999,
     "tkmFile": "",
     "MaterialType": 0
+  },
+  {
+    "__type": "PlacementObject:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "",
+    "itemID": 12,
+    "itemMaterialData": [ ],
+    "itemMaterialDataNum": 0,
+    "itemType": 1,
+    "itemTypeID": 0,
+    "name": "CardBoard",
+    "stackNum": 30,
+    "tkmFile": "Assets\\modelData\\CubeBlock\\CardBoard.tkm",
+    "Type": 1,
+    "collectItemDataNum": 1,
+    "collectItems": [
+      {
+        "corectItemID": 8,
+        "corectionNum": 5
+      }
+    ],
+    "durable": 500,
+    "tool": 1
   }
 ]

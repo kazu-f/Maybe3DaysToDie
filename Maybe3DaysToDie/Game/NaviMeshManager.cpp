@@ -20,6 +20,7 @@ bool NaviMeshManager::Start()
 
 void NaviMeshManager::Update()
 {
+	m_isUpdateNVM = true;
 
 	for (int x = 0; x < LoadingChunkCols; x++)
 	{
@@ -30,6 +31,7 @@ void NaviMeshManager::Update()
 			if (!LoadingChunkUpdateFlag && !m_terrainManager->GetTerrainWorld(x, y)->IsUpdateNvm())
 			{
 				//更新必要なし。
+				m_isUpdateNVM = false;
 				continue;
 			}
 

@@ -145,7 +145,9 @@ namespace nsTerrain {
 					}
 
 					terrain->SetVoxel(point);
-					terrain->SetTerrainID(terrainID);
+					if (point > 0.0f) {
+						terrain->SetTerrainID(terrainID);
+					}
 
 					Vector3 pos;
 					pos.x = static_cast<float>((x + ChunkWidth * chunkX)) * OBJECT_UNIT;

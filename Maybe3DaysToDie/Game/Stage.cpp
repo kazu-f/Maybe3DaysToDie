@@ -17,7 +17,8 @@ Stage::~Stage()
 }
 bool Stage::Start()
 {
-	m_enemyGenerator.SetStage(this);
+	m_enemyGenerator = NewGO<EnemyGenerator>(0);
+	m_enemyGenerator->SetStage(this);
 	//地形生成
 	//todo　もしもSaveDataFileから計算するようになったらif文の下に置く
 	m_Terrain->PopurerTerrainMap();
@@ -40,11 +41,11 @@ void Stage::Update()
 {
 
 	if (GetAsyncKeyState('U')) {
-		StandardZombie* sz = dynamic_cast<StandardZombie*>(m_enemyGenerator.Create<StandardZombie>());
-		sz->SetPos({ 300.0f, 0.0f, 300.0f });
+		//StandardZombie* sz = dynamic_cast<StandardZombie*>(m_enemyGenerator.Create<StandardZombie>());
+		//sz->SetPos({ 300.0f, 0.0f, 300.0f });
 	}
 	if (GetAsyncKeyState('K')) {
-		m_enemyGenerator.ReleaseEnemy();
+		m_enemyGenerator->ReleaseEnemy();
 	}
 }
 

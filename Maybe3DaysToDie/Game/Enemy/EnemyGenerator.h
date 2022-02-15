@@ -4,11 +4,12 @@
 
 class IEnemy;
 class Stage;
+class Player;
 
 /// <summary>
 /// エネミーを生成するオブジェクト。
 /// </summary>
-class EnemyGenerator
+class EnemyGenerator : public IGameObject
 {
 public:
 	/// <summary>
@@ -19,6 +20,11 @@ public:
 	/// デストラクタ。
 	/// </summary>
 	~EnemyGenerator();
+
+public:
+	bool Start() override;
+	void Update() override;
+
 public:
 	/// <summary>
 	/// 全エネミーを解放。
@@ -45,7 +51,7 @@ public:
 		//エネミーと相対参照に。
 		enemy->SetEnemyGenerator(this);
 		//nvm.
-		enemy->SetNVMGenerator(m_stage);
+		enemy->SetStage(m_stage);
 		//リストに積み積み。
 		m_enemyList.push_back(enemy);
 		m_currentEnemyCount++;
@@ -56,6 +62,12 @@ public:
 
 		return enemy;
 	}
+
+	/// <summary>
+	/// プレイヤーの周りに敵を生成する。
+	/// </summary>
+	void SpawnEnemyAroundPlayer();
+
 	/// <summary>
 	/// エネミーの登録を解除する。
 	/// </summary>
@@ -81,15 +93,21 @@ public:
 	}
 private:
 	/* Const */
-	static const int MAX_ENEMY = 16;		//管理できる最大エネミー数。
-	Stage* m_stage = nullptr;
+	static const int MAX_ENEMY = 16;				//管理できる最大エネミー数。
+	Stage* m_stage = nullptr;						//ステージp
+	Player* m_player = nullptr;						//プレイヤーp
+	static std::map<int, int> m_indexToSign;		//インデックスから符号。
 
 	/* EnemyManagement */
-	int m_currentEnemyCount = 0;			//現在、存在しているエネミーの数。
-	std::vector<IEnemy*> m_enemyList;		//エネミーのリスト。
+	int m_currentEnemyCount = 0;					//現在、存在しているエネミーの数。
+	std::vector<IEnemy*> m_enemyList;				//エネミーのリスト。
+	const float SPAWN_ENEMY_TIME = 10.0f;			//エネミーが沸く周期。
+	float m_spawnEnemyTimer = SPAWN_ENEMY_TIME / 2;	//エネミーが沸くタイマー。
+	int m_deadEnemyCount = 0;
+
 
 	/* bloodMoon */
-	bool m_isActiveBloodMoon = false;		//ブラッドムーンが有効？
+	bool m_isActiveBloodMoon = false;				//ブラッドムーンが有効？
 	
 };
 

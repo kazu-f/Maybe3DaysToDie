@@ -99,19 +99,19 @@ struct CharactorRayResult :public btCollisionWorld::RayResultCallback
 	{
 		if (convexResult.m_collisionObject->getUserIndex() & ColliderUserIndex::enCollisionAttr_Character)
 		{
-			if (ExclusionPointer == convexResult.m_collisionObject->getUserPointer()) {
-				return 0.0f;
-			}
-			btVector3 hitpos = convexResult.m_collisionObject->getWorldTransform().getOrigin();
-			isHit = true;
-			hitColPos.Set(hitpos);
-			//距離が近いほうに更新
-			if (m_closestHitFraction > convexResult.m_hitFraction)
+			if (ExclusionPointer != convexResult.m_collisionObject->getUserPointer())
 			{
-				m_closestHitFraction = convexResult.m_hitFraction;
+				btVector3 hitpos = convexResult.m_collisionObject->getWorldTransform().getOrigin();
+				isHit = true;
+				hitColPos.Set(hitpos);
+				//距離が近いほうに更新
+				if (m_closestHitFraction > convexResult.m_hitFraction)
+				{
+					m_closestHitFraction = convexResult.m_hitFraction;
+				}
+				ColObj = convexResult.m_collisionObject;
+				return m_closestHitFraction;
 			}
-			ColObj = convexResult.m_collisionObject;
-			return m_closestHitFraction;
 		}
 		return 0.0f;
 	}

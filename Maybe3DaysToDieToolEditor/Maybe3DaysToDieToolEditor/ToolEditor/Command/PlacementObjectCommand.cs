@@ -60,6 +60,33 @@ namespace Maybe3DaysToDieToolEditor
                 return beforeVal != afterVal;
             }
         }
+        
+        //設置物のアクセスタグ変更のコマンド。
+        class ChangePlacementObjTypes : ICommand
+        {
+            PlacementObject m_place;
+            EnPlaceTypes beforeVal;
+            EnPlaceTypes afterVal;
+
+            public ChangePlacementObjTypes(PlacementObject place, EnPlaceTypes toolKind)
+            {
+                beforeVal = place.placeType;
+                afterVal = toolKind;
+                m_place = place;
+            }
+            public override void UnDo()
+            {
+                m_place.placeType = beforeVal;        //適性ツール変更。
+            }
+            public override void ReDo()
+            {
+                m_place.placeType = afterVal;        //適性ツール変更。
+            }
+            public override bool IsChanged()
+            {
+                return beforeVal != afterVal;
+            }
+        }
 
 
         //採取アイテム追加のコマンド。

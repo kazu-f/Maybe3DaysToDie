@@ -38,7 +38,7 @@ public:
 	/// エネミージェネレーターを取得。
 	/// </summary>
 	/// <returns></returns>
-	EnemyGenerator& GetEnemyGenerator()
+	EnemyGenerator* GetEnemyGenerator()
 	{
 		return m_enemyGenerator;
 	}
@@ -59,7 +59,7 @@ public:
 	}
 
 private:
-	EnemyGenerator m_enemyGenerator;				//エネミージェネレーター。
+	EnemyGenerator* m_enemyGenerator = nullptr;				//エネミージェネレーター。
 	nsTerrain::TerrainManager* m_Terrain = nullptr;
 	prefab::CSky* m_SkyCube = nullptr;
 	TerrainLoad m_Load;
