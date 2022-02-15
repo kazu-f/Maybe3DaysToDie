@@ -160,6 +160,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AccessObject\AccessObject.cpp" />
+    <ClCompile Include="Save\ChestSave\ChestLoad.cpp" />
+    <ClCompile Include="Save\ChestSave\ChestSave.cpp" />
     <ClCompile Include="Item\GameItemPlaceObj.cpp" />
     <ClCompile Include="Item\GameItemTerrain.cpp" />
     <ClCompile Include="Inventory\Root\RootBlock.cpp" />
@@ -233,6 +235,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
+    <ClInclude Include="Save\ChestSave\ChestLoad.h" />
+    <ClInclude Include="Save\ChestSave\ChestSave.h" />
     <ClInclude Include="Inventory\Root\RootBlock.h" />
     <ClInclude Include="Item\GameItemPlaceObj.h" />
     <ClInclude Include="Item\CollectData.h" />
