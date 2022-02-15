@@ -15,7 +15,10 @@ bool Inventory::Start()
 
 	for (int i = 0; i < SlotMax.x; i++) {
 		for (int j = 0; j < SlotMax.y; j++) {
-			Vector2 SlotPos = { i * 260.0f + 202.0f, j * 241.0f + 577.0f };
+			Vector2 SlotPos = { 
+				FRAME_BUFFER_W - ( i * 260.0f + 202.0f ),
+				FRAME_BUFFER_H - ( j * 241.0f + 577.0f ) 
+			};
 			m_ItemSlot[i][j].inventoryPos = SlotPos;
 		}
 	}
