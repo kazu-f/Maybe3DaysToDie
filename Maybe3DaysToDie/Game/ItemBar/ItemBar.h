@@ -64,6 +64,7 @@ public:
 
 	void SetInventory(std::vector<Item>& item);
 private:
+	void MouseWheelUpdate();
 	void ItemSlotKey(int vKey,int slot);
 	void SetItemDatas();
 private:

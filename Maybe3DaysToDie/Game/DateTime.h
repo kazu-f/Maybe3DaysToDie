@@ -25,11 +25,25 @@ public:
 	int GetDay() {
 		return m_Day;
 	}
+
+	/// <summary>
+	/// ホードかどうか
+	/// </summary>
+	/// <returns>ホードですか？</returns>
+	bool GetHode() const {
+		return m_IsHode;
+	}
+
+	/// <summary>
+	/// ホードを終了させる
+	/// </summary>
+	void FinishHode();
 private:
 	int m_minit = 0;		//分
 	int m_Hours = 0;		//時
 	int m_Day = 0;			//日
 	float m_Second = 0.0f;	//秒
 	CFontRender* m_TimeFont = nullptr;
+	bool m_IsHode = false;
 };
 

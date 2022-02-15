@@ -3,9 +3,9 @@
 #include <wchar.h>
 
 namespace {
-	const int OneMinute = 2;					//１分経つ時間
-	const int OneHune = 60;						//１時間経つ時間
-	const int OneDay = 12;						//１日経つ時間
+	const int OneMinute = 1;					//１分経つ時間
+	const int OneHune = 9;						//１時間経つ時間
+	const int OneHode = 1;						//１日経つ時間
 	const Vector2 FontPos = { -150.0f,330.0f };	//フォントの位置
 	const Vector2 FontPivot = { 0.5f,0.5f };	//フォントの基点
 	const float FontScale = 0.5f;				//フォントの大きさ
@@ -20,10 +20,9 @@ bool DateTime::Start()
 	wchar_t Time[256] = {};
 	//フォントに渡すテキスト
 	wchar_t TimerData[256] = {};
-	
-	//日にちの文字を作成
-	_itow_s(m_Day, Time, 10);
-	wcscat_s(Time, L"日     ");
+	m_minit = 0;
+	m_Hours = OneHode;
+	wcscat_s(Time, L"あと     ");
 	wcscat_s(TimerData, Time);
 
 	//時間の文字を連結
@@ -49,22 +48,28 @@ bool DateTime::Start()
 
 void DateTime::Update()
 {
+	if (m_IsHode) {
+		m_TimeFont->SetColor(Vector4::Red);
+		m_Second = 0;
+	}
+	else {
+		m_TimeFont->SetColor(Vector4::White);
+	}
 	//１秒をカウント
 	m_Second += GameTime().GetFrameDeltaTime();
 	//１分をカウント
 	if (m_Second >= OneMinute) {
-		m_minit++;
+		m_minit--;
+		if (m_minit < 0) {
+			m_Hours--;
+			m_minit = OneHune;
+		}
 		m_Second = 0;
 	}
-	//１時間をカウント
-	if (m_minit >= OneHune) {
-		m_Hours++;
-		m_minit = 0;
-	}
-	//１日をカウント
-	if (m_Hours >= OneDay) {
-		m_Day++;
+	if (m_Hours < 0) {
 		m_Hours = 0;
+		m_minit = 0;
+		m_IsHode = true;
 	}
 	//時間の文字
 	wchar_t Time[256] = {};
@@ -72,10 +77,8 @@ void DateTime::Update()
 	wchar_t TimerData[256] = {};
 
 	//まず日にちを決める
-	//日にちを文字列に変換
-	_itow_s(m_Day, Time, 10);
 	//日をつける
-	wcscat_s(Time, L"日　");
+	wcscat_s(Time, L"あと　");
 	//フォント用文字にコピー
 	wcscpy_s(TimerData, Time);
 
@@ -104,4 +107,11 @@ void DateTime::OnDestroy()
 {
 	//フォントを削除
 	DeleteGO(m_TimeFont);
+}
+
+void DateTime::FinishHode()
+{
+	m_IsHode = false;
+	m_minit = 0;
+	m_Hours = OneHode;
 }

@@ -85,21 +85,8 @@ void ItemBar::Update()
 			m_DeleteTime = 0.2f;
 		}
 
-		auto MouseState = MauseInfo::GetInstance()->GetMauseState();
-		if (MouseState == MauseInfo::State::MauseWheelUp) {
-			m_SelectNum = m_SelectNum--;
-			if (m_SelectNum < 0) {
-				m_SelectNum = SelectNum - 1;
-			}
-		}
+		MouseWheelUpdate();
 
-		if (MouseState == MauseInfo::State::MauseWheelDown)
-		{
-			m_SelectNum++;
-			if (m_SelectNum > SelectNum - 1) {
-				m_SelectNum = 0;
-			}
-		}
 		ItemSlotKey('1', 0);
 		ItemSlotKey('2', 1);
 		ItemSlotKey('3', 2);
@@ -107,7 +94,6 @@ void ItemBar::Update()
 		ItemSlotKey('5', 4);
 		ItemSlotKey('6', 5);
 		ItemSlotKey('7', 6);
-		ItemSlotKey('8', 7);
 	}
 	m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
 }
@@ -123,6 +109,32 @@ void ItemBar::SetInventory(std::vector<Item>& item)
 	for (auto& i : item)
 	{
 		m_Player->GetInventory()->SetItemSlot(i.item, 1, 1);
+	}
+}
+
+void ItemBar::MouseWheelUpdate()
+{
+	int oldNum = m_SelectNum;
+	auto MouseState = MauseInfo::GetInstance()->GetMauseState();
+	if (MouseState == MauseInfo::State::MauseWheelUp) {
+		m_SelectNum--;
+		if (m_SelectNum < 0) {
+			m_SelectNum = SelectNum - 1;
+		}
+	}
+
+	if (MouseState == MauseInfo::State::MauseWheelDown)
+	{
+		m_SelectNum++;
+		if (m_SelectNum > SelectNum - 1) {
+			m_SelectNum = 0;
+		}
+	}
+
+	if (oldNum != m_SelectNum)
+	{
+		m_itemInventory[m_SelectNum].m_itemBase->ResetUseItemSelect(this);
+		m_itemInventory[m_SelectNum].m_itemBase->SelectItemAction(this);
 	}
 }
 
@@ -162,4 +174,6 @@ void ItemBar::SetItemDatas()
 		m_itemInventory[i].m_itemBase = datas->GetNullGameItem();
 		i++;
 	}
+	m_itemInventory[0].m_itemBase->ResetUseItemSelect(this);
+	m_itemInventory[0].m_itemBase->SelectItemAction(this);
 }
