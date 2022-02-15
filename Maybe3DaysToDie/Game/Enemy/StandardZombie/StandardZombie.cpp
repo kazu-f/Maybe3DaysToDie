@@ -86,9 +86,9 @@ void StandardZombie::Update()
 			//攻撃範囲内。
 			ChangeState(m_attackState);
 		}
-		else if (P2ELen < m_parameters.SearchRange)
+		else if (P2ELen < m_parameters.SearchRange || m_bloodMoonHode)
 		{
-			//攻撃範囲外。
+			//攻撃範囲外でサーチレンジ内 or ブラッドムーン自。
 			ChangeState(m_trackingState);
 		}
 		else

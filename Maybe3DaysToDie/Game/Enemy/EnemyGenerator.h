@@ -111,13 +111,17 @@ private:
 	/* EnemyManagement */
 	int m_currentEnemyCount = 0;					//現在、存在しているエネミーの数。
 	std::vector<IEnemy*> m_enemyList;				//エネミーのリスト。
-	const float SPAWN_ENEMY_TIME = 3.0f;			//エネミーが沸く周期。
-	float m_spawnEnemyTimer = SPAWN_ENEMY_TIME / 2;	//エネミーが沸くタイマー。
+	const float START_SPAWN_ENEMY_TIME = 10.0f;			//エネミーが沸く周期。
+	const float BLOOD_MOON_SPAWN_TIME = 3.0f;
+	float m_spawnEnemyTime = START_SPAWN_ENEMY_TIME;
+	float m_spawnEnemyTimer = START_SPAWN_ENEMY_TIME / 2;	//エネミーが沸くタイマー。
 	int m_deadEnemyCount = 0;
+
+	static std::map<float, int> m_currentSpawnTimeToChangeSpawnTimeCount;
 
 
 	/* bloodMoon */
-	bool m_isActiveBloodMoon = false;				//ブラッドムーンが有効？
+	bool m_isActiveBloodMoon = true;				//ブラッドムーンが有効？
 	
 };
 

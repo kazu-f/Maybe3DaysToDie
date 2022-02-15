@@ -11,6 +11,16 @@ std::map<int, int> EnemyGenerator::m_indexToSign
 	{ 1, -1}
 };
 
+std::map<float, int> EnemyGenerator::m_currentSpawnTimeToChangeSpawnTimeCount
+{
+	{ 10.0f, 1 },
+	{ 9.0f,  4 },
+	{ 8.0f,  10 },
+	{ 7.0f,  16 },
+	{ 6.0f,  24 },
+	{ 5.0f,  35 }
+};
+
 EnemyGenerator::EnemyGenerator()
 {
 }
@@ -65,7 +75,25 @@ void EnemyGenerator::Update()
 
 	m_spawnEnemyTimer += GameTime().GetFrameDeltaTime();
 
-	if (m_spawnEnemyTimer > SPAWN_ENEMY_TIME)
+	if (m_isActiveBloodMoon)
+	{
+		for (auto& enemy : m_enemyList)
+		{
+			enemy->SetBloodMoon(true);
+		}
+
+		m_spawnEnemyTime = BLOOD_MOON_SPAWN_TIME;
+	}
+	else
+	{
+		//敵の撃破数に応じてスポーンタイムを変えてく。
+		if (m_currentSpawnTimeToChangeSpawnTimeCount[m_spawnEnemyTime] == m_deadEnemyCount)
+		{
+			m_spawnEnemyTime--;
+		}
+	}
+
+	if (m_spawnEnemyTimer > m_spawnEnemyTime)
 	{
 		SpawnEnemyAroundPlayer();
 		m_spawnEnemyTimer = 0.0f;
