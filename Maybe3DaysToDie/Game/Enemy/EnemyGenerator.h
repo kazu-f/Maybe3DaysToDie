@@ -42,7 +42,7 @@ public:
 	{
 		if (m_currentEnemyCount >= MAX_ENEMY) {
 			//エネミーを設定以上に作成使用としている為、リクエストは許可しない。
-			MessageBoxA(NULL, "エネミーの許容量を超えました、このオブジェクトは削除されます。", "Warning!!", MB_OK);
+			//MessageBoxA(NULL, "エネミーの許容量を超えました、このオブジェクトは削除されます。", "Warning!!", MB_OK);
 			return nullptr;
 		}
 
