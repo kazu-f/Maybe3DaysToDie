@@ -236,7 +236,7 @@ namespace Maybe3DaysToDieToolEditor
         {
             insideItem = _item;
         }
-        private Item insideItem = null;
+        public Item insideItem = null;
         private int itemID = -1;                 //アイテムID。
 
         /// <summary>
@@ -274,9 +274,9 @@ namespace Maybe3DaysToDieToolEditor
                 itemID = value;
             }
         }
+        [DataMember(Name = "probability")] public int probability { get; set; } = 0;   //確率。
         [DataMember(Name = "maxNum")] public int maxNum { get; set; } = 0;             //最大個数。
         [DataMember(Name = "minNum")] public int minNum { get; set; } = 0;             //最小個数。
-        [DataMember(Name = "probability")] public int probability { get; set; } = 0;   //確率。
     }
 
     /// <summary>

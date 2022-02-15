@@ -2,10 +2,24 @@
 #include "GameItemBase.h"
 #include "CollectData.h"
 
+struct SRootInsideItemData {
+	int insideID = -1;
+	int insideProbility = 0;
+	int maxNum = 0;
+	int minNum = 0;
+};
+
+using RootInsideItemDataList = std::vector<SRootInsideItemData>;
+
 class GameItemPlaceObj : public GameItemBase
 {
 public:
-	GameItemPlaceObj(SItemDataPtr& itemData, const ObjectParams& params, ObjectCollectItemData& placeCollectData, AccessTag type);
+	GameItemPlaceObj(
+		SItemDataPtr& itemData,
+		const ObjectParams& params,
+		ObjectCollectItemData& placeCollectData,
+		RootInsideItemDataList& insideDataList,
+		AccessTag type);
 	~GameItemPlaceObj() {}
 
 	int GetBlockHash()
@@ -29,6 +43,7 @@ public:
 private:
 	ObjectParams m_placeParams;
 	ObjectCollectItemData m_placeCollectData;
+	RootInsideItemDataList m_rootItemDataList;
 	std::string m_objName;
 	AccessTag m_placeType = AccessTag::NonAccess;
 	int m_objHash = 0;
