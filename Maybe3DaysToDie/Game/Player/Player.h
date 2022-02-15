@@ -267,5 +267,6 @@ private:
 	IEnemy* m_Enemy = nullptr;
 
 	bool m_IsDebugMode = false;
+	float m_Gravity = 0.0f;
 };
 

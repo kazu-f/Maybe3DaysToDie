@@ -35,5 +35,5 @@ private:
 	bool m_IsTriggerTab = false;
 	Player* m_player = nullptr;
 	GameItemBase* m_ItemSlot[7][6] = { nullptr };
-
+	GameItemBase* m_PickUpItem = nullptr;
 };

@@ -119,6 +119,7 @@ void Player::ReStart()
 	m_Water->Reset();
 	m_PlayerState->Leave();
 	m_PlayerState = nullptr;
+	m_Gravity = 0.0f;
 	m_NextState = State::Idle;
 	while (true) {
 		int returnNo = ShowCursor(false);
@@ -178,8 +179,7 @@ void Player::ChangeState()
 
 void Player::Jump()
 {
-	static float gravity = 0.0f;
-	gravity -= GameTime().GetFrameDeltaTime();
+	m_Gravity -= GameTime().GetFrameDeltaTime();
 
 	if (GetAsyncKeyState(VK_SPACE)) {
 		//’n–Ê‚ÉÝ’u‚µ‚Ä‚¢‚é‚Æ‚«‚¾‚¯
@@ -200,7 +200,7 @@ void Player::Jump()
 		const float JumpTime = 0.3f;
 		float f = NowTime - JumpTime;
 		const float JumpPower = 0.8f;
-		float Jump = gravity * pow(f, 2.0f) + JumpPower;
+		float Jump = m_Gravity * pow(f, 2.0f) + JumpPower;
 		m_PlayerState->SetMoveSpeedY(Jump);
 		if (IsJumping && m_Characon.IsOnGround())
 		{
@@ -217,9 +217,9 @@ void Player::Jump()
 	}
 	if (m_Characon.IsOnGround()||
 		m_IsDebugMode) {
-		gravity = 0.0f;
+		m_Gravity = 0.0f;
 	}
-	m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + gravity);
+	m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity);
 	m_PlayerState->ExcuteMove();
 }
 

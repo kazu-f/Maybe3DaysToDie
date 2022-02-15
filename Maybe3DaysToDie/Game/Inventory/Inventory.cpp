@@ -8,6 +8,8 @@ bool Inventory::Start()
 	m_Inbentory = NewGO<prefab::CSpriteRender>(2);
 	m_Inbentory->Init("Assets/sprite/ItemUI/inbentori.dds", FRAME_BUFFER_H, FRAME_BUFFER_H);
 	m_Inbentory->SetActiveFlag(false);
+	
+	m_ItemSlot[0][0]=
 	return true;
 }
 
