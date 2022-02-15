@@ -147,7 +147,7 @@ namespace nsTerrain {
 		/// </summary>
 		/// <param name="position">生成する座標。</param>
 		/// <param name="configIndex">三角形の生成パターン番号。</param>
-		void MarchCube(Vector3 position, const Cube& cube);
+		void MarchCube(Vector3Int& positionInt);
 
 		/// <summary>
 		/// コライダーの再生成。
