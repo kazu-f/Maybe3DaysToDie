@@ -80,6 +80,7 @@ namespace Maybe3DaysToDieToolEditor
             craftItemDataBS.ResetBindings(false);
             collectItemDataBS.ResetBindings(false);
             rootItemDataBS.ResetBindings(false);
+            rootItemEditer.ResetBindingData();
         }
         /// <summary>
         /// アイテムリストに更新が入ったら呼ぶ処理。

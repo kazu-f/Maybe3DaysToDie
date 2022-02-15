@@ -41,6 +41,11 @@ namespace Maybe3DaysToDieToolEditor
             InsideItemDropDownList.DisplayMember = "itemName";
         }
 
+        public void ResetBindingData()
+        {
+            m_insideBS.ResetBindings(false);
+        }
+
         private void DispInsideItemData(InsideItem insideItem)
         {
             insideItemName.Text = insideItem.ItemName;
@@ -84,11 +89,9 @@ namespace Maybe3DaysToDieToolEditor
         {
             var select = insideItemListBox.SelectedItem;
 
-            if (!(select is Item)) return;
+            if (!(select is InsideItem)) return;
 
-            InsideItem insideItem = new InsideItem((Item)select);
-
-            Command.RemoveInsideItem command = new Command.RemoveInsideItem(currentPlaceObj, insideItem);
+            Command.RemoveInsideItem command = new Command.RemoveInsideItem(currentPlaceObj, (InsideItem)select);
 
             if (command.IsChanged())
             {
