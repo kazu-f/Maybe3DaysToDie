@@ -5,7 +5,6 @@
 #include "Enemy/EnemyGenerator.h"
 #include "SaveDataFile.h"
 #include "Item/ItemDataFile.h"
-#include "Item/GameItemBase.h"
 #include "Item/GameItemTerrain.h"
 
 namespace nsTerrain {
@@ -122,12 +121,10 @@ namespace nsTerrain {
 					thisHeight += static_cast<float>(GroundSurface);
 
 					float point = 0;
-					int terrainID = -1;
-					for (int i = 0; i < 3; i++)
+					int terrainID = 0;
+					for (terrainID = 0; terrainID < 3; terrainID++)
 					{
-						if (geneMap[i] < noise) continue;
-
-						terrainID = geneTerrains[i]->GetItemData()->itemID;
+						if (geneMap[terrainID] < noise) continue;
 						break;
 					}
 
@@ -150,6 +147,12 @@ namespace nsTerrain {
 					terrain->SetVoxel(point);
 					if (point > 0.0f) {
 						terrain->SetTerrainID(terrainID);
+						ObjectParams params;
+						params.BlockID = geneTerrains[terrainID]->GetObjParams().BlockID;
+						params.Durable = geneTerrains[terrainID]->GetObjParams().Durable;
+						params.AptitudeTool = geneTerrains[terrainID]->GetObjParams().AptitudeTool;
+
+						terrain->SetParams(params);
 					}
 
 					Vector3 pos;
