@@ -5,7 +5,6 @@
 
 Block::Block()
 {
-	param.BlockName = nullptr;
 	param.Durable = 0;
 	param.AptitudeTool = ToolKinds::DebugTool;
 	SetParams(param);

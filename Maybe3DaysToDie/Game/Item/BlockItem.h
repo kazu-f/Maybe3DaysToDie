@@ -11,6 +11,11 @@ public:
 	{
 		return m_blockHash;
 	}
+
+	const ObjectParams& GetObjParams()
+	{
+		return m_blockParams;
+	}
 private:
 	void SelectItemAction(ItemBar* itemBar);	//このアイテムが選択されたときの処理。
 	void UseItemAction1(ItemBar* itemBar);		//左クリックのアクション。

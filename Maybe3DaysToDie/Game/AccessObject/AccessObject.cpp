@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "AccessObject.h"
 #include "RayTest.h"
+#include "Item/ItemDataFile.h"
+#include "Item/GameItemPlaceObj.h"
 
 AccessObject::AccessObject()
 {
@@ -61,7 +63,8 @@ void AccessObject::Access()
 		m_hitObj = ((DestructibleObject*)callback.ColObj->getUserPointer());
 		//オブジェクトのIDから適切なアクションを起こす
 		auto& param = m_hitObj->GetParam();
-		SwitchAction(m_SaveData->ObjectAccessTag[param.BlockID]);
+		auto* placeObj = ItemDataFile::GetInstance()->GetPlaceData(param.BlockID);
+		SwitchAction(placeObj->GetAccessTag());
 	}
 
 }

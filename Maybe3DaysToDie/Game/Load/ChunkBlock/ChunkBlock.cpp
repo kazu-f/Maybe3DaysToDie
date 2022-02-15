@@ -9,7 +9,8 @@
 void ChunkBlock::Init()
 {
 	m_itemDataFile = ItemDataFile::GetInstance();
-	m_InstancingData.resize(m_itemDataFile->GetBlockArraySize());
+	int modelSize = m_itemDataFile->GetBlockArraySize() + m_itemDataFile->GetPlaceArraySize();
+	m_InstancingData.resize(modelSize);
 	for (int x = 0; x < ChunkWidth; x++)
 	{
 		for (int y = 0; y < ChunkHeight; y++)
@@ -73,17 +74,17 @@ void ChunkBlock::MoveChunk()
 				ObjectParams param;
 				param.BlockID = chunkData.ObjData[x][y][z].ObjId;
 				param.Durable = chunkData.ObjData[x][y][z].ObjDurable;
-				int BlockID = static_cast<int>(param.BlockID);
+				int DataID = static_cast<int>(param.BlockID);
 
+				auto* block = m_itemDataFile->GetBlockData(DataID);
+				auto* place = m_itemDataFile->GetPlaceData(DataID);
+				if (block == nullptr && place == nullptr) continue;
 
-				auto* block = m_itemDataFile->GetBlockData(BlockID);
-				if (block == nullptr) continue;
+				//インスタンシングデータIDを計算する。
+				int modelID = 0;
+				if (block != nullptr)modelID = block->GetItemData()->itemTypeID;
+				if (place != nullptr)modelID = place->GetItemData()->itemTypeID + m_itemDataFile->GetBlockArraySize();
 
-				const char* tkmPath = nullptr;
-				tkmPath = block->GetItemData()->tkmPath.c_str();
-
-				if (tkmPath == nullptr) continue;
-				param.BlockName = tkmPath;
 				m_Block[x][y][z].SetParams(param);
 
 				if (param.Durable > 0)
@@ -97,7 +98,7 @@ void ChunkBlock::MoveChunk()
 					data.rot = rot;
 					data.scale = scale;
 					//配列に追加
-					m_InstancingData[block->GetItemData()->itemTypeID].push_back(data);
+					m_InstancingData[modelID].push_back(data);
 				}
 			}
 		}
@@ -121,20 +122,19 @@ Block* ChunkBlock::GetBlock(Vector3 pos)
 
 void ChunkBlock::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)
 {
-	int BlockID = static_cast<int>(params.BlockID);
+	int DataID = static_cast<int>(params.BlockID);
 
-	auto* block = m_itemDataFile->GetBlockData(BlockID);
-	if (block == nullptr) return;
+	auto* block = m_itemDataFile->GetBlockData(DataID);
+	auto* place = m_itemDataFile->GetPlaceData(DataID);
+	if (block == nullptr && place == nullptr) return;
 
-	const char* tkmPath = nullptr;
-	tkmPath = block->GetItemData()->tkmPath.c_str();
-
-	if (tkmPath == nullptr) return;
+	//インスタンシングデータIDを計算する。
+	int modelID = 0;
+	if (block != nullptr)modelID = block->GetItemData()->itemTypeID;
+	if (place != nullptr)modelID = place->GetItemData()->itemTypeID + m_itemDataFile->GetBlockArraySize();
 
 	ChunkBlockDirty = true;
 	m_IsModelUpdated = true;
-
-	params.BlockName = tkmPath;
 
 	//データを作成
 	InstancingData data;
@@ -142,35 +142,23 @@ void ChunkBlock::AddModel(ObjectParams& params, Vector3& pos, Quaternion& rot, V
 	data.rot = rot;
 	data.scale = scale;
 	//配列に追加
-	m_InstancingData[block->GetItemData()->itemTypeID].push_back(data);
+	m_InstancingData[modelID].push_back(data);
 	//ナビメッシュ更新のフラグを立てる。
 	m_LoadingByChunk->NvmDirtyFlagUp(m_LoadID[0], m_LoadID[1]);
 }
 
 void ChunkBlock::RemoveBlock(Block* blockptr)
 {
-	int BlockID = static_cast<int>(blockptr->GetParam().BlockID);
+	int DataID = static_cast<int>(blockptr->GetParam().BlockID);
 
-	auto* block = m_itemDataFile->GetBlockData(BlockID);
-	if (block == nullptr) return;
+	auto* block = m_itemDataFile->GetBlockData(DataID);
+	auto* place = m_itemDataFile->GetPlaceData(DataID);
+	if (block == nullptr && place == nullptr) return;
 
-	const char* tkmPath = nullptr;
-	tkmPath = block->GetItemData()->tkmPath.c_str();
-
-	if (tkmPath == nullptr) return;
-
-	int index = block->GetItemData()->itemTypeID;
-
-	//int BlockID = static_cast<int>(blockptr->GetParam().BlockID);
-	//if (m_SaveDataFile->ObjectType[BlockID] != ObjectType::Block)
-	//{
-	//	return;
-	//}
-	//if (BlockID < 0 || BlockID >= BlockKinds)
-	//{
-	//	//ブロックIDがマイナスか最大値より大きいときreturn
-	//	return;
-	//}
+	//インスタンシングデータIDを計算する。
+	int modelID = 0;
+	if (block != nullptr)modelID = block->GetItemData()->itemTypeID;
+	if (place != nullptr)modelID = place->GetItemData()->itemTypeID + m_itemDataFile->GetBlockArraySize();
 
 	ChunkBlockDirty = true;
 	m_IsModelUpdated = true;
@@ -178,7 +166,7 @@ void ChunkBlock::RemoveBlock(Block* blockptr)
 	//削除するブロックの値をリセット
 	blockptr->ResetParams();
 	//インスタンシングデータをクリア
-	m_InstancingData[index].clear();
+	m_InstancingData[modelID].clear();
 	//インスタンシングデータをリセット
 	//ここからセットしなおす
 	for (int x = 0; x < ChunkWidth; x++)
@@ -200,7 +188,7 @@ void ChunkBlock::RemoveBlock(Block* blockptr)
 					data.rot = block.GetRotation();
 					data.scale = block.GetScale();
 					//配列に追加
-					m_InstancingData[index].push_back(data);
+					m_InstancingData[modelID].push_back(data);
 				}
 			}
 		}
