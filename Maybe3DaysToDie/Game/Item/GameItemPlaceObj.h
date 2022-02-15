@@ -40,6 +40,11 @@ public:
 	{
 		return m_placeCollectData;
 	}
+
+	const RootInsideItemDataList& GetRootInsideItemData()
+	{
+		return m_rootItemDataList;
+	}
 private:
 	ObjectParams m_placeParams;
 	ObjectCollectItemData m_placeCollectData;
