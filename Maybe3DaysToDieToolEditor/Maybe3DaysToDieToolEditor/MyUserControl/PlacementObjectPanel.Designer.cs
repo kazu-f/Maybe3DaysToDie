@@ -29,27 +29,27 @@ namespace Maybe3DaysToDieToolEditor
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {
             "1:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
             "2:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem(new string[] {
             "3:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem(new string[] {
             "4:",
             "",
             "",
             ""}, -1);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem(new string[] {
             "5:",
             "",
             "",
@@ -72,6 +72,7 @@ namespace Maybe3DaysToDieToolEditor
             this.DurableLabel = new System.Windows.Forms.Label();
             this.ToolKindsLabel = new System.Windows.Forms.Label();
             this.ToolComboBox = new System.Windows.Forms.ComboBox();
+            this.OpenInsideDataButton = new System.Windows.Forms.Button();
             this.groupBoxPlacementObject.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collectNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DurableNumeric)).BeginInit();
@@ -79,6 +80,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // groupBoxPlacementObject
             // 
+            this.groupBoxPlacementObject.Controls.Add(this.OpenInsideDataButton);
             this.groupBoxPlacementObject.Controls.Add(this.ObjTypeLabel);
             this.groupBoxPlacementObject.Controls.Add(this.objTypeComboBox);
             this.groupBoxPlacementObject.Controls.Add(this.collectItemListView);
@@ -129,11 +131,11 @@ namespace Maybe3DaysToDieToolEditor
             this.collectItemListView.FullRowSelect = true;
             this.collectItemListView.HideSelection = false;
             this.collectItemListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5});
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14,
+            listViewItem15});
             this.collectItemListView.Location = new System.Drawing.Point(32, 303);
             this.collectItemListView.MultiSelect = false;
             this.collectItemListView.Name = "collectItemListView";
@@ -263,6 +265,16 @@ namespace Maybe3DaysToDieToolEditor
             this.ToolComboBox.TabIndex = 64;
             this.ToolComboBox.SelectionChangeCommitted += new System.EventHandler(this.ToolComboBox_SelectionChangeCommitted);
             // 
+            // OpenInsideDataButton
+            // 
+            this.OpenInsideDataButton.Location = new System.Drawing.Point(294, 101);
+            this.OpenInsideDataButton.Name = "OpenInsideDataButton";
+            this.OpenInsideDataButton.Size = new System.Drawing.Size(115, 23);
+            this.OpenInsideDataButton.TabIndex = 74;
+            this.OpenInsideDataButton.Text = "ルートデータ編集";
+            this.OpenInsideDataButton.UseVisualStyleBackColor = true;
+            this.OpenInsideDataButton.Click += new System.EventHandler(this.OpenInsideDataButton_Click);
+            // 
             // PlacementObjectPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -298,5 +310,6 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.ColumnHeader CollectItems;
         private System.Windows.Forms.ComboBox objTypeComboBox;
         private System.Windows.Forms.Label ObjTypeLabel;
+        private System.Windows.Forms.Button OpenInsideDataButton;
     }
 }
