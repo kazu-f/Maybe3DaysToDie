@@ -25,8 +25,10 @@ GameItemBase::GameItemBase(SItemDataPtr& itemData)
 
 	std::string ddsFilePath = m_itemData->iconPath;
 	int pos = static_cast<int>(ddsFilePath.find(".png"));
-	ddsFilePath.replace(pos, 4, ".dds");
-	m_itemData->iconPath = ddsFilePath;
+	if (pos != std::string::npos) {
+		ddsFilePath.replace(pos, 4, ".dds");
+		m_itemData->iconPath = ddsFilePath;
+	}
 }
 
 GameItemBase::~GameItemBase()
