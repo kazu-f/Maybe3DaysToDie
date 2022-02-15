@@ -22,9 +22,7 @@ public:
 		m_MauseMove = moveSpeed;
 	}
 	State GetMauseState() {
-		auto state = m_MauseState;
-		m_MauseState = State::None;
-		return state;
+		return m_MauseState;
 	}
 	Vector2 GetMauseMove() const {
 		return m_MauseMove;

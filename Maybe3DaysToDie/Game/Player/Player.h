@@ -15,6 +15,11 @@ class AccessObject;
 class IPlayerState;
 class IEnemy;
 class Inventory;
+class Stage;
+class PlacementObject;
+class DestroyObject;
+class Tool;
+class SaveDataFile;
 class Player : public IGameObject
 {
 public :
@@ -225,6 +230,10 @@ public:
 	Inventory* GetInventory() {
 		return m_Inventory;
 	}
+
+	void ItemDetaInit(
+		SaveDataFile* Sf,
+		Stage* s);
 private:
 	/// <summary>
 	/// 時間によるステータスの更新
@@ -283,6 +292,12 @@ private:
 	bool m_IsDebugMode = false;
 	float m_Gravity = 0.0f;
 
+	//todo 後ほどプレイヤー等においてください
+	PlacementObject* m_PlacementObject = nullptr;		//設置オブジェクト
+	DestroyObject* m_DestroyObject = nullptr;		//オブジェクト破壊
+	Tool* tool = nullptr;
 
+	SaveDataFile* m_SaveData;
+	Stage* m_Stage;
 };
 

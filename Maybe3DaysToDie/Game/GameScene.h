@@ -37,10 +37,6 @@ private:
 	Stage* m_Stage = nullptr;
 
 	//仮置き//
-	//todo 後ほどプレイヤー等においてください
-	PlacementObject* m_PlacementObject = nullptr;		//設置オブジェクト
-	DestroyObject* m_DestroyObject = nullptr;		//オブジェクト破壊
-	Tool* tool = nullptr;
 	//Samples//
 	CFontRender* m_fontRender = nullptr;			//フォントレンダー。
 	TerrainSave m_TerrainSave;		//地形セーブ用のクラス

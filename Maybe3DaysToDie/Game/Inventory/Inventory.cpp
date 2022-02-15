@@ -13,15 +13,14 @@ bool Inventory::Start()
 	m_Inbentory->SetActiveFlag(false);
 	
 	ItemDataFile* it = ItemDataFile::GetInstance();
-	m_ItemSlot[0][0]->m_itemBase = it->GetFoodData(1);
 	for (int i = 0; i < 3; i++)
 	{
-		m_ItemSlot[i][0]->m_itemBase = it->GetBlockDataTypeID(i);
+		m_ItemSlot[i][0].m_itemBase = it->GetNullGameItem();
 	}
 	for (int i = 0; i < SlotMax.x; i++) {
 		for (int j = 0; j < SlotMax.y; j++) {
 			Vector2 SlotPos = { i * 260.0f + 202.0f, j * 241.0f + 577.0f };
-			m_ItemSlot[i][j]->inventoryPos = SlotPos;
+			m_ItemSlot[i][j].inventoryPos = SlotPos;
 		}
 	}
 	return true;
@@ -44,17 +43,17 @@ void Inventory::Update()
 	float SpriteSizeX = ((sx) / FRAME_BUFFER_W);
 	float SpriteSizeY = ((sy) / FRAME_BUFFER_H);
 	int cyCaption = GetSystemMetrics(SM_CYCAPTION);     // タイトルバーの高さ
-	float diffX = fabsf(MausePos.x - ( m_ItemSlot[0][0]->inventoryPos.x * SpriteSizeX + m_MainRt.left));
-	float diffY = fabsf(MausePos.y - ( m_ItemSlot[0][0]->inventoryPos.y * SpriteSizeY + m_MainRt.top + cyCaption ));
+	float diffX = fabsf(MausePos.x - ( m_ItemSlot[0][0].inventoryPos.x * SpriteSizeX + m_MainRt.left));
+	float diffY = fabsf(MausePos.y - ( m_ItemSlot[0][0].inventoryPos.y * SpriteSizeY + m_MainRt.top + cyCaption ));
 	if (MauseState ==
 		MauseInfo::State::MauseLClick) {
 		if (diffX < 116.0f &&
 			diffY < 109.0f) {
-			m_PickUpItem = m_ItemSlot[0][0];
+			m_PickUpItem.m_itemBase = m_ItemSlot[0][0].m_itemBase;
 		}
 	}
-	if (m_PickUpItem != nullptr) {
-		m_PickUpItem->inventoryPos = MausePos;
+	if (m_PickUpItem.m_itemBase != nullptr) {
+		m_PickUpItem.inventoryPos = MausePos;
 		if (MauseState != MauseInfo::State::MauseLClick) {
 			if (diffX < 116.0f &&
 				diffY < 109.0f) {
@@ -62,13 +61,6 @@ void Inventory::Update()
 			}
 		}
 	}
-
-
-
-
-
-
-
 
 	//タブを押し続けていないか？
 	TriggerTab();
@@ -122,5 +114,5 @@ void Inventory::TriggerTab()
 }
 
 void Inventory::SetItemSlot(GameItemBase* GameItem, const int x, const int y) {
-	m_ItemSlot[x][y]->m_itemBase = GameItem;
+	m_ItemSlot[x][y].m_itemBase = GameItem;
 }

@@ -39,8 +39,8 @@ private:
 	bool m_IsTriggerTab = false;
 	Player* m_player = nullptr;
 	const Vector2 SlotMax = { 7,6 };
-	InventoryItemData* m_ItemSlot[7][6] = { nullptr };
-	InventoryItemData* m_PickUpItem = nullptr;
+	InventoryItemData m_ItemSlot[7][6];
+	InventoryItemData m_PickUpItem;
 	RECT m_MainRt;				//ウィンドウ画面
 	RECT m_DeskRt;				//デスクトップ画面
 };
