@@ -59,7 +59,6 @@ bool NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start
 	//移動量算出用にdist取っておく。
 	float dist = m_toWayPoint.Length();
 	m_toWayPoint.Normalize();
-	m_AgentQrot.SetRotation(Vector3::AxisY, atan2f(m_toWayPoint.x, m_toWayPoint.z));
 
 	//footstepより、位置計算。
 	Vector3 footStep = model->GetFootstepMove();

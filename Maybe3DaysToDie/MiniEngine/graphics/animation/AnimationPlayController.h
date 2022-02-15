@@ -75,6 +75,14 @@ namespace Engine {
 			return min(1.0f, m_interpolateTime / m_interpolateEndTime);
 		}
 		/// <summary>
+		/// 現在の再生時間を取得。
+		/// </summary>
+		/// <returns></returns>
+		float GetCurrentAnimTime()const 
+		{
+			return m_time;
+		}
+		/// <summary>
 		/// アニメーションを進める。
 		/// </summary>
 		/// <param name="deltaTime">アニメーションを進める時間。</param>

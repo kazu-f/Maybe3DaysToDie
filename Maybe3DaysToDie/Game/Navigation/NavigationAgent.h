@@ -28,15 +28,23 @@ public:
 	/// <returns>経路探査が終了したか。</returns>
 	bool MoveForFootStep(prefab::ModelRender* model, Vector3& start, Vector3& goal, float serchTime = 3.0f);
 
-	/// <summary>
-	/// エージェントの位置、回転を取得。
-	/// </summary>
-	/// <param name="pos">位置。</param>
-	/// <param name="qRot">回転。</param>
-	void GetAgentPositionAndRotation(Vector3& pos, Quaternion& qRot)
+	void ResetNodeList()
 	{
-		pos += m_AgentPos - pos;
-		qRot = m_AgentQrot;
+		m_nodeList.clear();
+	}
+
+	Vector3 GetAgentPos()
+	{
+		return m_AgentPos;
+	}
+
+	/// <summary>
+	/// 次のウェイポイントへの方向を取得。
+	/// </summary>
+	/// <returns></returns>
+	Vector3 GetWayPoint()
+	{
+		return m_toWayPoint;
 	}
 private:
 	AStar									m_astar;						//経路探査。

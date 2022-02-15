@@ -128,8 +128,8 @@ namespace Engine {
 			Vector3 m_position = Vector3::Zero;						//座標。
 			Vector3 m_emissionColor = Vector3::Zero;				//自己発光カラー。
 			bool m_isDirty = false;									//ダーティフラグ。
-			std::wstring m_skyCubeMapFilePath = L"Assets/modelData/preset/skyCubeMap.dds";		//空のキューブマップのファイルパス。
-			std::string m_skyModelFilePath = "Assets/modelData/preset/Sky.tkm";					//空のtkmファイルのファイルパス。
+			std::wstring m_skyCubeMapFilePath = L"Assets/modelData/preset/skyCubeMapNight.dds";		//空のキューブマップのファイルパス。
+			std::string m_skyModelFilePath = "Assets/modelData/preset/Sky.tkm";						//空のtkmファイルのファイルパス。
 			ModelInitData m_modelData;
 		};//class CSky;
 

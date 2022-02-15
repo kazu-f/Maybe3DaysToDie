@@ -22,7 +22,7 @@ class ChestDataFile
 {
 public:
 	struct ItemData {
-		GameItemBase* item;		//アイテム
+		GameItemBase* item = nullptr;		//アイテム
 		int stack = 0;		//個数
 	};
 
@@ -66,9 +66,18 @@ public:
 		return nullptr;
 	}
 
+	const char* GetSaveDataFilePath_Num()
+	{
+		return SaveDataFilePath_ChestNum;
+	}
 	const char* GetSaveDataFilePath()
 	{
 		return SaveDataFilePath_Chest;
+	}
+
+	std::vector<WorldChestData>& GetAllData()
+	{
+		return m_WorldChestData;
 	}
 private:
 	bool CheckID(const ChunkAndPos& id1, const ChunkAndPos& id2)
@@ -86,4 +95,5 @@ private:
 private:
 	std::vector<WorldChestData>m_WorldChestData;
 	const char* SaveDataFilePath_Chest = "SaveData/ChestData.dat";
+	const char* SaveDataFilePath_ChestNum = "SaveData/ChestNum.dat";
 };

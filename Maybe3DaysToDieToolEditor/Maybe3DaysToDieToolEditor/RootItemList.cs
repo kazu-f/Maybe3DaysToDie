@@ -52,6 +52,8 @@ namespace Maybe3DaysToDieToolEditor
             insideItemName.Text = insideItem.ItemName;
             InsideItemDropDownList.SelectedIndex = insideItem.ItemID;
             probabilityNumeric.Value = insideItem.probability;
+            maxNumeric.Maximum = insideItem.insideItem.itemStackNum;        //スタック数を上限とする。
+            minNumeric.Maximum = insideItem.insideItem.itemStackNum;        //スタック数を上限とする。
             maxNumeric.Value = insideItem.maxNum;
             minNumeric.Value = insideItem.minNum;
         }

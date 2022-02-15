@@ -10,6 +10,7 @@ namespace nsTerrain {
 	bool TerrainRender::SubStart()
 	{
 		m_isShadowCaster = true;
+		m_isRenderTerrain = true;
 		return true;
 	}
 	void TerrainRender::Update()
@@ -158,9 +159,9 @@ namespace nsTerrain {
 		m_descriptorHeap.RegistShaderResource(7, *GraphicsEngine()->GetShadowMap()->GetShadowMapTexture(1));
 		m_descriptorHeap.RegistShaderResource(8, *GraphicsEngine()->GetShadowMap()->GetShadowMapTexture(2));
 
-		for (int i = 0; i < m_material->INIT_TEX_NUM; i++)
+		for (int i = 0; i < m_material->GetTextureSize(); i++)
 		{
-			m_descriptorHeap.RegistShaderResource(10 + i, *m_material->GetTexture(i));
+			m_descriptorHeap.RegistShaderResource(10 + i, *m_material->GetTextureTypeID(i));
 		}
 
 		m_descriptorHeap.Commit();

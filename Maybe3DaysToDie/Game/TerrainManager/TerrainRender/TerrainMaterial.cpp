@@ -22,63 +22,21 @@ namespace nsTerrain {
 	{
 	}
 
-	void TerrainMaterial::RegistTexturePath(std::string& texturePath)
+	void TerrainMaterial::RegistTexturePath(std::string& texturePath,int itemID)
 	{
-		int hash = Util::MakeHash(texturePath.c_str());
-
-		//このテクスチャパスが登録されているか。
-		auto it = std::find_if(m_terrainTexturePath.begin(), m_terrainTexturePath.end(), [&](TerrainTexPath& path)
-			{
-				return path.hash == hash;
-			}
-		);
-
-		if (it == m_terrainTexturePath.end())
+		const char* path = texturePath.c_str();
+		Texture* tex = ResourceEngine().GetTextureFromBank(path);
+		if (tex == nullptr)
 		{
-			m_terrainTexturePath.push_back({ hash, texturePath });
+			tex = new Texture;
+
+			//文字列変換。
+			wchar_t wddsFilePath[1024];
+			mbstowcs(wddsFilePath, path, 1023);
+			//テクスチャを読み込む。
+			tex->InitFromDDSFile(wddsFilePath);
+			ResourceEngine().RegistTextureToBank(path, tex);
 		}
-	}
-
-	void TerrainMaterial::InitTexture()
-	{
-		//int texNo = 0;
-		//for (auto& tex : m_terrainTextures)
-		//{
-		//	const char* path = TERRAIN_TEX_PATHS[texNo];
-		//	tex = ResourceEngine().GetTextureFromBank(path);
-		//	if (tex == nullptr)
-		//	{
-		//		tex = new Texture;
-
-		//		//文字列変換。
-		//		wchar_t wddsFilePath[1024];
-		//		mbstowcs(wddsFilePath, path, 1023);
-		//		//テクスチャを読み込む。
-		//		tex->InitFromDDSFile(wddsFilePath);
-		//		ResourceEngine().RegistTextureToBank(path, tex);
-		//	}
-
-		//	texNo++;
-		//}
-
-		for (auto texPath : m_terrainTexturePath)
-		{
-			const char* path = texPath.path.c_str();
-			Texture* tex = ResourceEngine().GetTextureFromBank(path);
-			if (tex == nullptr)
-			{
-				tex = new Texture;
-
-				//文字列変換。
-				wchar_t wddsFilePath[1024];
-				mbstowcs(wddsFilePath, path, 1023);
-				//テクスチャを読み込む。
-				tex->InitFromDDSFile(wddsFilePath);
-				ResourceEngine().RegistTextureToBank(path, tex);
-			}
-			m_terrainTextures.push_back(tex);
-		}
-
-		INIT_TEX_NUM = m_terrainTextures.size();
+		m_terrainTextureMap.insert(std::make_pair(itemID, tex));
 	}
 }
