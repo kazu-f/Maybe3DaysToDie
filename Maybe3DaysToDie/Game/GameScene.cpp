@@ -20,13 +20,11 @@ CGameScene::~CGameScene()
 {
 	//ゲーム終了時にセーブ
 	m_TerrainSave.Save();
+	m_ChestSave.Save();
 
 	DeleteGO(m_Player);
 	DeleteGO(m_Camera);
 	DeleteGO(m_Stage);
-	DeleteGO(m_ItemBar);
-	DeleteGO(m_Inventory);
-
 
 	if (m_PlacementObject != nullptr)
 	{
@@ -52,19 +50,20 @@ bool CGameScene::Start()
 {
 
 	m_Player = NewGO<Player>(0, "player");
-	m_Player->SetItemBar(m_ItemBar);
-	m_ItemBar = NewGO<ItemBar>(0, "itemBar");
-	m_ItemBar->SetPlayer(m_Player);
 	m_Camera = NewGO<GameCamera>(0, "camera");
 	m_Player->SetCameraPtr(m_Camera);
 	m_Stage = NewGO<Stage>(0, "stage");
-	m_Inventory = NewGO<Inventory>(0, "inventory");
-	m_Inventory->SetPlayer(m_Player);
 
 	//セーブデータファイルをセット
 	m_TerrainSave.SetSaveDataFile(&m_SaveDataFile);
 	m_TerrainLoad.SetSaveDataFile(&m_SaveDataFile);
-	m_Stage->SetSaveDataFile(&m_SaveDataFile);
+	m_ChestSave.SetDataFile(&m_ChestDataFile);
+	m_ChestLoad.SetDataFile(&m_ChestDataFile);
+	m_ChestLoad.Load();
+	//m_Stage->SetSaveDataFile(&m_SaveDataFile);
+	//ChestDataFile::WorldChestData data;
+	//data.id = { 0,0,1,3,1 };
+	//m_ChestDataFile.AddChestData(data);
 
 	//todo プレイヤーの処理等に置くようにしてください
 	m_PlacementObject = NewGO<PlacementObject>(0);
@@ -98,18 +97,6 @@ bool CGameScene::Start()
 	m_PlacementObject->SetSaveData(&m_SaveDataFile);
 	m_DestroyObject->SetSaveData(&m_SaveDataFile);
 
-
-	//ワールドデータ関係を記録する
-	m_ItemBar->SetWorldData(
-		m_PlacementObject,
-		m_DestroyObject,
-		&m_SaveDataFile,
-		tool,
-		m_LoadingByChunk,
-		&m_TerrainSave,
-		&m_TerrainLoad,
-		m_Stage
-	);
 	m_AccessObject.SetSaveData(&m_SaveDataFile);
 	m_Player->SetAccessObject(&m_AccessObject);
 	return true;

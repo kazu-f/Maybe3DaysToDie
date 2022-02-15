@@ -29,7 +29,7 @@ bool ChestLoad::Load()
 	m_dataFile->GetAllData().resize(size);
 	fclose(fp);
 
-	fread(&m_dataFile->GetAllData().begin(), sizeof(ChestDataFile::WorldChestData), MAX_CHUNK_SIDE * MAX_CHUNK_SIDE, fp2);
+	fread(&m_dataFile->GetAllData(), sizeof(ChestDataFile::WorldChestData), MAX_CHUNK_SIDE * MAX_CHUNK_SIDE, fp2);
 	//Žæ“¾‚Å‚«‚½
 	fclose(fp2);
 	return true;
