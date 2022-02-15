@@ -16,5 +16,7 @@ private:
 	prefab::CSpriteRender* m_SelectSprite = nullptr;
 	prefab::CSpriteRender* m_BackSprite = nullptr;
 
-	float ReSpownTime = 1.0f;
+	float m_ReSpownTime = 2.0f;
+	RECT m_MainRt;				//ウィンドウ画面
+	RECT m_DeskRt;				//デスクトップ画面
 };
