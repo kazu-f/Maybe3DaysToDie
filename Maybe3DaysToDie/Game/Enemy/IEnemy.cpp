@@ -11,7 +11,6 @@ IEnemy::IEnemy()
 
 void IEnemy::OnDestroy()
 {
-	m_generatorPtr->UnRegistEnemy(this);
 	DeleteGO(m_modelRender);
 }
 

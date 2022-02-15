@@ -55,8 +55,17 @@ bool StandardZombie::Start()
 	//DefaultAnimPlay.
 	this->GetModelRender()->PlayAnimation(EnAnimationState_Run, 0.0f);
 
-	m_CharaCon.Init(m_parameters.Radius, m_parameters.Hight, GetPos());
-	m_CharaCon.GetBody()->GetBody()->setUserPointer(this); 
+	//コライダー初期化。
+	m_capsuleCollider.Create(m_parameters.Radius, m_parameters.Hight);
+
+	//剛体を初期化。
+	RigidBodyInfo rbInfo;
+	rbInfo.collider = &m_capsuleCollider;
+	rbInfo.mass = 0.0f;
+	m_rigidBody.Create(rbInfo);
+	m_rigidBody.GetBody()->setUserPointer(this);
+	m_rigidBody.GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_Character);
+
 	return true;
 }
 
@@ -88,7 +97,12 @@ void StandardZombie::Update()
 		}
 	}
 
-	GetCurrentState()->Update();
+	//平行移動を取得。
+	btTransform& trans = m_rigidBody.GetBody()->getWorldTransform();
+	//剛体の位置を更新。
+	trans.setOrigin(btVector3(m_modelRender->GetPosition().x, m_modelRender->GetPosition().y + m_parameters.Hight / 2, m_modelRender->GetPosition().z));
+
+	m_currentState->Update();
 }
 
 void StandardZombie::PostUpdate()

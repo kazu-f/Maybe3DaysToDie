@@ -47,6 +47,11 @@ public:
 	/// コンストラクタ。
 	/// </summary>
 	IEnemy();
+
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
+	virtual ~IEnemy() {};
 	
 	void OnDestroy() override final;
 	/// <summary>
@@ -110,6 +115,15 @@ public://setter
 	void SetEnemyGenerator(EnemyGenerator* generator)
 	{
 		m_generatorPtr = generator;
+	}
+
+	/// <summary>
+	/// NVMジェネレーターを取得。
+	/// </summary>
+	/// <returns></returns>
+	EnemyGenerator* GetEnemyGenerator()
+	{
+		return m_generatorPtr;
 	}
 
 	/// <summary>
@@ -205,7 +219,9 @@ protected:
 	NavigationAgent			m_agent;					//エージェント。
 	FootIK					m_footIK;
 	Player*					m_playerPtr;				//プレイヤー。
-	CCharacterController	m_CharaCon;
 	Stage*					m_stage = nullptr;
+
+	CCapsuleCollider		m_capsuleCollider;			//カプセルコライダー。
+	CRigidBody				m_rigidBody;				//剛体。
 };
 
