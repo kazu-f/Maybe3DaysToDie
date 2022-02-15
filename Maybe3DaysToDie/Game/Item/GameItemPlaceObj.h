@@ -5,14 +5,14 @@
 class GameItemPlaceObj : public GameItemBase
 {
 public:
-	GameItemPlaceObj(SItemDataPtr& itemData, const ObjectParams& params, ObjectCollectItemData& placeCollectData, int type);
+	GameItemPlaceObj(SItemDataPtr& itemData, const ObjectParams& params, ObjectCollectItemData& placeCollectData, AccessTag type);
 	~GameItemPlaceObj() {}
 
 private:
 	ObjectParams m_placeParams;
 	ObjectCollectItemData m_placeCollectData;
 	std::string m_objName;
-	int m_placeType = -1;
+	AccessTag m_placeType = AccessTag::NonAccess;
 
 };
 

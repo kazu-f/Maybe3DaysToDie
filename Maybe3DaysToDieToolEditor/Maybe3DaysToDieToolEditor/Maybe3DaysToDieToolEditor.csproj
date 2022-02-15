@@ -59,6 +59,7 @@
     <Compile Include="MyUserControl\TerrainPanel.Designer.cs">
       <DependentUpon>TerrainPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToolEditor\PlaceObjTypeComboBox.cs" />
     <Compile Include="ToolEditor\Command\BlockCommand.cs" />
     <Compile Include="ToolEditor\Command\TerrainCommand.cs" />
     <Compile Include="ToolEditor\ItemDataList.cs" />
