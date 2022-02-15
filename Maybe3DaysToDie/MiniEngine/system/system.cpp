@@ -39,6 +39,7 @@ namespace Engine {
 			default:
 				break;
 			}
+			break;
 			//渡された message から、イベントの種類を解析する
 		case WM_LBUTTONDOWN:
 			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseLClick);

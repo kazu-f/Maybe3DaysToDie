@@ -8,11 +8,12 @@
 
 namespace {
 	const float ItemOneBoxSize = 75.0f;
+	const int InventoryPrio = 2;
 }
 
 bool Inventory::Start()
 {
-	m_Inbentory = NewGO<prefab::CSpriteRender>(2);
+	m_Inbentory = NewGO<prefab::CSpriteRender>(InventoryPrio);
 	m_Inbentory->Init("Assets/sprite/ItemUI/inbentori.dds", FRAME_BUFFER_H, FRAME_BUFFER_H);
 	m_Inbentory->SetActiveFlag(false);
 
@@ -29,12 +30,13 @@ bool Inventory::Start()
 			int SlotNum = i + j;
 			auto& BlockDataOne = m_ItemSlot[i][j].m_itemBase;
 			BlockDataOne = it->GetBlockData(10);
-			m_ItemSlot[i][j].m_IconRender = NewGO<prefab::CSpriteRender>(0);
+			m_ItemSlot[i][j].m_IconRender = NewGO<prefab::CSpriteRender>(InventoryPrio+1);
 			m_ItemSlot[i][j].m_IconRender->Init(
 				it->GetItemDataBase(10)->GetItemData()->iconPath.c_str(),
 				ItemOneBoxSize, ItemOneBoxSize
 			);
 			m_ItemSlot[i][j].m_IconRender->SetPosition(m_ItemSlot[i][j].inventoryPos);
+			m_ItemSlot[i][j].m_IconRender->SetActiveFlag(false);
 			/*
 		}
 		else {
@@ -65,24 +67,26 @@ void Inventory::Update()
 	float SpriteSizeX = ((sx) / FRAME_BUFFER_W);
 	float SpriteSizeY = ((sy) / FRAME_BUFFER_H);
 	int cyCaption = GetSystemMetrics(SM_CYCAPTION);     // タイトルバーの高さ
-	float diffX = fabsf(MausePos.x - (m_ItemSlot[0][0].inventoryPos.x * SpriteSizeX + m_MainRt.left));
-	float diffY = fabsf(MausePos.y - (m_ItemSlot[0][0].inventoryPos.y * SpriteSizeY + m_MainRt.top + cyCaption));
+	float diffX = fabsf(MausePos.x - (( m_ItemSlot[0][0].inventoryPos.x + sx / 2 ) * SpriteSizeX + m_MainRt.left));
+	float diffY = fabsf(MausePos.y - -(( m_ItemSlot[0][0].inventoryPos.y - sy / 2) * SpriteSizeY + m_MainRt.top + cyCaption));
 	if (MauseState ==
 		MauseInfo::State::MauseLClick) {
-		if (diffX < 116.0f &&
-			diffY < 109.0f) {
-			m_PickUpItem.m_itemBase = m_ItemSlot[0][0].m_itemBase;
+		if (diffX < 43.0f &&
+			diffY < 43.0f) {
+			int a;
+			a = 0;
+			//m_PickUpItem.m_itemBase = m_ItemSlot[0][0].m_itemBase;
 		}
 	}
-	if (m_PickUpItem.m_itemBase != nullptr) {
-		m_PickUpItem.inventoryPos = MausePos;
-		if (MauseState != MauseInfo::State::MauseLClick) {
-			if (diffX < 116.0f &&
-				diffY < 109.0f) {
-				m_ItemSlot[0][0] = m_PickUpItem;
-			}
-		}
-	}
+	//if (m_PickUpItem.m_itemBase != nullptr) {
+	//	m_PickUpItem.inventoryPos = MausePos;
+	//	if (MauseState != MauseInfo::State::MauseLClick) {
+	//		if (diffX < 116.0f &&
+	//			diffY < 109.0f) {
+	//			m_ItemSlot[0][0] = m_PickUpItem;
+	//		}
+	//	}
+	//}
 
 	//タブを押し続けていないか？
 	TriggerTab();
@@ -99,6 +103,11 @@ void Inventory::SwhichInventoryState()
 	if (!m_IsShow) {
 		if (m_player->OpenInventory()) {
 			m_Inbentory->SetActiveFlag(true);
+			for (int i = 0; i < SlotMax.x; i++) {
+				for (int j = 0; j < SlotMax.y; j++) {
+					m_ItemSlot[i][j].m_IconRender->SetActiveFlag(true);
+				}
+			}
 			m_IsShow = true;
 			while (true) {
 				int returnNo = ShowCursor(true);
@@ -111,12 +120,14 @@ void Inventory::SwhichInventoryState()
 	else {
 		m_player->CloseInventory();
 		m_IsShow = false;
-		//マウスカーソルの位置を固定
-		int DefaultPoint[2] = { 500,300 };
-		SetCursorPos(DefaultPoint[0], DefaultPoint[1]);
 		while (true) {
 			int returnNo = ShowCursor(false);
 			m_Inbentory->SetActiveFlag(false);
+			for (int i = 0; i < SlotMax.x; i++) {
+				for (int j = 0; j < SlotMax.y; j++) {
+					m_ItemSlot[i][j].m_IconRender->SetActiveFlag(false);
+				}
+			}
 			if (returnNo < 0) {
 				break;
 			}
