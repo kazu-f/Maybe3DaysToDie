@@ -62,6 +62,11 @@ public:
 		}
 		return nullptr;
 	}
+
+	const char* GetSaveDataFilePath()
+	{
+		return SaveDataFilePath_Chest;
+	}
 private:
 	bool CheckID(const ChunkAndPos& id1, const ChunkAndPos& id2)
 	{
@@ -74,6 +79,8 @@ private:
 		}
 		return true;
 	}
+
 private:
 	std::map<ChunkAndPos, ChestData>m_WorldChestData;
+	const char* SaveDataFilePath_Chest = "SaveData/ChestData.dat";
 };
