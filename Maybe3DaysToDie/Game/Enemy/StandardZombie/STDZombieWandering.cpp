@@ -39,7 +39,10 @@ void STDZombieWandering::Update()
 
 		//自チャンクのセルをランダムで抽選して、それを次のパスに。
 		auto& cellList = m_enemy->GetStage()->GetTerrainWorld()->GetTerrainWorld(E2PGrid[0], E2PGrid[1])->GetCellList();
-
+		if (&cellList == nullptr)
+		{
+			return;
+		}
 		int index = rand() % cellList.size();
 		
 		m_target = cellList[index].m_CenterPos;
