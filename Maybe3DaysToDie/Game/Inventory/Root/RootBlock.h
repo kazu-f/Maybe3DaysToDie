@@ -1,5 +1,6 @@
 #pragma once
 #include "Item/GameItemBase.h"
+#include "RootTable.h"
 
 class RootBlock
 {
@@ -32,4 +33,5 @@ private:
 
 private:
 	GameItemBase* m_item[Inventory_X][Inventory_Y] = { nullptr };
+	RootTable m_rootTable;
 };
