@@ -43,6 +43,7 @@ namespace Maybe3DaysToDieToolEditor
             {
                 currentCommandStart = (currentCommandEnd + 1) % COMMAND_SIZE;
             }
+            isChanged = true;
         }
 
         /// <summary>

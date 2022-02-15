@@ -443,5 +443,32 @@ namespace Maybe3DaysToDieToolEditor
         }
         #endregion ファイル保存関係。
 
+        /// <summary>
+        /// ファイルが閉じられる。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Maybe3DaysToDie_ToolEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(commandList.isChanged)
+            {
+                DialogResult dr = MessageBox.Show(
+                    "ファイルが保存されていません。" +
+                    "\n保存しないで終了しますか？",
+                    "終了",
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Warning,
+                    MessageBoxDefaultButton.Button2
+                    );
+
+                if (dr == System.Windows.Forms.DialogResult.Yes)
+                {
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
     }
 }
