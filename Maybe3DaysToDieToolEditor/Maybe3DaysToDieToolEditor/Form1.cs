@@ -58,6 +58,7 @@ namespace Maybe3DaysToDieToolEditor
             placementObjectPanel1.RootDataBS = rootItemDataBS;
             placementObjectPanel1.deFocus = DeFocus;
             rootItemEditer = placementObjectPanel1.CreateRootItemDataEditer();
+            rootItemEditer.parentForm = this;
 
             blockPanel1.commandList = commandList;
             blockPanel1.listBox = ItemList;

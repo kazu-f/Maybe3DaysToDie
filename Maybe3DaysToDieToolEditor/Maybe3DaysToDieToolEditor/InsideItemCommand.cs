@@ -77,9 +77,9 @@ namespace Maybe3DaysToDieToolEditor
 
             public ChangeInsideProbility(InsideItem insideItem,int value)
             {
+                m_insideItem = insideItem;
                 beforeVal = m_insideItem.probability;
                 afterVal = value;
-                m_insideItem = insideItem;
             }
 
             public override void UnDo()
@@ -109,9 +109,9 @@ namespace Maybe3DaysToDieToolEditor
 
             public ChangeInsideMaxNum(InsideItem insideItem,int value)
             {
+                m_insideItem = insideItem;
                 beforeVal = m_insideItem.maxNum;
                 afterVal = value;
-                m_insideItem = insideItem;
             }
 
             public override void UnDo()
@@ -141,9 +141,9 @@ namespace Maybe3DaysToDieToolEditor
 
             public ChangeInsideMinNum(InsideItem insideItem,int value)
             {
+                m_insideItem = insideItem;
                 beforeVal = m_insideItem.minNum;
                 afterVal = value;
-                m_insideItem = insideItem;
             }
 
             public override void UnDo()

@@ -12,6 +12,7 @@ namespace Maybe3DaysToDieToolEditor
 {
     public partial class RootItemList : Form
     {
+        public Maybe3DaysToDie_ToolEditor parentForm = null;
         private EditorCommandList m_commandList;
         private BindingSource m_insideBS = new BindingSource();
         private BindingSource itemDataList;
@@ -77,6 +78,7 @@ namespace Maybe3DaysToDieToolEditor
         {
             var select = InsideItemDropDownList.SelectedItem;
 
+            if (select == null) return;
             if (!(select is Item)) return;
 
             InsideItem insideItem = new InsideItem((Item)select);
@@ -98,6 +100,7 @@ namespace Maybe3DaysToDieToolEditor
         {
             var select = insideItemListBox.SelectedItem;
 
+            if (select == null) return;
             if (!(select is InsideItem)) return;
 
             Command.RemoveInsideItem command = new Command.RemoveInsideItem(currentPlaceObj, (InsideItem)select);
@@ -125,6 +128,7 @@ namespace Maybe3DaysToDieToolEditor
 
             var select = insideItemListBox.SelectedItem;
 
+            if (select == null) return;
             if (!(select is InsideItem)) return;
 
             var inside = (InsideItem)select;
@@ -148,6 +152,7 @@ namespace Maybe3DaysToDieToolEditor
 
             var select = insideItemListBox.SelectedItem;
 
+            if (select == null) return;
             if (!(select is InsideItem)) return;
 
             var inside = (InsideItem)select;
@@ -171,6 +176,7 @@ namespace Maybe3DaysToDieToolEditor
 
             var select = insideItemListBox.SelectedItem;
 
+            if (select == null) return;
             if (!(select is InsideItem)) return;
 
             var inside = (InsideItem)select;
@@ -193,6 +199,35 @@ namespace Maybe3DaysToDieToolEditor
         private void activeControlNull(object sender, EventArgs e)
         {
             this.ActiveControl = null;
+        }
+
+        private void UnDoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            parentForm.UnDoToolStripMenuItem_Click(sender, e);
+            m_insideBS.ResetBindings(false);
+
+            var select = insideItemListBox.SelectedItem;
+            if (select == null) return;
+
+            if (select.GetType() == typeof(InsideItem))
+            {
+                DispInsideItemData((InsideItem)select);
+            }
+        }
+
+        private void ReDoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            parentForm.reDoToolStripMenuItem_Click(sender, e);
+
+            m_insideBS.ResetBindings(false);
+
+            var select = insideItemListBox.SelectedItem;
+            if (select == null) return;
+
+            if (select.GetType() == typeof(InsideItem))
+            {
+                DispInsideItemData((InsideItem)select);
+            }
         }
     }
 }
