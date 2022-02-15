@@ -41,7 +41,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Enemy\IEnemyState.cpp" />
     <ClCompile Include="Navigation\NVMDebugDraw.cpp" />
-    <ClCompile Include="Player\Inventory.cpp" />
+    <ClCompile Include="Inventory\Inventory.cpp" />
     <ClCompile Include="Player\state\PlayerDead.cpp" />
     <ClCompile Include="Stage\Hill\Hill.cpp" />
     <ClCompile Include="Navigation\NVMGenerator.cpp" />
@@ -83,6 +83,8 @@
     <ClCompile Include="Item\GameItemPlaceObj.cpp" />
     <ClCompile Include="Load\LoadCollision\LoadCollision.cpp" />
     <ClCompile Include="Inventory\RootTable.cpp" />
+    <ClCompile Include="ItemBar\ItemBar.cpp" />
+    <ClCompile Include="Enemy\StandardZombie\STDZombieDeath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessObject\AccessObject.h" />
@@ -150,7 +152,7 @@
     <ClInclude Include="nlohmann\ordered_map.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley.hpp" />
     <ClInclude Include="nlohmann\thirdparty\hedley\hedley_undef.hpp" />
-    <ClInclude Include="Player\Inventory.h" />
+    <ClInclude Include="Inventory\Inventory.h" />
     <ClInclude Include="Player\state\PlayerDead.h" />
     <ClInclude Include="RayTest.h" />
     <ClInclude Include="resource.h" />

@@ -1,6 +1,8 @@
 #pragma once
 #include "SaveDataFile.h"
 
+class ItemDataFile;
+
 class MapLoad
 {
 public:
@@ -44,5 +46,6 @@ private:
 		Vector3 scale;
 	};
 	SaveDataFile* m_SaveDataFile = nullptr;
+	ItemDataFile* m_itemDataFile = nullptr;
 	int ChunkID[2] = { -1 };
 };

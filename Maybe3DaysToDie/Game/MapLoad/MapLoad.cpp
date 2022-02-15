@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "MapLoad.h"
+#include "Item/ItemDataFile.h"
+#include "Item/GameItemPlaceObj.h"
+#include "Item/BlockItem.h"
 
 void MapLoad::Init(const char* filePath)
 {
@@ -41,6 +44,16 @@ void MapLoad::Init(const char* filePath)
 			//親がルートの場合のみマップチップ生成。
 			continue;
 		}
+
+		int boneHash = Util::MakeHash(bone->GetName());
+		auto* block = m_itemDataFile->GetBlockDataHash(boneHash);
+		GameItemPlaceObj* placeObj = nullptr;
+		if (block == nullptr)
+		{
+			placeObj = m_itemDataFile->GetPlaceDataHash(boneHash);
+			if (placeObj == nullptr)continue;
+		} 
+
 		SObjData objData;
 		bone->CalcWorldTRS(objData.position, objData.rotation, objData.scale);
 		//3dsMaxと軸が違うため、補正を入れる。
@@ -54,17 +67,31 @@ void MapLoad::Init(const char* filePath)
 		objData.rotation.z = -t;
 
 		auto& Obj = GetObjectArrange(objData.position);
-		for (int i = 0; i < BlockKinds; i++)
+
+		if (block != nullptr)
 		{
-			if (wcscmp(bone->GetName(), m_SaveDataFile->ObjectFilePath[i].c_str()) == 0)
-			{
-				//文字列等しいとき
-				Obj.ObjDurable = 500;
-				Obj.ObjId = i;
-				Obj.Rotate = objData.rotation;
-				break;
-			}
+			Obj.ObjId = block->GetObjParams().BlockID;
+			Obj.ObjDurable = block->GetObjParams().Durable;
+			Obj.Rotate = objData.rotation;
 		}
+		else if (placeObj != nullptr)
+		{
+			Obj.ObjId = placeObj->GetObjParams().BlockID;
+			Obj.ObjDurable = placeObj->GetObjParams().Durable;
+			Obj.Rotate = objData.rotation;
+		}
+
+		//for (int i = 0; i < BlockKinds; i++)
+		//{
+		//	if (wcscmp(bone->GetName(), m_SaveDataFile->ObjectFilePath[i].c_str()) == 0)
+		//	{
+		//		//文字列等しいとき
+		//		Obj.ObjDurable = 500;
+		//		Obj.ObjId = i;
+		//		Obj.Rotate = objData.rotation;
+		//		break;
+		//	}
+		//}
 	}
 }
 

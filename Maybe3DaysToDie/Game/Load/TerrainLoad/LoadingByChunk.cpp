@@ -7,8 +7,10 @@
 
 LoadingByChunk::LoadingByChunk()
 {
+	m_itemDatas = ItemDataFile::GetInstance();
+	int modelSize = m_itemDatas->GetBlockArraySize() + m_itemDatas->GetPlaceArraySize();
 	//サイズの最大値セット
-	BlockModel.resize(ItemDataFile::GetInstance()->GetBlockArraySize());
+	BlockModel.resize(modelSize);
 }
 
 LoadingByChunk::~LoadingByChunk()
@@ -113,15 +115,30 @@ void LoadingByChunk::InitChunkBlocks()
 void LoadingByChunk::InitModels()
 {
 	int m_modelNum = 0;
-	auto* itemDatas = ItemDataFile::GetInstance();
-	for (int ObjectID = 0; ObjectID < itemDatas->GetBlockArraySize(); ObjectID++)
+	for (int blockID = 0; blockID < m_itemDatas->GetBlockArraySize(); blockID++)
 	{
 		//モデルを初期化
 		//ブロックの名前がかぶっていないのでまだ、そのモデルがない
 		ModelInitData InitData;
-		auto* block = itemDatas->GetBlockDataTypeID(ObjectID);
+		auto* block = m_itemDatas->GetBlockDataTypeID(blockID);
 		if (block == nullptr) continue;
 		InitData.m_tkmFilePath = block->GetItemData()->tkmPath.c_str();
+
+		prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
+		//model->SetActiveFlag(false);
+		//チャンクのサイズ分インスタンシング描画する
+		model->Init(InitData, nullptr, 0, MaxInstanceNum);
+		BlockModel[m_modelNum] = model;
+		m_modelNum++;
+	}
+	for (int ObjectID = 0; ObjectID < m_itemDatas->GetPlaceArraySize(); ObjectID++)
+	{
+		//モデルを初期化
+		//ブロックの名前がかぶっていないのでまだ、そのモデルがない
+		ModelInitData InitData;
+		auto* place = m_itemDatas->GetPlaceObjTypeID(ObjectID);
+		if (place == nullptr) continue;
+		InitData.m_tkmFilePath = place->GetItemData()->tkmPath.c_str();
 
 		prefab::ModelRender* model = NewGO<prefab::ModelRender>(0);
 		//model->SetActiveFlag(false);
@@ -357,19 +374,19 @@ void LoadingByChunk::UpdateModels()
 		//更新無いときreturn
 		return;
 	}
-	auto* itemDatas = ItemDataFile::GetInstance();
-	for (int BlockID = 0; BlockID < itemDatas->GetBlockArraySize(); BlockID++)
+	int modelID = 0;
+	for (int BlockID = 0; BlockID < m_itemDatas->GetBlockArraySize(); BlockID++)
 	{
-		auto* block = itemDatas->GetBlockDataTypeID(BlockID);
+		auto* block = m_itemDatas->GetBlockDataTypeID(BlockID);
 		if (block == nullptr) continue;
 
 		//インスタンシングデータをリセット
-		BlockModel[BlockID]->ResetInstancingDatas();
+		BlockModel[modelID]->ResetInstancingDatas();
 		for (int x = 0; x < LoadingChunks; x++)
 		{
 			for (int z = 0; z < LoadingChunks; z++)
 			{
-				auto& Datas = m_ChunkBlock[x][z].GetInstancingData(BlockID);
+				auto& Datas = m_ChunkBlock[x][z].GetInstancingData(modelID);
 				for (auto& data : Datas)
 				{
 					//インスタンシングデータを追加
@@ -378,5 +395,28 @@ void LoadingByChunk::UpdateModels()
 				m_ChunkBlock[x][z].ResetModelUpdated();
 			}
 		}
+		modelID++;
+	}
+	for (int ObjID = 0; ObjID < m_itemDatas->GetPlaceArraySize(); ObjID++)
+	{
+		auto* block = m_itemDatas->GetPlaceObjTypeID(ObjID);
+		if (block == nullptr) continue;
+
+		//インスタンシングデータをリセット
+		BlockModel[modelID]->ResetInstancingDatas();
+		for (int x = 0; x < LoadingChunks; x++)
+		{
+			for (int z = 0; z < LoadingChunks; z++)
+			{
+				auto& Datas = m_ChunkBlock[x][z].GetInstancingData(modelID);
+				for (auto& data : Datas)
+				{
+					//インスタンシングデータを追加
+ 					BlockModel[ObjID]->UpdateInstancingData(data.pos,data.rot,data.scale);
+				}
+				m_ChunkBlock[x][z].ResetModelUpdated();
+			}
+		}
+		modelID++;
 	}
 }
