@@ -15,9 +15,8 @@ namespace Maybe3DaysToDieToolEditor
         public EditorCommandList commandList { private get; set; } = null;
         public ListBox listBox { private get; set; } = null;
         ToolKindsComboBox toolKinds;
+        PlaceObjTypeComboBox objTypes;
         private BindingSource _itemDataBS = null;   //アイテムデータのバインディングソース。
-
-        private RadioButton[] placeTypeRBs;         //設置物のタイプを決めるラジオボタン。
 
         public BindingSource ItemDataBS{
             set 
@@ -33,6 +32,7 @@ namespace Maybe3DaysToDieToolEditor
             InitializeComponent();
             //設定を行う。
             toolKinds = new ToolKindsComboBox(ToolComboBox);
+            objTypes = new PlaceObjTypeComboBox(objTypeComboBox);
         }
 
         /// <summary>
@@ -98,6 +98,42 @@ namespace Maybe3DaysToDieToolEditor
                 commandList.AddCommand(command);
             }
             DispPlacementObject((PlacementObject)item);
+        }
+
+        /// <summary>
+        /// ツールが変更されたとき。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ToolComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (listBox == null) return;
+            var item = listBox.SelectedItem;
+            if (item == null) return;
+            if (item.GetType() != typeof(PlacementObject)) return;
+            Command.ChangePlacementObjKinds command = new Command.ChangePlacementObjKinds((PlacementObject)item, toolKinds.SelectedValue);
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
+        }
+
+        /// <summary>
+        /// 設置物のアクセスタイプが変更された。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void objTypeComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (listBox == null) return;
+            var item = listBox.SelectedItem;
+            if (item == null) return;
+            if (item.GetType() != typeof(PlacementObject)) return;
+            Command.ChangePlacementObjTypes command = new Command.ChangePlacementObjTypes((PlacementObject)item, (EnPlaceTypes)objTypes.SelectedValue);
+            if (command.IsChanged())
+            {
+                commandList.AddCommand(command);
+            }
         }
 
         /// <summary>
@@ -176,24 +212,6 @@ namespace Maybe3DaysToDieToolEditor
 
         }
 
-        /// <summary>
-        /// ツールが変更されたとき。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ToolComboBox_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            if (listBox == null) return;
-            var item = listBox.SelectedItem;
-            if (item == null) return;
-            if (item.GetType() != typeof(PlacementObject)) return;
-            Command.ChangePlacementObjKinds command = new Command.ChangePlacementObjKinds((PlacementObject)item, toolKinds.SelectedValue);
-            if (command.IsChanged())
-            {
-                commandList.AddCommand(command);
-            }
-
-        }
         #endregion
 
         private void activeControlNull(object sender, EventArgs e)

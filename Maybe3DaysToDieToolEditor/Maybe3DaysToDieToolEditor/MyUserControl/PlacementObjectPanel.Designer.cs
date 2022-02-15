@@ -55,6 +55,8 @@ namespace Maybe3DaysToDieToolEditor
             "",
             ""}, -1);
             this.groupBoxPlacementObject = new System.Windows.Forms.GroupBox();
+            this.ObjTypeLabel = new System.Windows.Forms.Label();
+            this.objTypeComboBox = new System.Windows.Forms.ComboBox();
             this.collectItemListView = new System.Windows.Forms.ListView();
             this.CollectItems = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ItemID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -77,6 +79,8 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // groupBoxPlacementObject
             // 
+            this.groupBoxPlacementObject.Controls.Add(this.ObjTypeLabel);
+            this.groupBoxPlacementObject.Controls.Add(this.objTypeComboBox);
             this.groupBoxPlacementObject.Controls.Add(this.collectItemListView);
             this.groupBoxPlacementObject.Controls.Add(this.CollectItemDel);
             this.groupBoxPlacementObject.Controls.Add(this.CollectItemAddButton);
@@ -95,6 +99,25 @@ namespace Maybe3DaysToDieToolEditor
             this.groupBoxPlacementObject.TabStop = false;
             this.groupBoxPlacementObject.Text = "PlacementObject";
             this.groupBoxPlacementObject.MouseCaptureChanged += new System.EventHandler(this.activeControlNull);
+            // 
+            // ObjTypeLabel
+            // 
+            this.ObjTypeLabel.AutoSize = true;
+            this.ObjTypeLabel.Location = new System.Drawing.Point(72, 104);
+            this.ObjTypeLabel.Name = "ObjTypeLabel";
+            this.ObjTypeLabel.Size = new System.Drawing.Size(39, 15);
+            this.ObjTypeLabel.TabIndex = 65;
+            this.ObjTypeLabel.Text = "タイプ";
+            // 
+            // objTypeComboBox
+            // 
+            this.objTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.objTypeComboBox.FormattingEnabled = true;
+            this.objTypeComboBox.Location = new System.Drawing.Point(117, 101);
+            this.objTypeComboBox.Name = "objTypeComboBox";
+            this.objTypeComboBox.Size = new System.Drawing.Size(121, 23);
+            this.objTypeComboBox.TabIndex = 66;
+            this.objTypeComboBox.SelectionChangeCommitted += new System.EventHandler(this.objTypeComboBox_SelectionChangeCommitted);
             // 
             // collectItemListView
             // 
@@ -200,7 +223,7 @@ namespace Maybe3DaysToDieToolEditor
             // 
             // DurableNumeric
             // 
-            this.DurableNumeric.Location = new System.Drawing.Point(120, 50);
+            this.DurableNumeric.Location = new System.Drawing.Point(117, 48);
             this.DurableNumeric.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -273,5 +296,7 @@ namespace Maybe3DaysToDieToolEditor
         private System.Windows.Forms.ColumnHeader ItemName;
         private System.Windows.Forms.ColumnHeader ItemNum;
         private System.Windows.Forms.ColumnHeader CollectItems;
+        private System.Windows.Forms.ComboBox objTypeComboBox;
+        private System.Windows.Forms.Label ObjTypeLabel;
     }
 }

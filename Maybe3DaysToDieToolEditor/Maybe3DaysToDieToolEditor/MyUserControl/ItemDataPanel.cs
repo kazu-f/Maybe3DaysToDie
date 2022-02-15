@@ -18,6 +18,7 @@ namespace Maybe3DaysToDieToolEditor
             enStack_Tool = 1,
             enStack_Food = 30,
             enStack_Place = 999,
+            enStack_Block = 999,
             enStack_Terrain = 999,
             enStack_Material = 999
         }
@@ -68,6 +69,10 @@ namespace Maybe3DaysToDieToolEditor
             {
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Place;
             }
+            else if (typeof(Block) == item.GetType())
+            {
+                MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Block;
+            }
             else if (typeof(Terrain) == item.GetType())
             {
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Terrain;
@@ -75,6 +80,10 @@ namespace Maybe3DaysToDieToolEditor
             else if (typeof(FoodAndCure) == item.GetType())
             {
                 MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Food;
+            }
+            else if (typeof(Material) == item.GetType())
+            {
+                MaxItemStackNumeric.Maximum = (int)EnMaxStackNum.enStack_Material;
             }
             //アイテムのデータを表示する。
             NameTextBox.Text = item.itemName;

@@ -192,21 +192,13 @@ void ItemDataFile::InitItemData(const char* filePath)
 			break;
 			
 		case EnItemType::enItem_Place: {
-
-
 			//設置物の耐久値と特攻ツール。
 			ObjectParams params;
 			params.BlockID = itemData->itemID;
 			params.Durable = _item[nsPlaceObjsData::durable];
 			params.AptitudeTool = _item[nsPlaceObjsData::tool];
 
-			////ここでやっても上手くいかないわ。
-			//int indexSlash = itemData->tkmPath.find_last_of("/\\");
-			//int pathSize = itemData->tkmPath.size();
-			//std::string blockName = itemData->tkmPath.substr(indexSlash + 1, pathSize - indexSlash - 1);
-			//params.BlockName = std::move(blockName.c_str());
-
-			int placeType = _item[nsPlaceObjsData::Type];
+			AccessTag placeType = static_cast<AccessTag>(_item[nsPlaceObjsData::Type]);
 			//設置物から採取できるアイテムのデータ。
 			ObjectCollectItemData collectItemData;
 			int num = _item[nsPlaceObjsData::Collect::collectItemDataNum];

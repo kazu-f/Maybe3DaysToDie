@@ -370,7 +370,7 @@ namespace nsTerrain {
 						}
 						else {
 							cube.cube[i] = 0.0f;
-							cube.terrainID[i] = 0;
+							cube.terrainID[i] = -1;
 						}
 					}
 
@@ -413,12 +413,13 @@ namespace nsTerrain {
 				//オフセットを計算する。
 				float offset = GetOffset(cube.cube[nsMarching::EdgeConnection[i][0]], cube.cube[nsMarching::EdgeConnection[i][1]]);
 
-				TerrainTexType tex1;
-				tex1.tex[cube.terrainID[nsMarching::EdgeConnection[i][0]]] = 1.0f;
-				TerrainTexType tex2;
-				tex2.tex[cube.terrainID[nsMarching::EdgeConnection[i][1]]] = 1.0f;
+				int tex1ID = cube.terrainID[nsMarching::EdgeConnection[i][0]];
+				if(tex1ID >= 0)	EdgeTexture[i].tex[tex1ID] = (1.0f - offset);
 
-				EdgeTexture[i] = tex1 * (1.0f - offset) + tex2 * offset;
+				int tex2ID = cube.terrainID[nsMarching::EdgeConnection[i][1]];
+				if (tex2ID >= 0) EdgeTexture[i].tex[tex2ID] = offset;
+
+				EdgeTexture[i].Normalize();
 
 				//エッジ上の頂点の位置をキューブの頂点の影響値から計算する。
 				EdgeVertex[i].x = (static_cast<float>(nsMarching::CornerTable[nsMarching::EdgeConnection[i][0]].x) * (1.0f - offset) 
