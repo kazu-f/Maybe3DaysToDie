@@ -246,7 +246,7 @@
       "craftableIDs": [ ],
       "craftableItemNum": 0
     },
-    "iconData": "",
+    "iconData": "Assets\\sprite\\ItemObject2.png",
     "itemID": 10,
     "itemMaterialData": [ ],
     "itemMaterialDataNum": 0,
@@ -318,5 +318,25 @@
       }
     ],
     "tool": 1
+  },
+  {
+    "__type": "FoodAndCure:#Maybe3DaysToDieToolEditor",
+    "craftableItemIDs": {
+      "craftableIDs": [ ],
+      "craftableItemNum": 0
+    },
+    "iconData": "Assets\\sprite\\ItemObject1.png",
+    "itemID": 13,
+    "itemMaterialData": [ ],
+    "itemMaterialDataNum": 0,
+    "itemType": 4,
+    "itemTypeID": 0,
+    "name": "FoodAndCure",
+    "stackNum": 10,
+    "tkmFile": "",
+    "HP": 0,
+    "food": 10,
+    "stamina": 0,
+    "water": 0
   }
 ]
