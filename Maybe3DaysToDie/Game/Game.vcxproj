@@ -194,6 +194,7 @@
     <ClCompile Include="Player\Inventory.cpp" />
     <ClCompile Include="Player\state\PlayerDead.cpp" />
     <ClCompile Include="Player\state\PlayerIdle.cpp" />
+    <ClCompile Include="Inventory\RootTable.cpp" />
     <ClCompile Include="Stage\Hill\Hill.cpp" />
     <ClCompile Include="Navigation\NVMGenerator.cpp" />
     <ClCompile Include="PlacementObject\PlacementObject.cpp" />
@@ -309,6 +310,7 @@
     <ClInclude Include="Player\state\PlayerIdle.h" />
     <ClInclude Include="RayTest.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Inventory\RootTable.h" />
     <ClInclude Include="SaveDataFile.h" />
     <ClInclude Include="Stage\Hill\Hill.h" />
     <ClInclude Include="Navigation\NVMGenerator.h" />
