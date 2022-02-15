@@ -75,6 +75,7 @@ const int MAX_RENDERING_TARGET = D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT;	//ƒŒƒ“ƒ
 #include "util/TResourceBank.h"
 #include "util/Noise.h"
 #include "tkFile/TkmFile.h"
+#include "tkFile/TksFile.h"
 
 #include "ResourceEngine.h"
 #include "physics/PhysicsWorld.h"
