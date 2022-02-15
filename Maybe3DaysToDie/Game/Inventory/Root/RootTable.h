@@ -41,5 +41,4 @@ private:
 
 private:
 	std::map<char, std::vector<RootItem>> m_table;
-
 };

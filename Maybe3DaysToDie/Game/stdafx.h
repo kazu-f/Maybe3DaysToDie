@@ -43,6 +43,9 @@ static const int BlockKinds = 5;		//ブロックの種類
 static const int Inventory_X = 7;
 static const int Inventory_Y = 6;
 
+static const int MinRootItem = 1;
+static const int MaxRootItem = 5;
+
 //ゲーム中にロードしているチャンクの範囲
 static const int LoadingChunkCols = 3;
 static const int LoadingChunks = 3;
