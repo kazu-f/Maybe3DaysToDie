@@ -21,8 +21,10 @@ public:
 	void SetMauseMove(const Vector2& moveSpeed) {
 		m_MauseMove = moveSpeed;
 	}
-	State GetMauseState() const {
-		return m_MauseState;
+	State GetMauseState() {
+		auto state = m_MauseState;
+		m_MauseState = State::None;
+		return state;
 	}
 	Vector2 GetMauseMove() const {
 		return m_MauseMove;

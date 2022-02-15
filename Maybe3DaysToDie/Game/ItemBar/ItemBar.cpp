@@ -83,6 +83,21 @@ void ItemBar::Update()
 			m_DeleteTime = 0.2f;
 		}
 
+		auto MouseState = MauseInfo::GetInstance()->GetMauseState();
+		if (MouseState == MauseInfo::State::MauseWheelUp) {
+			m_SelectNum = m_SelectNum--;
+			if (m_SelectNum < 0) {
+				m_SelectNum = SelectNum - 1;
+			}
+		}
+
+		if (MouseState == MauseInfo::State::MauseWheelDown)
+		{
+			m_SelectNum++;
+			if (m_SelectNum > SelectNum - 1) {
+				m_SelectNum = 0;
+			}
+		}
 		ItemSlotKey('1', 0);
 		ItemSlotKey('2', 1);
 		ItemSlotKey('3', 2);

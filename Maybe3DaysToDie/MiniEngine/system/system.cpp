@@ -13,11 +13,14 @@ namespace Engine {
 	///////////////////////////////////////////////////////////////////
 	LRESULT CALLBACK MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
-		if (wParam > 0) {
-			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseWheelUp);
+		int i = 0;
+		if (lParam>0) {
+			int a;
+			a = 0;
 		}
-		if (wParam < 0) {
-			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseWheelDown);
+		if (lParam < 0) {
+			int a;
+			a = 0;
 		}
 		//送られてきたメッセージで処理を分岐させる。
 		switch (msg)
@@ -43,8 +46,17 @@ namespace Engine {
 		case WM_RBUTTONDOWN:
 			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseRClick);
 			break;
+		case WM_MOUSEWHEEL:
+			i = GET_WHEEL_DELTA_WPARAM(wParam);
+			if (i > 0) {
+				MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseWheelUp);
+			}
+			if (i < 0) {
+				MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseWheelDown);
+			}
+			break;
 		default:
-			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::None);
+			//MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::None);
 			return DefWindowProc(hWnd, msg, wParam, lParam);
 		}
 		return 0;

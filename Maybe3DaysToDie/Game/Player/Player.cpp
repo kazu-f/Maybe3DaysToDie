@@ -74,10 +74,9 @@ void Player::Update()
 		Vector3 PlayerPos = m_Pos;
 		PlayerPos.y = m_Pos.y + 90.0f;
 		start.setValue(PlayerPos.x, PlayerPos.y + 90.0f, PlayerPos.z);
-		float Range = 5000.0f;
 		Vector3 RayEnd = PlayerPos;
-		RayEnd += MainCamera().GetForward() * Range;
-		end.setValue(RayEnd.x, RayEnd.y + 90.0f, RayEnd.z);
+		RayEnd += MainCamera().GetForward() * PlayerRange * OBJECT_UNIT;
+		end.setValue(RayEnd.x, RayEnd.y, RayEnd.z);
 
 		//レイテスト
 		CharactorRayResult callback;
