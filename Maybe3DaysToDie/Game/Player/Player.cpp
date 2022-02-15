@@ -68,11 +68,12 @@ void Player::Update()
 	if (GetAsyncKeyState('r')) {
 		m_AccessObject->EndAccess();
 	}
-	if (GetAsyncKeyState(MK_RBUTTON)) {
+	if (MauseInfo::GetInstance()->GetMauseState()==
+		MauseInfo::State::MauseRClick) {
 		//レイテストで使用するベクトルを作成
 		btVector3 start, end;
 		Vector3 PlayerPos = m_Pos;
-		PlayerPos.y = m_Pos.y + 90.0f;
+		PlayerPos.y += 90.0f;
 		start.setValue(PlayerPos.x, PlayerPos.y, PlayerPos.z);
 		Vector3 RayEnd = PlayerPos;
 		RayEnd += MainCamera().GetForward() * PlayerRange * OBJECT_UNIT;
