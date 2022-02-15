@@ -24,8 +24,8 @@
 #include "DestroyObject/DestroyObject.h"
 
 namespace {
-	const Vector2 ItemBarPos = { -300.0f,-285.0f };
-	const float ItemBarWidthSize = 600.0f;
+	const Vector2 ItemBarPos = { -262.5f,-285.0f };
+	const float ItemBarWidthSize = 525.0f;
 }
 
 bool ItemBar::Start()
@@ -36,7 +36,7 @@ bool ItemBar::Start()
 	m_ItemIcon->SetPivot({ 0.0f,0.5f });
 
 	for (int i = 0; i < SelectNum; i++) {
-		m_SelectPos[i] = { -300.0f + (75.0f * i) ,ItemBarPos.y };
+		m_SelectPos[i] = { ItemBarPos.x + (ItemOneBoxSize * i) ,ItemBarPos.y };
 	}
 
 	m_SelectItemIcon = NewGO<prefab::CSpriteRender>(1);
@@ -85,21 +85,8 @@ void ItemBar::Update()
 			m_DeleteTime = 0.2f;
 		}
 
-		auto MouseState = MauseInfo::GetInstance()->GetMauseState();
-		if (MouseState == MauseInfo::State::MauseWheelUp) {
-			m_SelectNum = m_SelectNum--;
-			if (m_SelectNum < 0) {
-				m_SelectNum = SelectNum - 1;
-			}
-		}
+		MouseWheelUpdate();
 
-		if (MouseState == MauseInfo::State::MauseWheelDown)
-		{
-			m_SelectNum++;
-			if (m_SelectNum > SelectNum - 1) {
-				m_SelectNum = 0;
-			}
-		}
 		ItemSlotKey('1', 0);
 		ItemSlotKey('2', 1);
 		ItemSlotKey('3', 2);
@@ -107,7 +94,6 @@ void ItemBar::Update()
 		ItemSlotKey('5', 4);
 		ItemSlotKey('6', 5);
 		ItemSlotKey('7', 6);
-		ItemSlotKey('8', 7);
 	}
 	m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
 }
@@ -123,6 +109,32 @@ void ItemBar::SetInventory(std::vector<Item>& item)
 	for (auto& i : item)
 	{
 		m_Player->GetInventory()->SetItemSlot(i.item, 1, 1);
+	}
+}
+
+void ItemBar::MouseWheelUpdate()
+{
+	int oldNum = m_SelectNum;
+	auto MouseState = MauseInfo::GetInstance()->GetMauseState();
+	if (MouseState == MauseInfo::State::MauseWheelUp) {
+		m_SelectNum--;
+		if (m_SelectNum < 0) {
+			m_SelectNum = SelectNum - 1;
+		}
+	}
+
+	if (MouseState == MauseInfo::State::MauseWheelDown)
+	{
+		m_SelectNum++;
+		if (m_SelectNum > SelectNum - 1) {
+			m_SelectNum = 0;
+		}
+	}
+
+	if (oldNum != m_SelectNum)
+	{
+		m_itemInventory[m_SelectNum].m_itemBase->ResetUseItemSelect(this);
+		m_itemInventory[m_SelectNum].m_itemBase->SelectItemAction(this);
 	}
 }
 
@@ -157,9 +169,11 @@ void ItemBar::SetItemDatas()
 		m_itemInventory[i].m_itemBase = datas->GetTerrainDataTypeID(j);
 		i++;
 	}
-	for (int j = 0; i < 8; j++)
+	for (int j = 0; i < SelectNum; j++)
 	{
 		m_itemInventory[i].m_itemBase = datas->GetNullGameItem();
 		i++;
 	}
+	m_itemInventory[0].m_itemBase->ResetUseItemSelect(this);
+	m_itemInventory[0].m_itemBase->SelectItemAction(this);
 }
