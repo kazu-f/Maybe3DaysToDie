@@ -16,21 +16,22 @@ bool Inventory::Start()
 	for (int i = 0; i < SlotMax.x; i++) {
 		for (int j = 0; j < SlotMax.y; j++) {
 			Vector2 SlotPos = { 
-				FRAME_BUFFER_W - ( i * 260.0f + 202.0f ),
-				FRAME_BUFFER_H - ( j * 241.0f + 577.0f ) 
+				( ( i *  260.0f ) + 202.0f ) * ( (float)FRAME_BUFFER_H / (float)FRAME_BUFFER_W ) - ( FRAME_BUFFER_W / 2 ),
+				( ( j * -241.0f ) - 577.0f ) + ( FRAME_BUFFER_H / 2 )
 			};
+
 			m_ItemSlot[i][j].inventoryPos = SlotPos;
 		}
 	}
 	ItemDataFile* it = ItemDataFile::GetInstance();
 	auto& BlockDataOne = m_ItemSlot[0][0].m_itemBase;
 	BlockDataOne = it->GetBlockData(10);
-	BlockDataOne->SetItemIconEnable(true);
-	BlockDataOne->SetIconPosition(m_ItemSlot[0][0].inventoryPos);
+	BlockDataOne->SetItemIconEnable(false);
+	BlockDataOne->SetIconPosition({ 300.0f,300.0f });
 
 	auto& EatDataTwo = m_ItemSlot[1][0];
 	EatDataTwo.m_itemBase = it->GetFoodData(13);
-	EatDataTwo.m_itemBase->SetItemIconEnable(true);
+	EatDataTwo.m_itemBase->SetItemIconEnable(false);
 	EatDataTwo.m_itemBase->SetIconPosition(EatDataTwo.inventoryPos);
 
 	return true;
