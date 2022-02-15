@@ -6,6 +6,7 @@
 
 void MapLoad::Init(const char* filePath)
 {
+	m_itemDataFile = ItemDataFile::GetInstance();
 	for (auto& id : ChunkID)
 	{
 		if (id < 0 || id > MAX_CHUNK_SIDE)
