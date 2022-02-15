@@ -4,6 +4,7 @@
 #include "Tool/Tool.h"
 #include "SaveDataFile.h"
 #include "RayTest.h"
+#include "Item/ItemDataFile.h"
 
 DestroyObject::DestroyObject()
 {
@@ -27,6 +28,8 @@ std::vector<GameItemBase*>& DestroyObject::AddObjectDamage()
 {
 	//配列クリア
 	m_Item.clear();
+	int damage = 0;
+	int ObjectID = -1;
 
 	//視点の位置
 	Vector3 m_Start = MainCamera().GetPosition();
@@ -64,10 +67,10 @@ std::vector<GameItemBase*>& DestroyObject::AddObjectDamage()
 			{
 				return m_Item;
 			}
-			obj->Damage(m_tool->GetInfo());
+			damage = obj->Damage(m_tool->GetInfo());
 			param = obj->GetParam();
 			//オブジェクトのID
-			int ObjectID = param.BlockID;
+			ObjectID = param.BlockID;
 			//設置するオブジェクトのチャンクIDを計算
 			int ID[2] = { 0 };
 			int x = lastPos.x / OBJECT_UNIT;
@@ -108,6 +111,7 @@ std::vector<GameItemBase*>& DestroyObject::AddObjectDamage()
 
 		}
 	}
-
+	//データファイルゲット
+	const auto& DataFile = ItemDataFile::GetInstance();
 	return m_Item;
 }

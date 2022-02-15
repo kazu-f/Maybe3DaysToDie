@@ -58,7 +58,7 @@ public:
 	/// <summary>
 	/// ダメージを与える。
 	/// </summary>
-	virtual void Damage(const ToolInfo& tool) = 0;
+	virtual int Damage(const ToolInfo& tool) = 0;
 
 	/// <summary>
 	/// ブロックの追加
