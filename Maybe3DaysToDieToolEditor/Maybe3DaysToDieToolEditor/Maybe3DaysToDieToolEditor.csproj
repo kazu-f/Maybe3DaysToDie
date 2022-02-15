@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InsideItemCommand.cs" />
     <Compile Include="MyUserControl\BlockPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

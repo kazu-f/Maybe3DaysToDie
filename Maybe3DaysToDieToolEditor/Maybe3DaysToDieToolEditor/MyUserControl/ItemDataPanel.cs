@@ -12,6 +12,8 @@ namespace Maybe3DaysToDieToolEditor
 {
     public partial class ItemDataPanel : UserControl
     {
+        public DeFocusCommand deFocus = null;
+
         #region 定数類。
         public enum EnMaxStackNum
         {
@@ -264,7 +266,7 @@ namespace Maybe3DaysToDieToolEditor
 
         private void activeControlNull(object sender, EventArgs e)
         {
-            this.ParentForm.ActiveControl = null;
+            deFocus();
         }
 
     }

@@ -5,6 +5,10 @@
 #include "SaveDataFile.h"
 #include "RayTest.h"
 #include "Item/ItemDataFile.h"
+#include "Item/GameItemPlaceObj.h"
+#include "Item/BlockItem.h"
+#include "Item/GameItemTerrain.h"
+#include "Item/GameItemMaterial.h"
 
 DestroyObject::DestroyObject()
 {
@@ -24,7 +28,7 @@ void DestroyObject::Update()
 	}
 }
 
-std::vector<GameItemBase*>& DestroyObject::AddObjectDamage()
+std::vector<Item>& DestroyObject::AddObjectDamage()
 {
 	//配列クリア
 	m_Item.clear();
@@ -112,6 +116,37 @@ std::vector<GameItemBase*>& DestroyObject::AddObjectDamage()
 		}
 	}
 	//データファイルゲット
-	const auto& DataFile = ItemDataFile::GetInstance();
+	auto DataFile = ItemDataFile::GetInstance();
+	auto* block = DataFile->GetBlockData(ObjectID);
+	auto* terrain = DataFile->GetTerrainData(ObjectID);
+	if (block != nullptr)
+	{
+		float maxdurable = block->GetObjParams().Durable;
+		float ratio = damage / maxdurable;
+		//ブロック
+		for (auto& item : block->GetCollectItemData())
+		{
+			Item i;
+			auto itemData = DataFile->GetMaterialData(item.collectID);
+			i.item = itemData;
+			i.stack = std::round(item.collectNum * ratio);
+			m_Item.push_back(i);
+		}
+	}
+	else if (terrain != nullptr)
+	{
+		float maxdurable = terrain->GetObjParams().Durable;
+		float ratio = damage / maxdurable;
+		//テライン
+		for (auto& item : terrain->GetCollectItemData())
+		{
+			Item i;
+			auto itemData = DataFile->GetMaterialData(item.collectID);
+			i.item = itemData;
+			i.stack = std::round(item.collectNum * ratio);
+			m_Item.push_back(i);
+		}
+	}
+
 	return m_Item;
 }
