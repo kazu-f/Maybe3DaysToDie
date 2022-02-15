@@ -107,7 +107,6 @@ void ItemBar::Update()
 		ItemSlotKey('5', 4);
 		ItemSlotKey('6', 5);
 		ItemSlotKey('7', 6);
-		ItemSlotKey('8', 7);
 	}
 	m_SelectItemIcon->SetPosition(m_SelectPos[m_SelectNum]);
 }
