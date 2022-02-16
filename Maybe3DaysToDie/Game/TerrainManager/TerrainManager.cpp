@@ -106,7 +106,7 @@ namespace nsTerrain {
 			{
 				for (int z = 0; z < ChunkWidth + 1; z++)
 				{
-					auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY];
+					const auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY].get();
 					float noise = m_perlinNoise.CalculationNoise(
 						(static_cast<double>(x + (ChunkWidth * chunkX)) / static_cast<double>(ChunkWidth) * 1.5 + 0.001),
 						(static_cast<double>(z + (ChunkWidth * chunkY)) / static_cast<double>(ChunkWidth) * 1.5 + 0.001)
@@ -159,7 +159,7 @@ namespace nsTerrain {
 					pos.z = static_cast<float>((z + ChunkWidth * chunkY)) * OBJECT_UNIT;
 					terrain->SetPosition(pos);
 
-					m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain.get(), x, y, z);
+					m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
 				}
 			}
 		}
@@ -174,7 +174,7 @@ namespace nsTerrain {
 			{
 				for (int z = 0; z < ChunkWidth + 1; z++)
 				{
-					const auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY];
+					const auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY].get();
 
 					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
 					ObjectParams params;
@@ -201,7 +201,7 @@ namespace nsTerrain {
 					pos.z = static_cast<float>((z + ChunkWidth * chunkY)) * OBJECT_UNIT;
 					terrain->SetPosition(pos);
 
-					m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain.get(), x, y, z);
+					m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
 				}
 			}
 		}

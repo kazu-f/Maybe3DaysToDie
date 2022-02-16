@@ -40,7 +40,7 @@ bool Player::Start()
 	m_Water = NewGO<PlayerWater>(0, "playerWater");
 	m_Water->SetPlayer(this);
 
-	m_ItemBar = NewGO<ItemBar>(0);
+	m_ItemBar = NewGO<ItemBar>(3);
 	m_ItemBar->SetPlayer(this);
 
 	m_Inventory = NewGO<Inventory>(0);
