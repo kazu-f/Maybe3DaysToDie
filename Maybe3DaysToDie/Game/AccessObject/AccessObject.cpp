@@ -64,6 +64,10 @@ void AccessObject::Access()
 		//オブジェクトのIDから適切なアクションを起こす
 		auto& param = m_hitObj->GetParam();
 		auto* placeObj = ItemDataFile::GetInstance()->GetPlaceData(param.BlockID);
+		if (placeObj == nullptr)
+		{
+			return;
+		}
 		SwitchAction(placeObj->GetAccessTag(), param.BlockID);
 	}
 

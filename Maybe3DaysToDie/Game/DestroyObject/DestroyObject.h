@@ -8,7 +8,9 @@ class SaveDataFile;
 struct Item {
 	GameItemBase* item = nullptr;
 	int stack = 0;
+	int itemID = -1;
 };
+
 //todo ƒvƒŒƒCƒ„[‘¤‚©‚çŒÄ‚Ô‚æ‚¤‚É‚È‚Á‚½‚çIGameObject‚ğŒp³‚µ‚È‚¢‚æ‚¤‚É
 class DestroyObject:public IGameObject
 {
