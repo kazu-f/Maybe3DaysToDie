@@ -249,6 +249,11 @@ namespace nsTerrain {
 			{
 				for (int z = 0; z < ChunkWidth; z++)
 				{
+					int posX = x + ChunkWidth * chunkX;
+					int posZ = z + ChunkWidth * chunkY;
+					if (posX == SIDE_END || posZ == SIDE_END) {
+						continue;
+					}
 					auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY];
 					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
 					if (objData.ObjDurable > 0) continue;
