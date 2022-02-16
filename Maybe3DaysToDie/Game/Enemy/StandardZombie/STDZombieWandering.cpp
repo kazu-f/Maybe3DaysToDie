@@ -49,12 +49,12 @@ void STDZombieWandering::Update()
 		
 		m_target = cellList[index].m_CenterPos;
 
-		//m_serchTime = SUCCESS_TIME;
+		m_serchTime = SUCCESS_TIME;
 	}
 	else
 	{
 		//íTç∏é∏îsÅB
-		//m_serchTime = FAILED_TIME;
+		m_serchTime = FAILED_TIME;
 	}
 
 	Quaternion qRot;
