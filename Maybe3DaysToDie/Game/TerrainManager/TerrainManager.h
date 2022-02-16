@@ -33,6 +33,14 @@ namespace nsTerrain {
 
 	public:
 		/// <summary>
+		/// セーブデータファイルをセット。
+		/// </summary>
+		/// <param name="saveData"></param>
+		void SetSaveDataFile(SaveDataFile* saveData)
+		{
+			m_saveDataFile = saveData;
+		}
+		/// <summary>
 		/// パーリンノイズを使った地形生成を行う。
 		/// </summary>
 		/// <remarks>
@@ -90,6 +98,7 @@ namespace nsTerrain {
 		std::unique_ptr<Terrain> m_terrains[MAX_CHUNK_SIDE * ChunkWidth + 1][ChunkHeight][MAX_CHUNK_SIDE * ChunkWidth + 1];
 		TerrainChunkData m_terrainChunkData[MAX_CHUNK_SIDE][MAX_CHUNK_SIDE];
 		TerrainWorld* m_terrainWorlds[TERRAIN_WORLD_CHUNKSIZE][TERRAIN_WORLD_CHUNKSIZE] = { nullptr };
+		SaveDataFile* m_saveDataFile = nullptr;
 		NaviMeshManager* m_naviMeshManager = nullptr;
 		bool m_isInitNVM = false;						//ナビメッシュ生成済みか？
 	};

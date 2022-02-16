@@ -118,6 +118,7 @@ public:
 
 	void ResetParams()
 	{
+		m_maxDurable = 0;
 		m_params.Durable = 0;
 		m_params.AptitudeTool = ToolKinds::DebugTool;
 	}

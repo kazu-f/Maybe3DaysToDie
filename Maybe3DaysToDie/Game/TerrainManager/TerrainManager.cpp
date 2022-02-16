@@ -112,6 +112,17 @@ namespace nsTerrain {
 				for (int z = 0; z < ChunkWidth + 1; z++)
 				{
 					const auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY].get();
+					int posX = x + ChunkWidth * chunkX;
+					int posZ = z + ChunkWidth * chunkY;
+
+					if (posX == SIDE_END || posZ == SIDE_END) {
+						m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
+						terrain->ResetTerrain();
+						continue;
+					}
+					auto* objData = &m_saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
+					terrain->SetObjData(objData);
+
 					float noise = m_perlinNoise.CalculationNoise(
 						(static_cast<double>(x + (ChunkWidth * chunkX)) / static_cast<double>(ChunkWidth) * 1.5 + 0.001),
 						(static_cast<double>(z + (ChunkWidth * chunkY)) / static_cast<double>(ChunkWidth) * 1.5 + 0.001)
@@ -183,6 +194,7 @@ namespace nsTerrain {
 					int posX = x + ChunkWidth * chunkX;
 					int posZ = z + ChunkWidth * chunkY;
 					const auto& terrain = m_terrains[posX][y][posZ].get();
+					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
 
 					if (posX == SIDE_END || posZ == SIDE_END) {
 						m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
@@ -191,10 +203,11 @@ namespace nsTerrain {
 					}
 					else if (x == ChunkWidth || z == ChunkWidth) {
 						m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
+						terrain->SetObjData(&objData);
 						continue;
 					}
+					terrain->SetObjData(&objData);
 
-					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
 					ObjectParams params;
 					params.BlockID = objData.ObjId;
 
@@ -221,6 +234,7 @@ namespace nsTerrain {
 					pos.y = static_cast<float>(y) * OBJECT_UNIT;
 					pos.z = static_cast<float>((posZ)) * OBJECT_UNIT;
 					terrain->SetPosition(pos);
+
 
 					m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
 					m_terrainChunkData[chunkX][chunkY].EnableUpdated();

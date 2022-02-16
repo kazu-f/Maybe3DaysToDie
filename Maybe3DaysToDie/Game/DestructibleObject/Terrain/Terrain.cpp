@@ -49,8 +49,23 @@ namespace nsTerrain {
 		{
 			m_params.Durable = durable;
 			CalcVoxel();
+			if (m_objData != nullptr)
+			{
+				m_objData->ObjDurable = durable;
+			}
 		}
+
 		return durableForward - durable;
+	}
+	void Terrain::AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)
+	{
+		SetParams(params);
+		CalcVoxel();
+		if (m_objData != nullptr)
+		{
+			m_objData->ObjId = m_params.BlockID;
+			m_objData->ObjDurable = m_params.Durable;
+		}
 	}
 	void Terrain::CalcVoxel()
 	{
@@ -60,6 +75,7 @@ namespace nsTerrain {
 			m_voxel = Math::Lerp(t, MIN_VOXEL, MAX_VOXEL);
 		}
 		else {
+			m_objData->ObjId = -1;
 			m_voxel = 0.0f;
 		}
 
