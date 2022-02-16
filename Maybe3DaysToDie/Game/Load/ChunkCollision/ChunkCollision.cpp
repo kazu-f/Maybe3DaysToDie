@@ -69,7 +69,6 @@ void ChunkCollision::UpdateColForBlock()
 		{
 			for (int z = 0; z < ChunkWidth; z++)
 			{
-				m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)nullptr);
 				//ブロックのポインタをコライダーに渡しておく
 				auto& blocks = m_ChunkBlocks->m_Block[x][y][z];
 				if (blocks.GetParam().Durable > 0)

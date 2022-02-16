@@ -32,8 +32,6 @@ namespace nsTerrain {
 			}
 		}
 
-
-
 		return true;
 	}
 	void TerrainManager::Update()
@@ -169,6 +167,7 @@ namespace nsTerrain {
 
 	void nsTerrain::TerrainManager::LoadTerrainInChunk(int chunkX, int chunkY, SaveDataFile* saveDataFile)
 	{
+		auto* itemDataFile = ItemDataFile::GetInstance();		
 		for (int x = 0; x < ChunkWidth + 1; x++)
 		{
 			for (int y = 0; y < ChunkHeight; y++)
@@ -181,13 +180,18 @@ namespace nsTerrain {
 					ObjectParams params;
 					params.BlockID = objData.ObjId;
 
-					if (params.BlockID != 0) continue;
+					if (params.BlockID == -1) continue;
 
-					params.Durable = objData.ObjDurable;
+					auto* terrainData = itemDataFile->GetTerrainData(params.BlockID);
+
+					if (terrainData == nullptr) continue;
+
+					params.Durable = terrainData->GetObjParams().Durable;
 
 					terrain->SetParams(params);
+					terrain->SetCurrentDurable(objData.ObjDurable);
 
-					terrain->SetTerrainID(0);
+					terrain->SetTerrainID(terrainData->GetItemData()->itemTypeID);
 
 					terrain->CalcVoxel();
 
@@ -210,13 +214,13 @@ namespace nsTerrain {
 			{
 				for (int z = 0; z < ChunkWidth + 1; z++)
 				{
-					const auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY].get();
+					auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY];
 					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
 
 					if (terrain->IsTerrainEnabled())
 					{
 						objData.ObjDurable = terrain->GetParam().Durable;
-						objData.ObjId = 0;
+						objData.ObjId = terrain->GetParam().BlockID;
 					}
 				}
 			}

@@ -25,7 +25,14 @@ namespace nsTerrain {
 		{
 			return (m_voxel > 0.0f);
 		}
-
+		/// <summary>
+		/// 現在の耐久値を設定。
+		/// </summary>
+		/// <param name="durable"></param>
+		void SetCurrentDurable(int durable)
+		{
+			m_params.Durable = min(durable, m_maxDurable);
+		}
 		/// <summary>
 		/// 地形のスケールをセット。
 		/// </summary>
@@ -86,7 +93,7 @@ namespace nsTerrain {
 		char m_terrainChunkDataSize = 0;											//チャンク情報の保持数。
 
 		int m_terrainId = -1;		//地形id番号。
-		float m_voxel = 1.0f;		//ボクセル値。
+		float m_voxel = 0.0f;		//ボクセル値。
 
 		//bool m_registColider = false;
 	};
