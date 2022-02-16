@@ -1,6 +1,5 @@
 #pragma once
 #include "Item/GameItemBase.h"
-#include "RootTable.h"
 #include "Inventory/Inventory.h"
 #include "Item/GameItemPlaceObj.h"
 
