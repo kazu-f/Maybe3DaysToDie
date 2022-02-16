@@ -57,7 +57,6 @@ namespace Engine {
 		m_inputKeyCode.Update();
 
 		GameObjectManager().ExecuteFromGameThread();
-		MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::None);
 		EndFrame();
 	}
 	void TkEngine::BeginFrame()

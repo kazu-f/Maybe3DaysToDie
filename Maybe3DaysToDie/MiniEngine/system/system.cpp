@@ -44,8 +44,14 @@ namespace Engine {
 		case WM_LBUTTONDOWN:
 			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseLClick);
 			break;
+		case WM_LBUTTONUP:
+			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::None);
+			break;
 		case WM_RBUTTONDOWN:
 			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseRClick);
+			break;
+		case WM_RBUTTONUP:
+			MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::None);
 			break;
 		case WM_MOUSEWHEEL:
 			i = GET_WHEEL_DELTA_WPARAM(wParam);
@@ -54,6 +60,9 @@ namespace Engine {
 			}
 			if (i < 0) {
 				MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::MauseWheelDown);
+			}
+			if (i == 0) {
+				MauseInfo::GetInstance()->SetMauseState(MauseInfo::State::None);
 			}
 			break;
 		default:
