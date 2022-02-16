@@ -87,10 +87,12 @@ void Player::Update()
 	if (m_PlayerState != nullptr) {
 		m_PlayerState->Update();
 	}
-	if (GetAsyncKeyState('e')) {
+	if (MauseInfo::GetInstance()->GetMauseState() ==
+		MauseInfo::State::MauseLClick) {
 		m_AccessObject->Access();
 	}
-	if (GetAsyncKeyState('r')) {
+	if (MauseInfo::GetInstance()->GetMauseState() ==
+		MauseInfo::State::MauseRClick) {
 		m_AccessObject->EndAccess();
 	}
 	if (MauseInfo::GetInstance()->GetMauseState()==
@@ -235,9 +237,6 @@ void Player::Jump()
 		{
 			IsJump = true;
 		}
-		else {
-			m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity);
-		}
 		//神視点の時はジャンプし続ける
 		if (IsDubug()) {
 			m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + 1.0f);
@@ -264,12 +263,15 @@ void Player::Jump()
 			IsJumping = true;
 		}
 	}
+	else {
+		m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity);
+	}
 	if (m_Characon.IsOnGround() ||
 		m_IsDebugMode) {
 		IsJump = false;
 		m_Gravity = 0.0f;
 	}
-	//m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity);
+	m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity);
 	m_PlayerState->ExcuteMove();
 }
 
