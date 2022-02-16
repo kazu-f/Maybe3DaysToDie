@@ -58,7 +58,9 @@ bool ItemBar::Start()
 void ItemBar::Update()
 {
 	if (m_Player->GetState() != Player::State::Menu) {
-		if (GetAsyncKeyState(MK_LBUTTON)) {
+		if (MauseInfo::GetInstance()->GetMauseState()&&
+			MauseInfo::State::MauseLClick)
+		{
 			m_InstallTime += GameTime().GetFrameDeltaTime();
 			if (m_InstallTime > 0.2f) {
 
@@ -72,7 +74,8 @@ void ItemBar::Update()
 			m_InstallTime = 0.2f;
 		}
 
-		if (GetAsyncKeyState(MK_RBUTTON)) {
+		if (MauseInfo::GetInstance()->GetMauseState() &&
+			MauseInfo::State::MauseRClick) {
 			m_DeleteTime += GameTime().GetFrameDeltaTime();
 			if (m_DeleteTime > 0.2f) {
 				m_itemInventory[m_SelectNum].m_itemBase->UseItemAction2(this);
