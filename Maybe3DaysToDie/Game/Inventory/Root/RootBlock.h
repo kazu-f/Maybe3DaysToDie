@@ -1,13 +1,8 @@
 #pragma once
 #include "Item/GameItemBase.h"
-#include "RootTable.h"
 #include "Inventory/Inventory.h"
 #include "Item/GameItemPlaceObj.h"
-
-struct Item {
-	GameItemBase* item = nullptr;
-	int stack = 0;
-};
+#include "DestroyObject/DestroyObject.h"
 
 class RootBlock
 {

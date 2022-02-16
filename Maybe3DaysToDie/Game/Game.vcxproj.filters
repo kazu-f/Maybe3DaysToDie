@@ -85,7 +85,6 @@
     <ClCompile Include="Item\GameItemTerrain.cpp" />
     <ClCompile Include="Item\GameItemPlaceObj.cpp" />
     <ClCompile Include="Load\LoadCollision\LoadCollision.cpp" />
-    <ClCompile Include="Inventory\Root\RootTable.cpp" />
     <ClCompile Include="ItemBar\ItemBar.cpp" />
     <ClCompile Include="Enemy\StandardZombie\STDZombieDeath.cpp" />
     <ClCompile Include="Save\ChestSave\ChestSave.cpp" />
@@ -204,7 +203,6 @@
     <ClInclude Include="Enemy\StandardZombie\STDZombieDeath.h" />
     <ClInclude Include="Item\GameItemPlaceObj.h" />
     <ClInclude Include="Load\LoadCollision\LoadCollision.h" />
-    <ClInclude Include="Inventory\Root\RootTable.h" />
     <ClInclude Include="Inventory\Root\RootBlock.h" />
     <ClInclude Include="Save\ChestSave\ChestSave.h" />
     <ClInclude Include="Save\ChestSave\ChestLoad.h" />

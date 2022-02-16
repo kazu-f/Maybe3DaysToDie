@@ -18,11 +18,11 @@ bool Inventory::Start()
 	m_Inbentory->SetActiveFlag(false);
 
 
-	for (int i = 0; i < SlotMax.x; i++) {
-		for (int j = 0; j < SlotMax.y; j++) {
+	for (int i = 0; i < Inventory_X; i++) {
+		for (int j = 0; j < Inventory_Y; j++) {
 			Vector2 SlotPos = {
 				((i *  93.0f ) - 287.0f),
-				((j * -87.0f ) + 152.0f)
+				((j * -86.0f ) + 152.0f)
 			};
 
 			m_ItemSlot[i][j].inventoryPos = SlotPos;
@@ -103,8 +103,8 @@ void Inventory::SwhichInventoryState()
 	if (!m_IsShow) {
 		if (m_player->OpenInventory()) {
 			m_Inbentory->SetActiveFlag(true);
-			for (int i = 0; i < SlotMax.x; i++) {
-				for (int j = 0; j < SlotMax.y; j++) {
+			for (int i = 0; i < Inventory_X; i++) {
+				for (int j = 0; j < Inventory_Y; j++) {
 					m_ItemSlot[i][j].m_IconRender->SetActiveFlag(true);
 				}
 			}
@@ -123,8 +123,8 @@ void Inventory::SwhichInventoryState()
 		while (true) {
 			int returnNo = ShowCursor(false);
 			m_Inbentory->SetActiveFlag(false);
-			for (int i = 0; i < SlotMax.x; i++) {
-				for (int j = 0; j < SlotMax.y; j++) {
+			for (int i = 0; i < Inventory_X; i++) {
+				for (int j = 0; j < Inventory_Y; j++) {
 					m_ItemSlot[i][j].m_IconRender->SetActiveFlag(false);
 				}
 			}
