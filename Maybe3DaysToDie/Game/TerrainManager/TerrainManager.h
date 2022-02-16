@@ -84,6 +84,7 @@ namespace nsTerrain {
 
 	private:
 		static const int TERRAIN_WORLD_CHUNKSIZE = LoadingChunks;		//地形の表示範囲。
+		static const int SIDE_END = ChunkWidth * MAX_CHUNK_SIDE;
 	private:
 		CNoise m_perlinNoise;
 		std::unique_ptr<Terrain> m_terrains[MAX_CHUNK_SIDE * ChunkWidth + 1][ChunkHeight][MAX_CHUNK_SIDE * ChunkWidth + 1];

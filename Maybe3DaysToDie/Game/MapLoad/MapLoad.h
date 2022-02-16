@@ -3,6 +3,10 @@
 
 class ItemDataFile;
 
+namespace nsTerrain {
+	class TerrainManager;
+}
+
 class MapLoad
 {
 public:
@@ -26,6 +30,10 @@ public:
 	{
 		m_SaveDataFile = ptr;
 	}
+	void SetTerrainManager(nsTerrain::TerrainManager* ptr)
+	{
+		m_terrainManager = ptr;
+	}
 private:
 	/// <summary>
 	/// ボーン行列の構築。
@@ -47,5 +55,6 @@ private:
 	};
 	SaveDataFile* m_SaveDataFile = nullptr;
 	ItemDataFile* m_itemDataFile = nullptr;
+	nsTerrain::TerrainManager* m_terrainManager = nullptr;
 	int ChunkID[2] = { -1 };
 };

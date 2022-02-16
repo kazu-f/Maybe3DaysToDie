@@ -10,8 +10,6 @@
 namespace nsTerrain {
 	bool TerrainManager::Start()
 	{
-		PopurerTerrainMap();		//地形データを生成。
-		
 		m_naviMeshManager = NewGO<NaviMeshManager>(0);
 
 		for (int chunkX = 0; chunkX < TERRAIN_WORLD_CHUNKSIZE; chunkX++)
@@ -77,6 +75,13 @@ namespace nsTerrain {
 			for (int chunkY = 0; chunkY < MAX_CHUNK_SIDE; chunkY++)
 			{
 				LoadTerrainInChunk(chunkX, chunkY, saveDataFile);
+			}
+		}
+		for (int i = 0; i < ChunkWidth * MAX_CHUNK_SIDE; i++)
+		{
+			for (int j = 0; j < ChunkHeight; j++) {
+				m_terrains[i][j][SIDE_END]->ResetTerrain();
+				m_terrains[SIDE_END][j][i]->ResetTerrain();
 			}
 		}
 	}
@@ -160,6 +165,7 @@ namespace nsTerrain {
 					terrain->SetPosition(pos);
 
 					m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
+					m_terrainChunkData[chunkX][chunkY].EnableUpdated();
 				}
 			}
 		}
@@ -174,17 +180,32 @@ namespace nsTerrain {
 			{
 				for (int z = 0; z < ChunkWidth + 1; z++)
 				{
-					const auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY].get();
+					int posX = x + ChunkWidth * chunkX;
+					int posZ = z + ChunkWidth * chunkY;
+					const auto& terrain = m_terrains[posX][y][posZ].get();
+
+					if (posX == SIDE_END || posZ == SIDE_END) {
+						m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
+						terrain->ResetTerrain();
+						continue;
+					}
+					else if (x == ChunkWidth || z == ChunkWidth) {
+						m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
+						continue;
+					}
 
 					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
 					ObjectParams params;
 					params.BlockID = objData.ObjId;
 
-					if (params.BlockID == -1) continue;
-
 					auto* terrainData = itemDataFile->GetTerrainData(params.BlockID);
 
-					if (terrainData == nullptr) continue;
+					if (terrainData == nullptr) {
+						terrain->ResetParams();
+						m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
+						m_terrainChunkData[chunkX][chunkY].EnableUpdated();
+						continue;
+					}
 
 					params.Durable = terrainData->GetObjParams().Durable;
 
@@ -196,26 +217,28 @@ namespace nsTerrain {
 					terrain->CalcVoxel();
 
 					Vector3 pos;
-					pos.x = static_cast<float>((x + ChunkWidth * chunkX)) * OBJECT_UNIT;
+					pos.x = static_cast<float>((posX)) * OBJECT_UNIT;
 					pos.y = static_cast<float>(y) * OBJECT_UNIT;
-					pos.z = static_cast<float>((z + ChunkWidth * chunkY)) * OBJECT_UNIT;
+					pos.z = static_cast<float>((posZ)) * OBJECT_UNIT;
 					terrain->SetPosition(pos);
 
 					m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
+					m_terrainChunkData[chunkX][chunkY].EnableUpdated();
 				}
 			}
 		}
 	}
 	void nsTerrain::TerrainManager::SaveTerrainInChunk(int chunkX, int chunkY, SaveDataFile* saveDataFile)
 	{
-		for (int x = 0; x < ChunkWidth + 1; x++)
+		for (int x = 0; x < ChunkWidth; x++)
 		{
 			for (int y = 0; y < ChunkHeight; y++)
 			{
-				for (int z = 0; z < ChunkWidth + 1; z++)
+				for (int z = 0; z < ChunkWidth; z++)
 				{
 					auto& terrain = m_terrains[x + ChunkWidth * chunkX][y][z + ChunkWidth * chunkY];
 					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
+					if (objData.ObjDurable > 0) continue;
 
 					if (terrain->IsTerrainEnabled())
 					{

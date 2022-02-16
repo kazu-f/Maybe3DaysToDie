@@ -3,6 +3,7 @@
 #include "Item/ItemDataFile.h"
 #include "Item/GameItemPlaceObj.h"
 #include "Item/BlockItem.h"
+#include "TerrainManager/TerrainManager.h"
 
 void MapLoad::Init(const char* filePath)
 {
@@ -30,6 +31,8 @@ void MapLoad::Init(const char* filePath)
 				//そのチャンクリセット
 				obj.ObjId = -1;
 				obj.ObjDurable = 0;
+				auto terrain = m_terrainManager->GetTerrainChunkData(ChunkID[0], ChunkID[1]).GetTerrainData(x, y, z);
+				terrain->ResetTerrain();
 			}
 		}
 	}
