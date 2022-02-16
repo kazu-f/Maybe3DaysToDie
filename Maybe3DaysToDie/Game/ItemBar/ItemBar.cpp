@@ -174,6 +174,7 @@ void ItemBar::SetItemDatas()
 		m_itemInventory[i].m_itemBase = datas->GetNullGameItem();
 		i++;
 	}
+	m_itemInventory[1].m_itemBase = datas->GetPlaceObjTypeID(0);
 	m_itemInventory[0].m_itemBase->ResetUseItemSelect(this);
 	m_itemInventory[0].m_itemBase->SelectItemAction(this);
 }

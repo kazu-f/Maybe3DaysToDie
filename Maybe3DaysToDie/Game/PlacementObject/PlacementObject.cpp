@@ -217,6 +217,14 @@ void PlacementObject::PlaceObject()
 				chunkData.ObjData[id_x][id_y][id_z].ObjDurable = objParam.Durable;
 				block->AddBlock(objParam, m_pos, rot, scale);
 			}
+			auto placeData = m_itemDataFile->GetPlaceData(objParam.BlockID);
+			if (placeData != nullptr) {
+				auto* place = m_LoadingChunk->GetChunkBlocks(ID).GetBlock(Pos);
+				//セーブデータに直接書き込み
+				chunkData.ObjData[id_x][id_y][id_z].ObjId = objParam.BlockID;
+				chunkData.ObjData[id_x][id_y][id_z].ObjDurable = objParam.Durable;
+				place->AddBlock(objParam, m_pos, rot, scale);
+			}
 			auto terrainData = m_itemDataFile->GetTerrainData(objParam.BlockID);
 			if (terrainData != nullptr) {
 				auto* terrain = m_TerrainManager->GetTerrainChunkData(ID[0], ID[1]).GetTerrainData(id_x, id_y, id_z);

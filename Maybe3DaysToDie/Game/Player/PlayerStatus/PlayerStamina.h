@@ -47,7 +47,7 @@ public:
 		static float DownTime = 0.0f;
 		DownTime += GameTime().GetFrameDeltaTime();
 		if (m_Stamina >= cost) {
-			if (DownTime > 1.000f) {
+			if (DownTime > 0.5000f) {
 				DownTime = 0.0f;
 				m_Stamina -= cost;
 			}
@@ -62,7 +62,7 @@ public:
 		m_MaxStamina = maxSt;
 	}
 private:
-	float m_RegeneTime = 1.0f;				//リジェネできる一定時間
+	float m_RegeneTime = 2.0f;				//リジェネできる一定時間
 	float m_nowRegeneTimer = 0.0f;			//一定時間以上になるとリジェネできる
 	int m_Stamina = 100;					//スタミナ
 	int m_MaxStamina = 100;					//最大スタミナ
