@@ -72,6 +72,7 @@ bool Player::Start()
 	//m_Model->SetPosition(m_Pos);
 	//m_Model->SetRotation(m_Rot);
 	//m_Model->SetScale(m_Scale);
+	m_Pos = m_RespownPoint;
 	m_Characon.Init(radius, hight, m_Pos);
 	m_Characon.GetBody()->GetBody()->setUserPointer(this);
 	m_NextState = State::Idle;
@@ -234,9 +235,11 @@ void Player::Jump()
 		{
 			IsJump = true;
 		}
+		else {
+			m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity);
+		}
 		//神視点の時はジャンプし続ける
 		if (IsDubug()) {
-			IsJump = false;
 			m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + 1.0f);
 		}
 	}
@@ -261,11 +264,12 @@ void Player::Jump()
 			IsJumping = true;
 		}
 	}
-	if (m_Characon.IsOnGround()||
+	if (m_Characon.IsOnGround() ||
 		m_IsDebugMode) {
+		IsJump = false;
 		m_Gravity = 0.0f;
 	}
-	m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity);
+	//m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity);
 	m_PlayerState->ExcuteMove();
 }
 
