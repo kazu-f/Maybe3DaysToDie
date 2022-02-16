@@ -6,6 +6,7 @@
 void STDZombieDeath::Enter()
 {
 	m_enemy->GetModelRender()->PlayAnimation(StandardZombie::EnAnimationState_Death, 0.5f);
+	m_enemy->DeleteCollision();
 }
 
 void STDZombieDeath::Update()
