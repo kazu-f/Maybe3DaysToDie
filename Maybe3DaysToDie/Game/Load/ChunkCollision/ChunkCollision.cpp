@@ -104,6 +104,10 @@ void ChunkCollision::UpdateColForTerrain()
 					m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)terrain->GetPointer());
 					m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_RayBlock);
 				}
+				else
+				{
+					PhysicsWorld().RemoveRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+				}
 			}
 		}
 	}
