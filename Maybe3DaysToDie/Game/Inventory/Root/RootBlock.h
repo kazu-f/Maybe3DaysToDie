@@ -6,6 +6,7 @@
 struct Item {
 	GameItemBase* item = nullptr;
 	int stack = 0;
+	int itemID = -1;
 };
 
 class RootBlock

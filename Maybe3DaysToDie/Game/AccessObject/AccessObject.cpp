@@ -64,12 +64,12 @@ void AccessObject::Access()
 		//オブジェクトのIDから適切なアクションを起こす
 		auto& param = m_hitObj->GetParam();
 		auto* placeObj = ItemDataFile::GetInstance()->GetPlaceData(param.BlockID);
-		SwitchAction(placeObj->GetAccessTag());
+		SwitchAction(placeObj->GetAccessTag(), param.BlockID);
 	}
 
 }
 
-void AccessObject::SwitchAction(AccessTag tag)
+void AccessObject::SwitchAction(AccessTag tag,int id)
 {
 	switch (tag)
 	{
@@ -80,6 +80,7 @@ void AccessObject::SwitchAction(AccessTag tag)
 		//ルートできるオブジェクト
 		//スプライト表示
 		SwitchSpriteActive();
+		m_Chest.Root(id);
 		break;
 	}
 }
