@@ -45,7 +45,14 @@ bool NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start
 	//タイマー更新。
 	m_serchTime += GameTime().GetFrameDeltaTime();
 
-	if (m_nodeList.size() == 0) {
+	Vector3 StoG = goal - start;
+
+	if (m_nodeList.size() == 0 && StoG.Length() > 100.0f ) {
+		//経路探査が失敗。
+		return false;
+	}
+	else if(m_nodeList.size() == 0)
+	{
 		m_isArrive = true;
 		//ノードがない。
 		return true;
@@ -68,6 +75,4 @@ bool NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start
 		//waypointに到着。
 		m_nodeList.erase(m_nodeList.begin());
 	}
-
-	return false;
 }

@@ -19,7 +19,7 @@ void STDZombieWandering::Enter()
 
 void STDZombieWandering::Update()
 {
-	if (m_enemy->GetAgent().MoveForFootStep(m_enemy->GetModelRender(), m_enemy->GetPos(), m_target))
+	if (m_enemy->GetAgent().MoveForFootStep(m_enemy->GetModelRender(), m_enemy->GetPos(), m_target, m_serchTime))
 	{
 		//EnemyGrid.
 		int enemyGrid[2];
@@ -48,6 +48,13 @@ void STDZombieWandering::Update()
 		int index = rand() % cellList.size();
 		
 		m_target = cellList[index].m_CenterPos;
+
+		//m_serchTime = SUCCESS_TIME;
+	}
+	else
+	{
+		//íTç∏é∏îsÅB
+		//m_serchTime = FAILED_TIME;
 	}
 
 	Quaternion qRot;

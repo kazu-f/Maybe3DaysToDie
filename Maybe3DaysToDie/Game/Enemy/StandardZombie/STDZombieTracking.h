@@ -14,5 +14,8 @@ public:
 	void Update() override final;
 	void Leave() override final;
 private:
+	const float SUCCESS_TIME = 0.5f;
+	const float FAILED_TIME = 2.0f;
+	float m_serchTime = SUCCESS_TIME;
 };
 

@@ -31,6 +31,7 @@ public:
 	void ResetNodeList()
 	{
 		m_nodeList.clear();
+		m_isArrive = true;
 	}
 
 	Vector3 GetAgentPos()

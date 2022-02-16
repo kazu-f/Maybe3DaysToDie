@@ -12,7 +12,16 @@ void STDZombieTracking::Enter()
 void STDZombieTracking::Update()
 {
 	Vector3 pPos = m_enemy->GetPlayer()->GetPosition();
-	m_enemy->GetAgent().MoveForFootStep(m_enemy->GetModelRender(), m_enemy->GetPos(), pPos);
+	
+	if (m_enemy->GetAgent().MoveForFootStep(m_enemy->GetModelRender(), m_enemy->GetPos(), pPos, m_serchTime));
+	//{
+	//	//’T¸¬Œ÷B
+	//	m_serchTime = SUCCESS_TIME;
+	//}
+	//else
+	//{
+	//	m_serchTime = FAILED_TIME;
+	//}
 
 	Quaternion qRot;
 	qRot.SetRotation(Vector3::AxisY, atan2f(m_enemy->GetAgent().GetWayPoint().x, m_enemy->GetAgent().GetWayPoint().z));
