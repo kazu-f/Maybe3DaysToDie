@@ -10,6 +10,7 @@ namespace Engine {
 		//1mのスケールを設定する。
 		const float SCALE_1M = 100.0f;		//100.0cm
 		const float GROUND_SLOPE = 0.333f;
+		const float CEILING_SLOPE = 0.667f;	//天井。
 
 		//衝突したときに呼ばれる関数オブジェクト(地面用)
 		struct SweepResultGround : public btCollisionWorld::ConvexResultCallback
@@ -111,6 +112,59 @@ namespace Engine {
 				return 0.0f;
 			}///btScalar addSingleResult
 		};///struct SweepResultWall
+		/*
+		//衝突したときに呼ばれる関数オブジェクト(天井壁用)
+		struct SweepResultCeiling : public btCollisionWorld::ConvexResultCallback
+		{
+			bool isHit = false;							//衝突フラグ。
+			Vector3 hitPos = { 0.0f,-FLT_MAX,0.0f };	//衝突点。
+			Vector3 startPos = Vector3::Zero;			//レイの視点。
+			Vector3 hitNormal = Vector3::Zero;			//衝突点の法線。
+			btCollisionObject* me = nullptr;			//自分自身との衝突を除外するためのメンバ。
+			float dist = FLT_MAX;						//衝突点までの距離。一番近い衝突点を求めるため、最大値を初期値にしておく。
+
+			//衝突したときに呼ばれるコールバック関数。
+			virtual btScalar	addSingleResult(
+				btCollisionWorld::LocalConvexResult& convexResult, 
+				bool normalInWorldSpace)
+			{
+				if (convexResult.m_hitCollisionObject == me
+					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_RayBlock
+					|| convexResult.m_hitCollisionObject->getInternalType() == btCollisionObject::CO_GHOST_OBJECT
+					) {
+					//自分に衝突 or ゴーストオブジェクトに衝突。
+					return 0.0f;
+				}
+				//衝突点の法線を引っ張ってくる。
+				Vector3 hitNormalTmp;
+				hitNormalTmp.Set(convexResult.m_hitNormalLocal);
+				//上方向と衝突点の法線のなす角度を求める。
+				float angle = hitNormalTmp.Dot(Vector3::Up);		//上ベクトルと内積をとる。
+				angle = fabsf(acosf(angle));						//ラジアン角度に変換。
+				if (angle > Math::PI * GROUND_SLOPE				//傾斜が一定以上なので天井とみなす。
+					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character		//コリジョンがキャラクタ属性なため壁とみなす。
+					) {
+					//衝突した。
+					isHit = true;
+					Vector3 hitPosTmp;
+					hitPosTmp.Set(convexResult.m_hitPointLocal);
+					//交点との距離を調べる。
+					Vector3 vDist;
+					vDist.Subtract(hitPosTmp, startPos);
+					vDist.y = 0.0f;
+					float distTmp = vDist.Length();
+					//衝突点の距離の比較。
+					if (distTmp < dist) {
+						//この衝突点のほうが近いため更新。
+						hitPos = hitPosTmp;
+						hitNormal = hitNormalTmp;
+						dist = distTmp;
+					}
+				}
+				return 0.0f;
+			}///btScalar addSingleResult
+		};///struct SweepResultCeiling
+		*/
 	}
 
 	void CCharacterController::Init(float radius, float height, const Vector3& position)
@@ -242,13 +296,74 @@ namespace Engine {
 		m_position.x = nextPosition.x;
 		m_position.z = nextPosition.z;
 
+		Vector3 addPos;
+		addPos.Subtract(nextPosition, m_position);
+
+		m_position = nextPosition;		//移動を仮確定。
+
+		////上方向の衝突をやってみる。
+		//{
+		//	//レイを作成
+		//	btTransform start, end;
+		//	start.setIdentity();
+		//	end.setIdentity();
+		//	//始点はカプセルコライダーの中心。
+		//	start.setOrigin(
+		//		btVector3(
+		//			m_position.x,
+		//			m_position.y + m_height * 0.5f + m_radius,
+		//			m_position.z)
+		//	);
+		//	//終点は地面上にいないなら1m下を見る。
+		//	//地面上にいなくてジャンプで上昇中の場合は上昇量の0.01倍下を見る。
+		//	//地面上にいなくて降下中の場合はそのまま落下先を調べる。
+		//	Vector3 endPos;
+		//	endPos.Set(start.getOrigin());
+		//	if (m_isOnGround == false) {
+		//		if (addPos.y > 0.0f) {
+		//			//ジャンプ中とかで上昇中。
+		//			//そのまま上方向を調べる
+		//			endPos.y += addPos.y;
+		//		}
+		//		else {
+		//			//落下している場合は少し上を調べる。
+		//			endPos.y -= addPos.y * 0.01f;
+		//		}
+		//	}
+		//	else {
+		//		//地面上にいる場合は10cm上を見る。
+		//		endPos.y += SCALE_1M * 0.1f;
+		//	}
+		//	//レイの終点の座標を設定。
+		//	end.setOrigin(btVector3(endPos.x, endPos.y, endPos.z));
+
+		//	//レイの判定を行う。
+		//	SweepResultCeiling callback;
+		//	callback.me = m_rigidBody.GetBody();
+		//	callback.startPos.Set(start.getOrigin());
+		//	//衝突検出。
+		//	//Y座標に変化がある。
+		//	if (fabsf(endPos.y - callback.startPos.y) > FLT_EPSILON) {
+		//		//衝突判定。
+		//		PhysicsWorld().ConvexSweepTest(
+		//			(const btConvexShape*)m_sphere.GetBody(),
+		//			start, end, callback
+		//		);
+		//		if (callback.isHit) {
+		//			//当たった。
+		//			moveSpeed.y = min(moveSpeed.y, 0.0f);
+		//			nextPosition.y = callback.hitPos.y;
+		//			nextPosition.y -= m_height * 0.5f + m_radius;
+		//		}
+		//		else {
+
+		//		}
+		//	}
+		//}
+
+		m_position = nextPosition;		//移動を仮確定。
 		//下方向の衝突検出と解決。
 		{
-			Vector3 addPos;
-			addPos.Subtract(nextPosition, m_position);
-
-			m_position = nextPosition;		//移動を仮確定。
-
 			//レイを作成
 			btTransform start, end;
 			start.setIdentity();

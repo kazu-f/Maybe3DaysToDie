@@ -15,6 +15,9 @@ bool ChestLoad::Load()
 		//セーブデータがありません
 		return false;
 	}
+	int size = 0;
+	fread(&size, sizeof(int), 1, fp);
+	fclose(fp);
 
 	FILE* fp2;
 	fp2 = fopen(m_dataFile->GetSaveDataFilePath(), "rb");
@@ -24,13 +27,16 @@ bool ChestLoad::Load()
 		return false;
 	}
 
-	int size = 0;
-	fread(&size, sizeof(int), 1, fp);
-	m_dataFile->GetAllData().resize(size);
-	fclose(fp);
+	//ChestDataFile::WorldChestData hoge;
+	//while (fread(&hoge, sizeof(ChestDataFile::WorldChestData), 1, fp2) == 1) {
+	//	m_dataFile->GetAllData().push_back(hoge);
+	//}
 
-	fread(&m_dataFile->GetAllData(), sizeof(ChestDataFile::WorldChestData), size, fp2);
+	//m_dataFile->GetAllData().resize(size);
+
+	//fread(&m_dataFile->GetAllData(), sizeof(ChestDataFile::WorldChestData), size, fp2);
 	//取得できた
+
 	fclose(fp2);
 	return true;
 }

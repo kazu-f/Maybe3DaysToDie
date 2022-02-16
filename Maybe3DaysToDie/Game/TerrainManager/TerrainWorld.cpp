@@ -9,28 +9,30 @@
 namespace nsTerrain {
 	bool TerrainWorld::Start()
 	{
-		//地形描画クラス作成。
-		m_terrainRender = NewGO<TerrainRender>(10);
-		TerrainInitData initData;
-		initData.vertexNum = ChunkWidth * ChunkWidth * ChunkHeight * 15;
+		if (m_terrainChunkData->IsUpdated()) {
+			//地形描画クラス作成。
+			m_terrainRender = NewGO<TerrainRender>(10);
+			TerrainInitData initData;
+			initData.vertexNum = ChunkWidth * ChunkWidth * ChunkHeight * 15;
 
-		m_terrainRender->Init(initData);
-		//m_terrainRender->SetPosition({ -TERRAIN_UNIT * width / 2,-TERRAIN_UNIT * height / 2 ,-TERRAIN_UNIT * width / 2 });
+			m_terrainRender->Init(initData);
 
-		//メッシュデータを作成。
-		CreateMeshData();
+			//メッシュデータを作成。
+			CreateMeshData();
 
-		//物理オブジェクト作成。
-		CreateCollider();
+			//物理オブジェクト作成。
+			CreateCollider();
 
-		//PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
+			//PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
 
-		//m_nvmDebugDraw = NewGO<NVMDebugDraw>(1);
-		//m_nvmDebugDraw->Init();
+			//m_nvmDebugDraw = NewGO<NVMDebugDraw>(1);
+			//m_nvmDebugDraw->Init();
 
-		m_isInited = true;
+			m_isInited = true;
 
-		return true;
+			return true;
+		}
+		return false;
 	}
 	void TerrainWorld::Update()
 	{

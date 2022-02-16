@@ -35,6 +35,15 @@ void ChestSave::Save()
 		}
 		fp2 = fopen(m_dataFile->GetSaveDataFilePath(), "wb");
 	}
-	fwrite(&m_dataFile->GetAllData(), sizeof(ChestDataFile::WorldChestData), m_dataFile->GetAllData().size(), fp2);
+	
+	//fwrite(&m_dataFile->GetAllData(), sizeof(ChestDataFile::WorldChestData), m_dataFile->GetAllData().size(), fp2);
+
+	////データを書き込んでいく。
+	//while (m_dataFile->GetAllData().size() != 0) {
+	//	ChestDataFile::WorldChestData hoge = m_dataFile->GetAllData().front();
+	//	m_dataFile->GetAllData().erase(m_dataFile->GetAllData().begin());
+	//	fwrite(&hoge, sizeof(ChestDataFile::WorldChestData), 1, fp2);
+	//}
+
 	fclose(fp2);
 }

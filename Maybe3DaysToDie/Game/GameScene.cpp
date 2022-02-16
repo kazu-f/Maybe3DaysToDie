@@ -15,6 +15,7 @@
 
 CGameScene::~CGameScene()
 {
+	m_Stage->GetTerrainWorld()->SaveTerrainData(&m_SaveDataFile);
 	//ゲーム終了時にセーブ
 	m_TerrainSave.Save();
 	m_ChestSave.Save();

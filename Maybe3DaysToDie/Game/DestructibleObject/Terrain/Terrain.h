@@ -82,6 +82,16 @@ namespace nsTerrain {
 		}
 
 		void CalcVoxel();
+
+		void ResetTerrain()
+		{
+			m_params.BlockID = -1;
+			ResetParams();
+			m_maxDurable = 0;
+			m_voxel = 0.0f;
+			m_terrainId = -1;
+			UpdateChunkData();
+		}
 	private:
 
 		void UpdateChunkData();
