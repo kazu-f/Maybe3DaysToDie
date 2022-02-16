@@ -194,7 +194,6 @@ namespace nsTerrain {
 					int posX = x + ChunkWidth * chunkX;
 					int posZ = z + ChunkWidth * chunkY;
 					const auto& terrain = m_terrains[posX][y][posZ].get();
-					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
 
 					if (posX == SIDE_END || posZ == SIDE_END) {
 						m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
@@ -203,9 +202,9 @@ namespace nsTerrain {
 					}
 					else if (x == ChunkWidth || z == ChunkWidth) {
 						m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
-						terrain->SetObjData(&objData);
 						continue;
 					}
+					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
 					terrain->SetObjData(&objData);
 
 					ObjectParams params;
