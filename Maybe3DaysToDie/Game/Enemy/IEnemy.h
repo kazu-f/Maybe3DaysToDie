@@ -218,6 +218,12 @@ public://getter
 	{
 		return m_stage;
 	}
+
+	void DeleteCollision()
+	{
+		m_rigidBody.Release();
+	}
+
 public:	//HpŠÖŒW
 	virtual void HitDamage(int attack) = 0;
 protected:
