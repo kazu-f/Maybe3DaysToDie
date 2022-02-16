@@ -5,6 +5,7 @@
 struct InventoryItemData {
 	GameItemBase* m_itemBase = nullptr;
 	int itemCount = 0;
+	int Id = 0;
 	Vector2 inventoryPos = Vector2::Zero;
 	prefab::CSpriteRender* m_IconRender = nullptr;
 };
@@ -39,8 +40,7 @@ private:
 	bool m_IsShow = false;
 	bool m_IsTriggerTab = false;
 	Player* m_player = nullptr;
-	const Vector2 SlotMax = { 7,6 };
-	InventoryItemData m_ItemSlot[7][6];
+	InventoryItemData m_ItemSlot[Inventory_X][Inventory_Y];
 	InventoryItemData m_PickUpItem;
 	RECT m_MainRt;				//ウィンドウ画面
 	RECT m_DeskRt;				//デスクトップ画面
