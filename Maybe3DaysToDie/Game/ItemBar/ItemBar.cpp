@@ -58,7 +58,7 @@ bool ItemBar::Start()
 void ItemBar::Update()
 {
 	if (m_Player->GetState() != Player::State::Menu) {
-		if (MauseInfo::GetInstance()->GetMauseState()&&
+		if (MauseInfo::GetInstance()->GetMauseState()==
 			MauseInfo::State::MauseLClick)
 		{
 			m_InstallTime += GameTime().GetFrameDeltaTime();
@@ -74,7 +74,7 @@ void ItemBar::Update()
 			m_InstallTime = 0.2f;
 		}
 
-		if (MauseInfo::GetInstance()->GetMauseState() &&
+		if (MauseInfo::GetInstance()->GetMauseState() ==
 			MauseInfo::State::MauseRClick) {
 			m_DeleteTime += GameTime().GetFrameDeltaTime();
 			if (m_DeleteTime > 0.2f) {
