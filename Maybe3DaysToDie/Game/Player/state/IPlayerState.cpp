@@ -59,9 +59,9 @@ void IPlayerState::ExcuteMove()
 	m_MoveSpeed *= MoveDistance * m_mulSpeed;
 	}
 	else {
-		m_MoveSpeed.x = m_MoveSpeed.x * MoveDistance * m_mulSpeed;
-		m_MoveSpeed.y = m_MoveSpeed.y * MoveDistance;
-		m_MoveSpeed.z = m_MoveSpeed.z * MoveDistance * m_mulSpeed;
+		m_MoveSpeed.x *= MoveDistance * m_mulSpeed;
+		m_MoveSpeed.y *= MoveDistance;
+		m_MoveSpeed.z *= MoveDistance * m_mulSpeed;
 	}
 	m_Player->CharaMove(m_MoveSpeed);
 	m_MoveSpeed = Vector3::Zero;

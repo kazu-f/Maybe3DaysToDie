@@ -92,11 +92,15 @@ void Player::Update()
 		m_AccessObject->Access();
 	}
 	if (MauseInfo::GetInstance()->GetMauseState() ==
-		MauseInfo::State::MauseRClick) {
+		MauseInfo::State::MauseRClick ) {
 		m_AccessObject->EndAccess();
 	}
+	if (m_AccessObject->IsAccess()) {
+		m_NextState = State::Menu;
+	}
 	if (MauseInfo::GetInstance()->GetMauseState()==
-		MauseInfo::State::MauseRClick) {
+		MauseInfo::State::MauseRClick&&
+		m_CurrentState!=State::Menu) {
 		//レイテストで使用するベクトルを作成
 		btVector3 start, end;
 		Vector3 PlayerPos = m_Pos;
@@ -242,37 +246,33 @@ void Player::Jump()
 			m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + 1.0f);
 		}
 	}
+	m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity );
 	if (IsJump)
 	{
 		NowTime += GameTime().GetFrameDeltaTime();
-		const float JumpTime = 0.3f;
+		const float JumpTime = 0.1f;
 		float f = NowTime - JumpTime;
-		const float JumpPower = 0.8f;
+		const float JumpPower = 0.6f;
 		float Jump = m_Gravity * pow(f, 2.0f) + JumpPower;
 		m_PlayerState->SetMoveSpeedY(Jump);
-		if (IsJumping && m_Characon.IsOnGround())
-		{
-			//ジャンプ中に地面についたのでジャンプ終了
-			IsJump = false;
-			IsJumping = false;
-			NowTime = 0.0f;
-			m_PlayerState->SetMoveSpeedY(0.0f);
-		}
-		else
-		{
-			IsJumping = true;
-		}
 	}
-	else {
-		m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity);
-	}
+	m_PlayerState->ExcuteMove();
 	if (m_Characon.IsOnGround() ||
 		m_IsDebugMode) {
-		IsJump = false;
 		m_Gravity = 0.0f;
 	}
-	m_PlayerState->SetMoveSpeedY(m_PlayerState->GetMoveSpeed().y + m_Gravity);
-	m_PlayerState->ExcuteMove();
+	if (IsJumping && m_Characon.IsOnGround())
+	{
+		//ジャンプ中に地面についたのでジャンプ終了
+		IsJump = false;
+		IsJumping = false;
+		NowTime = 0.0f;
+		m_PlayerState->SetMoveSpeedY(0.0f);
+	}
+	else
+	{
+		IsJumping = true;
+	}
 }
 
 const bool Player::IsDubug() const
