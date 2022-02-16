@@ -9,6 +9,7 @@ void Chest::Root(int ObjectID)
 		InventoryItemData data;
 		data.m_itemBase = item.item;
 		data.itemCount = item.stack;
+		data.Id = item.itemID;
 		AddItem(data);
 	}
 }
@@ -19,9 +20,17 @@ void Chest::AddItem(InventoryItemData& data)
 	{
 		for (int y = 0; y < Inventory_Y; y++)
 		{
-			if (m_itemData[x][y].m_itemBase == nullptr)
+			auto& m_data = m_itemData[x][y];
+			if (m_data.m_itemBase == nullptr)
 			{
+				//まだアイテムがないのでセット
 				m_itemData[x][y] = data;
+				return;
+			}
+			else if(m_data.Id == data.Id)
+			{
+				//アイテム被りなのでスタック
+				m_data.itemCount += data.itemCount;
 				return;
 			}
 		}

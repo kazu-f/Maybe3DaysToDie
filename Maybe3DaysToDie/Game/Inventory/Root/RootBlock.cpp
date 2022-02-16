@@ -54,6 +54,7 @@ std::vector<Item>& RootBlock::Root(int id)
 	{
 		if (rootList[kinds].insideID == -1)
 		{
+			//アイテム無し
 			return m_item;
 		}
 		//確率なので0～100に範囲を指定
@@ -74,7 +75,8 @@ std::vector<Item>& RootBlock::Root(int id)
 		item.item = DataFile->GetItemDataBase(rootList[kinds].insideID);
 		//スタック数をランダム生成
 		item.stack = distr2(eng);
-
+		//IDをセット
+		item.itemID = rootList[kinds].insideID;
 		//アイテムの配列に追加
 		m_item.push_back(item);
 	}

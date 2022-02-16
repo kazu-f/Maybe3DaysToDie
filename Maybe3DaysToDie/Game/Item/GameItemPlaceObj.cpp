@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "GameItemPlaceObj.h"
+#include "ItemBar/ItemBar.h"
+#include "PlacementObject/PlacementObject.h"
+#include "DestroyObject/DestroyObject.h"
 
 GameItemPlaceObj::GameItemPlaceObj(
 	SItemDataPtr& itemData, 
@@ -22,4 +25,20 @@ GameItemPlaceObj::GameItemPlaceObj(
 	m_rootItemDataList = std::move(insideDataList);
 	m_placeType = type;
 	m_objHash = Util::MakeHash(m_objName.c_str());
+}
+
+void GameItemPlaceObj::SelectItemAction(ItemBar* itemBar)
+{
+	auto* placeObj = itemBar->GetPlacementObject();
+	placeObj->SetParams(m_placeParams);
+}
+
+void GameItemPlaceObj::UseItemAction1(ItemBar* itemBar)
+{
+}
+
+void GameItemPlaceObj::UseItemAction2(ItemBar* itemBar)
+{
+	auto* placeObj = itemBar->GetPlacementObject();
+	placeObj->PlaceObject();
 }

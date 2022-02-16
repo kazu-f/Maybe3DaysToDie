@@ -1,5 +1,6 @@
 #pragma once
 #include "SaveDataFile.h"
+#include "Inventory/Chest/Chest.h"
 
 class AccessObject
 {
@@ -48,7 +49,7 @@ public:
 	}
 
 private:
-	void SwitchAction(AccessTag tag);
+	void SwitchAction(AccessTag tag,int id);
 
 	void SwitchSpriteActive()
 	{
@@ -71,5 +72,6 @@ private:
 	SaveDataFile* m_SaveData = nullptr;
 	prefab::CSpriteRender* m_BoxSprite = nullptr;
 	bool IsSpriteActive = false;
+	Chest m_Chest;
 };
 
