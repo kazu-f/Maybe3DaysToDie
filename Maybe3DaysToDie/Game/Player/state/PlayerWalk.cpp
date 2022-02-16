@@ -15,14 +15,14 @@ void PlayerWalk::Enter()
 
 void PlayerWalk::Update()
 {
-	Move();
-	GetPlayer()->Jump();
 	SwichDebugMode();
-	if (GetAsyncKeyState(VK_LSHIFT) &&
-		GetMoveSpeed().Length() > 0.5f &&
-		GetPlayer()->UseStamina(1))
-	{
-		SetMulSpeed(2.0f);
+	float Len = GetMoveSpeed().Length();
+	if (Len > 0.1f) {
+		if (GetAsyncKeyState(VK_LSHIFT) &&
+			GetPlayer()->UseStamina(1))
+		{
+			SetMulSpeed(2.0f);
+		}
 	}
 	else {
 		SetMulSpeed(1.0f);
@@ -30,6 +30,8 @@ void PlayerWalk::Update()
 	if (GetPlayer()->IsDebugMode()) {
 		SetMulSpeed(2.0f);
 	}
+	Move();
+	GetPlayer()->Jump();
 }
 
 void PlayerWalk::Leave()
