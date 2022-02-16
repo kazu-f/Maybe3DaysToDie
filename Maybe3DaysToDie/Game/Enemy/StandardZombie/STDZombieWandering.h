@@ -16,5 +16,8 @@ public:
 private:
 	std::vector<Vector3> m_movePathList;			//移動用のパスリスト。
 	Vector3 m_target = Vector3::Zero;
+	const float SUCCESS_TIME = 0.5f;
+	const float FAILED_TIME = 2.0f;
+	float m_serchTime = SUCCESS_TIME;
 };
 

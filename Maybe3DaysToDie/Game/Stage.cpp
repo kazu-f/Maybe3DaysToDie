@@ -21,16 +21,20 @@ bool Stage::Start()
 	m_enemyGenerator->SetStage(this);
 	//地形生成
 	//todo　もしもSaveDataFileから計算するようになったらif文の下に置く
-	m_Terrain->PopurerTerrainMap();
-	m_LoadingByChunk->UpdateMoveChunk();
 	m_Load.SetSaveDataFile(m_SaveDataFile);
 	if (m_Load.Load())
 	{
 		//セーブデータを読み込めた
+		m_Terrain->LoadTerrainData(m_SaveDataFile);
+		m_LoadingByChunk->UpdateMoveChunk();
 		return true;
 	}
+	m_Terrain->PopurerTerrainMap();
+	m_LoadingByChunk->UpdateMoveChunk();
+
 	//建物読み込み
 	m_Map.SetSaveDataFile(m_SaveDataFile);
+	m_Map.SetTerrainManager(m_Terrain);
 	m_Map.SetChunkID(1, 1);
 	m_Map.Init("Assets/level/Building_0.tkl");
 
