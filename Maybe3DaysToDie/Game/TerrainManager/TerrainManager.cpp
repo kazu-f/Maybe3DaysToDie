@@ -124,6 +124,10 @@ namespace nsTerrain {
 						terrain->ResetTerrain();
 						continue;
 					}
+					else if (x == ChunkWidth || z == ChunkWidth) {
+						m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
+						continue;
+					}
 					auto* objData = &m_saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
 					terrain->SetObjData(objData);
 
