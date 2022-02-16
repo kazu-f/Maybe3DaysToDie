@@ -286,7 +286,11 @@ private:
 	PlayerMenu m_Menu;
 	////////////////////////////////////////////////
 
-	Vector3 m_RespownPoint = { 100.0f,100.0f,100.0f };
+	Vector3 m_RespownPoint = {
+		ChunkWidth * MAX_CHUNK_SIDE / 2 * OBJECT_UNIT,
+		100.0f * GroundSurface,
+		ChunkWidth* MAX_CHUNK_SIDE / 2 * OBJECT_UNIT
+	};
 	IEnemy* m_Enemy = nullptr;
 
 	bool m_IsDebugMode = false;
