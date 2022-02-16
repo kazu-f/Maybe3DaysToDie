@@ -61,11 +61,7 @@ namespace nsTerrain {
 	{
 		SetParams(params);
 		CalcVoxel();
-		if (m_objData != nullptr)
-		{
-			m_objData->ObjId = m_params.BlockID;
-			m_objData->ObjDurable = m_params.Durable;
-		}
+		LinkObjData();
 	}
 	void Terrain::CalcVoxel()
 	{

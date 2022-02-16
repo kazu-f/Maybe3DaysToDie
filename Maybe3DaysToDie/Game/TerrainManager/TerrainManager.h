@@ -52,12 +52,14 @@ namespace nsTerrain {
 		/// セーブデータから読み込んで地形を生成する。
 		/// </summary>
 		/// <param name="saveDataFile"></param>
-		void LoadTerrainData(SaveDataFile* saveDataFile);
+		void LoadTerrainData();
 		/// <summary>
 		/// 地形をセーブする。
 		/// </summary>
 		/// <param name="saveDataFile"></param>
 		void SaveTerrainData(SaveDataFile* saveDataFile);
+
+		void GenerateTerrainWorld();
 
 	public:
 		TerrainChunkData& GetTerrainChunkData(int chunkX, int chunkY)
@@ -84,7 +86,7 @@ namespace nsTerrain {
 		/// <summary>
 		/// チャンク毎で地形データを読み込む。
 		/// </summary>
-		void LoadTerrainInChunk(int chunkX, int chunkY, SaveDataFile* saveDataFile);
+		void LoadTerrainInChunk(int chunkX, int chunkY);
 		/// <summary>
 		/// チャンク毎で地形データをセーブ。
 		/// </summary>

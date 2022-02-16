@@ -10,25 +10,7 @@
 namespace nsTerrain {
 	bool TerrainManager::Start()
 	{
-		m_naviMeshManager = NewGO<NaviMeshManager>(0);
-
-		for (int chunkX = 0; chunkX < TERRAIN_WORLD_CHUNKSIZE; chunkX++)
-		{
-			for (int chunkY = 0; chunkY < TERRAIN_WORLD_CHUNKSIZE; chunkY++)
-			{
-				//地形を生成する。
-				m_terrainWorlds[chunkX][chunkY] = NewGO<TerrainWorld>(0);
-				m_terrainWorlds[chunkX][chunkY]->SetTerrainChunkData(&m_terrainChunkData[chunkX][chunkY]);
-				m_terrainWorlds[chunkX][chunkY]->SetTerrainPosition(
-					{
-						static_cast<float>(chunkX * ChunkWidth * OBJECT_UNIT),
-						0.0f,
-						static_cast<float>(chunkY * ChunkWidth * OBJECT_UNIT)
-					}
-				);
-				m_terrainWorlds[chunkX][chunkY]->SetNavimeshMnager(m_naviMeshManager);
-			}
-		}
+		GenerateTerrainWorld();
 
 		return true;
 	}
@@ -67,14 +49,14 @@ namespace nsTerrain {
 			}
 		}
 	}
-	void nsTerrain::TerrainManager::LoadTerrainData(SaveDataFile* saveDataFile)
+	void nsTerrain::TerrainManager::LoadTerrainData()
 	{
 		//地形を生成する。
 		for (int chunkX = 0; chunkX < MAX_CHUNK_SIDE; chunkX++)
 		{
 			for (int chunkY = 0; chunkY < MAX_CHUNK_SIDE; chunkY++)
 			{
-				LoadTerrainInChunk(chunkX, chunkY, saveDataFile);
+				LoadTerrainInChunk(chunkX, chunkY);
 			}
 		}
 		for (int i = 0; i < ChunkWidth * MAX_CHUNK_SIDE; i++)
@@ -93,6 +75,28 @@ namespace nsTerrain {
 			for (int chunkY = 0; chunkY < MAX_CHUNK_SIDE; chunkY++)
 			{
 				SaveTerrainInChunk(chunkX, chunkY, saveDataFile);
+			}
+		}
+	}
+	void nsTerrain::TerrainManager::GenerateTerrainWorld()
+	{
+		m_naviMeshManager = NewGO<NaviMeshManager>(0);
+
+		for (int chunkX = 0; chunkX < TERRAIN_WORLD_CHUNKSIZE; chunkX++)
+		{
+			for (int chunkY = 0; chunkY < TERRAIN_WORLD_CHUNKSIZE; chunkY++)
+			{
+				//地形を生成する。
+				m_terrainWorlds[chunkX][chunkY] = NewGO<TerrainWorld>(0);
+				m_terrainWorlds[chunkX][chunkY]->SetTerrainChunkData(&m_terrainChunkData[chunkX][chunkY]);
+				m_terrainWorlds[chunkX][chunkY]->SetTerrainPosition(
+					{
+						static_cast<float>(chunkX * ChunkWidth * OBJECT_UNIT),
+						0.0f,
+						static_cast<float>(chunkY * ChunkWidth * OBJECT_UNIT)
+					}
+				);
+				m_terrainWorlds[chunkX][chunkY]->SetNavimeshMnager(m_naviMeshManager);
 			}
 		}
 	}
@@ -167,6 +171,7 @@ namespace nsTerrain {
 						params.AptitudeTool = geneTerrains[terrainID]->GetObjParams().AptitudeTool;
 
 						terrain->SetParams(params);
+						terrain->LinkObjData();
 					}
 
 					Vector3 pos;
@@ -182,7 +187,7 @@ namespace nsTerrain {
 		}
 	}
 
-	void nsTerrain::TerrainManager::LoadTerrainInChunk(int chunkX, int chunkY, SaveDataFile* saveDataFile)
+	void nsTerrain::TerrainManager::LoadTerrainInChunk(int chunkX, int chunkY)
 	{
 		auto* itemDataFile = ItemDataFile::GetInstance();		
 		for (int x = 0; x < ChunkWidth + 1; x++)
@@ -204,13 +209,13 @@ namespace nsTerrain {
 						m_terrainChunkData[chunkX][chunkY].SetTerrainData(terrain, x, y, z);
 						continue;
 					}
-					auto& objData = saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
+					auto& objData = m_saveDataFile->m_ChunkData[chunkX][chunkY].ObjData[x][y][z];
 					terrain->SetObjData(&objData);
 
 					ObjectParams params;
 					params.BlockID = objData.ObjId;
 
-					auto* terrainData = itemDataFile->GetTerrainData(params.BlockID);
+					auto* terrainData = itemDataFile->GetTerrainData(static_cast<int>(params.BlockID));
 
 					if (terrainData == nullptr) {
 						terrain->ResetParams();
@@ -222,6 +227,7 @@ namespace nsTerrain {
 					params.Durable = terrainData->GetObjParams().Durable;
 
 					terrain->SetParams(params);
+					terrain->LinkObjData();
 					terrain->SetCurrentDurable(objData.ObjDurable);
 
 					terrain->SetTerrainID(terrainData->GetItemData()->itemTypeID);

@@ -85,6 +85,18 @@ namespace nsTerrain {
 		/// <param name="scale">拡大率</param>
 		void AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)override final;
 
+		/// <summary>
+		/// 耐久値等をオブジェクトデータに反映。
+		/// </summary>
+		void LinkObjData()
+		{
+			if (m_objData != nullptr)
+			{
+				m_objData->ObjId = m_params.BlockID;
+				m_objData->ObjDurable = m_params.Durable;
+			}
+		}
+
 		void CalcVoxel();
 
 		void ResetTerrain()

@@ -26,7 +26,7 @@ bool Stage::Start()
 	if (m_Load.Load())
 	{
 		//セーブデータを読み込めた
-		m_Terrain->LoadTerrainData(m_SaveDataFile);
+		m_Terrain->LoadTerrainData();
 		m_LoadingByChunk->UpdateMoveChunk();
 		return true;
 	}
