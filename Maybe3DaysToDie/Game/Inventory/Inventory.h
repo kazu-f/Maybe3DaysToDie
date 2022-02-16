@@ -44,4 +44,5 @@ private:
 	InventoryItemData m_PickUpItem;
 	RECT m_MainRt;				//ウィンドウ画面
 	RECT m_DeskRt;				//デスクトップ画面
+	bool m_InitialPick = false;
 };
