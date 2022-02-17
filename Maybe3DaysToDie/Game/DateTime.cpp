@@ -4,7 +4,7 @@
 
 namespace {
 	const int OneMinute = 1;					//１分経つ時間
-	const int OneHune = 9;						//１時間経つ時間
+	const int OneHune = 30;						//１時間経つ時間
 	const int OneHode = 1;						//１日経つ時間
 	const Vector2 FontPos = { -150.0f,330.0f };	//フォントの位置
 	const Vector2 FontPivot = { 0.5f,0.5f };	//フォントの基点

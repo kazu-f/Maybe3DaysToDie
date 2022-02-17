@@ -11,7 +11,7 @@ STDZombieWandering::STDZombieWandering(IEnemy* enemy) : IEnemyState::IEnemyState
 
 void STDZombieWandering::Enter()
 {
-	m_enemy->GetModelRender()->PlayAnimation(StandardZombie::EnAnimationState_Walk, 0.5f);
+	m_enemy->GetModelRender()->PlayAnimation(StandardZombie::EnAnimationState_Run, 0.5f);
 	m_enemy->GetAgent().ResetNodeList();
 	m_target = m_enemy->GetPos();
 
@@ -59,7 +59,7 @@ void STDZombieWandering::Update()
 
 	Quaternion qRot;
 	qRot.SetRotation(Vector3::AxisY, atan2f(m_enemy->GetAgent().GetWayPoint().x, m_enemy->GetAgent().GetWayPoint().z));
-	m_enemy->GetRot().Slerp(0.01f, m_enemy->GetRot(), qRot);
+	m_enemy->GetRot().Slerp(0.1f, m_enemy->GetRot(), qRot);
 	m_enemy->SetPos(m_enemy->GetAgent().GetAgentPos());
 
 }

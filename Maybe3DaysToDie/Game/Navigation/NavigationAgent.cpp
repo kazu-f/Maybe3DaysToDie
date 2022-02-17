@@ -51,7 +51,7 @@ bool NavigationAgent::MoveForFootStep(prefab::ModelRender* model, Vector3& start
 		//Œo˜H’T¸‚ª¸”sB
 		return false;
 	}
-	else if(m_nodeList.size() == 0)
+	if(m_nodeList.size() == 0)
 	{
 		m_isArrive = true;
 		//ƒm[ƒh‚ª‚È‚¢B
