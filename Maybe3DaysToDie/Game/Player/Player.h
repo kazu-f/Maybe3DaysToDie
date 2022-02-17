@@ -294,6 +294,7 @@ private:
 	IEnemy* m_Enemy = nullptr;
 
 	bool m_IsDebugMode = false;
+	bool m_isPressE_Key = false;
 	float m_Gravity = 0.0f;
 
 	//todo Œã‚Ù‚ÇƒvƒŒƒCƒ„[“™‚É‚¨‚¢‚Ä‚­‚¾‚³‚¢

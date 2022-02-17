@@ -87,17 +87,24 @@ void Player::Update()
 	if (m_PlayerState != nullptr) {
 		m_PlayerState->Update();
 	}
-	if (MauseInfo::GetInstance()->GetMauseState() ==
-		MauseInfo::State::MauseLClick) {
-		m_AccessObject->Access();
+
+	if (GetAsyncKeyState('E') && !m_isPressE_Key) {
+		if (!m_AccessObject->IsAccess()) {
+			m_AccessObject->Access();
+			if (m_AccessObject->IsAccess()) {
+				m_NextState = State::Menu;
+			}
+		}
+		else if(m_AccessObject->IsAccess()){
+			m_AccessObject->EndAccess();
+			m_NextState = State::Idle;
+		}
+		m_isPressE_Key = true;
 	}
-	if (MauseInfo::GetInstance()->GetMauseState() ==
-		MauseInfo::State::MauseRClick ) {
-		m_AccessObject->EndAccess();
+	else if (!GetAsyncKeyState('E')) {
+		m_isPressE_Key = false;
 	}
-	if (m_AccessObject->IsAccess()) {
-		m_NextState = State::Menu;
-	}
+
 	if (MauseInfo::GetInstance()->GetMauseState()==
 		MauseInfo::State::MauseRClick&&
 		m_CurrentState!=State::Menu) {
