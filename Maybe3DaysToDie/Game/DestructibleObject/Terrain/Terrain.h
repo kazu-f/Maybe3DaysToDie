@@ -1,4 +1,5 @@
 #pragma once
+#include "SaveDataFile.h"
 
 struct ToolInfo;
 namespace nsTerrain {
@@ -17,6 +18,13 @@ namespace nsTerrain {
 		/// ワールドをセット。
 		/// </summary>
 		void AddTerrainChunk(TerrainChunkData* world);
+		/// <summary>
+		/// オブジェクトデータを紐づけ。
+		/// </summary>
+		void SetObjData(SaveDataFile::ObjectData* objData)
+		{
+			m_objData = objData;
+		}
 
 		/// <summary>
 		/// コライダーの登録を解除するかどうかを計算。
@@ -75,10 +83,18 @@ namespace nsTerrain {
 		/// <param name="pos">位置</param>
 		/// <param name="rot">回転</param>
 		/// <param name="scale">拡大率</param>
-		void AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)override final
+		void AddBlock(ObjectParams& params, Vector3& pos, Quaternion& rot, Vector3& scale)override final;
+
+		/// <summary>
+		/// 耐久値等をオブジェクトデータに反映。
+		/// </summary>
+		void LinkObjData()
 		{
-			SetParams(params);
-			CalcVoxel();
+			if (m_objData != nullptr)
+			{
+				m_objData->ObjId = m_params.BlockID;
+				m_objData->ObjDurable = m_params.Durable;
+			}
 		}
 
 		void CalcVoxel();
@@ -101,6 +117,7 @@ namespace nsTerrain {
 	private:
 		TerrainChunkData* m_chunkData[NEAR_CHUNK_MAXCOUNT] = { nullptr };		//チャンク情報。
 		char m_terrainChunkDataSize = 0;											//チャンク情報の保持数。
+		SaveDataFile::ObjectData* m_objData = nullptr;
 
 		int m_terrainId = -1;		//地形id番号。
 		float m_voxel = 0.0f;		//ボクセル値。

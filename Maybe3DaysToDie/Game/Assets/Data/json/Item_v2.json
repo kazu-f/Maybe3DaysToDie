@@ -246,7 +246,7 @@
       "craftableIDs": [ ],
       "craftableItemNum": 0
     },
-    "iconData": "Assets\\sprite\\ItemObject2.png",
+    "iconData": "Assets\\sprite\\roc.png",
     "itemID": 10,
     "itemMaterialData": [ ],
     "itemMaterialDataNum": 0,
@@ -325,7 +325,7 @@
       "craftableIDs": [ ],
       "craftableItemNum": 0
     },
-    "iconData": "Assets\\sprite\\ItemObject1.png",
+    "iconData": "Assets\\sprite\\carot.png",
     "itemID": 13,
     "itemMaterialData": [ ],
     "itemMaterialDataNum": 0,
@@ -338,5 +338,7 @@
     "food": 10,
     "stamina": 0,
     "water": 0
+  }
+]er": 0
   }
 ]

@@ -53,12 +53,19 @@ bool ItemBar::Start()
 	m_PlacementObject->SetSaveData(m_SaveDataFile);
 	m_DestroyObject->SetSaveData(m_SaveDataFile);
 	SetItemDatas();
+
+	for (int i = 0; i < Inventory_X; i++) {
+		m_Player->GetInventory()->SetItemSlot(m_itemInventory[i], i, 0);
+	}
 	return true;
 }
 void ItemBar::Update()
 {
+	for (int i = 0; i < Inventory_X; i++) {
+		m_itemInventory[i] = m_Player->GetInventory()->GetItem(i, 0);
+	}
 	if (m_Player->GetState() != Player::State::Menu) {
-		if (MauseInfo::GetInstance()->GetMauseState()==
+		if (MauseInfo::GetInstance()->GetMauseState() ==
 			MauseInfo::State::MauseLClick)
 		{
 			m_InstallTime += GameTime().GetFrameDeltaTime();
@@ -109,29 +116,31 @@ void ItemBar::OnDestroy()
 
 void ItemBar::SetInventory(std::vector<Item>& item)
 {
-	for (auto& i : item)
-	{
-		m_Player->GetInventory()->SetItemSlot(i.item, 1, 1);
-	}
+	//for (auto& i : item)
+	//{
+	//	m_Player->GetInventory()->SetItemSlot(i.item, 1, 1);
+	//}
 }
 
 void ItemBar::MouseWheelUpdate()
 {
 	int oldNum = m_SelectNum;
-	auto MouseState = MauseInfo::GetInstance()->GetMauseState();
-	if (MouseState == MauseInfo::State::MauseWheelUp) {
+	auto MouseInstance = MauseInfo::GetInstance();
+	if (MouseInstance->GetMauseState() == MauseInfo::State::MauseWheelUp) {
 		m_SelectNum--;
 		if (m_SelectNum < 0) {
 			m_SelectNum = SelectNum - 1;
 		}
+		MouseInstance->SetMauseState(MauseInfo::State::None);
 	}
 
-	if (MouseState == MauseInfo::State::MauseWheelDown)
+	if (MouseInstance->GetMauseState() == MauseInfo::State::MauseWheelDown)
 	{
 		m_SelectNum++;
 		if (m_SelectNum > SelectNum - 1) {
 			m_SelectNum = 0;
 		}
+		MouseInstance->SetMauseState(MauseInfo::State::None);
 	}
 
 	if (oldNum != m_SelectNum)

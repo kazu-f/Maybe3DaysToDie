@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Item/GameItemBase.h"
-
+class GameItemBase;
 struct InventoryItemData {
 	GameItemBase* m_itemBase = nullptr;
 	int itemCount = 0;
@@ -22,7 +21,11 @@ public:
 	/// <param name="Item">アイテム</param>
 	/// <param name="x">ｘ座標</param>
 	/// <param name="y">ｙ座標</param>
-	void SetItemSlot(GameItemBase* Item, const int x, const int y);
+	void SetItemSlot(InventoryItemData Item, const int x, const int y);
+
+	InventoryItemData GetItem(int x, int y) {
+		return m_ItemSlot[x][y];
+	}
 private:
 	bool Start()override;
 	void Update()override;
@@ -42,6 +45,7 @@ private:
 	Player* m_player = nullptr;
 	InventoryItemData m_ItemSlot[Inventory_X][Inventory_Y];
 	InventoryItemData m_PickUpItem;
+	int m_PickSlot[2];
 	RECT m_MainRt;				//ウィンドウ画面
 	RECT m_DeskRt;				//デスクトップ画面
 	bool m_InitialPick = false;

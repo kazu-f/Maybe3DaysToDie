@@ -19,13 +19,14 @@ bool Stage::Start()
 {
 	m_enemyGenerator = NewGO<EnemyGenerator>(0);
 	m_enemyGenerator->SetStage(this);
+	m_Terrain->SetSaveDataFile(m_SaveDataFile);
 	//地形生成
 	//todo　もしもSaveDataFileから計算するようになったらif文の下に置く
 	m_Load.SetSaveDataFile(m_SaveDataFile);
 	if (m_Load.Load())
 	{
 		//セーブデータを読み込めた
-		m_Terrain->LoadTerrainData(m_SaveDataFile);
+		m_Terrain->LoadTerrainData();
 		m_LoadingByChunk->UpdateMoveChunk();
 		return true;
 	}

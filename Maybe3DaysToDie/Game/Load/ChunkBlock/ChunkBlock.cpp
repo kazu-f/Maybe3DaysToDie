@@ -79,7 +79,10 @@ void ChunkBlock::MoveChunk()
 
 				auto* block = m_itemDataFile->GetBlockData(DataID);
 				auto* place = m_itemDataFile->GetPlaceData(DataID);
-				if (block == nullptr && place == nullptr) continue;
+				if (block == nullptr && place == nullptr) {
+					m_Block[x][y][z].ResetParams();
+					continue;
+				}
 
 				//インスタンシングデータIDを計算する。
 				int modelID = 0;

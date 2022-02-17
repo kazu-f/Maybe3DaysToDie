@@ -57,8 +57,8 @@ void ChunkCollision::UpdateCol()
 	//地形のコリジョンはまだ全く触っていない。
 	//ブロック用にコリジョン更新
 	UpdateColForBlock();
-	//地形用にコリジョン更新
-	UpdateColForTerrain();
+	////地形用にコリジョン更新
+	//UpdateColForTerrain();
 }
 
 void ChunkCollision::UpdateColForBlock()
@@ -71,7 +71,15 @@ void ChunkCollision::UpdateColForBlock()
 			{
 				//ブロックのポインタをコライダーに渡しておく
 				auto& blocks = m_ChunkBlocks->m_Block[x][y][z];
-				if (blocks.GetParam().Durable > 0)
+				//ブロックのポインタをコライダーに渡しておく
+				const auto& terrain = m_TerrainData->GetTerrainData({ x,y,z });
+				if(terrain->GetVoxel() > 0)
+				{
+					PhysicsWorld().AddRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+					m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)terrain->GetPointer());
+					m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserIndex(ColliderUserIndex::enCollisionAttr_RayBlock);
+				}
+				else if (blocks.GetParam().Durable > 0)
 				{
 					PhysicsWorld().AddRigidBody(m_StaticCol[x][y][z].GetRigidBody());
 					m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)blocks.GetPointer());
@@ -80,6 +88,7 @@ void ChunkCollision::UpdateColForBlock()
 				else
 				{
 					PhysicsWorld().RemoveRigidBody(m_StaticCol[x][y][z].GetRigidBody());
+					m_StaticCol[x][y][z].GetRigidBody().GetBody()->setUserPointer((void*)nullptr);
 				}
 			}
 		}
@@ -143,6 +152,6 @@ void ChunkCollision::MoveChunk()
 	//移動したのでコリジョン更新
 	//ブロック用にコリジョン更新
 	UpdateColForBlock();
-	//地形用にコリジョン更新
-	UpdateColForTerrain();
+	////地形用にコリジョン更新
+	//UpdateColForTerrain();
 }
