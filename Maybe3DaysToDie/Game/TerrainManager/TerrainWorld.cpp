@@ -25,8 +25,8 @@ namespace nsTerrain {
 
 			//PhysicsWorld().SetDebugMode(btIDebugDraw::DBG_DrawWireframe);
 
-			//m_nvmDebugDraw = NewGO<NVMDebugDraw>(1);
-			//m_nvmDebugDraw->Init();
+			m_nvmDebugDraw = NewGO<NVMDebugDraw>(1);
+			m_nvmDebugDraw->Init();
 
 			m_isInited = true;
 

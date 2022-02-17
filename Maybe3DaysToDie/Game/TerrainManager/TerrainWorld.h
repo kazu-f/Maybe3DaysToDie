@@ -189,7 +189,7 @@ namespace nsTerrain {
 
 		NaviMeshManager* m_naviMeshManager = nullptr;	//nvmマネージャー。
 		std::vector<NVMGenerator::Cell> m_cellList;		//セルリスト。
-		bool m_isNVMDebug = false;						//デバッグ描画する？
+		bool m_isNVMDebug = true;						//デバッグ描画する？
 		bool m_isUpdateNvm = false;						//nvmを初期化する？
 		NVMDebugDraw* m_nvmDebugDraw = nullptr;			//デバッグ描画。
 		std::vector<int> m_indices;						//デバッグ用インデックスリスト。
